@@ -16,7 +16,7 @@ class Solution:
       return can[0] if len(can) > 0 else None
 
     def maxProduct(self, words: List[str]) -> int:
-        
+        max_prod = 0
 
 s = Solution()
 words = ["abcw","baz","foo","bar","xtfn","abcdef"]
@@ -26,4 +26,5 @@ print(f"expect 16 {s.maxProduct(words)}")
 words = ["a","ab","abc","d","cd","bcd","abcd"]
 print(f"expect 4 {s.maxProduct(words)}")
 words = ["a","aa","aaa","aaaa"]
-print(f"expect 0 {s.maxProduct(words)}")
+print(f"expect None {s.max_uniq(words[0], words)}")
+print(f"expect None {s.maxProduct(words)}")
