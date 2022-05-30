@@ -20,13 +20,10 @@ class Solution:
         r = 0
         while en <= len(div_s):
           sub_div = div_s[st:en] if r == 0 else "".join([str(r),div_s[st:en]])
-          print(f"sub_div is {sub_div}")
           div = int(sub_div)
           if div >= divisor:
-            print(f"div is {div} divisor is {divisor}")
             q,r = self.short_divide(div, divisor)
             result.append(str(q))
-            print(f"q is {q}, result is {result} and r is {r}")
             st = en 
             en +=1
           else: 
