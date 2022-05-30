@@ -1,4 +1,32 @@
 class Solution:
+    def short_divide(self, d, d2):
+        count = 0
+        while d >= d2:
+            d -= d2
+            count+=1
+        return count, d
+
+    def long_divide(self, dividend, divisor):
+        div_s = str(dividend)
+        result = []
+        st = 0
+        en = 1
+        r = 0
+        while en <= len(div_s):
+          sub_div = div_s[st:en] if r == 0 else "".join([str(r),div_s[st:en]])
+          print(f"sub_div is {sub_div}")
+          div = int(sub_div)
+          if div > divisor:
+            print(f"div is {div} divisor is {divisor}")
+            q,r = self.short_divide(div, divisor)
+            result.append(str(q))
+            print(f"q is {q}, result is {result} and r is {r}")
+            st = en 
+            en +=1
+          else: 
+              en +=1
+        return int("".join(result))
+
     def divide(self, dividend: int, divisor: int) -> int:
         count = 0
         neg = False
@@ -6,12 +34,7 @@ class Solution:
             neg = True
         divisor = abs(divisor)
         dividend = abs(dividend)
-        while dividend >= divisor:
-          if divisor == 1:
-              count = dividend
-              break
-          dividend -= divisor 
-          count+=1
+        count = self.long_divide(dividend, divisor)
         count = -count if neg else count
         if count > 2**31 - 1:
             return 2**31 - 1
@@ -26,6 +49,10 @@ print(f"expect 3 {s.divide(dividend, divisor)}")
 dividend = 7
 divisor = -3
 print(f"expect -2 {s.divide(dividend, divisor)}")
+dividend = 100
+divisor = 3
+print(f"expect 33 {s.divide(dividend, divisor)}")
+
 
 # experimenting with leftshift
 
