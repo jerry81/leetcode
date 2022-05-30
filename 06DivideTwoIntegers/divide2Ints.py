@@ -6,10 +6,18 @@ class Solution:
             neg = True
         divisor = abs(divisor)
         dividend = abs(dividend)
-        while dividend > divisor:
+        while dividend >= divisor:
+          if divisor == 1:
+              count = dividend
+              break
           dividend -= divisor 
           count+=1
-        return -count if neg else count
+        count = -count if neg else count
+        if count > 2**31 - 1:
+            return 2**31 - 1
+        if count < (-(2**31) - 1):
+            return -2**31
+        return count 
 
 s = Solution()
 dividend = 10
