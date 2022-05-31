@@ -19,7 +19,13 @@ class Solution:
       return { key:False for key in asStrList }
 
     def hasAllCodes(self, s: str, k: int) -> bool:
-        return 
+        lookup = self.buildLookup(k)
+        for i in range(len(s) - k): 
+          subs = s[i:i+k]
+          lookup[subs] = True 
+        print(f"lookup is now {lookup}")
+        filtered = list(filter(lambda x: not x[1], lookup.items()))
+        return len(filtered) == 0
 
 s = Solution()
 
