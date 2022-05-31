@@ -15,7 +15,8 @@ class Solution:
             new_lookup.append(j)
             new_lookup.append(it)
           lookup = new_lookup
-      return lookup
+      asStrList = list(map(lambda x: "".join(x), lookup))
+      return { key:False for key in asStrList }
 
     def hasAllCodes(self, s: str, k: int) -> bool:
         return 
