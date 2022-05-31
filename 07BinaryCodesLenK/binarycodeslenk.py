@@ -18,12 +18,19 @@ class Solution:
       return { key:False for key in asStrList }
 
     def hasAllCodes(self, s: str, k: int) -> bool:
-        lookup = self.buildLookup(k)
-        for i in range(len(s) - k + 1): 
-          subs = s[i:i+k]
-          lookup[subs] = True 
-        filtered = list(filter(lambda x: not x[1], lookup.items()))
-        return len(filtered) == 0
+        # lookup = self.buildLookup(k)
+        count = 0
+        lookup = {}
+        ks_arr = [s[i:i+k] for i in range(0, len(s) - k + 1)]
+        for subs in ks_arr:
+          try:
+              lookup[subs]
+          except:
+              lookup[subs] = True
+              count+=1
+        # try to improve performance
+        print(f"count is {count}")
+        return count == 2**k
 
 s = Solution()
 
@@ -51,3 +58,7 @@ print(f"expect true {s.hasAllCodes(i,k)}")
 i = "1"
 k = 1
 print(f"expect false {s.hasAllCodes(i,k)}")
+
+i= "00011010111101010111110111011110101001111001111100010010010001111001000010010010001110010000111000010001001000010011111111100010111011101101111100001110001110101110101001110000010101100100100010100110101110110001000011011011000111001101111000000010101110110100110001100010111111110101010001111000001110000000011111101011011111011110001100011100001011000000111101011100011011111110001010001111110100011110101101101011100100000100110011110111011000001010111011100011000100001000000111101001101010010000111110001110111100100110000101001011010101010101000100011000111100100101100010100111100111000010110011011110110001100101010101111001011000000010"
+k = 19
+print(f"expect something {s.hasAllCodes(i,k)}")
