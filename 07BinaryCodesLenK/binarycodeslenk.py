@@ -1,9 +1,8 @@
-from ast import Return
-
-
 class Solution:
     def buildLookup(self, k):
       lookup = []
+      if k == 1:
+          return {'0':False, '1':False}
       for _ in range(k-1):
           if len(lookup) == 0:
               lookup = [['0'], ['1']]
@@ -20,10 +19,9 @@ class Solution:
 
     def hasAllCodes(self, s: str, k: int) -> bool:
         lookup = self.buildLookup(k)
-        for i in range(len(s) - k): 
+        for i in range(len(s) - k + 1): 
           subs = s[i:i+k]
           lookup[subs] = True 
-        print(f"lookup is now {lookup}")
         filtered = list(filter(lambda x: not x[1], lookup.items()))
         return len(filtered) == 0
 
@@ -44,3 +42,12 @@ print(f"expect True {s.hasAllCodes(i,k)}")
 i = "0110"
 k = 2
 print(f"expect False {s.hasAllCodes(i,k)}")
+
+
+i = "00110"
+k = 2
+print(f"expect true {s.hasAllCodes(i,k)}")
+
+i = "1"
+k = 1
+print(f"expect false {s.hasAllCodes(i,k)}")
