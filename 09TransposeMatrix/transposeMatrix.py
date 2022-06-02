@@ -6,10 +6,8 @@ class Solution:
         yl = len(matrix)
         xl = len(matrix[0])
         transposed = [ [0]*yl for _ in range(xl)]
-        print(f"transposed is {transposed}")
         for y,i in enumerate(matrix):
             for x,j in enumerate(i):
-                print(f"y is {y} x is {x}")
                 transposed[x][y] = j
         return transposed
             
