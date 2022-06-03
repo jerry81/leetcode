@@ -21,7 +21,7 @@ class NumMatrix:
         except:
           for l in lines:
               tot += sum(l[col1:(col2+1)])
-          self.memo = tot
+          self.memo[key] = tot
           return tot
 
 nm = NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]])
