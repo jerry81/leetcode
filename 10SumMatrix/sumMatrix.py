@@ -17,13 +17,14 @@ class NumMatrix:
             for x in range(len(matrix)):
                 prior = self.prefix_sums[f"{y-1},{x}"] 
                 self.prefix_sums[f"{y},{x}"] = self.prefix_sums[f"{y},{x}"] + prior
-        print(f"prrefix sums are now {self.prefix_sums}")
-
-    def make_key(self,row1,col1,row2,col2):
-      return f"{row1},{col1},{row2},{col2}"
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
-        key = self.make_key(row1,col1,row2,col2)
+        large_sum = self.prefix_sums[f"{row2},{col2}"]
+        small_sum = self.prefix_sums[f"{row1-1},{col1-1}"] if row1 > 0 and col1 > 0 else 0 
+        tall_sum = self.prefix_sums[f"{row2},{col1-1}"] if col1 > 0 else 0 
+        fat_sum = self.prefix_sums[f"{row1-1},{col2}"] if row1 > 0 else 0 
+        return large_sum - tall_sum - fat_sum + small_sum
+
 
 nm = NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]])
 print(f"nm.matrix is {nm.matrix}")
