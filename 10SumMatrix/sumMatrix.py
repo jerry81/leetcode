@@ -14,7 +14,7 @@ class NumMatrix:
                 self.prefix_sums[f"{y},{x}"] = num + prior
         # second run - apply the vertical sums 
         for y in range(1,len(matrix)):
-            for x in range(len(matrix)):
+            for x in range(len(matrix[y])):
                 prior = self.prefix_sums[f"{y-1},{x}"] 
                 self.prefix_sums[f"{y},{x}"] = self.prefix_sums[f"{y},{x}"] + prior
 

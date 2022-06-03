@@ -35,3 +35,5 @@ n == matrix[i].length
 0 <= row1 <= row2 < m
 0 <= col1 <= col2 < n
 At most 104 calls will be made to sumRegion.
+
+[crutch](https://leetcode.com/problems/range-sum-query-2d-immutable/discuss/2104244/Python-Easy-with-explanation)
