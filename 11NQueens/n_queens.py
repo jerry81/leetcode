@@ -2,10 +2,13 @@ from typing import List
 
 class Solution:
     def place_queen(self, matrix, y, x):
-        l = len(matrix)
+        h = len(matrix)
         cp = [l.copy() for l in matrix]
         cp[y][x] = 'Q'
-        for off in range(l):
+        w = 0
+        if h > 0:
+          w = len(cp[0])
+        for off in range(h):
           if off != x:
             cp[y][off] = 'x'
 
@@ -16,7 +19,7 @@ class Solution:
           if off == 0: 
               continue
 
-          if (off+x) < l and (off+y) < l:
+          if (off+x) < w and (off+y) < h:
               cp[off+y][off+x] = 'x'
           
           if (x-off) >= 0 and (y-off) >= 0:
@@ -24,10 +27,10 @@ class Solution:
           
           # reverse diag
 
-          if (off+x) < l and (y-off) >= 0:
+          if (off+x) < w and (y-off) >= 0:
               cp[y-off][x+off] = 'x'
 
-          if (x-off) >= 0 and (y+off) < l:
+          if (x-off) >= 0 and (y+off) < h:
               cp[y+off][x-off] = 'x'
         return cp
 
