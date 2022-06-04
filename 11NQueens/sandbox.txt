@@ -34,34 +34,53 @@ Q . . x x . . x  - 7
 . . . . . . . .
 . . . . . . . .
 
-. . . . 
-. . . . 
-. . . . 
-. . . . 
+x x Q x x 1st q - 13 spaces
+Q x x x x 2nd q - 6 spaces 
+x x x Q x 
+x Q x x x
+x x x x Q
 
-. . . . 
-. . . . 
-. . . . 
-. . . .
+Q . . . .
+. . . Q .
+. Q . . .
+. . . . Q
+. . Q . .
 
-. . . . 
-. . . . 
-. . . . 
-. . . .
+x Q x x x 2nd - 6
+x x x Q x
+Q x x x x
+x x Q x x
+x x x x Q
 
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+
+Q x x x   1st queen takes 10 spaces 
+x x . .   2nd queen takes 5 spaces
+x Q x . 
+x . . x 
+
+x x . .  1st also takes 10 spaces
+Q x x x  2nd takes 3 spaces 
+x x x .  
+x Q x x 
+
+. Q . . 
+. . . Q 
+Q . . . 
+. . Q .
+
+. . Q . 
+Q . . . 
+. . . Q 
+. Q . .
+
+Q . . 
 . . . 
-. . . 
-. . . 
+. Q .  impossible
 
-. . . 
-. . . 
-. . . 
-
-. .
-. .
-
-. .
-. .
-
-. .
-. .
+Q .
+. .   impossible
