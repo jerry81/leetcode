@@ -33,6 +33,15 @@ class Solution:
           if (x-off) >= 0 and (y+off) < h:
               cp[y+off][x-off] = 'x'
         return cp
+    
+    def convert(self, x):
+        return x if x == 'Q' else '.'
+
+    def convertL(self,x):
+        return "".join(list(map(self.convert,x)))
+    
+    def convertLofL(self,x):
+        return list(map(self.convertL,x))
 
     def queensR(self, m, accum):
         if len(m) == 1:
@@ -77,15 +86,9 @@ class Solution:
         if n == 1: 
           return [['Q']]
         results = self.queensR(matrix, [])
-        newresults = []
-        for i in results:
-            newresult = []
-            for j in i:
-                j = list(map(lambda x: x if x == 'Q' else '.', j))
-                j = "".join(j)
-                newresult.append(j)
-            newresults.append(newresult)
-        return newresults
+        results = list(map(self.convertLofL, results))
+           
+        return results
             
 
 s = Solution()
