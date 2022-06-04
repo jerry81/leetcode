@@ -31,9 +31,54 @@ class Solution:
               cp[y+off][x-off] = 'x'
         return cp
 
+    def queensR(self, m, accum):
+        print(f"in queensR, m is {m}")
+        if len(m) == 1:
+            line = m[0]
+            for i,x in enumerate(line):
+                if x == '.':
+                    line[i] = 'Q'
+                    accum.append(line)
+                    return [accum] 
+            return []
+        line = m[0]
+        del(m[0])
+        print(f"in queensR, m is now {m}")
+        candidates = []
+        for i,x in enumerate(line):
+            if x == '.':
+                candidates.append(i)
+        if len(candidates) == 0:
+            return []
+        results = []
+        for i in candidates:
+            lineC = line.copy() 
+            lineC[i] = 'Q'
+            newM = self.place_queen(m,0,i)
+            accumC = accum.copy()
+            accumC.append(lineC)
+            print(f"recurse with newm {newM} and accumC {accumC}")
+            res = self.queensR(newM, accumC)
+            if len(res) > 0:
+                for r in res:
+                    results.append(r)
+        return results 
+
+
+            
+
     def solveNQueens(self, n: int) -> List[List[str]]:
         matrix = [['.'] * n for _ in range(n)]
-        print(f"matrix is {matrix}")
+        results = []
+        for startx in range(n):
+          cp = self.place_queen(matrix,0,startx)
+          for y in range(1, n):
+              nextLine = cp[y]
+
+        # place q 
+        # move to y = 1 and choose first available square - reapply 
+        # repeat until no squares to place or y=7 line has been placed 
+
         return [['Q']]
 
 s = Solution()
@@ -49,4 +94,10 @@ print(f"result {s.place_queen(mat, 1,1)}")
 
 print(f"place queen test: ")
 mat = [['.']*4 for _ in range(4)]
-print(f"result {s.place_queen(mat, 3,1)}")
+print(f"mat is {mat}")
+cp = mat.copy() # copy not enough for 2d array!
+print(f"result {s.place_queen(cp, 3,1)}")
+print(f"i thought mat was immutable {mat}")
+
+# mat = [['.']*4 for _ in range(4)]
+# print(f"test queenR {s.queensR(mat,[])}")

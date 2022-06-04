@@ -34,14 +34,43 @@ Q x x x x x x x
 . . . x x x Q x
 . . . Q x x x x nope 
 
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+. x . . x Q x x
+Q . . x . x x .
+. x x . Q x . x
+. Q x . x x . x
+. . x x . . x Q
+. . Q x x x . x
+. . . x x x Q .
+. . . Q x x x x
+
+8 to 9
+. . . . . . x . .
+. x . . x Q x x .
+Q . . x . x x . .
+. x x . Q x . x .
+. Q x . x x . x .
+. . x x . . x Q .
+. . Q x x x . x .
+. . . x x x Q . .
+. . . Q x x x x .
+
+how to loop? 
+starting square is on y = 0 x = 0..7
+place q 
+move to y = 1 and choose first available square - reapply 
+but it branches out like a tree...
+repeat until no squares to place or y=7 line has been placed 
+- but must backtrack 
+Q . . . . . . .
+x x . . . . . .
+. . x . . . . .
+. . . x . . . .
+. . . . x . . .
+. . . . . x . .
+. . . . . . x .
+. . . . . . . x
+
+b/c of all the forking - recursion seems more intuitive, though we can use iteration + stack 
 
 x x Q x x 1st q - 13 spaces
 Q x x x x 2nd q - 6 spaces 
@@ -88,6 +117,47 @@ x x . .  1st also takes 10 spaces
 Q x x x  2nd takes 3 spaces 
 x x x .  
 x Q x x 
+
+# divide and conquer?
+. . . . Q
+. Q . . .
+. . . Q .
+Q . . . .
+. . Q . .
+
+. . . . Q
+. . Q . .
+Q . . . .
+. . . Q .
+. Q . . . x 2 other corners
+
+5 to 6 no carryover at all 
+
+. . . . . .
+. . . . Q .
+. . Q . . .
+Q . . . . .
+. . . Q . .
+. Q . . . .
+
+- but six is possible
+. x . Q x . 
+Q . . x x x 
+. x x . Q x 
+. Q x . x x 
+. . x x . Q 
+. . Q x x . 
+
+- seven should be like 5
+- 6 to 7
+
+. . . . x . Q x 4 
+. x . Q x . x
+Q . . x x x x
+. x x . Q x .
+. Q x . x x x
+. . x x . Q .
+. . Q x x . .
 
 . Q . . 
 . . . Q 
