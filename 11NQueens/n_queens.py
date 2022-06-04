@@ -3,7 +3,7 @@ from typing import List
 class Solution:
     def place_queen(self, matrix, y, x):
         l = len(matrix)
-        cp = matrix.copy()
+        cp = [l.copy() for l in matrix]
         cp[y][x] = 'Q'
         for off in range(l):
           if off != x:
@@ -38,12 +38,11 @@ class Solution:
             for i,x in enumerate(line):
                 if x == '.':
                     line[i] = 'Q'
-                    accum.append(line)
-                    return [accum] 
+                    ac = [a.copy() for a in accum]
+                    ac.append(line)
+                    return [ac] 
             return []
         line = m[0]
-        del(m[0])
-        print(f"in queensR, m is now {m}")
         candidates = []
         for i,x in enumerate(line):
             if x == '.':
@@ -55,7 +54,8 @@ class Solution:
             lineC = line.copy() 
             lineC[i] = 'Q'
             newM = self.place_queen(m,0,i)
-            accumC = accum.copy()
+            del(newM[0])
+            accumC = [a.copy() for a in accum]
             accumC.append(lineC)
             print(f"recurse with newm {newM} and accumC {accumC}")
             res = self.queensR(newM, accumC)
@@ -95,9 +95,9 @@ print(f"result {s.place_queen(mat, 1,1)}")
 print(f"place queen test: ")
 mat = [['.']*4 for _ in range(4)]
 print(f"mat is {mat}")
-cp = mat.copy() # copy not enough for 2d array!
-print(f"result {s.place_queen(cp, 3,1)}")
-print(f"i thought mat was immutable {mat}")
+cp = [x.copy() for x in mat] # copy not enough for 2d array!  list comprehension faster than deep copy
 
-# mat = [['.']*4 for _ in range(4)]
-# print(f"test queenR {s.queensR(mat,[])}")
+print(f"result {s.place_queen(cp, 3,1)}")
+
+mat = [['.']*4 for _ in range(4)]
+print(f"test queenR {s.queensR(mat,[])}")
