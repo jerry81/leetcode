@@ -7,23 +7,32 @@ Q . . x x . . x  - 7
 . . x x Q x x .
 . . . x x x x x
 
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+x x x x Q x x x nopd
+Q x x x x x x x
+x x x x x x x x
+x Q x x x x x x
+x x x x x Q x x
+x x Q x x x x x
+x x x x x x Q x
+x x x Q x x x x
 
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
+x x . . x Q x x yas!
+Q x x x x x x x
+. x x . Q x . x
+. Q x . x x . x
+. . x x . . x Q
+. . Q x x x . x
+. . . x x x Q .
+. . . Q x x x x
+
+x x . . x . x x
+Q x x x x x x x
+. x x . Q x . x
+. Q x . x x x x
+. . x x . Q x .
+. . Q x x x x x
+. . . x x x Q x
+. . . Q x x x x nope 
 
 . . . . . . . .
 . . . . . . . .
@@ -52,11 +61,23 @@ Q x x x x
 x x Q x x
 x x x x Q
 
+. . . . Q
+. Q . . .
+. . . Q .
+Q . . . .
+. . Q . .
+
+Q . . . .
+. . Q . .
+. . . . Q
+. Q . . .
+. . . Q .
+
+Q . . . .
+. . Q . .
 . . . . .
-. . . . .
-. . . . .
-. . . . .
-. . . . .
+. . . Q . nope 
+. Q . . .
 
 Q x x x   1st queen takes 10 spaces 
 x x . .   2nd queen takes 5 spaces
