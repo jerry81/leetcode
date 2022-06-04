@@ -70,53 +70,60 @@ class Solution:
 
     def solveNQueens(self, n: int) -> List[List[str]]:
         matrix = [['.'] * n for _ in range(n)]
-        results = []
-        for startx in range(n):
-          cp = self.place_queen(matrix,0,startx)
-          for y in range(1, n):
-              nextLine = cp[y]
 
         # place q 
         # move to y = 1 and choose first available square - reapply 
         # repeat until no squares to place or y=7 line has been placed 
-
-        return [['Q']]
+        if n == 1: 
+          return [['Q']]
+        results = self.queensR(matrix, [])
+        newresults = []
+        for i in results:
+            newresult = []
+            for j in i:
+                j = list(map(lambda x: x if x == 'Q' else '.', j))
+                j = "".join(j)
+                newresult.append(j)
+            newresults.append(newresult)
+        return newresults
+            
 
 s = Solution()
 print(f"expect [['Q']] {s.solveNQueens(1)}")
+print(f"expect example {s.solveNQueens(4)}")
 
-print(f"place queen test: ")
-mat = [['.']*3 for _ in range(3)]
-print(f"result {s.place_queen(mat, 0,0)}")
-
-print(f"place queen test: ")
-mat = [['.']*4 for _ in range(4)]
-print(f"result {s.place_queen(mat, 1,1)}")
-
-print(f"place queen test: ")
-mat = [['.']*4 for _ in range(4)]
-print(f"mat is {mat}")
-cp = [x.copy() for x in mat] # copy not enough for 2d array!  list comprehension faster than deep copy
-
-print(f"result {s.place_queen(cp, 3,1)}")
-
-mat = [['.']*4 for _ in range(4)]
-print(f"test queenR {s.queensR(mat,[])}")
-
-mat = [['.']*3 for _ in range(3)]
-print(f"test queenR {s.queensR(mat,[])}")
-
-mat = [['.']*5 for _ in range(5)]
-print(f"test queenR {len(s.queensR(mat,[]))}")
-
-mat = [['.']*6 for _ in range(6)]
-print(f"test queenR {len(s.queensR(mat,[]))}")
-
-mat = [['.']*7 for _ in range(7)]
-print(f"test queenR {len(s.queensR(mat,[]))}")
-
-mat = [['.']*8 for _ in range(8)]
-print(f"test queenR {len(s.queensR(mat,[]))}")
-
-mat = [['.']*9 for _ in range(9)]
-print(f"test queenR {len(s.queensR(mat,[]))}")
+# print(f"place queen test: ")
+# mat = [['.']*3 for _ in range(3)]
+# print(f"result {s.place_queen(mat, 0,0)}")
+# 
+# print(f"place queen test: ")
+# mat = [['.']*4 for _ in range(4)]
+# print(f"result {s.place_queen(mat, 1,1)}")
+# 
+# print(f"place queen test: ")
+# mat = [['.']*4 for _ in range(4)]
+# print(f"mat is {mat}")
+# cp = [x.copy() for x in mat] # copy not enough for 2d array!  list comprehension faster than deep copy
+# 
+# print(f"result {s.place_queen(cp, 3,1)}")
+# 
+# mat = [['.']*4 for _ in range(4)]
+# print(f"test queenR {s.queensR(mat,[])}")
+# 
+# mat = [['.']*3 for _ in range(3)]
+# print(f"test queenR {s.queensR(mat,[])}")
+# 
+# mat = [['.']*5 for _ in range(5)]
+# print(f"test queenR {s.queensR(mat,[])}")
+# 
+# mat = [['.']*6 for _ in range(6)]
+# print(f"test queenR {len(s.queensR(mat,[]))}")
+# 
+# mat = [['.']*7 for _ in range(7)]
+# print(f"test queenR {s.queensR(mat,[])}")
+# 
+# mat = [['.']*8 for _ in range(8)]
+# print(f"test queenR {len(s.queensR(mat,[]))}")
+# 
+# mat = [['.']*9 for _ in range(9)]
+# print(f"test queenR {len(s.queensR(mat,[]))}")
