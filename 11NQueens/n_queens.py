@@ -45,4 +45,8 @@ print(f"result {s.place_queen(mat, 0,0)}")
 
 print(f"place queen test: ")
 mat = [['.']*4 for _ in range(4)]
-print(f"result {s.place_queen(mat, 0,0)}")
+print(f"result {s.place_queen(mat, 1,1)}")
+
+print(f"place queen test: ")
+mat = [['.']*4 for _ in range(4)]
+print(f"result {s.place_queen(mat, 3,1)}")
