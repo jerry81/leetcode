@@ -35,7 +35,6 @@ class Solution:
         return cp
 
     def queensR(self, m, accum):
-        print(f"in queensR, m is {m}")
         if len(m) == 1:
             line = m[0]
             for i,x in enumerate(line):
@@ -60,7 +59,6 @@ class Solution:
             del(newM[0])
             accumC = [a.copy() for a in accum]
             accumC.append(lineC)
-            print(f"recurse with newm {newM} and accumC {accumC}")
             res = self.queensR(newM, accumC)
             if len(res) > 0:
                 for r in res:
@@ -104,3 +102,21 @@ print(f"result {s.place_queen(cp, 3,1)}")
 
 mat = [['.']*4 for _ in range(4)]
 print(f"test queenR {s.queensR(mat,[])}")
+
+mat = [['.']*3 for _ in range(3)]
+print(f"test queenR {s.queensR(mat,[])}")
+
+mat = [['.']*5 for _ in range(5)]
+print(f"test queenR {len(s.queensR(mat,[]))}")
+
+mat = [['.']*6 for _ in range(6)]
+print(f"test queenR {len(s.queensR(mat,[]))}")
+
+mat = [['.']*7 for _ in range(7)]
+print(f"test queenR {len(s.queensR(mat,[]))}")
+
+mat = [['.']*8 for _ in range(8)]
+print(f"test queenR {len(s.queensR(mat,[]))}")
+
+mat = [['.']*9 for _ in range(9)]
+print(f"test queenR {len(s.queensR(mat,[]))}")
