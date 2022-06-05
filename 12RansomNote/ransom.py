@@ -17,3 +17,15 @@ class Solution:
         return True
 
 s = Solution()
+
+ransomNote = "a"
+magazine = "b"
+print(f"expect false {s.canConstruct(ransomNote, magazine)}")
+
+ransomNote = "aa"
+magazine = "ab"
+print(f"expect false {s.canConstruct(ransomNote, magazine)}")
+
+ransomNote = "aa"
+magazine = "aab"
+print(f"expect true {s.canConstruct(ransomNote, magazine)}")
