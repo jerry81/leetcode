@@ -19,7 +19,28 @@ class Solution:
         while head.next is not None:
             lb += 1
             head = head.next
-        print(f"la is {la} lb is {lb}")
+        startA = headA
+        startB = headB
+        if la > lb:
+            diff = la - lb
+            while diff > 0:
+                diff-=1
+                startA = startA.next
+        if lb > la:
+            diff = lb - la 
+            print(f"diff is {diff} startB is {startB.val}")
+            while diff > 0:
+                diff-=1
+                startB = startB.next
+        while startA.next is not None:
+            print(f"startA is {startA}, val is {startA.val}")
+            print(f"startB is {startB} val is {startB.val}")
+            if startA == startB:
+                return startA
+            startA = startA.next 
+            startB = startB.next 
+        return None
+        
         
 
 
@@ -45,4 +66,4 @@ a2.next = c4
 c4.next = c5
 c5.next = c6
 
-print(f"expect 8 {s.getIntersectionNode(a1, b1)}")
+print(f"expect 8 {s.getIntersectionNode(a1, b1).val}")
