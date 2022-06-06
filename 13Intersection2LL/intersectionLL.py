@@ -12,15 +12,24 @@ class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         self.lookup[headA.val] = True
         nA = headA.next
+        idx = 0
         while nA is not None:
-            self.lookup[nA.val] = True
+            self.lookup[nA.val] = idx
+            nA = nA.next
+            idx+=1
         head = headB
+        idxs = []
+        lookup2 = {}
         while head is not None:
           try:
-              self.lookup[head.val]
-              return head.val
+              i = self.lookup[head.val]
+              idxs.append(i)
+              lookup2[i] = head
+              head = head.next 
           except: 
               head = head.next
+        if len(idxs) > 0:
+            return lookup2[min(idxs)]
         return None
         
 
@@ -48,4 +57,4 @@ b3.next = b4
 b4.next = b5
 b5.next = b6
 
-s.getIntersectionNode(a1, b1)
+print(f"expect 8 {s.getIntersectionNode(a1, b1)}")
