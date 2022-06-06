@@ -6,15 +6,16 @@ class ListNode:
      def __init__(self, x):
          self.val = x
          self.next = None
-
 class Solution:
-    lookup = {}
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        self.lookup[headA.val] = True
+        lookup = {}
+        print(f"headA is {headA}")
+        print(f"headB is {headB}")
+        lookup[headA.val] = True
         nA = headA.next
         idx = 0
         while nA is not None:
-            self.lookup[nA.val] = idx
+            lookup[nA.val] = idx
             nA = nA.next
             idx+=1
         head = headB
@@ -22,7 +23,7 @@ class Solution:
         lookup2 = {}
         while head is not None:
           try:
-              i = self.lookup[head.val]
+              i = lookup[head.val]
               idxs.append(i)
               lookup2[i] = head
               head = head.next 
