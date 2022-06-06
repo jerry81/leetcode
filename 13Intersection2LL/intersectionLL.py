@@ -28,13 +28,10 @@ class Solution:
                 startA = startA.next
         if lb > la:
             diff = lb - la 
-            print(f"diff is {diff} startB is {startB.val}")
             while diff > 0:
                 diff-=1
                 startB = startB.next
-        while startA.next is not None:
-            print(f"startA is {startA}, val is {startA.val}")
-            print(f"startB is {startB} val is {startB.val}")
+        while startA is not None:
             if startA == startB:
                 return startA
             startA = startA.next 
@@ -67,3 +64,7 @@ c4.next = c5
 c5.next = c6
 
 print(f"expect 8 {s.getIntersectionNode(a1, b1).val}")
+
+a1 = ListNode(1)
+
+print(f"expect 1 {s.getIntersectionNode(a1, a1).val}")
