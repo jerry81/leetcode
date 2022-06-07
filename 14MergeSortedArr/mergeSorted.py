@@ -21,7 +21,7 @@ class Solution:
 
         while len(sol) < m + n:
             first = nums1[h1]
-            
+            nums2[h2]
             if first > 0 and first <= nums2[h2]:
                 sol.append(nums1[h1])
                 h1+=1
@@ -53,3 +53,10 @@ nums2 = [1]
 n = 1
 s.merge(nums1, m, nums2, n)
 print(f"expect [1] {nums1}")
+
+nums1 = [2,0]
+m = 1
+nums2 = [1]
+n = 1
+s.merge(nums1, m, nums2, n)
+print(f"expect [1,2] {nums1}")
