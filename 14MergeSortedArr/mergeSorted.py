@@ -10,25 +10,26 @@ class Solution:
         h1 = 0
         h2 = 0
         if m == 0:
-            print(f"nums1 is {nums1} nums2 is {nums2}")
             nums1[:] = nums2.copy() # trick to change the items in list 
-            print(f"breaking with nums1 {nums1}")
             return None
 
         if n == 0: 
-            print('breaking 2')
             return 
 
         while len(sol) < m + n:
             first = nums1[h1]
-            nums2[h2]
-            if first > 0 and first <= nums2[h2]:
+            if h1 >= m:
+                sol.append(nums2[h2])
+                h2+=1
+            elif h2 >= n:
+                sol.append(nums1[h1])
+                h1+=1
+            elif first > 0 and first <= nums2[h2]:
                 sol.append(nums1[h1])
                 h1+=1
             else: 
                 sol.append(nums2[h2])
                 h2+=1
-        print("setting to sol")
         nums1[:] = sol
             
 
