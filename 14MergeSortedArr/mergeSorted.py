@@ -24,7 +24,7 @@ class Solution:
             elif h2 >= n:
                 sol.append(nums1[h1])
                 h1+=1
-            elif first > 0 and first <= nums2[h2]:
+            elif first <= nums2[h2]:
                 sol.append(nums1[h1])
                 h1+=1
             else: 
