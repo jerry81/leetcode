@@ -11,7 +11,7 @@ class Solution:
         h2 = 0
         if m == 0:
             print(f"nums1 is {nums1} nums2 is {nums2}")
-            nums1 = nums2.copy()
+            nums1[:] = nums2.copy() # trick to change the items in list 
             print(f"breaking with nums1 {nums1}")
             return None
 
@@ -22,14 +22,14 @@ class Solution:
         while len(sol) < m:
             first = nums1[h1]
             
-            if first > 0 and first <= nums2[h1]:
+            if first > 0 and first <= nums2[h2]:
                 h1+=1
                 sol.append(nums1[h1])
             else: 
                 h2+=1
                 sol.append(nums2[h2])
         print("setting to sol")
-        nums1 = sol
+        nums1[:] = sol
             
 
 s = Solution()
