@@ -9,15 +9,26 @@ class Solution:
         sol = []
         h1 = 0
         h2 = 0
+        if m == 0:
+            print(f"nums1 is {nums1} nums2 is {nums2}")
+            nums1 = nums2.copy()
+            print(f"breaking with nums1 {nums1}")
+            return None
+
+        if n == 0: 
+            print('breaking 2')
+            return 
+
         while len(sol) < m:
             first = nums1[h1]
-            print(f"first is {first}")
-            if nums1[h1] <= nums2[h1]:
+            
+            if first > 0 and first <= nums2[h1]:
                 h1+=1
                 sol.append(nums1[h1])
             else: 
                 h2+=1
                 sol.append(nums2[h2])
+        print("setting to sol")
         nums1 = sol
             
 
@@ -36,7 +47,7 @@ n = 0
 s.merge(nums1, m, nums2, n)
 print(f"expect [1] {nums1}")
 
-nums1 = []
+nums1 = [0]
 m = 0
 nums2 = [1]
 n = 1
