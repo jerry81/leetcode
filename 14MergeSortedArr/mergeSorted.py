@@ -19,15 +19,15 @@ class Solution:
             print('breaking 2')
             return 
 
-        while len(sol) < m:
+        while len(sol) < m + n:
             first = nums1[h1]
             
             if first > 0 and first <= nums2[h2]:
-                h1+=1
                 sol.append(nums1[h1])
+                h1+=1
             else: 
-                h2+=1
                 sol.append(nums2[h2])
+                h2+=1
         print("setting to sol")
         nums1[:] = sol
             
