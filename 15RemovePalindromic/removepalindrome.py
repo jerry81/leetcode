@@ -1,6 +1,8 @@
 class Solution:
     def removePalindromeSub(self, s: str) -> int:
-        return
+        if s  == s[::-1]:
+            return 1
+        return 2
 
 sol = Solution()
 
