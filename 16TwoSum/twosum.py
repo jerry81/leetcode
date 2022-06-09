@@ -1,8 +1,21 @@
 from typing import List
 
 class Solution:
+    def binary(self, sorted, target):
+        # should return idx 
+        cur_i = len(sorted) // 2
+        cur = None
+        while cur != target:
+          cur = sorted[cur_i]
+          if cur < target:
+              cur_i = (len(sorted) + cur_i) // 2
+          else: 
+              cur_i = cur_i // 2
+        return cur_i 
+
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         accum = None
+        as_set = list(set(numbers))
         while accum != target:
             for i1 in range(len(numbers)):
                 accum = numbers[i1]
