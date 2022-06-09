@@ -17,23 +17,32 @@ class Solution:
           else: 
               hi = mid 
         return mid 
-
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        accum = None
-        as_set = list(set(numbers))
-        while accum != target:
+    
+    def get_values(self, numbers, target):
+      accum = None
+      while accum != target:
             for i1 in range(len(numbers)):
                 accum = numbers[i1]
                 if accum > target:
                     break
-                for i2 in range(i1+1,len(numbers)):
+                for i2 in range(i1,len(numbers)):
                   accum = numbers[i1] + numbers[i2]
                   if accum > target:
                       break 
                   if accum == target:
-                      print(f"returning ")
                       return [i1+1,i2+1]
-        return 
+
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        as_set = list(set(numbers))
+        values = self.get_values(as_set,target)
+        idx1 = self.binary(values[0])
+        if values[0] == values[1]:
+            if numbers[idx1-1] == values[0]:
+              return [idx1-1, idx1]
+            if numbers[idx1+1] == values[0]:
+              return [idx1,idx1+1]
+        idx2 = self.binary(values[1])
+        return [idx1,idx2]
 
 sol = Solution()
 
