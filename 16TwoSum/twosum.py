@@ -30,19 +30,21 @@ class Solution:
                   if accum > target:
                       break 
                   if accum == target:
-                      return [i1+1,i2+1]
+                      return [numbers[i1],numbers[i2]]
 
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         as_set = list(set(numbers))
+        as_set.sort()
         values = self.get_values(as_set,target)
-        idx1 = self.binary(values[0])
+        print(f"values is {values}")
+        idx1 = self.binary(numbers, values[0])
         if values[0] == values[1]:
             if numbers[idx1-1] == values[0]:
-              return [idx1-1, idx1]
+              return [idx1, idx1+1]
             if numbers[idx1+1] == values[0]:
-              return [idx1,idx1+1]
-        idx2 = self.binary(values[1])
-        return [idx1,idx2]
+              return [idx1+1,idx1+2]
+        idx2 = self.binary(numbers, values[1])
+        return [idx1+1,idx2+1]
 
 sol = Solution()
 
