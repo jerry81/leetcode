@@ -38,3 +38,13 @@ numbers = [0,0,3,4]
 target = 0
 Output = [1,2]
 print(f"expect {Output} {sol.twoSum(numbers, target)}")
+
+# broken performance test case - lots of duplicates and target towards end of array 
+
+# new plan
+# convert to set to find unique values
+# find two unique values (allowing repeat) that sum up to target
+# binary search to find first value 
+  # if both needed values are the same
+    # check left and right of the index and see if they are a repeat
+  # else binary search second value 
