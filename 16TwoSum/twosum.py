@@ -2,6 +2,23 @@ from typing import List
 
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        accum = 0
+        while accum != target:
+            accum = 0
+            for i1 in range(len(numbers)):
+                print(f"i1 is {i1}")
+                accum = numbers[i1]
+                print(f"accum is {accum}")
+                if accum > target:
+                    break
+                for i2 in range(i1,len(numbers)):
+                  print(f"i2 is {i2}")
+                  accum = numbers[i1] + numbers[i2]
+                  print(f"accum is {accum}")
+                  if accum > target:
+                      break 
+                  if accum == target:
+                      return [i1+1,i2+1]
         return 
 
 sol = Solution()
