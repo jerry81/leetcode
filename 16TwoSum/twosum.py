@@ -3,15 +3,20 @@ from typing import List
 class Solution:
     def binary(self, sorted, target):
         # should return idx 
-        cur_i = len(sorted) // 2
+        hi = len(sorted)
+        lo = 0
         cur = None
-        while cur != target:
-          cur = sorted[cur_i]
+        limit = 0
+        mid = 0
+        while cur != target and limit < 5:
+          mid = (hi + lo) // 2
+          limit += 1
+          cur = sorted[mid]
           if cur < target:
-              cur_i = (len(sorted) + cur_i) // 2
+              lo = mid 
           else: 
-              cur_i = cur_i // 2
-        return cur_i 
+              hi = mid 
+        return mid 
 
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         accum = None
@@ -31,6 +36,22 @@ class Solution:
         return 
 
 sol = Solution()
+
+# test binary search
+numbers = [1,2,3,5,7]
+target = 5
+Output = 3
+print(f"expect {Output} {sol.binary(numbers, target)}")
+
+numbers = [1,2,3,5,7]
+target = 7
+Output = 4
+print(f"expect {Output} {sol.binary(numbers, target)}")
+
+numbers = [1,2,3,5,7]
+target = 1
+Output = 0
+print(f"expect {Output} {sol.binary(numbers, target)}")
 
 numbers = [2,7,11,15]
 target = 9
