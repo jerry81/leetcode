@@ -37,6 +37,10 @@ class Solution:
 
 sol = Solution()
 
+# test dedup 
+as_set = list(set([1,1,1,2,2,4,4,5,2,2,3,3]))
+print(f"as_set is {as_set}")
+
 # test binary search
 numbers = [1,2,3,5,7]
 target = 5
