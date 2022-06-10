@@ -8,15 +8,21 @@ class Solution:
         head = 0
         tail = 1 # as slice goes to tail - 1
         longest = 0
-        for head in range(len(s)):
-            for tail in range(1, len(s)+1):
-              if tail - head < longest:
-                  continue
-              sl = s[head:tail]
-              if self.isUnique(sl):
-                  longest = tail - head 
-              else:
+        while tail <= len(s)+1:
+          sl = s[head:tail]
+          # print(f"sl is {sl}")
+          if self.isUnique(sl) and len(sl) > longest:
+              # print(f"{sl} is unique")
+              # print(f"tail {tail} head {head}")
+              longest = len(sl)
+              # print(f"longest is {longest}")
+              tail += 1
+          else:
+              head+=1
+              next_tail = head+longest+1
+              if next_tail > (len(s)+1):
                   break
+              tail = next_tail
         return longest
 
 sol = Solution()
