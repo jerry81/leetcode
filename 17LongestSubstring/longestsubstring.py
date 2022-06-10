@@ -47,3 +47,6 @@ print(f"expect {Output} {sol.lengthOfLongestSubstring(s)}")
 # time limit exceeded on a input case with 
 # lots of repeated strings
 # should optimize 
+# optimization idea
+# only test for strings longer than longest 
+# can use dict for fast lookup of repeated strings.
