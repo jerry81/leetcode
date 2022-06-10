@@ -43,3 +43,7 @@ s = " "
 Output = 1
 print(f"expect True {sol.isUnique(s)}")
 print(f"expect {Output} {sol.lengthOfLongestSubstring(s)}")
+
+# time limit exceeded on a input case with 
+# lots of repeated strings
+# should optimize 
