@@ -8,8 +8,8 @@ class Solution:
         head = 0
         tail = 1 # as slice goes to tail - 1
         longest = 0
-        for head in range(len(s) - 1):
-            for tail in range(len(s)):
+        for head in range(len(s)):
+            for tail in range(1, len(s)+1):
               if tail - head < longest:
                   continue
               sl = s[head:tail]
@@ -37,4 +37,9 @@ print(f"expect {Output} {sol.lengthOfLongestSubstring(s)}")
 
 s = "pwwkew"
 Output = 3
+print(f"expect {Output} {sol.lengthOfLongestSubstring(s)}")
+
+s = " "
+Output = 1
+print(f"expect True {sol.isUnique(s)}")
 print(f"expect {Output} {sol.lengthOfLongestSubstring(s)}")
