@@ -4,7 +4,20 @@ class Solution:
         return len(as_set) == len(s)
 
     def lengthOfLongestSubstring(self, s: str) -> int:
-        return 
+        # catepillar?  
+        head = 0
+        tail = 1 # as slice goes to tail - 1
+        longest = 0
+        for head in range(len(s) - 1):
+            for tail in range(len(s)):
+              if tail - head < longest:
+                  continue
+              sl = s[head:tail]
+              if self.isUnique(sl):
+                  longest = tail - head 
+              else:
+                  break
+        return longest
 
 sol = Solution()
 
