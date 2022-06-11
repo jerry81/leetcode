@@ -16,18 +16,24 @@ class Solution:
         print(f"rps is {r_prefix_sums}")
         for l in range(len(nums)):
             a = prefix_sums[l]
+            if a == x:
+                print(f"just the left {l} {r} {a} {b}")
             if a > x:
                 continue
             for r in range(len(nums)):
                 b = r_prefix_sums[r]
+                if b == x:
+                    print(f"just the right {l} {r} {a} {b}")
+                    return r+1
                 if b > x: 
                     continue
                 sum = a+b 
                 if sum > x: 
-                    continue
+                    break
                 if sum == x:
                     print(f"{l} {r} {a} {b} yay {x}")
-        return
+                    return l+r+2
+        return -1
 
 sol = Solution()
 
