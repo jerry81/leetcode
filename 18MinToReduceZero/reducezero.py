@@ -5,16 +5,27 @@ class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
         candidates = []
         prefix_sums = [nums[0]]
+        if nums[0] == x:
+            candidates.append(1)
         for y in range(1,len(nums)):
-            prefix_sums.append(nums[y] + prefix_sums[y-1])
+            sum = nums[y] + prefix_sums[y-1]
+            prefix_sums.append(sum)
+            if sum == x:
+                candidates.append(y+1)
             
         print(f"ps is {prefix_sums}")
         rev = nums[::-1]
         r_prefix_sums = [rev[0]]
+        if rev[0] == x:
+            candidates.append(1)
         for y in range(1,len(nums)):
-            r_prefix_sums.append(rev[y] + r_prefix_sums[y-1])
+            sum = rev[y] + r_prefix_sums[y-1]
+            r_prefix_sums.append(sum)
+            if sum == x:
+                candidates.append(y+1)
             
-        print(f"rps is {r_prefix_sums}")
+            
+        # first try no sum
         for l in range(len(nums)):
             a = prefix_sums[l]
             if a == x:
@@ -24,6 +35,8 @@ class Solution:
                 if b == x:
                     candidates.append(r+1)
                 sum = a+b 
+                if sum > x:
+                    break
                 if sum == x and l+r+2 <= len(nums):
                     candidates.append(l+r+2)
         if len(candidates) == 0:
