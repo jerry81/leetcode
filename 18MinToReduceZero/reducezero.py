@@ -6,12 +6,27 @@ class Solution:
         prefix_sums = [nums[0]]
         for y in range(1,len(nums)):
             prefix_sums.append(nums[y] + prefix_sums[y-1])
+            
         print(f"ps is {prefix_sums}")
         rev = nums[::-1]
         r_prefix_sums = [rev[0]]
         for y in range(1,len(nums)):
             r_prefix_sums.append(rev[y] + r_prefix_sums[y-1])
+            
         print(f"rps is {r_prefix_sums}")
+        for l in range(len(nums)):
+            a = prefix_sums[l]
+            if a > x:
+                continue
+            for r in range(len(nums)):
+                b = r_prefix_sums[r]
+                if b > x: 
+                    continue
+                sum = a+b 
+                if sum > x: 
+                    continue
+                if sum == x:
+                    print(f"{l} {r} {a} {b} yay {x}")
         return
 
 sol = Solution()
