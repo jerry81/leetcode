@@ -8,7 +8,6 @@ class Solution:
         psums = [nums[0]]
         for i in range(1,len(nums)):
             psums.append(psums[i-1] + nums[i])
-        print(f"psums is {psums}")
         msum = 0
         lookup = {}
         head = -1
@@ -31,7 +30,7 @@ class Solution:
             except:
                 lookup[nums[i]] = i
         # also check final sum 
-        last_sum = psums[-1] - psums[head]
+        last_sum = psums[-1] - psums[head] if head > -1 else psums[-1]
         return max([msum,last_sum]) 
     
     def maximumUniqueSubarrayBRUTE(self, nums: List[int]) -> int:
@@ -69,4 +68,8 @@ print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
 
 nums = [10000]
 Output = 10000
+print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
+
+nums = [558,508,782,32,187,103,370,607,619,267,984,10]
+Output = 5027
 print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
