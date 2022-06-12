@@ -12,21 +12,27 @@ class Solution:
         msum = 0
         lookup = OrderedDict()
         head = -1
+
         for i in range(len(nums)):
             # print(f"lookup is {lookup}")
             try:
                 idx = lookup[nums[i]] # duplicate 
+                # print(f"dup found at {nums[i]}")
                 to_subtract = 0 if head == -1 else psums[head]
                 csum = psums[i-1] - to_subtract # current sum
+                # offset = 0
+                # if head == -1:
+                #     offset = 1
+                start_idx = (idx - head)
                 head = idx
                 # number of items in lookup at this point is i - idx 
                 # print(f"before slice {lookup}")
-                # print(f"i is {i} idx is {idx}")
+                start_idx
                 la = list(lookup.items())
-                start_idx = (i-idx)-1 if to_subtract == 0 else i-idx
                 la = la[start_idx:]
                 # la.append((nums[i], i))
                 lookup = OrderedDict(la) 
+                
                 # print(f"lookup before is {lookup}")
                 lookup[nums[idx]] = i
                 # print(f"lookup is now {lookup}")
