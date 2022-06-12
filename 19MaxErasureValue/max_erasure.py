@@ -3,13 +3,15 @@ from typing import List
 class Solution:
     def maximumUniqueSubarray(self, nums: List[int]) -> int:
         # brute force - find all unique subarrays
-        uniques = []
+        max = 0
         for head in range(len(nums)):
             for tail in range(head+1, len(nums)+1):
                 sub = nums[head:tail]
                 if len(list(set(sub))) == len(sub): # uniqueness check
-                    uniques.append(sub)
-        print(f"uniques are {uniques}")
+                    csum = sum(sub)
+                    if csum > max:
+                        max = csum
+        return max 
 
 sol = Solution()
 
