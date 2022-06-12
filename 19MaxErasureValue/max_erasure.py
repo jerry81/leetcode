@@ -1,4 +1,5 @@
 from typing import List
+from collections import OrderedDict
 
 class Solution:
     def maximumUniqueSubarray(self, nums: List[int]) -> int:
@@ -9,7 +10,7 @@ class Solution:
         for i in range(1,len(nums)):
             psums.append(psums[i-1] + nums[i])
         msum = 0
-        lookup = {}
+        lookup = OrderedDict()
         head = -1
         for i in range(len(nums)):
             # print(f"lookup is {lookup}")
@@ -19,21 +20,20 @@ class Solution:
                 csum = psums[i-1] - to_subtract # current sum
                 head = idx
                 # number of items in lookup at this point is i - idx 
-                
+                # print(f"before slice {lookup}")
+                # print(f"i is {i} idx is {idx}")
                 la = list(lookup.items())
-                la = la[(i-idx+1):]
-                la.append((nums[i], i))
-                lookup = dict(la) # this is an N operation 
+                start_idx = (i-idx)-1 if to_subtract == 0 else i-idx
+                la = la[start_idx:]
+                # la.append((nums[i], i))
+                lookup = OrderedDict(la) 
+                # print(f"lookup before is {lookup}")
+                lookup[nums[idx]] = i
+                # print(f"lookup is now {lookup}")
                 # slice instead of filter much faster
                 # lookup[nums[i]] = i
                 if csum > msum:
                     msum = csum 
-                    # a sum from start to end is 
-                    # prefix sums end - prefix sums start 
-                    # e.g. given prefix sums
-                    # [4,6,10,15,21] 
-                    # sum of nums[1:] is psums[4] - psums[0] 
-                    # newDict = dict(filter(lambda elem: elem[0] % 2 == 0, dictOfNames.items()))
             except:
                 lookup[nums[i]] = i
         # also check final sum 
@@ -84,7 +84,17 @@ print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
 nums = [449,154,934,526,429,732,784,909,884,805,635,660,742,209,742,272,669,449,766,904,698,434,280,332,876,200,333,464,12,437,269,355,622,903,262,691,768,894,929,628,867,844,208,384,644,511,908,792,56,872,275,598,633,502,894,999,788,394,309,950,159,178,403,110,670,234,119,953,267,634,330,410,137,805,317,470,563,900,545,308,531,428,526,593,638,651,320,874,810,666,180,521,452,131,201,915,502,765,17,577,821,731,925,953,111,305,705,162,994,425,17,140,700,475,772,385,922,159,840,367,276,635,696,70,744,804,63,448,435,242,507,764,373,314,140,825,34,383,151,602,745]
 Output = 30934
 print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
+
 nums = [10000,1,10000,1,1,1,1,1,1]
+# lookup
+# 10000
+# 10000, 1
+# 1 10000
+# 10000 1
+# 1
+# 1
+# 1
+# 1
 Output = 10001
 print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
 
