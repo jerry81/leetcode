@@ -2,6 +2,8 @@ from typing import List
 
 class Solution:
     def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
         # sliding window/catepillar with prefix sums 
         psums = [nums[0]]
         for i in range(1,len(nums)):
@@ -18,9 +20,6 @@ class Solution:
                 head = idx
                 lookup =  dict(filter(lambda elem: elem[1] > idx, lookup.items()))
                 lookup[nums[i]] = i
-                print(f"csum is {csum} aka {psums[i-1]} - {to_subtract}")
-                print(f"updated lookup is {lookup}")
-                print(f"updated head is {head}")
                 if csum > msum:
                     msum = csum 
                     # a sum from start to end is 
@@ -32,10 +31,7 @@ class Solution:
             except:
                 lookup[nums[i]] = i
         # also check final sum 
-        print(f"head is {head}")
         last_sum = psums[-1] - psums[head]
-        print(f"lastsum {psums[-1]} minus {psums[head+1]}")
-        print(f'last_sum {last_sum}')
         return max([msum,last_sum]) 
     
     def maximumUniqueSubarrayBRUTE(self, nums: List[int]) -> int:
@@ -69,4 +65,8 @@ nums = [5,2,1,2,5,2,1,2,5]
 # 1,2,5 
 # 5,2,1
 Output = 8
+print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
+
+nums = [10000]
+Output = 10000
 print(f"expect {Output} is {sol.maximumUniqueSubarray(nums)}")
