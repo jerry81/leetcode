@@ -13,7 +13,11 @@ function buildTree(triangle) {
             if (previousNodes.length > 0) {
                 children = [previousNodes[j], previousNodes[j + 1]]
             }
-            let newNode = { v: triangle[i][j], c: children }
+            let addend = 0
+            if (children.length) {
+                addend = Math.min(...children.map((x)=>x.v))
+            }
+            let newNode = { v: triangle[i][j] + addend, c: children }
             nextNodes.push(newNode)
         }
         previousNodes = nextNodes
@@ -43,8 +47,8 @@ function dfs(node) {
 var minimumTotal = function (triangle) {
     // build tree
     let tree = buildTree(triangle)
-    let min = dfs(tree)
-    return min
+    // let min = dfs(tree)
+    return tree.v
     
 };
 
