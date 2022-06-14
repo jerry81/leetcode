@@ -36,6 +36,14 @@ let Output = 2
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
 // anaylsis
 /* 
+sea
+eat
+
+[sea,ea], [se,eat]
+1 + [se,e],   [se, ea], [s,eat]
+1 + 1 + [s, []],   [s,ea], [se, e], [s,ea] [eat]
+
+
 map of character positions
 s: [0], []
 e: [1], [0]
@@ -70,5 +78,14 @@ Output = 2
 /*
 delete y 
 delete z
+*/
+console.log(`expect ${Output} ${minDistance(word1, word2)}`)
+
+word1 = "aaaabbbbbccccc"
+word2 = "abcabcabcabc"
+Output = 2
+/*
+word1 -> abc
+word2 -> abc
 */
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
