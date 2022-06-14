@@ -3,7 +3,41 @@
  * @param {string} word2
  * @return {number}
  */
- var minDistance = function(word1, word2) {
+function lcs(a,b,memo={}) {
+    if (a.length == 0) {
+        memo[`${a},${b}`] = 0
+        return 0
+    }
+    if (b.length == 0) {
+        memo[`${a},${b}`] = 0
+        return 0 
+    }
+    const la = a.length-1
+    const lb = b.length-1
+    if (a[la] == b[lb]) {
+        const returned = 1 + lcs(a.slice(0,la), b.slice(0,lb), memo)
+        memo[`${a},${b}`] = returned 
+        return returned
+    } else {
+        if (memo[`${a},${b}`]) {
+            return memo[`${a},${b}`]
+        }
+        
+        const lcsA = lcs(a.slice(0,la), b, memo)
+        const lcsB = lcs(a, b.slice(0,lb), memo)
+        const returned = Math.max(lcsA, lcsB)
+        memo[`${a},${b}`] = returned 
+        return returned
+    }
+}
+
+var minDistance = function(word1, word2) {
+    const longest = lcs(word1,word2)
+    console.log('longest is ', longest)
+    return (word1.length - longest) + (word2.length - longest)
+}
+
+ var minDistanceNaive = function(word1, word2) {
     let count = 0
     let trimmed1 = word1
     let trimmed2 = word2
@@ -33,7 +67,9 @@
 let word1 = "sea"
 let word2 = "eat"
 let Output = 2
+console.log(`expect 2 (lcs) ${lcs(word1,word2)}`)
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
+
 // anaylsis
 /* 
 sea
@@ -65,6 +101,7 @@ word1 = "leetcode"
 word2 = "etco"
 Output = 4
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
+// console.log(`expect 4 ${lcs(word1,word2)}`)
 /*
 leetcode
 etco 
@@ -81,11 +118,17 @@ delete z
 */
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
 
-word1 = "aaaabbbbbccccc"
-word2 = "abcabcabcabc"
-Output = 2
+word1 = "aaaabbbbbccccc" // aabbbccc 8
+word2 = "abcabcabcabc" // bccaab 6 = 14 aabbcc
+Output = 'unknown'
 /*
-word1 -> abc
-word2 -> abc
+word1 -> aabbcc
+word2 -> aabbcc
 */
 console.log(`expect ${Output} ${minDistance(word1, word2)}`)
+
+console.log('hello'.slice(0,4))
+
+word1 = "dinitrophenylhydrazine"
+word2 = "benzalphenylhydrazone"
+console.log(lcs(word1,word2, {}))
