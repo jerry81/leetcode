@@ -32,7 +32,7 @@
     }
 }
 
-function lsc(words, memo = {}) {
+function lsc(words, memo = {}, lmap = {}) {
     if (words.length == 0) {
       return 0 
     }
@@ -45,37 +45,31 @@ function lsc(words, memo = {}) {
         return 
     }
 
-    /* 
-    given [abc, abcd, abce, abcdefg, abcefgh, abcdefgh, zzzzzzzzz]
-    [abc, abcd, abce, abcdefg, abcefgh, abcdefgh, zzzzzzzzz]
-    next iteration should try zzzzzzzzz with a reduced set
-    should also try without zzzzzzzzz 
-    abc -> [abc, abcd] [abcdefg,abcefgh,abcdefgh]
-    abc -> [abc abce] [abcdefg,abcefgh,abcdefgh]
-    [abc,abcd] -> [abc,abcd] [abcdefg,abcdefgh]
-    [abc,abce] -> [abc,abce] [abcefgh,abcdefgh]
-    [abc,abcd,abcdefg] -> [abcdefgh]
-    [abc,abce,abcefgh] -> [abcdefgh]
-    */
+   
 }
 
 var longestStrChain = function(words) {
-    let sorted = words.sort((x,b) => x.length - b.length)
-    let cur = sorted[sorted.length-1]
-    // must consider all possible chains 
-    let l = 1
-    for (let j = sorted.length-2; j >= 0; j--) {
-      let a = sorted[j]
-      if (a.length == cur.length) {
-        continue
-      }
-      let longest = lcs(cur,a,{})
-      if (longest == a.length) {
-        l+=1
-        cur = a
-      }
+    let lMap = {}
+    let minK = 10001
+    let maxK = -1
+    for (let w of words) {
+        let l = w.length
+        if (l < minK) {
+          minK = l
+        }
+
+        if (l > maxK) {
+            maxK = l
+        }
+
+        if (!lMap[l]) {
+            lMap[l] = [w]
+        } else {
+            lMap[l].push(w)
+        }
     }
-    return l
+    // for every level: build the chain
+    
 };
 
 let words = ["a","b","ba","bca","bda","bdca"]
@@ -84,6 +78,13 @@ let Output = 4
 console.log(`expect ${Output}, ${longestStrChain(words)}`)
 
 words = ["xbc","pcxbcf","xb","cxbc","pcxbc"]
+/*
+2: xb
+3: xbc
+4: cxbc
+5: pcxbc
+6: pcxbcf
+*/
 Output = 5
 
 console.log(`expect ${Output}, ${longestStrChain(words)}`)
@@ -94,7 +95,47 @@ Output = 1
 console.log(`expect ${Output}, ${longestStrChain(words)}`)
 
 words = ["a","aa","aab","aabb","bbaac"]
+/*
+1: a
+2: aa
+3: aab
+4: aabb
+5: bbaac
+*/
 Output = 4
 // must handle case where the longest string doesn't contain the last item 
 // only way is to find all chains 
 console.log(`expect ${Output}, ${longestStrChain(words)}`)
+
+
+ /* 
+    given [z,abc,def, abcd, abce, abcdefg, abcefgh, abcdefgh, zzzzzzzzz]
+    [abc,def, abcd, abce, abcdefg, abcefgh, abcdefgh, zzzzzzzzz]
+    next iteration should try zzzzzzzzz with a reduced set
+    should also try without zzzzzzzzz 
+    abc -> [abc, abcd] [abcdefg,abcefgh,abcdefgh]
+    abc -> [abc abce] [abcdefg,abcefgh,abcdefgh]
+    [abc,abcd] -> [abc,abcd] [abcdefg,abcdefgh]
+    [abc,abce] -> [abc,abce] [abcefgh,abcdefgh]
+    [abc,abcd,abcdefg] -> [abcdefgh]
+    [abc,abce,abcefgh] -> [abcdefgh]
+    stringchainmap: 
+    1: [z]
+    3: [abc,def]
+    4: [abcd, abce]
+    7: [abcdefg,abcefgh]
+    8: [abcdefgh]
+    9: [zzzzzzzzz]
+
+    z, abc no 
+    z, def, no - done 
+
+    abc,abcd yes
+    abc abce yes
+
+    abcd abcdefg yes 
+    abcd abcefgh no 
+    def,abcdefg
+    
+
+*/
