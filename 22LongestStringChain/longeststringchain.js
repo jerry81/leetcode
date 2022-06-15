@@ -33,21 +33,16 @@
 }
 
 function lsc(cur, memo = {}, lmap = {}) {
-    console.log('cur is ', cur)
-    console.log('memo is ', memo)
     if (memo[cur] != undefined) {
         return memo[cur]
     }
     let l = cur.length
     let children = lmap[l-1]
     let results = []
-    console.log('children are', children)
     if (!children) {
-        console.log('returning')
         memo[cur] = 1
         return 1
     }
-    console.log("looping children")
     for (let c of children) {
         if (lcs(c, cur) != c.length) {
           continue
@@ -58,6 +53,11 @@ function lsc(cur, memo = {}, lmap = {}) {
         let res = lsc(c, memo, lmap)
         results.push(res)
         memo[c] = res
+    }
+    if (results.length == 0) {
+        let specialRes = 1
+        memo[cur] = specialRes
+        return specialRes 
     }
     const finalRes = 1 + Math.max(...results)
     memo[cur] = finalRes
@@ -85,12 +85,10 @@ var longestStrChain = function(words) {
             lMap[l].push(w)
         }
     }
-    console.log('lmap is ', lMap)
     for (let item of lMap[maxK]) {
-        console.log(`item is ${item}`)
         lsc(item,resMap,lMap)
-        console.log('resMap is now', resMap)
     }
+    return Math.max(...Object.values(resMap))
     // for every level: build the chain
     /* 1: {
         "a": ["ba"]
