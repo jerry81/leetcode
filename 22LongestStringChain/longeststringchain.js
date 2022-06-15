@@ -34,8 +34,20 @@
 
 var longestStrChain = function(words) {
     let sorted = words.sort((x,b) => x.length - b.length)
-    console.log('sorted is ', sorted)
-    return 0
+    let cur = sorted[sorted.length-1]
+    let l = 1
+    for (let j = sorted.length-2; j >= 0; j--) {
+      let a = sorted[j]
+      if (a.length == cur.length) {
+        continue
+      }
+      let longest = lcs(cur,a,{})
+      if (longest == a.length) {
+        l+=1
+        cur = a
+      }
+    }
+    return l
 };
 
 let words = ["a","b","ba","bca","bda","bdca"]
