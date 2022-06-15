@@ -85,9 +85,12 @@ var longestStrChain = function(words) {
             lMap[l].push(w)
         }
     }
-    for (let item of lMap[maxK]) {
-        lsc(item,resMap,lMap)
+    for (let i = maxK; i >= minK; i--) {
+        for (let item of lMap[i]) {
+            lsc(item,resMap,lMap)
+        }
     }
+    
     return Math.max(...Object.values(resMap))
     // for every level: build the chain
     /* 1: {
