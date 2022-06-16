@@ -3,9 +3,7 @@
 # @return {Integer}
 def search_insert(nums, target)
     if nums.size == 1
-        puts "im here"
         if nums[0] >= target 
-            puts "nums0 #{nums[0]} target #{target}"
             return 0
         else 
             return 1
@@ -29,6 +27,9 @@ def search_insert(nums, target)
     end
     suba = nums[head..tail]
     suba.each_with_index do |x,i| 
+        if x == target 
+            return head 
+        end
         if x > target
             return head+i
         end
@@ -59,4 +60,9 @@ puts "expect #{output} #{search_insert(nums,target)}"
 nums = [1]
 target = 2 
 output = 1
+puts "expect #{output} #{search_insert(nums,target)}"
+
+nums = [1,3]
+target = 1
+output = 0 
 puts "expect #{output} #{search_insert(nums,target)}"
