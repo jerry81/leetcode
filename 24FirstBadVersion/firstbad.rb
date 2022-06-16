@@ -2,7 +2,7 @@
 # @param {Integer} version
 # @return {boolean} whether the version is bad
 def is_bad_version(version)
-    version == 4
+    version >= 2
 end
 
 # @param {Integer} n
@@ -16,6 +16,7 @@ def first_bad_version(n)
     mid = -1
     while (high-low) > 1
       mid = ((low + high)/2).to_i
+      puts "mid is #{mid}"
       is_bad = is_bad_version(mid)
       if is_bad
           high = mid 
@@ -23,7 +24,11 @@ def first_bad_version(n)
           low = mid 
       end
     end
-    mid
+    for i in low..high
+        if is_bad_version(i)
+            return i 
+        end
+    end
 end
 
 n = 5
@@ -31,4 +36,7 @@ output = 4
 puts "expect #{output} #{first_bad_version(n)}"
 n = 1
 output = 1
+puts "expect #{output} #{first_bad_version(n)}"
+n = 2
+output = 2
 puts "expect #{output} #{first_bad_version(n)}"
