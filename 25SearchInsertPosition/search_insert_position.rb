@@ -3,10 +3,12 @@
 # @return {Integer}
 def search_insert(nums, target)
     if nums.size == 1
-        if nums[0] <= target 
+        puts "im here"
+        if nums[0] >= target 
+            puts "nums0 #{nums[0]} target #{target}"
             return 0
-        else nums[0] < target
-            return 0
+        else 
+            return 1
         end
     end
     head = 0
@@ -52,4 +54,9 @@ puts "expect #{output} #{search_insert(nums,target)}"
 nums = [1]
 target = 1
 output = 0
+puts "expect #{output} #{search_insert(nums,target)}"
+
+nums = [1]
+target = 2 
+output = 1
 puts "expect #{output} #{search_insert(nums,target)}"
