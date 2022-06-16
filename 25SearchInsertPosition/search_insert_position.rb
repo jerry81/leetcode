@@ -2,6 +2,13 @@
 # @param {Integer} target
 # @return {Integer}
 def search_insert(nums, target)
+    if nums.size == 1
+        if nums[0] <= target 
+            return 0
+        else nums[0] < target
+            return 0
+        end
+    end
     head = 0
     tail = nums.size 
     mid = ((tail + head) / 2).to_i
@@ -40,4 +47,9 @@ puts "expect #{output} #{search_insert(nums,target)}"
 nums = [1,3,5,6]
 target = 7
 output = 4
+puts "expect #{output} #{search_insert(nums,target)}"
+
+nums = [1]
+target = 1
+output = 0
 puts "expect #{output} #{search_insert(nums,target)}"
