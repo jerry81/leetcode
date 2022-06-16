@@ -1,6 +1,9 @@
 # @param {Integer[]} nums
 # @return {Integer[]}
 def search_insert(nums, target)
+    if nums.size == 0
+        return 0 
+    end
     if nums.size == 1
         if nums[0] >= target 
             return 0
@@ -34,6 +37,17 @@ def search_insert(nums, target)
 end
 
 def sorted_squares(nums)
+    nums.map do |x|
+        x**2 
+    end.sort
+end
+
+def sorted_squares_fail(nums)
+    if nums.size == 1
+        return nums.map do |n|
+            n**2 
+        end
+    end
     ins = search_insert(nums, 0)
     neg = []
     pos = []
@@ -56,4 +70,8 @@ puts "expect #{output} #{sorted_squares(nums)}"
 
 nums = [-7,-3,2,3,11]
 output = [4,9,9,49,121]
+puts "expect #{output} #{sorted_squares(nums)}"
+
+nums = [-5,-3,-2,-1]
+output = [1,4,9,25]
 puts "expect #{output} #{sorted_squares(nums)}"
