@@ -11,12 +11,22 @@ def move_zeroes(nums)
       end
     end
     a.concat(b)
+    a.each_with_index do |v,i|
+        nums[i] = v
+    end
 end
 
 nums = [0,1,0,3,12]
 exp = [1,3,12,0,0]
-puts "expect #{exp} #{move_zeroes(nums)}"
+move_zeroes(nums)
+puts "expect #{exp} #{nums}"
 
 nums = [0]
 exp = [0]
-puts "expect #{exp} #{move_zeroes(nums)}"
+move_zeroes(nums)
+puts "expect #{exp} #{nums}"
+
+nums = [0,0,1]
+exp = [1,0,0]
+move_zeroes(nums)
+puts "expect #{exp} #{nums}"
