@@ -1,11 +1,15 @@
 class Solution:
-    def reverseWords(self, s: str) -> str:
+    def reverseWord(self, s:str) -> str:
         asL = list(s)
         newL = []
         for i in range(len(s)):
             curi = len(s) - 1 - i 
             newL.append(asL[curi])
         return "".join(newL)
+
+    def reverseWords(self, s: str) -> str:
+        rev = list(map(self.reverseWord, s.split(" ")))
+        return " ".join(rev)
 
 sol = Solution()
 s = "Let's take LeetCode contest"
