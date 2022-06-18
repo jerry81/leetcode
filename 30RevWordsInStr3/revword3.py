@@ -5,7 +5,6 @@ class Solution:
         for i in range(len(s)):
             curi = len(s) - 1 - i 
             newL.append(asL[curi])
-            print(f"newL is now {newL}")
         return "".join(newL)
 
 sol = Solution()
