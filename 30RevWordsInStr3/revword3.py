@@ -5,7 +5,8 @@ class Solution:
         for i in range(len(s)):
             curi = len(s) - 1 - i 
             newL.append(asL[curi])
-        return "".join(asL)
+            print(f"newL is now {newL}")
+        return "".join(newL)
 
 sol = Solution()
 s = "Let's take LeetCode contest"
