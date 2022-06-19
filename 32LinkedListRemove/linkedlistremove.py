@@ -13,6 +13,11 @@ class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         nodes = defaultdict(lambda: -1)
@@ -26,10 +31,14 @@ class Solution:
         # remove 
         removedIdx = (idx - n) + 1
         print(f"removed is {removedIdx}")
+        # if removedIdx == 0:
+        #     return None
         if removedIdx == 0:
+          if nodes[1] != -1:
+            return nodes[1]
+          else:
             return None
-        if (removedIdx - 1) == 0:
-          return nodes[1]
+        
         nodes[removedIdx-1].next = nodes[removedIdx+1] if nodes[removedIdx+1] != -1 else None
         # handle edge case 
         return nodes[0]
