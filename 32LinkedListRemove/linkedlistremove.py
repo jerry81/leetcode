@@ -20,5 +20,8 @@ class Solution:
 
         # remove 
         removedIdx = (idx - n) + 1
-        nodes[removedIdx-1].next = nodes[removedIdx+1]
+        if (removedIdx - 1) == 0:
+          return nodes[1]
+        nodes[removedIdx-1].next = nodes[removedIdx+1] if nodes[removedIdx+1] != -1 else None
+        # handle edge case 
         return nodes[0]
