@@ -18,5 +18,5 @@ class Solution:
             idx += 1
             nodes[idx] = head
         mid = (idx // 2) 
-        return nodes[mid] if (mid % 2) == 0 else nodes[mid+1]
+        return nodes[mid+1] if ((idx+1) % 2) == 0 else nodes[mid]
 
