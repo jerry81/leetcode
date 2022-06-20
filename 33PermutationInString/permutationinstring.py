@@ -10,7 +10,22 @@ class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         # sliding window - check freq map match
         baseMap = self.getFreqMap(s1)
-        return 
+        starter = 0
+        ender = len(s1)
+        trial = s2[starter:ender]
+        compareMap = self.getFreqMap(trial)
+        if baseMap == compareMap:
+            return True 
+        while ender < len(s2):
+          ender += 1 
+          prevStart = s2[starter]
+          starter += 1
+          newEnd = s2[ender-1]
+          compareMap[prevStart] -= 1 
+          compareMap[newEnd] += 1 
+          if baseMap == compareMap:
+            return True 
+        return False 
 
 sol = Solution()
 s1 = "ab"
