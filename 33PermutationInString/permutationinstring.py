@@ -18,11 +18,14 @@ class Solution:
             return True 
         while ender < len(s2):
           ender += 1 
-          prevStart = s2[starter]
+          # prevStart = s2[starter]
           starter += 1
-          newEnd = s2[ender-1]
-          compareMap[prevStart] -= 1 
-          compareMap[newEnd] += 1 
+          trial = s2[starter:ender]
+          compareMap = self.getFreqMap(trial)
+          
+          # newEnd = s2[ender]
+          # compareMap[prevStart] -= 1 
+          # compareMap[newEnd] += 1 
           if baseMap == compareMap:
             return True 
         return False 
