@@ -18,7 +18,7 @@ class Solution:
       if len(roots) == 0:
         return
       for r in roots:
-        nodes.append(r.val)
+        nodes.append(r)
         if r.left is not None:
           newroots.append(r.left)
         if r.right is not None:
@@ -28,5 +28,22 @@ class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         # first enumerate as flat list
         nodes = []
-        self.flattenNodes(nodes,root)
-        print(f"nodes is now {nodes}")
+        self.flattenNodes(nodes,[root])
+        curE = 0
+        count = 0
+        for i in range(len(nodes)):
+            if (2**curE)-1 != count:
+                nodes[i].next = nodes[i+1]
+                count+=1
+            else: 
+                curE+=1
+                count = 0
+        return nodes[0]
+
+
+        
+
+    # example 
+    # 1,2,3,4,5,6,7
+    # 1, 2,3,  4,5,6,7, 8,9,10,11,12,13,14,15
+    
