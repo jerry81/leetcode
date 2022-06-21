@@ -26,6 +26,8 @@ class Solution:
       self.flattenNodes(nodes,newroots)
 
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if root is None:
+            return None
         # first enumerate as flat list
         nodes = []
         self.flattenNodes(nodes,[root])
