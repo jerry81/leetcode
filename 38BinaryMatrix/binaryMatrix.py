@@ -4,33 +4,63 @@ from typing import List
 
 class Solution:
     def getMinDist(self,x,y,grid,memo,max_x,max_y,visited=defaultdict(bool)):
+        if memo[f"{y},{x}"] != -1:
+            return memo[f"{y},{x}"]
         if grid[y][x] == 0:
             memo[f"{y},{x}"] = 0
             visited[f"{y},{x}"] = True
             return 0
 
         print(f"grid y x is {y} {x} {grid[y][x]}")
-        left = 999999
-        right = 999999
-        up = 9999999
-        down = 9999999
+        compareArr = []
         if x-1 >= 0:
-            if not visited[f"{y},{x-1}"]:
-              lres = memo[f"{y},{x-1}"] if memo[f"{y},{x-1}"] > -1 else self.getMinDist(x-1,y,grid,memo,max_x,max_y)
-              left = 1 + lres
+              left = 9999999
+              if memo[f"{y},{x-1}"] != -1:
+                left = memo[f"{y},{x-1}"]
+              elif grid[y][x-1] == 0:
+                left = 0
+                memo[f"{y},{x-1}"] = 0
+              elif visited[f"{y},{x-1}"] is None:
+                left = self.getMinDist(x-1,y,grid,memo,max_x,max_y)
+              visited[f"{y},{x-1}"] = True
+              compareArr.append(left)
+              
         if y-1 >= 0:
-            if not visited[f"{y-1},{x}"]:
-              ures = memo[f"{y-1},{x}"] if memo[f"{y-1},{x}"] > -1 else self.getMinDist(x,y-1,grid,memo,max_x,max_y)
-              up = 1 + ures
+              up = 999999999
+              if memo[f"{y-1},{x}"] != -1:
+                up = memo[f"{y-1},{x}"]
+              elif grid[y-1][x] == 0:
+                up = 0
+                memo[f"{y-1},{x}"] = 0
+              elif visited[f"{y-1},{x}"] is None:
+                up = self.getMinDist(x,y-1,grid,memo,max_x,max_y)
+              visited[f"{y-1},{x}"] = True
+              compareArr.append(up)
+              
         if x+1 < max_x:
-            if not visited[f"{y},{x+1}"]:
-              rres = memo[f"{y},{x+1}"] if memo[f"{y},{x+1}"] > -1 else self.getMinDist(x+1,y,grid,memo,max_x,max_y)
-              right = 1 + rres
+                right = 999999999
+                if memo[f"{y},{x+1}"] != -1:
+                    right = memo[f"{y},{x+1}"]
+                elif grid[y][x+1] == 0:
+                    right = 0
+                    memo[f"{y},{x+1}"] = 0
+                else:
+                    right = self.getMinDist(x+1,y,grid,memo,max_x,max_y)
+                visited[f"{y},{x+1}"] = True
+                compareArr.append(right)
         if y+1 < max_y:
-            if not visited[f"{y+1},{x}"]:
-              dres = memo[f"{y+1},{x}"] if memo[f"{y+1},{x}"] > -1 else self.getMinDist(x,y+1,grid,memo,max_x,max_y)
-              down = 1 + dres
-        res = min(left,up,right,down)
+                down = 999999999
+                if memo[f"{y+1},{x}"] != -1:
+                    down = memo[f"{y+1},{x}"]
+                elif grid[y+1][x] == 0:
+                    down = 0
+                    memo[f"{y+1},{x}"] = 0
+                else:
+                    down = self.getMinDist(x,y+1,grid,memo,max_x,max_y)
+                visited[f"{y+1},{x}"] = True
+                compareArr.append(down)
+
+        res = 1 + min(compareArr)
         memo[f"{y},{x}"] = res 
         return res 
         
@@ -43,10 +73,8 @@ class Solution:
             line = mat[y]
             for x in range(len(line)):
                 if memo[f"{y},{x}"] == -1:
-                    print(f"memo before {memo}")
                     self.getMinDist(x,y,mat,memo,max_x,max_y)
-                    print(f"memo after {memo}")
-        print(f"updated is {updated}") # memoize entire grid 
+        
         return 
 
 sol = Solution()
@@ -58,3 +86,16 @@ print(f"expect {expect} {sol.updateMatrix(mat)}")
 mat = [[0,0,0],[0,1,0],[1,1,1]]
 expect = [[0,0,0],[0,1,0],[1,2,1]]
 print(f"expect {expect} {sol.updateMatrix(mat)}")
+
+"""
+000
+010
+111
+
+000
+0
+
+000
+010
+121
+"""
