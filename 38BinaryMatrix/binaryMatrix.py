@@ -2,9 +2,16 @@ from typing import List
 
 
 class Solution:
-    def getMinDist(self,x,y):
-        return 9999
+    def getMinDist(self,x,y,grid,memo,max_x,max_y):
+        min = max_x * max_y
+        if grid[y][x] == 0:
+            memo[f"{y},{x}"] = 0
+            return 0 
+        
+
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        updated = [] # init 2d matrix 
+        memo = {} # memoize entire grid 
         return 
 
 sol = Solution()
