@@ -2,6 +2,8 @@ from typing import List
 
 
 class Solution:
+    def getMinDist(self,x,y):
+        return 9999
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         return 
 
