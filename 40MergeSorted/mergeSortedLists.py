@@ -50,7 +50,7 @@ class Solution:
                 newHead.next = None 
                 head2 = head2Rest 
             else:
-                newHead.next = head1 
+                newHead.next = head2
                 newHead = newHead.next 
                 head2 = head2Rest 
           if headPtr is None:
