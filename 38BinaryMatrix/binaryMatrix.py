@@ -3,8 +3,11 @@ from typing import List
 
 
 class Solution:
-    def bfs(self, mat, x,y):
+    def bfs(self, mat, x,y, memo = {}):
+        if memo[y,x] is not None:
+            return memo[y,x]
         if mat[y][x] == 0:
+            memo[y,x] = 0
             return 0
         next_neighbors = [(y,x)]
         my = len(mat)
@@ -22,6 +25,7 @@ class Solution:
           if u >= 0:
               ui = mat[u][x]
               if ui == 0:
+                memo[u,x] = count
                 return count
               elif not visited[u,x]:
                 next_neighbors.append((u,x))
@@ -29,6 +33,7 @@ class Solution:
           if l >= 0:
               li = mat[y][l] 
               if li == 0:
+                memo[y,l] = count
                 return count
               elif not visited[y,l]:
                 next_neighbors.append((y,l))
@@ -36,6 +41,7 @@ class Solution:
           if d < my:
               di = mat[d][x] 
               if di == 0:
+                memo[d,x] = count
                 return count
               elif not visited[d,x]:
                 next_neighbors.append[(d,x)]
@@ -43,6 +49,7 @@ class Solution:
           if r < mx:
               ri = mat[y][r] 
               if ri == 0:
+                memo[y,r] = count
                 return count
               elif not visited[y,ri]:
                 next_neighbors.append[(y,ri)]
