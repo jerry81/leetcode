@@ -25,7 +25,10 @@ class Solution:
             u = ny-1
             d = ny+1 
             l = nx-1
-            r = nx+1 
+            r = nx+1
+            memoized = []
+            if memo[ny,nx] != -1:
+                memoized.append(memo[ny,nx])
             if u >= 0:
                 ui = mat[u][nx]
                 if ui == 0:
@@ -55,9 +58,12 @@ class Solution:
                 if ri == 0:
                   memo[y,x] = count
                   return count
-                elif not visited[ny,ri]:
-                  new_neighbors.append((ny,ri))
-                  visited[ny,ri] = True
+                elif not visited[ny,r]:
+                  new_neighbors.append((ny,r))
+                  visited[ny,r] = True
+          if len(memoized) > 0:
+            memo[y,x] = min(memoized) + 1
+            return min(memoized) + 1
           next_neighbors = new_neighbors
 
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
