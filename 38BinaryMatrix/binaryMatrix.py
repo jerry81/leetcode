@@ -16,49 +16,52 @@ class Solution:
         visited[y,x] = True 
         count = 0
         while len(next_neighbors) > 0:
+          new_neighbors = []
           count+=1
-          ny,nx = next_neighbors.pop()
-          if memo[ny,nx] != -1:
-            return count + memo[ny,nx] - 1
-          u = ny-1
-          d = ny+1 
-          l = nx-1
-          r = nx+1 
-          if u >= 0:
-              ui = mat[u][nx]
-              if ui == 0:
-                memo[y,x] = count
-                return count
-              elif not visited[u,nx]:
-                next_neighbors.append((u,nx))
-                visited[u,nx] = True
-          if l >= 0:
-              li = mat[ny][l] 
-              if li == 0:
-                memo[y,x] = count
-                return count
-              elif not visited[ny,l]:
-                next_neighbors.append((ny,l))
-                visited[ny,l] = True
-          if d < my:
-              di = mat[d][nx] 
-              if di == 0:
-                memo[y,x] = count
-                return count
-              elif not visited[d,nx]:
-                next_neighbors.append[(d,nx)]
-                visited[d,nx] = True
-          if r < mx:
-              ri = mat[ny][r] 
-              if ri == 0:
-                memo[y,x] = count
-                return count
-              elif not visited[ny,ri]:
-                next_neighbors.append[(ny,ri)]
-                visited[ny,ri] = True
+          for n in next_neighbors:
+            ny,nx = n
+            # if memo[ny,nx] != -1:
+            #   return 1 + memo[ny,nx]
+            u = ny-1
+            d = ny+1 
+            l = nx-1
+            r = nx+1 
+            if u >= 0:
+                ui = mat[u][nx]
+                if ui == 0:
+                  memo[y,x] = count
+                  return count
+                elif not visited[u,nx]:
+                  new_neighbors.append((u,nx))
+                  visited[u,nx] = True
+            if l >= 0:
+                li = mat[ny][l] 
+                if li == 0:
+                  memo[y,x] = count
+                  return count
+                elif not visited[ny,l]:
+                  new_neighbors.append((ny,l))
+                  visited[ny,l] = True
+            if d < my:
+                di = mat[d][nx] 
+                if di == 0:
+                  memo[y,x] = count
+                  return count
+                elif not visited[d,nx]:
+                  new_neighbors.append((d,nx))
+                  visited[d,nx] = True
+            if r < mx:
+                ri = mat[ny][r] 
+                if ri == 0:
+                  memo[y,x] = count
+                  return count
+                elif not visited[ny,ri]:
+                  new_neighbors.append((ny,ri))
+                  visited[ny,ri] = True
+          next_neighbors = new_neighbors
 
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        updated = [[-1]*len(mat) for _ in range(len(mat[0]))]
+        updated = [[-1]*len(mat[0]) for _ in range(len(mat))]
         memo = defaultdict(lambda: -1)
         for i in range(len(mat)):
             for j in range(len(mat[0])):
@@ -79,6 +82,20 @@ print(f"expect {expect} {sol.updateMatrix(mat)}")
 mat = [[0,0,0],[0,1,0],[1,1,1]]
 expect = [[0,0,0],[0,1,0],[1,2,1]]
 print(f"expect {expect} {sol.updateMatrix(mat)}")
+
+mat = [[0,1,1],[1,1,1],[1,1,1]]
+expect = [[0,1,2],[1,2,3],[2,3,4]]
+print(f"expect {expect} {sol.updateMatrix(mat)}")
+
+"""
+0 1 1 
+1 1 1
+1 1 1
+
+0 1 2
+1 2 3
+2 3 4
+"""
 
 # mini tests
 mem = defaultdict(lambda:-1)
