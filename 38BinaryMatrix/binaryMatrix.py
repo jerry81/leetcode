@@ -3,84 +3,54 @@ from typing import List
 
 
 class Solution:
-    def getMinDist(self,x,y,grid,memo,max_x,max_y,visited=defaultdict(bool),updated=[]):
-        if memo[f"{y},{x}"] != -1:
-            return memo[f"{y},{x}"]
-        if grid[y][x] == 0:
-            memo[f"{y},{x}"] = 0
-            updated[y][x] = 0
-            visited[f"{y},{x}"] = True
+    def bfs(self, mat, x,y):
+        if mat[y][x] == 0:
             return 0
+        next_neighbors = [(y,x)]
+        my = len(mat)
+        mx = len(mat[0])
+        visited = defaultdict(bool)
+        visited[y,x] = True 
+        count = 0
+        while len(next_neighbors) > 0:
+          count+=1
+          y,x = next_neighbors.pop()
+          u = y-1
+          d = y+1 
+          l = x-1
+          r = x+1 
+          if u >= 0:
+              ui = mat[u][x]
+              if ui == 0:
+                return count
+              elif not visited[u,x]:
+                next_neighbors.append((u,x))
+                visited[u,x] = True
+          if l >= 0:
+              li = mat[y][l] 
+              if li == 0:
+                return count
+              elif not visited[y,l]:
+                next_neighbors.append((y,l))
+                visited[y,l] = True
+          if d < my:
+              di = mat[d][x] 
+              if di == 0:
+                return count
+              elif not visited[d,x]:
+                next_neighbors.append[(d,x)]
+                visited[d,x] = True
+          if r < mx:
+              ri = mat[y][r] 
+              if ri == 0:
+                return count
+              elif not visited[y,ri]:
+                next_neighbors.append[(y,ri)]
+                visited[y,ri] = True
 
-        print(f"grid y x is {y} {x} {grid[y][x]}")
-        compareArr = []
-        if x-1 >= 0:
-              left = 9999999
-              if memo[f"{y},{x-1}"] != -1:
-                left = memo[f"{y},{x-1}"]
-              elif grid[y][x-1] == 0:
-                left = 0
-                memo[f"{y},{x-1}"] = 0
-                updated[y][x-1] = 0
-              elif visited[f"{y},{x-1}"] is None:
-                left = self.getMinDist(x-1,y,grid,memo,max_x,max_y, updated = updated)
-              visited[f"{y},{x-1}"] = True
-              compareArr.append(left)
-              
-        if y-1 >= 0:
-              up = 999999999
-              if memo[f"{y-1},{x}"] != -1:
-                up = memo[f"{y-1},{x}"]
-              elif grid[y-1][x] == 0:
-                up = 0
-                memo[f"{y-1},{x}"] = 0
-                updated[y-1][x] = 0
-              elif visited[f"{y-1},{x}"] is None:
-                up = self.getMinDist(x,y-1,grid,memo,max_x,max_y, updated = updated)
-              visited[f"{y-1},{x}"] = True
-              compareArr.append(up)
-              
-        if x+1 < max_x:
-                right = 999999999
-                if memo[f"{y},{x+1}"] != -1:
-                    right = memo[f"{y},{x+1}"]
-                elif grid[y][x+1] == 0:
-                    right = 0
-                    memo[f"{y},{x+1}"] = 0
-                    updated[y][x+1] = 0
-                else:
-                    right = self.getMinDist(x+1,y,grid,memo,max_x,max_y, updated = updated)
-                visited[f"{y},{x+1}"] = True
-                compareArr.append(right)
-        if y+1 < max_y:
-                down = 999999999
-                if memo[f"{y+1},{x}"] != -1:
-                    down = memo[f"{y+1},{x}"]
-                elif grid[y+1][x] == 0:
-                    down = 0
-                    memo[f"{y+1},{x}"] = 0
-                    updated[y+1][x] = 0
-                else:
-                    down = self.getMinDist(x,y+1,grid,memo,max_x,max_y, updated = updated)
-                visited[f"{y+1},{x}"] = True
-                compareArr.append(down)
-
-        res = 1 + min(compareArr)
-        memo[f"{y},{x}"] = res 
-        updated[y][x] = res
-        return res 
-        
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        max_y = len(mat)
-        max_x = len(mat[0])
-        updated = [[0]*len(mat[0]) for _ in range(len(mat))] # init 2d matrix 
-        memo = defaultdict(lambda: -1)
-        for y in range(len(mat)):
-            line = mat[y]
-            for x in range(len(line)):
-                if memo[f"{y},{x}"] == -1:
-                    self.getMinDist(x,y,mat,memo,max_x,max_y, updated=updated)
-        return updated
+        return 
+        
 
 sol = Solution()
 
@@ -92,15 +62,7 @@ mat = [[0,0,0],[0,1,0],[1,1,1]]
 expect = [[0,0,0],[0,1,0],[1,2,1]]
 print(f"expect {expect} {sol.updateMatrix(mat)}")
 
-"""
-000
-010
-111
+# mini tests
 
-000
-0
-
-000
-010
-121
-"""
+print (f"expect 1 is {sol.bfs(mat,1,1)}")
+print (f"expect {expect[2][1]} is {sol.bfs(mat,1,2)}")
