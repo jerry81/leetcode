@@ -3,8 +3,8 @@ from typing import List
 
 
 class Solution:
-    def bfs(self, mat, x,y, memo = {}):
-        if memo[y,x] is not None:
+    def bfs(self, mat, x,y, memo):
+        if memo[y,x] != -1:
             return memo[y,x]
         if mat[y][x] == 0:
             memo[y,x] = 0
@@ -17,46 +17,57 @@ class Solution:
         count = 0
         while len(next_neighbors) > 0:
           count+=1
-          y,x = next_neighbors.pop()
-          u = y-1
-          d = y+1 
-          l = x-1
-          r = x+1 
+          ny,nx = next_neighbors.pop()
+          if memo[ny,nx] != -1:
+            return count + memo[ny,nx] - 1
+          u = ny-1
+          d = ny+1 
+          l = nx-1
+          r = nx+1 
           if u >= 0:
-              ui = mat[u][x]
+              ui = mat[u][nx]
               if ui == 0:
-                memo[u,x] = count
+                memo[y,x] = count
                 return count
-              elif not visited[u,x]:
-                next_neighbors.append((u,x))
-                visited[u,x] = True
+              elif not visited[u,nx]:
+                next_neighbors.append((u,nx))
+                visited[u,nx] = True
           if l >= 0:
-              li = mat[y][l] 
+              li = mat[ny][l] 
               if li == 0:
-                memo[y,l] = count
+                memo[y,x] = count
                 return count
-              elif not visited[y,l]:
-                next_neighbors.append((y,l))
-                visited[y,l] = True
+              elif not visited[ny,l]:
+                next_neighbors.append((ny,l))
+                visited[ny,l] = True
           if d < my:
-              di = mat[d][x] 
+              di = mat[d][nx] 
               if di == 0:
-                memo[d,x] = count
+                memo[y,x] = count
                 return count
-              elif not visited[d,x]:
-                next_neighbors.append[(d,x)]
-                visited[d,x] = True
+              elif not visited[d,nx]:
+                next_neighbors.append[(d,nx)]
+                visited[d,nx] = True
           if r < mx:
-              ri = mat[y][r] 
+              ri = mat[ny][r] 
               if ri == 0:
-                memo[y,r] = count
+                memo[y,x] = count
                 return count
-              elif not visited[y,ri]:
-                next_neighbors.append[(y,ri)]
-                visited[y,ri] = True
+              elif not visited[ny,ri]:
+                next_neighbors.append[(ny,ri)]
+                visited[ny,ri] = True
 
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        return 
+        updated = [[-1]*len(mat) for _ in range(len(mat[0]))]
+        memo = defaultdict(lambda: -1)
+        for i in range(len(mat)):
+            for j in range(len(mat[0])):
+                if memo[i,j] != -1:
+                    updated[i][j] = memo[i,j] 
+                else:
+                    updated[i][j] = self.bfs(mat,j,i,memo)
+
+        return updated
         
 
 sol = Solution()
@@ -70,6 +81,6 @@ expect = [[0,0,0],[0,1,0],[1,2,1]]
 print(f"expect {expect} {sol.updateMatrix(mat)}")
 
 # mini tests
-
-print (f"expect 1 is {sol.bfs(mat,1,1)}")
-print (f"expect {expect[2][1]} is {sol.bfs(mat,1,2)}")
+mem = defaultdict(lambda:-1)
+print (f"expect 1 is {sol.bfs(mat,1,1,mem)}")
+print (f"expect {expect[2][1]} is {sol.bfs(mat,1,2,mem)}")
