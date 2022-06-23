@@ -1,83 +1,32 @@
-from collections import defaultdict
+import sys
 from typing import List
 
 
 class Solution:
-    def bfs(self, mat, x,y, memo):
-        if memo[y,x] != -1:
-            return memo[y,x]
-        if mat[y][x] == 0:
-            memo[y,x] = 0
-            return 0
-        next_neighbors = [(y,x)]
-        my = len(mat)
-        mx = len(mat[0])
-        visited = defaultdict(bool)
-        visited[y,x] = True 
-        count = 0
-        while len(next_neighbors) > 0:
-          new_neighbors = []
-          count+=1
-          for n in next_neighbors:
-            ny,nx = n
-            # if memo[ny,nx] != -1:
-            #   return 1 + memo[ny,nx]
-            u = ny-1
-            d = ny+1 
-            l = nx-1
-            r = nx+1
-            memoized = []
-            if memo[ny,nx] != -1:
-                memoized.append(memo[ny,nx])
-            if u >= 0:
-                ui = mat[u][nx]
-                if ui == 0:
-                  memo[y,x] = count
-                  return count
-                elif not visited[u,nx]:
-                  new_neighbors.append((u,nx))
-                  visited[u,nx] = True
-            if l >= 0:
-                li = mat[ny][l] 
-                if li == 0:
-                  memo[y,x] = count
-                  return count
-                elif not visited[ny,l]:
-                  new_neighbors.append((ny,l))
-                  visited[ny,l] = True
-            if d < my:
-                di = mat[d][nx] 
-                if di == 0:
-                  memo[y,x] = count
-                  return count
-                elif not visited[d,nx]:
-                  new_neighbors.append((d,nx))
-                  visited[d,nx] = True
-            if r < mx:
-                ri = mat[ny][r] 
-                if ri == 0:
-                  memo[y,x] = count
-                  return count
-                elif not visited[ny,r]:
-                  new_neighbors.append((ny,r))
-                  visited[ny,r] = True
-          if len(memoized) > 0:
-            memo[y,x] = min(memoized) + 1
-            return min(memoized) + 1
-          next_neighbors = new_neighbors
-
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        updated = [[-1]*len(mat[0]) for _ in range(len(mat))]
-        memo = defaultdict(lambda: -1)
-        for i in range(len(mat)):
-            for j in range(len(mat[0])):
-                if memo[i,j] != -1:
-                    updated[i][j] = memo[i,j] 
+        rows = len(mat)
+        if (rows == 0):
+            return mat
+        cols = len(mat[0])
+        updated = [[sys.maxsize] * cols for _ in range(rows)]
+        for i in range(rows):
+            for j in range(cols):
+                if mat[i][j] == 0:
+                    updated[i][j] = 0
                 else:
-                    updated[i][j] = self.bfs(mat,j,i,memo)
-
+                    if i > 0:
+                        updated[i][j] = min(updated[i-1][j] + 1, updated[i][j])
+                    if j > 0:
+                        updated[i][j] = min(updated[i][j-1] + 1, updated[i][j])
+        for y in range(rows):
+            for x in range(cols):
+                i = rows - y - 1
+                j = cols - x - 1
+                if i < (rows - 1):
+                    updated[i][j] = min(updated[i][j], 1 + updated[i+1][j])
+                if j < (cols - 1):
+                    updated[i][j] = min(updated[i][j], 1 + updated[i][j+1])
         return updated
-        
 
 sol = Solution()
 
@@ -89,21 +38,44 @@ mat = [[0,0,0],[0,1,0],[1,1,1]]
 expect = [[0,0,0],[0,1,0],[1,2,1]]
 print(f"expect {expect} {sol.updateMatrix(mat)}")
 
-mat = [[0,1,1],[1,1,1],[1,1,1]]
-expect = [[0,1,2],[1,2,3],[2,3,4]]
+mat = [[1,1,0,0,1,0,0,1,1,0],[1,0,0,1,0,1,1,1,1,1],[1,1,1,0,0,1,1,1,1,0],[0,1,1,1,0,1,1,1,1,1],[0,0,1,1,1,1,1,1,1,0],[1,1,1,1,1,1,0,1,1,1],[0,1,1,1,1,1,1,0,0,1],[1,1,1,1,1,0,0,1,1,1],[0,1,0,1,1,0,1,1,1,1],[1,1,1,0,1,0,1,1,1,1]]
+expect = "something good"
 print(f"expect {expect} {sol.updateMatrix(mat)}")
 
 """
-0 1 1 
-1 1 1
-1 1 1
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        if (rows == 0) 
+            return matrix;
+        int cols = matrix[0].size();
+        vector<vector<int>> dist(rows, vector<int> (cols, INT_MAX - 100000));
 
-0 1 2
-1 2 3
-2 3 4
+        //First pass: check for left and top
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    dist[i][j] = 0;
+                } else {
+                    if (i > 0)
+                        dist[i][j] = min(dist[i][j], dist[i - 1][j] + 1);
+                    if (j > 0)
+                        dist[i][j] = min(dist[i][j], dist[i][j - 1] + 1);
+                }
+            }
+        }
+
+        //Second pass: check for bottom and right
+        for (int i = rows - 1; i >= 0; i--) {
+            for (int j = cols - 1; j >= 0; j--) {
+                if (i < rows - 1)
+                    dist[i][j] = min(dist[i][j], dist[i + 1][j] + 1);
+                if (j < cols - 1)
+                    dist[i][j] = min(dist[i][j], dist[i][j + 1] + 1);
+            }
+        }
+        return dist;
+    }
+};
 """
-
-# mini tests
-mem = defaultdict(lambda:-1)
-print (f"expect 1 is {sol.bfs(mat,1,1,mem)}")
-print (f"expect {expect[2][1]} is {sol.bfs(mat,1,2,mem)}")
