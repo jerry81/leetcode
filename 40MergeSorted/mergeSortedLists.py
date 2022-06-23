@@ -22,6 +22,7 @@ class Solution:
                   if newHead is None:
                     newHead = head2 
                     headPtr = newHead 
+                    return headPtr
                   else:
                     newHead.next = head2 
                   return headPtr 
@@ -29,6 +30,7 @@ class Solution:
             if newHead is None:
                 newHead = head1 
                 headPtr = newHead 
+                return headPtr 
             else:
                 newHead.next = head1 
                 return headPtr  
@@ -87,4 +89,8 @@ list2_2 = ListNode(4)
 list2_1 = ListNode(3,list2_2)
 list2_0 = ListNode(1,list2_1)
 newList = sol.mergeTwoLists(list1_0, list2_0)
+print(f"newlist is {newList}")
+
+list1_0 = ListNode(1)
+newList = sol.mergeTwoLists(list1_0, None)
 print(f"newlist is {newList}")
