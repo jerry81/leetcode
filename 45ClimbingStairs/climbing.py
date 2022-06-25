@@ -3,12 +3,14 @@ from collections import defaultdict
 
 class Solution:
     def fib(self,n,memo):
-       if memo[n]:
+       if memo[n] > -1:
         return memo[n]
-       memo[n] = memo[n-1] + memo[n-2]
+       if memo[n-1] and memo[n-2]:
+         memo[n] = memo[n-1] + memo[n-2]
+       memo[n] = self.fib(n-1, memo) + self.fib(n-2,memo)
        return memo[n]
     def climbStairs(self, n: int) -> int:
-      memo=defaultdict(lambda: 0)
+      memo=defaultdict(lambda: -1)
       memo[0] = 0 
       memo[1] = 1 
       memo[2] = 2
