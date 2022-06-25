@@ -4,16 +4,16 @@ from collections import defaultdict
 class Solution:
     def nextCombination(self, n: int, k:int, cur:List):
         ret = cur.copy()
-        for i in range(k):
-          idx = k-1-i
-          rightmost = ret[idx]
-          offset = n-idx
-          if (rightmost <= offset):
-            ret[idx] += 1
+        for i in range(k-1,0,-1):
+          rightmost = ret[i]
+          curmax = n - ((k-1)-i)
+          print(f"i is {i} rightmost is {rightmost} curmax is {curmax}")
+          if rightmost < curmax:
+            ret[i] += 1
             return ret
           else: 
-            # if idx == 0:
-            break
+            if i == 0:
+              break
             # 1,4 
             # -> 2,3
             # 2,4
