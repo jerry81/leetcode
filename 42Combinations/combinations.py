@@ -7,7 +7,6 @@ class Solution:
         for i in range(k-1,0,-1):
           rightmost = ret[i]
           curmax = n - ((k-1)-i)
-          print(f"i is {i} rightmost is {rightmost} curmax is {curmax}")
           if rightmost < curmax:
             ret[i] += 1
             return ret
@@ -19,10 +18,10 @@ class Solution:
               # carry over 
               left = i - 1
               lv = ret[left]
-              print(f"left is {left} lv is {lv}") 
               if lv < curmax - 1:
-                ret[left] += 1 
-                ret[i] = ret[left]+1
+                ret[left] += 1
+                for j in range(i,k):
+                  ret[j] = ret[j-1]+1
                 return ret
             # 1,4 
             # -> 2,3
@@ -68,7 +67,42 @@ expect = [\
   [1,3,4],\
   [2,3,4]
 ]
+print(f"expect {expect}\nsol is {sol.combine(n,k)}")
 
+n = 5
+k = 3
+expect = [\
+  [1,2,3],\
+  [1,2,4],\
+  [1,2,5],\
+  [1,3,4],\
+  [1,3,5],\
+  [1,4,5],\
+  [2,3,4],\
+  [2,3,5],\
+  [2,4,5],\
+  [3,4,5]
+]
+
+print(f"expect {expect}\nsol is {sol.combine(n,k)}")
+
+n = 6
+k = 4
+expect = [\
+  [1,2,3,4],\
+  [1,2,3,5],\
+  [1,2,3,6],\
+  [1,2,4,5],\
+  [1,2,4,6],\
+  [1,2,5,6],\
+  [1,3,4,5],\
+  [1,3,4,6],\
+  [1,3,5,6],\
+  [1,4,5,6],\
+  [1,4,5,6],\
+  "etc"
+]
+print(f"expect {expect}\nsol is {sol.combine(n,k)}")
 """
 1,2,3
 1,2,4
