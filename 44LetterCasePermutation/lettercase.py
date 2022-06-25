@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     def get_binary_perms(self, numdigits):
         strs = []
-        for i in range(1,2**numdigits):
+        for i in range(0,2**numdigits):
             formatS = '0' + str(numdigits) + 'b'
             asB = format(i, formatS)
             strs.append(asB)
@@ -17,8 +17,18 @@ class Solution:
         for idx,c in enumerate(s):
             if c.isalpha():
                 chmap[idx] = c
-        print(f"chmap is {chmap}")
-        return 
+        perms = self.get_binary_perms(len(list(chmap.keys())))
+        p_proc = list(\
+            map(lambda x: list(x), perms)\
+        )
+        for p in p_proc:
+            sc = list(s)
+            for k,v in list(chmap.items()):
+                top = p.pop()
+
+                sc[k] = v.lower() if top == '0' else v.upper()
+            res.append("".join(sc))
+        return res
 
 sol = Solution()
 s = "a1b2"
