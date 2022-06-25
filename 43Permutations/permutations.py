@@ -3,20 +3,22 @@ class Solution:
     def getNext(self, nums):
         # 1,3,2 -> 2,1,3
         for i in range(len(nums)-1, 0, -1):
-            print(f"i is {i}")
             for j in range(i-1,-1,-1):
-              print(f"j is {j}")
               if nums[j] < nums[i]:
                 nums[j],nums[i] = nums[i],nums[j]
-                print(f"nums is {nums}")
                 subs = nums[j+1:]
-                print(f"subs is {subs} i is {i} j is {j}")
                 nums[j+1:] = subs[::-1]
                 return nums
-        return nums
+        return None
 
     def permute(self, nums: List[int]) -> List[List[int]]:
-        return 
+        nextres = nums.copy()
+        res = []
+        while nextres is not None:
+          curRes = nextres.copy()
+          res.append(curRes)
+          nextres = self.getNext(nextres)
+        return res
 
 
 
