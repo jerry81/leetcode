@@ -13,6 +13,7 @@ class Solution:
 
     def permute(self, nums: List[int]) -> List[List[int]]:
         nextres = nums.copy()
+        nextres.sort()
         res = []
         while nextres is not None:
           curRes = nextres.copy()
@@ -43,6 +44,10 @@ ex = [[1,2,3,4],[1,2,4,3],[1,3,2,4],[1,3,4,2],[1,4,2,3],[1,4,3,2],\
     [3,1,2,4],[3,1,4,2],[3,2,1,4],[3,2,4,1],[3,4,1,2],[3,4,2,1],\
     [4,1,2,3],[4,1,3,2],[4,2,1,3],[4,2,3,1],[4,3,1,2],[4,3,2,1]]
 print(f"expect {ex}\n{sol.permute(nums)}")
+
+nums = [0,1,-1]
+ex = [[1]]
+print(f"expect something reasonable\n{sol.permute(nums)}")
 
 arr1 = [1,2,3]
 arr2 = [1,2,3]
