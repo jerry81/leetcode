@@ -13,11 +13,22 @@ class Solution:
             return ret
           else: 
             if i == 0:
+              print(f"breaking")
               break
+            else:
+              # carry over 
+              left = i - 1
+              lv = ret[left]
+              print(f"left is {left} lv is {lv}") 
+              if lv < curmax - 1:
+                ret[left] += 1 
+                ret[i] = ret[left]+1
+                return ret
             # 1,4 
             # -> 2,3
             # 2,4
             # -> 3,4
+        print(f"nothing to do ")
         return None
 
     def combine(self, n: int, k: int) -> List[List[int]]:
