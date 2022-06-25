@@ -32,6 +32,10 @@ class Solution:
 
     def combine(self, n: int, k: int) -> List[List[int]]:
         res = []
+        if k == 1:
+            for i in range(n):
+                res.append([i+1])
+            return res
         first = list(range(1,k+1))
         res.append(first)
         cur = self.nextCombination(n,k,first)
@@ -102,6 +106,12 @@ expect = [\
   [1,4,5,6],\
   "etc"
 ]
+print(f"expect {expect}\nsol is {sol.combine(n,k)}")
+
+
+n = 2
+k = 1
+expect =  [[1],[2]]
 print(f"expect {expect}\nsol is {sol.combine(n,k)}")
 """
 1,2,3
