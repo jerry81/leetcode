@@ -27,3 +27,47 @@ Explanation: There are three ways to climb to the top.
 Constraints:
 
 1 <= n <= 45
+
+# note
+
+even though we found a fibonnacci pattern here is the logical explanation behind this
+
+CLIMBING STAIRS PROBLEM:
+(This problem is very similar to Fibonacci Number
+
+We have two choices at the start: either climb the first stair or climb the 2nd stair.
+
+if we take one step from the ground, then the subproblem becomes: climbing the nth stair from the 1st stair.
+
+if we take two step from the ground, then the subproblem becomes: climbing the nth stair from the 2nd stair.
+
+So we can solve the given problem recursively by adding the results of sub-problems:
+climbStairs(0, n) = climbStairs(1, n) + climbStairs(2, n)
+
+def climbStairs(self, n: int) -> int:
+		if n <= 2:
+            return n
+        
+        dp = [0] * (n+1)
+		
+        dp[1] = 1
+        dp[2] = 2
+        
+        for i in range(3, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+        
+        return dp[n]
+Another more efficient approach could be:
+
+def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        
+        dp = [0, 1, 2]
+        
+        for i in range(3, n+1):
+            dp[i%3] = dp[(i-1) % 3] + dp[(i-2) % 3]
+        
+        return dp[n % 3]
+        
+Feel free to ask the doubts and please upvote!(^_^)
