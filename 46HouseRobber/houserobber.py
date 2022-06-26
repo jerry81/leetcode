@@ -1,12 +1,7 @@
 from collections import defaultdict
 from typing import List
 
-
-
 class Solution:
-    def maxR(self, nums, nums2, remain):
-        return 
-    
     def rob(self, nums: List[int]) -> int:
         # edge cases
         if len(nums) == 1:
@@ -16,11 +11,11 @@ class Solution:
         if len(nums) == 2:
             return max(nums[0], nums[1])
         # main loop 
-        memo = defaultdict(lambda x: 0)
+        memo = defaultdict(lambda: 0)
         memo[0] = nums[0]
         memo[1] = nums[1]
         for i in range(2, len(nums)):
-          memo[i] = max(nums[i] + memo[i-2], memo[i-1])
+          memo[i] = max(nums[i] + memo[i-3], nums[i] + memo[i-2], memo[i-1])
         return max(list(memo.values()))
 
     def robGreedy(self, nums: List[int]) -> int:
@@ -76,6 +71,7 @@ print(f"a {a}\n{s.rob(nums)}")
 
 nums = [10,1,1,10,1,1,10]
 a = 30
+print(f"a {a}\n{s.rob(nums)}")
 """
 10
 1
@@ -87,6 +83,11 @@ a = 30
 
 nums = [10,1,1,10,1,10,1]
 a = 30 
+print(f"a {a}\n{s.rob(nums)}")
 # seeing some similarities with stair climbing
 # step 1 or step 2 
 # first step - 0 or 1 
+
+nums = [2,1,1,2]
+a = 4
+print(f"a {a}\n{s.rob(nums)}")
