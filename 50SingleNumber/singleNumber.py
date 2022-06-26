@@ -1,8 +1,14 @@
+from collections import defaultdict
 from typing import List
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        return 
+        fmap = defaultdict(lambda: 0)
+        for i in nums:
+            fmap[i] +=1
+        as_tlist = list(fmap.items())
+        filtered = list(filter(lambda x: x[1] == 1, as_tlist))
+        return filtered[0][0]
 
 s = Solution()
 nums = [2,2,1]
