@@ -1,5 +1,7 @@
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
+        if n < 0: 
+            return False
         as_b = format(n,'032b')
         one_count = 0
         for i in as_b:
@@ -22,3 +24,6 @@ n = 3
 a = "false"
 print(f"a is {a}\ns is {s.isPowerOfTwo(n)}")
 
+n = -16
+a = 'false'
+print(f"a is {a}\ns is {s.isPowerOfTwo(n)}")
