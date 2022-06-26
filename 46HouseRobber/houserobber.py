@@ -1,11 +1,17 @@
+from collections import defaultdict
 from typing import List
+
 
 
 class Solution:
     def maxR(self, nums, nums2, remain):
         return 
-
+    
     def rob(self, nums: List[int]) -> int:
+        memo = defaultdict()
+        return
+
+    def robGreedy(self, nums: List[int]) -> int:
         # try greedy first
         cidx = 1
         csum = nums[1]
@@ -39,6 +45,11 @@ a = 12
 print(f"a {a}\n{s.rob(nums)}")
 
 """
+memoize max at every idx?
+max[0] = 1
+max[1] = max(nums[1], max[0]) = 2
+max[2] is max(max[0] + nums[2], max[1]) = max(4, 2) = 4
+max[3] is max(nums[3] + max[1, max[2])] = max(3, 4) = 4
 2,9,1
 7,3
 2,3
