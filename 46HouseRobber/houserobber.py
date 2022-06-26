@@ -8,8 +8,20 @@ class Solution:
         return 
     
     def rob(self, nums: List[int]) -> int:
-        memo = defaultdict()
-        return
+        # edge cases
+        if len(nums) == 1:
+            return nums[0]
+        if len(nums) == 0:
+            return 0
+        if len(nums) == 2:
+            return max(nums[0], nums[1])
+        # main loop 
+        memo = defaultdict(lambda x: 0)
+        memo[0] = nums[0]
+        memo[1] = nums[1]
+        for i in range(2, len(nums)):
+          memo[i] = max(nums[i] + memo[i-2], memo[i-1])
+        return max(list(memo.values()))
 
     def robGreedy(self, nums: List[int]) -> int:
         # try greedy first
@@ -18,7 +30,6 @@ class Solution:
         if nums[0] > nums[1]:
             cidx = 0
             csum = nums[0]
-        print(f"init ci {cidx} cs {csum}")
         while True:
           cidx1 = cidx+2
           cidx2 = cidx+3
@@ -32,7 +43,6 @@ class Solution:
           else:
             csum += nums[cidx2]
             cidx = cidx2 
-        return csum
         # return self.maxR(sum1,sum2,nums1,nums2)
 
 s=Solution()
