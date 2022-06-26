@@ -11,14 +11,22 @@ class Solution:
         csum = nums[1]
         if nums[0] > nums[1]:
             cidx = 0
-            cidx = nums[0]
+            csum = nums[0]
+        print(f"init ci {cidx} cs {csum}")
         while True:
           cidx1 = cidx+2
           cidx2 = cidx+3
-          if cidx1 > len(nums):
+          if cidx1 >= len(nums):
             return csum 
-          if cidx2 > len(nums):
+          if cidx2 >= len(nums):
             return csum + nums[cidx1]
+          if nums[cidx1] > nums[cidx2]:
+            csum += nums[cidx1]
+            cidx = cidx1
+          else:
+            csum += nums[cidx2]
+            cidx = cidx2 
+        return csum
         # return self.maxR(sum1,sum2,nums1,nums2)
 
 s=Solution()
