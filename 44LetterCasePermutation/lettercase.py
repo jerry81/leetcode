@@ -1,6 +1,5 @@
 from typing import List
 
-
 class Solution:
     def get_binary_perms(self, numdigits):
         strs = []
