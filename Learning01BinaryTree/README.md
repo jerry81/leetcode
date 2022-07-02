@@ -24,3 +24,8 @@
 - ACEDBHIGF
   - advantage: used in mathematical expression
   - used for deletion process 
+
+- Level-order traversal - traverse tree level by level
+  - BFS - root, neighbors, next level repeat
+  - FBGADICEH
+  - implemented with queue 
