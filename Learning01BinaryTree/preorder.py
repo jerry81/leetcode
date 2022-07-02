@@ -37,7 +37,18 @@ class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if root is None:
             return []
-        return [root.val]\
-            .append(self.preorderTraversal(root.left))\
-            .append(self.preorderTraversal(root.right))
+        print(f"traversing {root.val}")
+        res = [root.val]
+        if root.left is not None:
+            res += (self.preorderTraversal(root.left))
+        if root.right is not None:
+            res += (self.preorderTraversal(root.right))
+        return res 
+        
+l2 = TreeNode(val=3)
+r1 = TreeNode(val=2, left=l2)
+root = TreeNode(val=1, right=r1)
 
+ex = [1,2,3]
+s = Solution()
+print(f"expect {ex}\ns {s.preorderTraversal(root)}")
