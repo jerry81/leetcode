@@ -29,8 +29,23 @@ class TreeNode:
         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        return 
-        
+        if root is None:
+            return [] 
+        queue = [root]
+        res = []
+        while len(queue) > 0:
+            curres = []
+            nextqueue = []
+            for top in queue:
+              curres.append(top.val)
+              if top.left is not None:
+                nextqueue.append(top.left)
+              if top.right is not None:
+                nextqueue.append(top.right)
+            res.append(curres)
+            queue = nextqueue
+        return res
+
 s = Solution()
 n1 = TreeNode(val=15)
 n2 = TreeNode(val=7)
