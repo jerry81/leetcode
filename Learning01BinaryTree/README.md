@@ -47,10 +47,28 @@
 5. return the answer if needed                      // answer <-- left_ans, right_ans
 
 - example, max depth of binary tree
-store answer as a global var
-- handle null case
-- recursive(left, d+1)
-- recursive(right, d+1)
-if !node.left && !node.right
-  update answer if d > answer 
+  - store answer as a global var
+  - handle null case
+  - recursive(left, d+1)
+  - recursive(right, d+1)
+  if !node.left && !node.right
+    update answer if d > answer 
 
+## bottom up 
+
+- simlar to post-order traversal
+- first recurse then return the answers back up 
+- pattern
+1. return specific value for null node
+2. left_ans = bottom_up(root.left)      // call function recursively for left child
+3. right_ans = bottom_up(root.right)    // call function recursively for right child
+4. return answers                       // answer <-- left_ans, right_ans, root.val
+- max depth
+- if null return 0
+- if children empty return 1
+- left depth = 1 + recurse(left)
+- rightdepth = 1 + recurse(right)
+- return max(l,r)
+
+- recursion not easy
+- needs practice 
