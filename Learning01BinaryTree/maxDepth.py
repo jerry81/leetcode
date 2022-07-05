@@ -1,7 +1,11 @@
-# Definition for a binary tree node.
+"""
+classic problem
+find depth of tree with recursion 
+"""
+
 from typing import Optional
 
-
+# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
