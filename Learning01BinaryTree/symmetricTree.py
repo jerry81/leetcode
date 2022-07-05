@@ -31,3 +31,21 @@ class TreeNode:
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         return 
+
+s = Solution()
+root = [1,2,2,3,4,4,3]
+b1 = TreeNode(3)
+b2 = TreeNode(4)
+b3 = TreeNode(4)
+b4 = TreeNode(3)
+a1 = TreeNode(2,b1,b2)
+a2 = TreeNode(2,b3,b4)
+rt = TreeNode(1,a1,a2)
+print(f"expect True {s.isSymmetric(rt)}")
+
+b2 = TreeNode(3)
+b4 = TreeNode(3)
+a1 = TreeNode(val=2,right=b2)
+a2 = TreeNode(val=2,right=b4)
+rt = TreeNode(1,a1,a2)
+print(f"expect False {s.isSymmetric(rt)}")
