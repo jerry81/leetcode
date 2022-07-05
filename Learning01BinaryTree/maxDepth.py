@@ -10,7 +10,11 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        return 
+        if root is None: 
+            return 0
+        lval = 1 + self.maxDepth(root.left)
+        rval = 1 + self.maxDepth(root.right)
+        return max(lval,rval)
 
 s = Solution()
 a1 = TreeNode(9)
