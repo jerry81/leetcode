@@ -29,3 +29,28 @@
   - BFS - root, neighbors, next level repeat
   - FBGADICEH
   - implemented with queue 
+
+# recursion
+
+- often used to solve tree problems 
+- topdown or bottom up
+
+## top down 
+
+- similar to preorder traversal
+- visit node, do something, pass value down to children 
+- pattern
+1. return specific value for null node // termination 
+2. update the answer if needed                      // answer <-- params
+3. left_ans = top_down(root.left, left_params)      // left_params <-- root.val, params
+4. right_ans = top_down(root.right, right_params)   // right_params <-- root.val, params
+5. return the answer if needed                      // answer <-- left_ans, right_ans
+
+- example, max depth of binary tree
+store answer as a global var
+- handle null case
+- recursive(left, d+1)
+- recursive(right, d+1)
+if !node.left && !node.right
+  update answer if d > answer 
+
