@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 # Definition for a binary tree node.
 """
 Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
@@ -29,11 +29,36 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if root is None:
+            return [-1] 
+        queue = [root]
+        res = []
+        while len(queue) > 0:
+            curres = []
+            nextqueue = []
+            for top in queue:
+              if top is None:
+                curres.append(None)
+              else: 
+                curres.append(top.val)
+                if top.left is not None:
+                  nextqueue.append(top.left)
+                else: 
+                  nextqueue.append(None)
+                if top.right is not None:
+                  nextqueue.append(top.right)
+                else: 
+                  nextqueue.append(None)
+            res.append(curres)
+            queue = nextqueue
+        return res
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        return 
+        levels = self.levelOrder(root)
+        return levels 
+        
 
 s = Solution()
-root = [1,2,2,3,4,4,3]
 b1 = TreeNode(3)
 b2 = TreeNode(4)
 b3 = TreeNode(4)
