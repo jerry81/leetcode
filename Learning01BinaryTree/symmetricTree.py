@@ -55,7 +55,11 @@ class Solution:
         return res
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         levels = self.levelOrder(root)
-        return levels 
+        for l in levels:
+          if l != l[::-1]:
+            return False 
+        return True 
+
         
 
 s = Solution()
