@@ -40,3 +40,17 @@ class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         return 
         
+
+s = Solution()
+targetSum = 22
+Output = True
+c8 = TreeNode(1)
+c2 = TreeNode(2)
+c1 = TreeNode(7)
+b4 = TreeNode(4,right=c8)
+b3 = TreeNode(13)
+b1 = TreeNode(11,c1,c2)
+a2 = TreeNode(8,b3,b4)
+a1 = TreeNode(4,b1)
+rt = TreeNode(5,a1,a2)
+print(f"expect {Output}\n{s.hasPathSum(rt,targetSum)}")
