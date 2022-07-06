@@ -37,9 +37,22 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
+    sums = []
+    def getPathSum(self, root: Optional[TreeNode], cur):
+      if root.left is None and root.right is None:
+        self.sums.append(cur+root.val)
+      if root.left is not None: 
+        self.getPathSum(root.left,cur+root.val)
+      if root.right is not None:
+        self.getPathSum(root.right,cur+root.val)
+         
+
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        return 
-        
+        if root is None:
+            return False
+        self.getPathSum(root, 0)
+        return targetSum in self.sums
+
 
 s = Solution()
 targetSum = 22
