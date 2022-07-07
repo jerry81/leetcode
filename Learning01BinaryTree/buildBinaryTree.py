@@ -37,7 +37,28 @@ class TreeNode:
         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-      return
+      root = TreeNode(postorder[-1])
 
 inorder = [9,3,15,20,7]
 postorder = [9,15,7,20,3]
+
+"""
+first item in both arrays is leftmost leaf 
+inorder - LVR
+postorder LRV 
+last item in postorder is root
+inorder until root reached
+- this is the left side of the tree up until root 
+- remove [9,3]
+     3
+  9
+[15,20,7]
+[15,7,20]
+- 15 is left most of the remaining tree
+- 
+
+        3
+    9      20
+        15    7
+"""
+
