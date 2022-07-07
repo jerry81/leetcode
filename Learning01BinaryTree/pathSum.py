@@ -67,3 +67,13 @@ a2 = TreeNode(8,b3,b4)
 a1 = TreeNode(4,b1)
 rt = TreeNode(5,a1,a2)
 print(f"expect {Output}\n{s.hasPathSum(rt,targetSum)}")
+
+
+a1 = TreeNode(2)
+rt = TreeNode(1,a1)
+targetSum = 1
+Output = False 
+print(f"expect {Output}\n{s.hasPathSum(rt,targetSum)}")
+
+
+print(f"expect False {s.hasPathSum(None, 0)}")
