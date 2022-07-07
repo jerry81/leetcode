@@ -48,9 +48,11 @@ class Solution:
          
 
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        self.sums = []
         if root is None:
             return False
         self.getPathSum(root, 0)
+        print(f"sums is {self.sums}")
         return targetSum in self.sums
 
 
