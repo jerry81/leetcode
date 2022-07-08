@@ -84,7 +84,8 @@ class Solution:
         count = 0
         for i in range(len(nodes)):
             if (2**curE)-1 != count:
-                nodes[i].next = nodes[i+1]
+                if nodes[i] is not None:
+                  nodes[i].next = nodes[i+1]
                 count+=1
             else: 
                 curE+=1
