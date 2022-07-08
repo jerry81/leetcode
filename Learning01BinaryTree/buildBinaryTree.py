@@ -87,11 +87,22 @@ inorder and post meet at first left parent
 post[0] = in[1]
 so post[0] is R leaf of in[1]
 new leaf = 2 
-[5,7,6,4..
-[4,5,6,7...
+post [5,7,6,4..
+in [4,5,6,7...
+post and in intersecting at 5 (post 0 in 1) just means in[0] is the next leftmost item and is a parent of post[0]
 
-post[0] = 5
-indexOf in(5) = 1
+in[0] intersects with post[1]
+in[1] is also post[0]
+so post[0] is right child of in[0]
+in[0] is leftmost leaf 
+
+post [5,7,6,4...
+in [4,5,6,7....
+
+in[0] = 4
+indexOf post(4) = 4
+- so 5,7,6 are l,r,v and are the right child of 4 
+
 
               8
         4             12
