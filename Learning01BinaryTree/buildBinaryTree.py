@@ -35,8 +35,23 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+    def  __str__(self):
+        return f"{self.val}, l {self.left} r {self.right}"
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        if len(postorder) == 0:
+            return None 
+        if len(postorder) == 1:
+            return TreeNode(postorder[0])
+        rootVal = postorder.pop()
+        idx = inorder.index(rootVal)
+        left = inorder[:idx]
+        right = inorder[idx+1:]
+        leftP = postorder[:idx]
+        rightP = postorder[idx+1:]
+        return TreeNode(rootVal, self.buildTree(left,leftP), self.buildTree(right,rightP))
+
+    def buildTreeFail(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
       left = inorder.pop(0)
       idx = postorder.index(left)
       nextNode = None
@@ -71,7 +86,8 @@ class Solution:
 s=Solution()
 inorder = [9,3,15,20,7]
 postorder = [9,15,7,20,3]
-s.buildTree(inorder,postorder)
+tree = s.buildTree(inorder,postorder)
+print(f"tree is {tree}")
 
 """
 first item in both arrays is leftmost leaf 
