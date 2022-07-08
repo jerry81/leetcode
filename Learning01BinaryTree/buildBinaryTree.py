@@ -79,7 +79,7 @@ with holes
                8
         4             12
     2      6       10        14
-      3  5  7   9    11   13    15
+      3  5  7   9         13    15
 
 post =  3 2 5 7 6 4 9 10 13 15 14 12 8
 in = 2 3 4 5 6 7 8 9 10 12 13 14 15
@@ -103,6 +103,14 @@ in[0] = 4
 indexOf post(4) = 4
 - so 5,7,6 are l,r,v and are the right child of 4 
 
+now left leaf is 4 
+post is [9 10 13 15 14 12 8]
+in is [8 9 10 12 13 14 15]
+
+- pattern is exploding...
+in[0] = post[6]
+so 8 is left most 
+and post 9 is leaf (left) 10 is 
 
               8
         4             12
