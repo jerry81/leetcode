@@ -37,21 +37,21 @@ class TreeNode:
         return f"{self.val}, l {self.left} r {self.right}"
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if len(postorder) == 0:
+        if len(preorder) == 0:
             return None 
-        if len(postorder) == 1:
-            return TreeNode(postorder[0])
-        rootVal = postorder.pop()
+        if len(preorder) == 1:
+            return TreeNode(preorder[0])
+        rootVal = preorder.pop(0)
         idx = inorder.index(rootVal)
         left = inorder[:idx]
         right = inorder[idx+1:]
-        leftP = postorder[:idx]
-        rightP = postorder[idx:]
-        return TreeNode(rootVal, self.buildTree(left,leftP), self.buildTree(right,rightP))
+        leftP = preorder[:idx]
+        rightP = preorder[idx:]
+        return TreeNode(rootVal, self.buildTree(leftP,left), self.buildTree(rightP,right))
 
 
 s=Solution()
+preorder =  [3,9,20,15,7]
 inorder = [9,3,15,20,7]
-postorder = [9,15,7,20,3]
-tree = s.buildTree(inorder,postorder)
+tree = s.buildTree(preorder,inorder)
 print(f"tree is {tree}")
