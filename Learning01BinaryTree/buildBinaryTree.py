@@ -47,10 +47,8 @@ class Solution:
         idx = inorder.index(rootVal)
         left = inorder[:idx]
         right = inorder[idx+1:]
-        print(f"left is {left} right is {right}")
         leftP = postorder[:idx]
         rightP = postorder[idx:]
-        print(f"leftP is {leftP} rightP is {rightP}")
         return TreeNode(rootVal, self.buildTree(left,leftP), self.buildTree(right,rightP))
 
     def buildTreeFail(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
