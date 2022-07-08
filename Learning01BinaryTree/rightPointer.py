@@ -37,7 +37,6 @@ You may only use constant extra space.
 The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
 """
 
-
 # Definition for a Node.
 class Node:
     def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
@@ -45,20 +44,29 @@ class Node:
         self.left = left
         self.right = right
         self.next = next
-
+    def __str__(self):
+        print(f"val {self.val}")
 
 class Solution:
     def flattenNodes(self,nodes,roots):
+      if len(list(filter(lambda x: x is not None, roots))) == 0:
+        return
       # bfs
       newroots = []
-      if len(roots) == 0:
-        return
       for r in roots:
         nodes.append(r)
+        if r is None:
+            newroots.append(None)
+            newroots.append(None)
+            continue
         if r.left is not None:
           newroots.append(r.left)
+        else:
+          newroots.append(None)
         if r.right is not None:
           newroots.append(r.right)
+        else:
+          newroots.append(None)
       self.flattenNodes(nodes,newroots)
 
     def connect(self, root: Node) -> Node:
@@ -67,6 +75,11 @@ class Solution:
         # first enumerate as flat list
         nodes = []
         self.flattenNodes(nodes,[root])
+        for n in nodes:
+            if n is not None:
+              print(n.val)
+            else:
+              print('NONE')
         curE = 0
         count = 0
         for i in range(len(nodes)):
@@ -77,3 +90,20 @@ class Solution:
                 curE+=1
                 count = 0
         return nodes[0]
+    
+s=Solution()
+
+
+n7 = Node(7)
+n5 = Node(5)
+n4 = Node(4)
+
+n2 = Node(2,n4,n5)
+n3 = Node(3, right=n7)
+n1 = Node(1,n2,n3)
+
+s.connect(n1)
+""" 
+[1,2,3,4,5,null,7]
+Output: [1,#,2,3,#,4,5,7,#]
+"""
