@@ -83,17 +83,22 @@ class Solution:
         curE = 0
         count = 0
         for i in range(len(nodes)):
-            if (2**curE)-1 != count:
+            if (2**curE)-1 < count:
                 if nodes[i] is not None:
-                  nodes[i].next = nodes[i+1]
-                count+=1
+                  for j in range(1,2**curE):
+                    nodes[i].next = nodes[i+j]
+                    count+=1
+                    if count == (2**curE)-1:
+                        break
+
+
+               
             else: 
                 curE+=1
                 count = 0
         return nodes[0]
     
 s=Solution()
-
 
 n7 = Node(7)
 n5 = Node(5)
@@ -103,8 +108,9 @@ n2 = Node(2,n4,n5)
 n3 = Node(3, right=n7)
 n1 = Node(1,n2,n3)
 
-s.connect(n1)
+res = s.connect(n1)
 """ 
 [1,2,3,4,5,null,7]
+[1,2,3,4,5,null,7] 5-> nodes[i+1] none -> nodes[i+2] none
 Output: [1,#,2,3,#,4,5,7,#]
 """
