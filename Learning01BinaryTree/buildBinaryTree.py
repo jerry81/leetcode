@@ -37,10 +37,41 @@ class TreeNode:
         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-      root = TreeNode(postorder[-1])
+      left = inorder.pop(0)
+      idx = postorder.index(left)
+      nextNode = None
+      print(f"left is {left}")
+      print(f"idx is {idx}")
+      for i in range(idx+1):
+        nextType = ["L","R","V"]
+        n = nextType[i%3]
+        nextPost = postorder[i]
+        print(f"nextPost is {nextPost}")
+        node = TreeNode(nextPost)
+        print(f"n is {n}")
+        nextNode = node 
+      postorder = postorder[idx+1:]
+      print(f"nextNode is {nextNode.val}")
+      print(f"next iter post {postorder} in {inorder}")
+      left = inorder.pop(0)
+      idx = postorder.index(left)
+      print(f"left is {left}")
+      print(f"idx is {idx}")
+      for i in range(idx+1):
+        nextType = ["L","R","V"]
+        n = nextType[i%3]
+        nextPost = postorder[i]
+        print(f"nextPost is {nextPost}")
+        node = TreeNode(nextPost)
+        print(f"n is {n}")
+        nextNode = node 
+      postorder = postorder[idx+1:]
+      print(f"next iter post {postorder} in {inorder}")
 
+s=Solution()
 inorder = [9,3,15,20,7]
 postorder = [9,15,7,20,3]
+s.buildTree(inorder,postorder)
 
 """
 first item in both arrays is leftmost leaf 
@@ -90,6 +121,17 @@ new leaf = 2
 post [5,7,6,4..
 in [4,5,6,7...
 post and in intersecting at 5 (post 0 in 1) just means in[0] is the next leftmost item and is a parent of post[0]
+starting with in = 8:
+and post = 9
+get next in - 10 
+10 is next item in post so there are no items in between
+- 9 is a leaf at the left and 10 is the parent
+post 13 15 14 12
+in 12 13 14 
+- 12 is the next leaf - we need to fill up post until 12 
+so 13,15,14 are all moving up lrv 
+13 left leaf 15 right leaf 
+14 parent of 13 and 15 and right of 12
 
 in[0] intersects with post[1]
 in[1] is also post[0]
@@ -115,7 +157,7 @@ and post 9 is leaf (left) 10 is
               8
         4             12
     2      6       10        14
- 1       5  7           13    15
+ 1       5  7    11      13    15
 in = 1 2 4 5 6 7 8 10 11 12 13 14 15
 post = 1 2 5 7 6 4 11 10 13 15 14 12 8
 
