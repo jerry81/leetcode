@@ -83,8 +83,9 @@ class Solution:
           print(f"resQ is {rq.val}")
         print(f"depthMap is {depthMap}")
         merged = list(filter(lambda x: x in resQ, resP))
-        for m in merged:
-          print(f"merged is {m.val}")
+        s = sorted(merged, key=lambda x: depthMap[x.val], reverse = True)
+        return s[0]
+
 
     # need to improve performance 
 
