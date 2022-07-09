@@ -69,6 +69,9 @@ n2.right = n6
 n4.left = n7
 n4.right = n8
 
+print(f"expect True {s.contains(n0,n8)}")
+print(f"expect False {s.contains(n2,n1)}")
+
 p = n1
 q = n2
 expect = n0
