@@ -40,12 +40,16 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def contains(self, root: 'TreeNode', search: 'TreeNode'):
+    def contains(self, root: 'TreeNode', search: 'TreeNode', results=[], depthMap = {}, depth=0):
         if root is None:
             return False
         if root == search:
+            results.append(root)
+            depthMap[root.val] = depth
             return True 
-        return self.contains(root.left, search) or self.contains(root.right,search)
+        if (self.contains(root.left, search, results, depthMap, depth+1) or self.contains(root.right,search, results, depthMap, depth+1)):
+            results.append(root)
+            depthMap[root.val] = depth
 
     def lowestCommonR(self, root:'TreeNode', p: 'TreeNode', q:'TreeNode', depth, maxDepth, sol):
         if root is None:
@@ -58,12 +62,24 @@ class Solution:
         self.lowestCommonR(root.right, p, q, depth+1, maxDepth, sol)
            
         
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def lowestCommonAncestorBadPerf(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         res = []
         self.lowestCommonR(root, p, q, 0,-1,sol=res)
         res =  list(sorted(res, key=lambda item: item['depth'], reverse=True))
         print(f"sortedRes is {res}")
         return res[0]['node']
+    
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        resP = []
+        depthMap = {}
+        self.contains(root, p, resP, depthMap)
+        resQ = []
+        self.contains(root, q, resQ, depthMap)
+        print(f"resP is {resP}")
+        print(f"resQ is {resQ}")
+        print(f"depthMap is {depthMap}")
+
+    # need to improve performance 
 
 s = Solution()
 
