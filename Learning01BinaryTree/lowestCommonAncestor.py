@@ -42,3 +42,28 @@ class TreeNode:
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         return
+
+s = Solution()
+
+n0 = TreeNode(3)
+n1 = TreeNode(5)
+n2 = TreeNode(1)
+n3 = TreeNode(6)
+n4 = TreeNode(2)
+n5 = TreeNode(0)
+n6 = TreeNode(8)
+n7 = TreeNode(7)
+n8 = TreeNode(4)
+n0.left = n1 
+n0.right = n2 
+n1.left = n3
+n1.right = n4 
+n2.left = n5 
+n2.right = n6
+n4.left = n7
+n4.right = n8
+
+p = n1
+q = n2
+expect = n0
+print(f"example 1 is {'correct' if s.lowestCommonAncestor(n0,p,q) == expect else 'fail'}")
