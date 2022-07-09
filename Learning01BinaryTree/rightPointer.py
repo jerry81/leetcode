@@ -69,7 +69,7 @@ class Solution:
           newroots.append(None)
       self.flattenNodes(nodes,newroots)
 
-    def connect(self, root: Node) -> Node:
+    def connect(self, root: 'Node') -> 'Node':
         if root is None:
             return None
         # first enumerate as flat list
@@ -82,20 +82,21 @@ class Solution:
               print('NONE')
         curE = 0
         count = 0
+        curNode = None
         for i in range(len(nodes)):
-            if (2**curE)-1 < count:
-                if nodes[i] is not None:
-                  for j in range(1,2**curE):
-                    nodes[i].next = nodes[i+j]
-                    count+=1
-                    if count == (2**curE)-1:
-                        break
-
-
-               
+            if (2**curE)-1 > count:
+                if nodes[i] is None:
+                    count += 1
+                elif curNode is None:
+                    curNode = nodes[i]
+                else:
+                    curNode.next = nodes[i]
+                    curNode = nodes[i]
+                count+=1
             else: 
                 curE+=1
                 count = 0
+                curNode = None
         return nodes[0]
     
 s=Solution()
