@@ -60,16 +60,15 @@ class Solution:
         nodes.append(r)
         if r is None:
             newroots.append(None)
-            newroots.append(None)
             continue
         if r.left is not None:
+          if len(newroots) > 0:
+              newroots[-1].next = r.left
           newroots.append(r.left)
-        else:
-          newroots.append(None)
         if r.right is not None:
+          if len(newroots) > 0:
+              newroots[-1].next = r.right
           newroots.append(r.right)
-        else:
-          newroots.append(None)
       self.flattenNodes(nodes,newroots)
 
     def connect(self, root: 'Node') -> 'Node':
@@ -78,17 +77,6 @@ class Solution:
         # first enumerate as flat list
         nodes = []
         self.flattenNodes(nodes,[root])
-        curE = 0
-        nodesClone = nodes.copy()
-        while len(nodesClone) > 0:
-            nextLen = (2**curE)
-            sl = nodesClone[:nextLen]
-            sl = list(filter(lambda x: x is not None, sl))
-            print(f"filtered sl is {sl}")
-            for i in range(len(sl)-1):
-                sl[i].next = sl[i+1]
-            nodesClone = nodesClone[nextLen:]
-            curE+=1
         return nodes[0]
     
 s=Solution()
