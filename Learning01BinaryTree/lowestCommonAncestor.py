@@ -40,6 +40,12 @@ class TreeNode:
         self.right = None
 
 class Solution:
+    def contains(self, root: 'TreeNode', search: 'TreeNode'):
+        if root is None:
+            return False
+        if root == search:
+            return True 
+        return self.contains(root.left, search) or self.contains(root.right,search)
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         return
 
