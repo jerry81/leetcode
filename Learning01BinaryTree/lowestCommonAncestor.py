@@ -67,3 +67,7 @@ p = n1
 q = n2
 expect = n0
 print(f"example 1 is {'correct' if s.lowestCommonAncestor(n0,p,q) == expect else 'fail'}")
+
+q = n8
+expect = n1
+print(f"example 2 is {'correct' if s.lowestCommonAncestor(n0,p,q) == expect else 'fail'}")
