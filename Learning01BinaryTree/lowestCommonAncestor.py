@@ -51,16 +51,19 @@ class Solution:
         if root is None:
             return
         if self.contains(root, q) and self.contains(root, p) and depth > maxDepth:
-            sol = root
+            sol.append({ "node": root, "depth": depth})
             maxDepth = depth
+            
         self.lowestCommonR(root.left, p, q, depth+1, maxDepth, sol)
         self.lowestCommonR(root.right, p, q, depth+1, maxDepth, sol)
            
         
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        sol = root 
-        self.lowestCommonR(root, p, q, 0,0,sol)
-        return sol
+        res = []
+        self.lowestCommonR(root, p, q, 0,-1,sol=res)
+        res =  list(sorted(res, key=lambda item: item['depth'], reverse=True))
+        print(f"sortedRes is {res}")
+        return res[0]['node']
 
 s = Solution()
 
@@ -92,4 +95,5 @@ print(f"example 1 is {'correct' if s.lowestCommonAncestor(n0,p,q) == expect else
 
 q = n8
 expect = n1
+# print(f"val is {s.lowestCommonAncestor(n0,p,q).val}")
 print(f"example 2 is {'correct' if s.lowestCommonAncestor(n0,p,q) == expect else 'fail'}")
