@@ -45,7 +45,10 @@ class Node:
         self.right = right
         self.next = next
     def __str__(self):
-        print(f"val {self.val}")
+        if self is None: 
+            return ""
+        else: 
+            return f"val {self.val} left {self.left} right {self.right} next {self.next}"
 
 class Solution:
     def flattenNodes(self,nodes,roots):
@@ -87,6 +90,7 @@ class Solution:
             if (2**curE)-1 > count:
                 if nodes[i] is None:
                     count += 1
+                    next
                 elif curNode is None:
                     curNode = nodes[i]
                 else:
@@ -96,7 +100,7 @@ class Solution:
             else: 
                 curE+=1
                 count = 0
-                curNode = None
+                curNode = nodes[i]
         return nodes[0]
     
 s=Solution()
@@ -110,6 +114,7 @@ n3 = Node(3, right=n7)
 n1 = Node(1,n2,n3)
 
 res = s.connect(n1)
+print(f"res is {res}")
 """ 
 [1,2,3,4,5,null,7]
 [1,2,3,4,5,null,7] 5-> nodes[i+1] none -> nodes[i+2] none
