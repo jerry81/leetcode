@@ -46,8 +46,21 @@ class Solution:
         if root == search:
             return True 
         return self.contains(root.left, search) or self.contains(root.right,search)
+
+    def lowestCommonR(self, root:'TreeNode', p: 'TreeNode', q:'TreeNode', depth, maxDepth, sol):
+        if root is None:
+            return
+        if self.contains(root, q) and self.contains(root, p) and depth > maxDepth:
+            sol = root
+            maxDepth = depth
+        self.lowestCommonR(root.left, p, q, depth+1, maxDepth, sol)
+        self.lowestCommonR(root.right, p, q, depth+1, maxDepth, sol)
+           
+        
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        return
+        sol = root 
+        self.lowestCommonR(root, p, q, 0,0,sol)
+        return sol
 
 s = Solution()
 
