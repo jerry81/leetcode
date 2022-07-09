@@ -50,6 +50,9 @@ class Solution:
         if (self.contains(root.left, search, results, depthMap, depth+1) or self.contains(root.right,search, results, depthMap, depth+1)):
             results.append(root)
             depthMap[root.val] = depth
+            return True 
+        else:
+            return False
 
     def lowestCommonR(self, root:'TreeNode', p: 'TreeNode', q:'TreeNode', depth, maxDepth, sol):
         if root is None:
@@ -57,7 +60,6 @@ class Solution:
         if self.contains(root, q) and self.contains(root, p) and depth > maxDepth:
             sol.append({ "node": root, "depth": depth})
             maxDepth = depth
-            
         self.lowestCommonR(root.left, p, q, depth+1, maxDepth, sol)
         self.lowestCommonR(root.right, p, q, depth+1, maxDepth, sol)
            
@@ -75,9 +77,14 @@ class Solution:
         self.contains(root, p, resP, depthMap)
         resQ = []
         self.contains(root, q, resQ, depthMap)
-        print(f"resP is {resP}")
-        print(f"resQ is {resQ}")
+        for rp in resP:
+            print(f"resP is {rp.val}")
+        for rq in resQ:
+          print(f"resQ is {rq.val}")
         print(f"depthMap is {depthMap}")
+        merged = list(filter(lambda x: x in resQ, resP))
+        for m in merged:
+          print(f"merged is {m.val}")
 
     # need to improve performance 
 
