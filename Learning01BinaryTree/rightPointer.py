@@ -46,7 +46,7 @@ class Node:
         self.next = next
     def __str__(self):
         if self is None: 
-            return ""
+            return "Nane"
         else: 
             return f"val {self.val} left {self.left} right {self.right} next {self.next}"
 
@@ -78,29 +78,17 @@ class Solution:
         # first enumerate as flat list
         nodes = []
         self.flattenNodes(nodes,[root])
-        for n in nodes:
-            if n is not None:
-              print(n.val)
-            else:
-              print('NONE')
         curE = 0
-        count = 0
-        curNode = None
-        for i in range(len(nodes)):
-            if (2**curE)-1 > count:
-                if nodes[i] is None:
-                    count += 1
-                    next
-                elif curNode is None:
-                    curNode = nodes[i]
-                else:
-                    curNode.next = nodes[i]
-                    curNode = nodes[i]
-                count+=1
-            else: 
-                curE+=1
-                count = 0
-                curNode = nodes[i]
+        nodesClone = nodes.copy()
+        while len(nodesClone) > 0:
+            nextLen = (2**curE)
+            sl = nodesClone[:nextLen]
+            sl = list(filter(lambda x: x is not None, sl))
+            print(f"filtered sl is {sl}")
+            for i in range(len(sl)-1):
+                sl[i].next = sl[i+1]
+            nodesClone = nodesClone[nextLen:]
+            curE+=1
         return nodes[0]
     
 s=Solution()
