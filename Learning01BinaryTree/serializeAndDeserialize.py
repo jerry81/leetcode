@@ -41,6 +41,7 @@ class Codec:
         nodes.append(r)
         if r is None:
             newroots.append(None)
+            newroots.append(None)
             continue
         if r.left is not None:
           newroots.append(r.left)
@@ -54,10 +55,12 @@ class Codec:
 
     def serialize(self, root):
         if root is None:
-            return []
+            return ""
         accum = []
         self.serializeR(accum,[root])
-        return ",".join(list(map(lambda x: str(x.val) if x is not None else "None", accum)))
+        res = ",".join(list(map(lambda x: str(x.val) if x is not None else "None", accum)))
+        print(f"res is {res}")
+        return res
         """Encodes a tree to a single string.
         
         :type root: TreeNode
@@ -66,6 +69,8 @@ class Codec:
         
 
     def deserialize(self, data):
+        if data == '':
+            return None
         data = data.split(',')
         data = list(map(lambda x: int(x) if x != "None" else None,data))
         if len(data) == 0:
@@ -111,10 +116,14 @@ n5 = TreeNode(5)
 n2 = TreeNode(2)
 n3 = TreeNode(3)
 n1 = TreeNode(1)
+n6 = TreeNode(6)
+n7 = TreeNode(7)
 n1.left = n2
 n1.right=n3 
 n3.left=n4 
 n3.right=n5
+n4.left=n6 
+n4.right=n7
 
 # root = [1,2,3,null,null,4,5]
 expect = [1,2,3,None,None,4,5]
