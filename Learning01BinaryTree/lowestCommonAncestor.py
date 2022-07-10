@@ -54,6 +54,21 @@ class Solution:
         else:
             return False
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        resP = []
+        depthMap = {}
+        self.contains(root, p, resP, depthMap)
+        resQ = []
+        self.contains(root, q, resQ, depthMap)
+        for rp in resP:
+            print(f"resP is {rp.val}")
+        for rq in resQ:
+          print(f"resQ is {rq.val}")
+        print(f"depthMap is {depthMap}")
+        merged = list(filter(lambda x: x in resQ, resP))
+        s = sorted(merged, key=lambda x: depthMap[x.val], reverse = True)
+        return s[0]
+
     def lowestCommonR(self, root:'TreeNode', p: 'TreeNode', q:'TreeNode', depth, maxDepth, sol):
         if root is None:
             return
@@ -71,20 +86,7 @@ class Solution:
         print(f"sortedRes is {res}")
         return res[0]['node']
     
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        resP = []
-        depthMap = {}
-        self.contains(root, p, resP, depthMap)
-        resQ = []
-        self.contains(root, q, resQ, depthMap)
-        for rp in resP:
-            print(f"resP is {rp.val}")
-        for rq in resQ:
-          print(f"resQ is {rq.val}")
-        print(f"depthMap is {depthMap}")
-        merged = list(filter(lambda x: x in resQ, resP))
-        s = sorted(merged, key=lambda x: depthMap[x.val], reverse = True)
-        return s[0]
+    
 
 
     # need to improve performance 
