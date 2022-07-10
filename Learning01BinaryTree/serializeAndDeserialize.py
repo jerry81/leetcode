@@ -35,10 +35,11 @@ class Codec:
     def serializeR(self, root, nmap):
       if root is None:
         return
-      v = root.val 
-      nmap[v] = []
-      nmap[v].append(root.left.val if root.left is not None else None)
-      nmap[v].append(root.right.val if root.right is not None else None)
+      anId = id(root) 
+      nmap[anId] = []
+      nmap[anId].append(id(root.left) if root.left is not None else None)
+      nmap[anId].append(id(root.right) if root.right is not None else None)
+      nmap[anId].append(root.val)
       self.serializeR(root.left, nmap)
       self.serializeR(root.right, nmap)
       
@@ -56,8 +57,8 @@ class Codec:
             return None
         nmap = json.loads(data)
         lnmap = {}
-        for k in nmap.keys():
-            lnmap[k] = TreeNode(k)
+        for k,v in nmap.items():
+            lnmap[k] = TreeNode(str(v[2]))
         for k,v in nmap.items():
             if v[0] is not None:
               lnmap[k].left = lnmap[str(v[0])]
