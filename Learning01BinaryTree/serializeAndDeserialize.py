@@ -19,15 +19,38 @@ Output: []
 """
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Codec:
+    
+    def serializeR(self,nodes, roots):
+      if len(list(filter(lambda x: x is not None, roots))) == 0:
+        return
+      # bfs
+      newroots = []
+      for r in roots:
+        nodes.append(r)
+        if r is None:
+            newroots.append(None)
+            continue
+        if r.left is not None:
+          newroots.append(r.left)
+        else:
+          newroots.append(None)
+        if r.right is not None:
+          newroots.append(r.right)
+        else:
+          newroots.append(None)
+      self.serializeR(nodes,newroots)
 
     def serialize(self, root):
+        accum = []
+        self.serializeR(accum,[root])
+        return accum
         """Encodes a tree to a single string.
         
         :type root: TreeNode
@@ -44,6 +67,23 @@ class Codec:
         
 
 # Your Codec object will be instantiated and called as such:
-# ser = Codec()
-# deser = Codec()
+c = Codec()
+
+
+n4 = TreeNode(4)
+n5 = TreeNode(5)
+n2 = TreeNode(2)
+n3 = TreeNode(3)
+n1 = TreeNode(1)
+n1.left = n2
+n1.right=n3 
+n3.left=n4 
+n3.right=n5
+
+# root = [1,2,3,null,null,4,5]
+expect = [1,2,3,None,None,4,5]
+test = c.serialize(n1)
+for t in test:
+    print(f"test is {None if t is None else t.val}")
+# print(f"expect {expect}\n {test}")
 # ans = deser.deserialize(ser.serialize(root))
