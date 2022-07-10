@@ -19,6 +19,9 @@ Output: []
 """
 
 # Definition for a binary tree node.
+import math
+
+
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
@@ -48,6 +51,8 @@ class Codec:
       self.serializeR(nodes,newroots)
 
     def serialize(self, root):
+        if root is None: 
+            return []
         accum = []
         self.serializeR(accum,[root])
         return accum
@@ -59,8 +64,21 @@ class Codec:
         
 
     def deserialize(self, data):
+        levels = int(\
+            math.log(len(data)+1, 2)\
+        )
+        nodes = []
+        for d in data:
+            if d is not None:
+              node = TreeNode(d)
+              nodes.append(node)
+            else:
+              nodes.append(None)
+        if len(nodes) == 0:
+            return []
+        nextNodes = nodes[0]
+
         """Decodes your encoded data to tree.
-        
         :type data: str
         :rtype: TreeNode
         """
@@ -85,5 +103,9 @@ expect = [1,2,3,None,None,4,5]
 test = c.serialize(n1)
 for t in test:
     print(f"test is {None if t is None else t.val}")
+test2 = c.deserialize(expect)
 # print(f"expect {expect}\n {test}")
 # ans = deser.deserialize(ser.serialize(root))
+# depth of tree n is len((2**n) - 1)
+# log test 
+print(f"math.log(2) {math.log(7,2)}")
