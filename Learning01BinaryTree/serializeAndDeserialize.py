@@ -20,6 +20,7 @@ Output: []
 
 # Definition for a binary tree node.
 import math
+import json
 
 
 class TreeNode(object):
@@ -28,11 +29,43 @@ class TreeNode(object):
         self.left = None
         self.right = None
     def __str__(self):
-        return f"v: {self.val}, l: {self.left}, r: {self.right} end\n"
+        return f"v: {self.val}, l: {self.left}, r: {self.right}\n"
 
 class Codec:
+    def serializeR(self, root, nmap):
+      if root is None:
+        return
+      v = root.val 
+      nmap[v] = []
+      nmap[v].append(root.left.val if root.left is not None else None)
+      nmap[v].append(root.right.val if root.right is not None else None)
+      self.serializeR(root.left, nmap)
+      self.serializeR(root.right, nmap)
+      
+      
+
+    def serialize(self, root):
+        if root is None:
+            return ''
+        nmap = {}
+        self.serializeR(root,nmap)
+        return json.dumps(nmap)
     
-    def serializeR(self,nodes, roots):
+    def deserialize(self, data):
+        if len(data) == 0:
+            return None
+        nmap = json.loads(data)
+        lnmap = {}
+        for k in nmap.keys():
+            lnmap[k] = TreeNode(k)
+        for k,v in nmap.items():
+            if v[0] is not None:
+              lnmap[k].left = lnmap[str(v[0])]
+            if v[1] is not None:
+              lnmap[k].right = lnmap[str(v[1])]
+        return lnmap[list(lnmap.keys())[0]]
+    
+    def serializeRSlow(self,nodes, roots):
       if len(list(filter(lambda x: x is not None, roots))) == 0:
         return
       # bfs
@@ -53,7 +86,7 @@ class Codec:
           newroots.append(None)
       self.serializeR(nodes,newroots)
 
-    def serialize(self, root):
+    def serializeSlow(self, root):
         if root is None:
             return ""
         accum = []
@@ -68,7 +101,7 @@ class Codec:
         """
         
 
-    def deserialize(self, data):
+    def deserializeSlow(self, data):
         if data == '':
             return None
         data = data.split(',')
