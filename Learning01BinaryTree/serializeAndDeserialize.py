@@ -57,7 +57,7 @@ class Codec:
             return []
         accum = []
         self.serializeR(accum,[root])
-        return accum
+        return ",".join(list(map(lambda x: str(x.val) if x is not None else "None", accum)))
         """Encodes a tree to a single string.
         
         :type root: TreeNode
@@ -66,6 +66,8 @@ class Codec:
         
 
     def deserialize(self, data):
+        data = data.split(',')
+        data = list(map(lambda x: int(x) if x != "None" else None,data))
         if len(data) == 0:
             return None
         levels = int(\
@@ -117,9 +119,8 @@ n3.right=n5
 # root = [1,2,3,null,null,4,5]
 expect = [1,2,3,None,None,4,5]
 test = c.serialize(n1)
-for t in test:
-    print(f"test is {None if t is None else t.val}")
-test2 = c.deserialize(expect)
+print(f"test is {test}")
+test2 = c.deserialize(test)
 print(f"test2 is {test2}")
 # print(f"expect {expect}\n {test}")
 # ans = deser.deserialize(ser.serialize(root))
