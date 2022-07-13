@@ -22,3 +22,17 @@ first place new LCers should go
 - db: use SQL explore card and DB problem set 
 - beginner track for complete newbies on first PL
 - Intermediate track if comfortable with DSA, recursion, trees, dynamic programming, DFS, BFS, union-find?, shortest paths, topological 
+
+# explore card track
+- start with array 101
+- linked list
+- array and string
+- binary tree (done)
+- recursion 1
+- hash table
+- queue & stack
+
+# tips
+- consistency is key 
+ - try for 1 problem a day 
+- 
