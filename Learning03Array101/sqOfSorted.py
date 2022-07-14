@@ -25,6 +25,14 @@ nums is sorted in non-decreasing order.
 Follow up: Squaring each element and sorting the new array is very trivial, could you find an O(n) solution using a different approach?
 """
 
+from typing import List
+
+
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        return 
+         mapped = list(map(lambda x: x**2, nums))
+         mapped.sort(reverse=False)
+         return mapped
+
+s = Solution()
+print(f"res is {s.sortedSquares([-4,-1,0,3,10])}")
