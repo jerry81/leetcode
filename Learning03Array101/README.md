@@ -17,3 +17,8 @@ Constraints:
 
 1 <= nums.length <= 105
 nums[i] is either 0 or 1.
+
+# insertions
+
+- insert at end of array not costly 
+- insert at beginning O(N) - as everything has to shift 
