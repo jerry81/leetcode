@@ -23,9 +23,26 @@ Constraints:
 0 <= arr[i] <= 9
 """
 
+from typing import List
+
+
 class Solution:
     def duplicateZeros(self, arr: List[int]) -> None:
         """
         Do not return anything, modify arr in-place instead.
         """
-        
+        orig = arr.copy()
+        pointer = 0
+        for i in range(len(orig)):
+            if pointer >= len(orig):
+                return
+
+            item = orig[i]
+            if item == 0:
+                arr[pointer] = 0
+                pointer+=1
+                if (pointer < len(orig)):
+                  arr[pointer] = 0 
+            else:
+                arr[pointer] = item
+            pointer+=1
