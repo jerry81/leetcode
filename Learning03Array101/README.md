@@ -22,3 +22,11 @@ nums[i] is either 0 or 1.
 
 - insert at end of array not costly 
 - insert at beginning O(N) - as everything has to shift 
+
+# deletions
+- similar to insertion, 3 cases
+  - delete last
+  - delete first
+  - delete at index
+- delete from start O(N)
+- delete from mid is like delete from start, involves shift, worst case is O(N)
