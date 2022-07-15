@@ -30,3 +30,13 @@ nums[i] is either 0 or 1.
   - delete at index
 - delete from start O(N)
 - delete from mid is like delete from start, involves shift, worst case is O(N)
+
+# searching
+- the most important operation of all 
+- design choices depend on speed of search 
+- def: find occurence of element in array and return position 
+- constant time if we know index in advance 
+- linear search is O(N) - checking thru all elements one by one. 
+- binary search 
+  - only works if list is sorted 
+- 
