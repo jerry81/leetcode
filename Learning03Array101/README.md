@@ -39,4 +39,7 @@ nums[i] is either 0 or 1.
 - linear search is O(N) - checking thru all elements one by one. 
 - binary search 
   - only works if list is sorted 
-- 
+
+# in place operations 
+- use if you need to reduce space complexity 
+- modifies the input array 
