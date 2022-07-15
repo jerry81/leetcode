@@ -30,6 +30,26 @@ Constraints:
 2 <= arr.length <= 500
 -10^3 <= arr[i] <= 10^3
 """
+from collections import defaultdict
+from typing import List
+
+
 class Solution:
     def checkIfExist(self, arr: List[int]) -> bool:
-        return
+        lookup = defaultdict(bool)
+        for i in arr:
+            if lookup[i*2]:
+                print(f"i*2 {i*2}")
+                return True
+            if i%2 == 0 and lookup[i//2]:
+                print(f"i//2 {i//2}")
+                return True
+            else:
+                lookup[i] = True 
+                # lookup[i*2] = True 
+                # if i%2 == 0:
+                #     lookup[i//2] = True
+        return False
+
+s = Solution()
+print(f"s is {s.checkIfExist([4,-7,11,4,18])}")
