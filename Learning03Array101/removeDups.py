@@ -45,6 +45,23 @@ Constraints:
 nums is sorted in non-decreasing order.
 """
 
+from collections import defaultdict
+from typing import List
+
+
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        return 
+        lookup = defaultdict(bool)
+        idx = 0
+        temp = nums.copy()
+        l = len(temp)
+        idx = 0
+        for i in range(l):
+          item = temp[i]
+          if not lookup[item]:
+            nums[idx] = item 
+            lookup[item] = True
+            idx += 1
+        for _ in range(idx, l):
+            nums.pop()
+        
