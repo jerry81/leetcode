@@ -63,4 +63,4 @@ class Solution:
             nums[idx] = item 
             idx += 1
         for j in range(idx, l):
-            nums[j] = '_'
+            nums.pop()
