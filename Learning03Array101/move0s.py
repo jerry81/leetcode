@@ -32,13 +32,17 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        l = len(nums)
-        for i in range(l):
-            item = nums[i]
-            if item == 0:
-                for j in range(i,l-1):
-                    nums[j] = nums[j+1]
-                nums[-1] = 0
+        arr = nums.copy()
+        left = 0
+        right = len(nums) - 1
+        for n in arr:
+          if n == 0:
+            nums[right] = n 
+            right -= 1
+          else:
+            nums[left] = n 
+            left +=1
+            
 
 s = Solution()
 test = [0,0,1]
