@@ -36,10 +36,18 @@ class Solution:
     def replaceElements(self, arr: List[int]) -> List[int]:
         max = None 
         for i in range(len(arr)-1, -1, -1):
+            print(f"i is {i}")
             item = arr[i]
-            if max == None: 
+            print(f"item is {item}")
+            if max is None: 
                 max = item 
-                max[i] = -1
-            elif item > max:
+                arr[i] = -1
+            else:
+              arr[i] = max
+            if item > max:
                 max = item
-            arr[i] = max
+
+s = Solution()
+arr =  [17,18,5,4,6,1]
+s.replaceElements(arr)
+print(f"arr is now {arr}")
