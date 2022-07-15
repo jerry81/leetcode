@@ -29,6 +29,17 @@ Constraints:
 1 <= arr[i] <= 105
 """
 
+from typing import List
+
+
 class Solution:
     def replaceElements(self, arr: List[int]) -> List[int]:
-        return 
+        max = None 
+        for i in range(len(arr)-1, -1, -1):
+            item = arr[i]
+            if max == None: 
+                max = item 
+                max[i] = -1
+            elif item > max:
+                max = item
+            arr[i] = max
