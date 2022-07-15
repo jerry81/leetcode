@@ -43,3 +43,8 @@ nums[i] is either 0 or 1.
 # in place operations 
 - use if you need to reduce space complexity 
 - modifies the input array 
+
+# improved deletion of repeated elements
+- do 2 passes - one to check how many unique items to determine new array's size
+- second to add to the new array 
+- so this is not in place 
