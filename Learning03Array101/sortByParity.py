@@ -27,4 +27,14 @@ from typing import List
 
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:
-        return
+        arr = nums.copy()
+        left = 0
+        right = len(nums) - 1
+        for n in arr:
+          if n % 2 != 0:
+            nums[right] = n 
+            right -= 1
+          else:
+            nums[left] = n 
+            left +=1
+        return nums
