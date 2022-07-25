@@ -43,4 +43,8 @@ from typing import List
 
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
-        return
+        s = sorted(set(nums))
+        if len(s) > 2:
+          return s[-3]
+        else:
+          return s[-1]
