@@ -44,4 +44,9 @@ from typing import List
 
 class Solution:
     def heightChecker(self, heights: List[int]) -> int:
-        return
+        sor = sorted(heights)
+        count = 0
+        for i in range(len(heights)):
+          if sor[i] != heights[i]:
+            count+=1
+        return count
