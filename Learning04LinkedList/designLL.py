@@ -102,8 +102,15 @@ class MyLinkedList:
         count+=1
 
     def deleteAtIndex(self, index: int) -> None:
+
       if index == 0:
-        self = self.next
+        cur = copy.deepcopy(self)
+        if cur.next is None:
+          self.val = None
+          self.next = None
+          return
+        self.val = cur.next.val
+        self.next = cur.next.next
         return
 
       count = 0
