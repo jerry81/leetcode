@@ -154,3 +154,8 @@ obj = MyLinkedList()
 obj.addAtTail(1)
 print(f"obj is now {obj}")
 print(f"get is {obj.get(0)}")
+
+# peeking others' solutions
+
+# seperate Node with MyLinkedList!!!
+# MyLinkedList only needs head and length
