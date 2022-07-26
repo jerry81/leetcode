@@ -38,6 +38,9 @@ Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
 
+import copy
+
+
 class MyLinkedList:
 
     def __init__(self):
@@ -50,19 +53,20 @@ class MyLinkedList:
     def get(self, index: int) -> int:
       count = 0
       cur = self
-      while True:
+      while cur is not None:
         if count == index:
           return cur.val
         cur = cur.next
         count+=1
+      return -1
 
     def addAtHead(self, val: int) -> None:
       if self.val is None:
         self.val = val
-      else:
-        new_head = MyLinkedList()
-        new_head.val = val
-        new_head.next = self
+        return
+      cur = copy.deepcopy(self)
+      self.val = val
+      self.next = cur
 
 
     def addAtTail(self, val: int) -> None:
@@ -72,6 +76,7 @@ class MyLinkedList:
       tail = MyLinkedList()
       tail.val = val
       cur.next = tail
+      print(f"new head is {self}")
 
 
     def addAtIndex(self, index: int, val: int) -> None:
@@ -85,26 +90,27 @@ class MyLinkedList:
       next = None
       inserted = MyLinkedList()
       inserted.val = val
-      while True:
+      while cur is not None:
         if count == (index-1):
           prev = cur
           next = cur.next
           prev.next = inserted
           inserted.next = next
+          print(f"new head is {self}")
           return
         cur = cur.next
         count+=1
 
     def deleteAtIndex(self, index: int) -> None:
       if index == 0:
-        self.next = None
+        self = self.next
         return
 
       count = 0
       prev = None
       next = None
       cur = self
-      while True:
+      while True and cur is not None:
         if count == (index - 1):
           prev = cur
           next = cur.next
@@ -114,6 +120,7 @@ class MyLinkedList:
           break
         cur = cur.next
         count+=1
+      print(f"new head is {self}")
 
 
 
@@ -124,3 +131,8 @@ class MyLinkedList:
 # obj.addAtTail(val)
 # obj.addAtIndex(index,val)
 # obj.deleteAtIndex(index)
+
+obj = MyLinkedList()
+obj.addAtHead(2)
+obj.addAtHead(3)
+print(f"obj is {obj}")
