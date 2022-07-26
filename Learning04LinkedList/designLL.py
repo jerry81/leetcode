@@ -70,13 +70,20 @@ class MyLinkedList:
 
 
     def addAtTail(self, val: int) -> None:
+      if self.val is None:
+        self.val = val
+        return
+      if self.next is None:
+        tail = MyLinkedList()
+        tail.val = val
+        self.next = tail
+        return
       cur = self
       while cur.next is not None:
         cur = cur.next
       tail = MyLinkedList()
       tail.val = val
       cur.next = tail
-      print(f"new head is {self}")
 
 
     def addAtIndex(self, index: int, val: int) -> None:
@@ -96,7 +103,6 @@ class MyLinkedList:
           next = cur.next
           prev.next = inserted
           inserted.next = next
-          print(f"new head is {self}")
           return
         cur = cur.next
         count+=1
@@ -127,7 +133,6 @@ class MyLinkedList:
           break
         cur = cur.next
         count+=1
-      print(f"new head is {self}")
 
 
 
@@ -143,3 +148,9 @@ obj = MyLinkedList()
 obj.addAtHead(2)
 obj.addAtHead(3)
 print(f"obj is {obj}")
+
+
+obj = MyLinkedList()
+obj.addAtTail(1)
+print(f"obj is now {obj}")
+print(f"get is {obj.get(0)}")
