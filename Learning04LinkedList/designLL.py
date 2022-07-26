@@ -44,6 +44,9 @@ class MyLinkedList:
       self.val = None
       self.next = None
 
+    def __str__(self):
+      return f"val {self.val} next is {self.next}"
+
     def get(self, index: int) -> int:
       count = 0
       cur = self
@@ -54,9 +57,12 @@ class MyLinkedList:
         count+=1
 
     def addAtHead(self, val: int) -> None:
-      head = MyLinkedList()
-      head.val = val
-      head.next = self
+      if self.val is None:
+        self.val = val
+      else:
+        new_head = MyLinkedList()
+        new_head.val = val
+        new_head.next = self
 
 
     def addAtTail(self, val: int) -> None:
@@ -83,8 +89,6 @@ class MyLinkedList:
         if count == (index-1):
           prev = cur
           next = cur.next
-          if next is not None:
-            next = next.next
           prev.next = inserted
           inserted.next = next
           return
