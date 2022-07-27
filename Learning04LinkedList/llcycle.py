@@ -50,8 +50,12 @@ from typing import Optional
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if head is None:
+          return False
+        if head.next is None:
+          return False
         ptr1 = head
-        ptr2 = head
+        ptr2 = head.next
         while ptr2 != ptr1:
           if ptr2 is None:
             return False
@@ -59,5 +63,6 @@ class Solution:
           if ptr2 is None:
             return False
           ptr2 = ptr2.next
+          ptr1 = ptr1.next
 
         return True
