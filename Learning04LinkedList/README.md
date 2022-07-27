@@ -38,3 +38,10 @@ delete complexity O(N)
 
 space complexity only O(1)
 
+# two pointers
+
+- impetus: classic problem: find if linked list has cycle in it?
+- two pointer technique - pointers run at different speed
+- move one at 1x speed, move the other at 2x speed?
+- why not just freeze one pointer in place?
+
