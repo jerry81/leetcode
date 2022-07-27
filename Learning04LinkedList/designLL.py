@@ -38,21 +38,26 @@ Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
 
-import copy
 
+class Node:
+  def __init__(self):
+    self.val = None
+    self.next = None
 
+  def __str__(self):
+    return f"val {self.val} next is {self.next}"
 class MyLinkedList:
 
     def __init__(self):
-      self.val = None
-      self.next = None
+      self.head = None
+      self.length = 0
 
     def __str__(self):
-      return f"val {self.val} next is {self.next}"
+      return f"len is {self.length} head {self.head}"
 
     def get(self, index: int) -> int:
       count = 0
-      cur = self
+      cur = self.head
       while cur is not None:
         if count == index:
           return cur.val
@@ -61,29 +66,30 @@ class MyLinkedList:
       return -1
 
     def addAtHead(self, val: int) -> None:
-      if self.val is None:
-        self.val = val
+      newHead = Node()
+      newHead.val = val
+      if self.head is None:
+        self.head = newHead
         return
-      cur = copy.deepcopy(self)
-      self.val = val
-      self.next = cur
+      newHead.next = self.head
+      self.head = newHead
+      self.length +=1
 
 
     def addAtTail(self, val: int) -> None:
-      if self.val is None:
-        self.val = val
+      tail = Node()
+      tail.val = val
+      if self.head is None:
+        self.head = tail
         return
-      if self.next is None:
-        tail = MyLinkedList()
-        tail.val = val
-        self.next = tail
+      if self.head.next is None:
+        self.head.next = tail
         return
-      cur = self
+      cur = self.head
       while cur.next is not None:
         cur = cur.next
-      tail = MyLinkedList()
-      tail.val = val
       cur.next = tail
+      self.length+=1
 
 
     def addAtIndex(self, index: int, val: int) -> None:
@@ -92,10 +98,10 @@ class MyLinkedList:
         return
 
       count = 0
-      cur = self
+      cur = self.head
       prev = None
       next = None
-      inserted = MyLinkedList()
+      inserted = Node()
       inserted.val = val
       while cur is not None:
         if count == (index-1):
@@ -103,26 +109,26 @@ class MyLinkedList:
           next = cur.next
           prev.next = inserted
           inserted.next = next
+          self.length+=1
           return
         cur = cur.next
         count+=1
 
     def deleteAtIndex(self, index: int) -> None:
-
+      cur = self.head
       if index == 0:
-        cur = copy.deepcopy(self)
         if cur.next is None:
-          self.val = None
-          self.next = None
+          self.head = None
+          self.length = 0
           return
-        self.val = cur.next.val
-        self.next = cur.next.next
+        self.head = cur.next
+        self.length -= 1
         return
 
       count = 0
       prev = None
       next = None
-      cur = self
+
       while True and cur is not None:
         if count == (index - 1):
           prev = cur
@@ -130,9 +136,11 @@ class MyLinkedList:
           if next is not None:
             next = next.next
           prev.next = next
+          self.length-=1
           break
         cur = cur.next
         count+=1
+
 
 
 
