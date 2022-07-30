@@ -48,9 +48,7 @@ class Solution:
             newhead = newitem
             headptr = newhead
           else:
-            print(f"didnt continue")
             newhead.next = newitem
             newhead = newitem
-        print(f"newhead {newhead} newptr {headptr}")
         ptr = ptr.next
       return headptr
