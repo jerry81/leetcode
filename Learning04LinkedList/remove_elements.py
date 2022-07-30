@@ -35,4 +35,15 @@ class ListNode:
         self.next = next
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
-      return
+      ptr = head
+      newhead = None
+      headptr = None
+      while ptr is not None:
+        if ptr.val != val:
+          newhead = ListNode(ptr.val)
+          if headptr is None:
+            headptr = newhead
+          newitem = ListNode(ptr.val)
+          newhead.next = newitem
+          newhead = newhead.next
+      return headptr
