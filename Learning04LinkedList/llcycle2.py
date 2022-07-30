@@ -1,10 +1,9 @@
 """
+Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
 
-Given head, the head of a linked list, determine if the linked list has a cycle in it.
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.
 
-There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
-
-Return true if there is a cycle in the linked list. Otherwise, return false.
+Do not modify the linked list.
 
 
 
@@ -12,19 +11,19 @@ Example 1:
 
 
 Input: head = [3,2,0,-4], pos = 1
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+Output: tail connects to node index 1
+Explanation: There is a cycle in the linked list, where tail connects to the second node.
 Example 2:
 
 
 Input: head = [1,2], pos = 0
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
+Output: tail connects to node index 0
+Explanation: There is a cycle in the linked list, where tail connects to the first node.
 Example 3:
 
 
 Input: head = [1], pos = -1
-Output: false
+Output: no cycle
 Explanation: There is no cycle in the linked list.
 
 
@@ -36,7 +35,6 @@ pos is -1 or a valid index in the linked-list.
 
 
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
-
 """
 
 # Definition for singly-linked list.
@@ -49,14 +47,18 @@ from typing import Optional
 from collections import defaultdict
 
 class Solution:
-    def detectCycle(self, head: Optional[ListNode]) -> bool:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
       l_t = defaultdict(lambda: -1)
       idx = 0
-      if head is None:
+      ptr = head
+      if ptr is None:
         return None
-      while head is not None:
-        if l_t[head] > -1:
-          return l_t[head]
-        l_t[head] = idx
-        head = head.next
+      while ptr is not None:
+        print(f"head is now {ptr.val}")
+        if l_t[ptr] > -1:
+          print(f"returning {l_t[ptr]}")
+          return ptr
+        l_t[ptr] = idx
+        ptr = ptr.next
+        idx+=1
       return None
