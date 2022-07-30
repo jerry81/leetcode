@@ -42,9 +42,21 @@ class Solution:
           return None
 
         oddshead = head
+        oddsptr = oddshead
         if head.next is None:
           return head
-
         evenshead = head.next
-        oddsptr = oddshead
         evenptr = evenshead
+        curptr = evenshead.next
+        even = False
+        while curptr is not None:
+          if even:
+            evenptr.next = curptr
+            evenptr = curptr
+          else:
+            oddsptr.next = curptr
+            oddsptr = curptr
+          curptr = curptr.next
+          even = not even
+        oddsptr.next = evenshead
+        return oddshead
