@@ -50,3 +50,9 @@ space complexity only O(1)
 - check node null before calling next
   - otherwise NPE
 - avoid endless loop - run many examples
+
+# reverse linked list
+
+- solution 1 - iterate nodes to tail
+- create new list adding to head at each iteration
+- O(N) performance, O(1) memory
