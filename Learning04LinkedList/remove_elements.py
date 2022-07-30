@@ -33,6 +33,9 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+    def __str__(self):
+      return f"val {self.val} next {self.next}"
+
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
       ptr = head
@@ -40,10 +43,14 @@ class Solution:
       headptr = None
       while ptr is not None:
         if ptr.val != val:
-          newhead = ListNode(ptr.val)
-          if headptr is None:
-            headptr = newhead
           newitem = ListNode(ptr.val)
-          newhead.next = newitem
-          newhead = newhead.next
+          if headptr is None:
+            newhead = newitem
+            headptr = newhead
+          else:
+            print(f"didnt continue")
+            newhead.next = newitem
+            newhead = newitem
+        print(f"newhead {newhead} newptr {headptr}")
+        ptr = ptr.next
       return headptr
