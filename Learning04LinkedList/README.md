@@ -45,3 +45,8 @@ space complexity only O(1)
 - move one at 1x speed, move the other at 2x speed?
 - why not just freeze one pointer in place?
 
+## final tips
+
+- check node null before calling next
+  - otherwise NPE
+- avoid endless loop - run many examples
