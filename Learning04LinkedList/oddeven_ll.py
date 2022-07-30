@@ -32,6 +32,8 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+    def __str__(self):
+      return f"val is {self.val} next {self.next}"
 
 from typing import Optional
 
@@ -41,21 +43,22 @@ class Solution:
         if head is None:
           return None
 
-        oddshead = head
+        oddshead = ListNode(val=head.val)
         oddsptr = oddshead
         if head.next is None:
           return head
-        evenshead = head.next
+        evenshead = ListNode(val=head.next.val)
         evenptr = evenshead
-        curptr = evenshead.next
+        curptr = head.next.next
         even = False
         while curptr is not None:
+          newptr = ListNode(curptr.val)
           if even:
-            evenptr.next = curptr
-            evenptr = curptr
+            evenptr.next = newptr
+            evenptr = newptr
           else:
-            oddsptr.next = curptr
-            oddsptr = curptr
+            oddsptr.next = newptr
+            oddsptr = newptr
           curptr = curptr.next
           even = not even
         oddsptr.next = evenshead
