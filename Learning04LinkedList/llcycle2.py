@@ -54,9 +54,7 @@ class Solution:
       if ptr is None:
         return None
       while ptr is not None:
-        print(f"head is now {ptr.val}")
         if l_t[ptr] > -1:
-          print(f"returning {l_t[ptr]}")
           return ptr
         l_t[ptr] = idx
         ptr = ptr.next
