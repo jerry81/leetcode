@@ -88,3 +88,7 @@ o(1) complexity
 cur is deleted
 1. link cur.prev to cur.next
 o(1)
+
+# summary
+
+- DLL and SLL only difference is deleteat index - DLL O(1) vs SLL O(N)
