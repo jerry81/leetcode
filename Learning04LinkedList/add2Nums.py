@@ -56,3 +56,14 @@ class Solution:
         s = n1 + n2
         s = list(str(s))[::-1]
         print(f"s is {s}")
+        if len(s) is None:
+          return None
+        head = ListNode(int(s[0]))
+        ptr = head
+        s.pop(0)
+        for n in s:
+          v = int(n)
+          node = ListNode(v,None)
+          ptr.next = node
+          ptr = node
+        return head
