@@ -47,9 +47,12 @@ class Solution:
         while l2 is not None:
           num2.append(l2.val)
           l2 = l2.next
-
+        num1 = num1[::-1]
+        num2 = num2[::-1]
         n1 = "".join(str(x) for x in num1)
         n2 = "".join(str(x) for x in num2)
         n1 = int(n1)
         n2 = int(n2)
-        print(f"n1 is now {n1} n2 is now {n2}")
+        s = n1 + n2
+        s = list(str(s))[::-1]
+        print(f"s is {s}")
