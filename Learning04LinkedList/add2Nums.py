@@ -36,7 +36,15 @@ class ListNode:
 
 from typing import Optional
 
-
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        return
+        num1 = []
+        num2 = []
+        s = 0
+        while l1 is not None:
+          num1.append(l1.val)
+          l1 = l1.next
+        while l2 is not None:
+          num2.append(l2.val)
+          l2 = l2.next
+        print(f"l1 is now {l1} l2 is now {l2}")
