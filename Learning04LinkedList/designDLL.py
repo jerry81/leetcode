@@ -46,7 +46,7 @@ class Node:
     self.prev = None
 
   def __str__(self):
-    return f"val {self.val} next is {self.next} prev is {self.prev}"
+    return f"val {self.val} next is {self.next}"
 class MyLinkedList:
 
     def __init__(self):
@@ -113,7 +113,8 @@ class MyLinkedList:
           prev.next = inserted
           inserted.prev = prev
           inserted.next = next
-          next.prev = inserted
+          if next is not None:
+            next.prev = inserted
           self.length+=1
           return
         cur = cur.next
@@ -142,7 +143,8 @@ class MyLinkedList:
           if next is not None:
             next = next.next
           prev.next = next
-          next.prev = prev
+          if next is not None:
+            next.prev = prev
           self.length-=1
           break
         cur = cur.next
