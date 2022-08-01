@@ -75,53 +75,37 @@ class Node:
       return f"val is {self.val}"
 
 
-from typing import Optional
+from typing import List, Optional
 
 
 class Solution:
-    def flattenR(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if head is None:
-          return None
-
-        if head.child is not None:
-          # flatten child, return tail
-          # connect head to child, and return value to original next
-          nxt = head.next
-          head.next = head.child
-          head.child = None
-          head.next.prev = head
-          print(f"next is ", {nxt.val})
-          tail = self.flattenR(head.next)
-          if tail is not None:
-            self.flattenR(nxt)
-            tail.next = nxt
-            if nxt is not None:
-              nxt.prev = tail
-        elif head.next is not None:
-          # move pointer
-          return self.flattenR(head.next)
-        else:
-          return head
-
-
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if head is None:
           return None
 
-        self.flattenR(head)
+        ptr = head
+        remain = [ptr]
+        while len(remain) > 0:
+          cur = remain.pop()
+
+          if cur.next is not None:
+            remain.append(cur.next)
+          if cur.child is not None:
+            remain.append(cur.child)
+            cur.child=None
+          old = ptr
+          ptr.next = cur
+          cur.prev = old
+          ptr = cur
+
         return head
 
-
 """
-current results:
-input:
+current results
+Your input
 [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
-Your stdout
-next is  {4}
-next is  {9}
-
 Your answer
-[1,2,3,7,8,11,12,9,10]
+The linked list [1,2,3,7,8,11,12,9,10,4,5,6] is not a valid doubly linked list.
 Expected answer
 [1,2,3,7,8,11,12,9,10,4,5,6]
 """
