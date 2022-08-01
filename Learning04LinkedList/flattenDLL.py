@@ -92,11 +92,13 @@ class Solution:
             remain.append(cur.next)
           if cur.child is not None:
             remain.append(cur.child)
+          if cur == head:
+            continue
           ptr.child = None
           old = ptr
           ptr.next = cur
-          cur.prev = old
           ptr = cur
+          ptr.prev = old
         check = head
         while check is not None:
           print(f"head is {check.val}")
@@ -105,7 +107,9 @@ class Solution:
           if check.prev is not None:
             print(f"prev is {check.prev.val}")
           if check.child is not None:
-            print(f"prev is {check.child.val}")
+            print(f"child is {check.child.val}")
+          print(f"done with {check.val}")
+          check = check.next
         return head
 
 """
