@@ -77,15 +77,29 @@ from typing import Optional
 
 
 class Solution:
-    def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
+    def flattenR(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if head is None:
           return None
 
         if head.child is not None:
+          # flatten child, return tail
+          # connect head to child, and return value to original next
           nxt = head.next
-          head.next = self.flatten(head.child)
-          ptr = head.next
-          while ptr is not None:
-            ptr = ptr.next
-          ptr.next = nxt
+          head.next = head.child
+          tail = self.flattenR(head.child)
+          tail.next = self.flattenR(nxt)
+        elif head.next is not None:
+          # move pointer
+          return self.flattenR(head.next)
+        else:
           return head
+
+
+    def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if head is None:
+          return None
+
+        self.flattenR(head)
+        return head
+
+
