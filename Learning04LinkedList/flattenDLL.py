@@ -71,6 +71,8 @@ class Node:
         self.prev = prev
         self.next = next
         self.child = child
+    def __str__(self):
+      return f"val is {self.val}"
 
 
 from typing import Optional
@@ -88,9 +90,11 @@ class Solution:
           head.next = head.child
           head.child = None
           head.next.prev = head
-          tail = self.flattenR(head.child)
+          print(f"next is ", {nxt.val})
+          tail = self.flattenR(head.next)
           if tail is not None:
-            tail.next = self.flattenR(nxt)
+            self.flattenR(nxt)
+            tail.next = nxt
             if nxt is not None:
               nxt.prev = tail
         elif head.next is not None:
@@ -110,9 +114,14 @@ class Solution:
 
 """
 current results:
+input:
 [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+Your stdout
+next is  {4}
+next is  {9}
+
 Your answer
-The linked list [1,2,3,7,8,9,10] is not a valid doubly linked list.
+[1,2,3,7,8,11,12,9,10]
 Expected answer
 [1,2,3,7,8,11,12,9,10,4,5,6]
 """
