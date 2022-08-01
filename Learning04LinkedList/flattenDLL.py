@@ -86,8 +86,13 @@ class Solution:
           # connect head to child, and return value to original next
           nxt = head.next
           head.next = head.child
+          head.child = None
+          head.next.prev = head
           tail = self.flattenR(head.child)
-          tail.next = self.flattenR(nxt)
+          if tail is not None:
+            tail.next = self.flattenR(nxt)
+            if nxt is not None:
+              nxt.prev = tail
         elif head.next is not None:
           # move pointer
           return self.flattenR(head.next)
@@ -103,3 +108,11 @@ class Solution:
         return head
 
 
+"""
+current results:
+[1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+Your answer
+The linked list [1,2,3,7,8,9,10] is not a valid doubly linked list.
+Expected answer
+[1,2,3,7,8,11,12,9,10,4,5,6]
+"""
