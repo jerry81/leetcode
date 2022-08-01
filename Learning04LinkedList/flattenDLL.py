@@ -100,16 +100,16 @@ class Solution:
           ptr = cur
           ptr.prev = old
         check = head
-        while check is not None:
-          print(f"head is {check.val}")
-          if check.next is not None:
-            print(f"next is {check.next.val}")
-          if check.prev is not None:
-            print(f"prev is {check.prev.val}")
-          if check.child is not None:
-            print(f"child is {check.child.val}")
-          print(f"done with {check.val}")
-          check = check.next
+        # while check is not None:
+        #   print(f"head is {check.val}")
+        #   if check.next is not None:
+        #     print(f"next is {check.next.val}")
+        #   if check.prev is not None:
+        #     print(f"prev is {check.prev.val}")
+        #   if check.child is not None:
+        #     print(f"child is {check.child.val}")
+        #   print(f"done with {check.val}")
+        #   check = check.next
         return head
 
 """
