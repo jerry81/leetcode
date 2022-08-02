@@ -50,9 +50,24 @@ class Node:
         self.random = random
 
 
+from collections import defaultdict
 from typing import Optional
 
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        return
+        if head is None:
+          return None
+
+        lookup = defaultdict(bool)
+        ptr = head
+        while ptr is not None:
+          newNode = Node(ptr.val)
+          lookup[ptr] = newNode
+          ptr = ptr.next
+        ptr = head
+        while ptr is not None:
+          lookup[ptr].random = lookup[ptr.random]
+          lookup[ptr].next = lookup[ptr.next]
+        return lookup[head]
+        # lookup table
