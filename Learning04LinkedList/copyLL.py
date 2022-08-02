@@ -49,7 +49,6 @@ class Node:
         self.next = next
         self.random = random
 
-
 from collections import defaultdict
 from typing import Optional
 
@@ -59,7 +58,7 @@ class Solution:
         if head is None:
           return None
 
-        lookup = defaultdict(bool)
+        lookup = defaultdict(lambda: None)
         ptr = head
         while ptr is not None:
           newNode = Node(ptr.val)
@@ -69,5 +68,6 @@ class Solution:
         while ptr is not None:
           lookup[ptr].random = lookup[ptr.random]
           lookup[ptr].next = lookup[ptr.next]
+          ptr = ptr.next
         return lookup[head]
         # lookup table
