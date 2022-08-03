@@ -46,7 +46,7 @@ class Solution:
 
         lookup[k].next = None
         lookup[l-1].next = lookup[0]
-        return lookup[l - 1 - k]
+        return lookup[l - k]
 
 """
 no wraparounds (k < len)
