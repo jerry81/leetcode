@@ -48,7 +48,12 @@ class Solution:
         print(f"k is now {k} l is {l}")
         if k == 0: return orig_head
 
-        lookup[k].next = None
+        """
+        failing case [1,2] k = 1
+
+        k should be 1 here
+        """
+        lookup[l - 1 - k].next = None
         lookup[l-1].next = lookup[0]
         return lookup[l - k]
 
@@ -61,4 +66,41 @@ k next becomes none
 wraparounds (k > len)
 k becomes len%k
 repeat above
+"""
+
+"""
+1,2,3,4,5
+k = 2
+5,1,2,3,4
+4,5,1,2,3
+
+k = 4?
+3,4,5,1,2
+2,3,4,5,1
+
+1,2,3
+3,1,2
+2,3,1
+1,2,3
+
+1,2
+2,1
+
+k = l-1?
+
+k = 2 (3)
+1,2,3
+3,1,2
+2,3,1
+
+0:0
+1:1
+2:2
+3:3
+
+any way to
+0:1
+1:2
+2:3
+3:4 ?
 """
