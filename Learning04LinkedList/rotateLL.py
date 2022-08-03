@@ -27,9 +27,34 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+from collections import defaultdict
 from typing import Optional
 
 
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        return
+        l = 0
+        lookup = defaultdict(lambda: None)
+        if head is None: return None
+
+        while head is not None:
+          lookup[l] = head
+          l+=1
+          head = head.next
+        if k > l: k = k%l
+
+        lookup[k].next = None
+        lookup[l-1].next = lookup[0]
+        return lookup[l - 1 - k]
+
+"""
+no wraparounds (k < len)
+len - 1 - k becomes new head
+len - 1 next is old head
+k next becomes none
+
+wraparounds (k > len)
+k becomes len%k
+repeat above
+"""
