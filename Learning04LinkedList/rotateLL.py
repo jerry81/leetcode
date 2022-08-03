@@ -36,13 +36,17 @@ class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         l = 0
         lookup = defaultdict(lambda: None)
+        orig_head = head
         if head is None: return None
 
         while head is not None:
           lookup[l] = head
           l+=1
           head = head.next
-        if k > l: k = k%l
+        if k >= l: k = k%l
+
+        print(f"k is now {k} l is {l}")
+        if k == 0: return orig_head
 
         lookup[k].next = None
         lookup[l-1].next = lookup[0]
