@@ -9,3 +9,8 @@
 - multidimensional array
 - string and its features
 - two pointer technique
+
+## definition
+
+- definition: data structure used to store elements sequentially
+- accessed randomly like hash map (with keys as indexes)
