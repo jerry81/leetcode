@@ -59,8 +59,17 @@ class Solution:
         rightps.append(s)
       rightps = rightps[::-1]
 
-      print(f"leftps is {leftps}, rightps is {rightps}")
       # prefix sums right to left
       # step i left to right comparing left[i-1] and right[i+1]
       # edge case - i==0, i == len-1
+      for i in range(len(nums)):
+        left = 0
+        right = 0
+        if i > 0:
+          left = leftps[i-1]
+        if i < len(nums) - 1:
+          right = rightps[i+1]
+        if left == right:
+          return i
+
       return
