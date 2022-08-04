@@ -44,4 +44,23 @@ from typing import List
 
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        return
+      # edge cases
+      # prefix sums left to right
+      leftps = []
+      s = 0
+      for n in nums:
+        s += n
+        leftps.append(s)
+
+      rightps = []
+      s = 0
+      for n in nums[::-1]:
+        s += n
+        rightps.append(s)
+      rightps = rightps[::-1]
+
+      print(f"leftps is {leftps}, rightps is {rightps}")
+      # prefix sums right to left
+      # step i left to right comparing left[i-1] and right[i+1]
+      # edge case - i==0, i == len-1
+      return
