@@ -14,3 +14,10 @@
 
 - definition: data structure used to store elements sequentially
 - accessed randomly like hash map (with keys as indexes)
+
+## dynamic array
+
+- most PL offer this
+- can have variable size
+  - vector in C++
+  - ArrayList in Java
