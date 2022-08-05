@@ -28,7 +28,13 @@ The largest element in nums is unique
 
 from typing import List
 
-
 class Solution:
     def dominantIndex(self, nums: List[int]) -> int:
-        return
+        # sort and then compare last with last-1
+        # indexOf to get index of largest
+        sorted = nums[:]
+        sorted.sort()
+        if sorted[-1] >= sorted[-2]*2: return nums.index(sorted[-1])
+        else: return -1
+
+        # TIL: sorted = nums doesn't do a "deep" copy of the array but sorted = nums[:] does.
