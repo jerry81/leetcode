@@ -40,4 +40,16 @@ from typing import List
 
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        return
+        rem = 0
+        s = 0
+        for i in range(len(digits)-1, -1, -1):
+          s =  digits[i]+1+rem
+          if s == 10:
+            rem = 1
+            digits[i] = 0
+          else:
+            rem = 0
+            digits[i] = s
+        if s == 10:
+          digits.insert(0, 1)
+        return digits
