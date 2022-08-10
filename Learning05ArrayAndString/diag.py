@@ -28,4 +28,31 @@ from typing import List
 
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        return
+        up = True
+        returned = []
+        cy=0
+        cx=0
+        ly = len(mat)
+        if ly == 0:
+          return []
+        lx = len(mat[0])
+        while len(returned) < (ly*lx):
+          if up:
+            while cy >= 0 and cx < lx:
+              n = mat[cy][cx]
+              returned.append(n)
+              cy-=1
+              cx+=1
+            up = not up
+            if cy < 0: cy+=1 # step back
+            if cx >= lx: cx-=1
+          else:
+            while cy < ly and cx >= 0:
+              n = mat[cy][cx]
+              returned.append(n)
+              cy+=1
+              cx-=1
+            up = not up
+            if cy >= ly: cy-=1
+            if cx < 0: cx+=1
+        return returned
