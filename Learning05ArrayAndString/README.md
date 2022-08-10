@@ -21,3 +21,15 @@
 - can have variable size
   - vector in C++
   - ArrayList in Java
+
+## 2D array
+
+- seq of elements
+- rectangular grid instead of line
+- could be implemented as one-dim array in some languages
+  - e.g. C++
+    - single contiguous block of mem A[0][0] .. A[0][N-1], A[1][0] ... A[M-1][N-1]
+    - index i,j with A[i*N+j]
+  - e.g. Java
+  - 1D array which contains Arrays
+- some languages lack it
