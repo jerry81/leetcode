@@ -43,9 +43,13 @@ class Solution:
               returned.append(n)
               cy-=1
               cx+=1
+            if cx >= lx:
+              cy+=2
+              cx-=1
+            else:
+              cy+=1
+
             up = not up
-            if cy < 0: cy+=1 # step back
-            if cx >= lx: cx-=1
           else:
             while cy < ly and cx >= 0:
               n = mat[cy][cx]
@@ -53,6 +57,12 @@ class Solution:
               cy+=1
               cx-=1
             up = not up
-            if cy >= ly: cy-=1
-            if cx < 0: cx+=1
+            if cy >= ly:
+              cy-=1
+              cx+=2
+            else:
+              cx+=1
+
         return returned
+
+# [1,2,4,7,5,3,6,8,7,5,3]
