@@ -37,7 +37,7 @@ class Solution:
       mx = len(matrix[0]) - 1
       my = len(matrix) - 1
       mnx = 0
-      mny = 0
+      mny = 1
       targetLen = len(matrix) * len(matrix[0])
       while len(flattened) < targetLen:
         flattened.append(matrix[cury][curx])
