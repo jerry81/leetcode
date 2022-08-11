@@ -68,7 +68,7 @@ class Solution:
             direction = 'U'
             cury-=1
             continue
-        if direction = 'U':
+        if direction == 'U':
           if (cury-1) >= mny:
             cury-=1
             continue
@@ -76,4 +76,11 @@ class Solution:
             mny+=1
             direction = 'R'
             curx+=1
-       return flattened
+      return flattened
+
+
+"""
+[1,2,3,6,9,8,7,4,1]
+Expected answer
+[1,2,3,6,9,8,7,4,5]
+"""
