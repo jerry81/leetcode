@@ -36,8 +36,8 @@ class Solution:
 
         h = len(haystack)
         # slices until the end
-        for i in range(0, h - l):
-          sl = haystack(i, i+l)
+        for i in range(0, (h - l) + 1):
+          sl = haystack[i:i+l]
           if sl == needle:
             return i
         return -1
