@@ -22,4 +22,8 @@ Each string does not contain leading zeros except for the zero itself.
 
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        return
+        aNum = int(a, 2)
+        bNum = int(b, 2)
+        print(f"a num is {aNum} bnum is {bNum}")
+        s = aNum +  bNum
+        return "{0:b}".format(s)
