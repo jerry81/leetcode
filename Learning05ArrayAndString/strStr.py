@@ -25,8 +25,20 @@ Constraints:
 
 1 <= haystack.length, needle.length <= 104
 haystack and needle consist of only lowercase English characters.
+
+BACKGROUND: strstr is a function in C that finds substring and returns index of it
 """
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        return
+        l = len(needle)
+        if l == 0: return 0
+
+        h = len(haystack)
+        # slices until the end
+        for i in range(0, h - l):
+          sl = haystack(i, i+l)
+          if sl == needle:
+            return i
+        return -1
+
