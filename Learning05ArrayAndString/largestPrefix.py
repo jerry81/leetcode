@@ -39,7 +39,7 @@ class Solution:
         while True:
           char = None
           for s in strs:
-            if (len(s) - 1) <= i:
+            if len(s) <= i:
               return accum
             if char == None:
               char = s[i]
