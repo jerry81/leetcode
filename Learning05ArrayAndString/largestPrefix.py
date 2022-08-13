@@ -28,4 +28,21 @@ from typing import List
 
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        return
+        # starting with i = 0
+        # accum is empty string
+        # until there is no match
+        # take char i from all the strings
+        # if no match return the accum
+        # if match, add the character to the accum
+        i = 0
+        accum = ""
+        while True:
+          char = None
+          for s in strs:
+            if (len(s) - 1) <= i:
+              return accum
+            if char == None:
+              char = s[i]
+            if s[i] != char:
+              return accum
+          accum+=char
