@@ -68,6 +68,10 @@ public class Main {
 - also in ruby3, optional in ruby 2
 - in rust mut String is mutable
 
+- when immutable to add a char you must create a new string
+- adding a char to string in a loop much slower in java because of the immutability
+- if you convert Str to char array in java then it is mutable
+- stringbuilder better for strings that are modified often
 ## other ops
 
 += in c++ - concatenation
