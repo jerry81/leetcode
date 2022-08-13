@@ -64,6 +64,10 @@ public class Main {
 }
 ```
 
+- also immutable in python
+- also in ruby3, optional in ruby 2
+- in rust mut String is mutable
+
 ## other ops
 
 += in c++ - concatenation
