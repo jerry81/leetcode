@@ -46,3 +46,5 @@ class Solution:
             if s[i] != char:
               return accum
           accum+=char
+          i+=1
+        return accum
