@@ -76,3 +76,9 @@ public class Main {
 
 += in c++ - concatenation
 s1.substr(6, 5) in c++ - find substring O(N)
+
+## 2 pointer
+
+- reverse array, with two pointers
+- pointer at start, pointer at end
+- swap 1 and 2 until they meet
