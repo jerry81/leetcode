@@ -31,4 +31,11 @@ from typing import List
 
 class Solution:
     def arrayPairSum(self, nums: List[int]) -> int:
-        return
+        sorted = nums.copy()
+        sorted.sort()
+        s = 0
+        t = 0
+        while (t*2) < len(nums):
+          s+=nums[t*2]
+          t+=1
+        return s
