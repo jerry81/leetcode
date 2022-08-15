@@ -21,8 +21,13 @@ Constraints:
 s[i] is a printable ascii character.
 """
 
+from typing import List
+
+
 class Solution:
     def reverseString(self, s: List[str]) -> None:
-        temp = s.copy()
-        for i,v in enumerate(temp):
-          s[len(s)-i-1] = v
+        for p1 in range(len(s)):
+          p2 = (len(s) - p1) - 1
+          if p1 >= p2:
+            return s
+          s[p1],s[p2] = s[p2],s[p1]
