@@ -36,6 +36,6 @@ class Solution:
         s = 0
         t = 0
         while (t*2) < len(nums):
-          s+=nums[t*2]
+          s+=sorted[t*2]
           t+=1
         return s
