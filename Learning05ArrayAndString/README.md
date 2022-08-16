@@ -82,3 +82,9 @@ s1.substr(6, 5) in c++ - find substring O(N)
 - reverse array, with two pointers
 - pointer at start, pointer at end
 - swap 1 and 2 until they meet
+
+### 2 pointer for array item deletion
+
+- 1 pointer iterates normally
+- another pointer points to where should be adding to array
+- similar to create new array and recreate
