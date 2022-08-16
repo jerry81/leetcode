@@ -59,19 +59,22 @@ class Solution:
           return 0 if nums[0] < target else 1
 
         for ptr1 in range(len(nums)):
-          item = nums[ptr1]
+          item = prefix[ptr1]
           diff = 0
           if not ptr2:
             diff = item
           else:
-            diff = item - nums[ptr2]
+            diff = item - prefix[ptr2]
 
           while diff >= target:
             # move ptr2 until diff is < target
-            ptr2 += 1
-            diff = item - nums[ptr2]
+            if ptr2 is not None:
+                ptr2 += 1
+            else:
+                ptr2 = 0
+            diff = item - prefix[ptr2]
 
-          if ptr2 and ptr2 > 0:
+          if ptr2 is not None and ptr2 > 0:
             ptr2 -= 1
           if ptr2 == 0:
             ptr2 = None
@@ -79,4 +82,6 @@ class Solution:
           i_diff = ptr2 - ptr1 if ptr2 else ptr1
           if diff >= target and i_diff < mn:
             mn = i_diff
+
+        return 0 if mn > len(nums) else mn
 
