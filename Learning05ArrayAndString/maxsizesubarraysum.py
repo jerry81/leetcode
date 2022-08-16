@@ -94,3 +94,18 @@ class Solution:
 
         return 0 if mn > len(nums) else mn
 
+
+"""
+FAIL CASE FOR NEXT SESSION
+
+Input:
+15
+[1,2,3,4,5]
+Output:
+4
+Expected:
+5
+Stdout:
+prefixes are [1, 3, 6, 10, 15]
+diff is now 14
+"""
