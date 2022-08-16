@@ -34,13 +34,7 @@ from typing import List
 
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        # sort
-        # prefix sums until >= target
-        nums.sort(reverse=True)
-        s = 0
-        for i in range(len(nums)):
-          if s >= target:
-            return i
-          else:
-            s += nums[i]
-        return 0
+        # answer is CONTIGUOUS!
+        # find max subarray
+        # return count
+        return
