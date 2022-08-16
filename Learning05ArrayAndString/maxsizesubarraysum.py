@@ -51,4 +51,11 @@ class Solution:
             prefix.append(i)
           else:
             prefix.append(prefix[-1] + i)
-        print(f"prefix is {prefix}")
+        ptr1 = 0
+        ptr2 = 0
+        if len(nums) == 0: return 0
+
+        if len(nums) == 1:
+          return 0 if nums[0] < target else 1
+
+
