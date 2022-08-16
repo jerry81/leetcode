@@ -36,5 +36,19 @@ class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         # answer is CONTIGUOUS!
         # find max subarray
-        # return count
-        return
+          # prefix sums
+          # [2,3,1,2,4,3]
+          # [2,5,6,8,12,15]
+          # target 7
+          # 7, so 3
+          # 9 - 2 still 3
+          # 13 - 6 still 3
+          # 16 - 7 9 still 3
+          # 16 - 9 = 7 2
+        prefix = []
+        for i in nums:
+          if len(prefix) == 0:
+            prefix.append(i)
+          else:
+            prefix.append(prefix[-1] + i)
+        print(f"prefix is {prefix}")
