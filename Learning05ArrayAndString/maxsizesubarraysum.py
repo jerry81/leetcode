@@ -51,6 +51,8 @@ class Solution:
             prefix.append(i)
           else:
             prefix.append(prefix[-1] + i)
+
+        print(f"prefixes are {prefix}")
         ptr2 = None
         mn=len(nums)+1
         if len(nums) == 0: return 0
@@ -61,7 +63,7 @@ class Solution:
         for ptr1 in range(len(nums)):
           item = prefix[ptr1]
           diff = 0
-          if not ptr2:
+          if ptr2 is None:
             diff = item
           else:
             diff = item - prefix[ptr2]
@@ -74,12 +76,19 @@ class Solution:
                 ptr2 = 0
             diff = item - prefix[ptr2]
 
+            print(f"diff is now {diff}")
+
+
+
           if ptr2 is not None and ptr2 > 0:
             ptr2 -= 1
+            diff = item - prefix[ptr2]
           if ptr2 == 0:
             ptr2 = None
+            diff = item
 
-          i_diff = ptr2 - ptr1 if ptr2 else ptr1
+
+          i_diff = ptr1 - ptr2 if ptr2 is not None else ptr1
           if diff >= target and i_diff < mn:
             mn = i_diff
 
