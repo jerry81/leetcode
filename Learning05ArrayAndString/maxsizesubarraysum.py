@@ -51,11 +51,32 @@ class Solution:
             prefix.append(i)
           else:
             prefix.append(prefix[-1] + i)
-        ptr1 = 0
-        ptr2 = 0
+        ptr2 = None
+        mn=len(nums)+1
         if len(nums) == 0: return 0
 
         if len(nums) == 1:
           return 0 if nums[0] < target else 1
 
+        for ptr1 in range(len(nums)):
+          item = nums[ptr1]
+          diff = 0
+          if not ptr2:
+            diff = item
+          else:
+            diff = item - nums[ptr2]
+
+          while diff >= target:
+            # move ptr2 until diff is < target
+            ptr2 += 1
+            diff = item - nums[ptr2]
+
+          if ptr2 and ptr2 > 0:
+            ptr2 -= 1
+          if ptr2 == 0:
+            ptr2 = None
+
+          i_diff = ptr2 - ptr1 if ptr2 else ptr1
+          if diff >= target and i_diff < mn:
+            mn = i_diff
 
