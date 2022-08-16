@@ -28,9 +28,19 @@ Constraints:
 Follow up: If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log(n)).
 """
 
+from re import S
 from typing import List
 
 
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        return
+        # sort
+        # prefix sums until >= target
+        nums.sort(reverse=True)
+        s = 0
+        for i in range(len(nums)):
+          if s >= target:
+            return i
+          else:
+            s += nums[i]
+        return 0
