@@ -88,3 +88,20 @@ s1.substr(6, 5) in c++ - find substring O(N)
 - 1 pointer iterates normally
 - another pointer points to where should be adding to array
 - similar to create new array and recreate
+
+## array-related techniques
+
+- similar data structures
+  - string
+  - hash table
+  - linked list
+  - queue
+  - stack
+
+- sort is usually built in, but should also understand the algorithms
+
+- binary search important technique
+
+- sliding window problem (two pointer)
+
+- greedy algorithm with two-pointer
