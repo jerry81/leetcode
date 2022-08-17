@@ -42,6 +42,15 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         # reverse, then reverse substring
-        for _ in range(k):
-          nums[:] = nums[::-1]
-          nums[1:] = nums[1:][::-1]
+        copy = []
+        for i in range(len(nums)):
+          cur = (len(nums) - k) + i
+          print(f"cur is {cur}")
+          if cur < len(nums):
+            copy.append(nums[cur])
+          else:
+            idx = cur%len(nums)
+            print(f"idx is {idx}")
+            copy.append(nums[idx])
+        print(f"copy is {copy}")
+        nums[:] = copy
