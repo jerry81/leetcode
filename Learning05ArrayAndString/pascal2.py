@@ -32,5 +32,21 @@ from typing import List
 
 
 class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        pascal = []
+        for i in range(numRows):
+          nextRow = [0]*(i+1)
+          if i == 0:
+            pascal.append([1])
+            continue
+          # init row with all zeros
+          # row length is i+1
+          prevRow = pascal[i-1]
+          for j in range(len(prevRow)):
+            item = prevRow[j]
+            nextRow[j] += item
+            nextRow[j+1] += item
+          pascal.append(nextRow)
+        return pascal
     def getRow(self, rowIndex: int) -> List[int]:
-        return
+        return self.generate(rowIndex+1)[-1]
