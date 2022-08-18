@@ -35,22 +35,19 @@ Could you do it in-place with O(1) extra space?
 
 from typing import List
 
-
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
         # reverse, then reverse substring
-        copy = []
-        for i in range(len(nums)):
-          cur = (len(nums) - k) + i
-          print(f"cur is {cur}")
-          if cur < len(nums):
-            copy.append(nums[cur])
-          else:
-            idx = cur%len(nums)
-            print(f"idx is {idx}")
-            copy.append(nums[idx])
-        print(f"copy is {copy}")
+        copy = nums.copy()
+        l = len(nums)
+        for i in range(l):
+          cur = (i+k)%l if ((i+k) >= l) else i+k
+          copy[cur] = nums[i]
+
+
         nums[:] = copy
+
+        # must handle case of multiple wraparound
