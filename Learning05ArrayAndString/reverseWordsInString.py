@@ -39,4 +39,15 @@ class Solution:
     def reverseWords(self, s: str) -> str:
         arr = s.split(" ")
         r = arr[::-1]
-        return " ".join(r)
+        f = filter(lambda x: len(x) > 0,r)
+        return " ".join(f)
+
+s = Solution()
+
+inp = "  hello world  "
+outp = "world hello"
+print(f"expect {inp} {s.reverseWords(outp)}")
+
+inp = "a good   example"
+outp = "example good a"
+print(f"expect {inp} {s.reverseWords(outp)}")
