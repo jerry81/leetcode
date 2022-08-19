@@ -55,10 +55,26 @@ class MyCircularQueue:
     def enQueue(self, value: int) -> bool:
       if self.isFull():
         return False
+      if self.isEmpty():
+        self.q[0] = value
+        self.f = 0
+        self.b = 0
+        return True
+      if self.b == (len(self.q) - 1):
+        self.q[0] = value
+        self.b = 0
+      else:
+        self.q[self.b+1] = value
+        self.b+=1
 
     def deQueue(self) -> bool:
       if self.isEmpty():
         return False
+      self.q[self.f] = None
+      if self.f == (len(self.q) - 1):
+        self.f = 0
+      else:
+        self.f += 1
 
     def Front(self) -> int:
       return self.f
