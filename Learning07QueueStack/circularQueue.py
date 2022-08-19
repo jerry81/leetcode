@@ -47,7 +47,7 @@ At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and i
 class MyCircularQueue:
 
     def __init__(self, k: int):
-      self.q = []
+      self.q = [None]*k
       self.max_size = k
       self.f = -1
       self.b = -1
@@ -66,6 +66,7 @@ class MyCircularQueue:
       else:
         self.q[self.b+1] = value
         self.b+=1
+      return True
 
     def deQueue(self) -> bool:
       if self.isEmpty():
@@ -75,18 +76,21 @@ class MyCircularQueue:
         self.f = 0
       else:
         self.f += 1
+      return True
 
     def Front(self) -> int:
-      return self.f
+      return self.q[self.f]
 
     def Rear(self) -> int:
-      return self.b
+      return self.q[self.b]
 
     def isEmpty(self) -> bool:
-      return len(self.q) == 0
+      filtered = list(filter(lambda x: x is not None,self.q))
+      return len(filtered) == 0
 
     def isFull(self) -> bool:
-      return len(self.q) == self.max_size
+      filtered = list(filter(lambda x: x is not None,self.q))
+      return len(filtered) == self.max_size
 
 
 # Your MyCircularQueue object will be instantiated and called as such:
