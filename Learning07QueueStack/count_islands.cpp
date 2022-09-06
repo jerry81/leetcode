@@ -44,12 +44,45 @@ struct Item {
 };
 class Solution {
 public:
-    void bfs(vector<vector<char> >& grid) {
-      grid.at(0).at(0) = 'B';
+    vector<vector<bool> > visited;
+    vector<vector<char> > sgrid;
+    int boundR;
+    int boundC;
+
+    void bfs(int row, int col) {
+      if (visited.at(row).at(col)) {
+        return;
+      }
+
+      // mark visited
+      // neighbors
+      queue<Item> q;
+      Item start;
+      start.row = row;
+      start.col = col;
+      visited.at(row).at(col) = true;
+      q.push(start);
+      while (!q.empty()) {
+        Item cur = q.front();
+        // add u l r d
+        int ur = row-1;
+        int dr = row+1;
+        int lc = col-1;
+        int rc = col+1;
+        if ((ur >= 0) && (!visited.at(ur).at(col))) {
+        }
+        if ((dr <= 0) && (!visited.at(dr).at(col))) {
+        }
+        if ((lc >= 0) && (!visited.at(row).at(lc))) {
+        }
+        if ((rc >= 0) && (!visited.at(row).at(rc))) {
+        }
+        q.pop();
+      }
     }
 
     int numIslands(vector<vector<char> >& grid) {
-      vector<vector<bool> > visited;
+      sgrid = grid;
       int rows = grid.size();
       if (rows < 1) {
         return 0;
@@ -115,7 +148,6 @@ int main() {
   int res = s.numIslands(v);
   cerr << " res is " << res << endl;
 
-  s.bfs(v);
   for (int i = 0; i < 5; ++i) {
     cerr << "item is " << v.at(0).at(i) << endl;
   }
