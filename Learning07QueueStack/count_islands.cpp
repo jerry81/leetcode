@@ -38,12 +38,16 @@ grid[i][j] is '0' or '1'.
 #include <queue>
 using namespace std; // saves us from prepending std:: corresponds to "import" in java
 
-struct item {
+struct Item {
   int row;
   int col;
 };
 class Solution {
 public:
+    void bfs(vector<vector<char> >& grid) {
+      grid.at(0).at(0) = 'B';
+    }
+
     int numIslands(vector<vector<char> >& grid) {
       vector<vector<bool> > visited;
       int rows = grid.size();
@@ -59,18 +63,21 @@ public:
         }
         visited.push_back(row);
       }
-      cerr << "rows is " << rows << " cols is " << cols << endl;
-      for (vector<char> line : grid) {
-        for (char item : line) {
-          cerr << "item is " << item << endl;
-        }
-      }
 
       for (vector<bool> visitedrow : visited) {
         for (bool item : visitedrow) {
           cerr << "visited item is " << item << endl;
         }
       }
+
+      for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < cols; ++c) {
+          Item i;
+          i.col = c;
+          i.row = r;
+        }
+      }
+      // for each col and row
       return 0;
     }
 };
@@ -80,12 +87,12 @@ int main() {
   Solution s = Solution();
   vector<vector<char> > v;
   vector<char> l1;
-  item i;
+  Item i;
   i.col = 0;
   i.row = 0;
-  queue<item> q;
+  queue<Item> q;
   q.push(i);
-  item i2;
+  Item i2;
   i2.col = 1;
   i2.row = 1;
   q.push(i2);
@@ -107,10 +114,12 @@ int main() {
   // v.push_back({'0','0','0','0','0'});
   int res = s.numIslands(v);
   cerr << " res is " << res << endl;
-  while (!l1.empty()) {
-    cerr << "back l1 is " << l1.back() << endl;
-    l1.pop_back();
+
+  s.bfs(v);
+  for (int i = 0; i < 5; ++i) {
+    cerr << "item is " << v.at(0).at(i) << endl;
   }
+
   return 0;
 }
 
