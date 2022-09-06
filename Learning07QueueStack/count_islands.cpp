@@ -47,11 +47,28 @@ public:
     int numIslands(vector<vector<char> >& grid) {
       vector<vector<bool> > visited;
       int rows = grid.size();
-      int cols = grid.at(0).size(); // dangerous
+      if (rows < 1) {
+        return 0;
+      }
+
+      int cols = grid.at(0).size();
+      for (int i = 0; i < rows; ++i) {
+        vector<bool> row;
+        for (int j = 0; j < cols; ++j) {
+          row.push_back(false);
+        }
+        visited.push_back(row);
+      }
       cerr << "rows is " << rows << " cols is " << cols << endl;
       for (vector<char> line : grid) {
         for (char item : line) {
           cerr << "item is " << item << endl;
+        }
+      }
+
+      for (vector<bool> visitedrow : visited) {
+        for (bool item : visitedrow) {
+          cerr << "visited item is " << item << endl;
         }
       }
       return 0;
