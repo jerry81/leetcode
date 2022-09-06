@@ -90,6 +90,10 @@ int main() {
   // v.push_back({'0','0','0','0','0'});
   int res = s.numIslands(v);
   cerr << " res is " << res << endl;
+  while (!l1.empty()) {
+    cerr << "back l1 is " << l1.back() << endl;
+    l1.pop_back();
+  }
   return 0;
 }
 
