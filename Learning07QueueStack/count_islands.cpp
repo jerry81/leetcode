@@ -67,3 +67,5 @@ int main() {
   cerr << " res is " << res << endl;
   return 0;
 }
+
+// note: compile the modern syntax with g++ -std=c++11 -o output_file source.cpp
