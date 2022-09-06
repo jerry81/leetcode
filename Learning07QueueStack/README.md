@@ -78,3 +78,16 @@ int main() {
 - solve the above inefficiency with circular queue
 - fixed size array, two pointers (add the ending position)
 - goal to reuse wasted storage
+
+## Queue and BFS
+
+- BFS application: shortest path from root to target
+- process neightbors
+- uses queue
+- enqueue root first
+- enqueue neighbors
+- dequeue after adding neighbors
+
+## BFS template
+
+-
