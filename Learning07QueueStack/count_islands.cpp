@@ -154,42 +154,16 @@ public:
 
 int main()
 {
-  cerr << "starting up!" << endl;
   Solution s = Solution();
-  vector<vector<char>> v;
-  vector<char> l1;
-  Item i;
-  i.col = 0;
-  i.row = 0;
-  queue<Item> q;
-  q.push(i);
-  Item i2;
-  i2.col = 1;
-  i2.row = 1;
-  q.push(i2);
-  while (!q.empty())
-  {
-    cerr << "front col is " << q.front().col << endl;
-    q.pop();
-  }
-  l1.push_back('1');
-  l1.push_back('1');
-  l1.push_back('1');
-  l1.push_back('1');
-  l1.push_back('0');
-  v.push_back(l1);
+  vector<vector<char>> v{
+  {'1','1','0','0','0'},
+  {'1','1','0','0','0'},
+  {'0','0','1','0','0'},
+  {'0','0','0','1','1'}
+  };
 
-  // v.push_back({'1','1','0','1','0'});
-  // v.push_back({'1','1','0','0','0'});
-  // v.push_back({'0','0','0','0','0'});
   int res = s.numIslands(v);
   cerr << " res is " << res << endl;
-
-  for (int i = 0; i < 5; ++i)
-  {
-    cerr << "item is " << v.at(0).at(i) << endl;
-  }
-
   return 0;
 }
 
