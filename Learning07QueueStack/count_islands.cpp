@@ -55,6 +55,7 @@ public:
   {
     if (visited.at(row).at(col))
     {
+      cerr << "returning!" << endl;
       return 0;
     }
 
@@ -69,11 +70,14 @@ public:
     while (!q.empty())
     {
       Item cur = q.front();
+      visited.at(cur.row).at(cur.col) = true;
       // add u l r d
       int ur = cur.row - 1;
       int dr = cur.row + 1;
       int lc = cur.col - 1;
       int rc = cur.col + 1;
+      cerr << "q size is " << q.size() << endl;
+      cerr << "ur " << ur << " dr " << dr << " lc " << lc << " rc " << rc << endl;
       if ((ur >= 0) && (!visited.at(ur).at(cur.col)))
       {
         Item next;
