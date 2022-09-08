@@ -58,6 +58,8 @@ public:
 int main() {
   unordered_map<string, bool> lookup;
   cerr << "lookup undefined " << lookup["abc"] << endl;
+  lookup["b"] = true;
+  cerr << "lookup defined " << lookup["b"] << endl;
 }
 
 // hashmap in c++
