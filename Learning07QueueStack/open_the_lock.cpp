@@ -44,6 +44,8 @@ target and deadends[i] consist of digits only.
 #include <iostream>
 #include <vector> // make modules available, CLASSPATH in java
 #include <queue>
+#include <unordered_map>
+
 using namespace std; // saves us from prepending std:: corresponds to "import" in java
 
 class Solution {
@@ -52,3 +54,12 @@ public:
 
     }
 };
+
+int main() {
+  unordered_map<string, bool> lookup;
+  cerr << "lookup undefined " << lookup["abc"] << endl;
+}
+
+// hashmap in c++
+// can use <map> or <unordered_map>
+// unordered map is O(1) map is O(log n)
