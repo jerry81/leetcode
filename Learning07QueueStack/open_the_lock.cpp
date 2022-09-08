@@ -56,6 +56,7 @@ private:
     void incrAt(string &input, char idx, bool decrement = false) {
       int x = input[idx] - '0';
       int n_x = decrement ? x-1 : x+1;
+      if (n_x < 0) n_x = 9;
       input[idx] = n_x%10 + '0';
     }
 
@@ -66,8 +67,8 @@ public:
       }
 
       // move from target to 0000
-      string s = "9999";
-      incrAt(s, 3);
+      string s = "0000";
+      incrAt(s, 3, true);
       cerr<<"s is now "<<s<<endl;
     }
 };
