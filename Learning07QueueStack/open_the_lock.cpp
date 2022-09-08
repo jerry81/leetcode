@@ -48,18 +48,27 @@ target and deadends[i] consist of digits only.
 
 using namespace std; // saves us from prepending std:: corresponds to "import" in java
 
+
 class Solution {
+unordered_map<string, bool> lookup;
+
 public:
     int openLock(vector<string>& deadends, string target) {
-
+      for (string deadend : deadends) {
+        lookup[deadend] = true;
+      }
+      cerr << "lookuptest 1 " << lookup["nothin"] << endl;
+      cerr << "lookup test 2 " << lookup["hello"] << endl;
+      cerr << "lookup test 3 " << lookup["world"] << endl;
     }
 };
 
 int main() {
-  unordered_map<string, bool> lookup;
-  cerr << "lookup undefined " << lookup["abc"] << endl;
-  lookup["b"] = true;
-  cerr << "lookup defined " << lookup["b"] << endl;
+  Solution s;
+  vector<string> deadends;
+  deadends.push_back("hello");
+  deadends.push_back("world");
+  s.openLock(deadends, "5555");
 }
 
 // hashmap in c++
