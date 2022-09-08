@@ -51,15 +51,24 @@ using namespace std; // saves us from prepending std:: corresponds to "import" i
 
 class Solution {
 unordered_map<string, bool> lookup;
+unordered_map<string, bool> visited;
+private:
+    void incrAt(string &input, char idx, bool decrement = false) {
+      int x = input[idx] - '0';
+      int n_x = decrement ? x-1 : x+1;
+      input[idx] = n_x%10 + '0';
+    }
 
 public:
     int openLock(vector<string>& deadends, string target) {
       for (string deadend : deadends) {
         lookup[deadend] = true;
       }
-      cerr << "lookuptest 1 " << lookup["nothin"] << endl;
-      cerr << "lookup test 2 " << lookup["hello"] << endl;
-      cerr << "lookup test 3 " << lookup["world"] << endl;
+
+      // move from target to 0000
+      string s = "9999";
+      incrAt(s, 3);
+      cerr<<"s is now "<<s<<endl;
     }
 };
 
@@ -69,6 +78,7 @@ int main() {
   deadends.push_back("hello");
   deadends.push_back("world");
   s.openLock(deadends, "5555");
+  return 0;
 }
 
 // hashmap in c++
