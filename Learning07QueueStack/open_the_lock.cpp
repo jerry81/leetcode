@@ -51,13 +51,22 @@ using namespace std; // saves us from prepending std:: corresponds to "import" i
 
 class Solution {
 unordered_map<string, bool> lookup;
-unordered_map<string, bool> visited;
 private:
-    void incrAt(string &input, char idx, bool decrement = false) {
-      int x = input[idx] - '0';
+    string incrAt(string input, char idx, bool decrement = false) {
+      string copy = input;
+      int x = copy[idx] - '0';
       int n_x = decrement ? x-1 : x+1;
       if (n_x < 0) n_x = 9;
-      input[idx] = n_x%10 + '0';
+      copy[idx] = n_x%10 + '0';
+      return copy;
+    }
+
+    vector<string> bfs(vector<string> current) {
+      vector<string> next;
+      for (int i = 0; i < 4; ++i) {
+
+       // if (!lookup[])
+      }
     }
 
 public:
@@ -67,8 +76,9 @@ public:
       }
 
       // move from target to 0000
-      string s = "0000";
-      incrAt(s, 3, true);
+      string s="0000";
+      string t = incrAt(s, 3, true);
+      cerr << "t is now "<<t<<endl;
       cerr<<"s is now "<<s<<endl;
     }
 };
