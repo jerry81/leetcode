@@ -101,6 +101,8 @@ private:
 public:
   int openLock(vector<string> &deadends, string target)
   {
+    if (target == "0000") return 0;
+
     for (string deadend : deadends)
     {
       lookup[deadend] = true;
@@ -110,10 +112,6 @@ public:
     lookup[target] = true;
     int count = 1;
     while (1) {
-      // for (string s : start) {
-      //   cerr << "item in next is " << s << " , ";
-      // }
-      // cerr <<endl;
       start = bfs(start);
       if (start.size() == 0) return -1;
 
@@ -121,11 +119,6 @@ public:
       count++;
     }
     return -1;
-    // move from target to 0000
-    // string s="0000";
-    // string t = incrAt(s, 3, true);
-    // cerr << "t is now "<<t<<endl;
-    // cerr<<"s is now "<<s<<endl;
   }
 };
 
@@ -141,7 +134,7 @@ int main()
   deadends.push_back("8988");
   deadends.push_back("7888");
   deadends.push_back("9888");
-  int res = s.openLock(deadends, "8888");
+  int res = s.openLock(deadends, "0000");
   cerr << "res is "<< res<<endl;
   return 0;
 }
