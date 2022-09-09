@@ -109,12 +109,14 @@ public:
     start.push_back(target);
     lookup[target] = true;
     int count = 1;
-    while (start.size() > 0) {
-      for (string s : start) {
-        cerr << "item in next is " << s << " , ";
-      }
-      cerr <<endl;
+    while (1) {
+      // for (string s : start) {
+      //   cerr << "item in next is " << s << " , ";
+      // }
+      // cerr <<endl;
       start = bfs(start);
+      if (start.size() == 0) return -1;
+
       if (start.front()== "0000") return count;
       count++;
     }
@@ -131,12 +133,15 @@ int main()
 {
   Solution s;
   vector<string> deadends;
-  deadends.push_back("0201");
-  deadends.push_back("0101");
-  deadends.push_back("0102");
-  deadends.push_back("1212");
-  deadends.push_back("2002");
-  int res = s.openLock(deadends, "0202");
+  deadends.push_back("8887");
+  deadends.push_back("8889");
+  deadends.push_back("8878");
+  deadends.push_back("8898");
+  deadends.push_back("8788");
+  deadends.push_back("8988");
+  deadends.push_back("7888");
+  deadends.push_back("9888");
+  int res = s.openLock(deadends, "8888");
   cerr << "res is "<< res<<endl;
   return 0;
 }
