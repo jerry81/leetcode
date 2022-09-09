@@ -117,9 +117,12 @@ int main()
 {
   Solution s;
   vector<string> deadends;
-  deadends.push_back("4444");
-  deadends.push_back("3333");
-  int res = s.openLock(deadends, "5555");
+  deadends.push_back("0201");
+  deadends.push_back("0101");
+  deadends.push_back("0102");
+  deadends.push_back("1212");
+  deadends.push_back("2002");
+  int res = s.openLock(deadends, "0202");
   cerr << "res is "<< res<<endl;
   return 0;
 }
