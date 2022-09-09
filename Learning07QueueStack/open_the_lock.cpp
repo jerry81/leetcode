@@ -83,6 +83,16 @@ private:
             return nxt;
           }
         }
+        if (!lookup[d_neighbor]) {
+          // TODO: DRY
+          lookup[d_neighbor] = true;
+          nxt.push_back(d_neighbor);
+          if (d_neighbor == "0000") { // string compare in c++
+            nxt.clear();
+            nxt.push_back("0000");
+            return nxt;
+          }
+        }
       }
     }
     return nxt;
@@ -100,6 +110,10 @@ public:
     lookup[target] = true;
     int count = 1;
     while (start.size() > 0) {
+      for (string s : start) {
+        cerr << "item in next is " << s << " , ";
+      }
+      cerr <<endl;
       start = bfs(start);
       if (start.front()== "0000") return count;
       count++;
