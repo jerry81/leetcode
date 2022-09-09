@@ -48,42 +48,62 @@ target and deadends[i] consist of digits only.
 
 using namespace std; // saves us from prepending std:: corresponds to "import" in java
 
+class Solution
+{
+  unordered_map<string, bool> lookup;
 
-class Solution {
-unordered_map<string, bool> lookup;
 private:
-    string incrAt(string input, char idx, bool decrement = false) {
-      string copy = input;
-      int x = copy[idx] - '0';
-      int n_x = decrement ? x-1 : x+1;
-      if (n_x < 0) n_x = 9;
-      copy[idx] = n_x%10 + '0';
-      return copy;
-    }
+  string incrAt(string input, char idx, bool decrement = false)
+  {
+    string copy = input;
+    int x = copy[idx] - '0';
+    int n_x = decrement ? x - 1 : x + 1;
+    if (n_x < 0)
+      n_x = 9;
+    copy[idx] = n_x % 10 + '0';
+    return copy;
+  }
 
-    vector<string> bfs(vector<string> current) {
-      vector<string> next;
-      for (int i = 0; i < 4; ++i) {
-
-       // if (!lookup[])
+  vector<string> bfs(vector<string> current)
+  {
+    vector<string> next;
+    for (string c : current)
+    {
+      for (int i = 0; i < 4; ++i)
+      {
+        string neighbor = incrAt(c, i);
+        string d_neighbor = incrAt(c, i, true);
+        if (!lookup[neighbor])
+        {
+          lookup[neighbor] = true;
+          next.push_back(neighbor);
+          if (neighbor == "0000") { // string compare in c++
+            next.clear();
+            return next;
+          }
+        }
       }
     }
+  }
 
 public:
-    int openLock(vector<string>& deadends, string target) {
-      for (string deadend : deadends) {
-        lookup[deadend] = true;
-      }
-
-      // move from target to 0000
-      string s="0000";
-      string t = incrAt(s, 3, true);
-      cerr << "t is now "<<t<<endl;
-      cerr<<"s is now "<<s<<endl;
+  int openLock(vector<string> &deadends, string target)
+  {
+    for (string deadend : deadends)
+    {
+      lookup[deadend] = true;
     }
+
+    // move from target to 0000
+    // string s="0000";
+    // string t = incrAt(s, 3, true);
+    // cerr << "t is now "<<t<<endl;
+    // cerr<<"s is now "<<s<<endl;
+  }
 };
 
-int main() {
+int main()
+{
   Solution s;
   vector<string> deadends;
   deadends.push_back("hello");
