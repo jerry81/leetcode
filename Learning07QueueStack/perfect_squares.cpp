@@ -25,9 +25,34 @@ Constraints:
 1 <= n <= 104
 */
 
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
+
+private:
+  vector<int> squares;
+  void populate_squares(int lim) {
+    int i = 1;
+    while (i*i < lim) {
+      squares.push_back(i*i);
+      ++i;
+    }
+  }
+
 public:
     int numSquares(int n) {
-
+      // get largest square up to
+      populate_squares(n);
+      for (int i : squares) {
+        cerr << "i is " << i <<endl;
+      }
     }
 };
+
+int main() {
+  Solution s;
+  s.numSquares(13);
+  return 0;
+}
