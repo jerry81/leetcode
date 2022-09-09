@@ -66,7 +66,7 @@ private:
 
   vector<string> bfs(vector<string> current)
   {
-    vector<string> next;
+    vector<string> nxt;
     for (string c : current)
     {
       for (int i = 0; i < 4; ++i)
@@ -76,14 +76,16 @@ private:
         if (!lookup[neighbor])
         {
           lookup[neighbor] = true;
-          next.push_back(neighbor);
+          nxt.push_back(neighbor);
           if (neighbor == "0000") { // string compare in c++
-            next.clear();
-            return next;
+            nxt.clear();
+            nxt.push_back("0000");
+            return nxt;
           }
         }
       }
     }
+    return nxt;
   }
 
 public:
@@ -93,7 +95,16 @@ public:
     {
       lookup[deadend] = true;
     }
-
+    vector<string> start;
+    start.push_back(target);
+    lookup[target] = true;
+    int count = 1;
+    while (start.size() > 0) {
+      start = bfs(start);
+      if (start.front()== "0000") return count;
+      count++;
+    }
+    return -1;
     // move from target to 0000
     // string s="0000";
     // string t = incrAt(s, 3, true);
@@ -106,9 +117,10 @@ int main()
 {
   Solution s;
   vector<string> deadends;
-  deadends.push_back("hello");
-  deadends.push_back("world");
-  s.openLock(deadends, "5555");
+  deadends.push_back("4444");
+  deadends.push_back("3333");
+  int res = s.openLock(deadends, "5555");
+  cerr << "res is "<< res<<endl;
   return 0;
 }
 
