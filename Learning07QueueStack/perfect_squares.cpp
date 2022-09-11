@@ -48,15 +48,21 @@ public:
       populate_squares(n);
       int total = n / squares.back();
       cerr << "total is " << total <<endl;
+      int rem = n % squares.back();
+      total *= squares.back();
+      n = n - total;
+      squares.pop_back();
+      cerr << "rem is " << rem << endl;
       for (int i : squares) {
         cerr << "i is " << i <<endl;
       }
+      cerr << "n is now " << n << endl;
       // find how many multiples of that number we can add
       // get difference
       // count + 1
       // pop until find an item lower
 
-
+      return 0;
     }
 };
 
