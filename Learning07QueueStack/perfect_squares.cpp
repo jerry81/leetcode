@@ -47,31 +47,42 @@ private:
 public:
   int numSquares(int n)
   {
+    vector<int> answers;
+
     // get largest square up to
     int count = 0;
     int ret = 0;
     populate_squares(n);
-    while (n > 0)
+
+    vector<int> cursquares;
+    cursquares = squares;
+    while (!cursquares.empty())
     {
-      cerr << "n is " << n << endl;
-      int total = n / squares.back();
-      cerr << "total is " << total << endl;
-      int rem = n % squares.back();
-      ret += total;
-      n = rem;
+      for (int i : cursquares) {
+        cerr << "i is " << i << endl;
+      }
+      while (n > 0)
+      {
+        int total = n / cursquares.back();
+        int rem = n % cursquares.back();
+        ret += total;
+        n = rem;
+        cursquares.pop_back();
+      }
+
+      // find how many multiples of that number we can add
+      // get difference
+      // count + 1
+      // pop until find an item lower
+
+      answers.push_back(ret);
       squares.pop_back();
+      cursquares = squares;
     }
-
-    for (int i : squares)
-    {
-      cerr << "i is " << i << endl;
+    for (int a : answers) {
+      cerr<<"a is "<<a<<endl;
     }
-    // find how many multiples of that number we can add
-    // get difference
-    // count + 1
-    // pop until find an item lower
-
-    return ret;
+    return *min_element(answers.begin(), answers.end());
   }
 };
 
@@ -80,5 +91,9 @@ int main()
   Solution s;
   int ans = s.numSquares(13);
   cerr << "ans is " << ans << endl;
+
+  ans = s.numSquares(12);
+  cerr << "expect 3 " << ans << endl;
+
   return 0;
 }
