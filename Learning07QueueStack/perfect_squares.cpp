@@ -29,45 +29,56 @@ Constraints:
 #include <iostream>
 using namespace std;
 
-class Solution {
+class Solution
+{
 
 private:
   vector<int> squares;
-  void populate_squares(int lim) {
+  void populate_squares(int lim)
+  {
     int i = 1;
-    while (i*i < lim) {
-      squares.push_back(i*i);
+    while (i * i < lim)
+    {
+      squares.push_back(i * i);
       ++i;
     }
   }
 
 public:
-    int numSquares(int n) {
-      // get largest square up to
-      int count = 0;
-      populate_squares(n);
+  int numSquares(int n)
+  {
+    // get largest square up to
+    int count = 0;
+    int ret = 0;
+    populate_squares(n);
+    while (n > 0)
+    {
+      cerr << "n is " << n << endl;
       int total = n / squares.back();
-      cerr << "total is " << total <<endl;
+      cerr << "total is " << total << endl;
       int rem = n % squares.back();
-      total *= squares.back();
-      n = n - total;
+      ret += total;
+      n = rem;
       squares.pop_back();
-      cerr << "rem is " << rem << endl;
-      for (int i : squares) {
-        cerr << "i is " << i <<endl;
-      }
-      cerr << "n is now " << n << endl;
-      // find how many multiples of that number we can add
-      // get difference
-      // count + 1
-      // pop until find an item lower
-
-      return 0;
     }
+
+    for (int i : squares)
+    {
+      cerr << "i is " << i << endl;
+    }
+    // find how many multiples of that number we can add
+    // get difference
+    // count + 1
+    // pop until find an item lower
+
+    return ret;
+  }
 };
 
-int main() {
+int main()
+{
   Solution s;
-  s.numSquares(13);
+  int ans = s.numSquares(13);
+  cerr << "ans is " << ans << endl;
   return 0;
 }
