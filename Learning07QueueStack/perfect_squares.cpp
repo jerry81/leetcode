@@ -106,3 +106,16 @@ int main()
   cerr << "expect 3 " << ans << endl;
   return 0;
 }
+
+// 43
+// 7
+// 3
+// 2
+// 1
+// 0
+// 43
+// 18
+// 9 9 (4)
+// 43 - 16
+// 25 9 9
+// looks like recursion may be necessary
