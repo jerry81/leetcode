@@ -44,10 +44,19 @@ private:
 public:
     int numSquares(int n) {
       // get largest square up to
+      int count = 0;
       populate_squares(n);
+      int total = n / squares.back();
+      cerr << "total is " << total <<endl;
       for (int i : squares) {
         cerr << "i is " << i <<endl;
       }
+      // find how many multiples of that number we can add
+      // get difference
+      // count + 1
+      // pop until find an item lower
+
+
     }
 };
 
