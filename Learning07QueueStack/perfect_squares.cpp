@@ -37,7 +37,7 @@ private:
   void populate_squares(int lim)
   {
     int i = 1;
-    while (i * i < lim)
+    while (i * i <= lim)
     {
       squares.push_back(i * i);
       ++i;
@@ -47,7 +47,7 @@ private:
 public:
   int numSquares(int n)
   {
-    if (n == 1) return 1;
+   // if (n == 1) return 1;
 
     vector<int> answers;
 
@@ -61,9 +61,6 @@ public:
     while (!cursquares.empty())
     {
       int ret = 0;
-      for (int i : cursquares) {
-        cerr << "i is " << i << endl;
-      }
       while (cur > 0)
       {
         int total = cur / cursquares.back();
@@ -83,8 +80,8 @@ public:
       cursquares = squares;
       cur = n;
     }
-    for (int a : answers) {
-      cerr<<"a is "<<a<<endl;
+    for (int ans : answers) {
+    cerr << "ans is " << ans <<endl;
     }
     return *min_element(answers.begin(), answers.end());
   }
@@ -93,14 +90,19 @@ public:
 int main()
 {
   Solution s;
-  int ans = s.numSquares(13);
-  cerr << "ans is " << ans << endl;
+   int ans = s.numSquares(13);
+   cerr << "ans is " << ans << endl;
 
-  ans = s.numSquares(12);
-  cerr << "expect 3 " << ans << endl;
+   ans = s.numSquares(12);
+   cerr << "expect 3 " << ans << endl;
 
     ans = s.numSquares(1);
   cerr << "expect 1 " << ans << endl;
 
+   ans = s.numSquares(4);
+  cerr << "expect 1 " << ans << endl;
+
+  ans = s.numSquares(43);
+  cerr << "expect 3 " << ans << endl;
   return 0;
 }
