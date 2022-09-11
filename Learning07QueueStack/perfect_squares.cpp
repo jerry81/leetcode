@@ -97,5 +97,8 @@ int main()
   ans = s.numSquares(12);
   cerr << "expect 3 " << ans << endl;
 
+    ans = s.numSquares(1);
+  cerr << "expect 1 " << ans << endl;
+
   return 0;
 }
