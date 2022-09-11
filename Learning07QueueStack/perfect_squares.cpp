@@ -50,23 +50,24 @@ public:
     vector<int> answers;
 
     // get largest square up to
-    int count = 0;
-    int ret = 0;
+
     populate_squares(n);
 
     vector<int> cursquares;
     cursquares = squares;
+    int cur = n;
     while (!cursquares.empty())
     {
+      int ret = 0;
       for (int i : cursquares) {
         cerr << "i is " << i << endl;
       }
-      while (n > 0)
+      while (cur > 0)
       {
-        int total = n / cursquares.back();
-        int rem = n % cursquares.back();
+        int total = cur / cursquares.back();
+        int rem = cur % cursquares.back();
         ret += total;
-        n = rem;
+        cur = rem;
         cursquares.pop_back();
       }
 
@@ -78,6 +79,7 @@ public:
       answers.push_back(ret);
       squares.pop_back();
       cursquares = squares;
+      cur = n;
     }
     for (int a : answers) {
       cerr<<"a is "<<a<<endl;
