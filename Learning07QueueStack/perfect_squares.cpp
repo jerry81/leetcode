@@ -47,6 +47,8 @@ private:
 public:
   int numSquares(int n)
   {
+    if (n == 1) return 1;
+
     vector<int> answers;
 
     // get largest square up to
