@@ -66,23 +66,23 @@ private:
     {
       int diff = cur - sq;
       int diffAns = lookup[diff];
-      if (diff >= 0)
+      if (diff > 0)
       {
         if (diffAns > 0)
         {
           res.push_back(1 + diffAns);
+          lookup[cur] = 1+diffAns;
+          return lookup[cur];
         }
         else
         {
           res.push_back((1 + reduceR(diff)));
         }
       }
-    }
-    int count = 0;
-    for (int r : res)
-    {
-      // cerr << "res item is " << r << " and count is " << count << endl;
-      count++;
+      if (diff == 0) {
+        lookup[cur] = 1;
+        return 1;
+      }
     }
     int ans = *min_element(res.begin(), res.end());
     lookup[cur] = ans;
