@@ -42,19 +42,22 @@ private:
     while (i * i <= lim)
     {
       squares.push_back(i * i);
-      lookup[i*i] = 1;
+      lookup[i * i] = 1;
       ++i;
     }
   }
 
   int reduceR(int cur)
   {
+    cerr << "reducing " << cur << endl;
 
     // cerr << "reduce the following now " << cur << endl;
     if (cur == 0)
       return 0;
 
-    if (lookup[cur] > 0) {
+    if (lookup[cur] > 0)
+    {
+      cerr << "returning from memo cur: " << cur << " lookup: " << lookup[cur] << endl;
       return lookup[cur];
     }
 
@@ -63,16 +66,16 @@ private:
     {
       int diff = cur - sq;
       int diffAns = lookup[diff];
-      if (diff > 0)
+      if (diff >= 0)
       {
-        if (diffAns > 0) {
-          res.push_back(1+diffAns);
-        } else {
-         res.push_back((1 + reduceR(diff)));
+        if (diffAns > 0)
+        {
+          res.push_back(1 + diffAns);
         }
-      } else {
-        lookup[cur] = 1;
-        return 1;
+        else
+        {
+          res.push_back((1 + reduceR(diff)));
+        }
       }
     }
     int count = 0;
@@ -93,6 +96,7 @@ private:
 public:
   int numSquares(int n)
   {
+    lookup.clear();
     // cerr << "lookup undefined int is " << lookup[111] << endl;
     // if (n == 1) return 1;
 
@@ -144,17 +148,17 @@ int main()
   int ans = s.numSquares(13);
   cerr << "expect 2 " << ans << endl;
 
-   ans = s.numSquares(12);
-   cerr << "expect 3 " << ans << endl;
-
-   ans = s.numSquares(1);
-   cerr << "expect 1 " << ans << endl;
-
+  ans = s.numSquares(12);
+  cerr << "expect 3 " << ans << endl;
+//
+  ans = s.numSquares(1);
+  cerr << "expect 1 " << ans << endl;
+//
   ans = s.numSquares(4);
-   cerr << "expect 1 " << ans << endl; // inf loop!
-
-    ans = s.numSquares(43);
-    cerr << "expect 3 " << ans << endl;
+  cerr << "expect 1 " << ans << endl; // inf loop!
+//
+  ans = s.numSquares(43);
+  cerr << "expect 3 " << ans << endl;
   return 0;
 }
 
