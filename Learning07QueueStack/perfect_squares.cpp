@@ -62,9 +62,14 @@ private:
     for (int sq : squares)
     {
       int diff = cur - sq;
-      if (diff > 0 && lookup[cur] < 1)
+      int diffAns = lookup[diff];
+      if (diff > 0)
       {
-        res.push_back((1 + reduceR(diff)));
+        if (diffAns > 0) {
+          res.push_back(1+diffAns);
+        } else {
+         res.push_back((1 + reduceR(diff)));
+        }
       } else {
         lookup[cur] = 1;
         return 1;
@@ -137,7 +142,7 @@ int main()
 {
   Solution s;
   int ans = s.numSquares(13);
-  cerr << "ans is " << ans << endl;
+  cerr << "expect 2 " << ans << endl;
 
    ans = s.numSquares(12);
    cerr << "expect 3 " << ans << endl;
@@ -148,8 +153,8 @@ int main()
   ans = s.numSquares(4);
    cerr << "expect 1 " << ans << endl; // inf loop!
 
-   // ans = s.numSquares(43);
-   // cerr << "expect 3 " << ans << endl;
+    ans = s.numSquares(43);
+    cerr << "expect 3 " << ans << endl;
   return 0;
 }
 
