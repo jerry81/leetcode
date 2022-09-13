@@ -71,17 +71,20 @@ private:
         if (diffAns > 0)
         {
           res.push_back(1 + diffAns);
-          lookup[cur] = 1+diffAns;
-          return lookup[cur];
         }
         else
         {
           res.push_back((1 + reduceR(diff)));
         }
       }
-      if (diff == 0) {
+      else if (diff == 0)
+      {
         lookup[cur] = 1;
         return 1;
+      }
+      else
+      {
+        break;
       }
     }
     int ans = *min_element(res.begin(), res.end());
@@ -116,13 +119,13 @@ int main()
 
   ans = s.numSquares(12);
   cerr << "expect 3 " << ans << endl;
-//
+  //
   ans = s.numSquares(1);
   cerr << "expect 1 " << ans << endl;
-//
+  //
   ans = s.numSquares(4);
   cerr << "expect 1 " << ans << endl; // inf loop!
-//
+                                      //
   ans = s.numSquares(43);
   cerr << "expect 3 " << ans << endl;
   return 0;
