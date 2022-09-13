@@ -108,37 +108,6 @@ public:
 
     populate_squares(n);
     return reduceR(n);
-
-    vector<int> cursquares;
-    cursquares = squares;
-    int cur = n;
-    while (!cursquares.empty())
-    {
-      int ret = 0;
-      while (cur > 0)
-      {
-        int total = cur / cursquares.back();
-        int rem = cur % cursquares.back();
-        ret += total;
-        cur = rem;
-        cursquares.pop_back();
-      }
-
-      // find how many multiples of that number we can add
-      // get difference
-      // count + 1
-      // pop until find an item lower
-
-      answers.push_back(ret);
-      squares.pop_back();
-      cursquares = squares;
-      cur = n;
-    }
-    for (int ans : answers)
-    {
-      cerr << "ans is " << ans << endl;
-    }
-    return *min_element(answers.begin(), answers.end());
   }
 };
 
