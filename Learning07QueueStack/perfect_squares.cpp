@@ -2,9 +2,12 @@
 Perfect Squares
 
 Solution
-Given an integer n, return the least number of perfect square numbers that sum to n.
+Given an integer n, return the least number of perfect square numbers that sum
+to n.
 
-A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+A perfect square is an integer that is the square of an integer; in other words,
+it is the product of some integer with itself. For example, 1, 4, 9, and 16 are
+perfect squares while 3 and 11 are not.
 
 
 
@@ -25,61 +28,45 @@ Constraints:
 1 <= n <= 104
 */
 
-#include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 using namespace std;
 
-class Solution
-{
-
-private:
+class Solution {
+ private:
   vector<int> squares;
   unordered_map<int, int> lookup;
-  void populate_squares(int lim)
-  {
+  void populate_squares(int lim) {
     int i = 1;
-    while (i * i <= lim)
-    {
+    while (i * i <= lim) {
       squares.push_back(i * i);
       lookup[i * i] = 1;
       ++i;
     }
   }
 
-  int reduceR(int cur)
-  {
-    if (cur == 0)
-      return 0;
+  int reduceR(int cur) {
+    if (cur == 0) return 0;
 
-    if (lookup[cur] > 0)
-    {
+    if (lookup[cur] > 0) {
       return lookup[cur];
     }
 
     vector<int> res;
-    for (int sq : squares)
-    {
+    for (int sq : squares) {
       int diff = cur - sq;
       int diffAns = lookup[diff];
-      if (diff > 0)
-      {
-        if (diffAns > 0)
-        {
+      if (diff > 0) {
+        if (diffAns > 0) {
           res.push_back(1 + diffAns);
-        }
-        else
-        {
+        } else {
           res.push_back((1 + reduceR(diff)));
         }
-      }
-      else if (diff == 0)
-      {
+      } else if (diff == 0) {
         lookup[cur] = 1;
         return 1;
-      }
-      else
-      {
+      } else {
         break;
       }
     }
@@ -92,9 +79,8 @@ private:
     // return - count
   }
 
-public:
-  int numSquares(int n)
-  {
+ public:
+  int numSquares(int n) {
     lookup.clear();
 
     lookup[0] = 0;
@@ -107,8 +93,7 @@ public:
   }
 };
 
-int main()
-{
+int main() {
   Solution s;
   int ans = s.numSquares(13);
   cerr << "expect 2 " << ans << endl;
@@ -120,8 +105,8 @@ int main()
   cerr << "expect 1 " << ans << endl;
   //
   ans = s.numSquares(4);
-  cerr << "expect 1 " << ans << endl; // inf loop!
-                                      //
+  cerr << "expect 1 " << ans << endl;  // inf loop!
+                                       //
   ans = s.numSquares(43);
   cerr << "expect 3 " << ans << endl;
   return 0;
