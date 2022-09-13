@@ -49,7 +49,7 @@ private:
 
   int reduceR(int cur)
   {
-    cerr << "reducing " << cur << endl;
+    // cerr << "reducing " << cur << endl;
 
     // cerr << "reduce the following now " << cur << endl;
     if (cur == 0)
@@ -57,7 +57,7 @@ private:
 
     if (lookup[cur] > 0)
     {
-      cerr << "returning from memo cur: " << cur << " lookup: " << lookup[cur] << endl;
+      // cerr << "returning from memo cur: " << cur << " lookup: " << lookup[cur] << endl;
       return lookup[cur];
     }
 
@@ -97,10 +97,7 @@ public:
   int numSquares(int n)
   {
     lookup.clear();
-    // cerr << "lookup undefined int is " << lookup[111] << endl;
-    // if (n == 1) return 1;
 
-    vector<int> answers;
     lookup[0] = 0;
     lookup[1] = 1;
 
@@ -143,3 +140,5 @@ int main()
 // 43 - 16
 // 25 9 9
 // looks like recursion may be necessary
+
+// 8829 fails time limit
