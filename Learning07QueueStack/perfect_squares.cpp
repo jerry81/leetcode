@@ -27,6 +27,7 @@ Constraints:
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
 class Solution
@@ -34,26 +35,70 @@ class Solution
 
 private:
   vector<int> squares;
+  unordered_map<int, int> lookup;
   void populate_squares(int lim)
   {
     int i = 1;
     while (i * i <= lim)
     {
       squares.push_back(i * i);
+      lookup[i*i] = 1;
       ++i;
     }
+  }
+
+  int reduceR(int cur)
+  {
+
+    // cerr << "reduce the following now " << cur << endl;
+    if (cur == 0)
+      return 0;
+
+    if (lookup[cur] > 0) {
+      return lookup[cur];
+    }
+
+    vector<int> res;
+    for (int sq : squares)
+    {
+      int diff = cur - sq;
+      if (diff > 0 && lookup[cur] < 1)
+      {
+        res.push_back((1 + reduceR(diff)));
+      } else {
+        lookup[cur] = 1;
+        return 1;
+      }
+    }
+    int count = 0;
+    for (int r : res)
+    {
+      // cerr << "res item is " << r << " and count is " << count << endl;
+      count++;
+    }
+    int ans = *min_element(res.begin(), res.end());
+    lookup[cur] = ans;
+    return lookup[cur];
+    // end condition - return 0
+    // recursive condition
+    // memory
+    // return - count
   }
 
 public:
   int numSquares(int n)
   {
-   // if (n == 1) return 1;
+    // cerr << "lookup undefined int is " << lookup[111] << endl;
+    // if (n == 1) return 1;
 
     vector<int> answers;
+    lookup[0] = 0;
+    lookup[1] = 1;
 
     // get largest square up to
 
     populate_squares(n);
+    return reduceR(n);
 
     vector<int> cursquares;
     cursquares = squares;
@@ -80,8 +125,9 @@ public:
       cursquares = squares;
       cur = n;
     }
-    for (int ans : answers) {
-    cerr << "ans is " << ans <<endl;
+    for (int ans : answers)
+    {
+      cerr << "ans is " << ans << endl;
     }
     return *min_element(answers.begin(), answers.end());
   }
@@ -90,20 +136,20 @@ public:
 int main()
 {
   Solution s;
-   int ans = s.numSquares(13);
-   cerr << "ans is " << ans << endl;
+  int ans = s.numSquares(13);
+  cerr << "ans is " << ans << endl;
 
    ans = s.numSquares(12);
    cerr << "expect 3 " << ans << endl;
 
-    ans = s.numSquares(1);
-  cerr << "expect 1 " << ans << endl;
+   ans = s.numSquares(1);
+   cerr << "expect 1 " << ans << endl;
 
-   ans = s.numSquares(4);
-  cerr << "expect 1 " << ans << endl;
+  ans = s.numSquares(4);
+   cerr << "expect 1 " << ans << endl; // inf loop!
 
-  ans = s.numSquares(43);
-  cerr << "expect 3 " << ans << endl;
+   // ans = s.numSquares(43);
+   // cerr << "expect 3 " << ans << endl;
   return 0;
 }
 
