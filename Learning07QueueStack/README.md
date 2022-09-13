@@ -93,3 +93,9 @@ int main() {
 - two templates provided, one that checks for visited (visit at most once)
 - one checks for visited (to prevent infinite loops)
   - inf loop could be due to graph with cycle or bidirectional edges
+
+## Stack
+
+- LIFO
+- easier to implement than queue
+- dynamic array is enough.
