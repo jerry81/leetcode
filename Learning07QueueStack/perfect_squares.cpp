@@ -49,15 +49,11 @@ private:
 
   int reduceR(int cur)
   {
-    // cerr << "reducing " << cur << endl;
-
-    // cerr << "reduce the following now " << cur << endl;
     if (cur == 0)
       return 0;
 
     if (lookup[cur] > 0)
     {
-      // cerr << "returning from memo cur: " << cur << " lookup: " << lookup[cur] << endl;
       return lookup[cur];
     }
 
