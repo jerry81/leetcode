@@ -98,4 +98,13 @@ int main() {
 
 - LIFO
 - easier to implement than queue
-- dynamic array is enough.
+- dynamic array is enough.  c++ vector is perfect to impl stack
+- c++ also has built in stack
+```cpp
+stack<int> a;
+a.push(5);
+a.empty();
+a.pop();
+a.top();
+a.size();
+```
