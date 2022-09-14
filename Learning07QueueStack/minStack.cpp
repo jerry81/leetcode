@@ -1,5 +1,6 @@
 /*
-Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Design a stack that supports push, pop, top, and retrieving the minimum element
+in constant time.
 
 Implement the MinStack class:
 
@@ -35,10 +36,11 @@ minStack.getMin(); // return -2
 Constraints:
 
 -231 <= val <= 231 - 1
-Methods pop, top and getMin operations will always be called on non-empty stacks.
-At most 3 * 104 calls will be made to push, pop, top, and getMin.
+Methods pop, top and getMin operations will always be called on non-empty
+stacks. At most 3 * 104 calls will be made to push, pop, top, and getMin.
 
-Consider each node in the stack having a minimum value. (Credits to @aakarshmadhavan)
+Consider each node in the stack having a minimum value. (Credits to
+@aakarshmadhavan)
 
 */
 
@@ -48,34 +50,39 @@ Consider each node in the stack having a minimum value. (Credits to @aakarshmadh
 using namespace std;
 
 class MinStack {
-private:
-    typedef struct Node {
-      int v;
-      int min;
-    } Node;
+ private:
+  typedef struct Node {
+    int v;
+    int min;
+  } Node;
 
-    stack<Node> s;
+  stack<Node> s;
 
-public:
-    MinStack() {
+ public:
+  MinStack() {}
 
+  void push(int val) {
+    Node n;
+    n.v = val;
+    if (s.size() == 0) {
+      n.min = val;
+    } else {
+      n.min = min(val, s.top().min);
     }
+    s.push(n);
+  }
 
-    void push(int val) {
+  void pop() {
+    s.pop();
+  }
 
-    }
+  int top() {
+    return s.top().v;
+  }
 
-    void pop() {
-
-    }
-
-    int top() {
-
-    }
-
-    int getMin() {
-
-    }
+  int getMin() {
+    return s.top().min;
+  }
 };
 
 /**
@@ -86,3 +93,8 @@ public:
  * int param_3 = obj->top();
  * int param_4 = obj->getMin();
  */
+
+int main() {
+MinStack* obj = new MinStack();
+obj->push(1);
+}
