@@ -33,12 +33,26 @@ When you encounter an opening bracket, push it to the top of the stack.
 
 When you encounter a closing bracket, check if the top of the stack was the opening for it. If yes, pop it from the stack. Otherwise, return false.
 */
-#include <string>;
+#include <string>
+#include <stack>
+#include <iostream>
+
 using namespace std;
 
 class Solution {
+private:
+    stack<char> s;
 public:
     bool isValid(string s) {
-
+      for (auto &ch : s) {
+        cerr << "ch is " << ch <<endl;
+      }
+      return false;
     }
 };
+
+int main() {
+  Solution s;
+  s.isValid("(())");
+  return 0;
+}
