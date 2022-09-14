@@ -95,6 +95,7 @@ class MinStack {
  */
 
 int main() {
-MinStack* obj = new MinStack();
-obj->push(1);
+  MinStack* obj = new MinStack();
+  obj->push(1);
+  cerr << "min should be 1 " << obj->getMin() << endl;
 }
