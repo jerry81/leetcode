@@ -56,6 +56,7 @@ class Solution {
         if (temp < cmp) {
           cerr << "j-i " << j - i << endl;
           arr[i] = j - i;
+          break;
         }
       }
     }
