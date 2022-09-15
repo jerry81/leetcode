@@ -34,13 +34,14 @@ class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
       size_t size = temperatures.size();
+      cerr << "size is " << size << endl;
       // work backwards
       // unordered map of indexes: temps
       // write index
       int arr[size];
       int lookup[size];
       vector<int> sol;
-      for (int i = size-1; i > -1; ++i) {
+      for (int i = (size-1); i > -1; --i) {
         int temp = temperatures.back();
         temperatures.pop_back();
         lookup[i] = temp;
