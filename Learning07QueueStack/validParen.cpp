@@ -1,5 +1,6 @@
 /*
-Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']',
+determine if the input string is valid.
 
 An input string is valid if:
 
@@ -31,28 +32,59 @@ Use a stack of characters.
 
 When you encounter an opening bracket, push it to the top of the stack.
 
-When you encounter a closing bracket, check if the top of the stack was the opening for it. If yes, pop it from the stack. Otherwise, return false.
+When you encounter a closing bracket, check if the top of the stack was the
+opening for it. If yes, pop it from the stack. Otherwise, return false.
 */
-#include <string>
-#include <stack>
+
 #include <iostream>
+#include <stack>
+#include <string>
 
 using namespace std;
 
 class Solution {
-private:
-    stack<char> s;
-public:
-    bool isValid(string s) {
-      for (auto &ch : s) {
-        cerr << "ch is " << ch <<endl;
+ private:
+  stack<char> st;
+
+ public:
+  bool isValid(string s) {
+    for (auto &ch : s) {
+      switch (ch) {
+        case ')':
+          if (st.empty()) return false;
+          if (st.top() == '(') {
+            st.pop();
+          } else {
+            return false;
+          }
+          break;
+        case ']':
+          if (st.empty()) return false;
+          if (st.top() == '[') {
+            st.pop();
+          } else {
+            return false;
+          }
+          break;
+        case '}':
+          if (st.empty()) return false;
+          if (st.top() == '{') {
+            st.pop();
+          } else {
+            return false;
+          }
+          break;
+        default:
+          st.push(ch);
       }
-      return false;
     }
+    return st.empty();
+  }
 };
 
 int main() {
   Solution s;
-  s.isValid("(())");
+  cerr << "expect true " << s.isValid("(())") << endl;
+  cerr << "expect false " << s.isValid("())") << endl;
   return 0;
 }
