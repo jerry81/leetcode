@@ -28,15 +28,37 @@ If the temperature is say, 70 today, then in the future a warmer temperature mus
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
-      cerr << "size is " << temperatures.size() << endl;
+      size_t size = temperatures.size();
       // work backwards
       // unordered map of indexes: temps
       // write index
+      int arr[size];
+      int lookup[size];
       vector<int> sol;
+      for (int i = size-1; i > -1; ++i) {
+        int temp = temperatures.back();
+        temperatures.pop_back();
+        lookup[i] = temp;
+        if (i == (size-1)) {
+          arr[i] = 0;
+        }
+
+        for (int j = i; j < size; ++j) {
+          int cmp = lookup[j];
+          if (temp < cmp) {
+            arr[i] = j - i;
+          }
+        }
+      }
+      for (int i = 0; i < size; ++i) {
+        sol.push_back(arr[i]);
+      }
+
       return sol;
     }
 };
