@@ -27,10 +27,24 @@ If the temperature is say, 70 today, then in the future a warmer temperature mus
 */
 
 #include <vector>
+#include <iostream>
 using namespace std;
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
-
+      cerr << "size is " << temperatures.size() << endl;
+      // work backwards
+      // unordered map of indexes: temps
+      // write index
+      vector<int> sol;
+      return sol;
     }
 };
+
+int main() {
+  Solution s;
+  vector<int> t;
+  t.push_back(1);
+  s.dailyTemperatures(t);
+  return 0;
+}
