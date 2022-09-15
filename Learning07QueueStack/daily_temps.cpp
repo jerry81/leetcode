@@ -38,26 +38,27 @@ class Solution {
  public:
   vector<int> dailyTemperatures(vector<int>& temperatures) {
     size_t size = temperatures.size();
-    cerr << "size is " << size << endl;
     // work backwards
     // unordered map of indexes: temps
     // write index
     int arr[size];
-    int lookup[size];
+    unordered_map<int, int> lookup;
     vector<int> sol;
     for (int i = (size - 1); i > -1; --i) {
       int temp = temperatures.back();
       temperatures.pop_back();
-      lookup[i] = temp;
+      lookup[temp] = i;
       arr[i] = 0;
-
-      for (int j = i; j < size; ++j) {
+      int min = size;
+      for (int j = temp+1; j < 101; ++j) {
+        // use hint: rework lookup: use map of temperatures -> idx
         int cmp = lookup[j];
-        if (temp < cmp) {
-          cerr << "j-i " << j - i << endl;
-          arr[i] = j - i;
-          break;
+
+        if (cmp > 0 && cmp < min) {
+          arr[i] = cmp - i;
+          min = cmp;
         }
+
       }
     }
     for (int i = 0; i < size; ++i) {
@@ -74,9 +75,7 @@ int main() {
   t.push_back(73);
   t.push_back(74);
   t.push_back(75);
-
   t.push_back(71);
-
   t.push_back(69);
   t.push_back(72);
   t.push_back(76);
