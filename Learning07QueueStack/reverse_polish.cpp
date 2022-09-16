@@ -37,6 +37,7 @@ Constraints:
 1 <= tokens.length <= 104
 tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
 */
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -44,8 +45,28 @@ tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the ran
 using namespace std;
 
 class Solution {
+private:
+    vector<int> nums;
+    string ops[4] = {"+", "-", "/", "*"};
 public:
     int evalRPN(vector<string>& tokens) {
-
+      for (string s : tokens) {
+        if (find(begin(ops), end(ops), s) != end(ops)) { // TIL: array includes
+          cerr << "not an operator " << s <<endl;
+        } else {
+          cerr << "is an operator " << s <<endl;
+        }
+      }
+      return 0;
     }
 };
+
+int main () {
+  Solution s;
+  vector<string> t;
+  t.push_back("11");
+  t.push_back("+");
+  t.push_back("15");
+  s.evalRPN(t);
+  return 0;
+}
