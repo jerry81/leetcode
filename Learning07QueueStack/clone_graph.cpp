@@ -56,6 +56,7 @@ The Graph is connected and all nodes can be visited starting from the given node
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 // Definition for a Node.
@@ -81,6 +82,10 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
+      // node val is unique, so visited map with vals good enough
+      unordered_map<int, bool> visited;
+      // clone with DFS
+      //
       return node;
     }
 };
