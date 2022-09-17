@@ -83,3 +83,8 @@ public:
 
     }
 };
+
+int main() {
+  Node* n = new Node(); // New is a memory allocator, so we allocate a pointer
+  return 0;
+}
