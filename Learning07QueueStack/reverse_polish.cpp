@@ -46,7 +46,7 @@ using namespace std;
 
 class Solution {
 private:
-    vector<int> nums;
+    vector<long int> nums;
     string ops[4] = {"+", "-", "/", "*"};
 public:
     int evalRPN(vector<string>& tokens) {
@@ -54,21 +54,21 @@ public:
         if (find(begin(ops), end(ops), s) == end(ops)) { // TIL: array includes
           nums.push_back(stoi(s));
         } else {
-          int operator1 =  nums.back();
+          long int operator2 =  nums.back();
           nums.pop_back();
-          int operator2 = nums.back();
+          long int operator1 = nums.back();
           nums.pop_back();
           if (s=="+") {
-            int sum = operator1 + operator2;
+            long int sum = operator1 + operator2;
             nums.push_back(sum);
           } else if (s=="-") {
-            int diff = operator1 - operator2;
+            long int diff = operator1 - operator2;
             nums.push_back(diff);
           } else if (s=="/") {
-            int quotient = operator1 / operator2;
+            long int quotient = operator1 / operator2;
             nums.push_back(quotient); // assuming int division is floor
           } else {
-            int prod = operator1 * operator2;
+            long int prod = operator1 * operator2;
             nums.push_back(prod);
           }
         }
