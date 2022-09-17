@@ -55,6 +55,7 @@ The Graph is connected and all nodes can be visited starting from the given node
 */
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 // Definition for a Node.
@@ -80,12 +81,25 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-
+      return node;
     }
 };
 
 int main() {
-  Node* n = new Node(); // New is a memory allocator, so we allocate a pointer
+  Node* n = new Node(0); // New is a memory allocator, so we allocate a pointer
+  Node* n2 = new Node(1);
+  Node* n3 = new Node(2);
+  vector<Node*> nneighbors;
+  vector<Node*> n2neighbors;
+  nneighbors.push_back(n2);
+  n2neighbors.push_back(n3);
+  n->neighbors = nneighbors;
+  n2->neighbors=n2neighbors;
+  Node* x = n;
+  while (!x->neighbors.empty()) {
+    cerr<<"neighbor is " << x->neighbors.back()->val<<endl;
+    x = x->neighbors.back();
+  }
   return 0;
 }
 
