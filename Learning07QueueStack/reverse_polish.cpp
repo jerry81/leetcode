@@ -56,12 +56,26 @@ public:
           nums.push_back(stoi(s));
         } else {
           cerr << "is an operator " << s <<endl;
+          int operator1 =  nums.back();
+          nums.pop_back();
+          int operator2 = nums.back();
+          nums.pop_back();
+          if (s=="+") {
+            int sum = operator1 + operator2;
+            nums.push_back(sum);
+          } else if (s=="-") {
+            int diff = operator1 - operator2;
+            nums.push_back(diff);
+          } else if (s=="/") {
+            int quotient = operator1 / operator2;
+            nums.push_back(quotient); // assuming int division is floor
+          } else {
+            int prod = operator1 * operator2;
+            nums.push_back(prod);
+          }
         }
       }
-      for (int i:nums) {
-        cerr << "i is " << i << endl;
-      }
-      return 0;
+      return nums.back();
     }
 };
 
@@ -69,8 +83,9 @@ int main () {
   Solution s;
   vector<string> t;
   t.push_back("11");
-  t.push_back("+");
   t.push_back("15");
-  s.evalRPN(t);
+  t.push_back("+");
+  int sol = s.evalRPN(t);
+  cerr<<" expect 26 " <<sol<<endl;
   return 0;
 }
