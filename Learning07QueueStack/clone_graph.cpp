@@ -111,25 +111,40 @@ class Solution {
   }
 };
 
+void printR(Node* n, unordered_map<int,bool> visited) {
+}
+
 int main() {
-  Node* n = new Node(0);  // New is a memory allocator, so we allocate a pointer
-  Node* n2 = new Node(1);
-  Node* n3 = new Node(2);
+  // [[2,4],[1,3],[2,4],[1,3]] failing test
+  Node* n = new Node(1);  // New is a memory allocator, so we allocate a pointer
+  Node* n2 = new Node(2);
+  Node* n3 = new Node(3);
+  Node* n4 = new Node(4);
   Solution s = Solution();
   vector<Node*> nneighbors;
   vector<Node*> n2neighbors;
+  vector<Node*> n3n;
+  vector<Node*> n4n;
   nneighbors.push_back(n2);
+  nneighbors.push_back(n4);
+  n2neighbors.push_back(n);
   n2neighbors.push_back(n3);
+  n3n.push_back(n2);
+  n3n.push_back(n4);
+  n4n.push_back(n);
+  n4n.push_back(n3);
   n->neighbors = nneighbors;
   n2->neighbors = n2neighbors;
+  n3->neighbors = n3n;
+  n4->neighbors = n4n;
   Node* x = n;
-  while (!x->neighbors.empty()) {
-    cerr << "neighbor is " << x->neighbors.back()->val << endl;
-    x = x->neighbors.back();
-  }
+  unordered_map<int,bool> visited;
+  cerr<<"root is " << n->val<<endl;
+
+
   Node* copyN = s.cloneGraph(n);
 
-    while (!copyN->neighbors.empty()) {
+  while (!copyN->neighbors.empty()) {
     cerr << "copy is " << copyN->neighbors.back()->val << endl;
     copyN = copyN->neighbors.back();
   }
