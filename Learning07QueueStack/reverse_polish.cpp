@@ -53,6 +53,7 @@ public:
       for (string s : tokens) {
         if (find(begin(ops), end(ops), s) != end(ops)) { // TIL: array includes
           cerr << "not an operator " << s <<endl;
+          nums.push_back(stoi(s));
         } else {
           cerr << "is an operator " << s <<endl;
         }
