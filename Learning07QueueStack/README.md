@@ -108,3 +108,27 @@ a.pop();
 a.top();
 a.size();
 ```
+## stack and DFS
+
+- dfs find deepest path first
+- involves backtracking
+- backtracking goes in reverse order that nodes were added, so stack is suitable
+- keeping track of visited is key, as usual
+- 2 methods, recursion (call stack), or iteration (user maintained stack)
+
+- DFS pseudocode template
+```
+/*
+ * Return true if there is a path from cur to target.
+ */
+boolean DFS(Node cur, Node target, Set<Node> visited) {
+    return true if cur is target;
+    for (next : each neighbor of cur) {
+        if (next is not in visited) {
+            add next to visted;
+            return true if DFS(next, target, visited) == true;
+        }
+    }
+    return false;
+}
+```
