@@ -52,10 +52,8 @@ public:
     int evalRPN(vector<string>& tokens) {
       for (string s : tokens) {
         if (find(begin(ops), end(ops), s) == end(ops)) { // TIL: array includes
-          cerr << "is a number " << s << endl;
           nums.push_back(stoi(s));
         } else {
-          cerr << "is an operator " << s <<endl;
           int operator1 =  nums.back();
           nums.pop_back();
           int operator2 = nums.back();
