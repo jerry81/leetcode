@@ -88,3 +88,14 @@ int main() {
   Node* n = new Node(); // New is a memory allocator, so we allocate a pointer
   return 0;
 }
+
+/*
+
+@nbolton Re: UPDATE 1 - One of the beautiful things about C++ is that it allows you to store
+User Defined Types on the stack, whereas garbage collected langs like C# force you to store the data on
+ the heap. Storing data on the heap consumes more resources than storing data on the stack, thus you should
+ prefer the stack to the heap, except when your UDT requires a large amount of memory to store its data.
+ (This also means that objects are passed by value by default). A better solution to your
+  problem would be passing the array to the function by reference.
+*/
+

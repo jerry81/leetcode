@@ -132,3 +132,8 @@ boolean DFS(Node cur, Node target, Set<Node> visited) {
     return false;
 }
 ```
+
+- using new vs not using new in C++
+[ref](https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c)
+- new uses heap aka free store, which consumes less resources
+- no new uses stack
