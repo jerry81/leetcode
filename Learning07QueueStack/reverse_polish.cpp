@@ -80,10 +80,12 @@ public:
 int main () {
   Solution s;
   vector<string> t;
-  t.push_back("11");
-  t.push_back("15");
+  t.push_back("4");
+  t.push_back("13");
+  t.push_back("5");
+  t.push_back("/");
   t.push_back("+");
   int sol = s.evalRPN(t);
-  cerr<<" expect 26 " <<sol<<endl;
+  cerr<<" expect (13/5) + 4 = 6 " <<sol<<endl;
   return 0;
 }
