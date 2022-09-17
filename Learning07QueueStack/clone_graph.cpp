@@ -93,6 +93,7 @@ class Solution {
     vector<Node*> cneighs;
     for (Node* n : neigh) {
       if (!visited[n->val]) {
+        cerr<<"adding node " << n->val <<endl;
         cneighs.push_back(cloneGraphR(n, visited));
       }
     }
@@ -114,6 +115,7 @@ int main() {
   Node* n = new Node(0);  // New is a memory allocator, so we allocate a pointer
   Node* n2 = new Node(1);
   Node* n3 = new Node(2);
+  Solution s = Solution();
   vector<Node*> nneighbors;
   vector<Node*> n2neighbors;
   nneighbors.push_back(n2);
@@ -124,6 +126,12 @@ int main() {
   while (!x->neighbors.empty()) {
     cerr << "neighbor is " << x->neighbors.back()->val << endl;
     x = x->neighbors.back();
+  }
+  Node* copyN = s.cloneGraph(n);
+
+    while (!copyN->neighbors.empty()) {
+    cerr << "copy is " << copyN->neighbors.back()->val << endl;
+    copyN = copyN->neighbors.back();
   }
   return 0;
 }
