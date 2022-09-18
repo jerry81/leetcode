@@ -94,7 +94,9 @@ class Solution {
     for (Node* n : neigh) {
       if (!visited[n->val]) {
         cerr<<"adding node " << n->val <<endl;
-        cneighs.push_back(cloneGraphR(n, visited));
+        Node* cneigh = cloneGraphR(n, visited);
+        cneigh->neighbors.push_back(copy);
+        cneighs.push_back(cneigh);
       }
     }
     copy->neighbors = cneighs;
@@ -112,6 +114,16 @@ class Solution {
 };
 
 void printR(Node* n, unordered_map<int,bool> visited) {
+  if (visited[n->val]) return;
+
+  cerr << "traversing " << n->val << endl;
+  cerr << " neighbor size " << n->neighbors.size() << endl;
+  visited[n->val] = true;
+  for (Node* nn : n->neighbors) {
+    if (!visited[nn->val]) {
+      printR(nn, visited);
+    }
+  }
 }
 
 int main() {
@@ -139,15 +151,14 @@ int main() {
   n4->neighbors = n4n;
   Node* x = n;
   unordered_map<int,bool> visited;
-  cerr<<"root is " << n->val<<endl;
 
 
   Node* copyN = s.cloneGraph(n);
-
-  while (!copyN->neighbors.empty()) {
-    cerr << "copy is " << copyN->neighbors.back()->val << endl;
-    copyN = copyN->neighbors.back();
-  }
+  cerr << "original " << endl;
+  printR(n, visited);
+  cerr << "copy " << endl;
+  visited.clear();
+  printR(copyN, visited);
   return 0;
 }
 
