@@ -122,6 +122,13 @@ class Solution {
     // node val is unique, so visited map with vals good enough
 
     // clone with DFS
+    if (!node) {
+      return NULL;
+    }
+
+    if (node->neighbors.empty()) {
+      return new Node(node->val);
+    }
 
     build_nodes(node);
 
