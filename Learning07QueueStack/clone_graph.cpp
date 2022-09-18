@@ -93,6 +93,8 @@ class Solution {
   void build_nodes(Node* node, unordered_map<int, bool> visited) {
     if (visited[node->val]) return;
 
+    visited[node->val] = true;
+
     nodes_map[node->val] = node;
     nodes_copy[node->val] = new Node(node->val);
     all_nodes.push_back(node->val);
