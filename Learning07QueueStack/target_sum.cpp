@@ -37,8 +37,19 @@ Constraints:
 
 using namespace std;
 class Solution {
+private:
+  int targetR(vector<int>& nums, int sum, int pointer, int target) {
+    if (pointer == (nums.size())) {
+      return sum == target;
+    } else {
+      return targetR(nums, sum+nums[pointer], pointer+1, target) + targetR(nums,sum-nums[pointer], pointer+1, target);
+    }
+  }
+
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
-
+      // binary tree?
+      reverse(nums.begin(), nums.end());
+      return targetR(nums, 0, 0, target);
     }
 };
