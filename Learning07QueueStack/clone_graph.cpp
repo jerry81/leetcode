@@ -89,11 +89,13 @@ class Solution {
   unordered_map<int, Node*> nodes_map;
   unordered_map<int, Node*> nodes_copy;
   vector<int> all_nodes;
+  unordered_map<int, bool> lookup;
 
-  void build_nodes(Node* node, unordered_map<int, bool> visited) {
-    if (visited[node->val]) return;
+  void build_nodes(Node* node) {
+    if (lookup[node->val]) return;
 
-    visited[node->val] = true;
+    lookup[node->val] = true;
+
 
     nodes_map[node->val] = node;
     nodes_copy[node->val] = new Node(node->val);
@@ -101,7 +103,9 @@ class Solution {
 
     vector<Node*> neigh = node->neighbors;
     for (Node* n : neigh) {
-      build_nodes(n, visited);
+      if (!lookup[n->val]) {
+        build_nodes(n);
+      }
     }
   }
 
@@ -116,12 +120,14 @@ class Solution {
  public:
   Node* cloneGraph(Node* node) {
     // node val is unique, so visited map with vals good enough
-    unordered_map<int, bool> visited;
+
     // clone with DFS
 
-    build_nodes(node, visited);
+    build_nodes(node);
 
     build_edges();
+
+    cerr << all_nodes.size() << endl;
     return nodes_copy[all_nodes.front()];
   }
 };
@@ -163,14 +169,12 @@ int main() {
   n3->neighbors = n3n;
   n4->neighbors = n4n;
   Node* x = n;
-  unordered_map<int, bool> visited;
 
   Node* copyN = s.cloneGraph(n);
   cerr << "original " << endl;
-  printR(n, visited);
+  // printR(n, visited);
   cerr << "copy " << endl;
-  visited.clear();
-  printR(copyN, visited);
+  // printR(copyN, visited);
   return 0;
 }
 
