@@ -86,21 +86,29 @@ class Node {
 
 class Solution {
  private:
-  Node* cloneGraphR(Node* node, unordered_map<int, bool> visited) {
-    Node* copy = new Node(node->val);
-    visited[node->val] = true;
+  unordered_map<int, Node*> nodes_map;
+  unordered_map<int, Node*> nodes_copy;
+  vector<int> all_nodes;
+
+  void build_nodes(Node* node, unordered_map<int, bool> visited) {
+    if (visited[node->val]) return;
+
+    nodes_map[node->val] = node;
+    nodes_copy[node->val] = new Node(node->val);
+    all_nodes.push_back(node->val);
+
     vector<Node*> neigh = node->neighbors;
-    vector<Node*> cneighs;
     for (Node* n : neigh) {
-      if (!visited[n->val]) {
-        cerr<<"adding node " << n->val <<endl;
-        Node* cneigh = cloneGraphR(n, visited);
-        cneigh->neighbors.push_back(copy);
-        cneighs.push_back(cneigh);
+      build_nodes(n, visited);
+    }
+  }
+
+  void build_edges() {
+    for (int ni : all_nodes) {
+      for (Node* neighbor : nodes_map[ni]->neighbors) {
+        nodes_copy[ni]->neighbors.push_back(nodes_copy[neighbor->val]);
       }
     }
-    copy->neighbors = cneighs;
-    return copy;
   }
 
  public:
@@ -109,11 +117,14 @@ class Solution {
     unordered_map<int, bool> visited;
     // clone with DFS
 
-    return cloneGraphR(node,visited);
+    build_nodes(node, visited);
+
+    build_edges();
+    return nodes_copy[all_nodes.front()];
   }
 };
 
-void printR(Node* n, unordered_map<int,bool> visited) {
+void printR(Node* n, unordered_map<int, bool> visited) {
   if (visited[n->val]) return;
 
   cerr << "traversing " << n->val << endl;
@@ -150,8 +161,7 @@ int main() {
   n3->neighbors = n3n;
   n4->neighbors = n4n;
   Node* x = n;
-  unordered_map<int,bool> visited;
-
+  unordered_map<int, bool> visited;
 
   Node* copyN = s.cloneGraph(n);
   cerr << "original " << endl;
