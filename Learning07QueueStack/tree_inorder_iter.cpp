@@ -1,5 +1,6 @@
 /*
-Given the root of a binary tree, return the inorder traversal of its nodes' values.
+Given the root of a binary tree, return the inorder traversal of its nodes'
+values.
 
 
 
@@ -35,7 +36,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
      TreeNode *right;
      TreeNode() : val(0), left(nullptr), right(nullptr) {}
      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ right(right) {}
  };
  */
 
@@ -44,17 +46,28 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 using namespace std;
 
 class Solution {
-private:
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {} // TIL: nullptr
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
-public:
-    vector<int> inorderTraversal(TreeNode* root) {
+ private:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}  // TIL: nullptr
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right)
+        : val(x), left(left), right(right) {}
+  };
 
+ public:
+  vector<int> inorderTraversal(TreeNode *root) {
+    vector<int> ret;
+    if (root == nullptr) {
+      return ret;
     }
+
+    vector<int> left = inorderTraversal(root->left);
+    ret.insert(ret.end(), left.begin(), left.end());
+    ret.push_back(root->val);
+    vector<int> right = inorderTraversal(root->right);
+    ret.insert(ret.end(), right.begin(), right.end());
+  }
 };
