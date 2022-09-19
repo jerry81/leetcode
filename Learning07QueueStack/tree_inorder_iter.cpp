@@ -64,6 +64,7 @@ class Solution {
     unordered_map<int,bool> visited;
     vector<int> ret;
     vector<TreeNode*> stack;
+    if (!root) return ret;
     stack.push_back(root);
     visited[root->val] = true;
     while (!stack.empty()) {
