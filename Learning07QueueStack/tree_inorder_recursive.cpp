@@ -42,10 +42,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  */
 
 #include <vector>
-#include <unordered_map>
 
 using namespace std;
-
 
 class Solution {
  private:
@@ -62,21 +60,15 @@ class Solution {
  public:
   vector<int> inorderTraversal(TreeNode *root) {
     vector<int> ret;
-    vector<TreeNode*> stack;
-    stack.push_back(root);
-    while (!stack.empty()) {
-      TreeNode* cur = stack.back();
-      // left
-      if (cur->left) {
-        stack.push_back(cur->left);
-        continue;
-      }
-      stack.pop_back();
-      ret.push_back(cur->val);
-      if (cur->right) {
-        stack.push_back(cur->right);
-      }
+    if (root == nullptr) {
+      return ret;
     }
+
+    vector<int> left = inorderTraversal(root->left);
+    ret.insert(ret.end(), left.begin(), left.end());
+    ret.push_back(root->val);
+    vector<int> right = inorderTraversal(root->right);
+    ret.insert(ret.end(), right.begin(), right.end());
     return ret;
   }
 };
