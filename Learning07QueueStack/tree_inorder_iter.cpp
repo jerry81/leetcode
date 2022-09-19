@@ -61,25 +61,25 @@ class Solution {
 
  public:
   vector<int> inorderTraversal(TreeNode *root) {
-    unordered_map<int,bool> visited;
+    unordered_map<TreeNode*,bool> visited;
     vector<int> ret;
     vector<TreeNode*> stack;
     if (!root) return ret;
     stack.push_back(root);
-    visited[root->val] = true;
+    visited[root] = true;
     while (!stack.empty()) {
       TreeNode* cur = stack.back();
       // left
       if (cur->left) {
-        if (!visited[cur->left->val]) {
+        if (!visited[cur->left]) {
           stack.push_back(cur->left);
           continue;
         }
       }
       stack.pop_back();
-      visited[cur->val] = true;
+      visited[cur] = true;
       ret.push_back(cur->val);
-      if (cur->right && !visited[cur->right->val]) {
+      if (cur->right && !visited[cur->right]) {
         stack.push_back(cur->right);
       }
     }
