@@ -69,5 +69,6 @@ class Solution {
     ret.push_back(root->val);
     vector<int> right = inorderTraversal(root->right);
     ret.insert(ret.end(), right.begin(), right.end());
+    return ret;
   }
 };
