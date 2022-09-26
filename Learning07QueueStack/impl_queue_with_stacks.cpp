@@ -57,12 +57,18 @@ class MyQueue {
   stack<int> b;
   bool queue_is_a;
   stack<int> *get_current_stack() {
+    cerr << "getting current stack " << queue_is_a << endl;
+    cerr << "a size is " << a.size() << endl;
+    cerr << "b size is " << b.size() << endl;
     return queue_is_a ? &a : &b;
   }
   stack<int> *get_target_stack() {
     return queue_is_a ? &b : &a;
   }
   void reverse_stacks() {;
+    if (a.empty() && b.empty()) {
+      return;
+    }
     stack<int> *s = queue_is_a ? &a : &b;
     stack<int> *t = queue_is_a ? &b : &a;
     queue_is_a = !queue_is_a;
@@ -83,14 +89,29 @@ class MyQueue {
 
   int pop() {
     int returned = peek();
+    if (get_current_stack()->empty()) {
+      get_target_stack()->pop();
+      return returned;
+    }
     get_current_stack()->pop();
     return returned;
   }
 
-  int peek() { return get_current_stack()->top(); }
+  int peek() {
+    if (get_current_stack()->empty()) {
+      return get_target_stack()->top();
+    }
+    return get_current_stack()->top();
+  }
 
   bool empty() { return a.empty() && b.empty(); }
 };
+
+int main() {
+  MyQueue* m = new MyQueue();
+  m->push(1);
+  cerr << "peek expect 1 " << m->peek() << endl;
+}
 
 /**
  * Your MyQueue object will be instantiated and called as such:
