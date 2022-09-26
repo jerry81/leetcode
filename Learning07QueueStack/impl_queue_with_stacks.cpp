@@ -47,29 +47,20 @@ if one of those operations may take longer.
 using namespace std;
 
 class MyQueue {
-private:
-  stack<int> *a;
-  stack<int> *b;
-  bool queue_is_a;
-  void reverse_stacks() {
-    stack<int> *s = queue_is_a ? a : b;
-    stack<int> *t = queue_is_a ? b : a;
-    queue_is_a = !queue_is_a;
-    while (!s->empty()) {
-      int nxt = s->top();
-      t->push(nxt);
-      s->pop();
-    }
-  }
+
+
 
 
 public:
+    stack<int> a;
+    stack<int> b;
+    bool queue_is_a;
     MyQueue() {
       queue_is_a = true;
     }
 
     void push(int x) {
-
+      stack<int> *s = queue_is_a ? &a : &b;
     }
 
     int pop() {
@@ -83,9 +74,28 @@ public:
     bool empty() {
 
     }
+
+    void reverse_stacks() {
+    stack<int> *s = queue_is_a ? &a : &b;
+    stack<int> *t = queue_is_a ? &b : &a;
+    queue_is_a = !queue_is_a;
+    while (!s->empty()) {
+      int nxt = s->top();
+      t->push(nxt);
+      s->pop();
+    }
+  }
 };
 
 int main() {
+  MyQueue q = MyQueue();
+  q.a.push(1);
+  q.a.push(2);
+  q.a.push(3);
+  while (!q.a.empty()) {
+    cerr << "top is " << q.a.top() << endl;
+    q.a.pop();
+  }
 }
 
 /**
