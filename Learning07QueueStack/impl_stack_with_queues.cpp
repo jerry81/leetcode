@@ -42,14 +42,28 @@ Follow-up: Can you implement the stack using only one queue?
 
 */
 
-class MyStack {
-public:
-    MyStack() {
+#include <iostream>
+#include <queue> // push, pop, front, empty
+using namespace std;
 
-    }
+class MyStack {
+private:
+  queue<int> a; // a is always the "stack"
+  queue<int> b;
+  bool top_is_b;
+
+public:
+    MyStack() {}
 
     void push(int x) {
+      queue<int> *t = top_is_b ? &b:&a;
+      if (empty()) {
+        t->push(x);
+        return;
+      }
 
+      queue<int> *q = top_is_b ? &a:&b;
+      q
     }
 
     int pop() {
@@ -57,11 +71,11 @@ public:
     }
 
     int top() {
-
+      return top_is_b ? b.front():a.front();
     }
 
     bool empty() {
-
+      return a.empty() && b.empty();
     }
 };
 
