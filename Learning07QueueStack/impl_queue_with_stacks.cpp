@@ -78,9 +78,12 @@ public:
     void reverse_stacks() {
     stack<int> *s = queue_is_a ? &a : &b;
     stack<int> *t = queue_is_a ? &b : &a;
+    cerr << "s size is " << s->size() << endl;
+    cerr << "a size is " << a.size() << endl;
     queue_is_a = !queue_is_a;
     while (!s->empty()) {
       int nxt = s->top();
+      cerr << "nxt is " << nxt << endl;
       t->push(nxt);
       s->pop();
     }
@@ -92,10 +95,9 @@ int main() {
   q.a.push(1);
   q.a.push(2);
   q.a.push(3);
-  while (!q.a.empty()) {
-    cerr << "top is " << q.a.top() << endl;
-    q.a.pop();
-  }
+  q.reverse_stacks();
+  cerr << "expect nothing 0 " << q.a.size() <<endl;
+  cerr << "expect 3 " << q.b.size() <<endl;
 }
 
 /**
