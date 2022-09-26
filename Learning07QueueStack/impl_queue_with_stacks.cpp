@@ -1,5 +1,7 @@
 /*
-Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+Implement a first in first out (FIFO) queue using only two stacks. The
+implemented queue should support all the functions of a normal queue (push,
+peek, pop, and empty).
 
 Implement the MyQueue class:
 
@@ -9,8 +11,11 @@ int peek() Returns the element at the front of the queue.
 boolean empty() Returns true if the queue is empty, false otherwise.
 Notes:
 
-You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
-Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+You must use only standard operations of a stack, which means only push to top,
+peek/pop from top, size, and is empty operations are valid. Depending on your
+language, the stack may not be supported natively. You may simulate a stack
+using a list or deque (double-ended queue) as long as you use only a stack's
+standard operations.
 
 
 Example 1:
@@ -37,9 +42,9 @@ At most 100 calls will be made to push, pop, peek, and empty.
 All the calls to pop and peek are valid.
 
 
-Follow-up: Can you implement the queue such that each operation is amortized O(1)
-time complexity? In other words, performing n operations will take overall O(n) time even
-if one of those operations may take longer.
+Follow-up: Can you implement the queue such that each operation is amortized
+O(1) time complexity? In other words, performing n operations will take overall
+O(n) time even if one of those operations may take longer.
 */
 
 #include <iostream>
@@ -47,57 +52,50 @@ if one of those operations may take longer.
 using namespace std;
 
 class MyQueue {
-
-
-
-
-public:
-    stack<int> a;
-    stack<int> b;
-    bool queue_is_a;
-    MyQueue() {
-      queue_is_a = true;
-    }
-
-    void push(int x) {
-      stack<int> *s = queue_is_a ? &a : &b;
-    }
-
-    int pop() {
-
-    }
-
-    int peek() {
-
-    }
-
-    bool empty() {
-
-    }
-
-    void reverse_stacks() {
-    stack<int> *s = queue_is_a ? &a : &b;
+ private:
+  stack<int> a;
+  stack<int> b;
+  bool queue_is_a;
+  stack<int> *get_current_stack() {
+    return queue_is_a ? &a : &b;
+  }
+  stack<int> *get_target_stack() {
+    return queue_is_a ? &b : &a;
+  }
+  void reverse_stacks() {;
     stack<int> *t = queue_is_a ? &b : &a;
     cerr << "s size is " << s->size() << endl;
     cerr << "a size is " << a.size() << endl;
     queue_is_a = !queue_is_a;
-    while (!s->empty()) {
-      int nxt = s->top();
+    while (!get_current_stack()->empty()) {
+      int nxt = get_current_stack()->top();
       cerr << "nxt is " << nxt << endl;
       t->push(nxt);
-      s->pop();
+      get_current_stack()->pop();
     }
   }
+
+ public:
+  MyQueue() { queue_is_a = true; }
+
+  void push(int x) {
+    reverse_stacks();
+    get_target_stack()->push(x);
+  }
+
+  int pop() {
+    int returned = peek();
+    get_current_stack()->pop();
+    return returned;
+  }
+
+  int peek() { return get_current_stack()->top(); }
+
+  bool empty() { return a.empty() && b.empty(); }
 };
 
 int main() {
   MyQueue q = MyQueue();
-  q.a.push(1);
-  q.a.push(2);
-  q.a.push(3);
-  q.reverse_stacks();
-  cerr << "expect nothing 0 " << q.a.size() <<endl;
-  cerr << "expect 3 " << q.b.size() <<endl;
 }
 
 /**
