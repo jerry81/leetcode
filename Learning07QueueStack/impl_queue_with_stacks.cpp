@@ -42,10 +42,30 @@ time complexity? In other words, performing n operations will take overall O(n) 
 if one of those operations may take longer.
 */
 
+#include <iostream>
+#include <stack>
+using namespace std;
+
 class MyQueue {
+private:
+  stack<int> *a;
+  stack<int> *b;
+  bool queue_is_a;
+  void reverse_stacks() {
+    stack<int> *s = queue_is_a ? a : b;
+    stack<int> *t = queue_is_a ? b : a;
+    queue_is_a = !queue_is_a;
+    while (!s->empty()) {
+      int nxt = s->top();
+      t->push(nxt);
+      s->pop();
+    }
+  }
+
+
 public:
     MyQueue() {
-
+      queue_is_a = true;
     }
 
     void push(int x) {
@@ -64,6 +84,9 @@ public:
 
     }
 };
+
+int main() {
+}
 
 /**
  * Your MyQueue object will be instantiated and called as such:
