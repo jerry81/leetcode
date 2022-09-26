@@ -63,15 +63,13 @@ class MyQueue {
     return queue_is_a ? &b : &a;
   }
   void reverse_stacks() {;
+    stack<int> *s = queue_is_a ? &a : &b;
     stack<int> *t = queue_is_a ? &b : &a;
-    cerr << "s size is " << s->size() << endl;
-    cerr << "a size is " << a.size() << endl;
     queue_is_a = !queue_is_a;
-    while (!get_current_stack()->empty()) {
-      int nxt = get_current_stack()->top();
-      cerr << "nxt is " << nxt << endl;
+    while (!s->empty()) {
+      int nxt = s->top();
       t->push(nxt);
-      get_current_stack()->pop();
+      s->pop();
     }
   }
 
@@ -93,10 +91,6 @@ class MyQueue {
 
   bool empty() { return a.empty() && b.empty(); }
 };
-
-int main() {
-  MyQueue q = MyQueue();
-}
 
 /**
  * Your MyQueue object will be instantiated and called as such:
