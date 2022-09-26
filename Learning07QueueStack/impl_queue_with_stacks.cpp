@@ -85,22 +85,16 @@ class MyQueue {
   void push(int x) {
     reverse_stacks();
     get_target_stack()->push(x);
+    reverse_stacks();
   }
 
   int pop() {
     int returned = peek();
-    if (get_current_stack()->empty()) {
-      get_target_stack()->pop();
-      return returned;
-    }
     get_current_stack()->pop();
     return returned;
   }
 
   int peek() {
-    if (get_current_stack()->empty()) {
-      return get_target_stack()->top();
-    }
     return get_current_stack()->top();
   }
 
