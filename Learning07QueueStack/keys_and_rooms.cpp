@@ -38,27 +38,50 @@ All the values of rooms[i] are unique.
 */
 
 #include <vector>
+#include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
-      vector<bool> visited;
+      unordered_map<int, bool> visited;
       vector<int> to_visit;
       to_visit.push_back(0);
-      visited.push_back(0);
+      visited[0]=true;
       while (!to_visit.empty()) {
         int next = to_visit.back();
         vector<int> keys = rooms.at(next);
         to_visit.pop_back();
         for (int i:keys) {
-          if (!visited.at(i)) {
+          cerr << "i is " << i << endl;
+          if (!visited[i]) {
             to_visit.push_back(i);
-            visited.at(i) = true;
+            visited[i] = true;
           }
         }
       }
+      cerr << "visited size " << visited.size() << " rooms size " << rooms.size() << endl;
       return visited.size() == rooms.size();
     }
 };
+
+int main() {
+  Solution s = Solution();
+  vector<vector<int>> example;
+  vector<int> a;
+  a.push_back(1);
+  vector<int> b;
+  a.push_back(2);
+  vector<int> c;
+  a.push_back(3);
+  vector<int> d;
+  cerr << "im starting " << endl;
+  example.push_back(a);
+  cerr << "can i do this " << endl;
+  example.push_back(b);
+    example.push_back(c);
+      example.push_back(d);
+  cerr << "expect 1 " << s.canVisitAllRooms(example) << endl;
+}
