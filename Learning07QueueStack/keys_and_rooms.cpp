@@ -44,6 +44,21 @@ using namespace std;
 class Solution {
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
-
+      vector<bool> visited;
+      vector<int> to_visit;
+      to_visit.push_back(0);
+      visited.push_back(0);
+      while (!to_visit.empty()) {
+        int next = to_visit.back();
+        vector<int> keys = rooms.at(next);
+        to_visit.pop_back();
+        for (int i:keys) {
+          if (!visited.at(i)) {
+            to_visit.push_back(i);
+            visited.at(i) = true;
+          }
+        }
+      }
+      return visited.size() == rooms.size();
     }
 };
