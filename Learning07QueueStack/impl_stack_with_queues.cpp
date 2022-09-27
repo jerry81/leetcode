@@ -1,6 +1,8 @@
 /*
 
-Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+Implement a last-in-first-out (LIFO) stack using only two queues. The
+implemented stack should support all the functions of a normal stack (push, top,
+pop, and empty).
 
 Implement the MyStack class:
 
@@ -10,8 +12,11 @@ int top() Returns the element on the top of the stack.
 boolean empty() Returns true if the stack is empty, false otherwise.
 Notes:
 
-You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
-Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+You must use only standard operations of a queue, which means that only push to
+back, peek/pop from front, size and is empty operations are valid. Depending on
+your language, the queue may not be supported natively. You may simulate a queue
+using a list or deque (double-ended queue) as long as you use only a queue's
+standard operations.
 
 
 Example 1:
@@ -43,62 +48,65 @@ Follow-up: Can you implement the stack using only one queue?
 */
 
 #include <iostream>
-#include <queue> // push, pop, front, empty
+#include <queue>  // push, pop, front, empty
 using namespace std;
 
 class MyStack {
-private:
-  queue<int> a; // a is always the "stack"
+ private:
+  queue<int> a;  // a is always the "stack"
   queue<int> b;
   int queue_count = 0;
   bool top_is_b;
-  void reorg() {
-    // empty
+  void reorg(){
+      // empty
   };
 
-public:
-    MyStack() { top_is_b = false; }
+ public:
+  MyStack() { top_is_b = false; }
 
-    void push(int x) {
-      queue<int> *t = top_is_b ? &b:&a;
-      if (queue_count == 0) {
-        t->push(x);
-        ++queue_count;
-        return;
-      }
-
-      int top = t->front();
-      t->pop();
-      queue<int> *q = top_is_b ? &a:&b;
-      q->push(top);
+  void push(int x) {
+    queue<int> *t = top_is_b ? &b : &a;
+    if (queue_count == 0) {
       t->push(x);
       ++queue_count;
+      return;
     }
 
-    int pop() {
-      queue<int> *t = top_is_b ? &b:&a;
-      queue<int> *q = top_is_b ? &a:&b;
-      int returned = t->front();
-      t->pop();
-      // make new top
+    int top = t->front();
+    t->pop();
+    queue<int> *q = top_is_b ? &a : &b;
+    q->push(top);
+    t->push(x);
+    ++queue_count;
+  }
+
+  int pop() {
+    queue<int> *t = top_is_b ? &b : &a;
+    queue<int> *q = top_is_b ? &a : &b;
+    int returned = t->front();
+    t->pop();
+    // make new top
+    --queue_count;
+    while (queue_count > 1) {
       --queue_count;
-      while (queue_count != 1) {
-        --queue_count;
-        t->push(q->front());
-        q->pop();
-      }
-      top_is_b = !top_is_b;
-      return returned;
+      t->push(q->front());
+      q->pop();
     }
+    top_is_b = !top_is_b;
+    return returned;
+  }
 
-    int top() {
-      return top_is_b ? b.front():a.front();
-    }
+  int top() { return top_is_b ? b.front() : a.front(); }
 
-    bool empty() {
-      return a.empty() && b.empty();
-    }
+  bool empty() { return a.empty() && b.empty(); }
 };
+
+int main() {
+  MyStack *m = new MyStack();
+  m->push(1);
+  m->pop();
+  cerr << "expect true " << m->empty() << endl;
+}
 
 /**
  * Your MyStack object will be instantiated and called as such:
