@@ -43,13 +43,14 @@ class Solution {
 public:
     string decodeString(string s) {
       queue<string> substrings;
-      stack<char> items;
+      stack<string> items;
       for (auto &ch : s) { // auto allows type to be deduced from initializer
         cout << "roop " << ch << endl;
-        items.push(ch);
+        string as_s = "" + ch;
+        items.push(as_s);
         if (ch == ']') {
           cout << "time to close!" << endl;
-          stack<char> subs;
+          stack<string> subs;
           items.pop();
           char cur = items.top();
           while (cur != '[') {
@@ -73,12 +74,14 @@ public:
           cout << "items top " << items.top() << endl;
           int count = items.top() - '0';
           cout << "count is " << count << endl;
+          items.pop(); // remove the number
           while (count > 0) {
             --count;
             strang+=rev;
             cout << "strang is now " << strang << endl;
           }
           substrings.push(strang);
+          items.push(strang);
         }
       }
       string output = "";
