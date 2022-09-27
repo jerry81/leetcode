@@ -50,24 +50,44 @@ class MyStack {
 private:
   queue<int> a; // a is always the "stack"
   queue<int> b;
+  int queue_count = 0;
   bool top_is_b;
+  void reorg() {
+    // empty
+  };
 
 public:
     MyStack() {}
 
     void push(int x) {
       queue<int> *t = top_is_b ? &b:&a;
-      if (empty()) {
+      if (queue_count == 0) {
         t->push(x);
+        ++queue_count;
         return;
       }
 
+      int top = t->front();
+      t->pop();
       queue<int> *q = top_is_b ? &a:&b;
-      q
+      q->push(top);
+      t->push(x);
+      ++queue_count;
     }
 
     int pop() {
-
+      queue<int> *t = top_is_b ? &b:&a;
+      queue<int> *q = top_is_b ? &a:&b;
+      int returned = t->front();
+      t->pop();
+      // make new top
+      --queue_count;
+      while (queue_count != 1) {
+        --queue_count;
+        t->push(q->front());
+        q->pop();
+      }
+      top_is_b = !top_is_b;
     }
 
     int top() {
