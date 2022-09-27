@@ -55,14 +55,12 @@ public:
         vector<int> keys = rooms.at(next);
         to_visit.pop_back();
         for (int i:keys) {
-          cerr << "i is " << i << endl;
           if (!visited[i]) {
             to_visit.push_back(i);
             visited[i] = true;
           }
         }
       }
-      cerr << "visited size " << visited.size() << " rooms size " << rooms.size() << endl;
       return visited.size() == rooms.size();
     }
 };
