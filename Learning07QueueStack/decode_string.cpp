@@ -67,6 +67,7 @@ public:
           }
           items.pop();
           string strang = "";
+          // here we should loop until we hit a non-digit
           int count = items.top()[0] - '0';
           items.pop(); // remove the number
           while (count > 0) {
@@ -104,3 +105,10 @@ public:
       return output;
     }
 };
+
+int main() {
+  Solution s = Solution();
+  cerr << "expect lots of leetcode " << s.decodeString("7[leetcode]") << endl;
+}
+
+// the problem: we didn't consider > 1 digit
