@@ -35,11 +35,37 @@ All the integers in s are in the range [1, 300].
 */
 #include <string>
 #include <iostream>
+#include <stack>
+#include <queue>
 
 using namespace std;
 class Solution {
 public:
     string decodeString(string s) {
-
+      queue<string> subs;
+      stack<char> items;
+      for (auto &ch : s) { // auto allows type to be deduced from initializer
+        cout << "roop " << ch << endl;
+        items.push(ch);
+        if (ch == ']') {
+          cout << "time to close!" << endl;
+          string s = "";
+          items.pop();
+          char cur = items.top();
+          while (cur != '[') {
+            s += cur;
+            items.pop();
+            cur = items.top();
+          }
+          items.pop();
+          int count = '0' + items.top();
+          while (count > 0) {
+            --count;
+            s+=cur;
+          }
+          subs.push(s);
+        }
+      }
+      return s;
     }
 };
