@@ -44,9 +44,9 @@ public:
     string decodeString(string s) {
       queue<string> substrings;
       stack<string> items;
+      cerr << "reving up " << endl;
       for (auto &ch : s) { // auto allows type to be deduced from initializer
         string as_s(1,ch);
-        if (ch == '\0') cout << "null printed " << endl;
         items.push(as_s);
         if (ch == ']') {
           stack<string> subs;
@@ -68,8 +68,23 @@ public:
           items.pop();
           string strang = "";
           // here we should loop until we hit a non-digit
-          int count = items.top()[0] - '0';
-          items.pop(); // remove the number
+          int count = 0;
+          int scale = 1;
+          char front = items.top()[0];
+          cerr << "front is " << front << endl;
+          while (isdigit(front)) {
+            cerr << "front is " << front << endl;
+            count += (front - '0') * scale;
+            cerr << "count is now " << count << endl;
+            scale *= 10;
+            cerr << " scale is now " << scale << endl;
+            items.pop();
+            if (items.empty()) break;
+            front = items.top()[0];
+          }
+          // items.pop(); // remove the number
+
+          cerr << "count is now " << count << endl;
           while (count > 0) {
             --count;
             strang+=rev;
@@ -108,7 +123,7 @@ public:
 
 int main() {
   Solution s = Solution();
-  cerr << "expect lots of leetcode " << s.decodeString("7[leetcode]") << endl;
+  cerr << "expect lots of leetcode " << s.decodeString("100[leetcode]") << endl;
 }
 
 // the problem: we didn't consider > 1 digit
