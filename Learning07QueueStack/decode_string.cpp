@@ -44,7 +44,6 @@ public:
     string decodeString(string s) {
       queue<string> substrings;
       stack<string> items;
-      cerr << "reving up " << endl;
       for (auto &ch : s) { // auto allows type to be deduced from initializer
         string as_s(1,ch);
         items.push(as_s);
@@ -71,41 +70,32 @@ public:
           int count = 0;
           int scale = 1;
           char front = items.top()[0];
-          cerr << "front is " << front << endl;
           while (isdigit(front)) {
-            cerr << "front is " << front << endl;
             count += (front - '0') * scale;
-            cerr << "count is now " << count << endl;
             scale *= 10;
-            cerr << " scale is now " << scale << endl;
             items.pop();
             if (items.empty()) break;
             front = items.top()[0];
           }
           // items.pop(); // remove the number
 
-          cerr << "count is now " << count << endl;
           while (count > 0) {
             --count;
             strang+=rev;
-            cout << "strang is now " << strang << endl;
           }
           substrings.push(strang);
           items.push(strang);
-          cout << "pushed to items: " << strang << endl;
         }
       }
       stack<string> reved;
       while (!items.empty()) {
         string next = items.top();
-        cout << "next item is " << next << endl;
         items.pop();
         reved.push(next);
       }
       string output = "";
       while (!reved.empty()) {
         string next = reved.top();
-        cout << "next reved is " << next << endl;
         reved.pop();
         output+=next;
       }
