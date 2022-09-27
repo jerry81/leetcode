@@ -45,16 +45,15 @@ public:
       queue<string> substrings;
       stack<string> items;
       for (auto &ch : s) { // auto allows type to be deduced from initializer
-        cout << "roop " << ch << endl;
-        string as_s = "" + ch;
+        string as_s(1,ch);
+        if (ch == '\0') cout << "null printed " << endl;
         items.push(as_s);
         if (ch == ']') {
-          cout << "time to close!" << endl;
           stack<string> subs;
           items.pop();
-          char cur = items.top();
-          while (cur != '[') {
-            if (cur != '[') {
+          string cur = items.top();
+          while (cur != "[") {
+            if (cur != "[") {
               subs.push(cur);
             }
             items.pop();
@@ -66,14 +65,9 @@ public:
             rev+=subs.top();
             subs.pop();
           }
-          cout << "rev is " << rev << endl;
           items.pop();
-          cout << "popped " << endl;
           string strang = "";
-          cout << "strang " << endl;
-          cout << "items top " << items.top() << endl;
-          int count = items.top() - '0';
-          cout << "count is " << count << endl;
+          int count = items.top()[0] - '0';
           items.pop(); // remove the number
           while (count > 0) {
             --count;
@@ -82,15 +76,31 @@ public:
           }
           substrings.push(strang);
           items.push(strang);
+          cout << "pushed to items: " << strang << endl;
         }
       }
-      string output = "";
-      while (!substrings.empty()) {
-        string next = substrings.front();
-        output += next;
-        cout << "next is " << next << endl;
-        substrings.pop();
+      stack<string> reved;
+      while (!items.empty()) {
+        string next = items.top();
+        cout << "next item is " << next << endl;
+        items.pop();
+        reved.push(next);
       }
+      string output = "";
+      while (!reved.empty()) {
+        string next = reved.top();
+        cout << "next reved is " << next << endl;
+        reved.pop();
+        output+=next;
+      }
+
+      // while (!substrings.empty()) {
+      //   string next = substrings.front();
+      //   output += next;
+      //   cout << "next is " << next << endl;
+      //   substrings.pop();
+      // }
+
       return output;
     }
 };
