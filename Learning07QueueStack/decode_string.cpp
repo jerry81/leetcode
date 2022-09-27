@@ -42,30 +42,52 @@ using namespace std;
 class Solution {
 public:
     string decodeString(string s) {
-      queue<string> subs;
+      queue<string> substrings;
       stack<char> items;
       for (auto &ch : s) { // auto allows type to be deduced from initializer
         cout << "roop " << ch << endl;
         items.push(ch);
         if (ch == ']') {
           cout << "time to close!" << endl;
-          string s = "";
+          stack<char> subs;
           items.pop();
           char cur = items.top();
           while (cur != '[') {
-            s += cur;
+            if (cur != '[') {
+              subs.push(cur);
+            }
             items.pop();
             cur = items.top();
           }
+
+          string rev = "";
+          while (!subs.empty()) {
+            rev+=subs.top();
+            subs.pop();
+          }
+          cout << "rev is " << rev << endl;
           items.pop();
-          int count = '0' + items.top();
+          cout << "popped " << endl;
+          string strang = "";
+          cout << "strang " << endl;
+          cout << "items top " << items.top() << endl;
+          int count = items.top() - '0';
+          cout << "count is " << count << endl;
           while (count > 0) {
             --count;
-            s+=cur;
+            strang+=rev;
+            cout << "strang is now " << strang << endl;
           }
-          subs.push(s);
+          substrings.push(strang);
         }
       }
-      return s;
+      string output = "";
+      while (!substrings.empty()) {
+        string next = substrings.front();
+        output += next;
+        cout << "next is " << next << endl;
+        substrings.pop();
+      }
+      return output;
     }
 };
