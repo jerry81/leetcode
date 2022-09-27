@@ -57,7 +57,7 @@ private:
   };
 
 public:
-    MyStack() {}
+    MyStack() { top_is_b = false; }
 
     void push(int x) {
       queue<int> *t = top_is_b ? &b:&a;
@@ -88,6 +88,7 @@ public:
         q->pop();
       }
       top_is_b = !top_is_b;
+      return returned;
     }
 
     int top() {
