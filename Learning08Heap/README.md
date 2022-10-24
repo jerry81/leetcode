@@ -25,3 +25,16 @@
 
 - min or max heap
 - min/max val is at top
+
+## insertion
+
+- log n operation
+- first insert into first available slot
+- swap with its parent until min/max heap rule is fulfilled
+
+## deletion
+
+- goal: remove "top" item from heap
+- first detect if heap is min or max heap
+- move bottom right item to top, delete top item
+- swap the new top down until min/max heap rule is fulfilled
