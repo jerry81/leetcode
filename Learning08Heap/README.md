@@ -38,3 +38,10 @@
 - first detect if heap is min or max heap
 - move bottom right item to top, delete top item
 - swap the new top down until min/max heap rule is fulfilled
+
+## binary tree -> array
+
+- number items of tree from root, moving left to right, top to bottom
+- these indexes match the array indexes
+- get parents with n/2 (integer division)
+- left child n*2, right child n*2+1
