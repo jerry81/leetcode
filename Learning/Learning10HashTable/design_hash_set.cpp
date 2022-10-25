@@ -36,24 +36,28 @@ At most 104 calls will be made to add, remove, and contains.
 
 */
 
+#include <vector>
+
+using namespace std;
 
 class MyHashSet {
 public:
-    MyHashSet() {
-
+    MyHashSet() : hash_set() {
     }
 
     void add(int key) {
-
+      hash_set.at(key) = true;
     }
 
     void remove(int key) {
-
+      hash_set.at(key) = false;
     }
 
     bool contains(int key) {
-
+      return hash_set.at(key);
     }
+private:
+  vector<bool> hash_set;
 };
 
 /**
