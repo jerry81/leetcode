@@ -25,17 +25,18 @@ Constraints:
 
 */
 
+#include <unordered_set>
 #include <vector>
 using namespace std;
 
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-      bool hash_set[10001] = {false};
+      unordered_set<int_fast32_t> hashset;
       for (int n:nums) {
-        if (hash_set[n]) return true;
+        if (hashset.find(n) != hashset.end()) return true;
 
-        hash_set[n] = true;
+        hashset.insert(n);
       }
       return false;
     }
