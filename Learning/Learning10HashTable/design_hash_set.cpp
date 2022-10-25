@@ -42,22 +42,27 @@ using namespace std;
 
 class MyHashSet {
 public:
-    MyHashSet() : hash_set() {
+    MyHashSet() {
     }
 
     void add(int key) {
-      hash_set.at(key) = true;
+      if (key < 0 || key > 1000000) return;
+      hash_set[key] = true;
     }
 
     void remove(int key) {
-      hash_set.at(key) = false;
+      if (key < 0 || key > 1000000) return;
+
+      hash_set[key] = false;
     }
 
     bool contains(int key) {
-      return hash_set.at(key);
+      if (key < 0 || key > 1000000) return false;
+
+      return hash_set[key];
     }
 private:
-  vector<bool> hash_set;
+  bool hash_set[1000001] = {false};
 };
 
 /**
