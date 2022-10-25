@@ -30,3 +30,13 @@
   - iterate through verticies
   - union on sets, merging into larger sets
   - create new sets if no intersection
+  - root aka head
+
+- implement disjoint set video
+  - initialize root array - element at index should be the element value = index
+  - for each vertex, choose parent node, - in the array, change array index to parent
+  - in the root array, the root node's parent is itself
+
+- important functions
+  - find_root given vertex
+  - union - unions 2 verticies and makes root the same
