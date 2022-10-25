@@ -38,11 +38,14 @@ At most 104 calls will be made to put, get, and remove.
 */
 
 #include <vector>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
 class MyHashMap {
 public:
     MyHashMap() {
+      fill_n(hash_map, 1000000, -1);
     }
 
     void put(int key, int value) {
@@ -57,7 +60,7 @@ public:
       hash_map[key] = -1;
     }
 private:
-  int hash_map[100000] = {-1};
+  int hash_map[1000001];
 };
 
 /**
