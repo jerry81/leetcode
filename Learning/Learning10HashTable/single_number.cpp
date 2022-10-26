@@ -29,6 +29,7 @@ Each element in the array appears twice except for one element which appears onl
 */
 
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
@@ -36,5 +37,17 @@ public:
     int singleNumber(vector<int>& nums) {
       // first pass:  count map
       // second pass:
+      unordered_map<int, int> counts;
+      for (int n: nums) {
+        if (counts.find(n) == counts.end()) {
+          counts[n] = 1;
+        } else {
+          counts.erase(n);
+        }
+      }
+
+      for (auto it : counts) {
+        return it.first;
+      }
     }
 };
