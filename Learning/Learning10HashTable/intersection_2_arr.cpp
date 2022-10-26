@@ -40,6 +40,6 @@ public:
           lookup.erase(n);
         }
       }
-
+      return ret;
     }
 };
