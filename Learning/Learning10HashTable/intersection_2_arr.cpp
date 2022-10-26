@@ -21,12 +21,25 @@ Constraints:
 0 <= nums1[i], nums2[i] <= 1000
 
 */
+#include <unordered_set>
 #include <vector>
 using namespace std;
 
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+      unordered_set<int> lookup;
+      vector<int> ret;
+      for (int n: nums1) {
+        lookup.insert(n);
+      }
+
+      for (int n: nums2) {
+        if (lookup.find(n) != lookup.end()) {
+          ret.push_back(n);
+          lookup.erase(n);
+        }
+      }
 
     }
 };
