@@ -49,5 +49,6 @@ public:
       for (auto it : counts) {
         return it.first;
       }
+      return 0;
     }
 };
