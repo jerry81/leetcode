@@ -33,13 +33,24 @@ Constraints:
 */
 
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
 public:
     bool isHappy(int n) {
-
+      int next = n;
+      unordered_set<int> lookup;
+      lookup.insert(n);
+      while (next != 1) {
+        next = sum_of_squares(next);
+        if (lookup.find(next) != lookup.end()) {
+          return false;
+        }
+      }
+      // keep summing until 1 or repeat
+      return true;
     }
 
 private:
