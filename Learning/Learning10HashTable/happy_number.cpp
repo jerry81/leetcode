@@ -47,8 +47,12 @@ private:
       // int to string
       string s = to_string(n);
       // char to int
+      int sum = 0;
       for (char c: s) {
-
+        int i = c - '0';
+        i = i*i;
+        sum+=i;
       }
+      return sum;
     }
 };
