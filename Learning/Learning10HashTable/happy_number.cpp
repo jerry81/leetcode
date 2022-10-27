@@ -48,6 +48,7 @@ public:
         if (lookup.find(next) != lookup.end()) {
           return false;
         }
+        lookup.insert(next);
       }
       // keep summing until 1 or repeat
       return true;
