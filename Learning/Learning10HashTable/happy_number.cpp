@@ -32,9 +32,23 @@ Constraints:
 
 */
 
+#include <string>
+
+using namespace std;
+
 class Solution {
 public:
     bool isHappy(int n) {
 
+    }
+
+private:
+    int sum_of_squares(int n) {
+      // int to string
+      string s = to_string(n);
+      // char to int
+      for (char c: s) {
+
+      }
     }
 };
