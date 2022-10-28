@@ -36,11 +36,25 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
 */
 
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-
+      /*
+        map of value -> array of idx
+      */
+       unordered_map<int, vector<int>> lookup;
+       for (int i = 0; i < nums.size(); ++i) {
+         int cur = nums.at(i);
+         if (lookup.find(cur) != lookup.end()) {
+           lookup[cur].push_back(i);
+         } else {
+           vector<int> created;
+           created.push_back(i);
+           lookup[cur] = created;
+         }
+       }
     }
 };
