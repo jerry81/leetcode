@@ -46,8 +46,15 @@ public:
         map of value -> array of idx
       */
        unordered_map<int, vector<int>> lookup;
+       vector<int> res;
        for (int i = 0; i < nums.size(); ++i) {
          int cur = nums.at(i);
+         int diff = target - cur;
+         if (lookup.find(diff) != lookup.end()) {
+           res.push_back(i);
+           res.push_back(lookup[diff].at(0));
+           return res;
+         }
          if (lookup.find(cur) != lookup.end()) {
            lookup[cur].push_back(i);
          } else {
@@ -55,6 +62,8 @@ public:
            created.push_back(i);
            lookup[cur] = created;
          }
+
        }
+       return res;
     }
 };
