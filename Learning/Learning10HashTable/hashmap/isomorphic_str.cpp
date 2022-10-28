@@ -38,26 +38,47 @@ using namespace std;
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-      if (s.length() != t.length()) return false;
-
       unordered_map<char, int> freq_s;
       unordered_map<char, int> freq_t;
       for (char c:s) {
         if (freq_s.find(c) != freq_s.end()) {
-          freq_s[c] = 0;
+          freq_s[c] = 1;
         } else {
           ++freq_s[c];
         }
       }
       for (char c:t) {
         if (freq_t.find(c) != freq_s.end()) {
-          freq_t[c] = 0;
+          freq_t[c] = 1;
         } else {
           ++freq_t[c];
         }
       }
       /*
-        lookup freq map  count -> count
+        make abstract counts of counts
       */
+      unordered_map<int,int> freq_s2;
+      unordered_map<int,int> freq_t2;
+      for (pair<int,int> p: freq_s) {
+        if (freq_s2.find(p.second) == freq_s2.end()) {
+          freq_s2[p.second] = 1;
+        } else {
+          ++freq_s2[p.second];
+        }
+      }
+      for (pair<int,int> p: freq_t) {
+        if (freq_t2.find(p.second) == freq_t2.end()) {
+          freq_t2[p.second] = 1;
+        } else {
+          ++freq_t2[p.second];
+        }
+      }
+      for (auto p: freq_s2) {
+        if (freq_t2[p.first] == p.second) {
+          freq_t2.erase(p.first);
+        }
+      }
+
+      return freq_t2.empty();
     }
 };
