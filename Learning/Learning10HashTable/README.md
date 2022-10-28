@@ -27,3 +27,8 @@
   - key value can be hashable type
   - value belonging to hashable type has hashcode - this is used in mapping function to get bucket index
   - this way worst case is improved to O(logN) for insertion and search
+
+## cases for using hashMap vs set
+
+- use hashMap when you need "more info" than just the key
+- e.g. given arr of ints, return indicies of two numbers that add up to specific target
