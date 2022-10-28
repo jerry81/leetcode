@@ -31,12 +31,33 @@ s and t consist of any valid ascii character.
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
+      if (s.length() != t.length()) return false;
 
+      unordered_map<char, int> freq_s;
+      unordered_map<char, int> freq_t;
+      for (char c:s) {
+        if (freq_s.find(c) != freq_s.end()) {
+          freq_s[c] = 0;
+        } else {
+          ++freq_s[c];
+        }
+      }
+      for (char c:t) {
+        if (freq_t.find(c) != freq_s.end()) {
+          freq_t[c] = 0;
+        } else {
+          ++freq_t[c];
+        }
+      }
+      /*
+        lookup freq map  count -> count
+      */
     }
 };
