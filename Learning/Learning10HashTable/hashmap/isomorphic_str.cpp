@@ -82,3 +82,15 @@ public:
       return freq_t2.empty();
     }
 };
+
+/*
+
+failing test
+
+"bbbaaaba"
+"aaabbbba"
+
+expect false?
+
+b/c order must be preserved, even though frequency matches (4 x 2 in both cases)
+*/
