@@ -43,12 +43,20 @@ All the strings of list2 are unique.
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
-
+      vector<string> ret;
+      unordered_map<string, int> lookup;
+      for (int i = 0; i < list1.size(); ++i) {
+        string s = list1.at(i);
+        if (lookup.find(s) == lookup.end()) {
+          lookup[s] = i;
+        }
+      }
     }
 };
