@@ -31,6 +31,7 @@ s and t consist of any valid ascii character.
 */
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
@@ -38,13 +39,19 @@ class Solution {
 public:
     bool isIsomorphic(string s, string t) {
           unordered_map<char, char> mapping;
+          unordered_map<char, char> back_map;
           for (int i = 0; i < t.length(); ++i) {
-            if (mapping.find(s[i]) != mapping.end()) {
-              mapping[s[i]] = t[i];
+            char sc = s[i];
+            char tc = t[i];
+            if (mapping.find(sc) != mapping.end() && (mapping[sc] != tc) ) return false;
+            if (back_map.find(tc) != mapping.end() && (back_map[tc] != sc)) return false;
+            if (mapping.find(sc) == mapping.end()) {
+              mapping[sc] = tc;
+              back_map[tc] = sc;
+              continue;
             }
-          }
-          for (int i = 0; i < t.length(); ++i) {
-            if (mapping[s[i]] != t[i]) return false;
+
+
           }
           return true;
     }
