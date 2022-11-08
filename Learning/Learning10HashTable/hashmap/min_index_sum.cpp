@@ -44,6 +44,7 @@ All the strings of list2 are unique.
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
@@ -57,6 +58,16 @@ public:
         if (lookup.find(s) == lookup.end()) {
           lookup[s] = i;
         }
+      }
+      unordered_map<string, int> sums;
+      for (int i = 0; i < list2.size(); ++i) {
+        string s = list2.at(i);
+        if (lookup.find(s) != lookup.end()) {
+          sums[s] = i + lookup[s];
+        }
+      }
+      for (auto a: sums) {
+        cout << "sum is " << a.first << " " << a.second << endl;
       }
     }
 };
