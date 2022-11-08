@@ -1,26 +1,30 @@
 /*
 
-Given two arrays of strings list1 and list2, find the common strings with the least index sum.
+Given two arrays of strings list1 and list2, find the common strings with the
+least index sum.
 
 A common string is a string that appeared in both list1 and list2.
 
-A common string with the least index sum is a common string such that if it appeared at list1[i] and list2[j] then i + j should be the minimum value among all the other common strings.
+A common string with the least index sum is a common string such that if it
+appeared at list1[i] and list2[j] then i + j should be the minimum value among
+all the other common strings.
 
-Return all the common strings with the least index sum. Return the answer in any order.
+Return all the common strings with the least index sum. Return the answer in any
+order.
 
 
 
 Example 1:
 
-Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]
+Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 =
+["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]
 Output: ["Shogun"]
 Explanation: The only common string is "Shogun".
 Example 2:
 
-Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["KFC","Shogun","Burger King"]
-Output: ["Shogun"]
-Explanation: The common string with the least index sum is "Shogun" with index sum = (0 + 1) = 1.
-Example 3:
+Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 =
+["KFC","Shogun","Burger King"] Output: ["Shogun"] Explanation: The common string
+with the least index sum is "Shogun" with index sum = (0 + 1) = 1. Example 3:
 
 Input: list1 = ["happy","sad","good"], list2 = ["sad","happy","good"]
 Output: ["sad","happy"]
@@ -41,33 +45,49 @@ All the strings of list2 are unique.
 
 */
 
-#include <vector>
+#include <iostream>
 #include <string>
 #include <unordered_map>
-#include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
-      vector<string> ret;
-      unordered_map<string, int> lookup;
-      for (int i = 0; i < list1.size(); ++i) {
-        string s = list1.at(i);
-        if (lookup.find(s) == lookup.end()) {
-          lookup[s] = i;
-        }
-      }
-      unordered_map<string, int> sums;
-      for (int i = 0; i < list2.size(); ++i) {
-        string s = list2.at(i);
-        if (lookup.find(s) != lookup.end()) {
-          sums[s] = i + lookup[s];
-        }
-      }
-      for (auto a: sums) {
-        cout << "sum is " << a.first << " " << a.second << endl;
+ private:
+  bool sortByVal(const pair<string, int>& a, const pair<string, int>& b) {
+    return (a.second < b.second);
+  }
+
+ public:
+  vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+    vector<string> ret;
+    unordered_map<string, int> lookup;
+    for (int i = 0; i < list1.size(); ++i) {
+      string s = list1.at(i);
+      if (lookup.find(s) == lookup.end()) {
+        lookup[s] = i;
       }
     }
+    vector<pair<string,int>> stuff;
+    unordered_map<string, int> sums;
+    for (int i = 0; i < list2.size(); ++i) {
+      string s = list2.at(i);
+      if (lookup.find(s) != lookup.end()) {
+        sums[s] = i + lookup[s];
+      }
+    }
+    for (auto a: sums) {
+      stuff.push_back(a);
+    }
+    sort(stuff.begin(), stuff.end(),sortByVal) ;
+    int min = stuff[0].second;
+    for (auto a: stuff) {
+      if (a.second <= min) {
+        ret.push_back(a.first);
+      } else {
+        break;
+      }
+    }
+    return ret;
+  }
 };
