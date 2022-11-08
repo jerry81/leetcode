@@ -53,12 +53,11 @@ All the strings of list2 are unique.
 using namespace std;
 
 class Solution {
- private:
-  bool sortByVal(const pair<string, int>& a, const pair<string, int>& b) {
-    return (a.second < b.second);
-  }
 
  public:
+   static bool sort_by_val(const pair<string, int>& a, const pair<string, int>& b) { // TIL: this must be static
+    return (a.second < b.second);
+  }
   vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
     vector<string> ret;
     unordered_map<string, int> lookup;
@@ -79,7 +78,7 @@ class Solution {
     for (auto a: sums) {
       stuff.push_back(a);
     }
-    sort(stuff.begin(), stuff.end(),sortByVal) ;
+    sort(stuff.begin(), stuff.end(),sort_by_val) ;
     int min = stuff[0].second;
     for (auto a: stuff) {
       if (a.second <= min) {
