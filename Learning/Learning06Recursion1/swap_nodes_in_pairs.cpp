@@ -56,8 +56,11 @@ public:
       ListNode* first = head;
       ListNode* temp = head;
       first = head->next;
+      ListNode* nn = first->next;
       first->next = temp;
-      first->next->next = swapPairs(first->next->next);
+      if (first->next != nullptr) {
+          first->next->next = swapPairs(nn);
+      }
       return first;
     }
 };
