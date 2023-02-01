@@ -36,23 +36,30 @@ str1 and str2 consist of English uppercase letters.
 using namespace std;
 
 class Solution {
-
  public:
   string gcdOfStrings(string str1, string str2) {
-    return "";
-    // for each prefix string in the shorter string, use regex to match away every substring on both, if they both end up as empty strings, return that prefix
+    for (int i = 1; i <= str1.length(); ++i) {
+      string prefix = str1.substr(0, i);
+      string t1 = removeSubstrings(prefix, str1);
+      string t2 = removeSubstrings(prefix, str2);
+      if (t1.empty() && t2.empty()) {
+        return prefix;
+      }
+    }
+          return "";
+    // for each prefix string in the shorter string, use regex to match away
+    // every substring on both, if they both end up as empty strings, return
+    // that prefix
   }
 
-   string removeSubstring(string sub, string orig) {
-   auto i = orig.find(sub);
-   if (i == string::npos) {
-     return orig;
-   } else {
-     orig.erase(i, sub.length());
-     return orig;
-   }
- }
-
+  string removeSubstrings(string sub, string orig) {
+    int l = sub.length();
+    string res = orig;
+    for (auto i = res.find(sub); i != string::npos; i = res.find(sub)) {
+      res.erase(i, l);
+    }
+    return res;
+  }
 };
 
 int main() {
@@ -60,14 +67,14 @@ int main() {
   string s2 = "ABC";
   Solution s;
   cerr << "expect ABC: " << s.gcdOfStrings(s1, s2) << endl;
-  cerr << "expect ABC: " << s.removeSubstring(s2, s1) << endl;
+  cerr << "expect nothing: " << s.removeSubstrings(s2, s1) << endl;
   return 0;
 }
 
 /* reference code from oreilly
 
-#include <string>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
