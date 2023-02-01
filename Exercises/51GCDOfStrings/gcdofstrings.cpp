@@ -39,6 +39,7 @@ class Solution {
 
  public:
   string gcdOfStrings(string str1, string str2) {
+    return "";
     // for each prefix string in the shorter string, use regex to match away every substring on both, if they both end up as empty strings, return that prefix
   }
 
@@ -47,7 +48,7 @@ class Solution {
    if (i == string::npos) {
      return orig;
    } else {
-     orig.erase(i, orig.length());
+     orig.erase(i, sub.length());
      return orig;
    }
  }
