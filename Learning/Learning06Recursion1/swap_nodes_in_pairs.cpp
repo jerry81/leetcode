@@ -48,6 +48,16 @@ struct ListNode {
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
+      if (head == nullptr) return head;
 
+      if (head->next == nullptr) return head;
+
+
+      ListNode* first = head;
+      ListNode* temp = head;
+      first = head->next;
+      first->next = temp;
+      first->next->next = swapPairs(first->next->next);
+      return first;
     }
 };
