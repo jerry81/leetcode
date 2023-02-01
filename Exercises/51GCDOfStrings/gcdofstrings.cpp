@@ -38,15 +38,17 @@ using namespace std;
 class Solution {
  public:
   string gcdOfStrings(string str1, string str2) {
+    string longest = "";
     for (int i = 1; i <= str1.length(); ++i) {
       string prefix = str1.substr(0, i);
       string t1 = removeSubstrings(prefix, str1);
       string t2 = removeSubstrings(prefix, str2);
       if (t1.empty() && t2.empty()) {
-        return prefix;
+        longest = prefix;
       }
     }
-          return "";
+
+    return longest;
     // for each prefix string in the shorter string, use regex to match away
     // every substring on both, if they both end up as empty strings, return
     // that prefix
