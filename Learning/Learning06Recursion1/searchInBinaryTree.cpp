@@ -48,7 +48,10 @@ public:
       if (root == nullptr) return nullptr;
       if (root->val == val) return root;
 
-      TreeNode *lr = searchBST(root->left);
-      TreeNode *rr = searchBST(root->right);
+      TreeNode *lr = searchBST(root->left,val);
+      TreeNode *rr = searchBST(root->right,val);
+      if (lr != nullptr) return lr;
+      if (rr != nullptr) return rr;
+      return nullptr;
     }
 };
