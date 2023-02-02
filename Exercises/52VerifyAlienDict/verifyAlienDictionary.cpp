@@ -76,6 +76,13 @@ class Solution {
       ++rank;
     }
 
+    for (int i = 0; i < words.size() - 1; ++i) {
+      string compa = words[i];
+      string compb = words[i+1];
+      if (!aBeforeB(compa, compb)) return false;
+    }
+
+    return true;
 
   }
 };
