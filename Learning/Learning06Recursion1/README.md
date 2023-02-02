@@ -21,3 +21,13 @@
     2. swap first 2 nodes
     3.  call function again on next.next
     4.  attach returned head to sublist in step 2
+
+# Recurrence Relation
+
+- recurrence relation: relationship between result of problem and result of its subproblems
+- base case: case where one can compute answer directly without further recursion calls.  aka bottom cases
+- example pascal's triangle
+  - recurrence rel: f(i,j) = f(i-1, j-1) + f(i-1,j) <-- these will reduce down to j=1 eventually
+  - base case f(i,j) =  where j = 1 or j = i
+
+note:  there are many duplicate calculations happening - avoid dups w/ memoization (next)
