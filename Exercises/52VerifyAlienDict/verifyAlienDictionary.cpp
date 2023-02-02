@@ -52,14 +52,31 @@ All characters in words[i] and order are English lowercase letters.
 using namespace std;
 
 class Solution {
+ unordered_map<char, int> lookup;
+ bool aBeforeB(string a, string b) {
+   for (int i = 0; i < a.length(); ++i) {
+     if (i >= b.length()) return false;
+
+     char ac = a[i];
+     char bc = b[i];
+     if (lookup[ac] < lookup[bc]) {
+       return true;
+     } else if (lookup[ac] > lookup[bc]) {
+       return false;
+     }
+   }
+ }
+
  public:
   bool isAlienSorted(vector<string>& words, string order) {
-    unordered_map<char, int> lookup;
+
     int rank = 0;
     for (char c : order) {
       lookup[c] = rank;
       ++rank;
     }
+
+
   }
 };
 
