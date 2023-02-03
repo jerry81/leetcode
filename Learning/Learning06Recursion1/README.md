@@ -31,3 +31,9 @@
   - base case f(i,j) =  where j = 1 or j = i
 
 note:  there are many duplicate calculations happening - avoid dups w/ memoization (next)
+
+
+# memoization
+
+- example - in pascal's triangle, there are many duplicate calculations.  use a hash to find those solutions in o(1) time.
+
