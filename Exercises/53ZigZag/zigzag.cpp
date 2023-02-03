@@ -55,6 +55,21 @@ using namespace std;
 class Solution {
  public:
   string convert(string s, int numRows) {
+    if (numRows == 0) return "";
+
+    if (numRows == 1) return s;
+
+    if (numRows == 2) {
+      string res = "";
+      for (int i = 0; i < s.length(); i=i+2) {
+        res += s[i];
+      }
+      for (int i = 1; i < s.length(); i=i+2) {
+        res+= s[i];
+      }
+      return res;
+    }
+
     string ret = "";
     vector<string> zz;
 
@@ -62,7 +77,7 @@ class Solution {
     for (int i = 0; i < numRows; ++i) {
       zz.push_back("");
     }
-    int counter = 0;
+    int counter = numRows + 1;
     int cycleLength = numRows + (numRows - 2);  // for 3: 4, for 4: 6, for 5, 8
 
     // rows: 0,1,2,1,0,1,2,1,0
@@ -85,7 +100,9 @@ class Solution {
     }
 
     for (string s: zz) {
-      cerr << "zigzag is " << s << endl;
+      for (char c: s) {
+        if (c != ' ') ret+=c;
+      }
     }
     return ret;
   }
@@ -94,8 +111,8 @@ class Solution {
 int main() {
   Solution s;
 
-  s.convert("PAYPALISHIRING", 3);
-  s.convert("PAYPALISHIRING", 4);
-  s.convert("PAYPALISHIRING", 5);
+  cerr << "expect answer " << s.convert("PAYPALISHIRING", 3) << endl;;
+  cerr << "expect answer " << s.convert("PAYPALISHIRING", 4) << endl;;
+  cerr << "expect answer " << s.convert("PAYPALISHIRING", 5) << endl;
   return 0;
 }
