@@ -5,14 +5,17 @@ Medium
 5.3K
 11.1K
 Companies
-The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of
+rows like this: (you may want to display this pattern in a fixed font for better
+legibility)
 
 P   A   H   N
 A P L S I I G
 Y   I   R
 And then read line by line: "PAHNAPLSIIGYIR"
 
-Write the code that will take a string and make this conversion given a number of rows:
+Write the code that will take a string and make this conversion given a number
+of rows:
 
 string convert(string s, int numRows);
 
@@ -43,14 +46,30 @@ s consists of English letters (lower-case and upper-case), ',' and '.'.
 1 <= numRows <= 1000
 
 */
-#include <string>
 #include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    string convert(string s, int numRows) {
+ public:
+  string convert(string s, int numRows) {
+    int counter = 0;
+    int cycleLength = numRows + (numRows - 2);  // for 3: 4, for 4: 6, for 5, 8
 
+    for (char c : s) {
+      int state = counter % cycleLength;
+      ++counter;
+      cerr << "state is " << state << endl;
     }
+  }
 };
+
+int main() {
+  Solution s;
+
+  s.convert("PAYPALISHIRING", 3);
+  s.convert("PAYPALISHIRING", 4);
+  return 0;
+}
