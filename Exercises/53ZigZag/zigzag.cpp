@@ -77,7 +77,7 @@ class Solution {
     for (int i = 0; i < numRows; ++i) {
       zz.push_back("");
     }
-    int counter = numRows + 1;
+    int counter = 0;
     int cycleLength = numRows + (numRows - 2);  // for 3: 4, for 4: 6, for 5, 8
 
     // rows: 0,1,2,1,0,1,2,1,0
