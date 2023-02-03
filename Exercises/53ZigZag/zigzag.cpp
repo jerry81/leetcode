@@ -55,6 +55,7 @@ using namespace std;
 class Solution {
  public:
   string convert(string s, int numRows) {
+    string ret = "";
     int counter = 0;
     int cycleLength = numRows + (numRows - 2);  // for 3: 4, for 4: 6, for 5, 8
 
@@ -63,6 +64,7 @@ class Solution {
       ++counter;
       cerr << "state is " << state << endl;
     }
+    return ret;
   }
 };
 
@@ -71,5 +73,6 @@ int main() {
 
   s.convert("PAYPALISHIRING", 3);
   s.convert("PAYPALISHIRING", 4);
+  s.convert("PAYPALISHIRING", 5);
   return 0;
 }
