@@ -56,13 +56,36 @@ class Solution {
  public:
   string convert(string s, int numRows) {
     string ret = "";
+    vector<string> zz;
+
+    // init
+    for (int i = 0; i < numRows; ++i) {
+      zz.push_back("");
+    }
     int counter = 0;
     int cycleLength = numRows + (numRows - 2);  // for 3: 4, for 4: 6, for 5, 8
+
+    // rows: 0,1,2,1,0,1,2,1,0
+    //       0,1,2,3,0,1,2,3,0
+    // rows: 0,1,2,3,2,1,0,1,2,3,2,1,
+    //       0,1,2,3,4,5,0,1,2,3,4,5
 
     for (char c : s) {
       int state = counter % cycleLength;
       ++counter;
-      cerr << "state is " << state << endl;
+      if (state < numRows) {
+        zz[state] += c;
+      } else {
+        int idx = cycleLength- state;
+        zz[idx] += c;
+        for (int i = 0; i < numRows; ++i) {
+          if (i != idx) zz[i] += ' ';
+        }
+      }
+    }
+
+    for (string s: zz) {
+      cerr << "zigzag is " << s << endl;
     }
     return ret;
   }
