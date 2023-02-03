@@ -3,7 +3,9 @@
 Fibonacci Number
 
 Solution
-The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+The Fibonacci numbers, commonly denoted F(n) form a sequence, called the
+Fibonacci sequence, such that each number is the sum of the two preceding ones,
+starting from 0 and 1. That is,
 
 F(0) = 0, F(1) = 1
 F(n) = F(n - 1) + F(n - 2), for n > 1.
@@ -39,14 +41,33 @@ Constraints:
 using namespace std;
 
 class Solution {
-public:
-    int fib(int n) {
-      return n;
+ unordered_map<string,int> lookup;
+
+  int get(int key) {
+    string hkey = std::to_string(key);
+    if (lookup.find(hkey) == lookup.end()) {
+      lookup[hkey] = get((key-2)) + get((key-1)) ;
     }
+    return lookup[hkey];
+  }
+
+ public:
+   Solution() {
+    lookup["0"] = 0;
+    lookup["1"] = 1;
+   }
+
+  int fib(int n) {
+    if (n == 0) return 1;
+    if (n == 1) return 1;
+    return get(n);
+  }
 };
 
 int main() {
-Solution s;
-cerr << "expect 1 " << s.fib(2) << endl;
-return 0;
+  Solution s;
+  cerr << "expect 1 " << s.fib(2) << endl;
+  cerr << "expect 2 " << s.fib(3) << endl;
+  cerr << "expect 3 " << s.fib(4) << endl;
+  return 0;
 }
