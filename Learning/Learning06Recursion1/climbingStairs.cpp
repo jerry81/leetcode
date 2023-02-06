@@ -44,13 +44,13 @@ public:
     Solution() {
       lookup[0] = 0;
       lookup[1] = 1;
-      lookup[2] = 1;
+      lookup[2] = 2;
     }
 
     int climbStairs(int n) {
       if (lookup.find(n) != lookup.end()) return lookup[n];
 
-      lookup[n] = min(1 + climbStairs(n-1), 1+ climbStairs(n-2));
+      lookup[n] = climbStairs(n-1) + climbStairs(n-2);
       return lookup[n];
     }
 };
