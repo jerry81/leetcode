@@ -94,13 +94,17 @@ class Solution {
       }
       ++end;
     }
+
+    // one last cleanup
+    int len = end - idx;
+    if (len > max) max = len;
     return max;
   }
 };
 
 int main() {
   Solution s;
-  vector<int> test = {1,2,1};
+  vector<int> test = {0,2,3,2,2};
   cerr << s.totalFruit(test) << endl;
   return 0;
 };
