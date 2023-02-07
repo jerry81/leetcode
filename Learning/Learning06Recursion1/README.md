@@ -37,3 +37,19 @@ note:  there are many duplicate calculations happening - avoid dups w/ memoizati
 
 - example - in pascal's triangle, there are many duplicate calculations.  use a hash to find those solutions in o(1) time.
 
+# time comlexity
+
+- number of recursions * time complexity of calculation
+
+# space complexity
+
+- two parts
+  - recursion related
+    - stack to keep track of recursive function calls.
+      - 3 pts of info
+        - returning address of the function call
+        - params passed to function call
+        - local vars in function call
+  - non-recursion related
+    - space for global vars
+    - space for memoization
