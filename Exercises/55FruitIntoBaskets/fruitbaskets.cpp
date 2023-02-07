@@ -83,7 +83,7 @@ class Solution {
         if (len > max) max = len;
 
         bool oneLTtwo = latestBucket1 < latestBucket2;
-        idx = oneLTtwo ? latestBucket1 + 1 : latestBucket2 + 1;
+        idx = oneLTtwo ? (latestBucket1 + 1) : (latestBucket2 + 1);
         if (oneLTtwo) {
           bucket1 = fruits[end];
           latestBucket1 = end;
