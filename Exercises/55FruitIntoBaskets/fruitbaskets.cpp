@@ -68,12 +68,11 @@ class Solution {
     int latestBucket2 = 0;
     bucket1 = fruits[idx];
     while (fruits[end] == bucket1) {
-      if (end >= fruits.size()) return fruits.size();
 
       latestBucket1 = end;
+      if (end >= fruits.size() - 1) return fruits.size();
       end++;
     }
-    cerr << "end is " << end << endl;
     bucket2 = fruits[end];
     latestBucket2 = end;
 
@@ -110,7 +109,7 @@ class Solution {
 
 int main() {
   Solution s;
-  vector<int> test = {0,0};
+  vector<int> test = {1,1};
   cerr << s.totalFruit(test) << endl;
   return 0;
 };
