@@ -5,14 +5,20 @@ Medium
 2.4K
 173
 Companies
-You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.
+You are visiting a farm that has a single row of fruit trees arranged from left
+to right. The trees are represented by an integer array fruits where fruits[i]
+is the type of fruit the ith tree produces.
 
-You want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:
+You want to collect as much fruit as possible. However, the owner has some
+strict rules that you must follow:
 
-You only have two baskets, and each basket can only hold a single type of fruit. There is no limit on the amount of fruit each basket can hold.
-Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree) while moving to the right. The picked fruits must fit in one of your baskets.
-Once you reach a tree with fruit that cannot fit in your baskets, you must stop.
-Given the integer array fruits, return the maximum number of fruits you can pick.
+You only have two baskets, and each basket can only hold a single type of fruit.
+There is no limit on the amount of fruit each basket can hold. Starting from any
+tree of your choice, you must pick exactly one fruit from every tree (including
+the start tree) while moving to the right. The picked fruits must fit in one of
+your baskets. Once you reach a tree with fruit that cannot fit in your baskets,
+you must stop. Given the integer array fruits, return the maximum number of
+fruits you can pick.
 
 
 
@@ -42,54 +48,52 @@ Constraints:
 
 */
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 // find longest consecutive
 
 class Solution {
-public:
-    int totalFruit(vector<int>& fruits) {
-      int idx = 0;
-      int end = 1;
-      int bucket1 = -1;
-      int bucket2 = -1;
-      int max = 0;
-      int latestBucket1;
-      int latestBucket2;
-      bucket1 = fruits[idx];
-      while (fruits[end] == bucket1) {
-        latestBucket1 = end;
-        end++;
-      }
-      bucket2 = fruits[end];
-      while (fruits[end] == bucket2 || fruits[end] == bucket1) {
-        latestBucket2 = end;
-        end++;
-      }
-      int len = end - idx;
-      if (len > max) max = len;
-      bool oneLTtwo = latestBucket1 < latestBucket2;
-      idx =  oneLTtwo ? latestBucket1 + 1 : latestBucket2 + 1;
-      if (oneLTtwo) {
-         bucket1 = fruits[end];
-         latestBucket1 = end;
-      } else {
-        bucket2 = fruits[end];
-        latestBucket2 = end;
-      }
-
-
-
-      while (end <= fruits.size()) {
-        if (fruits[end] != bucket1 && fruits[end] != bucket2) {
-          len = end - idx;
-          if (len > max) max = len;
-
-        }
-        ++end;
-      }
+ public:
+  int totalFruit(vector<int>& fruits) {
+    int idx = 0;
+    int end = 1;
+    int bucket1 = -1;
+    int bucket2 = -1;
+    int max = 0;
+    int latestBucket1;
+    int latestBucket2;
+    bucket1 = fruits[idx];
+    while (fruits[end] == bucket1) {
+      latestBucket1 = end;
+      end++;
     }
+    bucket2 = fruits[end];
+    latestBucket2 = end;
+
+    while (end <= fruits.size()) {
+      if (fruits[end] == bucket1) {
+        latestBucket1 = end;
+      } else if (fruits[end] == bucket2) {
+        latestBucket2 = end;
+      } else {
+        int len = end - idx;
+        if (len > max) max = len;
+
+        bool oneLTtwo = latestBucket1 < latestBucket2;
+        idx = oneLTtwo ? latestBucket1 + 1 : latestBucket2 + 1;
+        if (oneLTtwo) {
+          bucket1 = fruits[end];
+          latestBucket1 = end;
+        } else {
+          bucket2 = fruits[end];
+          latestBucket2 = end;
+        }
+      }
+      ++end;
+    }
+    return max;
+  }
 };
