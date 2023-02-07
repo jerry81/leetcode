@@ -58,6 +58,7 @@ using namespace std;
 class Solution {
  public:
   int totalFruit(vector<int>& fruits) {
+      if (fruits.size() == 1) return 1;
     int idx = 0;
     int end = 1;
     int bucket1 = -1;
@@ -67,11 +68,16 @@ class Solution {
     int latestBucket2 = 0;
     bucket1 = fruits[idx];
     while (fruits[end] == bucket1) {
+      if (end >= fruits.size()) return fruits.size();
+
       latestBucket1 = end;
       end++;
     }
+    cerr << "end is " << end << endl;
     bucket2 = fruits[end];
     latestBucket2 = end;
+
+
 
     while (end < fruits.size()) {
       if (fruits[end] == bucket1) {
@@ -104,7 +110,7 @@ class Solution {
 
 int main() {
   Solution s;
-  vector<int> test = {0,2,3,2,2};
+  vector<int> test = {0,0};
   cerr << s.totalFruit(test) << endl;
   return 0;
 };
