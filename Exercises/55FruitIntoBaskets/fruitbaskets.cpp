@@ -63,8 +63,8 @@ class Solution {
     int bucket1 = -1;
     int bucket2 = -1;
     int max = 0;
-    int latestBucket1;
-    int latestBucket2;
+    int latestBucket1 = 0;
+    int latestBucket2 = 0;
     bucket1 = fruits[idx];
     while (fruits[end] == bucket1) {
       latestBucket1 = end;
@@ -73,7 +73,7 @@ class Solution {
     bucket2 = fruits[end];
     latestBucket2 = end;
 
-    while (end <= fruits.size()) {
+    while (end < fruits.size()) {
       if (fruits[end] == bucket1) {
         latestBucket1 = end;
       } else if (fruits[end] == bucket2) {
@@ -96,4 +96,11 @@ class Solution {
     }
     return max;
   }
+};
+
+int main() {
+  Solution s;
+  vector<int> test = {1,2,1};
+  cerr << s.totalFruit(test) << endl;
+  return 0;
 };
