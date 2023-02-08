@@ -38,24 +38,20 @@ using namespace std;
 class Solution {
 public:
     double myPow(double x, int n) {
-      long asL = (long) n;
 
-      if (asL == 0) return 1;
+      if (n == 0) return 1;
 
-      if (asL > 0) {
-        double prod =  (x * myPow(x, n-1));
-        if (prod < .0000000001 && prod >= 0) return 0;
+      if (n > 0) {
+        if ((x*x) == 0) return 0;
+        double prod = myPow(x*x, (n-1));
 
-        if (prod > -.0000000001 && prod <= 0) return 0;
 
         return prod;
       }
 
-      if (asL < 0) {
-        double quo = (myPow(x,n+1) / x);
-        if (quo < .0000000001 && quo >= 0) return 0;
-
-        if (quo > -.0000000001 && quo <= 0) return 0;
+      if (n < 0) {
+        if (1/x == 0) return 0;
+        double quo = myPow(1/x,n+1);
 
         return quo;
       }
@@ -66,6 +62,9 @@ public:
 int main() {
   Solution s;
   cerr << "using pow" << pow(0.00001, 2147483647) << endl;
+  double d = 1/(2147483647*2147483647*2147483647);
+
+  cerr << "expect 0 " << d << endl;
   cerr << "expect 1024.00000: " << s.myPow(2.00000, 10) << endl;
   cerr << "expect .25 " << s.myPow(2.00000, -2) << endl;
   cerr << "expect something " << s.myPow(0.00001, 2147483647) << endl;
