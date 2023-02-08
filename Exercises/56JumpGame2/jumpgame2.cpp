@@ -65,7 +65,16 @@ int jumpR(vector<int> nums, int idx) {
   }
 
   for (int i = 1; (i <= jumpMax); ++i) {
-    int choice = 1 + jumpR(nums, idx+i);
+    int k = idx+i;
+    int choice = 1;
+    int added = 0;
+    if (lu(k)) {
+      added = lookup[k];
+    } else {
+      lookup[k] = jumpR(nums, k);
+      added = lookup[k];
+    }
+    choice += added;
 
     choices.push_back(choice);
   }
