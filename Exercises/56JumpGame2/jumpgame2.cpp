@@ -113,6 +113,7 @@ public:
       // lookup.clear();
       // lookup[nums.size()-1] = 0;
       // return jumpR(nums,0);
+      if (nums.size() == 1) return 0;
       return jumpGreedy(nums);
     }
 };
