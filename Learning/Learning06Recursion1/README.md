@@ -53,3 +53,48 @@ note:  there are many duplicate calculations happening - avoid dups w/ memoizati
   - non-recursion related
     - space for global vars
     - space for memoization
+
+# tail recursion
+  - recursion where recursive call is final instruction and there is only one recursive call in fn
+  - tail recursion doesn't have the space overhead
+
+  - code snippet for comparison
+  ```java
+  public class Main {
+
+  private static int helper_non_tail_recursion(int start, int [] ls) { // less params
+    if (start >= ls.length) {
+      return 0; // diff
+    }
+    // not a tail recursion because it does some computation after the recursive call returned.
+    return ls[start] + helper_non_tail_recursion(start+1, ls); // the appending happens outside of the call.
+  }
+
+  public static int sum_non_tail_recursion(int [] ls) {
+    if (ls == null || ls.length == 0) {
+      return 0;
+    }
+    return helper_non_tail_recursion(0, ls);
+  }
+
+  //---------------------------------------------
+
+  private static int helper_tail_recursion(int start, int [] ls, int acc) { // extra param
+    if (start >= ls.length) {
+      return acc; // diff
+    }
+    // this is a tail recursion because the final instruction is the recursive call.
+    return helper_tail_recursion(start+1, ls, acc+ls[start]); // the appending is within the parameters
+  }
+
+  public static int sum_tail_recursion(int [] ls) {
+    if (ls == null || ls.length == 0) {
+      return 0;
+    }
+    return helper_tail_recursion(0, ls, 0);
+  }
+}
+```
+
+- so when comparing, when there is an accumulator being passed around, it is tail recursion.
+
