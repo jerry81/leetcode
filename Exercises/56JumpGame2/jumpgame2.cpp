@@ -36,33 +36,49 @@ Constraints:
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+
+unordered_map<int, int> lookup;
+
+bool lu(int k) {
+  return lookup.find(k) != lookup.end();
+}
 int jumpR(vector<int> nums, int idx) {
-  if (idx >= (nums.size() - 1)) return 0;
+  if (lu(idx)) return lookup[idx];
 
   vector<int> choices;
 
   int jumpMax = nums[idx];
 
-  if (jumpMax == 0) return 100000000;
+  if (jumpMax == 0) {
+    lookup[idx] = 100000000;
+    return 100000000;
+  }
 
-  if ((jumpMax + idx) >= (nums.size() - 1)) return 1;
+  if ((jumpMax + idx) >= (nums.size() - 1)) {
+    lookup[idx] = 1;
+    return 1;
+  }
 
   for (int i = 1; (i <= jumpMax); ++i) {
     int choice = 1 + jumpR(nums, idx+i);
+
     choices.push_back(choice);
   }
 
-  return *min_element(choices.begin(), choices.end());
+  int res = *min_element(choices.begin(), choices.end());
+  lookup[idx] = res;
+  return res;
 }
 
 public:
     int jump(vector<int>& nums) {
-      for (int i:nums) {
-      }
+      lookup.clear();
+      lookup[nums.size()-1] = 0;
       return jumpR(nums,0);
     }
 };
