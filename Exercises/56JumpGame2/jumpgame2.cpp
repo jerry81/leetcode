@@ -41,16 +41,18 @@ using namespace std;
 
 class Solution {
 int jumpR(vector<int> nums, int idx) {
-  cerr << "recursion idx is " << idx << endl;
   if (idx >= (nums.size() - 1)) return 0;
 
   vector<int> choices;
 
   int jumpMax = nums[idx];
 
+  if (jumpMax == 0) return 100000000;
+
   if ((jumpMax + idx) >= (nums.size() - 1)) return 1;
 
   for (int i = 1; (i <= jumpMax); ++i) {
+    cerr << "checking " << idx+i << endl;
     int choice = 1 + jumpR(nums, idx+i);
     choices.push_back(choice);
   }
@@ -60,6 +62,9 @@ int jumpR(vector<int> nums, int idx) {
 
 public:
     int jump(vector<int>& nums) {
+      for (int i:nums) {
+        cerr << "vector item " << i << endl;
+      }
       return jumpR(nums,0);
     }
 };
@@ -67,6 +72,8 @@ public:
 int main() {
   Solution s;
   vector<int> test1 = {2,3,1,1,4};
+  cerr << "expect 2 " << s.jump(test1) << endl;
+  vector<int> test2 = {2,3,0,1,4};
   cerr << "expect 2 " << s.jump(test1) << endl;
   return 0;
 }
