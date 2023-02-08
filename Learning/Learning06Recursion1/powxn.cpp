@@ -42,16 +42,17 @@ public:
       if (n == 0) return 1;
 
       if (n > 0) {
-        if ((x*x) == 0) return 0;
-        double prod = myPow(x*x, (n-1));
-
-
-        return prod;
+        if ((n%2) == 0) {
+          return myPow(x, n/2) * myPow(x, n/2);
+        } else {
+          return x*myPow(x, (n-1));
+        }
       }
 
       if (n < 0) {
         if (1/x == 0) return 0;
-        double quo = myPow(1/x,n+1);
+
+        double quo = myPow(x,n+1)/x;
 
         return quo;
       }
@@ -61,8 +62,6 @@ public:
 
 int main() {
   Solution s;
-  cerr << "using pow" << pow(0.00001, 2147483647) << endl;
-  double d = 1/(2147483647*2147483647*2147483647);
 
   cerr << "expect 0 " << d << endl;
   cerr << "expect 1024.00000: " << s.myPow(2.00000, 10) << endl;
