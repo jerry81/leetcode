@@ -31,26 +31,43 @@ n is an integer.
 
 */
 #include <iostream>
+#include <cmath>
+
 using namespace std;
 
 class Solution {
 public:
     double myPow(double x, int n) {
-      if (n == 0) return 1;
+      long asL = (long) n;
 
-      if (n > 0) {
-        return (x * myPow(x, n-1));
+      if (asL == 0) return 1;
+
+      if (asL > 0) {
+        double prod =  (x * myPow(x, n-1));
+        if (prod < .0000000001 && prod >= 0) return 0;
+
+        if (prod > -.0000000001 && prod <= 0) return 0;
+
+        return prod;
       }
 
-      if (n < 0) {
-        return (myPow(x,n+1) / x);
+      if (asL < 0) {
+        double quo = (myPow(x,n+1) / x);
+        if (quo < .0000000001 && quo >= 0) return 0;
+
+        if (quo > -.0000000001 && quo <= 0) return 0;
+
+        return quo;
       }
+      return 1;
     }
 };
 
 int main() {
   Solution s;
+  cerr << "using pow" << pow(0.00001, 2147483647) << endl;
   cerr << "expect 1024.00000: " << s.myPow(2.00000, 10) << endl;
-
+  cerr << "expect .25 " << s.myPow(2.00000, -2) << endl;
+  cerr << "expect something " << s.myPow(0.00001, 2147483647) << endl;
   return 0;
 }
