@@ -43,18 +43,20 @@ public:
 
       if (n > 0) {
         if ((n%2) == 0) {
-          return myPow(x, n/2) * myPow(x, n/2);
+          double item = myPow(x, n/2);
+          return item * item;
         } else {
           return x*myPow(x, (n-1));
         }
       }
 
       if (n < 0) {
-        if (1/x == 0) return 0;
-
-        double quo = myPow(x,n+1)/x;
-
-        return quo;
+        if ((n*2) == 0) {
+          double item = myPow(x, n/2);
+          return 1/(item*item);
+        } else {
+         return myPow(x,n+1)/x;
+        }
       }
       return 1;
     }
@@ -63,7 +65,6 @@ public:
 int main() {
   Solution s;
 
-  cerr << "expect 0 " << d << endl;
   cerr << "expect 1024.00000: " << s.myPow(2.00000, 10) << endl;
   cerr << "expect .25 " << s.myPow(2.00000, -2) << endl;
   cerr << "expect something " << s.myPow(0.00001, 2147483647) << endl;
