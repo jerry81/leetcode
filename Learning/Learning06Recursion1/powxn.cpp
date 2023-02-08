@@ -36,6 +36,21 @@ using namespace std;
 class Solution {
 public:
     double myPow(double x, int n) {
+      if (n == 0) return 1;
 
+      if (n > 0) {
+        return (x * myPow(x, n-1));
+      }
+
+      if (n < 0) {
+        return (myPow(x,n+1) / x);
+      }
     }
 };
+
+int main() {
+  Solution s;
+  cerr << "expect 1024.00000: " << s.myPow(2.00000, 10) << endl;
+
+  return 0;
+}
