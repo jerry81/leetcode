@@ -52,7 +52,6 @@ int jumpR(vector<int> nums, int idx) {
   if ((jumpMax + idx) >= (nums.size() - 1)) return 1;
 
   for (int i = 1; (i <= jumpMax); ++i) {
-    cerr << "checking " << idx+i << endl;
     int choice = 1 + jumpR(nums, idx+i);
     choices.push_back(choice);
   }
@@ -63,7 +62,6 @@ int jumpR(vector<int> nums, int idx) {
 public:
     int jump(vector<int>& nums) {
       for (int i:nums) {
-        cerr << "vector item " << i << endl;
       }
       return jumpR(nums,0);
     }
@@ -74,6 +72,10 @@ int main() {
   vector<int> test1 = {2,3,1,1,4};
   cerr << "expect 2 " << s.jump(test1) << endl;
   vector<int> test2 = {2,3,0,1,4};
-  cerr << "expect 2 " << s.jump(test1) << endl;
+  cerr << "expect 2 " << s.jump(test2) << endl;
+  vector<int> loadtest = {8,4,3,4,0,0,9,7,2,3,5,7,3,1,1,5,1,8,6,1,1,6,1,1,8,0,4};
+  cerr << "expect something " << s.jump(loadtest) << endl;
+  vector<int> loadtest2 = {5,6,4,4,6,9,4,4,7,4,4,8,2,6,8,1,5,9,6,5,2,7,9,7,9,6,9,4,1,6,8,8,4,4,2,0,3,8,5};
+  cerr << "expect something " << s.jump(loadtest2) << endl;
   return 0;
 }
