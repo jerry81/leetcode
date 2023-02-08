@@ -40,8 +40,33 @@ Constraints:
 using namespace std;
 
 class Solution {
+int jumpR(vector<int> nums, int idx) {
+  cerr << "recursion idx is " << idx << endl;
+  if (idx >= (nums.size() - 1)) return 0;
+
+  vector<int> choices;
+
+  int jumpMax = nums[idx];
+
+  if ((jumpMax + idx) >= (nums.size() - 1)) return 1;
+
+  for (int i = 1; (i <= jumpMax); ++i) {
+    int choice = 1 + jumpR(nums, idx+i);
+    choices.push_back(choice);
+  }
+
+  return *min_element(choices.begin(), choices.end());
+}
+
 public:
     int jump(vector<int>& nums) {
-
+      return jumpR(nums,0);
     }
 };
+
+int main() {
+  Solution s;
+  vector<int> test1 = {2,3,1,1,4};
+  cerr << "expect 2 " << s.jump(test1) << endl;
+  return 0;
+}
