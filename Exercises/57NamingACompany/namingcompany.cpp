@@ -120,12 +120,20 @@ public:
        lookup.clear();
        suffixes.clear();
        for (string s:ideas) {
+         cerr << "word is " << s << endl;
          string pre = s.substr(0,1);
          string post = s.substr(1);
+         cerr << "pre is " << pre << endl;
+         cerr << "post is " << post << endl;
+         if (post.empty()) {
+           post = "BLANK";
+           cerr << "BRANK" << endl;
+         }
          if (lookup.find(pre) == lookup.end()) {
            unordered_map<string, bool> um;
            um[post] = true;
            lookup[pre] = um;
+
          } else {
            lookup[pre][post] = true;
          }
@@ -159,6 +167,7 @@ public:
                  // cout << "counting " << a.first<<suffix.first<< " " << c.first << suff.first   << endl;
                  count++;
                }
+
              }
            }
 
