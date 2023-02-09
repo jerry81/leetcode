@@ -142,15 +142,26 @@ public:
        int numkeys = lookup.size();
        for (auto a: lookup) {
         // cout << "examining lookup key " << a.first << endl;
-         unordered_map<string, bool> tally;
-         for (auto b: a.second) {
 
-           for (auto c: suffixes[b.first]) {
-             tally[c.first] = true;
+          unordered_map<string, bool> prohibited;
+
+           for (auto suff: a.second) {
+             for (auto prohibit: suffixes[suff.first]) {
+                prohibited[prohibit.first] = true;
+             }
+
+           }
+
+           for (auto c: lookup) {
+             if (prohibited.find(c.first) != prohibited.end()) continue;
+
+
+             for (auto suffix: c.second) {
+               if (a.second.find(suffix.first) == a.second.end()) count++;
+             }
            }
          }
-        count += numkeys - tally.size();
-       }
+
       //  for (int i = 0; i < (ideas.size()-1); ++i) {
       //    string item1 = ideas[i];
       //    for (int j = i+1; j < ideas.size(); ++j) {
