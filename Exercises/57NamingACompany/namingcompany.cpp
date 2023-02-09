@@ -86,6 +86,10 @@ bool sameFirst(string s1, string s2) {
   return s1[0] == s2[0];
 }
 
+bool canAdd(Swapped inp) {
+  return (!lc(inp.word1) && lc(inp.word2));
+}
+
 public:
     long long distinctNames(vector<string>& ideas) {
       long long count = 0;
@@ -96,8 +100,12 @@ public:
         string item1 = ideas[i];
         for (int j = i+1; j < ideas.size(); ++j) {
           string item2 = ideas[j];
+          if (sameFirst(item1, item2)) continue;
 
+          Swapped res = swapFirst(item1, item2);
+          if (canAdd(res)) ++count;
         }
       }
+      return count;
     }
 };
