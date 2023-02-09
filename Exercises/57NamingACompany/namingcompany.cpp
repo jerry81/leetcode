@@ -68,10 +68,11 @@ struct Swapped {
 
 
 class Solution {
+unordered_map<string, bool> lookupo;
 unordered_map<string, unordered_map<string, bool>> lookup;
 unordered_map<string, unordered_map<string, bool>> suffixes;
 bool lc(string key) { //lookup contains helper
-  return (lookup.find(key) != lookup.end());
+  return (lookupo.find(key) != lookupo.end());
 }
 
 Swapped swapFirst(string s1, string s2) {
@@ -83,6 +84,12 @@ Swapped swapFirst(string s1, string s2) {
   sw.word2 = s2;
   return sw;
 }
+
+bool sameFirst(string s1, string s2) {
+   return (s1[0] == s2[0]);
+
+}
+
 
 bool sameFirstOrLast(string s1, string s2) {
    if (s1[0] == s2[0]) return true;
@@ -98,23 +105,23 @@ bool canAdd(Swapped inp) {
 }
 
 public:
-    // long long distinctNames(vector<string>& ideas) {
-    //   long long count = 0;
-    //   for (string s: ideas) {
-    //     lookup[s] = true;
-    //   }
-    //   for (int i = 0; i < (ideas.size()-1); ++i) {
-    //     string item1 = ideas[i];
-    //     for (int j = i+1; j < ideas.size(); ++j) {
-    //       string item2 = ideas[j];
-    //       if (sameFirst(item1, item2)) continue;
+    long long distinctNamesO(vector<string>& ideas) {
+      long long count = 0;
+      for (string s: ideas) {
+        lookupo[s] = true;
+      }
+      for (int i = 0; i < (ideas.size()-1); ++i) {
+        string item1 = ideas[i];
+        for (int j = i+1; j < ideas.size(); ++j) {
+          string item2 = ideas[j];
+          if (sameFirst(item1, item2)) continue;
 
-    //       Swapped res = swapFirst(item1, item2);
-    //       if (canAdd(res)) count+=2;
-    //     }
-    //   }
-    //   return count;
-    // }
+          Swapped res = swapFirst(item1, item2);
+          if (canAdd(res)) count+=2;
+        }
+      }
+      return count;
+    }
 
      long long distinctNames(vector<string>& ideas) {
        lookup.clear();
@@ -208,6 +215,6 @@ vector<string> test3 = {
 };
 cerr << "expect 4934 " << s.distinctNames(test3) << endl;
 
-
+cerr << "expect 4934 " << s.distinctNamesO(test3) << endl;
 return 0;
 }
