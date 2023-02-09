@@ -57,6 +57,7 @@ Acceptance Rate
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
@@ -87,7 +88,7 @@ bool sameFirst(string s1, string s2) {
 }
 
 bool canAdd(Swapped inp) {
-  return (!lc(inp.word1) && lc(inp.word2));
+  return (!lc(inp.word1) && !lc(inp.word2));
 }
 
 public:
@@ -103,7 +104,7 @@ public:
           if (sameFirst(item1, item2)) continue;
 
           Swapped res = swapFirst(item1, item2);
-          if (canAdd(res)) ++count;
+          if (canAdd(res)) count+=2;
         }
       }
       return count;
