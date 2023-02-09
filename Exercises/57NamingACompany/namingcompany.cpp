@@ -150,16 +150,21 @@ public:
                 prohibited[prohibit.first] = true;
              }
 
-           }
-
-           for (auto c: lookup) {
+            for (auto c: lookup) {
              if (prohibited.find(c.first) != prohibited.end()) continue;
 
 
              for (auto suffix: c.second) {
-               if (a.second.find(suffix.first) == a.second.end()) count++;
+               if (a.second.find(suffix.first) == a.second.end()) {
+                 // cout << "counting " << a.first<<suffix.first<< " " << c.first << suff.first   << endl;
+                 count++;
+               }
              }
            }
+
+           }
+
+
          }
 
       //  for (int i = 0; i < (ideas.size()-1); ++i) {
