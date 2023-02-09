@@ -66,9 +66,10 @@ struct Swapped {
   string word2 = "";
 };
 
-class Solution {
-unordered_map<string, bool> lookup;
 
+class Solution {
+unordered_map<string, unordered_map<string, bool>> lookup;
+unordered_map<string, unordered_map<string, bool>> suffixes;
 bool lc(string key) { //lookup contains helper
   return (lookup.find(key) != lookup.end());
 }
@@ -114,17 +115,51 @@ public:
     //   }
     //   return count;
     // }
-     long long distinctNames(vector<string>& ideas) {
-       long long count = 0;
-       for (int i = 0; i < (ideas.size()-1); ++i) {
-         string item1 = ideas[i];
-         for (int j = i+1; j < ideas.size(); ++j) {
-           string item2 = ideas[j];
-           if (sameFirstOrLast(item1, item2)) continue;
 
-           count+=2;
+     long long distinctNames(vector<string>& ideas) {
+       lookup.clear();
+       suffixes.clear();
+       for (string s:ideas) {
+         string pre = s.substr(0,1);
+         string post = s.substr(1);
+         if (lookup.find(pre) == lookup.end()) {
+           unordered_map<string, bool> um;
+           um[post] = true;
+           lookup[pre] = um;
+         } else {
+           lookup[pre][post] = true;
+         }
+
+         if (suffixes.find(post) == suffixes.end()) {
+           unordered_map<string, bool> um;
+           um[pre] = true;
+           suffixes[post] = um;
+         } else {
+           suffixes[post][pre] = true;
          }
        }
+       long long count = 0;
+       int numkeys = lookup.size();
+       for (auto a: lookup) {
+        // cout << "examining lookup key " << a.first << endl;
+         unordered_map<string, bool> tally;
+         for (auto b: a.second) {
+
+           for (auto c: suffixes[b.first]) {
+             tally[c.first] = true;
+           }
+         }
+        count += numkeys - tally.size();
+       }
+      //  for (int i = 0; i < (ideas.size()-1); ++i) {
+      //    string item1 = ideas[i];
+      //    for (int j = i+1; j < ideas.size(); ++j) {
+      //      string item2 = ideas[j];
+      //      if (sameFirstOrLast(item1, item2)) continue;
+
+      //      count+=2;
+      //    }
+      //  }
        return count;
      }
 };
@@ -137,6 +172,11 @@ vector<string> test1 = {
 Solution s;
 
 cerr << "expect sth " << s.distinctNames(test1) << endl;;
+
+vector<string> test2 = {
+"aaa","baa","caa","bbb","cbb","dbb"
+};
+cerr << "exect 2 " << s.distinctNames(test2) << endl;
 
 return 0;
 }
