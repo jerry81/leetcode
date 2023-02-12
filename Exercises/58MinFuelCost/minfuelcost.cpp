@@ -135,7 +135,7 @@ public:
 
           res+=path.size();
 
-          cout << "adding path of size" << path.size() << " for " << city << endl;
+          cout << "adding path of size " << path.size() << " for " << city << endl;
           for (int pathidx = (path.size() - 1); pathidx >= 0; --pathidx) {
 
             if (picked_mofos[path[pathidx]]) {
@@ -170,7 +170,7 @@ return 0;
 /*
           9       8
           |       |
-  0 - 1 - 2 - 3 - 4 - 5 - 7
-  |
-  6
+  0 - 1 - 2 - 4 - 5 - 7
+  |       |
+  6       3
 */
