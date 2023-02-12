@@ -71,11 +71,14 @@ using namespace std;
 
 unordered_map<int, vector<int>> neighbors;
 
+
 class Solution {
 public:
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+      if (roads.empty()) return 0;
       for (vector<int> edge: roads) {
-        cerr << "size is " << edge.size();
+        cout << "size is " << edge.size() << endl;
       }
+      return 0;
     }
 };
