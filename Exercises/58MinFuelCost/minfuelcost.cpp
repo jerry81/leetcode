@@ -133,13 +133,21 @@ public:
           vector<int> path = cities[city];
           if (picked_mofos[city]) continue;
 
-          cout << "adding path of size" << path.size() << " for " << city << endl;
           res+=path.size();
+
+          cout << "adding path of size" << path.size() << " for " << city << endl;
           for (int pathidx = (path.size() - 1); pathidx >= 0; --pathidx) {
+
+            if (picked_mofos[path[pathidx]]) {
+              cout << "subtracting path idx " << pathidx << endl;
+              res -= pathidx;
+              break;
+            }
             if (countdown > 1) {
               picked_mofos[path[pathidx]] = true;
+              countdown--;
             }
-            countdown--;
+
           }
 
         }
@@ -148,20 +156,11 @@ public:
     }
 };
 
-// make shortest paths first
-// dont have to repeat shortest path for items covered in previous shortest paths.
-/*
 
- roads = [[3,1],[3,2],[1,0],[0,4],[0,5],[4,6]], seats = 2
-Output: 7
+int main () {
+vector<vector<int>> test = {{0,1},{0,2},{1,3},{1,4}};
+Solution s;
+cerr << "expect 4 " << s.minimumFuelCost(test, 5) << endl;
 
-flood fill from 0:
-distance map created
-
-also get paths from each node
-
-- use longest distances first
-- "pick" people up until no more seats
-
-keep track of picked up people.
-*/
+return 0;
+}
