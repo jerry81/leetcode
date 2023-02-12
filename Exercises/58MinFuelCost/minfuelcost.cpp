@@ -159,8 +159,10 @@ public:
 
 int main () {
 vector<vector<int>> test = {{0,1},{0,2},{1,3},{1,4}};
+
+vector<vector<int>> test2 = {{0,1},{2,1},{3,2},{4,2},{4,5},{6,0},{5,7},{8,4},{9,2}};
 Solution s;
 cerr << "expect 4 " << s.minimumFuelCost(test, 5) << endl;
-
+cerr << "expect 16 " << s.minimumFuelCost(test2, 2) << endl;
 return 0;
 }
