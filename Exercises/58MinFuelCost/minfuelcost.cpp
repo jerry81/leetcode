@@ -77,7 +77,10 @@ public:
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
       if (roads.empty()) return 0;
       for (vector<int> edge: roads) {
-        cout << "size is " << edge.size() << endl;
+        int n1 = edge[0];
+        int n2 = edge[1];
+        neighbors[n1].push_back(n2);
+        neighbors[n2].push_back(n1);
       }
       return 0;
     }
