@@ -133,9 +133,10 @@ public:
           vector<int> path = cities[city];
           if (picked_mofos[city]) continue;
 
+          cout << "adding path of size" << path.size() << " for " << city << endl;
           res+=path.size();
           for (int pathidx = (path.size() - 1); pathidx >= 0; --pathidx) {
-            if (countdown > 0) {
+            if (countdown > 1) {
               picked_mofos[path[pathidx]] = true;
             }
             countdown--;
