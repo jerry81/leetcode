@@ -71,8 +71,6 @@ using namespace std;
 
 unordered_map<int, vector<int>> neighbors;
 
-
-
 class Solution {
 
 unordered_map<int, bool> visited;
@@ -84,21 +82,19 @@ void makeCities() {
   while (!cur.empty()) {
     vector<int> temp;
     for (int nxt: cur) {
-      if (visited[nxt]) continue;
-
-
-      visited[nxt] = true;
 
       for (int n: neighbors[nxt]) {
-        cout << "neighbor is " << n << endl;
         if (!visited[n]) {
+          cities[n] = cities[nxt];
           cities[n].push_back(nxt);
           temp.push_back(n);
+          visited[n] = true;
         }
 
       }
       visited[nxt] = true;
     }
+
     cur = temp;
   }
 }
