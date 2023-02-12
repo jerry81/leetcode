@@ -72,7 +72,37 @@ using namespace std;
 unordered_map<int, vector<int>> neighbors;
 
 
+
 class Solution {
+
+unordered_map<int, bool> visited;
+
+unordered_map<int, vector<int>> cities;
+
+void makeCities() {
+  vector<int> cur = {0};
+  while (!cur.empty()) {
+    vector<int> temp;
+    for (int nxt: cur) {
+      if (visited[nxt]) continue;
+
+
+      visited[nxt] = true;
+
+      for (int n: neighbors[nxt]) {
+        cout << "neighbor is " << n << endl;
+        if (!visited[n]) {
+          cities[n].push_back(nxt);
+          temp.push_back(n);
+        }
+
+      }
+      visited[nxt] = true;
+    }
+    cur = temp;
+  }
+}
+
 public:
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
       if (roads.empty()) return 0;
@@ -82,6 +112,35 @@ public:
         neighbors[n1].push_back(n2);
         neighbors[n2].push_back(n1);
       }
+      visited.clear();
+      makeCities();
+
+      for (auto a: cities) {
+        cout << "city " << a.first << "'s path is " << endl;
+        for (int nxtitem: a.second) {
+            cout << nxtitem << " ";
+        }
+        cout << endl;
+      }
+
       return 0;
     }
 };
+
+// make shortest paths first
+// dont have to repeat shortest path for items covered in previous shortest paths.
+/*
+
+ roads = [[3,1],[3,2],[1,0],[0,4],[0,5],[4,6]], seats = 2
+Output: 7
+
+flood fill from 0:
+distance map created
+
+also get paths from each node
+
+- use longest distances first
+- "pick" people up until no more seats
+
+keep track of picked up people.
+*/
