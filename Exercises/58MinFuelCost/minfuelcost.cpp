@@ -77,6 +77,11 @@ unordered_map<int, bool> visited;
 
 unordered_map<int, vector<int>> cities;
 
+unordered_map<int, vector<int>> dists;
+
+unordered_map<int, bool> picked_mofos;
+
+int maxDist = 0;
 void makeCities() {
   vector<int> cur = {0};
   while (!cur.empty()) {
@@ -87,8 +92,10 @@ void makeCities() {
         if (!visited[n]) {
           cities[n] = cities[nxt];
           cities[n].push_back(nxt);
+          dists[cities[n].size()].push_back(n);
           temp.push_back(n);
           visited[n] = true;
+          maxDist = cities[n].size();
         }
 
       }
@@ -124,6 +131,14 @@ public:
         cout << "city " << a.first << "'s path is " << endl;
         for (int nxtitem: a.second) {
             cout << nxtitem << " ";
+        }
+        cout << endl;
+      }
+
+      for (int j = maxDist; j > 0; --j) {
+        cout << "cities of length " << j << endl;
+        for (int d: dists[j]) {
+          cout << d << " ";
         }
         cout << endl;
       }
