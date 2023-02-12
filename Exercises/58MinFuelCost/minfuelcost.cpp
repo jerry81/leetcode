@@ -108,6 +108,7 @@ void makeCities() {
 
 public:
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+      long long res = 0;
       if (roads.empty()) return 0;
 
       neighbors.clear();
@@ -117,33 +118,32 @@ public:
         neighbors[n1].push_back(n2);
         neighbors[n2].push_back(n1);
       }
-      for (auto a: neighbors) {
-        cout << a.first << "'s neighbors " << endl;
-        for (int b: a.second) {
-          cout << b << " ";
-        }
-        cout << endl;
-      }
       visited.clear();
+      picked_mofos.clear();
+      cities.clear();
+      dists.clear();
       makeCities();
 
-      for (auto a: cities) {
-        cout << "city " << a.first << "'s path is " << endl;
-        for (int nxtitem: a.second) {
-            cout << nxtitem << " ";
-        }
-        cout << endl;
-      }
+      // start with longest paths and count back
 
-      for (int j = maxDist; j > 0; --j) {
-        cout << "cities of length " << j << endl;
-        for (int d: dists[j]) {
-          cout << d << " ";
-        }
-        cout << endl;
-      }
+      for (int d=maxDist; d > 0; --d) {
+        vector<int> curDist = dists[d];
+        for (int city: curDist) {
+          int countdown = seats;
+          vector<int> path = cities[city];
+          if (picked_mofos[city]) continue;
 
-      return 0;
+          res+=path.size();
+          for (int pathidx = (path.size() - 1); pathidx >= 0; --pathidx) {
+            if (countdown > 0) {
+              picked_mofos[path[pathidx]] = true;
+            }
+            countdown--;
+          }
+
+        }
+      }
+      return res;
     }
 };
 
