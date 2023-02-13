@@ -26,10 +26,28 @@ Constraints:
 0 <= low <= high <= 10^9
 
 */
+#include <iostream>
+
+using namespace std;
 
 class Solution {
 public:
     int countOdds(int low, int high) {
-
+       int diff = high - low;
+       bool lowIsOdd = (low % 2) == 1;
+       bool isOdd = (diff % 2) == 1;
+       if (isOdd) {
+         return diff / 2 + 1;
+       } else {
+         return lowIsOdd ? diff/2 + 1 : diff/2;
+       }
     }
 };
+
+int main() {
+  Solution s;
+  int low1 = 3;
+  int high1 = 7;
+  cerr << "expect " << endl;
+  return 0;
+}
