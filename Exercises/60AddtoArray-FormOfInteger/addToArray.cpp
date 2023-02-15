@@ -44,9 +44,25 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     vector<int> addToArrayForm(vector<int>& num, int k) {
+      int multiplier = 1;
+      int sum = 0;
+      for (int i = num.size() - 1; i >= 0; ++i) {
+        sum += num[i] * multiplier;
+        multiplier *= 10;
+      }
+      sum+=k;
+      cerr << "k is now " << k << endl;
+      vector<int> result;
+      multiplier = 1;
+      while (sum >= 0) {
 
+      }
     }
 };
