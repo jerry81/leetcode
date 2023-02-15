@@ -45,24 +45,36 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> addToArrayForm(vector<int>& num, int k) {
-      int multiplier = 1;
-      int sum = 0;
-      for (int i = num.size() - 1; i >= 0; ++i) {
-        sum += num[i] * multiplier;
+      long long multiplier = 1;
+      long long sum = 0;
+      for (int i = (num.size() - 1); i >= 0; --i) {
+        long long addend = (num[i] * multiplier);
+        sum+=addend;
         multiplier *= 10;
       }
       sum+=k;
-      cerr << "k is now " << k << endl;
       vector<int> result;
       multiplier = 1;
-      while (sum >= 0) {
-
+      string as_s = to_string(sum);
+      for (char c: as_s) {
+        result.push_back(c - '0');
       }
+      return result;
     }
+
 };
+
+int main() {
+  Solution s;
+  vector<int> test1;
+  test1 = {1,2,0,0};
+  s.addToArrayForm(test1, 34);
+  return 0;
+}
