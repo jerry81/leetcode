@@ -28,6 +28,9 @@ The number of nodes in the tree is in the range [0, 104].
 -100 <= Node.val <= 100
 
 */
+#include <algorithm>
+
+using namespace std;
 
   struct TreeNode {
       int val;
@@ -41,6 +44,16 @@ The number of nodes in the tree is in the range [0, 104].
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
+      if (root == nullptr) return 0;
 
+      if (root->left == nullptr && root->right == nullptr) return 1;
+
+      if (root->right != nullptr && root->left != nullptr) return 1 + max(maxDepth(root->left), maxDepth(root->right));
+
+      if (root->left != nullptr) {
+        return 1 + maxDepth(root->left);
+      } else {
+        return 1 + maxDepth(root->right);
+      }
     }
 };
