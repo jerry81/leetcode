@@ -63,9 +63,17 @@ class Solution {
       int curD = asS[asS.size() - i - 1] - '0';
       int oIdx = num.size() - i - 1;
       if (oIdx < 0) {
-        ret.push_back(curD + carry);
-        carry = false;
-        continue;
+        int sum = curD + carry;
+        if (sum >= 10) {
+          sum -= 10;
+          carry = true;
+          ret.push_back(sum);
+          continue;
+        } else {
+          ret.push_back(sum);
+          carry = false;
+          continue;
+        }
       }
       int curSum = num[oIdx] + curD + carry;
       if (curSum >= 10) {
@@ -107,7 +115,7 @@ int main() {
     cerr << "i is " << i << endl;
   }
   vector<int> test3;
-  test3 = {9,9,3};
+  test3 = {9, 9, 3};
   result = s.addToArrayForm(test3, 7);
   for (int i : result) {
     cerr << "i is " << i << endl;
