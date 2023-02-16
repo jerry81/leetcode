@@ -51,22 +51,41 @@ using namespace std;
 
 class Solution {
 public:
+    // vector<int> addToArrayForm(vector<int>& num, int k) {
+    //   long long multiplier = 1;
+    //   long long sum = 0;
+    //   for (int i = (num.size() - 1); i >= 0; --i) {
+    //     long long addend = (num[i] * multiplier);
+    //     sum+=addend;
+    //     multiplier *= 10;
+    //   }
+    //   sum+=k;
+    //   vector<int> result;
+    //   multiplier = 1;
+    //   string as_s = to_string(sum);
+    //   for (char c: as_s) {
+    //     result.push_back(c - '0');
+    //   }
+    //   return result;
+    // }
+
     vector<int> addToArrayForm(vector<int>& num, int k) {
-      long long multiplier = 1;
-      long long sum = 0;
-      for (int i = (num.size() - 1); i >= 0; --i) {
-        long long addend = (num[i] * multiplier);
-        sum+=addend;
-        multiplier *= 10;
+      // use long addition
+      vector<int> ret;
+      string asS = to_string(k);
+      bool carry = false;
+      for (int i = 0; i < asS.size(); ++i) {
+        int curD = asS[asS.size() - i - 1] - '0';
+        int oIdx = num.size() - i - 1;
+        int curSum = num[oIdx] + curD + carry;
+        if (curSum > 10) {
+          int partialSum = curSum - 10;
+          ret.push_back(partialSum);
+          carry = true;
+        } else {
+          ret.push_back(curSum);
+        }
       }
-      sum+=k;
-      vector<int> result;
-      multiplier = 1;
-      string as_s = to_string(sum);
-      for (char c: as_s) {
-        result.push_back(c - '0');
-      }
-      return result;
     }
 
 };
