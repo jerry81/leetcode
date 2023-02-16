@@ -84,7 +84,22 @@ public:
           carry = true;
         } else {
           ret.push_back(curSum);
+          carry = false;
         }
+      }
+      for (int i = asS.size(); i < num.size(); ++i) {
+        int oIdx = num.size() - i - 1;
+        int curSum = num[oIdx] + carry;
+        if (curSum > 10) {
+          int partialSum = curSum - 10;
+          ret.push_back(partialSum);
+          carry = true;
+        } else {
+          ret.push_back(curSum);
+          carry = false;
+        }
+        if (carry) ret.push_back(1);
+        return ret;
       }
     }
 
