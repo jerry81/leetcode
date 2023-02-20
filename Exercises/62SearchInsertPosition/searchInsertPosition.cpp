@@ -41,6 +41,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -50,3 +51,14 @@ public:
 
     }
 };
+
+int main() {
+  Solution s;
+  vector<int> test1 = {1,3,5,6};
+  cerr << "expect 2 " << s.searchInsert(test1, 5) << endl;
+  vector<int> test2 = {1,3,5,6};
+  cerr << "expect 1 " << s.searchInsert(test2, 2) << endl;
+  vector<int> test1 = {1,3,5,6};
+  cerr << "expect 4 " << s.searchInsert(test1, 7) << endl;
+  return 0;
+}
