@@ -48,10 +48,18 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+ int stepToTarget(vector<int> nums, int target, int start) {
+   while (nums[start] < target) {
+     if (start >= nums.size()) return start;
+     start++;
+   }
+   return start;
+ }
+
  public:
   int searchInsert(vector<int>& nums, int target) {
     // need o(log n) so binary search
-    int max = nums.size() - 1;
+    int max = nums.size();
     int min = 0;
     int idx = (max + min) / 2;
     while (true) {
@@ -61,11 +69,11 @@ class Solution {
       if (val > target) {
         max = idx;
         idx = (max + min) / 2;
-        if (max == idx) return idx;
+        if ((max-min) < 10) return stepToTarget(nums, target, min);
       } else {
         min = idx;
         idx = (max + min) / 2;
-        if (min == idx) return idx;
+        if ((max-min) < 10) return stepToTarget(nums, target, min);
       }
     }
     return 0;
