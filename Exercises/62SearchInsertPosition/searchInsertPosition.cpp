@@ -5,7 +5,9 @@ Easy
 11.8K
 531
 Companies
-Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+Given a sorted array of distinct integers and a target value, return the index
+if the target is found. If not, return the index where it would be if it were
+inserted in order.
 
 You must write an algorithm with O(log n) runtime complexity.
 
@@ -40,25 +42,43 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int searchInsert(vector<int>& nums, int target) {
+ public:
+  int searchInsert(vector<int>& nums, int target) {
+    // need o(log n) so binary search
+    int max = nums.size() - 1;
+    int min = 0;
+    int idx = (max + min) / 2;
+    while (true) {
+      int val = nums[idx];
+      if (val == target) return idx;
 
+      if (val > target) {
+        max = idx;
+        idx = (max + min) / 2;
+        if (max == idx) return idx;
+      } else {
+        min = idx;
+        idx = (max + min) / 2;
+        if (min == idx) return idx;
+      }
     }
+    return 0;
+  }
 };
 
 int main() {
   Solution s;
-  vector<int> test1 = {1,3,5,6};
+  vector<int> test1 = {1, 3, 5, 6};
   cerr << "expect 2 " << s.searchInsert(test1, 5) << endl;
-  vector<int> test2 = {1,3,5,6};
+  vector<int> test2 = {1, 3, 5, 6};
   cerr << "expect 1 " << s.searchInsert(test2, 2) << endl;
-  vector<int> test1 = {1,3,5,6};
+  vector<int> test3 = {1, 3, 5, 6};
   cerr << "expect 4 " << s.searchInsert(test1, 7) << endl;
   return 0;
 }
