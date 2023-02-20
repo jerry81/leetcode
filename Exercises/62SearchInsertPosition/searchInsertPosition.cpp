@@ -50,7 +50,7 @@ using namespace std;
 class Solution {
  int stepToTarget(vector<int> nums, int target, int start) {
    while (nums[start] < target) {
-     if (start >= nums.size()) return start;
+     if (start+1 >= nums.size()) return start+1;
      start++;
    }
    return start;
