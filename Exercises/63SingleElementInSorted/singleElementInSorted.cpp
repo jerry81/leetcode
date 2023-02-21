@@ -37,6 +37,9 @@ using namespace std;
 class Solution {
   int dupeR(vector<int> nums, int low, int high) {
     int range = high - low;
+    if (range == 0) return nums[low];
+
+
     bool duped = false;
     int stored = -1;
     if (range < 5) {
@@ -54,10 +57,32 @@ class Solution {
         }
       }
     }
+
+    int mid = (high + low) / 2;
+    int pivot = nums[mid];
+    int left = nums[mid-1];
+    int right = nums[mid+1];
+    if (pivot == left) {
+      int potential_range = mid-2-low;
+      if (potential_range % 2 == 0) {
+        return dupeR(nums, mid+1, high);
+      } else {
+        return dupeR(nums, low, mid-2);
+      }
+    } else if (pivot == right) {
+      int potential_range = high-mid-2;
+      if (potential_range % 2 == 0) {
+        return dupeR(nums, low, mid-1);
+      } else {
+        return dupeR(nums, (mid+2), high);)
+      }
+    } else {
+      return pivot;
+    }
   }
 public:
     int singleNonDuplicate(vector<int>& nums) {
       // binary search - check oddness of subarray lengths
-
+      return dupeR(nums, 0, (nums.size() - 1));
     }
 };
