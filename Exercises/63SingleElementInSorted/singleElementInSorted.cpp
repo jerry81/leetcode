@@ -47,6 +47,7 @@ class Solution {
     bool duped = false;
     int stored = -1;
     if (range < 5) {
+        cout << "final check " << endl;
       for (int i = low; i < high; ++i) {
         if (nums[i] == stored) {
           duped = true;
@@ -64,20 +65,21 @@ class Solution {
     }
 
     int mid = (high + low) / 2;
+    cout << " mid is " << mid << endl;
     int pivot = nums[mid];
     int left = nums[mid-1];
     int right = nums[mid+1];
     if (pivot == left) {
       int potential_range = mid-2-low;
-      if (potential_range % 2 == 0) {
+      if (potential_range % 2 == 1) {
         return dupeR(nums, mid+1, high);
       } else {
-        return dupeR(nums, low, mid-2);
+        return dupeR(nums, low, mid-1);
       }
     } else if (pivot == right) {
       int potential_range = high-mid-2;
-      if (potential_range % 2 == 0) {
-        return dupeR(nums, low, mid-1);
+      if (potential_range % 2 == 1) {
+        return dupeR(nums, low, mid);
       } else {
         return dupeR(nums, (mid+2), high);
       }
