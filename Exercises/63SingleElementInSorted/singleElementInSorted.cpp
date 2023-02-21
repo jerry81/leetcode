@@ -36,14 +36,18 @@ using namespace std;
 
 class Solution {
   int dupeR(vector<int> nums, int low, int high) {
+    cout << "low " << low << endl;
+    cout << "high " << high << endl;
     int range = high - low;
+    if (range == 1) return nums[low];
+
     if (range == 0) return nums[low];
 
 
     bool duped = false;
     int stored = -1;
     if (range < 5) {
-      for (int i = low; i <= high; ++i) {
+      for (int i = low; i < high; ++i) {
         if (nums[i] == stored) {
           duped = true;
           continue;
@@ -56,6 +60,7 @@ class Solution {
           duped = false;
         }
       }
+      return nums[high-1];
     }
 
     int mid = (high + low) / 2;
@@ -74,7 +79,7 @@ class Solution {
       if (potential_range % 2 == 0) {
         return dupeR(nums, low, mid-1);
       } else {
-        return dupeR(nums, (mid+2), high);)
+        return dupeR(nums, (mid+2), high);
       }
     } else {
       return pivot;
@@ -83,6 +88,6 @@ class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
       // binary search - check oddness of subarray lengths
-      return dupeR(nums, 0, (nums.size() - 1));
+      return dupeR(nums, 0, nums.size());
     }
 };
