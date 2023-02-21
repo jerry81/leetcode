@@ -35,8 +35,29 @@ Constraints:
 using namespace std;
 
 class Solution {
+  int dupeR(vector<int> nums, int low, int high) {
+    int range = high - low;
+    bool duped = false;
+    int stored = -1;
+    if (range < 5) {
+      for (int i = low; i <= high; ++i) {
+        if (nums[i] == stored) {
+          duped = true;
+          continue;
+        } else {
+          if (stored != -1 && !duped) {
+            return nums[i];
+          }
+
+          stored = nums[i];
+          duped = false;
+        }
+      }
+    }
+  }
 public:
     int singleNonDuplicate(vector<int>& nums) {
+      // binary search - check oddness of subarray lengths
 
     }
 };
