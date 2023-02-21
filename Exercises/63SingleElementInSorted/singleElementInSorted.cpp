@@ -51,13 +51,15 @@ class Solution {
       for (int i = low; i < high; ++i) {
         if (nums[i] == stored) {
           duped = true;
-          continue;
         } else {
           if (stored != -1 && !duped) {
-            return nums[i];
+            return stored;
           }
 
           stored = nums[i];
+          // stored 10
+          // duped false
+          cout << "stored is now "<<stored << endl;
           duped = false;
         }
       }
