@@ -80,7 +80,7 @@ class Solution {
       }
     } else if (pivot == right) {
       int potential_range = high-mid-2;
-      if (potential_range % 2 == 1) {
+      if (potential_range % 2 == 0) {
         return dupeR(nums, low, mid);
       } else {
         return dupeR(nums, (mid+2), high);
