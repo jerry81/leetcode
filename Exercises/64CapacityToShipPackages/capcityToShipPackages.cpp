@@ -117,42 +117,49 @@ class Solution {
     int upper = total;
     int lower = maxv;
     maxv = (int)total / days;
+    maxv = (int) (upper+lower)/2;
     int size = 0;
     int counter = 0;
     bool drilling = false;
     while (true) {
 
-      if (upper - lower < 10) {
-        size = getBucketNumber(weights, lower);
-        cerr << "size " << size << endl;
-        if (size == days) {
-          while (size == days) {
-            lower--;
-            size = getBucketNumber(weights, lower);
-            cerr << "size try with lower " << lower << " is " << size << endl;
-          }
-          return (lower - 1);
-        }
-        lower++;
-      }
+      // if (upper - lower < 10) {
+      //   size = getBucketNumber(weights, lower);
+      //   cerr << "size " << size << endl;
+      //   if (size == days) {
+      //     while (size == days) {
+      //       lower--;
+      //       size = getBucketNumber(weights, lower);
+      //       cerr << "size try with lower " << lower << " is " << size << endl;
+      //     }
+      //     return (lower - 1);
+      //   }
+      //   lower++;
+      // }
 
       int size = getBucketNumber(weights, maxv);
 
 
 
-      if (size == days) {
-        while (size == days) {
-          maxv--;
-          size = getBucketNumber(weights, maxv);
-          cerr << "size try with " << maxv << " is " << size << endl;
-        }
-        cerr << "maxv + 1 is " << maxv << endl;
-        return (maxv + 1);
-      }
+      // if (size == days) {
+      //   while (size == days) {
+      //     maxv--;
+      //     size = getBucketNumber(weights, maxv);
+      //     // cerr << "size try with " << maxv << " is " << size << endl;
+      //   }
+      //   cerr << "maxv + 1 is " << maxv << endl;
+      //   return (maxv + 1);
+      // }
 
-      if (size > days) lower = maxv;
+      // if (size == days) {
+      //   return maxv-1;
+      // }
 
-      if (size < days) upper = maxv;
+      if (lower == upper) return lower;
+
+      if (size > days) lower = maxv + 1;
+
+      if (size <= days) upper = maxv;
 
       maxv = (int)(upper + lower) / 2;
     }
@@ -1236,4 +1243,6 @@ int main() {
   cerr << "expect 15, not to inf " << s.shipWithinDays(inf, 5) << endl;
   vector<int> wrong1 = {3, 2, 2, 4, 1, 4};
   cerr << "expect 6 " << s.shipWithinDays(wrong1, 3) << endl;
+  vector<int> wrong2 = {10,50,100,100,50,100,100,100};
+  cerr << "expect 160 " << s.shipWithinDays(wrong2, 5) << endl;
 }
