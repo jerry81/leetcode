@@ -110,50 +110,19 @@ class Solution {
     int total = a.total;
     int maxv = a.max;
     if (days == 1) return total;
-    // for (int weight : weights) {
-    //   if (weight > max) max = weight;
-    // }
-    maxv = max(maxv, (int)total / days);
     int upper = total;
     int lower = maxv;
-    maxv = (int)total / days;
     maxv = (int) (upper+lower)/2;
     int size = 0;
-    int counter = 0;
-    bool drilling = false;
     while (true) {
 
-      // if (upper - lower < 10) {
-      //   size = getBucketNumber(weights, lower);
-      //   cerr << "size " << size << endl;
-      //   if (size == days) {
-      //     while (size == days) {
-      //       lower--;
-      //       size = getBucketNumber(weights, lower);
-      //       cerr << "size try with lower " << lower << " is " << size << endl;
-      //     }
-      //     return (lower - 1);
-      //   }
-      //   lower++;
-      // }
+
 
       int size = getBucketNumber(weights, maxv);
 
 
 
-      // if (size == days) {
-      //   while (size == days) {
-      //     maxv--;
-      //     size = getBucketNumber(weights, maxv);
-      //     // cerr << "size try with " << maxv << " is " << size << endl;
-      //   }
-      //   cerr << "maxv + 1 is " << maxv << endl;
-      //   return (maxv + 1);
-      // }
 
-      // if (size == days) {
-      //   return maxv-1;
-      // }
 
       if (lower == upper) return lower;
 
