@@ -79,9 +79,10 @@ class Solution {
   int shipWithinDays(vector<int>& weights, int days) {
     if (days == 1) return totalOf(weights);
     int max = 0;
-    for (int weight : weights) {
-      if (weight > max) max = weight;
-    }
+    // for (int weight : weights) {
+    //   if (weight > max) max = weight;
+    // }
+    max = (int)totalOf(weights) / days;
     int size = 0;
     while (true) {
       int i = 0;
