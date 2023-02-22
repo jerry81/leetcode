@@ -61,9 +61,39 @@ Acceptance Rate
 
 using namespace std;
 
+struct Bucket {
+  int total = 0;
+  vector<int> items;
+};
 class Solution {
 public:
     int shipWithinDays(vector<int>& weights, int days) {
-
+      int max = 0;
+      for (int weight: weights) {
+        if (weight > max) max = weight;
+      }
+      int i = 0;
+      vector<Bucket> buckets;
+      bool newBucket = true;
+      while (i < weights.size()) {
+        int cur = weights[i];
+        if (newBucket) {
+          Bucket b;
+          b.total+=cur;
+          b.items.push_back(cur);
+          newBucket = false;
+        } else if ((buckets[buckets.size()-1].total + cur) < max) {
+          buckets[buckets.size()-1].total+=cur;
+          buckets[buckets.size()-1].items.push_back(cur);
+        } else {
+        }
+        ++i;
+      }
     }
 };
+
+// start with max weight
+// if there are not enough days
+// increment max weight
+// then brute force build containers?
+// if over days then split containers
