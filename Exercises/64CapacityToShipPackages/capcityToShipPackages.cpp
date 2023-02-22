@@ -121,37 +121,33 @@ class Solution {
     int counter = 0;
     bool drilling = false;
     while (true) {
-      if (drilling) maxv = lower;
+
+      if (upper - lower < 10) {
+        size = getBucketNumber(weights, lower);
+        cerr << "size " << size << endl;
+        if (size == days) {
+          while (size == days) {
+            lower--;
+            size = getBucketNumber(weights, lower);
+            cerr << "size try with lower " << lower << " is " << size << endl;
+          }
+          return (lower - 1);
+        }
+        lower++;
+      }
 
       int size = getBucketNumber(weights, maxv);
 
-      if (upper - lower < 10) {
-        cerr << "maxv is " << maxv << endl;
-        cerr << "size is " << size << endl;
-        if (size <= days) {
-          return drilling ? lower : maxv;
-        }
-        drilling = true;
 
-        lower++;
-
-        continue;
-      }
-
-      cerr << "lower " << lower << endl;
-      cerr << "upper " << upper << endl;
-      cerr << "maxv is " << maxv << endl;
-      cerr << "size is " << size << endl;
 
       if (size == days) {
         while (size == days) {
           maxv--;
           size = getBucketNumber(weights, maxv);
           cerr << "size try with " << maxv << " is " << size << endl;
-
         }
         cerr << "maxv + 1 is " << maxv << endl;
-        return (maxv+1);
+        return (maxv + 1);
       }
 
       if (size > days) lower = maxv;
@@ -1238,4 +1234,6 @@ int main() {
   cerr << "expect 671 in time " << s.shipWithinDays(test1, 8000) << endl;
   vector<int> inf = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   cerr << "expect 15, not to inf " << s.shipWithinDays(inf, 5) << endl;
+  vector<int> wrong1 = {3, 2, 2, 4, 1, 4};
+  cerr << "expect 6 " << s.shipWithinDays(wrong1, 3) << endl;
 }
