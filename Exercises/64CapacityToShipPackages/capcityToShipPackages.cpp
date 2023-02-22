@@ -67,8 +67,17 @@ struct Bucket {
   vector<int> items;
 };
 class Solution {
+ int totalOf(vector<int> weights) {
+   int sum = 0;
+   for (int w:weights) {
+     sum+=w;
+   }
+   return sum;
+ };
+
  public:
   int shipWithinDays(vector<int>& weights, int days) {
+    if (days == 1) return totalOf(weights);
     int max = 0;
     for (int weight : weights) {
       if (weight > max) max = weight;
