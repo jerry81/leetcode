@@ -143,7 +143,17 @@ class Solution {
       cerr << "maxv is " << maxv << endl;
       cerr << "size is " << size << endl;
 
-      if (size == days) return maxv;
+      if (size == days) {
+        while (size == days) {
+          maxv--;
+          size = getBucketNumber(weights, maxv);
+          cerr << "size try with " << maxv << " is " << size << endl;
+
+        }
+        cerr << "maxv + 1 is " << maxv << endl;
+        return (maxv+1);
+      }
+
       if (size > days) lower = maxv;
 
       if (size < days) upper = maxv;
