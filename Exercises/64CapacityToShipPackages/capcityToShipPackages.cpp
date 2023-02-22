@@ -97,7 +97,6 @@ class Solution {
           return max;
       }
       max++;
-      if (max > 50) return 0;
     }
 
     return max;
