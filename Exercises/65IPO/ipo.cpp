@@ -56,16 +56,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<int> getIndexesOfCandidates(vector<int> capital, int limit) {
-  vector<int> returned;
-  for (int i = 0; i < capital.size(); ++i) {
-    int cur = capital[i];
-    if (cur <= limit) {
-      returned.push_back(i);
-    }
-  }
-  return returned;
-}
 
 struct Project {
   int capital = 0;
@@ -75,27 +65,6 @@ struct Project {
     cerr << "capital is " << capital << endl;
   }
 };
-
-struct MaxMarginResult {
-  int index=0;
-  int value=0;
-};
-
-MaxMarginResult getMaxMargin(vector<int> profits, vector<int> indexes) {
-  int maxv = 0;
-  int maxi = 0;
-  for (int idx:indexes) {
-    int net = profits[idx];
-    if (net > maxv) {
-      maxv = net;
-      maxi = idx;
-    }
-  }
-  MaxMarginResult mmr;
-  mmr.index = maxi;
-  mmr.value = maxv;
-  return mmr;
-}
 
 static bool compareProjects(Project a, Project b) {
   return a.profit > b.profit;
