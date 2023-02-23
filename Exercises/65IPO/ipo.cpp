@@ -72,11 +72,11 @@ struct MaxMarginResult {
   int value=0;
 };
 
-MaxMarginResult getMaxMargin(vector<int> profits, vector<int> capital, vector<int> indexes) {
+MaxMarginResult getMaxMargin(vector<int> profits, vector<int> indexes) {
   int maxv = 0;
   int maxi = 0;
   for (int idx:indexes) {
-    int net = profits[idx] - capital[idx];
+    int net = profits[idx];
     if (net > maxv) {
       maxv = net;
       maxi = idx;
@@ -90,13 +90,19 @@ MaxMarginResult getMaxMargin(vector<int> profits, vector<int> capital, vector<in
 
 public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
-      int totalCap = 0;
+      int totalCap = w;
       for (int i=0; i < k; ++i) {
-        vector<int> candidates = getIndexesOfCandidates(capital, w);
-        MaxMarginResult maxMMR = getMaxMargin(profits, capital, candidates);
+        vector<int> candidates = getIndexesOfCandidates(capital, totalCap);
+        cerr << "candidates " << endl;
+        for (int cand: candidates) {
+          cerr << "cand is " << cand << endl;
+        }
+        MaxMarginResult maxMMR = getMaxMargin(profits, candidates);
+        cerr << "max val is " << maxMMR.value << endl;
         totalCap+=maxMMR.value;
         profits.erase(profits.begin()+maxMMR.index);
         capital.erase(capital.begin()+maxMMR.index);
+        cerr << "profits len is now " << profits.size() << endl;
       }
       return totalCap;
     }
