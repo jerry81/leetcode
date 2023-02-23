@@ -50,9 +50,72 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
 class Solution {
+vector<int> getIndexesOfCandidates(vector<int> capital, int limit) {
+  vector<int> returned;
+  for (int i = 0; i < capital.size(); ++i) {
+    int cur = capital[i];
+    if (cur <= limit) {
+      returned.push_back(i);
+    }
+  }
+  return returned;
+}
+
+struct MaxMarginResult {
+  int index=0;
+  int value=0;
+};
+
+MaxMarginResult getMaxMargin(vector<int> profits, vector<int> capital, vector<int> indexes) {
+  int maxv = 0;
+  int maxi = 0;
+  for (int idx:indexes) {
+    int net = profits[idx] - capital[idx];
+    if (net > maxv) {
+      maxv = net;
+      maxi = idx;
+    }
+  }
+  MaxMarginResult mmr;
+  mmr.index = maxi;
+  mmr.value = maxv;
+  return mmr;
+}
+
 public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
-
+      int totalCap = 0;
+      for (int i=0; i < k; ++i) {
+        vector<int> candidates = getIndexesOfCandidates(capital, w);
+        MaxMarginResult maxMMR = getMaxMargin(profits, capital, candidates);
+        totalCap+=maxMMR.value;
+        profits.erase(profits.begin()+maxMMR.index);
+        capital.erase(capital.begin()+maxMMR.index);
+      }
+      return totalCap;
     }
 };
+
+int main () {
+  Solution s;
+  vector<int> test1a = {1,2,3};
+  vector<int> test1b = {0,1,1};
+  cerr << "expect 4 " << s.findMaximizedCapital(2,0,test1a, test1b) << endl;
+  return 0;
+};
+
+/*
+
+optimization problem
+- feels like recursion + memoization?
+- loop k times
+- available projects first (capital < project capital)
+- try greedy first?  take the highest net profit that is available
+
+*/
