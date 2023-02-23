@@ -90,7 +90,7 @@ class Solution {
   };
 
   struct ComparePQ {
-    bool operator()(Project a, Project b) { return a.profit > b.profit; }
+    bool operator()(Project a, Project b) { return a.profit < b.profit; }
   };
 
  public:
@@ -102,17 +102,25 @@ class Solution {
     priority_queue<Project, vector<Project>, ComparePQ> pq;
     for (int i = 0; i < k; ++i) {
       if (projects.size() == 0) break;
-
+      vector<int> toDelete;
       for (int j = 0; j < projects.size(); ++j) {
         Project curP = projects[j];
+
         if (curP.capital <= totalCap) {
           // add affordable projects to pq
           pq.push(curP);
-          projects.erase(projects.begin()+j);
+
+          toDelete.push_back(j);
+
         } else {
           break;
         }
       }
+      sort(toDelete.begin(), toDelete.end(), greater<int>());
+      for (int to_d : toDelete) {
+        projects.erase(projects.begin() + to_d);
+      }
+
       if (pq.empty()) return totalCap;
 
       Project best = pq.top();
