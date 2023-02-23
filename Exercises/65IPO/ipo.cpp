@@ -67,6 +67,15 @@ vector<int> getIndexesOfCandidates(vector<int> capital, int limit) {
   return returned;
 }
 
+struct Project {
+  int capital = 0;
+  int profit = 0;
+  void Print() {
+    cerr << "profit is " << profit << endl;
+    cerr << "capital is " << capital << endl;
+  }
+};
+
 struct MaxMarginResult {
   int index=0;
   int value=0;
@@ -88,23 +97,37 @@ MaxMarginResult getMaxMargin(vector<int> profits, vector<int> indexes) {
   return mmr;
 }
 
+static bool compareProjects(Project a, Project b) {
+  return a.profit > b.profit;
+}
+
+vector<Project> buildAndSort(vector<int> profits, vector<int> capitals) {
+  vector<Project> ret;
+  for (int i = 0; i < profits.size(); ++i) {
+    Project p;
+    p.profit = profits[i];
+    p.capital = capitals[i];
+    ret.push_back(p);
+  }
+  sort(ret.begin(), ret.end(), compareProjects);
+  return ret;
+}
+
 public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
+      vector<Project> projects = buildAndSort(profits, capital);
+
       int totalCap = w;
       for (int i=0; i < k; ++i) {
-        if (profits.size() == 0) break;
+        if (projects.size() == 0) break;
 
-        vector<int> candidates = getIndexesOfCandidates(capital, totalCap);
-        cerr << "candidates " << endl;
-        for (int cand: candidates) {
-          cerr << "cand is " << cand << endl;
+        for (int j=0; j < projects.size(); ++j) {
+          if (projects[j].capital <= totalCap) {
+            totalCap += projects[j].profit;
+            projects.erase(projects.begin()+j);
+            break;
+          }
         }
-        MaxMarginResult maxMMR = getMaxMargin(profits, candidates);
-        cerr << "max val is " << maxMMR.value << endl;
-        totalCap+=maxMMR.value;
-        profits.erase(profits.begin()+maxMMR.index);
-        capital.erase(capital.begin()+maxMMR.index);
-        cerr << "profits len is now " << profits.size() << endl;
       }
       return totalCap;
     }
@@ -128,5 +151,9 @@ optimization problem
 - loop k times
 - available projects first (capital < project capital)
 - try greedy first?  take the highest net profit that is available
+
+- timeout on huge list
+
+- sort by profit first
 
 */
