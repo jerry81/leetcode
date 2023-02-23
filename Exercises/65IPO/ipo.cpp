@@ -92,6 +92,8 @@ public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
       int totalCap = w;
       for (int i=0; i < k; ++i) {
+        if (profits.size() == 0) break;
+
         vector<int> candidates = getIndexesOfCandidates(capital, totalCap);
         cerr << "candidates " << endl;
         for (int cand: candidates) {
@@ -113,6 +115,9 @@ int main () {
   vector<int> test1a = {1,2,3};
   vector<int> test1b = {0,1,1};
   cerr << "expect 4 " << s.findMaximizedCapital(2,0,test1a, test1b) << endl;
+  vector<int> failtest1 = {1,2,3};
+  vector<int> failtest1b = {0,1,2};
+  cerr << "expect 6 " << s.findMaximizedCapital(10,0,failtest1,failtest1b);
   return 0;
 };
 
