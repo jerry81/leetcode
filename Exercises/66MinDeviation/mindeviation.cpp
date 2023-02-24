@@ -78,19 +78,26 @@ class Solution {
     }
     int max = maxpq.top();
     int min = minpq.top();
+    int finalMax = 0;
+    int finalMin = 10000000;
     while ((max % 2) == 0) {
       int newMax = max / 2;
       maxpq.pop();
       maxpq.push(newMax);
+      finalMax = newMax;
       max = maxpq.top();
     }
     while ((min%2) == 1) {
       int newMin = min*2;
       minpq.pop();
       minpq.push(newMin);
+      finalMin = newMin;
       min = minpq.top();
     }
-    return maxpq.top() - minpq.top();
+
+    int maxf = maxpq.top() > finalMin ? maxpq.top() : finalMin;
+    int minf = minpq.top() < finalMax ? minpq.top() : finalMax;
+    return maxf - minf;
     }
 };
 
@@ -102,8 +109,14 @@ int main() {
   cerr << "expect 3 " << s.minimumDeviation(test2) << endl;
   vector<int> test3 = {2, 10, 8};
   cerr << "expect 3 " << s.minimumDeviation(test3) << endl;
+  vector<int> test4 = {10,4,3};
+  cerr << "expect 2 " << s.minimumDeviation(test4) << endl;
   return 0;
 }
 
 // 2,10,8
 // 2,5,4
+
+// 10,4,3
+// 5, 4,3
+// 5,4,6
