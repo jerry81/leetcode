@@ -66,5 +66,7 @@ int main () {
   cerr << "expect 1 " << s.minimumDeviation(test1) << endl;
   vector<int> test2 = {4,1,5,20,3};
   cerr << "expect 3 " << s.minimumDeviation(test2) << endl;
+  vector<int> test3 = {2,10,8};
+  cerr << "expect 3 " << s.minimumDeviation(test3) << endl;
   return 0;
 }
