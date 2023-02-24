@@ -76,9 +76,21 @@ class Solution {
       minpq.push(i);
       maxpq.push(i);
     }
-    cerr << "expect min " << minpq.top() << endl;
-    cerr << "expect max " << maxpq.top() << endl;
-    return 0;
+    int max = maxpq.top();
+    int min = minpq.top();
+    while ((max % 2) == 0) {
+      int newMax = max / 2;
+      maxpq.pop();
+      maxpq.push(newMax);
+      max = maxpq.top();
+    }
+    while ((min%2) == 1) {
+      int newMin = min*2;
+      minpq.pop();
+      minpq.push(newMin);
+      min = minpq.top();
+    }
+    return maxpq.top() - minpq.top();
     }
 };
 
