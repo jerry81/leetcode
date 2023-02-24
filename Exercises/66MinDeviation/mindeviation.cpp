@@ -48,9 +48,23 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
 class Solution {
 public:
     int minimumDeviation(vector<int>& nums) {
 
     }
 };
+
+int main () {
+  Solution s;
+  vector<int> test1 = {1,2,3,4};
+  cerr << "expect 1 " << s.minimumDeviation(test1) << endl;
+  vector<int> test2 = {4,1,5,20,3};
+  cerr << "expect 3 " << s.minimumDeviation(test2) << endl;
+  return 0;
+}
