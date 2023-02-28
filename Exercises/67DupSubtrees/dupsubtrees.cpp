@@ -7,9 +7,11 @@ Medium
 Companies
 Given the root of a binary tree, return all duplicate subtrees.
 
-For each kind of duplicate subtrees, you only need to return the root node of any one of them.
+For each kind of duplicate subtrees, you only need to return the root node of
+any one of them.
 
-Two trees are duplicate if they have the same structure with the same node values.
+Two trees are duplicate if they have the same structure with the same node
+values.
 
 
 
@@ -48,67 +50,65 @@ Acceptance Rate
 
  */
 
-#include <vector>
-#include <unordered_map>
-#include <string>
 #include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
-
- class Solution {
-unordered_map<string, bool> paths;
-string hashPath(vector<int> input) {
-  string ret = "";
-  for (int i:input) {
-    ret += "-";
-    ret += to_string(i);
-  }
-  return ret;
-}
-vector<TreeNode*> results;
-void getPath(TreeNode* leaf, vector<int> path) {
-  vector<int> tempPath = path;
-
-
-  tempPath.push_back(leaf->val);
-  string hash = hashPath(tempPath);
-    cout << "path hashed " << hash << endl;
-  if (paths[hash]) {
-    results.push_back(leaf);
-  } else {
-    paths[hash] = true;;
-  }
-  if (leaf->left != nullptr) {
-    getPath(leaf->left, tempPath);
-  }
-
-  if (leaf->right != nullptr) {
-    getPath(leaf->right, tempPath);
-  }
-}
-
-public:
-    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
-      // recursively build the path to all leaves from both children
-      vector<int> empty;
-      if (root->left != nullptr) {
-        getPath(root->left, empty);
-      }
-      if (root->right != nullptr) {
-        getPath(root->right, empty);
-      }
-
-      return results;
-     // but we need to return TreeNodes
+class Solution {
+  unordered_map<string, bool> paths;
+  string hashPath(vector<int> input) {
+    string ret = "";
+    for (int i : input) {
+      ret += "-";
+      ret += to_string(i);
     }
+    return ret;
+  }
+  vector<TreeNode *> results;
+
+  vector<int> getPath(TreeNode *leaf) {
+    vector<int> empty;
+    if (leaf == nullptr) return empty;
+
+    empty.push_back(leaf->val);
+
+
+    if (leaf->left != nullptr) {
+      empty = getPath(leaf->left);
+      empty.push_back(leaf->val);
+
+    }
+
+    // okay we need to consider both left and right trees.
+
+    if (leaf->right != )
+  }
+
+ public:
+  vector<TreeNode *> findDuplicateSubtrees(TreeNode *root) {
+    // recursively build the path to all leaves from both children
+    vector<int> empty;
+    if (root->left != nullptr) {
+      getPath(root->left, empty);
+    }
+    if (root->right != nullptr) {
+      getPath(root->right, empty);
+    }
+
+    return results;
+    // but we need to return TreeNodes
+  }
 };
