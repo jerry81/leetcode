@@ -63,18 +63,31 @@ struct TreeNode {
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
-unordered_map<int, vector<string>> paths;
-string getPath(TreeNode* leaf, string path) {
-  string ret = path;
-  return ret;
+unordered_map<int, vector<vector<int>>> paths;
+void getPath(TreeNode* leaf, vector<int> path) {
+  vector<int> tempPath = path;
+  tempPath.push_back(leaf->val);
+  paths[tempPath.size()].push_back(tempPath);
+  if (leaf->left != nullptr) {
+    getPath(leaf->left, tempPath);
+  }
+
+  if (leaf->right != nullptr) {
+    getPath(leaf->right, tempPath);
+  }
 }
 
 public:
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
       // recursively build the path to all leaves from both children
-      if (root->left) {
+      vector<int> empty;
+      if (root->left != nullptr) {
+        getPath(root->left, empty);
       }
-      if (root->right) {
+      if (root->right != nullptr) {
+        getPath(root->right, empty);
       }
+
+
     }
 };
