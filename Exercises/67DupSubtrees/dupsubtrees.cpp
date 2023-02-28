@@ -63,11 +63,24 @@ struct TreeNode {
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
-unordered_map<int, vector<vector<int>>> paths;
+unordered_map<string, bool> paths;
+string hashPath(vector<int> input) {
+  string ret = "";
+  for (int i:input) {
+    ret += ",";
+    ret += i;
+  }
+  return ret;
+}
+vector<TreeNode*> results;
 void getPath(TreeNode* leaf, vector<int> path) {
   vector<int> tempPath = path;
   tempPath.push_back(leaf->val);
-  paths[tempPath.size()].push_back(tempPath);
+  if (paths[hashPath(tempPath)]) {
+    results.push_back(leaf);
+  } else {
+    paths[hashPath(tempPath)] = true;;
+  }
   if (leaf->left != nullptr) {
     getPath(leaf->left, tempPath);
   }
@@ -88,6 +101,7 @@ public:
         getPath(root->right, empty);
       }
 
-
+      return results;
+     // but we need to return TreeNodes
     }
 };
