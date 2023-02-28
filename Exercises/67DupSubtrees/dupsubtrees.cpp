@@ -67,34 +67,61 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+
 class Solution {
+  struct DFSNode {
+    vector<int> left;
+    vector<int> right;
+  };
+
   unordered_map<string, bool> paths;
-  string hashPath(vector<int> input) {
+  string hashPath(vector<int> left, vector<int> right, int root) {
     string ret = "";
-    for (int i : input) {
-      ret += "-";
+    ret += "A: ";
+    ret += "root";
+    for (int i : left) {
+      ret += "L";
       ret += to_string(i);
+    }
+    for (int i : right) {
+      ret+= "R";
+      ret+=to_string(i);
     }
     return ret;
   }
   vector<TreeNode *> results;
 
-  vector<int> getPath(TreeNode *leaf) {
-    vector<int> empty;
-    if (leaf == nullptr) return empty;
+  DFSNode getPath(TreeNode *root) {
+    DFSNode empty;
+    if (root == nullptr) empty;
 
-    empty.push_back(leaf->val);
-
-
-    if (leaf->left != nullptr) {
-      empty = getPath(leaf->left);
-      empty.push_back(leaf->val);
-
+    DFSNode left = getPath(root->left);
+    DFSNode right = getPath(root->right);
+    left.left.push_back(root->val);
+    right.right.push_back(root->val);
+    if (root->left != nullptr) {
+      left = getPath(leaf->left);
+      left.push_back(leaf->val);
+      return left;
     }
 
     // okay we need to consider both left and right trees.
+    vector<int> right;
+    if (leaf->right != nullptr) {
+      right = getPath(leaf->right);
+      right.push_back(leaf->val);
+      return right;
+    }
 
-    if (leaf->right != )
+    string hash = hashPath(left, right, leaf->val);
+    if (paths[hash]) {
+      results.push_back(leaf);
+    } else {
+      paths[hash] = true;
+    }
+
+    empty.push_back(leaf->val);
+    return empty;
   }
 
  public:
@@ -102,10 +129,10 @@ class Solution {
     // recursively build the path to all leaves from both children
     vector<int> empty;
     if (root->left != nullptr) {
-      getPath(root->left, empty);
+      getPath(root->left);
     }
     if (root->right != nullptr) {
-      getPath(root->right, empty);
+      getPath(root->right);
     }
 
     return results;
