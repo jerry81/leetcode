@@ -51,6 +51,7 @@ Acceptance Rate
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -62,24 +63,30 @@ struct TreeNode {
      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
-class Solution {
+
+
+ class Solution {
 unordered_map<string, bool> paths;
 string hashPath(vector<int> input) {
   string ret = "";
   for (int i:input) {
-    ret += ",";
-    ret += i;
+    ret += "-";
+    ret += to_string(i);
   }
   return ret;
 }
 vector<TreeNode*> results;
 void getPath(TreeNode* leaf, vector<int> path) {
   vector<int> tempPath = path;
+
+
   tempPath.push_back(leaf->val);
-  if (paths[hashPath(tempPath)]) {
+  string hash = hashPath(tempPath);
+    cout << "path hashed " << hash << endl;
+  if (paths[hash]) {
     results.push_back(leaf);
   } else {
-    paths[hashPath(tempPath)] = true;;
+    paths[hash] = true;;
   }
   if (leaf->left != nullptr) {
     getPath(leaf->left, tempPath);
