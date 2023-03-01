@@ -76,6 +76,7 @@ class Solution {
 
   unordered_map<string, bool> paths;
   string hashPath(vector<int> left, vector<int> right, int root) {
+    // this is not recursively getting full structure
     string ret = "";
     ret += "A: ";
     ret += "root";
@@ -91,14 +92,22 @@ class Solution {
   }
   vector<TreeNode *> results;
 
-  DFSNode getPath(TreeNode *root) {
+  DFSNode getPath(TreeNode *root) { // change input to DFSNode?
     DFSNode empty;
+
+    // empty node case
     if (root == nullptr) empty;
 
-    DFSNode left = getPath(root->left);
+    // leaf node case - "structure" is the node itself
+
+    //
+
+    empty.left.push_back(root->val);
+    empty.right.push_back(root->val);
+    empty.left = getPath(root->left);
     DFSNode right = getPath(root->right);
-    left.left.push_back(root->val);
-    right.right.push_back(root->val);
+
+
     if (root->left != nullptr) {
       left = getPath(leaf->left);
       left.push_back(leaf->val);
@@ -127,15 +136,21 @@ class Solution {
  public:
   vector<TreeNode *> findDuplicateSubtrees(TreeNode *root) {
     // recursively build the path to all leaves from both children
-    vector<int> empty;
-    if (root->left != nullptr) {
-      getPath(root->left);
-    }
-    if (root->right != nullptr) {
-      getPath(root->right);
-    }
 
-    return results;
+
+    // vector<int> empty;
+    // if (root->left != nullptr) {
+    //   getPath(root->left);
+    // }
+    // if (root->right != nullptr) {
+    //   getPath(root->right);
+    // }
+
+    // fix: DFS traverse all nodes
+    // find way to hash entire structure at each node
+    // hash comparison same as before
+
+    // return results;
     // but we need to return TreeNodes
   }
 };
