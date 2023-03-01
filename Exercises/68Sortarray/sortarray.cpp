@@ -41,20 +41,22 @@ class Solution {
 // swap built-in in std
 
 int partition(vector<int>& nums, int low, int high) {
-  int lowT = 0;
+
+  int lowT = (low-1);
   int pivot = nums[high];
-  for (int i = low; i < high-1; ++i) {
+  for (int i = low; i < high; ++i) {
     int cur = nums[i];
     if (cur < pivot) {
+      lowT++;;
       swap(nums[i], nums[lowT]);
-      ++lowT;
     }
   }
-  swap(nums[high], nums[lowT+1]);
-  return (i+1);
+  swap(nums[(lowT+1)],nums[high]);
+  return (lowT+1);
 }
 
 void qSort(vector<int>& nums, int low, int high) {
+  for (int i: nums) cerr << i << " ";
   if (low < high) {
     int idx = partition(nums, low, high);
     qSort(nums, low, idx-1);
