@@ -36,15 +36,45 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+
+// use swaps as they cost the least
+// swap built-in in std
+
+int partition(vector<int>& nums, int low, int high) {
+  int lowT = 0;
+  int pivot = nums[high];
+  for (int i = low; i < high-1; ++i) {
+    int cur = nums[i];
+    if (cur < pivot) {
+      swap(nums[i], nums[lowT]);
+      ++lowT;
+    }
+  }
+  swap(nums[high], nums[lowT+1]);
+  return (i+1);
+}
+
+void qSort(vector<int>& nums, int low, int high) {
+  if (low < high) {
+    int idx = partition(nums, low, high);
+    qSort(nums, low, idx-1);
+    qSort(nums, idx+1, high);
+  }
+}
 public:
     vector<int> sortArray(vector<int>& nums) {
-
+      // requires nlogn time, so need to do quicksort (the divide and conquer one)
+      qSort(nums, 0, nums.size()-1);
+      return nums;
     }
 };
 
 int main () {
   Solution s;
   vector<int> input1 = {5,2,3,1};
-  cerr << "expect [1,2,3,5] " << s.sortArray(input1);
+  vector<int> output1 = s.sortArray(input1);
+  cerr << "expect [1,2,3,5] " <<  endl;
+  for (int i: output1) cerr << i << " ";
+  cerr << endl;
   return 0;
 }
