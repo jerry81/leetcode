@@ -57,6 +57,27 @@ using namespace std;
 class Solution {
 public:
     int compress(vector<char>& chars) {
-
+      char cur = ' ';
+      int counter = 0;
+      int charsIdx = 0;
+      for (int i = 0; i < chars.size(); ++i) {
+        char curC = chars[i];
+        if (curC == cur) {
+         counter++;
+        } else {
+          cur = curC;
+          counter = 1;
+          if (cur != ' ') {
+            string asS = to_string(counter);
+            chars[charsIdx] = cur;
+            charsIdx++;
+            for (int j = 0; j < asS.size(); ++j) {
+              chars[charsIdx] = asS[j];
+              charsIdx++;
+            }
+          }
+        }
+      }
+      return charsIdx;
     }
 };
