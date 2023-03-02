@@ -69,22 +69,26 @@ class Solution {
           string asS = to_string(counter);
           chars[charsIdx] = cur;
           charsIdx++;
-          for (int j = 0; j < asS.size(); ++j) {
-            chars[charsIdx] = asS[j];
-            charsIdx++;
+          if (counter != 1) {
+            for (int j = 0; j < asS.size(); ++j) {
+              chars[charsIdx] = asS[j];
+              charsIdx++;
+            }
           }
         }
         cur = curC;
         counter = 1;
       }
     }
-          string asS = to_string(counter);
-          chars[charsIdx] = cur;
-          charsIdx++;
-          for (int j = 0; j < asS.size(); ++j) {
-            chars[charsIdx] = asS[j];
-            charsIdx++;
-          }
+    string asS = to_string(counter);
+    chars[charsIdx] = cur;
+    charsIdx++;
+    if (counter != 1) {
+      for (int j = 0; j < asS.size(); ++j) {
+        chars[charsIdx] = asS[j];
+        charsIdx++;
+      }
+    }
 
     return charsIdx;
   }
