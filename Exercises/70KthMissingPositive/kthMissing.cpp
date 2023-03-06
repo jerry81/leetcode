@@ -45,29 +45,41 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
 using namespace std;
 
 class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
-      int missing = 0;
-      for (int i = 0; i < arr.size(); ++i) {
-        int cur = arr[i];
-        int diff = cur - i;
-        missing+=diff;
-        if (k == missing) {
-          return cur;
+      vector<int> missing;
+      int msize = 0;
+      int curPtr = 0;
+      int i = 0;
+      while (true) {
+        int expected = i+1;
+
+        cout << "looking at " << i << endl;
+        int curV = curPtr < arr.size() ? arr[curPtr] : -1;
+        cout << "expecting " << expected << endl;
+        cout << "curV is " << curV << endl;
+        if (expected != curV) {
+          missing.push_back(expected);
+          cout <<"added " << expected << endl;
+        } else {
+          curPtr++;
         }
-        if (k < missing) {
-          int offset = missing - k;
-          return cur - offset;
+        if (missing.size() == k) {
+            cout << "retoining " << endl;
+          return missing[k-1];
         }
+        ++i;
       }
-      return missing;
+      return 0;
     }
 };
 
 // O(n) - just loop and make a vector of missing ints until size k
+
 
 // O(log n) ?
 // start midway
