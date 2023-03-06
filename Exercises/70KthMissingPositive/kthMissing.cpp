@@ -44,9 +44,33 @@ Acceptance Rate
 
 */
 
+#include <vector>
+using namespace std;
+
 class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
-
+      int missing = 0;
+      for (int i = 0; i < arr.size(); ++i) {
+        int cur = arr[i];
+        int diff = cur - i;
+        missing+=diff;
+        if (k == missing) {
+          return cur;
+        }
+        if (k < missing) {
+          int offset = missing - k;
+          return cur - offset;
+        }
+      }
+      return missing;
     }
 };
+
+// O(n) - just loop and make a vector of missing ints until size k
+
+// O(log n) ?
+// start midway
+// the # of missing integers up to that point is the value - the index
+// if this missing integer count is GT k, try midpoint of lower half
+// else try midpoint of upper half
