@@ -47,7 +47,6 @@ Acceptance Rate
 #include <vector>
 #include <iostream>
 using namespace std;
-
 class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
@@ -58,18 +57,13 @@ public:
       while (true) {
         int expected = i+1;
 
-        cout << "looking at " << i << endl;
         int curV = curPtr < arr.size() ? arr[curPtr] : -1;
-        cout << "expecting " << expected << endl;
-        cout << "curV is " << curV << endl;
         if (expected != curV) {
           missing.push_back(expected);
-          cout <<"added " << expected << endl;
         } else {
           curPtr++;
         }
         if (missing.size() == k) {
-            cout << "retoining " << endl;
           return missing[k-1];
         }
         ++i;
