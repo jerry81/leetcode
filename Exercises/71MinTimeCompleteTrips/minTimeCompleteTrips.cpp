@@ -101,5 +101,12 @@ int main () {
   - every increment, there will be many trips made
   - use a multiplier to skip ahead to the "end"
   - at the end, zero in with binary search?
-  -
+
+*/
+
+/*
+
+  first try max instead of min
+  incrementing could be tricky
+  must consider size of "bucket" - but offset it by whatever is currently in the bucket
 */
