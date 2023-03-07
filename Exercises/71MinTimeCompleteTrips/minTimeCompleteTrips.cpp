@@ -50,7 +50,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     long long minimumTime(vector<int>& time, int totalTrips) {
@@ -60,10 +59,11 @@ public:
       while (trips < totalTrips) {
         tim++;
         for (int i = 0; i < cur.size(); ++i) {
-          cur[i]++;
-          if (cur[i] >= time[i]) {
+          cur[i]--;
+          cout << "cur is " << cur[i] << endl;
+          if (cur[i] <= 0) {
             trips++;
-            cur[i] = 0;
+            cur[i] = time[i];
           }
         }
       }
