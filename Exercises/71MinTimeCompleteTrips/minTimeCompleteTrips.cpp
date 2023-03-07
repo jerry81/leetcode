@@ -49,6 +49,7 @@ Acceptance Rate
 
 #include <vector>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -60,9 +61,10 @@ public:
       int trips = 0;
       long long tim = 0;
       while (trips < totalTrips) {
-        tim++;
+        int min = *min_element(cur.begin(), cur.end());
+        tim += min;
         for (int i = 0; i < cur.size(); ++i) {
-          cur[i]--;
+          cur[i]-=min;
           if (cur[i] <= 0) {
             trips++;
             cur[i] = time[i];
@@ -81,3 +83,10 @@ int main () {
   s.minimumTime(test1, 9765277);
   return 0;
 }
+
+/*
+  why is performance bad?
+  O(n^2) - totalTrips * n
+  instead of running total Trips time, increase the increment to
+  the min
+*/
