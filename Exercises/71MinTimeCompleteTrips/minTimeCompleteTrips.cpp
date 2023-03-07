@@ -78,18 +78,22 @@ class Solution {
       long long ctrip = trips(mid, time);
 
       int diff = abs(totalTrips - ctrip);
-      if (diff < 5) {
-        cerr << "end case " << endl;
-        cerr << "ctrip is " << ctrip << endl;
+      if (diff < 10) {
         if (totalTrips == ctrip) return mid;
 
         if (totalTrips > ctrip) {
-          mid++;
-          continue;
+          while (ctrip < totalTrips) {
+            mid++;
+            ctrip = trips(mid, time);
+          }
+          return mid;
         }
         if (totalTrips < ctrip) {
-          mid--;
-          continue;
+          while (ctrip > totalTrips) {
+            mid--;
+            ctrip = trips(mid, time);
+          }
+          return mid+1;
         }
 
       }
