@@ -79,21 +79,23 @@ class Solution {
 
       int diff = abs(totalTrips - ctrip);
       if (diff < 10) {
-        if (totalTrips == ctrip) return mid;
 
         if (totalTrips > ctrip) {
-          while (ctrip < totalTrips) {
+          while (ctrip <= totalTrips) {
+          if (totalTrips == ctrip) return mid;
             mid++;
             ctrip = trips(mid, time);
           }
-          return mid;
+          return (mid-1);
         }
         if (totalTrips < ctrip) {
-          while (ctrip > totalTrips) {
+          while (ctrip >= totalTrips) {
+            if (totalTrips == ctrip) return mid;
+
             mid--;
             ctrip = trips(mid, time);
           }
-          return mid+1;
+          return (mid+1);
         }
 
       }
@@ -404,6 +406,10 @@ int main() {
   // s.minimumTime(test1, 9765277);
   vector<int> test2 = {7,10,7,6,9,4,7};
   cerr << "expect 7 " << s.minimumTime(test2, 5) << endl;
+  vector<int> test3 = {3,3,8};
+  cerr << "expect 9 " << s.minimumTime(test3, 6) << endl;
+  cerr << "8 / 8 " << 8/8 << endl;
+  cerr << "8/3" << 8/3 << endl;
   return 0;
 }
 
