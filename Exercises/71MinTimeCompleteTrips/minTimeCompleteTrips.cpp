@@ -63,7 +63,7 @@ class Solution {
   long long trips(long long totalTime, vector<int>& times) {
     long long total = 0;
     for (int time : times) {
-      total += totalTime / time;
+      total += (totalTime / time);
     }
     return total;
   }
@@ -75,12 +75,31 @@ class Solution {
 
     while (true) {
       long long mid = (minTime + maxTime) / 2;
-      int ctrip = trips(mid, time);
-      if (ctrip == totalTrips) return mid;
-      if (ctrip < totalTrips) {
-        maxTime = mid;
+      long long ctrip = trips(mid, time);
+
+      int diff = abs(totalTrips - ctrip);
+      if (diff < 5) {
+        cerr << "end case " << endl;
+        cerr << "ctrip is " << ctrip << endl;
+        if (totalTrips == ctrip) return mid;
+
+        if (totalTrips > ctrip) {
+          mid++;
+          continue;
+        }
+        if (totalTrips < ctrip) {
+          mid--;
+          continue;
+        }
+
+      }
+
+      if (ctrip == totalTrips) {
+        return mid;
+      } else if (ctrip < totalTrips) {
+        minTime = mid + 1;
       } else {
-        minTime = mid+1;
+        maxTime = mid - 1;
       }
     }
     return 0;
