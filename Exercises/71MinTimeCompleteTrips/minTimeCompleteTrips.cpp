@@ -61,10 +61,13 @@ public:
       int trips = 0;
       long long tim = 0;
       while (trips < totalTrips) {
-        int min = *min_element(cur.begin(), cur.end());
-        tim += min;
+        int max = *max_element(cur.begin(), cur.end());
+        tim += max;
         for (int i = 0; i < cur.size(); ++i) {
-          cur[i]-=min;
+          int trips_ = max/ cur[i];
+          int remainder = max%cur[i];
+          trips+=trips_;
+          cur[i] = remainder;
           if (cur[i] <= 0) {
             trips++;
             cur[i] = time[i];
@@ -89,4 +92,14 @@ int main () {
   O(n^2) - totalTrips * n
   instead of running total Trips time, increase the increment to
   the min
+*/
+
+/*
+
+  still not fast enough.
+  increase the increment - to max element
+  - every increment, there will be many trips made
+  - use a multiplier to skip ahead to the "end"
+  - at the end, zero in with binary search?
+  -
 */
