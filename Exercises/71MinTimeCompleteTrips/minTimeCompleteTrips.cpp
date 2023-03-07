@@ -110,3 +110,5 @@ int main () {
   incrementing could be tricky
   must consider size of "bucket" - but offset it by whatever is currently in the bucket
 */
+
+/* official LC recommends Binary search + brute force! */
