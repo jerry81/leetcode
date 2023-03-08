@@ -47,7 +47,6 @@ Acceptance Rate
 #include <iostream>
 
 using namespace std;
-
 class Solution {
 int tryK(vector<int>& piles, int k) {
   int h = 0;
@@ -68,17 +67,38 @@ int* minAndMax(vector<int> piles) {
     if (p < mn) mn = p;
     if (p > mx) mx = p;
   }
-  int *ret = new int(mn);
-  ret[1] = mx;
+  int *ret = new int[2];
+  *ret = mn;
+  *(ret+1) = mx;
   return ret;
 }
 
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
       int* minmax = minAndMax(piles);
-      cerr << "min is " << *minmax << endl;
-      cerr << "max is " << *(minmax+1) << endl;
-      return tryK(piles, 3);
+      if (h == piles.size()) return *(minmax+1);
+      int mn = *minmax;
+      int mx = *(minmax+1);
+      cerr << "max " << mx << " min is " << mn << endl;
+      while (true) {
+        int mid = (mn+mx) / 2;
+        int tryR = tryK(piles, mid);
+        cerr << "tryR " << tryR << endl;
+        if (tryR == h) {
+          cerr << "eq case " << endl;
+          while (tryR == h) {
+            mid--;
+            tryR = tryK(piles, mid);
+          }
+          cerr << "mid" << endl;
+          return mid+1;
+        }
+        if (tryR > h) mn = mid;
+
+        if (tryR < h) mx = mid-1;
+
+      }
+      return 0;
     }
 };
 
