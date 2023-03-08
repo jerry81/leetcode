@@ -47,6 +47,7 @@ Acceptance Rate
 #include <iostream>
 
 using namespace std;
+
 class Solution {
 int tryK(vector<int>& piles, int k) {
   int h = 0;
@@ -77,20 +78,28 @@ public:
     int minEatingSpeed(vector<int>& piles, int h) {
       int* minmax = minAndMax(piles);
       if (h == piles.size()) return *(minmax+1);
-      int mn = *minmax;
+      int mn = 1;
       int mx = *(minmax+1);
-      cerr << "max " << mx << " min is " << mn << endl;
+      int prevmid = -1;
       while (true) {
         int mid = (mn+mx) / 2;
+        if (mid == prevmid) {
+          mid++;
+          int k = tryK(piles, mid);
+          while (k >= h) {
+            mid++;
+            k = tryK(piles, mid);
+          }
+
+          return mid;
+        }
+        prevmid = mid;
         int tryR = tryK(piles, mid);
-        cerr << "tryR " << tryR << endl;
         if (tryR == h) {
-          cerr << "eq case " << endl;
           while (tryR == h) {
             mid--;
             tryR = tryK(piles, mid);
           }
-          cerr << "mid" << endl;
           return mid+1;
         }
         if (tryR > h) mn = mid;
@@ -106,6 +115,10 @@ int main() {
   Solution s;
   vector<int> test1 = {3,6,7,11};
   cerr << "expect 10 " << endl << s.minEatingSpeed(test1, 8) << endl;
+  vector<int>  test2 = {312884470};
+  cerr << "expect something " << s.minEatingSpeed(test2, 312884469) << endl;
+  vector<int> test3 = {332484035,524908576,855865114,632922376,222257295,690155293,112677673,679580077,337406589,290818316,877337160,901728858,679284947,688210097,692137887,718203285,629455728,941802184};
+  cerr << "expect 14 " << s.minEatingSpeed(test3, 823855818) << endl;
   return 0;
 }
 
