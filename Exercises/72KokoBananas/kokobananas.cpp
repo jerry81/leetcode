@@ -94,6 +94,7 @@ public:
           return mid;
         }
         prevmid = mid;
+        if (mid == 0) return 1;
         int tryR = tryK(piles, mid);
         if (tryR == h) {
           while (tryR == h) {
@@ -119,6 +120,8 @@ int main() {
   cerr << "expect something " << s.minEatingSpeed(test2, 312884469) << endl;
   vector<int> test3 = {332484035,524908576,855865114,632922376,222257295,690155293,112677673,679580077,337406589,290818316,877337160,901728858,679284947,688210097,692137887,718203285,629455728,941802184};
   cerr << "expect 14 " << s.minEatingSpeed(test3, 823855818) << endl;
+  vector<int> test4 = {312884470};
+  cerr << "expect no divbyzero " << s.minEatingSpeed(test4, 968709470) << endl;
   return 0;
 }
 
