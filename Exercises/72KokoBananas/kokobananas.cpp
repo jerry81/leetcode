@@ -53,11 +53,10 @@ int tryK(vector<int>& piles, int k) {
   int h = 0;
   for (int pile: piles) {
     int remPile = pile;
-    while (remPile > k) {
-      remPile /= k;
-      h += remPile;
-    }
-    if (remPile > 0) h+=1;
+    int rem = remPile % k;
+    remPile /= k;
+    h += remPile;
+    if (rem > 0) h+=1;
   }
   return h;
 }
@@ -79,14 +78,14 @@ public:
       int* minmax = minAndMax(piles);
       cerr << "min is " << *minmax << endl;
       cerr << "max is " << *(minmax+1) << endl;
-      return tryK(piles, 4);
+      return tryK(piles, 3);
     }
 };
 
 int main() {
   Solution s;
   vector<int> test1 = {3,6,7,11};
-  cerr << "expect 8 " << endl << s.minEatingSpeed(test1, 8) << endl;
+  cerr << "expect 10 " << endl << s.minEatingSpeed(test1, 8) << endl;
   return 0;
 }
 
