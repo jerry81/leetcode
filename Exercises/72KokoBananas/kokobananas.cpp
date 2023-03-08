@@ -44,20 +44,43 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
+int tryK(vector<int>& piles, int k) {
+  int h = 0;
+  for (int pile: piles) {
+    int remPile = pile;
+    while (remPile > k) {
+      remPile /= k;
+      h += remPile;
+    }
+    if (remPile > 0) h+=1;
+  }
+  return h;
+}
+
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
-
+      return tryK(piles, 4);
     }
 };
+
+int main() {
+  Solution s;
+  vector<int> test1 = {3,6,7,11};
+  cerr << "expect 8 " << s.minEatingSpeed(test1, 8);
+  return 0;
+}
 
 /*
 
 plan: trial and error assisted by binary search
-with min_initial = max/h
-and max_initial = (max/h * size)
+with min_initial = 1 banana
+and max_initial = max pile size
+  - this is the fastest koko can eat, and becomes # of piles hours
+  - can handle as special case
 
 */
