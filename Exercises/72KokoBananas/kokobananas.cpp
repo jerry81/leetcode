@@ -53,3 +53,11 @@ public:
 
     }
 };
+
+/*
+
+plan: trial and error assisted by binary search
+with min_initial = max/h
+and max_initial = (max/h * size)
+
+*/
