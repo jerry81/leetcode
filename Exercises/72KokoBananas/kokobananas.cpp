@@ -62,8 +62,23 @@ int tryK(vector<int>& piles, int k) {
   return h;
 }
 
+int* minAndMax(vector<int> piles) {
+  int mn = INT_MAX;
+  int mx = 0;
+  for (int p: piles) {
+    if (p < mn) mn = p;
+    if (p > mx) mx = p;
+  }
+  int *ret = new int(mn);
+  ret[1] = mx;
+  return ret;
+}
+
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
+      int* minmax = minAndMax(piles);
+      cerr << "min is " << *minmax << endl;
+      cerr << "max is " << *(minmax+1) << endl;
       return tryK(piles, 4);
     }
 };
@@ -71,7 +86,7 @@ public:
 int main() {
   Solution s;
   vector<int> test1 = {3,6,7,11};
-  cerr << "expect 8 " << s.minEatingSpeed(test1, 8);
+  cerr << "expect 8 " << endl << s.minEatingSpeed(test1, 8) << endl;
   return 0;
 }
 
