@@ -49,8 +49,8 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int tryK(vector<int>& piles, int k) {
-  int h = 0;
+long long tryK(vector<int>& piles, int k) {
+  long long h = 0;
   for (int pile: piles) {
     int remPile = pile;
     int rem = remPile % k;
@@ -85,7 +85,7 @@ public:
         int mid = (mn+mx) / 2;
         if (mid == prevmid) {
           mid++;
-          int k = tryK(piles, mid);
+          long long k = tryK(piles, mid);
           while (k >= h) {
             mid++;
             k = tryK(piles, mid);
@@ -95,7 +95,7 @@ public:
         }
         prevmid = mid;
         if (mid == 0) return 1;
-        int tryR = tryK(piles, mid);
+        long long tryR = tryK(piles, mid);
         if (tryR == h) {
           while (tryR == h) {
             mid--;
@@ -122,6 +122,8 @@ int main() {
   cerr << "expect 14 " << s.minEatingSpeed(test3, 823855818) << endl;
   vector<int> test4 = {312884470};
   cerr << "expect no divbyzero " << s.minEatingSpeed(test4, 968709470) << endl;
+  vector<int> test5 = {805306368,805306368,805306368};
+  cerr << "expect no overflow " << s.minEatingSpeed(test5, 1000000000) << endl;
   return 0;
 }
 
