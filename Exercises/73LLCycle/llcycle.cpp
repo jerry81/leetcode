@@ -71,14 +71,33 @@ class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
       // traverse until old node reached.
-      unordered_map<int, bool> lookup;
+      unordered_map<ListNode*, bool> lookup;
       while (head != nullptr) {
-        if (lookup[head->val]) {
+        if (lookup[head]) {
           return head;
         }
-        lookup[head->val] = true;
+        lookup[head] = true;
         head = head->next;
       }
       return nullptr;
     }
 };
+
+/*
+
+failing case
+
+cur val is -1
+cur val is -7
+cur val is 7
+cur val is -4
+cur val is 19
+cur val is 6
+cur val is -9
+cur val is -5
+cur val is -2
+cur val is -5
+
+expected 6, mine 9
+*/
+
