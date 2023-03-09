@@ -60,6 +60,8 @@ Acceptance Rate
  * };
  */
 
+#include <unordered_map>
+using namespace std;
  struct ListNode {
      int val;
      ListNode *next;
@@ -68,6 +70,15 @@ Acceptance Rate
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-
+      // traverse until old node reached.
+      unordered_map<int, bool> lookup;
+      while (head != nullptr) {
+        if (lookup[head->val]) {
+          return head;
+        }
+        lookup[head->val] = true;
+        head = head->next;
+      }
+      return nullptr;
     }
 };
