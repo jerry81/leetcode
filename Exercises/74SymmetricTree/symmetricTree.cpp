@@ -93,7 +93,6 @@ class Solution {
   bool isSymmetric(TreeNode* root) {
     vector<int> flattened = flattenTree(root);
     int curLevel = 0;
-    cout << "printing flattened"<<endl;
     for (int i: flattened) {
       cout << i << endl;
     }
@@ -101,15 +100,9 @@ class Solution {
       int rng = pow(2, curLevel);
       int bot = rng - 1;
       int top = bot + (rng - 1);
-      cout << "curLevel is " << curLevel << endl;
-      cout << "rng is " << rng << endl;
-      cout << "bot is " << bot << endl;
-      cout << "top is " << top << " and flattened size is " << flattened.size() << endl;
       if (top >= flattened.size()) break;
 
       for (int i = 0; i < (rng/2); ++i) {
-        cout << " comparing indexes " << bot + i << " and " << top - i << endl;
-        cout << "comparing " << flattened[bot+i] << " to " << flattened[top -i]<<endl;
         if (flattened[bot + i] != flattened[top - i]) return false;
       }
       ++curLevel;
