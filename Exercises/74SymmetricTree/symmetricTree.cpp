@@ -93,9 +93,6 @@ class Solution {
   bool isSymmetric(TreeNode* root) {
     vector<int> flattened = flattenTree(root);
     int curLevel = 0;
-    for (int i: flattened) {
-      cout << i << endl;
-    }
     while (true) {
       int rng = pow(2, curLevel);
       int bot = rng - 1;
