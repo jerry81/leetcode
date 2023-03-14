@@ -116,7 +116,7 @@ class Solution {
     if (root->right != nullptr) { // DRY
       dfsNode rightN;
       rightN.path = newpath;
-      rightN.root = root->left;
+      rightN.root = root->right;
       vector<dfsNode> rightPaths = getPaths(rightN);
       ret.insert(ret.end(), rightPaths.begin(), rightPaths.end());
     }
@@ -128,7 +128,9 @@ public:
       dfsNode rootN;
       rootN.root = root;
       vector<dfsNode> paths = getPaths(rootN);
-
+      for (dfsNode d:paths) {
+        d.print();
+      }
       return 0;
     }
 };
