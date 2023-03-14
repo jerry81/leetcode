@@ -63,6 +63,11 @@ Acceptance Rate
  * };
  */
 
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
  struct TreeNode {
      int val;
      TreeNode *left;
@@ -72,9 +77,58 @@ Acceptance Rate
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 
+ struct dfsNode {
+   vector<int> path;
+   TreeNode* root;
+   void print() {
+     cout << "printing node" << endl;
+     for (int i: path) {
+       cout << i << endl;
+     }
+   }
+ };
+
 class Solution {
+  vector<dfsNode> getPaths(dfsNode rtN) {
+    dfsNode rootN;
+    rootN = rtN;
+    TreeNode* root = rtN.root;
+    vector<dfsNode> ret;
+    if (root == nullptr) return ret;
+
+    vector<int> newpath = rtN.path;
+    newpath.push_back(root->val);
+    rootN.path = newpath;
+
+    if ((root->left == nullptr) && (root->right == nullptr)) {
+      ret.push_back(rootN);
+      return ret;
+    }
+
+    if (root->left != nullptr) {
+      dfsNode leftN;
+      leftN.path = newpath;
+      leftN.root = root->left;
+      vector<dfsNode> leftPaths = getPaths(leftN);
+      ret.insert(ret.end(), leftPaths.begin(), leftPaths.end());
+    }
+
+    if (root->right != nullptr) { // DRY
+      dfsNode rightN;
+      rightN.path = newpath;
+      rightN.root = root->left;
+      vector<dfsNode> rightPaths = getPaths(rightN);
+      ret.insert(ret.end(), rightPaths.begin(), rightPaths.end());
+    }
+
+    return ret;
+  }
 public:
     int sumNumbers(TreeNode* root) {
+      dfsNode rootN;
+      rootN.root = root;
+      vector<dfsNode> paths = getPaths(rootN);
 
+      return 0;
     }
 };
