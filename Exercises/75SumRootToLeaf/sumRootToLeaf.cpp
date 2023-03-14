@@ -80,6 +80,13 @@ using namespace std;
  struct dfsNode {
    vector<int> path;
    TreeNode* root;
+   int asInt() {
+     string asS;
+     for (int i: path) {
+       asS += (i + '0');
+     }
+     return stoi(asS);
+   }
    void print() {
      cout << "printing node" << endl;
      for (int i: path) {
@@ -128,9 +135,10 @@ public:
       dfsNode rootN;
       rootN.root = root;
       vector<dfsNode> paths = getPaths(rootN);
+      int sum = 0;
       for (dfsNode d:paths) {
-        d.print();
+        sum+= d.asInt();
       }
-      return 0;
+      return sum;
     }
 };
