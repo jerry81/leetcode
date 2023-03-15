@@ -62,11 +62,11 @@ using namespace std;
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
- vector<int> flattenTree(TreeNode* root) {
-    vector<int> ret;
+ bool flattenTree(TreeNode* root) {
+    bool flag = false;
     vector<TreeNode*> q;
     q.push_back(root);
-    if (root == nullptr) return ret;
+    if (root == nullptr) return true;
 
     int parentCount = 1;
     while (parentCount > 0) {
@@ -74,11 +74,11 @@ class Solution {
       vector<TreeNode*> nq;
       for (TreeNode* c:q) {
         if (c == nullptr) {
-          ret.push_back(-101);
+          flag = true;
           nq.push_back(nullptr);
           nq.push_back(nullptr);
         } else {
-          ret.push_back(c->val);
+          if (flag) return false;
           TreeNode* l = c->left;
           TreeNode* r = c->right;
           if (l != nullptr) parentCount++;
@@ -92,17 +92,11 @@ class Solution {
       }
       q = nq;
     }
-    return ret;
+    return true;
   }
 public:
     bool isCompleteTree(TreeNode* root) {
       // reuse bfs from 2 days ago
-      vector<int> flat = flattenTree(root);
-      bool flag = false;
-      for (int i: flat) {
-        if (flag && i > 0) return false;
-        if (i < -100) flag = true;
-      }
-      return true;
+      return flattenTree(root);
     }
 };
