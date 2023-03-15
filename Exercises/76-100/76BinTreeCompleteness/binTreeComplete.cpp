@@ -50,6 +50,9 @@ Acceptance Rate
  * };
  */
 
+#include <vector>
+#include <iostream>
+using namespace std;
  struct TreeNode {
      int val;
      TreeNode *left;
@@ -59,8 +62,47 @@ Acceptance Rate
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
+ vector<int> flattenTree(TreeNode* root) {
+    vector<int> ret;
+    vector<TreeNode*> q;
+    q.push_back(root);
+    if (root == nullptr) return ret;
+
+    int parentCount = 1;
+    while (parentCount > 0) {
+      parentCount = 0;
+      vector<TreeNode*> nq;
+      for (TreeNode* c:q) {
+        if (c == nullptr) {
+          ret.push_back(-101);
+          nq.push_back(nullptr);
+          nq.push_back(nullptr);
+        } else {
+          ret.push_back(c->val);
+          TreeNode* l = c->left;
+          TreeNode* r = c->right;
+          if (l != nullptr) parentCount++;
+
+          if (r != nullptr) parentCount++;
+
+          nq.push_back(l);
+
+          nq.push_back(r);
+        }
+      }
+      q = nq;
+    }
+    return ret;
+  }
 public:
     bool isCompleteTree(TreeNode* root) {
-
+      // reuse bfs from 2 days ago
+      vector<int> flat = flattenTree(root);
+      bool flag = false;
+      for (int i: flat) {
+        if (flag && i > 0) return false;
+        if (i < -100) flag = true;
+      }
+      return true;
     }
 };
