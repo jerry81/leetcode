@@ -59,16 +59,17 @@ struct TreeNode {
   TreeNode(int x, TreeNode* left, TreeNode* right)
       : val(x), left(left), right(right) {}
 };
+
 class Solution {
   vector<int> ino;
   vector<int> poo;
-  TreeNode* buildTreeR(int p1, int p2) {
-    TreeNode* root;
-    if (p2-p1 == 0) return nullptr;
+  TreeNode* buildTreeR(int i1, int i2, int p1, int p2) {
+    TreeNode* root = new TreeNode();
+    if (i2-i1 < 0) return nullptr;
 
     // special case - single item
-    if (p2-p1 == 1) {
-      root->val = poo[p2];
+    if (i2-i1 == 0) {
+      root->val = ino[i2];
       return root;
     }
 
@@ -81,8 +82,8 @@ class Solution {
         break;
       }
     }
-    root->left = buildTreeR(p1, pivotino-1);
-    root->right = buildTreeR(pivotino+1, p2);
+    root->left = buildTreeR(i1, pivotino-1, p1, pivotino-1);
+    root->right = buildTreeR(pivotino+1, i2, pivotino, p2-1);
     return root;
   }
 
@@ -92,7 +93,7 @@ class Solution {
     ino = inorder;
     poo = postorder;
     // special case - no items
-    return buildTreeR(0, inorder.size() - 1);
+    return buildTreeR(0, inorder.size() - 1, 0, postorder.size() - 1);
 
     // make root from postorder last item
     // split into next recursive iteration on remaining subarrays
