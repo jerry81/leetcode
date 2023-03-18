@@ -54,23 +54,31 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
+using namespace std;
 
 class BrowserHistory {
+vector<string> history;
+int ptr;
 public:
     BrowserHistory(string homepage) {
-
+      history.push_back(homepage);
+      ptr=0;
     }
 
     void visit(string url) {
-
+      history.push_back(url);
+      ptr = history.size()-1;
     }
 
     string back(int steps) {
-
+      ptr = max(0, ptr-steps);
+      return history[ptr];
     }
 
     string forward(int steps) {
-
+      ptr = min(history.size()-1, ptr+steps);
+      return history[ptr];
     }
 };
 
