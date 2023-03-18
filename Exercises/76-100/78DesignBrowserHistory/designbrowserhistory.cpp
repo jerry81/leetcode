@@ -54,33 +54,78 @@ Acceptance Rate
 */
 
 #include <string>
-#include <vector>
+#include <stack>
+#include <queue>
 using namespace std;
 
 class BrowserHistory {
-vector<string> history;
-int ptr;
+stack<string> history;
+queue<string> forwardq;
+queue<string> emptyq;
 public:
     BrowserHistory(string homepage) {
-      history.push_back(homepage);
-      ptr=0;
+      history.push(homepage);
     }
 
     void visit(string url) {
-      history.push_back(url);
-      ptr = history.size()-1;
+      history.push(url);
+      forwardq=emptyq;
     }
 
     string back(int steps) {
-      ptr = max(0, ptr-steps);
-      return history[ptr];
+      string t = history.top();
+      while (steps > 0) {
+        if (history.size() <= 1) {
+          return t;
+        }
+        history.pop();
+        forwardq.push(t);
+        t = history.top();
+        steps--;
+      }
+      return history.top();
     }
 
     string forward(int steps) {
-      ptr = min(history.size()-1, ptr+steps);
-      return history[ptr];
+      string f = history.top();
+      while (steps > 0) {
+        if (forwardq.empty()) return f;
+        f = forwardq.front();
+        history.push(f);
+        forwardq.pop();
+        steps--;
+      }
+      return history.top();
     }
 };
+
+/*
+
+leetcode
+google
+facebook
+youtube
+linkedin
+
+stack?
+
+on back
+pop
+and push to
+forward stack
+
+so after 2 backs
+
+leet
+goog
+
+forward:
+face
+youtube
+
+
+
+*/
 
 /**
  * Your BrowserHistory object will be instantiated and called as such:
