@@ -89,20 +89,23 @@ class WordDictionary {
     quick_lookup[len][word] = true;
   }
 
-  void addWord(string word) {
-    LetterTree* cur = root;
-    for (int i = 0; i < word.size(); ++i) {
-      char c = word[i];
-      if (root->children.find(c) == root->children.end()) {
+  void addWordR(string word, LetterTree* cur) {
+      if (word.size() == 0) return;
+      char c = word[0];
+      if (cur->children.find(c) == cur->children.end()) {
         LetterTree* newlt = new LetterTree();
-        root->children[c] = newlt;
+        cur->children[c] = newlt;
       }
-      cur = root->children[c];
-      if (i == (word.size() - 1)) root->children[c]->isEndWord = true;
-    }
+      if (word.size()==1) cur->children[c]->isEndWord = true;
+      addWordR(word.substr(1), cur->children[c]);
+  }
+
+  void addWord(string word) {
+    addWordR(word, root);
   }
 
   bool searchR(string remaining, LetterTree* cur) {
+    if (remaining.size() == 0) return cur->isEndWord;
     auto childr = cur->children;
     char first = remaining[0];
     string nextS = remaining.substr(1);
