@@ -5,13 +5,16 @@ Medium
 6K
 347
 Companies
-Design a data structure that supports adding new words and finding if a string matches any previously added string.
+Design a data structure that supports adding new words and finding if a string
+matches any previously added string.
 
 Implement the WordDictionary class:
 
 WordDictionary() Initializes the object.
 void addWord(word) Adds word to the data structure, it can be matched later.
-bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+bool search(word) Returns true if there is any string in the data structure that
+matches word or false otherwise. word may contain dots '.' where dots can be
+matched with any letter.
 
 
 Example:
@@ -49,61 +52,104 @@ Acceptance Rate
 
 */
 
+#include <iostream>
 #include <string>
 #include <unordered_map>
-#include <iostream>
 #include <vector>
 
 using namespace std;
 
 class WordDictionary {
-unordered_map<int, unordered_map<string,bool>> quick_lookup;
-vector<int> getWilds(string s) {
-  vector<int> ret;
-  for (int i = 0; i < s.length(); ++i) {
-    char c = s[i];
-    if (c == '.') ret.push_back(i);
+  unordered_map<int, unordered_map<string, bool>> quick_lookup;
+  vector<int> getWilds(string s) {
+    vector<int> ret;
+    for (int i = 0; i < s.length(); ++i) {
+      char c = s[i];
+      if (c == '.') ret.push_back(i);
+    }
+    return ret;
+  };
+  bool noWilds(string word) { return quick_lookup[word.size()][word]; };
+  struct LetterTree {
+    unordered_map<char, LetterTree*> children;
+    bool isEndWord = false;
+  };
+
+  LetterTree* root = new LetterTree();
+
+ public:
+  WordDictionary() {}
+
+  void addWord_old(string word) {
+    int len = word.size();
+    if (quick_lookup.find(len) == quick_lookup.end()) {
+      unordered_map<string, bool> l;
+      quick_lookup[len] = l;
+    }
+    quick_lookup[len][word] = true;
   }
-  return ret;
-};
-bool noWilds(string word) {
-      return quick_lookup[word.size()][word];
-};
-public:
-    WordDictionary() {
-    }
 
-    void addWord(string word) {
-      int len = word.size();
-      if (quick_lookup.find(len) == quick_lookup.end()) {
-        unordered_map<string,bool> l;
-        quick_lookup[len] = l;
+  void addWord(string word) {
+    LetterTree* cur = root;
+    for (int i = 0; i < word.size(); ++i) {
+      char c = word[i];
+      if (root->children.find(c) == root->children.end()) {
+        LetterTree* newlt = new LetterTree();
+        root->children[c] = newlt;
       }
-        quick_lookup[len][word] = true;
+      cur = root->children[c];
+      if (i == (word.size() - 1)) root->children[c]->isEndWord = true;
     }
+  }
 
-    bool search(string word) {
-      if (quick_lookup.find(word.size()) == quick_lookup.end()) return false;
-      vector<int> wilds = getWilds(word);
-      if (wilds.empty()) return noWilds(word);
+  bool searchR(string remaining, LetterTree* cur) {
+    auto childr = cur->children;
+    char first = remaining[0];
+    string nextS = remaining.substr(1);
 
-      auto a = quick_lookup[word.size()];
+    if (first == '.') {
+        if (remaining.size() == 1 && cur->isEndWord) return true;
 
-      for (auto b: a) {
-        bool contains = true;
-        for (int i = 0; i < word.size(); ++i) {
-          if (word[i] == '.') continue;
-          if (word[i] != b.first[i]) {
-            contains = false;
-            break;
-          }
+        bool accum = false;
+
+        for (auto c: childr) {
+          accum = accum||searchR(nextS, c.second);
         }
-        if (contains) return true;
-      }
-      return false;
+        return accum;
     }
-};
 
+    if (childr.find(first) == childr.end()) return false;
+
+    if (remaining.size() == 1 && cur->isEndWord) return true;
+
+    return searchR(nextS, childr[first]);
+  }
+
+  bool search(string word) {
+    return searchR(word, root);
+  }
+
+  bool search_old(string word) {
+    if (quick_lookup.find(word.size()) == quick_lookup.end()) return false;
+    vector<int> wilds = getWilds(word);
+    if (wilds.empty()) return noWilds(word);
+
+    auto a = quick_lookup[word.size()];
+
+    for (auto b : a) {
+      bool contains = true;
+      for (int i = 0; i < word.size(); ++i) {
+        if (word[i] == '.') continue;
+        if (word[i] != b.first[i]) {
+          contains = false;
+          break;
+        }
+      }
+      if (contains) return true;
+    }
+    return false;
+  }
+};
 
 /**
  * Your WordDictionary object will be instantiated and called as such:
