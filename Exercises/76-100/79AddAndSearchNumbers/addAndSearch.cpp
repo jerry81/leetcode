@@ -50,21 +50,31 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class WordDictionary {
+unordered_map<int, unordered_map<string,bool>> quick_lookup;
 public:
     WordDictionary() {
-
     }
 
     void addWord(string word) {
-
+      int len = word.size();
+      if (quick_lookup.find(len) == quick_lookup.end()) {
+        unordered_map<string,bool> l;
+        l[word] = true;
+        quick_lookup[len] = l;
+      } else {
+        quick_lookup[len][word] = true;
+      }
     }
 
     bool search(string word) {
+      if (quick_lookup.find(word.size()) != quick_lookup.end()) return false;
 
+      return quick_lookup[word.size()][word];
     }
 };
 
