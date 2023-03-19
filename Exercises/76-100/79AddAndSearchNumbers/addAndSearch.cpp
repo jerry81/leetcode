@@ -92,6 +92,7 @@ public:
       for (auto b: a) {
         bool contains = true;
         for (int i = 0; i < word.size(); ++i) {
+          if (word[i] == '.') continue;
           if (word[i] != b.first[i]) {
             contains = false;
             break;
