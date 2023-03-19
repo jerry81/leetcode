@@ -111,7 +111,7 @@ class WordDictionary {
     string nextS = remaining.substr(1);
 
     if (first == '.') {
-        if (remaining.size() == 1 && cur->isEndWord) return true;
+        // if (remaining.size() == 1 && ->isEndWord) return true;
 
         bool accum = false;
 
