@@ -52,11 +52,23 @@ Acceptance Rate
 #include <string>
 #include <unordered_map>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class WordDictionary {
 unordered_map<int, unordered_map<string,bool>> quick_lookup;
+vector<int> getWilds(string s) {
+  vector<int> ret;
+  for (int i = 0; i < s.length(); ++i) {
+    char c = s[i];
+    if (c == '.') ret.push_back(i);
+  }
+  return ret;
+};
+bool noWilds(string word) {
+      return quick_lookup[word.size()][word];
+};
 public:
     WordDictionary() {
     }
@@ -72,11 +84,22 @@ public:
 
     bool search(string word) {
       if (quick_lookup.find(word.size()) == quick_lookup.end()) return false;
+      vector<int> wilds = getWilds(word);
+      if (wilds.empty()) return noWilds(word);
 
-      for (auto a: quick_lookup) {
-        cout << "key is " << a.first << endl;
+      auto a = quick_lookup[word.size()];
+
+      for (auto b: a) {
+        bool contains = true;
+        for (int i = 0; i < word.size(); ++i) {
+          if (word[i] != b.first[i]) {
+            contains = false;
+            break;
+          }
+        }
+        if (contains) return true;
       }
-      return quick_lookup[word.size()][word];
+      return false;
     }
 };
 
