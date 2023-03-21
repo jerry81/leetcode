@@ -52,7 +52,7 @@ public:
         if (!prev && !next && !cur) {
           --n;
           if (n == 0) return true;
-          i = i+2;
+          i = i+1;
           continue;
         }
       }
