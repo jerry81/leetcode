@@ -44,6 +44,7 @@ class Solution {
 public:
     bool canPlaceFlowers(vector<int>& flowerbed, int n) {
       // greedily place flowers
+      if (n <= 0) return true;
       for (int i = 0; i < flowerbed.size(); ++i) {
         bool prev, next;
         int cur = flowerbed[i];
