@@ -49,7 +49,7 @@ public:
         bool prev, next;
         int cur = flowerbed[i];
         prev = (i <= 0) ? 0 : flowerbed[i-1];
-        next = (i >= flowerbed.size()) ? 0 : flowerbed[i+1];
+        next = (i >= (flowerbed.size()-1)) ? 0 : flowerbed[i+1];
         if (!prev && !next && !cur) {
           --n;
           if (n == 0) return true;
