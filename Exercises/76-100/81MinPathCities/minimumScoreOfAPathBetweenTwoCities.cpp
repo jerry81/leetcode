@@ -72,6 +72,7 @@ using namespace std;
 class Solution {
 struct Node {
   unordered_map<int, int> neighbors;
+  int id;
   void print() {
     for (auto a: neighbors) {
       cout << "i have a neighbor " << a.first << ", " << a.second << " away." << endl;
@@ -82,7 +83,9 @@ int ncount;
 vector<Node*> nodes;
 void makeNodes() {
   for (int i = 0; i < ncount; ++i) {
-    nodes.push_back(new Node());
+    Node *n = new Node();
+    n->id = i;
+    nodes.push_back(n);
   }
 }
 void makeNeighbors(vector<vector<int>> roads) {
@@ -114,13 +117,14 @@ int bfsFindMin() {
   while (!neighbors.empty()) {
     queue<Node*> nneighbors;
     Node* cur = neighbors.front();
+    visited[cur->id] = true;
     neighbors.pop();
     for (auto a: cur->neighbors) {
       if (a.second < res) res = a.second;
-      if (visited[a.first]) continue;
 
-      visited[a.first] = true;
-      nneighbors.push(nodes[a.first]);
+      if (!visited[a.first]) {
+        nneighbors.push(nodes[a.first]);
+      }
     }
     neighbors = nneighbors;
   }
