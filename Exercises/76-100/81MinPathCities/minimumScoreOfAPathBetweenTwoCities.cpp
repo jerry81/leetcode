@@ -116,11 +116,11 @@ int bfsFindMin() {
     Node* cur = neighbors.front();
     neighbors.pop();
     for (auto a: cur->neighbors) {
+      if (a.second < res) res = a.second;
       if (visited[a.first]) continue;
 
       visited[a.first] = true;
       nneighbors.push(nodes[a.first]);
-      if (a.second < res) res = a.second;
     }
     neighbors = nneighbors;
   }
