@@ -57,11 +57,39 @@ Acceptance Rate
 // after reading instructions again, this is not djikstra
 // this is an islands problem - find the reachable nodes from 1, the min path is in this set.  b/c if 1 can reach it, 4 can reach it too.
 
+/*
+
+1.  Nodes
+2.  Neighbors
+
+*/
 #include <vector>
+#include <unordered_map>
+
 using namespace std;
 class Solution {
+struct Node {
+  unordered_map<int, int> neighbors;
+};
+int ncount;
+vector<Node*> nodes;
+void makeNodes() {
+  for (int i = 0; i < ncount; ++i) {
+    nodes.push_back(new Node());
+  }
+}
+void makeNeighbors(vector<vector<int>> roads) {
+  for (vector<int> v: roads) {
+    int from = v[0];
+    int to = v[1];
+    int dist = v[2];
+    nodes[from]->neighbors[to] = dist;
+  }
+}
 public:
     int minScore(int n, vector<vector<int>>& roads) {
-
+      ncount = n;
+      makeNodes();
+      makeNeighbors(roads);
     }
 };
