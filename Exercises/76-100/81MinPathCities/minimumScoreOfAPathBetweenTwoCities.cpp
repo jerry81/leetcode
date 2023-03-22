@@ -65,11 +65,17 @@ Acceptance Rate
 */
 #include <vector>
 #include <unordered_map>
+#include <iostream>
 
 using namespace std;
 class Solution {
 struct Node {
   unordered_map<int, int> neighbors;
+  void print() {
+    for (auto a: neighbors) {
+      cout << "i have a neighbor " << a.first << ", " << a.second << " away." << endl;
+    }
+  }
 };
 int ncount;
 vector<Node*> nodes;
@@ -86,10 +92,19 @@ void makeNeighbors(vector<vector<int>> roads) {
     nodes[from]->neighbors[to] = dist;
   }
 }
+
+void printme() {
+  int count = 1;
+  for (Node* n: nodes) {
+    cout << "i am node " << count << endl;
+    n->print();
+  }
+}
 public:
     int minScore(int n, vector<vector<int>>& roads) {
       ncount = n;
       makeNodes();
       makeNeighbors(roads);
+      printme();
     }
 };
