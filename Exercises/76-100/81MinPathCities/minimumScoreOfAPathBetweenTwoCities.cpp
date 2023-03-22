@@ -54,6 +54,9 @@ Acceptance Rate
 
 // are we just doing djikstra's again?
 
+// after reading instructions again, this is not djikstra
+// this is an islands problem - find the reachable nodes from 1, the min path is in this set.  b/c if 1 can reach it, 4 can reach it too.
+
 #include <vector>
 using namespace std;
 class Solution {
