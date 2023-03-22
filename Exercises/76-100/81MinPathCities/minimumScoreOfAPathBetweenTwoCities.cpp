@@ -66,6 +66,7 @@ Acceptance Rate
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 class Solution {
@@ -102,12 +103,33 @@ void printme() {
     count++;
   }
 }
+
+int bfsFindMin() {
+  unordered_map<int, bool> visited;
+  int res = 99999999;
+  Node* start = nodes[0];
+  visited[0] = true;
+  queue<Node*> neighbors;
+  neighbors.push(start);
+  while (!neighbors.empty()) {
+    queue<Node*> nneighbors;
+    Node* cur = neighbors.front();
+    neighbors.pop();
+    for (auto a: cur->neighbors) {
+      if (visited[a.first]) continue;
+
+      visited[a.first] = true;
+      nneighbors.push(nodes[a.first]);
+      if (a.second < res) res = a.second;
+    }
+    neighbors = nneighbors;
+  }
+}
 public:
     int minScore(int n, vector<vector<int>>& roads) {
       ncount = n;
       makeNodes();
       makeNeighbors(roads);
-      printme();
-      return 0;
+      return bfsFindMin();
     }
 };
