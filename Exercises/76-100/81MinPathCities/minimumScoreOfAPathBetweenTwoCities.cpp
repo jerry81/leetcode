@@ -98,6 +98,7 @@ void printme() {
   for (Node* n: nodes) {
     cout << "i am node " << count << endl;
     n->print();
+    count++;
   }
 }
 public:
@@ -106,5 +107,6 @@ public:
       makeNodes();
       makeNeighbors(roads);
       printme();
+      return 0;
     }
 };
