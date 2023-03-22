@@ -86,15 +86,16 @@ void makeNodes() {
 }
 void makeNeighbors(vector<vector<int>> roads) {
   for (vector<int> v: roads) {
-    int from = v[0];
-    int to = v[1];
+    int from = v[0] - 1;
+    int to = v[1] - 1;
     int dist = v[2];
     nodes[from]->neighbors[to] = dist;
+    nodes[to]->neighbors[from] = dist;
   }
 }
 
 void printme() {
-  int count = 1;
+  int count = 0;
   for (Node* n: nodes) {
     cout << "i am node " << count << endl;
     n->print();
