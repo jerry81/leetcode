@@ -124,6 +124,7 @@ int bfsFindMin() {
     }
     neighbors = nneighbors;
   }
+  return res;
 }
 public:
     int minScore(int n, vector<vector<int>>& roads) {
