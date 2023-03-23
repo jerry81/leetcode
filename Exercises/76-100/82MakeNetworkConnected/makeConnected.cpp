@@ -50,10 +50,24 @@ Acceptance Rate
 */
 
 #include <vector>
+using namespace std;
 
 class Solution {
+  int getIslands() {
+    return 0;
+  }
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
-
+      if (connections.size() < (n - 1)) return -1;
+      return 0;
     }
 };
+
+/*
+1.  build stuff
+2.  bfs to find number of islands
+3.  calculate total number of cables in the connected islands.  the "island" only needs node count-1 cables
+4.  cables "swaps" needed are # of islands - 1
+5.  edge case - not enough cables
+
+*/
