@@ -50,15 +50,43 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
+#include <queue>
 using namespace std;
 
+
+
 class Solution {
+int ncount;
+struct Node {
+  int id;
+  unordered_map<int, bool> neighbors;
+};
+vector<Node*> nodes;
   int getIslands() {
     return 0;
   }
+  void makeNodes() {
+  for (int i = 0; i < ncount; ++i) {
+    Node *n = new Node();
+    n->id = i;
+    nodes.push_back(n);
+  }
+}
+void makeNeighbors(vector<vector<int>> roads) {
+  for (vector<int> v: roads) {
+    int from = v[0];
+    int to = v[1];
+    nodes[from]->neighbors[to] = true;
+    nodes[to]->neighbors[from] = true;
+  }
+}
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
       if (connections.size() < (n - 1)) return -1;
+      ncount = n;
+      makeNodes();
+      makeNeighbors(connections);
       return 0;
     }
 };
@@ -70,4 +98,10 @@ public:
 4.  cables "swaps" needed are # of islands - 1
 5.  edge case - not enough cables
 
+*/
+
+/*
+
+- after some thinking
+- find number of cables in each of the islands - there could be more than one island with a surplus of cables
 */
