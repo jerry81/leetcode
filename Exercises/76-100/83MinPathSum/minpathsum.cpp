@@ -44,8 +44,24 @@ using namespace std;
 
 
 class Solution {
+vector<vector<int>> dists;
+int pathR(int y, int x) {
+}
 public:
     int minPathSum(vector<vector<int>>& grid) {
-
+      for (auto y: grid) {
+        vector<int> row;
+        for (auto x: y) {
+          row.push_back(-1);
+        }
+        dists.push_back(row);
+      }
     }
 };
+
+/*
+
+greedy out because of example 1
+comprehensive checking
+
+*/
