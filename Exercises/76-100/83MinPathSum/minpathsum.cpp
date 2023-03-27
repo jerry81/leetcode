@@ -45,10 +45,26 @@ using namespace std;
 
 class Solution {
 vector<vector<int>> dists;
-int pathR(int y, int x) {
+vector<vector<int>> original;
+int w;
+int h;
+void pathR(int y, int x) {
+  if (y >= h) return;
+  if (x >= w) return;
+
+  int cur = original[y][x];
+  int top = 0;
+  int left = 0;
+  if ((y-1) >= 0) top = dists[y-1][x];
+  if ((x-1) >= 0) left = dists[y][x-1];
+  dists[y][x] = top + left + cur;
+  pathR(y+1, x);
+  pathR(y, x+1);
 }
 public:
     int minPathSum(vector<vector<int>>& grid) {
+      h = grid.size();
+      w = grid[0].size();
       for (auto y: grid) {
         vector<int> row;
         for (auto x: y) {
@@ -56,6 +72,8 @@ public:
         }
         dists.push_back(row);
       }
+      pathR(0,0);
+      return dists[h-1][w-1];
     }
 };
 
