@@ -48,18 +48,7 @@ vector<vector<int>> dists;
 vector<vector<int>> original;
 int w;
 int h;
-void pathR(int y, int x) {
-  if (y >= h) return;
-  if (x >= w) return;
-
-  int cur = original[y][x];
-  int top = 0;
-  int left = 0;
-  if ((y-1) >= 0) top = dists[y-1][x];
-  if ((x-1) >= 0) left = dists[y][x-1];
-  dists[y][x] = top + left + cur;
-  pathR(y+1, x);
-  pathR(y, x+1);
+void pathBFS() {
 }
 public:
     int minPathSum(vector<vector<int>>& grid) {
@@ -72,7 +61,7 @@ public:
         }
         dists.push_back(row);
       }
-      pathR(0,0);
+      pathBFS();
       return dists[h-1][w-1];
     }
 };
@@ -82,4 +71,6 @@ public:
 greedy out because of example 1
 comprehensive checking
 
+this is DFS and dfs fails with this scheme
+use bfs instead
 */
