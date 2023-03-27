@@ -73,11 +73,15 @@ void pathBFS() {
     int rx = curx + 1;
     int uy = cury - 1;
     int dy = cury + 1;
-    int left = 0;
-    if (lx >= 0) left = original[cury][lx];
-    int top = 0;
-    if (uy >= 0) top = original[uy][curx];
-    int minp = min(left,top);
+    int left = -1;
+    if (lx >= 0) left = dists[cury][lx];
+    int top = -1;
+    if (uy >= 0) top = dists[uy][curx];
+    int minp;
+    if (left < 0 && top < 0) minp = 0;
+    if (left >= 0 && top >= 0) minp = min(left, top);
+    if (left >= 0) minp = left;
+    if (top >= 0) minp = top;
     dists[cury][curx] = original[cury][curx] + minp;
     if (rx < w) {
       Point right;
@@ -95,6 +99,7 @@ void pathBFS() {
 }
 public:
     int minPathSum(vector<vector<int>>& grid) {
+      original = grid;
       h = grid.size();
       w = grid[0].size();
       for (auto y: grid) {
