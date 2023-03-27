@@ -77,11 +77,13 @@ void pathBFS() {
     if (lx >= 0) left = dists[cury][lx];
     int top = -1;
     if (uy >= 0) top = dists[uy][curx];
+
     int minp;
     if (left < 0 && top < 0) minp = 0;
-    if (left >= 0 && top >= 0) minp = min(left, top);
+
     if (left >= 0) minp = left;
     if (top >= 0) minp = top;
+    if (left >= 0 && top >= 0) minp = min(left, top);
     dists[cury][curx] = original[cury][curx] + minp;
     if (rx < w) {
       Point right;
