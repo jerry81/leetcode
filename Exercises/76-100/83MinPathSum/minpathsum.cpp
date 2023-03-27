@@ -39,82 +39,35 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <iostream>
-#include <unordered_map>
-#include <queue>
 using namespace std;
 
 
 class Solution {
-struct Point {
-  int x = -1;
-  int y = -1;
-  string to_hash() {
-    return y+","+x;
-  }
-};
-vector<vector<int>> dists;
-vector<vector<int>> original;
-int w;
-int h;
-void pathBFS() {
-  unordered_map<string, bool> visited; // is it needed?
-  Point root;
-  root.x = 0;
-  root.y = 0;
-  queue<Point> neighbors;
-  neighbors.push(root);
-  while (!neighbors.empty()) {
-    Point cur = neighbors.front();
-    neighbors.pop();
-    int curx = cur.x;
-    int cury = cur.y;
-    int lx = curx - 1;
-    int rx = curx + 1;
-    int uy = cury - 1;
-    int dy = cury + 1;
-    int left = -1;
-    if (lx >= 0) left = dists[cury][lx];
-    int top = -1;
-    if (uy >= 0) top = dists[uy][curx];
-
-    int minp;
-    if (left < 0 && top < 0) minp = 0;
-
-    if (left >= 0) minp = left;
-    if (top >= 0) minp = top;
-    if (left >= 0 && top >= 0) minp = min(left, top);
-    dists[cury][curx] = original[cury][curx] + minp;
-    if (rx < w) {
-      Point right;
-      right.x = rx;
-      right.y = cury;
-      neighbors.push(right);
-    }
-    if (dy < h) {
-      Point down;
-      down.x = curx;
-      down.y = dy;
-      neighbors.push(down);
-    }
-  }
-}
 public:
     int minPathSum(vector<vector<int>>& grid) {
-      original = grid;
-      h = grid.size();
-      w = grid[0].size();
-      for (auto y: grid) {
-        vector<int> row;
-        for (auto x: y) {
-          row.push_back(-1);
+      int h = grid.size();
+      int w = grid[0].size();
+      for (int i = 0; i < h; ++i) {
+        int t = i - 1;
+        for (int j = 0; j < w; ++j) {
+          if (i == 0 && j == 0) continue;
+          int l = j -1;
+          int minp = 0;
+
+          if (t >= 0 && l >= 0) {
+           minp = min(grid[t][j], grid[i][l]);
+          } else if (t >= 0) {
+            minp = grid[t][j];
+          } else {
+            minp = grid[i][l];
+          }
+          grid[i][j] += minp;
         }
-        dists.push_back(row);
       }
-      pathBFS();
-      return dists[h-1][w-1];
+      return grid[h-1][w-1];
     }
 };
+
 
 /*
 
@@ -123,4 +76,11 @@ comprehensive checking
 
 this is DFS and dfs fails with this scheme
 use bfs instead
+*/
+
+/*
+
+brute force bfs failed
+optmization - do a single m*n traversal
+
 */
