@@ -63,10 +63,18 @@ class Solution {
 int result = INT_MAX;
 vector<int> _costs;
 void traverse(vector<int> remaining, int accum) {
-  if (remaining.size() == 0 && accum < result) {
+  if (accum > result) return;
+
+  if (remaining.size() <= 0 && accum < result) {
     result = accum;
     return;
   }
+
+  remaining.erase(remaining.begin());
+
+  // 1 day
+
+  traverse(remaining, accum+_costs[0]);
 }
 
 public:
