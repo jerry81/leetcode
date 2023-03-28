@@ -55,22 +55,36 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 #include <iostream>
 using namespace std;
 
 class Solution {
 int result = INT_MAX;
 vector<int> _costs;
-void traverse(vector<int> remaining) {
+void traverse(vector<int> remaining, int accum) {
+  if (remaining.size() == 0 && accum < result) {
+    result = accum;
+    return;
+  }
 }
 
 public:
     int mincostTickets(vector<int>& days, vector<int>& costs) {
       _costs = costs;
-      traverse(days);
+
+      traverse(days, 0);
       return result;
     }
 };
+
+int main() {
+  vector<int> test1 = {1,2,3};
+  test1.erase(test1.begin());
+  test1.erase(test1.begin());
+  cerr << "expect size 1: " << test1.size() << endl;
+  cerr << "expect 3: " << test1[0] <<endl;
+}
 
 /*
 
