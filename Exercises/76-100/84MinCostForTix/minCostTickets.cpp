@@ -61,12 +61,26 @@ Acceptance Rate
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
   int result = INT_MAX;
   vector<int> _costs;
   vector<int> _days;
+  unordered_map<int, int> minCosts;
+
+  bool has(int idx) {
+    return minCosts.find(idx) != minCosts.end();
+  }
+
+  void set(int idx, int value) {
+    if (!has(idx)) {
+      minCosts[idx] = value;
+    } else {
+      if (value < minCosts[idx]) minCosts[idx] = value;
+    }
+  }
   int bsearch(int start, int target) {
     int end = _days.size() - 1;
     while (start <= end) {
@@ -85,6 +99,8 @@ class Solution {
   void traverse(int idx, int accum) {
     if (accum > result) return;
 
+    if (has(idx) && accum > minCosts[idx]) return;
+
 
     if (idx >= _days.size()) {
       if (accum < result) result = accum;
@@ -94,16 +110,18 @@ class Solution {
 
     int startday = _days[idx];
 
-    int nextday = startday + 30;
+    int curCost = accum + _costs[2];
+    int curIdx = bsearch(idx, startday+30);
+    set(curIdx, curCost);
 
-    traverse(bsearch(idx, nextday), accum + _costs[2]);
+
+    traverse(curIdx, curCost);
 
     // 7 day
-
-    nextday = startday + 7;
-
-    traverse(bsearch(idx, nextday), accum + _costs[1]);
-
+    curCost = accum + _costs[1];
+    curIdx = bsearch(idx, startday+7);
+    set(curIdx, curCost);
+    traverse(curIdx, curCost);
     traverse(idx+1, accum + _costs[0]);
 
     // 1 day
@@ -147,4 +165,6 @@ costs [21,115,345]
 failing case
 days [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,24,25,27,28,29,30,31,34,37,38,39,41,43,44,45,47,48,49,54,57,60,62,63,66,69,70,72,74,76,78,80,81,82,83,84,85,88,89,91,93,94,97,99]
 costs [9,38,134]
+
+- nope still fails - maybe we do need dp after all
 */
