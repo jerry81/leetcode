@@ -65,8 +65,9 @@ vector<int> _costs;
 void traverse(vector<int> remaining, int accum) {
   if (accum > result) return;
 
-  if (remaining.size() <= 0 && accum < result) {
-    result = accum;
+  if (remaining.size() <= 0) {
+    if (accum < result) result = accum;
+
     return;
   }
 
@@ -82,7 +83,7 @@ void traverse(vector<int> remaining, int accum) {
 
   int nextday = startday + 7;
 
-  while (int curday = remaining[0] < nextday) {
+  while (remaining.size() > 0 && remaining[0] < nextday) {
     remaining.erase(remaining.begin());
   }
 
@@ -91,7 +92,7 @@ void traverse(vector<int> remaining, int accum) {
   nextday = startday + 30;
 
   // probably can somehow combine this with the above block
-  while (int curday = remaining[0] < nextday)  {
+  while (remaining.size() > 0 && remaining[0] < nextday)  {
     remaining.erase(remaining.begin());
   }
 
