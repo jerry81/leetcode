@@ -73,14 +73,6 @@ class Solution {
   bool has(int idx) {
     return minCosts.find(idx) != minCosts.end();
   }
-
-  void set(int idx, int value) {
-    if (!has(idx)) {
-      minCosts[idx] = value;
-    } else {
-      if (value < minCosts[idx]) minCosts[idx] = value;
-    }
-  }
   int bsearch(int start, int target) {
     int end = _days.size() - 1;
     while (start <= end) {
@@ -96,54 +88,34 @@ class Solution {
     return end + 1;
   }
 
-  void traverse(int idx, int accum) {
-    if (accum > result) return;
-
-    if (has(idx) && accum > minCosts[idx]) return;
-
-
-    if (idx >= _days.size()) {
-      if (accum < result) result = accum;
-
-      return;
+  int traverse(int idx) {
+     if (idx >= _days.size()) {
+      minCosts[idx] = 0;
+      return 0;
     }
 
-    int startday = _days[idx];
+    if (has(idx)) return minCosts[idx];
 
-    int curCost = accum + _costs[2];
-    int curIdx = bsearch(idx, startday+30);
-    set(curIdx, curCost);
+    int cost = (_costs[0] + traverse(idx+1));
 
+    int day7idx = bsearch(idx, _days[idx] + 7);
 
-    traverse(curIdx, curCost);
+    int day30idx = bsearch(idx, _days[idx] + 30);
 
-    // 7 day
-    curCost = accum + _costs[1];
-    curIdx = bsearch(idx, startday+7);
-    set(curIdx, curCost);
-    traverse(curIdx, curCost);
-    traverse(idx+1, accum + _costs[0]);
-
-    // 1 day
+    cost = min(cost, _costs[1]+traverse(day7idx));
+    cost = min(cost, _costs[2]+traverse(day30idx));
+    minCosts[idx] = cost;
+    return cost;
   }
 
  public:
   int mincostTickets(vector<int>& days, vector<int>& costs) {
     _costs = costs;
     _days = days;
-
-    traverse(0, 0);
-    return result;
+    return traverse(0);
   }
 };
 
-int main() {
-  vector<int> test1 = {1, 2, 3};
-  test1.erase(test1.begin());
-  test1.erase(test1.begin());
-  cerr << "expect size 1: " << test1.size() << endl;
-  cerr << "expect 3: " << test1[0] << endl;
-}
 
 /*
 
@@ -167,4 +139,11 @@ days [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,24,25,27,28,29,30,31,34,3
 costs [9,38,134]
 
 - nope still fails - maybe we do need dp after all
+
+- with dp, passed just 2 more tests
+- on 48,
+
+[2,3,4,5,7,8,9,10,11,12,13,14,16,18,19,21,25,27,28,29,30,31,32,33,35,36,40,41,42,44,45,46,47,48,51,54,55,57,58,59,61,64,67,71,72,77,79,81,83,84,85,86,87,88,90,91,93,94,95,96,97,98,101,105,108,109,110,111,112,113,114,115,116,117,118,119,120,122,123,124,125,126,127,129,130,133,134,136,138,139,140,141,146,147,149,150,151,152,153,154,155,156,157,159,162,165,166,167,168,170,171,172,173,174,175,176,177,178,180,181,183,185,186,188,189,190,194,196,197,198,202,204,206,208,209,210,211,215,216,217,218,219,220,221,227,232,233,234,235,236,237,238,240,241,242,243,244,245,246,248,252,253,254,257,261,262,263,264,265,267,269,271,273,274,279,280,282,283,284,287,289,290,291,293,294,295,297,298,300,301,303,304,305,306,307,309,310,312,313,314,315,316,319,321,323,324,325,326,327,328,329,330,332,335,336,337,338,339,340,341,342,343,346,347,348,349,350,351,358,359,361,362,363]
+
+[4,22,93]
 */
