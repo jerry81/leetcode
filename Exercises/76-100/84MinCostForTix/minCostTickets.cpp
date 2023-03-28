@@ -59,8 +59,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int result = INT_MAX;
+vector<int> _costs;
+void traverse(vector<int> remaining) {
+}
+
 public:
     int mincostTickets(vector<int>& days, vector<int>& costs) {
-
+      _costs = costs;
+      traverse(days);
+      return result;
     }
 };
+
+/*
+
+start - traverse it as a tree
+
+*/
