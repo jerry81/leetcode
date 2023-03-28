@@ -66,42 +66,41 @@ using namespace std;
 class Solution {
   int result = INT_MAX;
   vector<int> _costs;
-  void traverse(vector<int> remaining, int accum) {
+  vector<int> _days;
+  void traverse(int idx, int accum) {
     if (accum > result) return;
 
-    if (remaining.size() <= 0) {
+
+    if (idx >= _days.size()) {
       if (accum < result) result = accum;
 
       return;
     }
 
-    int startday = remaining[0];
+    int startday = _days[idx];
 
     int nextday = startday + 30;
 
-    vector<int> rem30 = remaining;
-    vector<int> rem7 = remaining;
-
+    int curIdx = idx;
     // probably can somehow combine this with the above block
-    while (rem30.size() > 0 && rem30[0] < nextday) {
-      rem30.erase(rem30.begin());
+    while (curIdx < _days.size() && _days[curIdx] < nextday) {
+      ++curIdx;
     }
 
-    traverse(rem30, accum + _costs[2]);
+    traverse(curIdx, accum + _costs[2]);
 
     // 7 day
 
     nextday = startday + 7;
 
-    while (rem7.size() > 0 && rem7[0] < nextday) {
-      rem7.erase(rem7.begin());
+    curIdx = idx;
+    while (curIdx < _days.size() && _days[curIdx] < nextday) {
+      ++curIdx;
     }
 
-    traverse(remaining, accum + _costs[1]);
+    traverse(curIdx, accum + _costs[1]);
 
-    remaining.erase(remaining.begin());
-
-    traverse(remaining, accum + _costs[0]);
+    traverse(idx+1, accum + _costs[0]);
 
     // 1 day
   }
@@ -109,8 +108,9 @@ class Solution {
  public:
   int mincostTickets(vector<int>& days, vector<int>& costs) {
     _costs = costs;
+    _days = days;
 
-    traverse(days, 0);
+    traverse(0, 0);
     return result;
   }
 };
@@ -132,6 +132,9 @@ TLE on case 26
 - do 30 day first
 - then 7 day
 - then 2 day
+- still TLE
+
+- try using ptr instead of doing erase ops
 
 failing case
 days [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,24,25,27,28,29,30,31,34,37,38,39,41,43,44,45,47,48,49,54,57,60,62,63,66,69,70,72,74,76,78,80,81,82,83,84,85,88,89,91,93,94,97,99]
