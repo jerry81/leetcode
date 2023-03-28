@@ -70,11 +70,32 @@ void traverse(vector<int> remaining, int accum) {
     return;
   }
 
+  int startday = remaining[0];
+
   remaining.erase(remaining.begin());
 
   // 1 day
 
   traverse(remaining, accum+_costs[0]);
+
+  // 7 day
+
+  int nextday = startday + 7;
+
+  while (int curday = remaining[0] < nextday) {
+    remaining.erase(remaining.begin());
+  }
+
+  traverse(remaining, accum+_costs[1]);
+
+  nextday = startday + 30;
+
+  // probably can somehow combine this with the above block
+  while (int curday = remaining[0] < nextday)  {
+    remaining.erase(remaining.begin());
+  }
+
+  traverse(remaining, accum+_costs[2]);
 }
 
 public:
