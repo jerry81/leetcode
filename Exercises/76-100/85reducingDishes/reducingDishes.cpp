@@ -48,11 +48,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution {
+vector<int> sorted;
 public:
     int maxSatisfaction(vector<int>& satisfaction) {
-
+      sorted = satisfaction;
+      sort(sorted.begin(), sorted.end());
+      if (sorted[sorted.size()-1] < 0) return 0;
+      return 1;
     }
 };
+
+/*
+
+naive:
+1.  sort
+2.  if no positive numbers, return 0
+
+
+*/
