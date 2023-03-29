@@ -53,11 +53,27 @@ using namespace std;
 
 class Solution {
 vector<int> sorted;
+int getSum(int start) {
+  int multiplier = 1;
+  int sum = 0;
+  while (start < sorted.size()) {
+   sum+=multiplier*sorted[start];
+   ++multiplier;
+  }
+  return sum;
+}
 public:
     int maxSatisfaction(vector<int>& satisfaction) {
       sorted = satisfaction;
       sort(sorted.begin(), sorted.end());
       if (sorted[sorted.size()-1] < 0) return 0;
+      int max = 0;
+      for (int idx = 0; idx < sorted.size(); ++idx) {
+        if (sorted[idx] >= 0) return max;
+
+        int sum = getSum(idx);
+        if (sum > max) max = sum;
+      }
       return 1;
     }
 };
@@ -67,6 +83,6 @@ public:
 naive:
 1.  sort
 2.  if no positive numbers, return 0
-
+3.  start trials
 
 */
