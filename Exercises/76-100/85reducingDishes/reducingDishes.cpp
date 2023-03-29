@@ -50,14 +50,13 @@ Acceptance Rate
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 class Solution {
 vector<int> sorted;
 int getSum(int start) {
   int multiplier = 1;
   int sum = 0;
-  while (start < sorted.size()) {
-   sum+=multiplier*sorted[start];
+  for (int s = start; s < sorted.size(); ++s) {
+   sum+=multiplier*sorted[s];
    ++multiplier;
   }
   return sum;
@@ -66,13 +65,17 @@ public:
     int maxSatisfaction(vector<int>& satisfaction) {
       sorted = satisfaction;
       sort(sorted.begin(), sorted.end());
+      for (int item:sorted) {
+        cout << item << endl;
+      }
       if (sorted[sorted.size()-1] < 0) return 0;
       int max = 0;
       for (int idx = 0; idx < sorted.size(); ++idx) {
-        if (sorted[idx] >= 0) return max;
-
         int sum = getSum(idx);
+
         if (sum > max) max = sum;
+
+        if (sorted[idx] >= 0) return max;
       }
       return 1;
     }
