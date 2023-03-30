@@ -61,6 +61,7 @@ using namespace std;
 class Solution {
 public:
     bool isScramble(string s1, string s2) {
+      if (s1.size() <= 3) return true;
 
     }
 };
