@@ -55,13 +55,77 @@ Acceptance Rate
 
 #include <string>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+string target;
+unordered_map<string, bool> lookup;
+
+string to_hash(int l, int idx1, int idx2) {
+  return to_string(l)+","+to_string(idx1)+","+to_string(idx2);
+}
+
+bool isScrambleR(string s1, int idx1, int idx2) {
+  int len = s1.size();
+  string hsh = to_hash(len,idx1,idx2);
+  if (lookup.find(hsh) != lookup.end()) return lookup[hsh];
+  if (len == 0) return true;
+  if (len == 1) {
+    lookup[hsh] = s1[idx1] == target[idx2];
+    return lookup[hsh];
+  }
+
+  for (int si = 1; si < len; ++ si) {
+    string s1a = s1.substr(0,si);
+    string s1b = s1.substr(si);
+    int sublen = len - si;
+    string hsh1 = to_hash(si, 0,0);
+    string hsh2 = to_hash(si, len-si,0);
+    string hsh3 = to_hash(sublen, si,si);
+    string hsh4 = to_hash(sublen, 0, len-si);
+    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(s1a, 0, 0);
+
+    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(s1b, si, si);
+
+    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(s1a, len-si, 0); //swapped
+
+    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(s1b, 0, len-si);
+
+    if (lookup[hsh1] && lookup[hsh2]) {
+      lookup[hsh] = true;
+      return lookup[hsh];
+    }
+
+    if (lookup[hsh3] && lookup[hsh4]) {
+      lookup[hsh] = true;
+      return lookup[hsh];
+    }
+  }
+  lookup[hsh] = false;
+  return lookup[hsh];
+}
 public:
     bool isScramble(string s1, string s2) {
-      if (s1.size() <= 3) return true;
+      target = s2;
 
+      return isScrambleR(s1,0,0);
+      // end up with s1a s1b and s2a s2b
+      // check isScramble for [s1a, s2a], [s1b, s2a]
     }
 };
+
+// editorial of shame:
+/*
+
+dynamic programming
+recursively try all possibilities (all splits)
+
+subproblem, how to check if end condition is met?
+
+cut both the original and the target and compare substrings to each other.
+the order of all items in the substrings are fixed relative to the other substring.
+
+// question how to memoize??
+*/
