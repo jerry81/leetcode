@@ -59,6 +59,7 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
+string source;
 string target;
 unordered_map<string, bool> lookup;
 
@@ -66,19 +67,16 @@ string to_hash(int l, int idx1, int idx2) {
   return to_string(l)+","+to_string(idx1)+","+to_string(idx2);
 }
 
-bool isScrambleR(string s1, int idx1, int idx2) {
-  int len = s1.size();
+bool isScrambleR(int len, int idx1, int idx2) {
   string hsh = to_hash(len,idx1,idx2);
   if (lookup.find(hsh) != lookup.end()) return lookup[hsh];
   if (len == 0) return true;
   if (len == 1) {
-    lookup[hsh] = s1[0] == target[idx2];
+    lookup[hsh] = source[idx1] == target[idx2];
     return lookup[hsh];
   }
 
   for (int si = 1; si < len; ++ si) {
-    string s1a = s1.substr(0,si);
-    string s1b = s1.substr(si);
     int sublen = len - si;
     int idx1b = idx1+si;
     int idx2b = idx2+si;
@@ -88,14 +86,13 @@ bool isScrambleR(string s1, int idx1, int idx2) {
     string hsh2 = to_hash(sublen, idx1b,idx2b);
     string hsh3 = to_hash(si, idx1,swapped2);
     string hsh4 = to_hash(sublen, swapped, idx2);
-    cout << "hashes " << hsh1 << " " << hsh2 << " " << hsh3 << " " << hsh4 << endl;
-    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(s1a, idx1, idx2);
+    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(si, idx1, idx2);
 
-    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(s1b, idx1b, idx2b);
+    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(sublen, idx1b, idx2b);
 
-    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(s1a, idx1, swapped2);
+    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(si, idx1, swapped2);
 
-    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(s1b, swapped, idx2);
+    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(sublen, swapped, idx2);
 
     if (lookup[hsh1] && lookup[hsh2]) {
       lookup[hsh] = true;
@@ -113,8 +110,9 @@ bool isScrambleR(string s1, int idx1, int idx2) {
 public:
     bool isScramble(string s1, string s2) {
       target = s2;
+      source = s1;
 
-      return isScrambleR(s1,0,0);
+      return isScrambleR(s1.size(),0,0);
       // end up with s1a s1b and s2a s2b
       // check isScramble for [s1a, s2a], [s1b, s2a]
     }
@@ -132,4 +130,11 @@ cut both the original and the target and compare substrings to each other.
 the order of all items in the substrings are fixed relative to the other substring.
 
 // question how to memoize??
+
+// 3 vars - len of string, "start index of s1, "start index of s2"
+
+- TLE on a late case
+- how to improve?
+
+- stop passing the string and chopping it up
 */
