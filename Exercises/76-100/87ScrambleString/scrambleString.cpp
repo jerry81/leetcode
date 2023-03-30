@@ -55,60 +55,73 @@ Acceptance Rate
 
 #include <string>
 #include <iostream>
-#include <unordered_map>
+#include <vector>
 
 using namespace std;
 class Solution {
 string source;
 string target;
-unordered_map<string, bool> lookup;
+vector<vector<vector<int>>> lookup;
 
-string to_hash(int l, int idx1, int idx2) {
-  return to_string(l)+","+to_string(idx1)+","+to_string(idx2);
-}
 
 bool isScrambleR(int len, int idx1, int idx2) {
-  string hsh = to_hash(len,idx1,idx2);
-  if (lookup.find(hsh) != lookup.end()) return lookup[hsh];
+  int cached = lookup[len][idx1][idx2];
+  cerr << "cahced is " << cached << endl;
+  if (cached > -1) return cached;
   if (len == 0) return true;
   if (len == 1) {
-    lookup[hsh] = source[idx1] == target[idx2];
-    return lookup[hsh];
+    int res = source[idx1] == target[idx2];
+    lookup[len][idx1][idx2] = res;
+    return res;
   }
 
-  for (int si = 1; si < len; ++ si) {
+  for (int si = 1; si < len; ++si) {
     int sublen = len - si;
     int idx1b = idx1+si;
     int idx2b = idx2+si;
     int swapped = idx1+si;
     int swapped2 = idx2+sublen;
-    string hsh1 = to_hash(si, idx1,idx2);
-    string hsh2 = to_hash(sublen, idx1b,idx2b);
-    string hsh3 = to_hash(si, idx1,swapped2);
-    string hsh4 = to_hash(sublen, swapped, idx2);
-    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(si, idx1, idx2);
+    int hsh1 = lookup[si][idx1][idx2];
+    int hsh2 = lookup[sublen][idx1b][idx2b];
+    int hsh3 = lookup[si][idx1][swapped2];
+    int hsh4 = lookup[sublen][swapped][idx2];
+    if (hsh1 < 0) lookup[si][idx1][idx2] = isScrambleR(si, idx1, idx2);
 
-    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(sublen, idx1b, idx2b);
 
-    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(si, idx1, swapped2);
+    if (hsh2 < 0) lookup[sublen][idx1b][idx2b] = isScrambleR(sublen, idx1b, idx2b);
 
-    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(sublen, swapped, idx2);
+    if (hsh3 < 0) lookup[si][idx1][swapped2] = isScrambleR(si, idx1, swapped2);
 
-    if (lookup[hsh1] && lookup[hsh2]) {
-      lookup[hsh] = true;
-      return lookup[hsh];
+    if (hsh4 < 0) lookup[sublen][swapped][idx2] = isScrambleR(sublen, swapped, idx2);
+
+    if (lookup[si][idx1][idx2] && lookup[sublen][idx1b][idx2b]) {
+      lookup[len][idx1][idx2] = true;
+      return lookup[len][idx1][idx2];
+;
     }
 
-    if (lookup[hsh3] && lookup[hsh4]) {
-      lookup[hsh] = true;
-      return lookup[hsh];
+    if (lookup[si][idx1][swapped2] && lookup[sublen][swapped][idx2]) {
+      lookup[len][idx1][idx2] = true;
+      return lookup[len][idx1][idx2];
     }
   }
-  lookup[hsh] = false;
-  return lookup[hsh];
+  lookup[len][idx1][idx2]= false;
+  return lookup[len][idx1][idx2];
 }
 public:
     bool isScramble(string s1, string s2) {
+      int d = s1.size();
+      for (int i = 0; i < d+1; ++i) {
+        vector<vector<int>> lenvec;
+        for (int j = 0; j < d; ++j) {
+          vector<int> startvec1;
+          for (int k = 0; k < d; ++k) {
+            startvec1.push_back(-1);
+          }
+          lenvec.push_back(startvec1);
+        }
+        lookup.push_back(lenvec);
+      }
       target = s2;
       source = s1;
 
@@ -137,4 +150,9 @@ the order of all items in the substrings are fixed relative to the other substri
 - how to improve?
 
 - stop passing the string and chopping it up
+- still TLE
+
+- try more efficient dp table?
+- no unordered map and building hash each time.
+- use 3d array
 */
