@@ -58,7 +58,6 @@ Acceptance Rate
 #include <unordered_map>
 
 using namespace std;
-
 class Solution {
 string target;
 unordered_map<string, bool> lookup;
@@ -73,7 +72,7 @@ bool isScrambleR(string s1, int idx1, int idx2) {
   if (lookup.find(hsh) != lookup.end()) return lookup[hsh];
   if (len == 0) return true;
   if (len == 1) {
-    lookup[hsh] = s1[idx1] == target[idx2];
+    lookup[hsh] = s1[0] == target[idx2];
     return lookup[hsh];
   }
 
@@ -81,17 +80,22 @@ bool isScrambleR(string s1, int idx1, int idx2) {
     string s1a = s1.substr(0,si);
     string s1b = s1.substr(si);
     int sublen = len - si;
-    string hsh1 = to_hash(si, 0,0);
-    string hsh2 = to_hash(si, len-si,0);
-    string hsh3 = to_hash(sublen, si,si);
-    string hsh4 = to_hash(sublen, 0, len-si);
-    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(s1a, 0, 0);
+    int idx1b = idx1+si;
+    int idx2b = idx2+si;
+    int swapped = idx1+si;
+    int swapped2 = idx2+sublen;
+    string hsh1 = to_hash(si, idx1,idx2);
+    string hsh2 = to_hash(sublen, idx1b,idx2b);
+    string hsh3 = to_hash(si, idx1,swapped2);
+    string hsh4 = to_hash(sublen, swapped, idx2);
+    cout << "hashes " << hsh1 << " " << hsh2 << " " << hsh3 << " " << hsh4 << endl;
+    if (lookup.find(hsh1) == lookup.end()) lookup[hsh1] = isScrambleR(s1a, idx1, idx2);
 
-    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(s1b, si, si);
+    if (lookup.find(hsh2) == lookup.end()) lookup[hsh2] = isScrambleR(s1b, idx1b, idx2b);
 
-    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(s1a, len-si, 0); //swapped
+    if (lookup.find(hsh3) == lookup.end()) lookup[hsh3] = isScrambleR(s1a, idx1, swapped2);
 
-    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(s1b, 0, len-si);
+    if (lookup.find(hsh4) == lookup.end()) lookup[hsh4] = isScrambleR(s1b, swapped, idx2);
 
     if (lookup[hsh1] && lookup[hsh2]) {
       lookup[hsh] = true;
