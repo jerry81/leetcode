@@ -56,3 +56,21 @@ public:
 
     }
 };
+
+/*
+
+total ways to cut is a combinations without repititions problem
+
+c(n,r) where n is (width-1) + (height-1) and r is k
+
+expanded, this is fact((width-1) + (height-1)) / (fact(r) * fact((width-1) + (height-1) - r)))
+
+we have all ways to slice
+- find ways to slice that don't have apple
+
+- not very computer programmy
+
+- after a slice you have a smaller subproblem
+- draw tree of possibilities
+
+*/
