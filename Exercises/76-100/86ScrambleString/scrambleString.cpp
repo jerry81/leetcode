@@ -66,7 +66,6 @@ vector<vector<vector<int>>> lookup;
 
 bool isScrambleR(int len, int idx1, int idx2) {
   int cached = lookup[len][idx1][idx2];
-  cerr << "cahced is " << cached << endl;
   if (cached > -1) return cached;
   if (len == 0) return true;
   if (len == 1) {
