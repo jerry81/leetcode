@@ -96,9 +96,9 @@ class Solution {
       }
 
       if (!under) {
-        while (pivot >= 0 && ((potions[pivot]*sp) > success)) {
+        while (pivot >= 0 && ((potions[pivot]*sp) >= success)) {
           pivot--;
-          if (pivot >=0 && potions[pivot]*sp > success)count++;
+          if (pivot >=0 && potions[pivot]*sp >= success)count++;
         }
       }
 
