@@ -49,9 +49,29 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
+vector<int> pairs;
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
-
+      for (int sp:spells) {
+        int spT = 0;
+        for (int po:potions) {
+          if (sp*po >= success) ++spT;
+        }
+        pairs.push_back(spT);
+      }
+      return pairs;
     }
 };
+
+/*
+
+TLE trap alert
+
+- brute force build and count
+
+*/
