@@ -79,13 +79,15 @@ class Solution {
     vector<int> pairs;
 
     sort(potions.begin(), potions.end());
-
+    int psize = potions.size();
     for (int sp : spells) {
-      int spT = 0;
-      for (int po : potions) {
-        if (sp * po >= success) ++spT;
-      }
-      pairs.push_back(spT);
+      int tgt = success/sp;
+      if (tgt*sp < success) tgt++;
+      int pivot = bsearch(potions, tgt);
+      int count = psize - pivot;
+
+      if ((potions[pivot]*sp) < success) count--;
+      pairs.push_back(count);
     }
     return pairs;
   }
