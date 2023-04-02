@@ -82,31 +82,17 @@ class Solution {
     unordered_map<int,int> val_lu;
 
     sort(potions.begin(), potions.end());
-    int psize = potions.size();
-    for (int sp : spells) {
+    for (long long sp : spells) {
       if (lu[sp]) {
         pairs.push_back(val_lu[sp]);
         continue;
       }
       lu[sp] = true;
-      long long tgt = success/sp;
+      long long tgt = ceil((double)success/sp);
 
-      if (tgt*sp < success) tgt++;
-      int pivot = bsearch(potions, tgt);
-      int count = psize - pivot;
-      bool under = false;
-      while (pivot < potions.size() && (((long long)potions[pivot]*sp) < success)) {
-        count--;
-        pivot++;
-        under = true;
-      }
+      int count = potions.end()- lower_bound(potions.begin(), potions.end(), tgt);
 
-      if (!under) {
-        while (pivot >= 0 && (((long long)potions[pivot]*sp) >= success)) {
-          pivot--;
-          if (pivot >=0 && (long long)potions[pivot]*sp >= success)count++;
-        }
-      }
+      if (count < 0) count = 0;
 
       val_lu[sp] = count;
       pairs.push_back(count);
