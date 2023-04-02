@@ -81,12 +81,28 @@ class Solution {
     sort(potions.begin(), potions.end());
     int psize = potions.size();
     for (int sp : spells) {
+      int unfloored = success/sp;
       int tgt = success/sp;
+
       if (tgt*sp < success) tgt++;
       int pivot = bsearch(potions, tgt);
       int count = psize - pivot;
+      int prod = potions[pivot]*sp;
+      bool under = false;
+      while (pivot < potions.size() && ((potions[pivot]*sp) < success)) {
+        count--;
+        pivot++;
+        under = true;
+      }
 
-      if ((potions[pivot]*sp) < success) count--;
+      if (!under) {
+        while (pivot >= 0 && ((potions[pivot]*sp) > success)) {
+          pivot--;
+          if (pivot >=0 && potions[pivot]*sp > success)count++;
+        }
+      }
+
+
       pairs.push_back(count);
     }
     return pairs;
@@ -104,4 +120,12 @@ O(N^2)
 - sort time + time to binary search each spell
 - O(2nlog(n))
 
+- fail case
+spells - [15,39,38,35,33,25,31,12,40,27,29,16,22,24,7,36,29,34,24,9,11,35,21,3,33,10,9,27,35,17,14,3,35,35,39,23,35,14,31,7]
+potions - [25,19,30,37,14,30,38,22,38,38,26,33,34,23,40,28,15,29,36,39,39,37,32,38,8,17,39,20,4,39,39,7,30,35,29,23]
+success = 317
+output - [28,33,33,33,33,33,33,23,34,33,33,29,32,33,0,33,33,33,33,13,22,33,31,0,33,17,13,33,33,30,26,0,33,33,33,33,33,26,33,0]
+expected - [28,33,33,33,33,33,33,23,34,33,33,29,32,33,0,33,33,33,33,13,22,33,31,0,33,17,13,33,33,30,27,0,33,33,33,33,33,27,33,0]
+
+(check third from last case )
 */
