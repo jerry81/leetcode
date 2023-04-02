@@ -56,8 +56,9 @@ Acceptance Rate
 #include <algorithm>
 #include <iostream>
 #include <vector>
-using namespace std;
+#include <unordered_map>
 
+using namespace std;
 class Solution {
   int bsearch(vector<int> v, long long target) {
     int low = 0;
@@ -77,10 +78,17 @@ class Solution {
   vector<int> successfulPairs(vector<int>& spells, vector<int>& potions,
                               long long success) {
     vector<int> pairs;
+    unordered_map<int,bool> lu;
+    unordered_map<int,int> val_lu;
 
     sort(potions.begin(), potions.end());
     int psize = potions.size();
     for (int sp : spells) {
+      if (lu[sp]) {
+        pairs.push_back(val_lu[sp]);
+        continue;
+      }
+      lu[sp] = true;
       long long tgt = success/sp;
 
       if (tgt*sp < success) tgt++;
@@ -100,7 +108,7 @@ class Solution {
         }
       }
 
-
+      val_lu[sp] = count;
       pairs.push_back(count);
     }
     return pairs;
