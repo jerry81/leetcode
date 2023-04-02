@@ -5,11 +5,15 @@ Medium
 595
 18
 Companies
-You are given two positive integer arrays spells and potions, of length n and m respectively, where spells[i] represents the strength of the ith spell and potions[j] represents the strength of the jth potion.
+You are given two positive integer arrays spells and potions, of length n and m
+respectively, where spells[i] represents the strength of the ith spell and
+potions[j] represents the strength of the jth potion.
 
-You are also given an integer success. A spell and potion pair is considered successful if the product of their strengths is at least success.
+You are also given an integer success. A spell and potion pair is considered
+successful if the product of their strengths is at least success.
 
-Return an integer array pairs of length n where pairs[i] is the number of potions that will form a successful pair with the ith spell.
+Return an integer array pairs of length n where pairs[i] is the number of
+potions that will form a successful pair with the ith spell.
 
 
 
@@ -49,29 +53,42 @@ Acceptance Rate
 
 */
 
-#include <vector>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
-int bsearch(vector<int> v, int target) {
-}
-public:
-    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
-      vector<int> pairs;
-
-      sort(potions.begin(), potions.end());
-
-      for (int sp:spells) {
-        int spT = 0;
-        for (int po:potions) {
-          if (sp*po >= success) ++spT;
-        }
-        pairs.push_back(spT);
-      }
-      return pairs;
+  int bsearch(vector<int> v, int target) {
+    int low = 0;
+    int high = v.size() - 1;
+    int mid = (low + high) / 2;
+    while (high > low) {
+      int cur = v[mid];
+      if (cur == target) return mid;
+      if (cur < target) low = mid + 1;
+      if (cur > target) high = mid - 1;
+      mid = (low + high) / 2;
     }
+    return mid;
+  }
+
+ public:
+  vector<int> successfulPairs(vector<int>& spells, vector<int>& potions,
+                              long long success) {
+    vector<int> pairs;
+
+    sort(potions.begin(), potions.end());
+
+    for (int sp : spells) {
+      int spT = 0;
+      for (int po : potions) {
+        if (sp * po >= success) ++spT;
+      }
+      pairs.push_back(spT);
+    }
+    return pairs;
+  }
 };
 
 /*
