@@ -51,12 +51,18 @@ Acceptance Rate
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 class Solution {
-vector<int> pairs;
+int bsearch(vector<int> v, int target) {
+}
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+      vector<int> pairs;
+
+      sort(potions.begin(), potions.end());
+
       for (int sp:spells) {
         int spT = 0;
         for (int po:potions) {
@@ -73,5 +79,10 @@ public:
 TLE trap alert
 
 - brute force build and count
+O(N^2)
+
+- sorted potions
+- sort time + time to binary search each spell
+- O(2nlog(n))
 
 */
