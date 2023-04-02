@@ -59,7 +59,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int bsearch(vector<int> v, int target) {
+  int bsearch(vector<int> v, long long target) {
     int low = 0;
     int high = v.size() - 1;
     int mid = (low + high) / 2;
@@ -81,24 +81,22 @@ class Solution {
     sort(potions.begin(), potions.end());
     int psize = potions.size();
     for (int sp : spells) {
-      int unfloored = success/sp;
-      int tgt = success/sp;
+      long long tgt = success/sp;
 
       if (tgt*sp < success) tgt++;
       int pivot = bsearch(potions, tgt);
       int count = psize - pivot;
-      int prod = potions[pivot]*sp;
       bool under = false;
-      while (pivot < potions.size() && ((potions[pivot]*sp) < success)) {
+      while (pivot < potions.size() && (((long long)potions[pivot]*sp) < success)) {
         count--;
         pivot++;
         under = true;
       }
 
       if (!under) {
-        while (pivot >= 0 && ((potions[pivot]*sp) >= success)) {
+        while (pivot >= 0 && (((long long)potions[pivot]*sp) >= success)) {
           pivot--;
-          if (pivot >=0 && potions[pivot]*sp >= success)count++;
+          if (pivot >=0 && (long long)potions[pivot]*sp >= success)count++;
         }
       }
 
