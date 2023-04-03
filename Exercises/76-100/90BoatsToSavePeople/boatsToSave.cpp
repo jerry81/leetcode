@@ -46,21 +46,21 @@ Acceptance Rate
 #include <algorithm>
 
 using namespace std;
-
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
       sort(people.begin(), people.end());
       int boats = 0;
       int low = 0;
-      int high = people.size();
-      while (high > low) {
-        if ((people[low]+people[high]) < limit) {
+      int high = people.size()-1;
+      while (high >= low) {
+        if ((people[low]+people[high]) <= limit) {
           high--;
           low++;
         } else {
           high--;
         }
+
         boats++;
       }
       return boats;
