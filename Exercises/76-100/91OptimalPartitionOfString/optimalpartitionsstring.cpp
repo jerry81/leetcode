@@ -45,8 +45,6 @@ Acceptance Rate
 #include <unordered_map>
 
 using namespace std;
-
-
 class Solution {
 public:
     int partitionString(string s) {
@@ -55,8 +53,9 @@ public:
       for (char c: s) {
         if (lookup[c]) {
           partitions++;
-          lookup.empty();
+          lookup.clear();
         }
+        lookup[c] = true;
       }
       return partitions;
     }
