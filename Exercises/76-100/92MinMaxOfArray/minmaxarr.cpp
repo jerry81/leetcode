@@ -55,11 +55,18 @@ using namespace std;
 class Solution {
 public:
     int minimizeArrayValue(vector<int>& nums) {
-
+      int mx = nums[0];
+      for (int i = 1; i < nums.size(); ++i) {
+        nums[i] = nums[i] + nums[i-1];
+        int avg = ceil(nums[i]/(i+1));
+        mx = max(mx, avg);
+      }
+      return mx;
     }
 };
 
 // [1,5,7,3,4, 2, 7]
+// avg 3, avg 5,
 // [3,3,7,3,4,4,5]
 // [3,5,5,3,4,4,5]
 // try in one pass
