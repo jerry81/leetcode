@@ -49,6 +49,7 @@ class Solution {
   bool* visited;
   int height;
   int width;
+  vector<vector<int>> orig;
   struct Point {
     int x;
     int y;
@@ -71,6 +72,7 @@ class Solution {
       Point cur = remain.front();
       int cx = cur.x;
       int cy = cur.y;
+      if (orig[cy][cx] == 1) count++;
       remain.pop();
       if (cx <= 0) canExit = true;
 
@@ -110,21 +112,27 @@ class Solution {
     }
 
     if (canExit) return 0;
+
+    return count;
   }
 
  public:
   int numEnclaves(vector<vector<int>>& grid) {
+    orig = grid;
     height = (int)grid.size();
     int m = (int)grid[0].size();
     width = m;
     visited = new bool[height * m];
     memset(visited, false, sizeof(visited));
-    Point test = Point(0, 0);
-    cout << "testing expect 0: " << isDone(test) << endl;
-    Point p = Point(0, 0);
-    visit(p);
-    bfs(p);
-    return 0;
+    int total = 0;
+    for (int i = 0; i < height; ++i) {
+      for (int j = 0; j < width: ++j) {
+            Point p = Point(j,i);
+            total += bfs(p);
+      }
+
+    }
+    return total;
   }
 };
 
