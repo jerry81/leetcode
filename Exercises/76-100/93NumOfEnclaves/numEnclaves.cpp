@@ -46,40 +46,82 @@ grid[i][j] is either 0 or 1.
 using namespace std;
 
 class Solution {
-  bool *visited;
+  bool* visited;
   int height;
+  int width;
   struct Point {
     int x;
     int y;
     Point(int x, int y) : x(x), y(y){};
   };
 
-  bool isDone(Point p) {
-    return visited[p.y*height + p.x];
-  }
+  bool isDone(Point p) { return visited[p.y * height + p.x]; }
 
-  void visit(Point p) {
-    visited[p.y*height + p.x] = true;
-  }
+  void visit(Point p) { visited[p.y * height + p.x] = true; }
 
   int bfs(Point start) {
-    cout << "expect 1 " << isDone(start) << endl;
+    if (isDone(start)) return 0;
+
     queue<Point> remain;
     remain.push(start);
-    if (isDone(start)) return 0;
+    visit(start);
+    int count = 0;
+    bool canExit = false;
     while (!remain.empty()) {
+      Point cur = remain.front();
+      int cx = cur.x;
+      int cy = cur.y;
+      remain.pop();
+      if (cx <= 0) canExit = true;
+
+      if (cy <= 0) canExit = true;
+
+      if (cx >= (width - 1)) canExit = true;
+
+      if (cy >= (height - 1)) canExit = true;
+
+      int lx = cx - 1;
+      int rx = cx + 1;
+      int uy = cy - 1;
+      int dy = cy + 1;
+      Point lp = Point(lx,cy);
+      Point rp = Point(rx,cy);
+      Point up = Point(cx,uy);
+      Point dp = Point(cx,dy);
+      if (lx >= 0 && !isDone(lp)) {
+        remain.push(lp);
+        visit(lp);
+      }
+
+      if (rx < width && !isDone(rp)) {
+        remain.push(rp);
+        visit(rp);
+      }
+
+      if (uy >= 0 && !isDone(up)) {
+        remain.push(up);
+        visit(up);
+      }
+
+      if (dy >= 0 && !isDone(dp)) {
+        remain.push(dp);
+        visit(dp);
+      }
     }
+
+    if (canExit) return 0;
   }
 
  public:
   int numEnclaves(vector<vector<int>>& grid) {
     height = (int)grid.size();
     int m = (int)grid[0].size();
-    visited = new bool[height*m];
+    width = m;
+    visited = new bool[height * m];
     memset(visited, false, sizeof(visited));
-    Point test = Point(0,0);
+    Point test = Point(0, 0);
     cout << "testing expect 0: " << isDone(test) << endl;
-    Point p = Point(0,0);
+    Point p = Point(0, 0);
     visit(p);
     bfs(p);
     return 0;
