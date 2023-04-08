@@ -83,7 +83,6 @@ public:
         neighbors = _neighbors;
     }
 };
-
 class Solution {
 unordered_map<int, bool> visited;
 unordered_map<int, Node*> copies;
@@ -103,16 +102,13 @@ public:
         Node* cur = remain.front();
         remain.pop();
         for (Node* n: cur->neighbors) {
-          if (visited[n->val]) continue;
+          if (copies[n->val] == nullptr) copies[n->val] = new Node(n->val);
 
-          copies[n->val] = new Node(n->val);
           copies[cur->val]->neighbors.push_back(copies[n->val]);
-          remain.push(n);
+          if (!visited[n->val]) remain.push(n);
           visited[n->val] = true;
         }
       }
-      return root;
-
-
+      return copies[root->val];
     }
 };
