@@ -86,13 +86,32 @@ public:
 
 class Solution {
 unordered_map<int, bool> visited;
+unordered_map<int, Node*> copies;
+Node* root;
+
 public:
     Node* cloneGraph(Node* node) {
       if (node == nullptr) return nullptr;
 
-      Node* newroot = new Node(node->val);
-
+      root = new Node(node->val);
+      copies[node->val] = root;
       // bfs again
+      queue<Node*> remain;
+      visited[node->val] = true;
+      remain.push(node);
+      while (!remain.empty()) {
+        Node* cur = remain.front();
+        remain.pop();
+        for (Node* n: cur->neighbors) {
+          if (visited[n->val]) continue;
+
+          copies[n->val] = new Node(n->val);
+          copies[cur->val]->neighbors.push_back(copies[n->val]);
+          remain.push(n);
+          visited[n->val] = true;
+        }
+      }
+      return root;
 
 
     }
