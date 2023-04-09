@@ -70,49 +70,53 @@ class Solution {
   unordered_map<int, Node*> nodes;
   unordered_map<int, bool> traversed;
 
-int largestColor(unordered_map<char, int> colorcount) {
-  int ret = 0;
-  for (auto a: colorcount) {
-    if (a.second > ret) ret = a.second;
+  int largestColor(unordered_map<char, int> colorcount) {
+    int ret = 0;
+    for (auto a : colorcount) {
+      if (a.second > ret) ret = a.second;
+    }
+    return ret;
   }
-  return ret;
-}
 
-int dfs(Node* cur, unordered_map<char, int> colorcount, unordered_map<int, bool> visited, bool& cycle) {
+  int dfs(Node* cur, unordered_map<char, int> colorcount,
+          unordered_map<int, bool> visited, bool& cycle) {
     if (cycle) return -1;
 
-  if (cur == nullptr) {
-    int largest = largestColor(colorcount);
-    cout << "returning... lagest is " << largest << endl;
-    return largest;
+    if (cur == nullptr) {
+      int largest = largestColor(colorcount);
+      cout << "returning... lagest is " << largest << endl;
+      return largest;
+    }
+
+    if (visited[cur->val]) {
+      cycle = true;
+      return -1;
+    }
+
+    traversed[cur->val] = true;
+    visited[cur->val] = true;
+
+    colorcount[cur->color]++;
+
+    vector<int> sizes;
+    int curLargest = largestColor(colorcount);
+    sizes.push_back(curLargest);
+    for (int i : cur->neighbors) {
+      unordered_map<char, int> ccc = colorcount;
+      int largest = dfs(nodes[i], ccc, visited, cycle);
+      sizes.push_back(largest);
+    }
+    int ret = 0;
+    for (int i : sizes) {
+      if (i > ret) ret = i;
+    }
+    return ret;
   }
 
-  if (visited[cur->val]) {
-    cycle = true;
-    return -1;
-  }
-
-  traversed[cur->val] = true;
-  visited[cur->val] = true;
-
-  colorcount[cur->color]++;
-
-  vector<int> sizes;
-  int curLargest = largestColor(colorcount);
-  sizes.push_back(curLargest);
-  for (int i: cur->neighbors) {
-    unordered_map<char, int> ccc = colorcount;
-    int largest = dfs(nodes[i], ccc, visited, cycle);
-    sizes.push_back(largest);
-  }
-  int ret = 0;
-  for (int i: sizes) {
-    if (i > ret) ret = i;
-  }
-  return ret;
-}
  public:
   int largestPathValue(string colors, vector<vector<int>>& edges) {
+    if (edges.empty() && !colors.empty()) return 1;
+
     for (auto edgepair : edges) {
       int a = edgepair[0];
       int b = edgepair[1];
