@@ -60,7 +60,6 @@ Acceptance Rate
 #include <unordered_map>
 #include <vector>
 using namespace std;
-
 class Solution {
   struct Node {
     int val;
@@ -71,23 +70,46 @@ class Solution {
   unordered_map<int, Node*> nodes;
   unordered_map<int, bool> traversed;
 
-void dfs(Node* cur, unordered_map<char, int>& colorcount, unordered_map<int, bool> visited, bool& cycle) {
-  if (cur == nullptr) return;
+int largestColor(unordered_map<char, int> colorcount) {
+  int ret = 0;
+  for (auto a: colorcount) {
+    if (a.second > ret) ret = a.second;
+  }
+  return ret;
+}
 
-  if (cycle) return;
+int dfs(Node* cur, unordered_map<char, int> colorcount, unordered_map<int, bool> visited, bool& cycle) {
+    if (cycle) return -1;
+
+  if (cur == nullptr) {
+    int largest = largestColor(colorcount);
+    cout << "returning... lagest is " << largest << endl;
+    return largest;
+  }
 
   if (visited[cur->val]) {
     cycle = true;
-    return;
+    return -1;
   }
 
   traversed[cur->val] = true;
   visited[cur->val] = true;
+
   colorcount[cur->color]++;
 
+  vector<int> sizes;
+  int curLargest = largestColor(colorcount);
+  sizes.push_back(curLargest);
   for (int i: cur->neighbors) {
-    dfs(nodes[i], colorcount, visited, cycle);
+    unordered_map<char, int> ccc = colorcount;
+    int largest = dfs(nodes[i], ccc, visited, cycle);
+    sizes.push_back(largest);
   }
+  int ret = 0;
+  for (int i: sizes) {
+    if (i > ret) ret = i;
+  }
+  return ret;
 }
  public:
   int largestPathValue(string colors, vector<vector<int>>& edges) {
@@ -112,15 +134,15 @@ void dfs(Node* cur, unordered_map<char, int>& colorcount, unordered_map<int, boo
       unordered_map<char, int> colorcount;
       unordered_map<int, bool> visited;
       bool cycle = false;
-      dfs(n, colorcount, visited, cycle);
+      int cur = dfs(n, colorcount, visited, cycle);
       if (cycle) return -1;
-
-      for (auto a: colorcount) {
-        if (a.second > max) max = a.second;
-      }
+      if (cur > max) max = cur;
       // max of color count?
       // if ( > max) max = cur;
     }
     return max;
   }
 };
+
+// rework needed:
+// need to keep track of paths, not an accumulating map
