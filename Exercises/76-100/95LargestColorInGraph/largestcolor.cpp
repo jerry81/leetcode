@@ -105,14 +105,19 @@ void dfs(Node* cur, unordered_map<char, int>& colorcount, unordered_map<int, boo
     int max = 0;
     // for each untraversed node,
     // dfs getting count
-    for (auto a : nodes) {
-      if (traversed[a.first]) continue;
+    for (int i = 0; i < nodes.size(); ++i) {
+      Node* n = nodes[i];
+      if (traversed[i]) continue;
 
       unordered_map<char, int> colorcount;
       unordered_map<int, bool> visited;
       bool cycle = false;
-      dfs(a.second, colorcount, visited, cycle);
+      dfs(n, colorcount, visited, cycle);
       if (cycle) return -1;
+
+      for (auto a: colorcount) {
+        if (a.second > max) max = a.second;
+      }
       // max of color count?
       // if ( > max) max = cur;
     }
