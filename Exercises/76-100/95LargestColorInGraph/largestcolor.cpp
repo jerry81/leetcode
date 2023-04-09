@@ -50,17 +50,30 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
+
 struct Node {
   int val;
   vector<int> neighbors;
   char color;
   Node(int val, char color) : val(val), color(color) {};
 };
+unordered_map<int, Node*> nodes;
 public:
     int largestPathValue(string colors, vector<vector<int>>& edges) {
-
+      for (auto edgepair: edges) {
+        int a = edgepair[0];
+        int b = edgepair[1];
+        if (nodes[a] == nullptr) {
+          nodes[a] = new Node(a, colors[a]);
+        }
+        if (nodes[b] == nullptr) {
+          nodes[b] = new Node(b, colors[b]);
+        }
+        nodes[a]->neighbors.push_back(b);
+      }
     }
 };
