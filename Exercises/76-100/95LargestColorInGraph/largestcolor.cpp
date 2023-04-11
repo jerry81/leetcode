@@ -150,3 +150,14 @@ class Solution {
 
 // rework needed:
 // need to keep track of paths, not an accumulating map
+
+/* official solution
+  1.  Khan's algorithm topological sort
+
+  2.  DFS
+    - i don't think mine considers path in opposite direction
+    - detect cycle by keeping track of recursion stack visited nodes
+
+come back to this on a good day
+https://leetcode.com/problems/largest-color-value-in-a-directed-graph/editorial/
+*/
