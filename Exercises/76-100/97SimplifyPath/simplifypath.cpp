@@ -66,10 +66,8 @@ class Solution {
   vector<string> stk;
   vector<string> split(string str) {
     // Returns first token
-    cout << "splitting"<<endl;
     vector<string> ret;
     char *token = strtok(str.data(), "/");
-    cout << "tok is " << token << endl;
 
     // Keep printing tokens while one of the
     // delimiters present in str[].
@@ -90,13 +88,26 @@ class Solution {
     // if '..' pop if stk not empty
     // if empty drop
     // else add
-    cout << "starting shit " << endl;
     vector<string> tokens = split(path);
-    cout << "len is " << tokens.size() << endl;
-    for (string s: tokens) {
-      cout << "s is " << s << endl;
+    for (string s:tokens) {
+      if (s == "..") {
+        if (stk.size() > 0) stk.pop_back();
+
+        continue;
+      }
+
+      if (s == ".") continue;
+
+      if (s.empty()) continue;
+
+      stk.push_back(s);
     }
-    cout << "returning " << endl;
-    return "";
+    string ret = "";
+    for (string st:stk) {
+      ret+="/";
+      ret+=st;
+    }
+    if (ret.empty()) ret = "/";
+    return ret;
   }
 };
