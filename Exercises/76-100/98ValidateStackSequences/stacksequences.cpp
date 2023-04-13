@@ -61,8 +61,12 @@ public:
         while (pushed.size() > 0) {
           int pusheditem = pushed.back();
           pushed.pop_back();
-          if (pusheditem ==)
+          if (pusheditem == item) {
+            continue;
+          }
+          cur.push(pusheditem);
         }
+        return false;
 
       }
       return cur.size() == 0 && popped.size() == 0 && pushed.size() == 0;
