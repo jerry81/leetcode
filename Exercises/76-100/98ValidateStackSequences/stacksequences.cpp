@@ -44,17 +44,23 @@ Acceptance Rate
 #include <vector>
 #include <stack>
 using namespace std;
-
 class Solution {
 public:
     bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
       stack<int> cur;
       reverse(popped.begin(), popped.end());
       reverse(pushed.begin(), pushed.end());
-      while (pushed.size() > 0 && popped.size() > 0) {
-        int item = popped.back();
+      outer:
+      while (pushed.size() > 0 || popped.size() > 0) {
+        int item;
+        if (popped.size() > 0) {
+          item = popped.back();
+        } else {
+          return false;
+        }
+
         popped.pop_back();
-        if (cur.top() == item) {
+        if (cur.size() > 0 && cur.top() == item) {
           cur.pop();
           continue;
         }
@@ -62,7 +68,7 @@ public:
           int pusheditem = pushed.back();
           pushed.pop_back();
           if (pusheditem == item) {
-            continue;
+            goto outer;
           }
           cur.push(pusheditem);
         }
@@ -72,3 +78,10 @@ public:
       return cur.size() == 0 && popped.size() == 0 && pushed.size() == 0;
     }
 };
+
+/*
+
+TIL: goto is used for wanting to break out of multiple loops
+https://stackoverflow.com/questions/1257744/can-i-use-break-to-exit-multiple-nested-for-loops
+
+*/
