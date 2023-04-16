@@ -107,4 +107,29 @@ let the target "drive" the ds
 
     0  2
 
+1  1   2  -> 2   - combine these 2
+1    1 2  -> 2
+   1 1 2  -> 2
+
+words = ["abba","baab"], target = "bab" - expect 4
+
+b
+
+1 1
+
+a
+
+  1  1
+
+b
+
+     1  1
+
+possibilites:
+
+1  1  1
+   1  1  1
+1     1  1
+1  1     1
+
 */
