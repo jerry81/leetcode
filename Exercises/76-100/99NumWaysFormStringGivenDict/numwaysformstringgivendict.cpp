@@ -57,9 +57,28 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <string>
+#include <unordered_map>
+using namespace std;
+
 class Solution {
 public:
     int numWays(vector<string>& words, string target) {
 
     }
 };
+
+/*
+
+build a trie would take #chars time O(N) to build trie
+build freq map
+0a  1a  ... lena
+0b  .
+0c  .
+.   .
+.
+.
+0z  1z
+
+*/
