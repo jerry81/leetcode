@@ -81,4 +81,30 @@ build freq map
 .
 0z  1z
 
+counting possibilities
+handling gaps
+
+["acca","bbbb","caca"] -> 'aba' expect 6
+
+a 1  a 1  a 0  a 2
+
+b 1  b 1  b 1  b 1
+
+c 1  c 0   - seems excessive
+
+- we dont care about cs
+
+let the target "drive" the ds
+
+- handle a
+
+1 1
+
+- handle b
+  1 1
+
+- handle a
+
+    0  2
+
 */
