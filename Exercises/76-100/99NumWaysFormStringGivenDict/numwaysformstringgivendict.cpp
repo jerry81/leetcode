@@ -63,9 +63,28 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int targetSize;
+int dictWordLen;
+vector<unordered_map<char, int>> freqmap;
+
+void buildMap(vector<string>& words, string target) {
+  int diff = dictWordLen - targetSize;
+  for (int i = 0; i < targetSize; ++i) {
+    char cur = target[i];
+    unordered_map<char, int> newmap;
+    freqmap.push_back(newmap);
+    for (int j = 0; j < diff; ++j) {
+      for (string word: words) {
+        if (word[i+j] == cur) freqmap[i+j][cur]++;
+      }
+    }
+  }
+}
 public:
     int numWays(vector<string>& words, string target) {
-
+      targetSize = target.size();
+      dictWordLen = words[0].size();
+      buildMap(words, target);
     }
 };
 
