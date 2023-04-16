@@ -61,19 +61,20 @@ Acceptance Rate
 #include <string>
 #include <unordered_map>
 using namespace std;
-
 class Solution {
 int targetSize;
 int dictWordLen;
 vector<unordered_map<char, int>> freqmap;
 
 void buildMap(vector<string>& words, string target) {
+  for (char _: words[0]) {
+    unordered_map<char, int> newmap;
+    freqmap.push_back(newmap);
+  }
   int diff = dictWordLen - targetSize;
   for (int i = 0; i < targetSize; ++i) {
     char cur = target[i];
-    unordered_map<char, int> newmap;
-    freqmap.push_back(newmap);
-    for (int j = 0; j < diff; ++j) {
+    for (int j = 0; j <= diff; ++j) {
       for (string word: words) {
         if (word[i+j] == cur) freqmap[i+j][cur]++;
       }
@@ -85,6 +86,13 @@ public:
       targetSize = target.size();
       dictWordLen = words[0].size();
       buildMap(words, target);
+      for (int i = 0; i < freqmap.size(); ++i) {
+        cout << "i is " << i << endl;
+        for (auto b: freqmap[i]) {
+          cout << "key " << b.first << "val " << b.second << endl;
+        }
+      }
+      return 0;
     }
 };
 
