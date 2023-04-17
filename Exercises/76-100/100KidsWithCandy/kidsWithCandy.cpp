@@ -56,7 +56,13 @@ using namespace std;
 class Solution {
 public:
     vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
-
+      int max_i = *max_element(candies.begin(), candies.end());
+      vector<bool> ret;
+      for (int i:candies) {
+        int sum = i + extraCandies;
+        ret.push_back(sum >= max_i);
+      }
+      return ret;
     }
 };
 
