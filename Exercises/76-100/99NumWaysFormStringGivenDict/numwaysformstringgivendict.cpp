@@ -86,12 +86,6 @@ public:
       targetSize = target.size();
       dictWordLen = words[0].size();
       buildMap(words, target);
-      for (int i = 0; i < freqmap.size(); ++i) {
-        cout << "i is " << i << endl;
-        for (auto b: freqmap[i]) {
-          cout << "key " << b.first << "val " << b.second << endl;
-        }
-      }
       return 0;
     }
 };
@@ -158,5 +152,20 @@ possibilites:
    1  1  1
 1     1  1
 1  1     1
+
+// tallying logic
+
+- each path is multiplicative
+- sum the paths in the end
+
+valid paths are
+123
+234
+134
+124
+
+official solutions
+
+- top down and bottom up DP
 
 */
