@@ -61,9 +61,26 @@ public:
       bool b1 = true;
       string merged = "";
       while (p1 < word1.size() && p2 < word2.size()) {
+        char inserted;
         if (b1) {
-
+          if (p1 < word1.size()) {
+            ++p1;
+          } else {
+            inserted = word2[p2];
+            ++p2;
+          }
+          b1 = false;
+        } else {
+          if (p2 < word2.size()) {
+            ++p2;
+          } else {
+            inserted = word1[p1];
+            ++p1;
+          }
+          b1 = true;
         }
+        merged.push_back(inserted);
       }
+      return merged;
     }
 };
