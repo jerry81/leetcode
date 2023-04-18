@@ -168,4 +168,10 @@ official solutions
 
 - top down and bottom up DP
 
+- bottom up
+  - dp[i][j] - num ways to build len i of target using j columns
+  - dp to keep track of how many ways at a particular column
+    - base case 0 when using 0 columns (j) with any i > 0
+    - base case 1 when i and j are 0
+
 */
