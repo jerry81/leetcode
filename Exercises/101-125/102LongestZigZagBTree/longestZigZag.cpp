@@ -63,6 +63,8 @@ Acceptance Rate
  */
 
 #include <algorithm>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -75,10 +77,19 @@ struct TreeNode {
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
   };
 class Solution {
-int zzr(TreeNode* cur,  bool prevR=false, bool initial=false) {
+vector<string> paths;
+
+void dfs(TreeNode* root, string path) {
 }
 public:
     int longestZigZag(TreeNode* root) {
-      return zzr(root, false, true);
+
     }
 };
+
+/*
+  get all paths to each leaf aka dfs
+  RL
+  RRR
+  RRLRR
+*/
