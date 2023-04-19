@@ -10,10 +10,11 @@ You are given the root of a binary tree.
 A ZigZag path for a binary tree is defined as follow:
 
 Choose any node in the binary tree and a direction (right or left).
-If the current direction is right, move to the right child of the current node; otherwise, move to the left child.
-Change the direction from right to left or from left to right.
-Repeat the second and third steps until you can't move in the tree.
-Zigzag length is defined as the number of nodes visited - 1. (A single node has a length of 0).
+If the current direction is right, move to the right child of the current node;
+otherwise, move to the left child. Change the direction from right to left or
+from left to right. Repeat the second and third steps until you can't move in
+the tree. Zigzag length is defined as the number of nodes visited - 1. (A single
+node has a length of 0).
 
 Return the longest ZigZag path contained in that tree.
 
@@ -58,7 +59,8 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
@@ -69,36 +71,54 @@ Acceptance Rate
 using namespace std;
 
 struct TreeNode {
-      int val;
-      TreeNode *left;
-      TreeNode *right;
-      TreeNode() : val(0), left(nullptr), right(nullptr) {}
-      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-  };
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 class Solution {
-vector<string> paths;
+  vector<string> paths;
+  int max = 0;
 
-void dfs(TreeNode* root, string path) {
-  if (root->left == nullptr && root->right == nullptr) {
-    paths.push_back(path);
-  }
-  if (root->left != nullptr) {
-    string newpath=path+"L";
-    dfs(root->left, newpath);
-  }
-  if (root->right != nullptr) {
-    string newpath=path+"R";
-    dfs(root->right, newpath);
-  }
-}
-public:
-    int longestZigZag(TreeNode* root) {
-      dfs(root, "");
-      for (string s: paths) {
-        cout << "path is " << s << endl;
-      }
+  void dfs(TreeNode *root, string path, string prev, int curcount) {
+    if (curcount > max) max = curcount;
+    if (root->left == nullptr && root->right == nullptr) {
+      paths.push_back(path);
     }
+    if (root->left != nullptr) {
+      string newpath = path + "L";
+      int nextCount;
+      if (prev == "") {
+        nextCount = 1;
+      } else if (prev == "R") {
+        nextCount = 1 + curcount;
+      } else {
+        nextCount = 0;
+      }
+      dfs(root->left, newpath, "L", nextCount);
+    }
+    if (root->right != nullptr) {
+      string newpath = path + "R";
+      int nextCount;
+      if (prev == "") {
+        nextCount = 1;
+      } else if (prev == "L") {
+        nextCount = 1 + curcount;
+      } else {
+        nextCount = 0;
+      }
+      dfs(root->right, newpath, "R", nextCount);
+    }
+  }
+
+ public:
+  int longestZigZag(TreeNode *root) {
+    dfs(root, "", "", 0);
+    return max;
+  }
 };
 
 /*
