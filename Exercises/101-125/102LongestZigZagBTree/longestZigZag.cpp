@@ -79,46 +79,42 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
 class Solution {
-  vector<string> paths;
-  int max = 0;
+vector<string> paths;
+int max = 0;
 
-  void dfs(TreeNode *root, string path, string prev, int curcount) {
-    if (curcount > max) max = curcount;
-    if (root->left == nullptr && root->right == nullptr) {
-      paths.push_back(path);
-    }
-    if (root->left != nullptr) {
-      string newpath = path + "L";
-      int nextCount;
-      if (prev == "") {
-        nextCount = 1;
-      } else if (prev == "R") {
-        nextCount = 1 + curcount;
-      } else {
-        nextCount = 0;
-      }
-      dfs(root->left, newpath, "L", nextCount);
-    }
-    if (root->right != nullptr) {
-      string newpath = path + "R";
-      int nextCount;
-      if (prev == "") {
-        nextCount = 1;
-      } else if (prev == "L") {
-        nextCount = 1 + curcount;
-      } else {
-        nextCount = 0;
-      }
-      dfs(root->right, newpath, "R", nextCount);
-    }
+void dfs(TreeNode* root, string path, string prev, int curcount) {
+  if (curcount > max) max = curcount;
+  if (root->left == nullptr && root->right == nullptr) {
+    paths.push_back(path);
   }
-
- public:
-  int longestZigZag(TreeNode *root) {
-    dfs(root, "", "", 0);
-    return max;
+  if (root->left != nullptr) {
+    string newpath=path+"L";
+    int nextCount;
+    if (prev == "R") {
+      nextCount = 1+curcount;
+    } else {
+      nextCount = 1;
+    }
+    dfs(root->left, newpath, "L", nextCount);
   }
+  if (root->right != nullptr) {
+    string newpath=path+"R";
+    int nextCount;
+    if (prev == "L") {
+      nextCount = 1+curcount;
+    } else {
+      nextCount = 1;
+    }
+    dfs(root->right, newpath, "R", nextCount);
+  }
+}
+public:
+    int longestZigZag(TreeNode* root) {
+      dfs(root, "", "", 0);
+      return max;
+    }
 };
 
 /*
