@@ -80,10 +80,24 @@ class Solution {
 vector<string> paths;
 
 void dfs(TreeNode* root, string path) {
+  if (root->left == nullptr && root->right == nullptr) {
+    paths.push_back(path);
+  }
+  if (root->left != nullptr) {
+    string newpath=path+"L";
+    dfs(root->left, newpath);
+  }
+  if (root->right != nullptr) {
+    string newpath=path+"R";
+    dfs(root->right, newpath);
+  }
 }
 public:
     int longestZigZag(TreeNode* root) {
-
+      dfs(root, "");
+      for (string s: paths) {
+        cout << "path is " << s << endl;
+      }
     }
 };
 
