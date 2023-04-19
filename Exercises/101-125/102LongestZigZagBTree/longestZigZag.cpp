@@ -81,38 +81,32 @@ struct TreeNode {
 };
 
 class Solution {
-vector<string> paths;
 int max = 0;
 
-void dfs(TreeNode* root, string path, string prev, int curcount) {
+void dfs(TreeNode* root, string prev, int curcount) {
   if (curcount > max) max = curcount;
-  if (root->left == nullptr && root->right == nullptr) {
-    paths.push_back(path);
-  }
   if (root->left != nullptr) {
-    string newpath=path+"L";
     int nextCount;
     if (prev == "R") {
       nextCount = 1+curcount;
     } else {
       nextCount = 1;
     }
-    dfs(root->left, newpath, "L", nextCount);
+    dfs(root->left, "L", nextCount);
   }
   if (root->right != nullptr) {
-    string newpath=path+"R";
     int nextCount;
     if (prev == "L") {
       nextCount = 1+curcount;
     } else {
       nextCount = 1;
     }
-    dfs(root->right, newpath, "R", nextCount);
+    dfs(root->right, "R", nextCount);
   }
 }
 public:
     int longestZigZag(TreeNode* root) {
-      dfs(root, "", "", 0);
+      dfs(root, "", 0);
       return max;
     }
 };
