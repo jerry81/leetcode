@@ -59,9 +59,31 @@ Acceptance Rate
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+#include <queue>
+using namespace std;
+ struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
+      queue<TreeNode*> q;
+      int maxW = 0;
+      int itemcount = (root != nullptr) ? 1: 0;
+      q.push(root);
 
+      while (itemcount > 0) {
+
+      }
+      return maxW;
     }
 };
+
+// bfs
+//
