@@ -75,7 +75,6 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
-
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
@@ -105,15 +104,15 @@ public:
               itemcount += 1;
               if (lp < 0) lp = nq.size();
 
-              if ((int)nq.size()+1 > rp) rp = (int)nq.size()+1;
+              if (((int)nq.size()+1) > rp) rp = ((int)nq.size()+1);
             }
 
             nq.push(tn->left);
 
             if (tn->right != nullptr) {
               itemcount += 1;
-              if (lp < 0) lp = nq.size()+1;
-              if ((nq.size()+1) > rp) rp = (nq.size()+1);
+              if (lp < 0) lp = nq.size();
+              if (((int)nq.size()+1) > rp) rp = ((int)nq.size()+1);
             }
 
             nq.push(tn->right);
