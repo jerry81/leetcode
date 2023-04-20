@@ -75,55 +75,63 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
+struct BFSTN {
+  TreeNode* node;
+  long long int position;
+};
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-      queue<TreeNode*> q;
+      queue<BFSTN> q;
+      BFSTN bn;
+      bn.node = root;
+      bn.position = 0;
       int maxW = 0;
       int itemcount = 0;
       if (root != nullptr) {
         itemcount = 1;
         maxW = 1;
       }
-      q.push(root);
+      q.push(bn);
 
-      while (itemcount > 0) {
-        itemcount = 0;
-        int curItem = 0;
-        queue<TreeNode*> nq;
+      while (!q.empty()) {
+        queue<BFSTN> nq;
         int lp = -1;
         int rp = -1;
         while (!q.empty()) {
-          TreeNode* tn = q.front();
-          q.pop();
-          if (tn == nullptr) {
-            nq.push(nullptr);
-            nq.push(nullptr);
-          } else {
-            if (tn->left != nullptr) {
-              itemcount += 1;
-              if (lp < 0) lp = nq.size();
+          BFSTN cur = q.front();
 
-              if (((int)nq.size()+1) > rp) rp = ((int)nq.size()+1);
+          q.pop();
+          TreeNode* tn = cur.node;
+          BFSTN ln;
+          BFSTN rn;
+            if (tn->left != nullptr) {
+              ln.node = tn->left;
+              ln.position = cur.position * 2;
+              if (lp < 0) lp = ln.position;
+
+              if (ln.position > rp) rp = ln.position;
             }
 
-            nq.push(tn->left);
+            nq.push(ln);
 
             if (tn->right != nullptr) {
-              itemcount += 1;
-              if (lp < 0) lp = nq.size();
-              if (((int)nq.size()+1) > rp) rp = ((int)nq.size()+1);
+              rn.node = tn->right;
+              rn.position = cur.position * 2 + 1;
+              if (lp < 0) lp = rn.position;
+              if (rn.position > rp) rp = rn.position;
             }
 
-            nq.push(tn->right);
-          }
+            nq.push(rn);
+
         }
         if ((rp - lp) > maxW) maxW = rp - lp;
-        q = nq;
+        if (!nq.empty()) q = nq;
       }
       return maxW;
     }
 };
 
-// bfs
-//
+// too many cycles wasted on nulls
+// new struct
