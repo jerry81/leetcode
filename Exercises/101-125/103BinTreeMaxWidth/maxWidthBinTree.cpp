@@ -83,43 +83,35 @@ struct BFSTN {
 class Solution {
  public:
   int widthOfBinaryTree(TreeNode *root) {
-    queue<BFSTN> q;
+    queue<pair<TreeNode*, long long int>> q;
     BFSTN bn;
-    bn.node = root;
-    bn.position = 0;
     long long int maxW = 0;
     if (root != nullptr) {
       maxW = 1;
     }
-    q.push(bn);
+    q.push({root,0});
 
     while (!q.empty()) {
-      queue<BFSTN> nq;
+      queue<pair<TreeNode*, long long int>> nq;
       long long int lp = -1;
       long long int rp = -1;
       while (!q.empty()) {
-        BFSTN cur = q.front();
+        auto cur = q.front();
         q.pop();
-        TreeNode *tn = cur.node;
-        BFSTN ln;
-        BFSTN rn;
+        TreeNode *tn = cur.first;
         if (tn->left != nullptr) {
-          ln.node = tn->left;
-          ln.position = cur.position * 2;
-          if (lp < 0) lp = ln.position;
+          if (lp < 0) lp = 2*cur.second;
 
-          if (ln.position > rp) rp = ln.position;
+          if (2*cur.second > rp) rp = 2*cur.second;
 
-          nq.push(ln);
+          nq.push({tn->left, 2*cur.second});
         }
 
         if (tn->right != nullptr) {
-          rn.node = tn->right;
-          rn.position = cur.position * 2 + 1;
-          if (lp < 0) lp = rn.position;
-          if (rn.position > rp) rp = rn.position;
+          if (lp < 0) lp = 2*cur.second+1;
+          if (2*cur.second+1 > rp) rp = 2*cur.second+1;
 
-          nq.push(rn);
+          nq.push({tn->right, 2*cur.second+1});
         }
       }
       if ((rp - lp + 1) > maxW) maxW = rp - lp + 1;
@@ -135,6 +127,7 @@ class Solution {
 
 /*
 
+- seems like this case is testing that you break out and stop when there is no chance for width to get larger?
 [0,0,0,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null]
 
 */
