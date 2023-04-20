@@ -92,24 +92,31 @@ public:
             nq.push(nullptr);
           } else {
             if (tn->left != nullptr) {
+              cout << "left found " << tn->left->val << endl;
               itemcount += 1;
-              if (lp < 0) lp = 2*nq.size();
-              if (2*nq.size() > rp) rp = 2*nq.size();
+              if (lp < 0) lp = nq.size();
+
+              if ((int)nq.size() > rp) rp = (int)nq.size();
             }
 
             nq.push(tn->left);
 
             if (tn->right != nullptr) {
+              cout << "right found " << tn->right->val << endl;
               itemcount += 1;
               if (lp < 0) lp = nq.size()+1;
-              if ((2*nq.size()+1) > rp) rp = (2*nq.size()+1);
+              cout << "test " << nq.size()+1 << endl;
+              cout << "vs rp " << rp << endl;
+              if ((nq.size()+1) > rp) rp = (nq.size()+1);
             }
 
             nq.push(tn->right);
           }
-          if ((rp - lp) > maxW) maxW = rp - lp;
-          q = nq;
         }
+        cout << "rp is " << rp << endl;
+        cout << "lp is " << lp << endl;
+        if ((rp - lp) > maxW) maxW = rp - lp;
+        q = nq;
       }
       return maxW;
     }
