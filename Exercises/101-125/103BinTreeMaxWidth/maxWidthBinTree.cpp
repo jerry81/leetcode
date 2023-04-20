@@ -76,15 +76,10 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
-struct BFSTN {
-  TreeNode *node;
-  long long int position;
-};
 class Solution {
  public:
   int widthOfBinaryTree(TreeNode *root) {
     queue<pair<TreeNode*, long long int>> q;
-    BFSTN bn;
     long long int maxW = 0;
     if (root != nullptr) {
       maxW = 1;
@@ -95,23 +90,31 @@ class Solution {
       queue<pair<TreeNode*, long long int>> nq;
       long long int lp = -1;
       long long int rp = -1;
+      int init = false;
+      long long int minpos;
       while (!q.empty()) {
+        if (!init) {
+          init = true;
+          minpos = q.front().second;
+        }
+
         auto cur = q.front();
         q.pop();
         TreeNode *tn = cur.first;
+        long long int nextpos = cur.second-minpos;
         if (tn->left != nullptr) {
-          if (lp < 0) lp = 2*cur.second;
+          if (lp < 0) lp = 2*nextpos;
 
-          if (2*cur.second > rp) rp = 2*cur.second;
+          if (2*nextpos > rp) rp = 2*nextpos;
 
-          nq.push({tn->left, 2*cur.second});
+          nq.push({tn->left, 2*nextpos});
         }
 
         if (tn->right != nullptr) {
-          if (lp < 0) lp = 2*cur.second+1;
-          if (2*cur.second+1 > rp) rp = 2*cur.second+1;
+          if (lp < 0) lp = 2*nextpos+1;
+          if (2*nextpos+1 > rp) rp = 2*nextpos+1;
 
-          nq.push({tn->right, 2*cur.second+1});
+          nq.push({tn->right, 2*nextpos+1});
         }
       }
       if ((rp - lp + 1) > maxW) maxW = rp - lp + 1;

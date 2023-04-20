@@ -20,7 +20,9 @@ public:
             {
                 auto p = q.front();
                 TreeNode* b = p.first;
-                long long int k = p.second-mn; // shrinks it down to relative position to first parents' position
+                // shrinks it down to relative position to first parents' position
+                // this saves us from the overflow
+                long long int k = p.second-mn;
                 q.pop();
                 // leftmost node
                 if(i == 0)
