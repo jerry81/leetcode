@@ -77,61 +77,64 @@ struct TreeNode {
 };
 
 struct BFSTN {
-  TreeNode* node;
+  TreeNode *node;
   long long int position;
 };
 class Solution {
-public:
-    int widthOfBinaryTree(TreeNode* root) {
-      queue<BFSTN> q;
-      BFSTN bn;
-      bn.node = root;
-      bn.position = 0;
-      int maxW = 0;
-      int itemcount = 0;
-      if (root != nullptr) {
-        itemcount = 1;
-        maxW = 1;
-      }
-      q.push(bn);
-
-      while (!q.empty()) {
-        queue<BFSTN> nq;
-        int lp = -1;
-        int rp = -1;
-        while (!q.empty()) {
-          BFSTN cur = q.front();
-
-          q.pop();
-          TreeNode* tn = cur.node;
-          BFSTN ln;
-          BFSTN rn;
-            if (tn->left != nullptr) {
-              ln.node = tn->left;
-              ln.position = cur.position * 2;
-              if (lp < 0) lp = ln.position;
-
-              if (ln.position > rp) rp = ln.position;
-            }
-
-            nq.push(ln);
-
-            if (tn->right != nullptr) {
-              rn.node = tn->right;
-              rn.position = cur.position * 2 + 1;
-              if (lp < 0) lp = rn.position;
-              if (rn.position > rp) rp = rn.position;
-            }
-
-            nq.push(rn);
-
-        }
-        if ((rp - lp) > maxW) maxW = rp - lp;
-        if (!nq.empty()) q = nq;
-      }
-      return maxW;
+ public:
+  int widthOfBinaryTree(TreeNode *root) {
+    queue<BFSTN> q;
+    BFSTN bn;
+    bn.node = root;
+    bn.position = 0;
+    long long int maxW = 0;
+    if (root != nullptr) {
+      maxW = 1;
     }
+    q.push(bn);
+
+    while (!q.empty()) {
+      queue<BFSTN> nq;
+      long long int lp = -1;
+      long long int rp = -1;
+      while (!q.empty()) {
+        BFSTN cur = q.front();
+        q.pop();
+        TreeNode *tn = cur.node;
+        BFSTN ln;
+        BFSTN rn;
+        if (tn->left != nullptr) {
+          ln.node = tn->left;
+          ln.position = cur.position * 2;
+          if (lp < 0) lp = ln.position;
+
+          if (ln.position > rp) rp = ln.position;
+
+          nq.push(ln);
+        }
+
+        if (tn->right != nullptr) {
+          rn.node = tn->right;
+          rn.position = cur.position * 2 + 1;
+          if (lp < 0) lp = rn.position;
+          if (rn.position > rp) rp = rn.position;
+
+          nq.push(rn);
+        }
+      }
+      if ((rp - lp + 1) > maxW) maxW = rp - lp + 1;
+      if (!nq.empty()) q = nq;
+    }
+    return maxW;
+  }
 };
 
 // too many cycles wasted on nulls
 // new struct
+
+
+/*
+
+[0,0,0,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null,null,0,0,null]
+
+*/
