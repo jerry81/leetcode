@@ -77,49 +77,53 @@ struct TreeNode {
 };
 
 class Solution {
- public:
-  int widthOfBinaryTree(TreeNode *root) {
-    queue<TreeNode *> q;
-    int maxW = 0;
-    int itemcount = (root != nullptr) ? 1 : 0;
-    q.push(root);
-
-    while (itemcount > 0) {
-      itemcount = 0;
-      int curItem = 0;
-      queue<TreeNode *> nq;
-      int lp = -1;
-      int rp = -1;
-      while (!q.empty()) {
-        TreeNode *tn = q.front();
-        q.pop();
-        if (tn == nullptr) {
-          nq.push(nullptr);
-          nq.push(nullptr);
-        } else {
-          if (tn->left != nullptr) {
-            itemcount += 1;
-            if (lp < 0) lp = nq.size();
-
-            if ((int)nq.size() + 1 > rp) rp = (int)nq.size() + 1;
-          }
-
-          nq.push(tn->left);
-
-          if (tn->right != nullptr) {
-            itemcount += 1;
-            if (lp < 0) lp = nq.size() + 1;
-            if ((nq.size() + 1) > rp) rp = (nq.size() + 1);
-          }
-
-          nq.push(tn->right);
-        }
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+      queue<TreeNode*> q;
+      int maxW = 0;
+      int itemcount = 0;
+      if (root != nullptr) {
+        itemcount = 1;
+        maxW = 1;
       }
-      if ((rp - lp) > maxW) maxW = rp - lp;
-      q = nq;
+      q.push(root);
+
+      while (itemcount > 0) {
+        itemcount = 0;
+        int curItem = 0;
+        queue<TreeNode*> nq;
+        int lp = -1;
+        int rp = -1;
+        while (!q.empty()) {
+          TreeNode* tn = q.front();
+          q.pop();
+          if (tn == nullptr) {
+            nq.push(nullptr);
+            nq.push(nullptr);
+          } else {
+            if (tn->left != nullptr) {
+              itemcount += 1;
+              if (lp < 0) lp = nq.size();
+
+              if ((int)nq.size()+1 > rp) rp = (int)nq.size()+1;
+            }
+
+            nq.push(tn->left);
+
+            if (tn->right != nullptr) {
+              itemcount += 1;
+              if (lp < 0) lp = nq.size()+1;
+              if ((nq.size()+1) > rp) rp = (nq.size()+1);
+            }
+
+            nq.push(tn->right);
+          }
+        }
+        if ((rp - lp) > maxW) maxW = rp - lp;
+        q = nq;
+      }
+      return maxW;
     }
-    return maxW;
-  }
 };
 
 // bfs
