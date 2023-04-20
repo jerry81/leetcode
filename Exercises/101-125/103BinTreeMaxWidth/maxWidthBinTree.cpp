@@ -70,7 +70,8 @@ using namespace std;
      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
-class Solution {
+
+ class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
       queue<TreeNode*> q;
@@ -92,29 +93,23 @@ public:
             nq.push(nullptr);
           } else {
             if (tn->left != nullptr) {
-              cout << "left found " << tn->left->val << endl;
               itemcount += 1;
               if (lp < 0) lp = nq.size();
 
-              if ((int)nq.size() > rp) rp = (int)nq.size();
+              if ((int)nq.size()+1 > rp) rp = (int)nq.size()+1;
             }
 
             nq.push(tn->left);
 
             if (tn->right != nullptr) {
-              cout << "right found " << tn->right->val << endl;
               itemcount += 1;
               if (lp < 0) lp = nq.size()+1;
-              cout << "test " << nq.size()+1 << endl;
-              cout << "vs rp " << rp << endl;
               if ((nq.size()+1) > rp) rp = (nq.size()+1);
             }
 
             nq.push(tn->right);
           }
         }
-        cout << "rp is " << rp << endl;
-        cout << "lp is " << lp << endl;
         if ((rp - lp) > maxW) maxW = rp - lp;
         q = nq;
       }
