@@ -47,6 +47,7 @@ Acceptance Rate
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
@@ -54,16 +55,27 @@ const static int MOD =  pow(10,9) + 7;
 
 // why this number always shows up https://www.geeksforgeeks.org/modulo-1097-1000000007/
 class Solution {
+unordered_map<string, int> memo;
 public:
     int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
+      for (int i = 0; i < group.size(); ++i) {
 
+      }
       return 0;
     }
 };
 
 /*
 strat
-tree?
+tree? yes (binary tree)
+  no decisions made
+2 decisions at each index: take dont take
+        t            dt
+    t      dt      t     dt
+  t    dt t  dt  t   dt t   dt
 
+  at any node if at capacity, then the subtrees counts can be calculated in one turn
 - memoization & array are enough
+
+memo keep track of idx 0, 1, ->
 */
