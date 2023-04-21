@@ -45,12 +45,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
+#include <iostream>
 
 using namespace std;
 
+const static int MOD =  pow(10,9) + 7;
+
+// why this number always shows up https://www.geeksforgeeks.org/modulo-1097-1000000007/
 class Solution {
 public:
     int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
 
+      return 0;
     }
 };
+
+/*
+strat
+tree?
+
+- memoization & array are enough
+*/
