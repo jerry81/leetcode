@@ -71,7 +71,11 @@ class Solution {
     char ac = _s[a];
     char bc = _rs[b];
     if (ac == bc) {
-      lookup[a][b] = 1 + getMaxSeq
+      lookup[a][b] = 1 + getMaxSubseq(a-1, b-1);
+      return lookup[a][b];
+    } else {
+      lookup[a][b] = max(getMaxSubseq(a-1, b), getMaxSubseq(a, b-1));
+      return lookup[a][b];
     }
     return 0;
   }
