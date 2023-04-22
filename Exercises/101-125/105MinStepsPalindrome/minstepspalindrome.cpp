@@ -4,7 +4,8 @@ Hard
 3.4K
 41
 Companies
-Given a string s. In one step you can insert any character at any index of the string.
+Given a string s. In one step you can insert any character at any index of the
+string.
 
 Return the minimum number of steps to make s palindrome.
 
@@ -16,8 +17,8 @@ Example 1:
 
 Input: s = "zzazz"
 Output: 0
-Explanation: The string "zzazz" is already palindrome we do not need any insertions.
-Example 2:
+Explanation: The string "zzazz" is already palindrome we do not need any
+insertions. Example 2:
 
 Input: s = "mbadm"
 Output: 2
@@ -43,13 +44,31 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
+
 using namespace std;
 
 class Solution {
-public:
-    int minInsertions(string s) {
-
+  string _s;
+  string _rs;
+  vector<vector<int>> lookup;
+  void init() {
+    for (auto _ : _s) {
+      vector<int> temp;
+      for (auto _ : _s) {
+        temp.push_back(-1);
+      }
+      lookup.push_back(temp);
     }
+  }
+
+ public:
+  int minInsertions(string s) {
+    _s = s;
+    _rs = _s;
+    reverse(_rs.begin(), _rs.end());
+    init();
+  }
 };
 
 /*
@@ -133,7 +152,8 @@ distance of repeat made a difference
 topics are string and DP
 
 - make palindrome
-- naive: - insert starting from last index and insert at end moving pointer backwards to 0
+- naive: - insert starting from last index and insert at end moving pointer
+backwards to 0
 
 leetcodele - exepcts 5
 
@@ -141,4 +161,3 @@ leetcodele
 leetcodele
 
 */
-
