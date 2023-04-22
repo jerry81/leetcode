@@ -64,3 +64,19 @@ dp approach
     mba         mb          ma         m     ba      b    a        _   (a)
 mbad   mba    mbd  mb    mad   ma   md   m  bad                   (d)
 mbadm           (m)
+
+instagram 9 - 3 = 6
+
+margatsni
+
+longest common substring
+- order kept - can remove one or more chars
+
+official solution #1:
+
+Longest common subsequence between the string and its reverse - gets longest palindromic sequence
+
+- recursion:
+string s, reverse string rs
+check last char - if last char same add 1 and remove both
+if not then 2 subproblems: remove last from s and remove last from rs
