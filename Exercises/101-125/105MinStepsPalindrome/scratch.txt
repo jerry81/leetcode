@@ -1,0 +1,66 @@
+
+leetcodele - expects 5
+
+leetcodele
+leetcodoele
+eleetcodoele
+eleetcodocele
+eleetcodoctele
+eleetcodocteele
+
+problem is same as removing
+
+leetcode
+remove until palindrome
+
+eetcode
+etcode
+ecode
+eode
+ede
+
+instagram
+
+
+
+nstagram
+istagram
+intagram
+insagram
+instgram
+instaram
+instagam
+instagrm
+instagra
+
+stagram
+staram
+taram
+aram
+ara
+
+if we do knapsack approach
+
+012345678
+instagram
+
+000000000
+is "" - palidrome yes
+000000001
+is "m" - palindrome yes
+000000010
+palindrome yes
+000000011
+am - palindrome no
+
+mbadm - expect 2
+mbadm
+
+dp approach
+
+                           root
+                    m                _      (m)
+           mb                     m              b           _   (b)
+    mba         mb          ma         m     ba      b    a        _   (a)
+mbad   mba    mbd  mb    mad   ma   md   m  bad                   (d)
+mbadm           (m)
