@@ -45,6 +45,7 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -62,12 +63,26 @@ class Solution {
     }
   }
 
+  int getMaxSubseq(int a, int b) {
+    if (a < 0) return 0;
+    if (b < 0) return 0;
+    if (lookup[a][b] >= 0) return lookup[a][b];
+
+    char ac = _s[a];
+    char bc = _rs[b];
+    if (ac == bc) {
+      lookup[a][b] = 1 + getMaxSeq
+    }
+    return 0;
+  }
+
  public:
   int minInsertions(string s) {
     _s = s;
     _rs = _s;
     reverse(_rs.begin(), _rs.end());
     init();
+    return s.size() - getMaxSubseq(s.size()-1, s.size()-1);
   }
 };
 
