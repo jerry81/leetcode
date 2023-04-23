@@ -65,7 +65,9 @@ void buildTree(int idx, int members, int profit) {
   if (idx >= _size) return;
 
   if (visited[idx][members][profit]) {
-    if (lookup[idx][members][profit]) _successes = (_successes+1) % (Math.pow(10,9) + 7);
+    if (lookup[idx][members][profit]) _successes = (_successes+1) % (pow(10,9) + 7);
+  } else {
+    visited[idx][members][profit]
   }
 }
 public:

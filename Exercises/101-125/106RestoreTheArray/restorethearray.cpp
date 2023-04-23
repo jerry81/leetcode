@@ -41,6 +41,13 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+const static int MOD = pow(10,9) + 7;
+
 class Solution {
 public:
     int numberOfArrays(string s, int k) {
