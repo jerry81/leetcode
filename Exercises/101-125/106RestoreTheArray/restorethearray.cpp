@@ -44,13 +44,44 @@ Acceptance Rate
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 const static int MOD = pow(10,9) + 7;
 
 class Solution {
+vector<unordered_map<string, bool>> lookup;  // idx, suffix
+int totalcount = 0;
+int ulimit = 0;
+int size = 0;
+void traverse(int idx, string key) {
+  if (idx >= size) return;
+  int asI = stoi(key);
+
+  if (lookup[idx].find(key) == lookup[idx].end()) {
+      lookup[idx][key] = asI < ulimit;
+      if (!lookup[idx][key]) return;
+  }
+
+  string compare = key.substr(idx);
+
+  int cAsI = stoi(compare);
+
+  string nextkey = key.substr(idx+1);
+
+  traverse(idx+1, key);
+  traverse(idx+1, nextkey);
+}
 public:
     int numberOfArrays(string s, int k) {
-
+      ulimit = k;
+      size = s.size();
+      for (char _: s) {
+        unordered_map<string, bool> h;
+        lookup.push_back(h);
+      }
+      traverse(0, s);
     }
 };
+
