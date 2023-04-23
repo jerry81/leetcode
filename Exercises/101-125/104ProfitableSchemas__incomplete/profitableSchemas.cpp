@@ -55,12 +55,25 @@ const static int MOD =  pow(10,9) + 7;
 
 // why this number always shows up https://www.geeksforgeeks.org/modulo-1097-1000000007/
 class Solution {
-unordered_map<string, int> memo;
+unordered_map<int, unordered_map<int, unordered_map<int, bool>>> lookup;
+unordered_map<int, unordered_map<int, unordered_map<int, bool>>> visited;
+int _successes = 0;
+int _people;
+int _minprofit;
+int _size;
+void buildTree(int idx, int members, int profit) {
+  if (idx >= _size) return;
+
+  if (visited[idx][members][profit]) {
+    if (lookup[idx][members][profit]) _successes = (_successes+1) % (Math.pow(10,9) + 7);
+  }
+}
 public:
     int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
-      for (int i = 0; i < group.size(); ++i) {
-
-      }
+      _people = n;
+      _minprofit = minProfit;
+      _size = group.size();
+      buildTree(0,0,0);
       return 0;
     }
 };
