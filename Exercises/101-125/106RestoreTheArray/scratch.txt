@@ -58,3 +58,12 @@ example 2 1000
        1,000 false <-- so are all subtrees false?           1000
 
 
+// not necessary to check every
+// 1317
+// 1, 317
+// 13, 17
+// 131, 7
+
+// 317
+// 3, 17
+// 3, 1, 7
