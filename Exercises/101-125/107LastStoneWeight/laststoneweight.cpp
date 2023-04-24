@@ -46,11 +46,28 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 using namespace std;
 
+struct ComparePQ {
+    bool operator()(int a, int b) { return a < b; }
+  };
 class Solution {
 public:
     int lastStoneWeight(vector<int>& stones) {
+      priority_queue<int, vector<int>, ComparePQ> pq;
+      for (int a:stones) {
+        pq.push(a);
 
+      }
+      while (pq.size() > 1) {
+        int t1 = pq.top();
+        pq.pop();
+        int t2 = pq.top();
+        pq.pop();
+        int diff = abs(t1-t2);
+        if (diff != 0) pq.push(diff);
+      }
+      return pq.empty() ? 0 : pq.top();
     }
 };
