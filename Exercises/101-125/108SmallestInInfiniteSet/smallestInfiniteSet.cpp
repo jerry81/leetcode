@@ -47,19 +47,31 @@ Acceptance Rate
 71.4%
 
 */
-
+using namespace std;
 class SmallestInfiniteSet {
+bool lookup[1001];
+int cur = 1;
 public:
     SmallestInfiniteSet() {
-
+      for (int i = 1; i <= 1000; ++i) {
+        lookup[i] = false;
+      }
     }
 
     int popSmallest() {
-
+      while (lookup[cur]) {
+        cur++;
+      }
+      lookup[cur] = true;
+      return cur;
     }
 
     void addBack(int num) {
-
+      if (lookup[num]) {
+        lookup[num] = false;
+        return;
+      }
+      if (num < cur) cur = num;
     }
 };
 
