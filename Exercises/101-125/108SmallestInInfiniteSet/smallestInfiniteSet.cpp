@@ -69,7 +69,6 @@ public:
     void addBack(int num) {
       if (lookup[num]) {
         lookup[num] = false;
-        return;
       }
       if (num < cur) cur = num;
     }
