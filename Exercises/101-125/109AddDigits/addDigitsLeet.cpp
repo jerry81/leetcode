@@ -46,15 +46,9 @@ using namespace std;
 class Solution {
  public:
   int addDigits(int num) {
-    while (true) {
-      string a = to_string(num);
-      int sum = 0;
-      for (char c: a) {
-        sum+=(c-'0');
-      }
-      if (sum < 10) return sum;
-      num = sum;
-    }
+    int rem = num%9;
+    if (num == 0) return 0;
+    return rem == 0 ? 9 : rem;
   }
 };
 
@@ -67,5 +61,26 @@ class Solution {
 If number is divisible by 9 completely then digital root(ans) is 9,else the digital root is remainder obtained.
 
 P.S-I learnt this beautiful thing today!
+
+11 -> 2
+12 -> 3
+20 -> 2
+21 -> 3
+27 -> 9
+28 -> 1
+29 -> 2
+30 -> 3
+31 -> 4
+980-> 8
+981 -> 9
+982 -> 1
+983 -> 2
+...
+990 -> 9
+991 -> 1
+992 -> 2
+...
+999 -> 9
+
 
 */
