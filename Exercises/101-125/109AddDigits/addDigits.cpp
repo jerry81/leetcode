@@ -5,7 +5,8 @@ Easy
 3.5K
 1.8K
 Companies
-Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+Given an integer num, repeatedly add all its digits until the result has only
+one digit, and return it.
 
 
 
@@ -39,9 +40,22 @@ Acceptance Rate
 
 */
 
-class Solution {
-public:
-    int addDigits(int num) {
+using namespace std;
+#include <string>
 
+class Solution {
+ public:
+  int addDigits(int num) {
+    while (true) {
+      string a = to_string(num);
+      int sum = 0;
+      for (char c: a) {
+        sum+=(c-'0');
+      }
+      if (sum < 10) return sum;
+      num = sum;
     }
+  }
 };
+
+// naive first
