@@ -59,14 +59,19 @@ class Solution {
     for (int i = 0; i < n; ++i) {
       switches.push_back(true);
     }
-    cerr << "switches.size " << switches.size() << endl;
     int count = n;
 
-    for (int i = 1; i < n; ++i) {
-      for (int j = i; j < n / i; j += i) {
-        switches[j] = !switches[j];
-        if (switches[j]) count++;
-        if (!switches[j]) count--;
+    for (int i = 2; i <= n; ++i) {
+      int start = i-1;
+      while (start < n) {
+        switches[start] = !switches[start];
+
+        if (switches[start]) {
+          count++;
+        } else {
+          count--;
+        }
+        start+=i;
       }
     }
     return count;
@@ -75,3 +80,14 @@ class Solution {
 
 // naive - do the loop
 // leet - solve it mathematically
+/*
+
+  n = 300
+  expected 17
+  output 73
+
+
+  1 3 5 7
+  2 5 8
+  3 7 11
+*/
