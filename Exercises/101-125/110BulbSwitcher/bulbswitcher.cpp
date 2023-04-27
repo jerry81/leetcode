@@ -48,6 +48,11 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
 class Solution {
  public:
   int bulbSwitch(int n) {
@@ -78,6 +83,18 @@ class Solution {
   }
 };
 
+int main() {
+  Solution s;
+  int prev = 0;
+  for (int i = 1; i < 100; ++i) {
+    int cur = s.bulbSwitch(i);
+    if (cur != prev) {
+      cerr << "changed at " << i << " count is " << cur << endl;
+      prev = cur;
+    }
+  }
+};
+
 // naive - do the loop
 // leet - solve it mathematically
 /*
@@ -90,4 +107,9 @@ class Solution {
   1 3 5 7
   2 5 8
   3 7 11
+
+  TLE on 10000000
 */
+
+// by feeding numbers found that the solution is
+// sqrt(n)'s floor
