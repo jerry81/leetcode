@@ -48,6 +48,19 @@ Acceptance Rate
 class Solution {
 public:
     int bulbSwitch(int n) {
-
+      bool switches[n];
+      int count = n;
+      if (n == 1) return 1;
+      for (int i = 1; i < n; ++n) {
+        for (int j = i; j < n/i; j+=i) {
+          bool sw = !switches[j];
+          if (sw) count--;
+          if (!sw) count++;
+        }
+      }
+      return count;
     }
 };
+
+// naive - do the loop
+// leet - solve it mathematically
