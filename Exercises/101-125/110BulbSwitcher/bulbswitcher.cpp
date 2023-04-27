@@ -50,6 +50,7 @@ Acceptance Rate
 
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -60,26 +61,8 @@ class Solution {
 
     if (n == 1) return 1;
 
-    vector<bool> switches;
-    for (int i = 0; i < n; ++i) {
-      switches.push_back(true);
-    }
-    int count = n;
+    return floor(sqrt(n));
 
-    for (int i = 2; i <= n; ++i) {
-      int start = i-1;
-      while (start < n) {
-        switches[start] = !switches[start];
-
-        if (switches[start]) {
-          count++;
-        } else {
-          count--;
-        }
-        start+=i;
-      }
-    }
-    return count;
   }
 };
 
