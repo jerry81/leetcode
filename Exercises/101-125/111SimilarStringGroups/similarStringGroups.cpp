@@ -42,6 +42,7 @@ Acceptance Rate
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -57,11 +58,17 @@ bool areSimilar(string s1, string s2) {
       s1=o1;
     }
   }
+  return false;
 }
 class Solution {
 public:
     int numSimilarGroups(vector<string>& strs) {
-
+      for (int i = 0; i < strs.size()-1; ++i) {
+        for (int j = i+1; j < strs.size(); ++j) {
+          cout << strs[i] << " and " << strs[j] << " are " << areSimilar(strs[i], strs[j]) << endl;;
+        }
+      }
+      return 0;
     }
 };
 
