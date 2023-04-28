@@ -45,9 +45,25 @@ Acceptance Rate
 
 using namespace std;
 
+bool areSimilar(string s1, string s2) {
+  string o1 = s1;
+  for (int i = 0; i < s1.size()-1; ++i) {
+    for (int j = i+1; j < s1.size(); ++j) {
+      char temp = s1[j];
+      s1[j] = s1[i];
+      s1[i] = temp;
+      if (s1 == s2) return true;
+
+      s1=o1;
+    }
+  }
+}
 class Solution {
 public:
     int numSimilarGroups(vector<string>& strs) {
 
     }
 };
+
+// go naive
+// similar helper
