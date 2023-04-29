@@ -52,6 +52,7 @@ Acceptance Rate
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <iostream>
 using namespace std;
 
 class Solution {
@@ -59,9 +60,11 @@ vector<vector<int>> distances;
 
 void init(int n) {
   for (int i = 0; i < n; ++i) {
+    vector<int> newv;
     for (int j = 0; j < n; ++j) {
-      distances[i][j] = INT_MAX;
+      newv.push_back(INT_MAX);
     }
+    distances.push_back(newv);
   }
 }
 
@@ -70,7 +73,8 @@ void initDist(vector<vector<int>> edges) {
     int src = edge[0];
     int dest = edge[1];
     int dist = edge[2];
-
+    if (dist < distances[src][dest]) distances[src][dest] = dist;
+    if (dist < distances[dest][src]) distances[dest][src] = dist;
   }
 }
 
@@ -78,7 +82,7 @@ int shortestPath(int start, int end) {
   unordered_map<int, bool> visited;
   visited[start] = true;
   queue<int> next;
-
+  return 0;
 }
 
 public:
@@ -86,6 +90,11 @@ public:
       vector<bool> ret;
       init(n);
       initDist(edgeList);
+      for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+          cout << i << " to " << j << " is " << distances[i][j] << endl;
+        }
+      }
       return ret;
     }
 };
