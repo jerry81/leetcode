@@ -110,8 +110,12 @@ class Solution {
         int totalD = popped.second + distances[popped.first][n];
         if (totalD < distances[start][n]) {
           distances[start][n] = totalD;
+          distances[n][start] = totalD;
         }
-        auto nextpair = {n, totalD};
+        pair<int,int> nextpair = {n, totalD};
+        if (!visited[n]) next.push(nextpair);
+        visited[n] = true;
+        processed[toHash(start,n)] = true;
       }
     }
   }
@@ -124,6 +128,12 @@ class Solution {
     initDist(edgeList);
     for (int i = 0; i < n; ++i) {
       shortestPath(i);
+    }
+    for (vector<int> q: queries) {
+      int src = q[0];
+      int dest = q[1];
+      int limit = q[2];
+      ret.push_back(distances[src][dest] <= limit);
     }
     return ret;
   }
