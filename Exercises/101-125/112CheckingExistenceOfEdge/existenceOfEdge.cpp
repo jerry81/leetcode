@@ -115,7 +115,7 @@ class Solution {
         pair<int,int> nextpair = {n, totalD};
         if (!visited[n]) next.push(nextpair);
         visited[n] = true;
-        processed[toHash(start,n)] = true;
+       // processed[toHash(start,n)] = true;
       }
     }
   }
@@ -129,11 +129,17 @@ class Solution {
     for (int i = 0; i < n; ++i) {
       shortestPath(i);
     }
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+
+        cout << "i: " << i << " j: " << j << " dist: " << distances[i][j] << endl;
+      }
+    }
     for (vector<int> q: queries) {
       int src = q[0];
       int dest = q[1];
       int limit = q[2];
-      ret.push_back(distances[src][dest] <= limit);
+      ret.push_back(distances[src][dest] < limit);
     }
     return ret;
   }
