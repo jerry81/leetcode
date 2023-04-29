@@ -49,9 +49,45 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <unordered_map>
+#include <queue>
+using namespace std;
+
 class Solution {
+vector<vector<int>> distances;
+
+void init(int n) {
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      distances[i][j] = INT_MAX;
+    }
+  }
+}
+
+void initDist(vector<vector<int>> edges) {
+  for (vector<int> edge: edges) {
+    int src = edge[0];
+    int dest = edge[1];
+    int dist = edge[2];
+
+  }
+}
+
+int shortestPath(int start, int end) {
+  unordered_map<int, bool> visited;
+  visited[start] = true;
+  queue<int> next;
+
+}
+
 public:
     vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) {
-
+      vector<bool> ret;
+      init(n);
+      initDist(edgeList);
+      return ret;
     }
 };
+
+// shortest paths with memoization?
