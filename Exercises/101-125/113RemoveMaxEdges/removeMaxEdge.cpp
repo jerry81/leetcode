@@ -58,9 +58,14 @@ Acceptance Rate
 
 */
 
+#include <vector>
+using namespace std;
+
 class Solution {
 public:
     int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
 
     }
 };
+
+// question, what is "fully traverse"?  Can nodes be visited multiple times?
