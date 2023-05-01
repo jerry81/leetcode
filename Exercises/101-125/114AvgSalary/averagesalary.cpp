@@ -39,9 +39,19 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
 class Solution {
 public:
     double average(vector<int>& salary) {
-
+      int mx = *max_element(salary.begin(), salary.end());
+      int mn = *min_element(salary.begin(), salary.end());
+      int sum = 0;
+      for_each(salary.begin(), salary.end(), [&sum](int &n) { sum+=n; });
+      double ret = (double)(sum-mx-mn) / (double)(salary.size()-2);
+      return ret;
     }
 };
