@@ -4,7 +4,14 @@ public:
        vector<vector<int>> ret;
        vector<int> ans1;
        vector<int> ans2;
-        ans1=nums1;
-        ans2=nums2;
+        
+        unordered_map<int,bool> cont1;
+        unordered_map<int,bool> cont2;
+        for (int i:nums1){
+            cont1[i] = true;
+        }
+        for (int i:nums2){
+            
+        }
     }
 };
