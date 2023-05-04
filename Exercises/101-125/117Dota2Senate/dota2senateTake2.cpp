@@ -69,8 +69,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int p1 = -1;
-  int p2 = -1;
   int tR = 0;
   int tD = 0;
   int banR = 0;
@@ -78,6 +76,7 @@ class Solution {
 
  public:
   string predictPartyVictory(string senate) {
+    string next = "";
     for (int i = 0; i < senate.size(); ++i) {
       char c = senate[i];
       if (c == 'R') {
@@ -86,6 +85,12 @@ class Solution {
         } else {
           tR++;
           banD++;
+
+          next += 'R';
+          size_t found = next.find('D');
+          if (found != string::npos) {
+            next.erase(found, 1);
+          }
         }
       } else {
         if (banD > 0) {
@@ -93,12 +98,25 @@ class Solution {
         } else {
           tD++;
           banR++;
+          next += 'D';
+          size_t found = next.find('R');
+          if (found != string::npos) {
+            next.erase(found, 1);
+          }
         }
       }
     }
 
     tR -= banR;
     tD -= banD;
+
+    if (tR == tD) {
+    banD = 0;
+    tR = 0;
+    tD = 0;
+    banR = 0;
+      return predictPartyVictory(next);
+    }
 
     return (tR > tD) ? "Radiant" : "Dire";
   }
@@ -121,4 +139,5 @@ strat 2 - after trying some examples
 Misunderstood the instructions!
 
 make stacks
+
 */
