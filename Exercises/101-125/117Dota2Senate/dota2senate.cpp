@@ -1,3 +1,55 @@
+LeetCode Logo
+Problem List
+Premium
+4
+
+avatar
+Accepted
+Next question
+650. 2 Keys Keyboard
+More challenges
+495. Teemo Attacking
+All statuses
+All languages
+Accepted
+a few seconds ago
+C++
+Wrong Answer
+7 minutes ago
+C++
+Wrong Answer
+19 minutes ago
+C++
+Wrong Answer
+28 minutes ago
+C++
+Wrong Answer
+an hour ago
+C++
+Console
+
+
+
+Jerry Tann
+Jerry Tann
+May 04, 2023 15:13
+Details
+Solution
+C++
+Runtime
+9 ms
+Beats
+48.47%
+Memory
+7.3 MB
+Beats
+71.76%
+Click the distribution chart to view more details
+Notes
+Write your notes here
+Related Tags
+Select tags
+0/5
 /*
 
 649. Dota2 Senate
@@ -76,6 +128,9 @@ class Solution {
 
  public:
   string predictPartyVictory(string senate) {
+    if (senate.find('D') == string::npos) return "Radiant";
+
+    if (senate.find('R') == string::npos) return "Dire";
     string next = "";
     for (int i = 0; i < senate.size(); ++i) {
       char c = senate[i];
@@ -86,12 +141,7 @@ class Solution {
           tR++;
 
           next += 'R';
-          size_t found = next.find('D');
-          if (found != string::npos) {
-            next.erase(found, 1);
-          } else {
-              banD++;
-          }
+          banD++;
         }
       } else {
         if (banD > 0) {
@@ -100,27 +150,19 @@ class Solution {
           tD++;
 
           next += 'D';
-          size_t found = next.find('R');
-          if (found != string::npos) {
-            next.erase(found, 1);
-          } else {
-            banR++;
-          }
+          banR++;
         }
       }
     }
 
-    tR -= banR;
-    tD -= banD;
-    if (tR == tD) {
-    banD = 0;
-    tR = 0;
-    tD = 0;
-    banR = 0;
-      return predictPartyVictory(next);
-    }
 
-    return (tR > tD) ? "Radiant" : "Dire";
+     // banD = 0;
+      tR = 0;
+      tD = 0;
+     // banR = 0;
+      return predictPartyVictory(next);
+
+
   }
 };
 
@@ -143,3 +185,4 @@ Misunderstood the instructions!
 make stacks
 
 */
+Dota2 Senate - LeetCode
