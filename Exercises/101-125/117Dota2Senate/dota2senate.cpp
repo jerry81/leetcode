@@ -52,9 +52,28 @@ Acceptance Rate
 
 */
 
+#include <string>
+using namespace std;
+
 class Solution {
+int p1 = -1;
+int p2 = -1;
 public:
     string predictPartyVictory(string senate) {
-
+      for (int i = 0; i < senate.size(); ++i) {
+        char c = senate[i];
+        if (c == 'R') {
+        } else {
+        }
+      }
     }
 };
+
+/*
+
+Strat - ban first available enemy
+- 2 pointers - current ban R, current ban D
+- 2 counters - Rbancount, DBanCount
+- 2 counters - Rtotal, DTotal
+
+*/
