@@ -53,27 +53,62 @@ Acceptance Rate
 */
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Solution {
 int p1 = -1;
 int p2 = -1;
+int tR = 0;
+int tD = 0;
+int banR = 0;
+int banD = 0;
+
+
 public:
     string predictPartyVictory(string senate) {
       for (int i = 0; i < senate.size(); ++i) {
         char c = senate[i];
         if (c == 'R') {
+          if (banR > 0) {
+            banR--;
+          } else {
+            tR++;
+            banD++;
+          }
         } else {
+          if (banD > 0) {
+            banD--;
+          } else {
+            tD++;
+            banR++;
+          }
         }
       }
+
+      tR -= banR;
+      tD -= banD;
+
+      cout <<"banR is " << banR << endl;
+            cout <<"banD is " << banD << endl;
+                  cout <<"tD is " << tD << endl;
+                        cout <<"tr is " << tR << endl;
+                            return (tR > tD) ? "Radiant" : "Dire";
     }
+
 };
 
 /*
 
 Strat - ban first available enemy
-- 2 pointers - current ban R, current ban D
+- 2 pointers - current ban R, current ban D - not needed
 - 2 counters - Rbancount, DBanCount
 - 2 counters - Rtotal, DTotal
+
+
+strat 2 - after trying some examples
+- there is a lot of lookahead
+- should we do the indexing work up front?
+
 
 */
