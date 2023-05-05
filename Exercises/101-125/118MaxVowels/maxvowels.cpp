@@ -43,6 +43,7 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 using namespace std;
 
 class Solution {
@@ -52,10 +53,29 @@ bool isv(char c) {
 public:
     int maxVowels(string s, int k) {
       int max_count = 0;
+      vector<bool> memo;
       for (int i = 0; i < k; ++i) {
-        if (isv(s[i])) max_count++;
+        if (isv(s[i])) {
+          max_count++;
+          memo.push_back(true);
+        } else {
+          memo.push_back(false);
+        }
       }
-      for (int i = )
+
+      int curcount = max_count;
+      for (int i = 1; i < (s.size() - k); ++i ) {
+        if (memo[i]) curcount--;
+        char back = s[i+k-1];
+        if (isv(back)) {
+          memo.push_back(true);
+          curcount++;
+          if (curcount > max_count) max_count = curcount;
+        } else {
+          memo.push_back(false);
+        }
+      }
+      return max_count;
     }
 };
 
