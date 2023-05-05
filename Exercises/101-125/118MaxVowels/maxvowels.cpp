@@ -46,8 +46,17 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+bool isv(char c) {
+  return (c=='a' || c=='e' || c=='i' || c=='o' || c=='u');
+}
 public:
     int maxVowels(string s, int k) {
-
+      int max_count = 0;
+      for (int i = 0; i < k; ++i) {
+        if (isv(s[i])) max_count++;
+      }
+      for (int i = )
     }
 };
+
+// brute force?
