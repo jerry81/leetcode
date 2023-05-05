@@ -45,13 +45,18 @@ Acceptance Rate
 #include <string>
 #include <vector>
 using namespace std;
-
 class Solution {
 bool isv(char c) {
   return (c=='a' || c=='e' || c=='i' || c=='o' || c=='u');
 }
 public:
     int maxVowels(string s, int k) {
+      if (k == 1) {
+        for (char c:s) {
+          if (isv(c)) return true;
+        }
+        return false;
+      }
       int max_count = 0;
       vector<bool> memo;
       for (int i = 0; i < k; ++i) {
@@ -64,8 +69,8 @@ public:
       }
 
       int curcount = max_count;
-      for (int i = 1; i < (s.size() - k); ++i ) {
-        if (memo[i]) curcount--;
+      for (int i = 1; i <= (s.size() - k); ++i ) {
+        if (memo[i-1]) curcount--;
         char back = s[i+k-1];
         if (isv(back)) {
           memo.push_back(true);
@@ -80,3 +85,8 @@ public:
 };
 
 // brute force?
+
+// fail case: weallloveyou
+// k = 7
+// expect 4
+// outputs 3
