@@ -58,10 +58,10 @@ public:
       for (int i = 0; i < nums.size(); ++i) {
         int complement = target - nums[i];
         int maxj = i;
-        for (int j = i+1; j < nums.size(); ++i) {
-          if (nums[j] < complement) maxj = complement;
+        for (int j = i+1; j < nums.size(); ++j) {
+          if (nums[j] < complement) maxj = j;
         }
-        subseq+=(pow(2,maxj-i)-1);
+        subseq+=(pow(2,maxj-i+1)-1);
 
       }
       int mod = pow(10,9) + 7;
