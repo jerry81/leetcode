@@ -47,9 +47,59 @@ Acceptance Rate
 40.8%
 */
 
+#include <vector>
+#include <cmath>
+using namespace std;
+
 class Solution {
 public:
     int numSubseq(vector<int>& nums, int target) {
+      long long int subseq = 0;
+      for (int i = 0; i < nums.size(); ++i) {
+        int complement = target - nums[i];
+        int maxj = i;
+        for (int j = i+1; j < nums.size(); ++i) {
+          if (nums[j] < complement) maxj = complement;
+        }
+        subseq+=(pow(2,maxj-i)-1);
 
+      }
+      int mod = pow(10,9) + 7;
+      return subseq % mod;
     }
 };
+
+/*
+
+find the latest complement in the array
+add 2^len - 1
+nums = [2,3,3,4,6,7], target = 12
+all subsequences
+2,
+- complimentary number - 10 or under
+- all will work so take all subsequences
+2,3
+2,3,3
+2,3,3,4
+2,3,3,4,6
+2,3,3,4,6,7
+indexes 0,1,2,3,4,5
+0,1
+0,2
+0,3
+0,4
+0,5
+0,1,2
+0,1,3
+0,1,4
+0,1,5
+
+
+3
+3,3
+3,3,4
+3,3,4,6
+3,3,4,6,7
+
+
+*/
