@@ -62,13 +62,24 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+unordered_map<int,int> lookup;
 public:
     vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {
+      for (int i = 0; i < obstacles.size(); ++i) {
+        if (i == 0) {
+          lookup[obstacles[0]] = 1;
+          continue;
+        }
 
+        int item = obstacles[i];
+        // either max(lookup key < item) or 1
+
+      }
     }
 };
 
@@ -96,3 +107,5 @@ public:
 //    1        1       longest(1)
 //    1  2  2    5     longest(5)
 //    1  2  2        3    longest(3)   1+(max(longest(<=3)))
+
+// could store the values sorted
