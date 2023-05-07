@@ -58,7 +58,8 @@ public:
       for (int i = 0; i < nums.size(); ++i) {
         int complement = target - nums[i];
         int maxj = i;
-        for (int j = i+1; j < nums.size(); ++j) {
+        for (int j = i+1; j < nums.size(); ++j) { // official solution replaces linear
+        // search with binary search
           if (nums[j] < complement) maxj = j;
         }
         subseq+=(pow(2,maxj-i+1)-1);
@@ -94,12 +95,10 @@ indexes 0,1,2,3,4,5
 0,1,4
 0,1,5
 
-
 3
 3,3
 3,3,4
 3,3,4,6
 3,3,4,6,7
-
 
 */
