@@ -71,3 +71,28 @@ public:
 
     }
 };
+
+// looking at examples
+// 3 1 2 2 1 5 3  longest obstacle for last item possibilities
+//   1     1   3
+//   1 2 2     3
+// 3           3
+
+// brute force:
+// candidates are items <= 3
+// 31221
+// working backwards
+// x = 3
+// take if <=x
+// reassign x
+//   1  1
+// so, skipping when you can take is sometimes optimal
+// so it becomes knapsack problem
+// but if we start from left to right, it seems like a dp problem
+// 3            longest(3)
+//    1         longest(1)
+//    1  2      longest(2)
+//    1  2  2   longest(2)  reset
+//    1        1       longest(1)
+//    1  2  2    5     longest(5)
+//    1  2  2        3    longest(3)   1+(max(longest(<=3)))
