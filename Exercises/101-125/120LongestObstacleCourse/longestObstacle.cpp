@@ -109,3 +109,13 @@ public:
 //    1  2  2        3    longest(3)   1+(max(longest(<=3)))
 
 // could store the values sorted
+
+// official solution
+// keep track of previous chain length and tail's obstacle height
+// memoize based on final height
+// binary search to find optimal chain
+// sorted b-searchable list's key is length of chain
+// value is height
+
+// TIL: use key as a meaningful number (in this case path length) sometimes
+// if you can to save creating struct or map
