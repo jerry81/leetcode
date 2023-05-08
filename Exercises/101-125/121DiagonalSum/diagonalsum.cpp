@@ -54,6 +54,15 @@ using namespace std;
 class Solution {
 public:
     int diagonalSum(vector<vector<int>>& mat) {
-
+      int size = mat.size();
+      bool even = size%2 == 0;
+      int half = size/2;
+      int sum = 0;
+      for (int i = 0; i < mat.size(); ++i) {
+          sum+=mat[i][i];
+          sum+=mat[i][mat.size()-i-1];
+      }
+      if (!even) sum-=mat[half][half];
+      return sum;
     }
 };
