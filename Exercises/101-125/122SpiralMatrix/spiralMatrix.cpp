@@ -59,7 +59,7 @@ public:
       while (count < total) {
         ret.push_back(matrix[cury][curx]);
         if (direction == 0) {
-          if (curx+1 < maxX) {
+          if ((curx+1) < maxX) {
             curx+=1;
           } else {
             direction = 1;
@@ -67,12 +67,29 @@ public:
             maxX--;
           }
         } else if (direction == 1) {
-          if (cury+1 < maxY) {
-
+          if ((cury+1) < maxY) {
+            cury+=1;
           } else {
+            direction = 2;
+            curx-=1;
+            maxY--;
           }
         } else if (direction == 2) {
+          if (curx-1 > minX) {
+            curx--;
+          } else {
+            direction=3;
+            cury--;
+            minX++;
+          }
         } else {
+          if (cury-1 > minY) {
+            cury--;
+          } else {
+            direction = 0;
+            curx++;
+            minY++;
+          }
         }
         count++;
       }
