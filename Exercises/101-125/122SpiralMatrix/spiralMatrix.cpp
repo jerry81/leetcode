@@ -75,7 +75,7 @@ public:
             maxY--;
           }
         } else if (direction == 2) {
-          if (curx-1 > minX) {
+          if (curx-1 >= minX) {
             curx--;
           } else {
             direction=3;
