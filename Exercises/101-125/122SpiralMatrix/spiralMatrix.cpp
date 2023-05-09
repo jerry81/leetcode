@@ -41,8 +41,47 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int direction = 0;  // 0R 1D 2L 3U
+int total,curw, curh = 0;
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      curw = matrix[0].size();
+      curh = matrix.size();
+      vector<int> ret;
+      int maxX = curw;
+      int minX = 0;
+      int maxY = curh;
+      int minY = 0;
+      total = curw*curh;
+      int curx = 0;
+      int cury = 0;
+      int count = 0;
+      while (count < total) {
+        ret.push_back(matrix[cury][curx]);
+        if (direction == 0) {
+          if (curx+1 < maxX) {
+            curx+=1;
+          } else {
+            direction = 1;
+            cury+=1;
+            maxX--;
+          }
+        } else if (direction == 1) {
+          if (cury+1 < maxY) {
 
+          } else {
+          }
+        } else if (direction == 2) {
+        } else {
+        }
+        count++;
+      }
+      return ret;
     }
 };
+
+/*
+
+looking at the indexes of 3x3
+00 01 02 12 22 21 20 10 11 done
+*/
