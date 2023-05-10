@@ -111,17 +111,17 @@ class Solution {
 
         char nextc = s[next];
         if (nextc == 'C') {
-          res+=90;
-          i+=1;
+          res += 90;
+          i += 1;
         } else if (nextc == 'L') {
-          res+=40;
-          i+=1;
+          res += 40;
+          i += 1;
         } else {
-          res+=10;
+          res += 10;
         }
-      } else if (cur=='V') {
-        res+=5;
-      } else { // 'I'
+      } else if (cur == 'V') {
+        res += 5;
+      } else {  // 'I'
         int next = i + 1;
         if (next >= s.size()) {
           res += 1;
@@ -130,17 +130,17 @@ class Solution {
 
         char nextc = s[next];
         if (nextc == 'X') {
-          res+=9;
-          i+=1;
+          res += 9;
+          i += 1;
         } else if (nextc == 'V') {
-          res+=4;
-          i+=1;
+          res += 4;
+          i += 1;
         } else {
-          res+=1;
+          res += 1;
         }
       }
     }
-    return ret;
+    return res;
   }
 };
 
