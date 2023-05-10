@@ -57,9 +57,47 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int romanToInt(string s) {
+      vector<int> i_tries = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+      vector<string> s_tries = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+      int res = 0;
+      for (int i = 0; i < s.size(); ++i) {
+        char cur = s[i];
+        if (cur == 'M') {
+          res+=1000;
+        } else if (cur == 'D') {
+          res+=500;
+        } else if (cur == 'C') {
+          int next = i+1;
+          if (next >= s.size()) {
+            res+=100;
+            continue;
+          }
 
+          char nextc = s[next];
+          if (nextc == 'M') {
+            res+=900;
+          } else if (nextc == 'D') {
+            res+=400;
+          } else {
+            res+=100;
+          }
+        }
+      }
     }
 };
+
+/*
+
+attempt 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1
+          M,   CM,  D,   CD,  C,  XC, L,  XL, X, IX, V, IV, I
+
+oops, i wrote int to roman.
+*/
