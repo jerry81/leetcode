@@ -60,11 +60,11 @@ class Solution {
   vector<int> v1;
   vector<int> v2;
   int s1, s2;
-  string get_hash(int idx1, int idx2) {
-    return to_string(idx1) + "," + to_string(idx2);
-  }
 
   int maxUncrossedLinesR(int idx1, int idx2) {
+    int memo = lookup[idx1][idx2];
+    if (memo > -1) return memo;
+
     vector<int> results;
     for (int i = idx1; i < s1; ++i) {
       int curi = v1[i];
@@ -81,9 +81,13 @@ class Solution {
         results.push_back(1 + maxUncrossedLinesR(i + 1, matchj + 1));
       }
     }
-    if (results.empty()) return 0;
+    if (results.empty()) {
+      lookup[idx1][idx2] = 0;
+      return 0;
+    }
 
     int mx = *max_element(results.begin(), results.end());
+    lookup[idx1][idx2] = mx;
     return mx;
   }
 
