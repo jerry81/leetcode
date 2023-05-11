@@ -71,9 +71,10 @@ public:
         if (nextj >= 0) {
           std::vector<int>::iterator start = nums1.begin() + i;  // Start index (inclusive)
           std::vector<int>::iterator start2 = nums2.begin() + nextj;
-          vector<int> sliced1(start, nums1.end());
-          vector<int> sliced2(start2, nums2.end());
+          vector<int> sliced1(start+1, nums1.end());
+          vector<int> sliced2(start2+1, nums2.end());
 
+          cerr << "sliced 1 size " << sliced1.size() << endl;
           results.push_back(1+maxUncrossedLines(sliced1, sliced2));
         }
       }
