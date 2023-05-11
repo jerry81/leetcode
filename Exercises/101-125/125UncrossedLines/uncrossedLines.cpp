@@ -48,6 +48,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Solution {
@@ -58,9 +59,27 @@ public:
       int ret = 0;
       vector<int> results;
       for (int i = 0; i < nums1.size(); ++i) {
+        int curi = nums1[i];
+        int nextj = -1;
         for (int j = 0; j < nums2.size(); ++j) {
+          int curj = nums2[j];
+          if (curi == curj) {
+            nextj = j;
+            break;
+          }
+        }
+        if (nextj >= 0) {
+          std::vector<int>::iterator start = nums1.begin() + i;  // Start index (inclusive)
+          std::vector<int>::iterator start2 = nums2.begin() + nextj;
+          vector<int> sliced1(start, nums1.end());
+          vector<int> sliced2(start2, nums2.end());
+
+          results.push_back(1+maxUncrossedLines(sliced1, sliced2));
         }
       }
+      if (results.empty()) return 0;
+      int mx = *max_element(results.begin(), results.end());
+      return mx;
     }
 };
 
