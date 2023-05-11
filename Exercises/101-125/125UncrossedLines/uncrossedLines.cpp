@@ -50,8 +50,6 @@ Acceptance Rate
 
 */
 
-#include <string>
-#include <unordered_map>
 #include <vector>
 using namespace std;
 
@@ -67,7 +65,7 @@ class Solution {
     int memo = lookup[idx1][idx2];
     if (memo > -1) return memo;
 
-    vector<int> results;
+    int mx = 0;
     for (int i = idx1; i < s1; ++i) {
       int curi = v1[i];
       int matchj = -1;
@@ -80,15 +78,11 @@ class Solution {
         }
       }
       if (matchj > -1) {
-        results.push_back(1 + maxUncrossedLinesR(i + 1, matchj + 1));
+        int res = 1 + maxUncrossedLinesR(i + 1, matchj + 1);
+        if (res > mx) mx = res;
       }
     }
-    if (results.empty()) {
-      lookup[idx1][idx2] = 0;
-      return 0;
-    }
 
-    int mx = *max_element(results.begin(), results.end());
     lookup[idx1][idx2] = mx;
     return mx;
   }
@@ -99,13 +93,8 @@ class Solution {
     v2 = nums2;
     s1 = nums1.size();
     s2 = nums2.size();
-    for (int i = 0; i < s1; i++) {
-      vector<int> tmp;
-      for (int j = 0; j < s2; ++j) {
-        tmp.push_back(-1);
-      }
-      lookup.push_back(tmp);
-    }
+    vector<vector<int>> lu(s1, vector<int>(s2, -1));
+    lookup = lu;
     if (nums1.empty() || nums2.empty()) return 0;
 
     return maxUncrossedLinesR(0, 0);
