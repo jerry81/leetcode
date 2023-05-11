@@ -62,6 +62,8 @@ class Solution {
   int s1, s2;
 
   int maxUncrossedLinesR(int idx1, int idx2) {
+    if (idx1 >= s1 || idx2 >= s2) return 0;
+
     int memo = lookup[idx1][idx2];
     if (memo > -1) return memo;
 
