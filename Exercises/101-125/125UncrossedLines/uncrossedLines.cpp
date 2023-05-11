@@ -51,8 +51,52 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+
 public:
     int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
-
+      if (nums1.empty() || nums2.empty()) return 0;
+      int ret = 0;
+      vector<int> results;
+      for (int i = 0; i < nums1.size(); ++i) {
+        for (int j = 0; j < nums2.size(); ++j) {
+        }
+      }
     }
 };
+
+/*
+
+working on the examples
+
+Input: nums1 = [2,5,1,2,5], nums2 = [10,5,2,1,5,2]
+Output: 3
+02, 5125
+    2152
+02, 125
+    2
+10
+OR
+11, 125
+    2152
+10, 5
+    152
+
+2  5  1  2  5
+10 5  2  1  5  2
+(0,2) -- go for the closest edge
+(1,1)
+(2,3)
+(3,2) or (3,5)
+
+feels like a recursive problem
+
+
+
+Input: nums1 = [1,3,7,1,7,5], nums2 = [1,9,2,5,1]
+Output: 2
+
+1    3     7     1    7    5
+1    9     2     5    1
+
+*/
+
