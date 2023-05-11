@@ -49,38 +49,57 @@ Acceptance Rate
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
+  vector<vector<int>> lookup;
+  vector<int> v1;
+  vector<int> v2;
+  int s1, s2;
+string get_hash(int idx1, int idx2) {
+  return to_string(idx1) + "," + to_string(idx2);
+}
+
+int maxUncrossedLinesR(int idx1, int idx2) {
+   vector<int> results;
+  for (int i = idx1; i < s1; ++i) {
+    int curi = v1[i];
+    int matchj = -1;
+
+    for (int j = idx2; j < s2; ++j) {
+      int curj = v2[j];
+      if (curj == curi) {
+        matchj = j;
+        break;
+      }
+    }
+    if (matchj > -1) {
+      results.push_back(1+maxUncrossedLinesR(i+1, matchj+1));
+    }
+    if (results.empty()) return 0;
+
+    int mx = *max_element(results.begin(), results.end());
+    return mx;
+  }
+}
 
 public:
     int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
-      if (nums1.empty() || nums2.empty()) return 0;
-      int ret = 0;
-      vector<int> results;
-      for (int i = 0; i < nums1.size(); ++i) {
-        int curi = nums1[i];
-        int nextj = -1;
-        for (int j = 0; j < nums2.size(); ++j) {
-          int curj = nums2[j];
-          if (curi == curj) {
-            nextj = j;
-            break;
-          }
+      v1 = nums1;
+      v2 = nums2;
+      s1 = nums1.size();
+      s2 = nums2.size();
+      for (int i = 0; i < s1; i++) {
+        vector<int> tmp;
+        for (int j = 0; j < s2; ++j) {
+          tmp.push_back(-1);
         }
-        if (nextj >= 0) {
-          std::vector<int>::iterator start = nums1.begin() + i;  // Start index (inclusive)
-          std::vector<int>::iterator start2 = nums2.begin() + nextj;
-          vector<int> sliced1(start+1, nums1.end());
-          vector<int> sliced2(start2+1, nums2.end());
-
-          cerr << "sliced 1 size " << sliced1.size() << endl;
-          results.push_back(1+maxUncrossedLines(sliced1, sliced2));
-        }
+        lookup.push_back(tmp);
       }
-      if (results.empty()) return 0;
-      int mx = *max_element(results.begin(), results.end());
-      return mx;
+      if (nums1.empty() || nums2.empty()) return 0;
+
+      return maxUncrossedLinesR(0,0);
     }
 };
 
@@ -120,3 +139,19 @@ Output: 2
 
 */
 
+
+
+/*
+
+on case 53 out of 70+, TLE
+
+nums1 =
+[1,5,3,5,3,5,5,4,4,3,2,3,5,4,5,4,5,2,5,3,3,1,4,4,3,1,1,1,4,4]
+nums2 =
+[1,3,2,2,5,2,3,1,1,3,5,4,5,5,3,5,4,1,2,5]
+
+
+opportunities for memoization??
+
+
+*/
