@@ -58,21 +58,21 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
-  vector<int> dp;
+  unordered_map<int, long long> dp;
   vector<vector<int>> q;
   int sz;
   long long mostPointsR(int idx) {
     if (idx >= sz) return 0;
-    if (dp[idx] > -1) return dp[idx];
+    if (dp.count(idx)) return dp[idx];
 
     long long max = 0;
-    vector<int> pr = q[idx];
-    int pts = pr[0];
-    int next = idx + pr[1] + 1;
+    int pts = q[idx][0];
+    int next = idx + q[idx][1] + 1;
     long long tmp = (next >= sz) ? pts : pts + mostPointsR(next);
     if (tmp > max) max = tmp;
 
@@ -89,8 +89,6 @@ class Solution {
   long long mostPoints(vector<vector<int>>& questions) {
     q = questions;
     sz = q.size();
-    vector<int> lu(sz, -1);
-    dp = lu;
     return mostPointsR(0);
   }
 };
