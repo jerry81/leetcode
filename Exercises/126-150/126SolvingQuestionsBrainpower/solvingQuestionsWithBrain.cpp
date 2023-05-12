@@ -59,28 +59,36 @@ Acceptance Rate
 
 #include <vector>
 
+
 using namespace std;
 
 class Solution {
+  vector<int> dp;
   vector<vector<int>> q;
-  int size;
+  int sz;
   long long mostPointsR(int idx) {
+    if (dp[idx] > -1) return dp[idx];
     long long max = 0;
-    for (int i = idx; i < size; ++i) {
+    for (int i = idx; i < sz; ++i) {
       vector<int> pr = q[i];
       int pts = pr[0];
       int next = i + pr[1]+1;
-
-      long long tmp = (next >= size) ? pts : pts + mostPointsR(next);
+      if (next >= sz) {
+        dp[i] = pts;
+      }
+      long long tmp = (next >= sz) ? pts : pts + mostPointsR(next);
       if (tmp > max) max = tmp;
     }
+    dp[idx] = max;
     return max;
   }
 
  public:
   long long mostPoints(vector<vector<int>>& questions) {
     q = questions;
-    size = q.size();
+    sz = q.size();
+    vector<int> lu(sz, -1);
+    dp = lu;
     return mostPointsR(0);
   }
 };
