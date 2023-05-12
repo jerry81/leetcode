@@ -65,14 +65,13 @@ class Solution {
   vector<vector<int>> q;
   int size;
   long long mostPointsR(int idx) {
-    int max = 0;
+    long long max = 0;
     for (int i = idx; i < size; ++i) {
       vector<int> pr = q[i];
       int pts = pr[0];
-      int next = i + pr[1];
-      if (next >= size) return pts;
+      int next = i + pr[1]+1;
 
-      int tmp = pts + mostPointsR(i);
+      long long tmp = (next >= size) ? pts : pts + mostPointsR(next);
       if (tmp > max) max = tmp;
     }
     return max;
