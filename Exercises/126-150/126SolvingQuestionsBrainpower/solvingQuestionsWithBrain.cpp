@@ -59,7 +59,6 @@ Acceptance Rate
 
 #include <vector>
 
-
 using namespace std;
 
 class Solution {
@@ -67,15 +66,21 @@ class Solution {
   vector<vector<int>> q;
   int sz;
   long long mostPointsR(int idx) {
+    if (idx >= sz) return 0;
     if (dp[idx] > -1) return dp[idx];
+
     long long max = 0;
-    for (int i = idx; i < sz; ++i) {
-      vector<int> pr = q[i];
-      int pts = pr[0];
-      int next = i + pr[1]+1;
-      long long tmp = (next >= sz) ? pts : pts + mostPointsR(next);
-      if (tmp > max) max = tmp;
-    }
+    vector<int> pr = q[idx];
+    int pts = pr[0];
+    int next = idx + pr[1] + 1;
+    long long tmp = (next >= sz) ? pts : pts + mostPointsR(next);
+    if (tmp > max) max = tmp;
+
+    tmp = mostPointsR(idx+1);
+
+    if (tmp > max) max = tmp;
+
+
     dp[idx] = max;
     return max;
   }
