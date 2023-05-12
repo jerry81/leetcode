@@ -5,14 +5,20 @@ Medium
 1.1K
 28
 Companies
-You are given a 0-indexed 2D integer array questions where questions[i] = [pointsi, brainpoweri].
+You are given a 0-indexed 2D integer array questions where questions[i] =
+[pointsi, brainpoweri].
 
-The array describes the questions of an exam, where you have to process the questions in order (i.e., starting from question 0) and make a decision whether to solve or skip each question. Solving question i will earn you pointsi points but you will be unable to solve each of the next brainpoweri questions. If you skip question i, you get to make the decision on the next question.
+The array describes the questions of an exam, where you have to process the
+questions in order (i.e., starting from question 0) and make a decision whether
+to solve or skip each question. Solving question i will earn you pointsi points
+but you will be unable to solve each of the next brainpoweri questions. If you
+skip question i, you get to make the decision on the next question.
 
 For example, given questions = [[3, 2], [4, 3], [4, 4], [2, 5]]:
-If question 0 is solved, you will earn 3 points but you will be unable to solve questions 1 and 2.
-If instead, question 0 is skipped and question 1 is solved, you will earn 4 points but you will be unable to solve questions 2 and 3.
-Return the maximum points you can earn for the exam.
+If question 0 is solved, you will earn 3 points but you will be unable to solve
+questions 1 and 2. If instead, question 0 is skipped and question 1 is solved,
+you will earn 4 points but you will be unable to solve questions 2 and 3. Return
+the maximum points you can earn for the exam.
 
 
 
@@ -56,8 +62,34 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    long long mostPoints(vector<vector<int>>& questions) {
+  vector<vector<int>> q;
+  int size;
+  long long mostPointsR(int idx) {
+    int max = 0;
+    for (int i = idx; i < size; ++i) {
+      vector<int> pr = q[i];
+      int pts = pr[0];
+      int next = i + pr[1];
+      if (next >= size) return pts;
 
+      int tmp = pts + mostPointsR(i);
+      if (tmp > max) max = tmp;
     }
+    return max;
+  }
+
+ public:
+  long long mostPoints(vector<vector<int>>& questions) {
+    q = questions;
+    size = q.size();
+    return mostPointsR(0);
+  }
 };
+
+/*
+
+similar to knapsack
+
+try all possibilities?
+
+*/
