@@ -45,9 +45,41 @@ Acceptance Rate
 
 */
 
+#include <cmath>
+
+using namespace std;
+
+const int MOD = pow(10,9) + 7;
 class Solution {
+int cgs(int z, int o, int cur) {
+}
 public:
     int countGoodStrings(int low, int high, int zero, int one) {
-
+      long long tot = 0;
+      for (int i = low; i < high; ++i) {
+        tot += cgs(zero,one,i);
+        tot %= MOD;
+      }
+      return (int)tot;
     }
 };
+
+// Input: low = 3, high = 3, zero = 1, one = 1
+// Output: 8
+
+// 000
+// 001
+
+/*
+
+Input: low = 2, high = 3, zero = 1, one = 2
+Output: 5
+
+11
+00
+011
+110
+000
+
+*/
+
