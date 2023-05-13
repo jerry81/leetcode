@@ -128,4 +128,6 @@ size 6 -> 6 0, 4 1, 2 2, 0, 3
 
 similar to staircase problem
 
+official solution uses iterative and recursive with dp
+
 */
