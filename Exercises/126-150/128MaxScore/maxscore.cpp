@@ -51,18 +51,43 @@ Acceptance Rate
 50.0%
 
 */
-
-#include <vector>
-
-using namespace std;
-
 class Solution {
+unordered_map<int, int> lookup;
+vector<int> sorted;
+int getMaxDivisor(int input) {
+  int ret;
+  int limit = (int)sqrt(input);
+  for (int i = 2; i <= limit; ++i) {
+    cout << "in " << endl;
+    if (input % i != 0) continue;
+    int toFind = input/i;
+    if (lookup[toFind] > 0) return toFind;
+  }
+  return lookup[1] > 0 ? 1: 0;
+}
 public:
     int maxScore(vector<int>& nums) {
-
+        sorted = nums;
+        vector<int> toUse;
+        int sum = 0;
+        sort(sorted.begin(), sorted.end());
+        for (int i = 0; i < nums.size(); ++i) {
+          lookup[i]++;
+        }
+        for (int i = sorted.size()-1; i >= nums.size()/2; --i) {
+          cout << "finding divisor for " << sorted[i] << endl;
+          cout << getMaxDivisor(sorted[i]) << endl;
+          toUse.push_back(getMaxDivisor(sorted[i]));
+        }
+        sort(toUse.begin(), toUse.end());
+        int counter = 1;
+        for (int i: toUse) {
+          sum+=i*counter;
+          counter++;
+        }
+        return sum;
     }
 };
-
 /*
 
 sort by GCD
