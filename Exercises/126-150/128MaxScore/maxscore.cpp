@@ -64,6 +64,8 @@ vector<int> sorted;
 int getMaxDivisor(int input) {
   int ret;
   int limit = (int)input/2;
+  if (lookup[input] > 1) return input;
+
   for (int i = 2; i <= limit; ++i) {
     cout << "i is " << i << endl;
     if (input % i != 0) continue;
