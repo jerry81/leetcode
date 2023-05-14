@@ -75,7 +75,7 @@ int getMaxDivisor(int input) {
   if (lookup[input] > 1) return input;
 
   for (int i: sorted) {
-    if (i > (int)input/2) break;
+    if (i == input) continue;
 
     int g = gcd(input, i);
     if (g > ret) ret = g;
