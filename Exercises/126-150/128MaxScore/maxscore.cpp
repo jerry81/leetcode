@@ -51,6 +51,13 @@ Acceptance Rate
 50.0%
 
 */
+
+#include <vector>
+#include <cmath>
+#include <unordered_map>
+#include <iostream>
+
+using namespace std;
 class Solution {
 unordered_map<int, int> lookup;
 vector<int> sorted;
@@ -58,9 +65,9 @@ int getMaxDivisor(int input) {
   int ret;
   int limit = (int)sqrt(input);
   for (int i = 2; i <= limit; ++i) {
-    cout << "in " << endl;
     if (input % i != 0) continue;
     int toFind = input/i;
+    cout << "toFind is " << toFind << endl;
     if (lookup[toFind] > 0) return toFind;
   }
   return lookup[1] > 0 ? 1: 0;
@@ -72,11 +79,12 @@ public:
         int sum = 0;
         sort(sorted.begin(), sorted.end());
         for (int i = 0; i < nums.size(); ++i) {
-          lookup[i]++;
+          lookup[nums[i]]++;
         }
+        cout << "lookup[4] is " << lookup[4] << endl;
         for (int i = sorted.size()-1; i >= nums.size()/2; --i) {
           cout << "finding divisor for " << sorted[i] << endl;
-          cout << getMaxDivisor(sorted[i]) << endl;
+          cout << "divisor is " << getMaxDivisor(sorted[i]) << endl;
           toUse.push_back(getMaxDivisor(sorted[i]));
         }
         sort(toUse.begin(), toUse.end());
