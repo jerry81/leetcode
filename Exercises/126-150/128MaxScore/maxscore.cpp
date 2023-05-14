@@ -62,3 +62,10 @@ public:
 
     }
 };
+
+/*
+
+sort by GCD
+some kind of greedy
+
+*/
