@@ -61,20 +61,26 @@ using namespace std;
 class Solution {
 unordered_map<int, int> lookup;
 vector<int> sorted;
+int gcd(int a, int b) {
+    // Ensure that a is always greater than or equal to b
+    if (b == 0) {
+        return a;
+    } else {
+        return gcd(b, a % b);
+    }
+}
 int getMaxDivisor(int input) {
-  int ret;
+  int ret = 1;
   int limit = (int)input/2;
   if (lookup[input] > 1) return input;
 
-  for (int i = 2; i <= limit; ++i) {
-    cout << "i is " << i << endl;
-    if (input % i != 0) continue;
+  for (int i: sorted) {
+    if (i > (int)input/2) break;
 
-    int toFind = input/i;
-    cout << "toFind is " << toFind << endl;
-    if (lookup[toFind] > 0) return toFind;
+    int g = gcd(input, i);
+    if (g > ret) ret = g;
   }
-  return 1;
+  return ret;
 }
 public:
     int maxScore(vector<int>& nums) {
@@ -85,10 +91,7 @@ public:
         for (int i = 0; i < nums.size(); ++i) {
           lookup[nums[i]]++;
         }
-        cout << "lookup[4] is " << lookup[4] << endl;
         for (int i = sorted.size()-1; i >= nums.size()/2; --i) {
-          cout << "finding divisor for " << sorted[i] << endl;
-          cout << "divisor is " << getMaxDivisor(sorted[i]) << endl;
           toUse.push_back(getMaxDivisor(sorted[i]));
         }
         sort(toUse.begin(), toUse.end());
