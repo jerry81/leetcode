@@ -63,14 +63,16 @@ unordered_map<int, int> lookup;
 vector<int> sorted;
 int getMaxDivisor(int input) {
   int ret;
-  int limit = (int)sqrt(input);
+  int limit = (int)input/2;
   for (int i = 2; i <= limit; ++i) {
+    cout << "i is " << i << endl;
     if (input % i != 0) continue;
+
     int toFind = input/i;
     cout << "toFind is " << toFind << endl;
     if (lookup[toFind] > 0) return toFind;
   }
-  return lookup[1] > 0 ? 1: 0;
+  return 1;
 }
 public:
     int maxScore(vector<int>& nums) {
