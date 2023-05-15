@@ -64,22 +64,23 @@ class Solution {
 vector<ListNode*> nodes;
 public:
     ListNode* swapNodes(ListNode* head, int k) {
+      int tk = k-1;
       ListNode* tmp = head;
       while (tmp != nullptr) {
         nodes.push_back(tmp);
         tmp = tmp->next;
       }
 
-      int rk = nodes.size() -k-1;
-      if (k == rk) return head;
+      int rk = nodes.size()-tk-1;
+      if (tk == rk) return head;
 
       ListNode* tmpBackN = nodes[rk]->next;
-      if (k > 0) {
-        nodes[k-1]->next = nodes[rk];
+      if (tk > 0) {
+        nodes[tk-1]->next = nodes[rk];
       }
-      nodes[rk]->next = nodes[k]->next;
-      nodes[k]->next = tmpBackN;
-
+      nodes[rk]->next = nodes[tk]->next;
+      nodes[tk]->next = tmpBackN;
+      nodes[rk-1]->next = nodes[tk];
       return nodes[0];
     }
 };
