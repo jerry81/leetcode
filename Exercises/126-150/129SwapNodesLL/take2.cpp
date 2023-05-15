@@ -88,7 +88,6 @@ public:
         counter2++;
         cur = cur->next;
       }
-      ListNode *test = res[1];
       return res[1];
     }
 };
