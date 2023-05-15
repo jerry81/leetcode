@@ -60,34 +60,32 @@ using namespace std;
  };
 
 class Solution {
-unordered_map<int, int> nodes;
-int size;
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-      ListNode* tmp = head;
-      int counter = 1;
-      while (tmp != nullptr) {
-        nodes[counter] = tmp->val;
-        counter++;
-        tmp = tmp->next;
-      }
-      int front = nodes[k];
-      int back = nodes[counter-k];
+        int length = 0;
+        ListNode* cur = head;
+        ListNode* kthNode = nullptr;
+        ListNode* endNode = nullptr;
 
+        // Traverse the linked list to find the kth and end nodes
+        while (cur != nullptr) {
+            length++;
+            if (length == k)
+                kthNode = cur;
+            cur = cur->next;
+        }
 
-      unordered_map<int, ListNode*> res;
-      ListNode* cur = head;
-      int counter2 = 1;
-      while (cur != nullptr) {
-        int newv = cur->val;
-        if (counter2 == k) newv = back;
-        if (counter2 == counter-k) newv = front;
-        ListNode* cpy = new ListNode(newv, cur->next);
-        if (counter2 >1) res[counter2-1]-> next = cpy;
-        res[counter2] = cpy;
-        counter2++;
-        cur = cur->next;
-      }
-      return res[1];
+        endNode = head;
+
+        // Traverse from the beginning again to find the end node
+        for (int i = 0; i < length - k; i++)
+            endNode = endNode->next;
+
+        // Swap the values of the kth and end nodes
+        int temp = kthNode->val;
+        kthNode->val = endNode->val;
+        endNode->val = temp;
+
+        return head;
     }
 };
