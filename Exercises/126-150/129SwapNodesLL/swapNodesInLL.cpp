@@ -77,14 +77,16 @@ public:
       int rk = counter - k;
       if (k == rk) return head;
 
-      ListNode* tmpBackN = nodes[rk]->next;
+      ListNode* back = new ListNode(nodes[rk]->val, nodes[rk]->next);
 
+      ListNode* front = new ListNode(nodes[k]->val, nodes[k]->next);
+      back->next = front->next;
+      front->next = nodes[rk]->next;
       if (k > 0) {
-        nodes[k-1]->next = nodes[rk];
+        nodes[k-1]->next = back;
       }
-      nodes[rk]->next = nodes[k]->next;
-      nodes[k]->next = tmpBackN;
-      nodes[rk-1]->next = nodes[k];
+      nodes[rk-1]->next = front;
+
       return nodes[1];
     }
 };
