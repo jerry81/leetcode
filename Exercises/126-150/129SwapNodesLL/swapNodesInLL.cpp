@@ -47,7 +47,7 @@ Acceptance Rate
  * };
  */
 
-#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -61,26 +61,30 @@ using namespace std;
 
 
 class Solution {
-vector<ListNode*> nodes;
+unordered_map<int, ListNode*> nodes;
+int size;
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-      int tk = k-1;
       ListNode* tmp = head;
+      int counter = 1;
       while (tmp != nullptr) {
-        nodes.push_back(tmp);
+        ListNode* cpy = new ListNode(tmp->val, tmp->next);
+        nodes[counter] = cpy;
+        counter++;
         tmp = tmp->next;
       }
 
-      int rk = nodes.size()-tk-1;
-      if (tk == rk) return head;
+      int rk = counter - k;
+      if (k == rk) return head;
 
       ListNode* tmpBackN = nodes[rk]->next;
-      if (tk > 0) {
-        nodes[tk-1]->next = nodes[rk];
+
+      if (k > 0) {
+        nodes[k-1]->next = nodes[rk];
       }
-      nodes[rk]->next = nodes[tk]->next;
-      nodes[tk]->next = tmpBackN;
-      nodes[rk-1]->next = nodes[tk];
-      return nodes[0];
+      nodes[rk]->next = nodes[k]->next;
+      nodes[k]->next = tmpBackN;
+      nodes[rk-1]->next = nodes[k];
+      return nodes[1];
     }
 };
