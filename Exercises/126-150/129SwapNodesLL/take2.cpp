@@ -59,35 +59,36 @@ using namespace std;
      ListNode(int x, ListNode *next) : val(x), next(next) {}
  };
 
-
 class Solution {
-unordered_map<int, ListNode*> nodes;
+unordered_map<int, int> nodes;
 int size;
 public:
     ListNode* swapNodes(ListNode* head, int k) {
       ListNode* tmp = head;
       int counter = 1;
       while (tmp != nullptr) {
-        ListNode* cpy = new ListNode(tmp->val, tmp->next);
-        nodes[counter] = cpy;
+        nodes[counter] = tmp->val;
         counter++;
         tmp = tmp->next;
       }
+      int front = nodes[k];
+      int back = nodes[counter-k];
 
-      int rk = counter - k;
-      if (k == rk) return head;
 
-      ListNode* back = new ListNode(nodes[rk]->val, nodes[rk]->next);
-
-      ListNode* front = new ListNode(nodes[k]->val, nodes[k]->next);
-      back->next = front->next;
-      front->next = nodes[rk]->next;
-      if (k > 0) {
-        nodes[k-1]->next = back;
-
+      unordered_map<int, ListNode*> res;
+      ListNode* cur = head;
+      int counter2 = 1;
+      while (cur != nullptr) {
+        int newv = cur->val;
+        if (counter2 == k) newv = back;
+        if (counter2 == counter-k) newv = front;
+        ListNode* cpy = new ListNode(newv, cur->next);
+        if (counter2 >1) res[counter2-1]-> next = cpy;
+        res[counter2] = cpy;
+        counter2++;
+        cur = cur->next;
       }
-      nodes[rk-1]->next = front;
-
-      return nodes[1];
+      ListNode *test = res[1];
+      return res[1];
     }
 };
