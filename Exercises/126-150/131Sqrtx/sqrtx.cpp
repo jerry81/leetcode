@@ -39,6 +39,10 @@ Acceptance Rate
 class Solution {
 public:
     int mySqrt(int x) {
-
+      for (int i = 1; i < x; ++i) {
+        long long s = i*i;
+        if (s > x) return i-1;
+      }
+      return 1;
     }
 };
