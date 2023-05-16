@@ -45,12 +45,29 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+vector<string> split(string str) {
+    // Returns first token
+    vector<string> ret;
+    char *token = strtok(str.data(), " ");
+
+    // Keep printing tokens while one of the
+    // delimiters present in str[].
+    while (token != nullptr) {
+      ret.push_back(token);
+      token = strtok(nullptr, " ");
+
+    }
+
+    return ret;
+  }
 public:
     int lengthOfLastWord(string s) {
-
+      vector<string> spl = split(s);
+      return spl[spl.size()-1].size();
     }
 };
