@@ -46,9 +46,27 @@ Acceptance Rate
  * };
  */
 
+ struct ListNode {
+     int val;
+     ListNode *next;
+     ListNode() : val(0), next(nullptr) {}
+     ListNode(int x) : val(x), next(nullptr) {}
+     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
+
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-
+      ListNode* newHead = head;
+      int curItem = -101;
+      while (head!=nullptr) {
+        int curVal = head->val;
+        ListNode* nn = head->next;
+        while (nn != nullptr && nn->val==curVal) {
+          nn=nn->next;
+        }
+        head->next = nn;
+        head = head->next;
+      }
     }
 };
