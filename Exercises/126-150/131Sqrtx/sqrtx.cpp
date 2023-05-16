@@ -35,14 +35,15 @@ Acceptance Rate
 37.5%
 
 */
-
 class Solution {
 public:
     int mySqrt(int x) {
-      for (int i = 1; i < x; ++i) {
+      if (x==0) return 0;
+      for (long long i = 1; i <= x; ++i) {
         long long s = i*i;
+        if (s == x) return i;
         if (s > x) return i-1;
       }
-      return 1;
+      return 0;
     }
 };
