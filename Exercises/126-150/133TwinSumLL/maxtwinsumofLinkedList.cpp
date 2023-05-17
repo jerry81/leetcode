@@ -65,6 +65,9 @@ Acceptance Rate
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+#include <vector>
+
+using namespace std;
 
  struct ListNode {
      int val;
@@ -74,8 +77,24 @@ Acceptance Rate
      ListNode(int x, ListNode *next) : val(x), next(next) {}
  };
 class Solution {
+
 public:
     int pairSum(ListNode* head) {
-
+      // put the nodes into vector
+      vector<int> vals;
+      while (head!=nullptr) {
+        vals.push_back(head->val);
+        head = head->next;
+      }
+      int max = 0;
+      int low = 0;
+      int high = vals.size()-1;
+      while (high > low) {
+        int cur = vals[low]+vals[high];
+        if (cur > max) max = cur;
+        high--;
+        low++;
+      }
+      return max;
     }
 };
