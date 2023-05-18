@@ -52,10 +52,7 @@ using namespace std;
 class Solution {
 public:
     vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
-      vector<int> indegrees;
-      for (int i = 0; i < n; ++i) {
-        indegrees.push_back(0);
-      }
+      vector<int> indegrees(n, 0);
       for (auto v: edges) {
         indegrees[v[1]]++;
       }
