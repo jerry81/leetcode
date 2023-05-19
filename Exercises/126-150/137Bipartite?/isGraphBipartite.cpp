@@ -50,6 +50,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -58,7 +59,25 @@ public:
     bool isBipartite(vector<vector<int>>& graph) {
       if (graph.size() <= 1) return 0;
 
+      unordered_map<int, vector<int>> banned;
 
+      for (int nodeid = 0; nodeid < graph.size(); ++nodeid) {
+        vector<int> bannedList;
+        if (banned.find(nodeid) != banned.end()) {
+          bannedList = banned[nodeid];
+        }
+        vector<int> neighbors = graph[nodeid];
+        if (neighbors.size() > 1) {
+          for (int i = 0; i < neighbors.size(); ++i) {
+            int neighbor = neighbors[i];
+            for (int j = 0; j < neighbors.size(); ++j) {
+              if (find(bannedList.begin(), bannedList.end(), neighbor[j])!=bannedList.end()) return false;
+            }
+          }
+        }
+      }
+
+      return true;
     }
 };
 
