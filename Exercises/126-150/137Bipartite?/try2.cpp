@@ -51,34 +51,49 @@ Acceptance Rate
 
 #include <vector>
 #include <unordered_map>
+#include <queue>
 
 using namespace std;
 
 class Solution {
+unordered_map<int, bool> teams;
+unordered_map<int, bool> visited;
+pair<bool,bool> bfs(vector<vector<int>> graph, int start) {
+  if (visited[start]) return {true, false};
+  queue<int> nextneighbors;
+  nextneighbors.push(start);
+  while (!nextneighbors.empty()) {
+    int parent = nextneighbors.front();
+    bool parentTeam = teams[parent];
+    visited[parent] = true;
+    nextneighbors.pop();
+    vector<int> neighbors = graph[parent];
+    for (int n:neighbors) {
+      if (visited[n]) continue;
+
+      if (teams.find(n) != teams.end() && teams[n] == parentTeam) return {false,true};
+
+      nextneighbors.push(n);
+      teams[n] = !parentTeam;
+    }
+  }
+  return {true, true};
+}
 public:
     bool isBipartite(vector<vector<int>>& graph) {
       if (graph.size() <= 1) return 0;
 
-      unordered_map<int, vector<int>> banned;
+      teams[0] = false;
+      bool somethingmodified = true;
+      while (somethingmodified) {
+        somethingmodified = false;
+        for (int i = 0; i < graph.size(); ++i) {
+          if (teams.find(i) == teams.end()) continue;
 
-
-      for (int nodeid = 0; nodeid < graph.size(); ++nodeid) {
-        vector<int> bannedList;
-        if (banned.find(nodeid) != banned.end()) {
-          bannedList = banned[nodeid]; // get this node's banned list
-        }
-        vector<int> neighbors = graph[nodeid];
-        if (neighbors.size() > 1) {
-          for (int i = 0; i < neighbors.size(); ++i) {
-            int neighbor = neighbors[i];
-            if (find(bannedList.begin(), bannedList.end(), neighbors[i])!=bannedList.end()) return false;
-            vector<int> newv;
-            if (banned.find(neighbor) == banned.end()) banned[neighbor] = newv;
-            for (int j = 0; j < neighbors.size(); ++j) {
-              if (neighbors[j] == neighbor) continue;
-              banned[neighbor].push_back(neighbors[j]);
-            }
-          }
+          if (visited[i]) continue;
+          auto res = bfs(graph, i);
+          if (!res.first) return false;
+          if (res.first) somethingmodified = true;
         }
       }
 
