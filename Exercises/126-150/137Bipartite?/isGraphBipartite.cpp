@@ -64,14 +64,18 @@ public:
       for (int nodeid = 0; nodeid < graph.size(); ++nodeid) {
         vector<int> bannedList;
         if (banned.find(nodeid) != banned.end()) {
-          bannedList = banned[nodeid];
+          bannedList = banned[nodeid]; // get this node's banned list
         }
         vector<int> neighbors = graph[nodeid];
         if (neighbors.size() > 1) {
           for (int i = 0; i < neighbors.size(); ++i) {
             int neighbor = neighbors[i];
+            if (find(bannedList.begin(), bannedList.end(), neighbors[i])!=bannedList.end()) return false;
+            vector<int> newv;
+            if (banned.find(neighbor) == banned.end()) banned[neighbor] = newv;
             for (int j = 0; j < neighbors.size(); ++j) {
-              if (find(bannedList.begin(), bannedList.end(), neighbor[j])!=bannedList.end()) return false;
+              if (neighbors[j] == neighbor) continue;
+              banned[neighbor].push_back(neighbors[j]);
             }
           }
         }
