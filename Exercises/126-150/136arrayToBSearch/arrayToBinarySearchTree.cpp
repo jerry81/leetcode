@@ -64,48 +64,33 @@ struct TreeNode {
 
 #include <vector>
 using namespace std;
+
 class Solution {
-  void buildR(vector<int>& nums, int low, int high, TreeNode* parent) {
-    cout << "low." << low <<endl;
-    cout << "high " << high << endl;
-    if (high < low) return;
-    if (high == low) {
-      int val = nums[low];
-      TreeNode* newN = new TreeNode(val);
-      if (val > parent->val) {
-        parent->right = newN;
-      } else {
-        parent->left = newN;
-      }
-      return;
+    void buildTree(vector<int>& nums, int low, int high, TreeNode* parent) {
+        if (high < low) return;
+
+        int mid = (high + low) / 2;
+        int midValue = nums[mid];
+
+        TreeNode* newNode = new TreeNode(midValue);
+        if (midValue > parent->val) {
+            parent->right = newNode;
+        } else {
+            parent->left = newNode;
+        }
+
+        buildTree(nums, low, mid - 1, newNode);
+        buildTree(nums, mid + 1, high, newNode);
     }
 
-    int parentval = parent->val;
-
-    int mid = (int)((high + low) / 2);
-
-    int midv = nums[mid];
-    TreeNode* nn = new TreeNode(midv);
-    if (midv > parentval) {
-      parent->right = nn;
-    } else {
-      parent->left = nn;
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int mid = nums.size() / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+        buildTree(nums, 0, mid - 1, root);
+        buildTree(nums, mid + 1, nums.size() - 1, root);
+        return root;
     }
-
-    cout << "mid is " << mid << endl;
-
-    buildR(nums, low, mid - 1, nn);
-    buildR(nums, mid + 1, high, nn);
-  }
-
- public:
-  TreeNode* sortedArrayToBST(vector<int>& nums) {
-    int mid = (int)nums.size() / 2;
-    TreeNode* root = new TreeNode(nums[mid]);
-    buildR(nums, 0, mid - 1, root);
-    buildR(nums, mid + 1, nums.size() - 1, root);
-    return root;
-  }
 };
 
 /*
