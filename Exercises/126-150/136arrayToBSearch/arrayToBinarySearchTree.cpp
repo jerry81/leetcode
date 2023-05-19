@@ -5,9 +5,8 @@ Easy
 9.5K
 476
 Companies
-Given an integer array nums where the elements are sorted in ascending order, convert it to a
-height-balanced
- binary search tree.
+Given an integer array nums where the elements are sorted in ascending order,
+convert it to a height-balanced binary search tree.
 
 
 
@@ -48,25 +47,58 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  *
  */
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode* left, TreeNode* right)
+      : val(x), left(left), right(right) {}
+};
 
- #include <vector>
- using namespace std;
+#include <vector>
+using namespace std;
 
 class Solution {
-public:
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
+  void buildR(vector<int>& nums, int low, int high, TreeNode* parent) {
+    if (high > low) return;
 
+    int parentval = parent->val;
+
+    int mid = (int)((high - low) / 2);
+
+    int midv = nums[mid];
+    TreeNode* nn = new TreeNode(midv);
+    if (midv > parentval) {
+      parent->right = nn;
+    } else {
+      parent->left = nn;
     }
+
+    buildR(nums, low, mid - 1, nn);
+    buildR(nums, mid + 1, high - 1, nn);
+  }
+
+ public:
+  TreeNode* sortedArrayToBST(vector<int>& nums) {
+    int mid = (int)nums.size() / 2;
+    TreeNode* root = new TreeNode(nums[mid]);
+    buildR(nums, 0, mid - 1, root);
+    buildR(nums, mid + 1, nums.size() - 1, root);
+    return root;
+  }
 };
+
+/*
+
+recursive
+- keep pointer to root
+- take mid
+
+*/
