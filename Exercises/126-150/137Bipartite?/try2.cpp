@@ -82,12 +82,17 @@ pair<bool,bool> bfs(vector<vector<int>> graph, int start) {
 public:
     bool isBipartite(vector<vector<int>>& graph) {
       if (graph.size() <= 1) return 0;
-
-      teams[0] = false;
+      int init = false;
       bool somethingmodified = true;
       while (somethingmodified) {
         somethingmodified = false;
         for (int i = 0; i < graph.size(); ++i) {
+          if (graph[i].size() == 0) continue;
+
+          if (!init) {
+            teams[i]=false;
+            init = true;
+          }
           if (teams.find(i) == teams.end()) continue;
 
           if (visited[i]) continue;
