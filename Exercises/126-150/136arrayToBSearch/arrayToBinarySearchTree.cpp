@@ -64,14 +64,25 @@ struct TreeNode {
 
 #include <vector>
 using namespace std;
-
 class Solution {
   void buildR(vector<int>& nums, int low, int high, TreeNode* parent) {
-    if (high > low) return;
+    cout << "low." << low <<endl;
+    cout << "high " << high << endl;
+    if (high < low) return;
+    if (high == low) {
+      int val = nums[low];
+      TreeNode* newN = new TreeNode(val);
+      if (val > parent->val) {
+        parent->right = newN;
+      } else {
+        parent->left = newN;
+      }
+      return;
+    }
 
     int parentval = parent->val;
 
-    int mid = (int)((high - low) / 2);
+    int mid = (int)((high + low) / 2);
 
     int midv = nums[mid];
     TreeNode* nn = new TreeNode(midv);
@@ -81,8 +92,10 @@ class Solution {
       parent->left = nn;
     }
 
+    cout << "mid is " << mid << endl;
+
     buildR(nums, low, mid - 1, nn);
-    buildR(nums, mid + 1, high - 1, nn);
+    buildR(nums, mid + 1, high, nn);
   }
 
  public:
