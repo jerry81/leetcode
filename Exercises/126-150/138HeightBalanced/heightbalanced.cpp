@@ -64,21 +64,16 @@ Acceptance Rate
  using namespace std;
 
 class Solution {
-int mn = 5001;
-int mx = -1;
 
-int traverse(TreeNode* cur, int depth) {
-  if (cur == nullptr) {
-    if (mn > depth) mn = depth;
-    if (mx < depth) mx = depth;
-  }
-
-  traverse(cur->left, depth+1);
-  traverse(cur->right, depth+1);
+int height(TreeNode* cur) {
+  if (cur == nullptr) return 0;
+  return max(1+height(cur->left), 1+height(cur->right));
 }
 public:
     bool isBalanced(TreeNode* root) {
-      traverse(root, 0);
-      return mx-mn <=1;
+      if (root == nullptr) return true;
+      int lh = height(root->left);
+      int rh = height(root->right);
+      return isBalanced(root->left) && isBalanced(root->right) && abs(lh-rh) < 2;
     }
 };
