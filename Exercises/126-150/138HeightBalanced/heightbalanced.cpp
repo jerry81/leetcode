@@ -60,9 +60,25 @@ Acceptance Rate
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 
+ #include <vector>
+ using namespace std;
+
 class Solution {
+int mn = 5001;
+int mx = -1;
+
+int traverse(TreeNode* cur, int depth) {
+  if (cur == nullptr) {
+    if (mn > depth) mn = depth;
+    if (mx < depth) mx = depth;
+  }
+
+  traverse(cur->left, depth+1);
+  traverse(cur->right, depth+1);
+}
 public:
     bool isBalanced(TreeNode* root) {
-
+      traverse(root, 0);
+      return mx-mn <=1;
     }
 };
