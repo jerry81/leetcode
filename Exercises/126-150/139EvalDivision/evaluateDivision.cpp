@@ -85,11 +85,26 @@ void printMap() {
     }
   }
 }
+
+double solve(vector<string> query) {
+  double res;
+  string op1 = query[0];
+  string op2 = query[1];
+  if (op1 == op2) return 1;
+
+  if (eqMap.find(op1) == eqMap.end()) return -1;
+
+  if (eqMap.find(op2) == eqMap.end()) return -1;
+  return res;
+}
 public:
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
       vector<double> res;
       buildMap(equations, values);
       printMap();
+      for (vector<string> q: queries) {
+        res.push_back(solve(q));
+      }
       return res;
     }
 };
