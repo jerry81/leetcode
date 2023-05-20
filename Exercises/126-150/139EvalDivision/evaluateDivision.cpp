@@ -62,6 +62,9 @@ using namespace std;
 class Solution {
 unordered_map<string, unordered_map<string, vector<int>>> eqMap;
 void buildMap(vector<vector<string>>& equations, vector<double>& values) {
+  // example a / b = 2
+  // a = 2b
+  // b = a / 2
   for (int i = 0; i < equations.size(); ++i) {
     vector<string> eq = equations[i];
     double val = values[i];
@@ -90,11 +93,24 @@ double solve(vector<string> query) {
   double res;
   string op1 = query[0];
   string op2 = query[1];
+
+  if (eqMap.find(op1) == eqMap.end()) { cout << "returning early 1 " << endl; return (double)-1; }
+
+  if (eqMap.find(op2) == eqMap.end()) { cout << "returning early 2 " << endl; return (double)-1; }
+
   if (op1 == op2) return 1;
 
-  if (eqMap.find(op1) == eqMap.end()) return -1;
+  if (eqMap[op1].find(op2) != eqMap[op1].end()) {
+    cout << "ret early 3" << endl;
+    return (double)eqMap[op1][op2][0] / (double)eqMap[op1][op2][1];
+  }
 
-  if (eqMap.find(op2) == eqMap.end()) return -1;
+  if (eqMap[op2].find(op1) != eqMap[op2].end()) {
+        cout << "ret early 4" << endl;
+        return (double)eqMap[op2][op1][1] / (double)eqMap[op1][op2][0];
+  }
+
+  cout << "returning default " << endl;
   return res;
 }
 public:
