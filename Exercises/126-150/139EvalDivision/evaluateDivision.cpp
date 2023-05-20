@@ -62,6 +62,7 @@ Acceptance Rate
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <queue>
 using namespace std;
 
 class Solution {
@@ -92,6 +93,14 @@ class Solution {
         cout << a.first << ", " << b.first << " is " << b.second[0] << ", "
              << b.second[1] << endl;
       }
+    }
+  }
+
+  double solveBFS(vector<string> query) {
+    string start = query[0];
+    queue<pair<string, double>> nn;
+    nn.push({start, 1});
+    while (!nn.empty()) {
     }
   }
 
@@ -167,7 +176,8 @@ class Solution {
 // a/c = ?    a has b, c has b .  substitute - [2,1] / [1,3] - 2 * 3
 // (2b/b/3) -> 6
 // b/a = (a/2/a) = .5
-
+// a/b = 2
+// a/b (2) b/c (3) -> 6
 
 // a/b = 2
 // b/c = 3
@@ -214,6 +224,8 @@ b/c = 4
 c/d = 5
 d/e = 6
 
+3*4*5*6 = 30, 120 360!
+
 a = 3b
 b = a/3
 b = 4c
@@ -235,4 +247,6 @@ e = a/360
 a/e = a / (a/360) = 360
 
 wow!!
+
+
 */
