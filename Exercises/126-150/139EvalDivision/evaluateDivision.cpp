@@ -59,10 +59,10 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <queue>
 using namespace std;
 
 class Solution {
@@ -87,26 +87,31 @@ class Solution {
     }
   }
 
-  void printMap() {
-    for (auto a : eqMap) {
-      for (auto b : a.second) {
-        cout << a.first << ", " << b.first << " is " << b.second[0] << ", "
-             << b.second[1] << endl;
-      }
-    }
-  }
 
   double solveBFS(vector<string> query) {
+    string op1 = query[0];
+    string op2 = query[1];
+    if (eqMap.find(op1) == eqMap.end()) {
+      return (double)-1;
+    }
+
+    if (eqMap.find(op2) == eqMap.end()) {
+      return (double)-1;
+    }
+
+    if (op1 == op2) return 1;
+
     unordered_map<string, bool> visited;
     string start = query[0];
     queue<pair<string, double>> nn;
     nn.push({start, 1});
     visited[start] = true;
+
     while (!nn.empty()) {
       pair<string, double> cur = nn.front();
       nn.pop();
       unordered_map<string, vector<double>> neighbors = eqMap[cur.first];
-      for (auto pr: neighbors) {
+      for (auto pr : neighbors) {
         if (visited[pr.first]) continue;
 
         double newval = cur.second * (pr.second[0] / pr.second[1]);
@@ -119,61 +124,14 @@ class Solution {
     return -1;
   }
 
-  double solve(vector<string> query) {
-    double res;
-    string op1 = query[0];
-    string op2 = query[1];
-
-    if (eqMap.find(op1) == eqMap.end()) {
-      cout << "returning early 1 " << endl;
-      return (double)-1;
-    }
-
-    if (eqMap.find(op2) == eqMap.end()) {
-      cout << "returning early 2 " << endl;
-      return (double)-1;
-    }
-
-    if (op1 == op2) return 1;
-
-    if (eqMap[op1].find(op2) != eqMap[op1].end()) {
-      cout << "ret early 3" << endl;
-      return (double)eqMap[op1][op2][0] / (double)eqMap[op1][op2][1];
-    }
-
-    if (eqMap[op2].find(op1) != eqMap[op2].end()) {
-      cout << "ret early 4" << endl;
-      return (double)eqMap[op2][op1][1] / (double)eqMap[op1][op2][0];
-    }
-
-    // final case - substitution
-    // look for a mutual key in the equation maps
-    string intersect;
-    for (auto a: eqMap[op1]) {
-      for (auto b: eqMap[op2]) {
-        if (a.first == b.first) {
-          intersect = a.first;
-          break;
-        }
-      }
-    }
-
-    double num = (double)eqMap[op1][intersect][0] * (double)eqMap[op2][intersect][1];
-    double den = (double)eqMap[op2][intersect][0] * (double)eqMap[op1][intersect][1];
-    res = num / den;
-
-    return res;
-  }
-
  public:
   vector<double> calcEquation(vector<vector<string>>& equations,
                               vector<double>& values,
                               vector<vector<string>>& queries) {
     vector<double> res;
     buildMap(equations, values);
-    printMap();
     for (vector<string> q : queries) {
-      res.push_back(solve(q));
+      res.push_back(solveBFS(q));
     }
     return res;
   }
