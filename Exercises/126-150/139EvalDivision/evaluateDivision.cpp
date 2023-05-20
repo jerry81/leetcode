@@ -197,4 +197,42 @@ class Solution {
 // .5
 //
 
+equations =
+[["x1","x2"],["x2","x3"],["x3","x4"],["x4","x5"]]
+values =
+[3.0,4.0,5.0,6.0]
+queries =
+[["x1","x5"],["x5","x2"],["x2","x4"],["x2","x2"],["x2","x9"],["x9","x9"]]
+
+
+chain of substitutions
+first simplify
+a,b, b,c c,d, d,e
+
+a/b = 3
+b/c = 4
+c/d = 5
+d/e = 6
+
+a = 3b
+b = a/3
+b = 4c
+c = b/4
+c = 5d
+d = c/5
+d = 6e
+e = d/6
+
+next step of processing
+combine and reduce
+
+a: {b} b: {a,c} c: {b,d}, d: {c, e}
+a-> e chain
+
+c = b/4 = a/12
+d = c/5 =  a/60
+e = a/360
+a/e = a / (a/360) = 360
+
+wow!!
 */
