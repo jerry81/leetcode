@@ -97,11 +97,26 @@ class Solution {
   }
 
   double solveBFS(vector<string> query) {
+    unordered_map<string, bool> visited;
     string start = query[0];
     queue<pair<string, double>> nn;
     nn.push({start, 1});
+    visited[start] = true;
     while (!nn.empty()) {
+      pair<string, double> cur = nn.front();
+      nn.pop();
+      unordered_map<string, vector<double>> neighbors = eqMap[cur.first];
+      for (auto pr: neighbors) {
+        if (visited[pr.first]) continue;
+
+        double newval = cur.second * (pr.second[0] / pr.second[1]);
+        if (pr.first == query[1]) return newval;
+
+        nn.push({pr.first, newval});
+        visited[pr.first] = true;
+      }
     }
+    return -1;
   }
 
   double solve(vector<string> query) {
