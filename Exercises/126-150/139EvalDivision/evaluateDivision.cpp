@@ -65,7 +65,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  unordered_map<string, unordered_map<string, vector<int>>> eqMap;
+  unordered_map<string, unordered_map<string, vector<double>>> eqMap;
   void buildMap(vector<vector<string>>& equations, vector<double>& values) {
     // example a / b = 2
     // a = 2b
@@ -75,11 +75,11 @@ class Solution {
       double val = values[i];
       string top = eq[0];
       string bottom = eq[1];
-      vector<int> newT;
+      vector<double> newT;
       newT.push_back(val);
       newT.push_back(1);
       eqMap[top][bottom] = newT;
-      vector<int> newB;
+      vector<double> newB;
       newB.push_back(1);
       newB.push_back(val);
       eqMap[bottom][top] = newB;
