@@ -77,9 +77,20 @@ void buildMap(vector<vector<string>>& equations, vector<double>& values) {
     eqMap[bottom][top] = newB;
   }
 }
+
+void printMap() {
+  for (auto a: eqMap) {
+    for (auto b: a.second) {
+      cout << a.first << ", " << b.first << " is " << b.second[0] << ", " << b.second[1] << endl;
+    }
+  }
+}
 public:
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+      vector<double> res;
       buildMap(equations, values);
+      printMap();
+      return res;
     }
 };
 
