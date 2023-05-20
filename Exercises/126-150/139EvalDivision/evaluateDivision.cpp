@@ -55,25 +55,44 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
+unordered_map<string, unordered_map<string, vector<int>>> eqMap;
+void buildMap(vector<vector<string>>& equations, vector<double>& values) {
+  for (int i = 0; i < equations.size(); ++i) {
+    vector<string> eq = equations[i];
+    double val = values[i];
+    string top = eq[0];
+    string bottom = eq[1];
+    vector<int> newT;
+    newT.push_back(val);
+    newT.push_back(1);
+    eqMap[top][bottom] = newT;
+    vector<int> newB;
+    newB.push_back(1);
+    newB.push_back(val);
+    eqMap[bottom][top] = newB;
+  }
+}
 public:
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-
+      buildMap(equations, values);
     }
 };
 
 /*
 
 
-// a/b = 2
-// b/c = 3
+// a/b = 2     a: { b: [2,1] }   b: { a: [1,2] }
+// b/c = 3     c: { b: [1,3]  }  b: { c: [3,1] }
 // a = 2b
 // b = a/2
 // b = 3c
 // c = b/3
-// a/c = ?
+// a/c = ?    a has b, c has b .  substitute - [2,1] / [1,3] - 2 * 3
 // (2b/b/3) -> 6
 // b/a = (a/2/a) = .5
 
