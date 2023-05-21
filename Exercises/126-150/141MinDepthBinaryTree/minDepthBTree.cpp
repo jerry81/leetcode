@@ -48,6 +48,7 @@ Acceptance Rate
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+using namespace std;
  struct TreeNode {
      int val;
      TreeNode *left;
@@ -61,6 +62,10 @@ class Solution {
 public:
     int minDepth(TreeNode* root) {
       // bfs, stop when a leaf reached
+      if (!root->left) return 1;
 
+      if (!root->right) return 1;
+
+      return std::min(1+minDepth(root->left), 1+minDepth(root->right)));
     }
 };
