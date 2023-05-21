@@ -83,7 +83,7 @@ class Solution {
         visited[ny][lx] = true;
         nn.push({ny, lx});
       }
-      if (rx < visited.size() && !visited[ny][rx] && grid[ny][lx]) {
+      if (rx < visited.size() && !visited[ny][rx] && grid[ny][rx]) {
         visited[ny][rx] = true;
         nn.push({ny, rx});
       }
