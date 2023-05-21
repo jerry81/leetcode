@@ -50,7 +50,7 @@ class Solution {
   string normalize(string &s) {
     string ret = "";
     for (char c: s) {
-      if (isalpha(c)) {
+      if (isalnum(c)) {
         ret+=tolower(c);
       }
     }
