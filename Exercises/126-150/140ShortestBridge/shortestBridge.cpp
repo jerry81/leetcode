@@ -111,7 +111,16 @@ class Solution {
       }
     }
   }
-  int getMinDist() {return 0;}
+  int getMinDist() {
+    int mn = INT_MAX;
+    for (auto pr:island1) {
+      for (auto pr2:island2) {
+        int dist = abs(pr.first-pr2.first) + abs(pr.second-pr2.second);
+        mn = std::min(dist,mn);
+      }
+    }
+    return mn;
+  }
 
  public:
   int shortestBridge(vector<vector<int>>& grid) {
