@@ -1,13 +1,15 @@
- /*
+/*
 
- 934. Shortest Bridge
+934. Shortest Bridge
 Medium
 3.6K
 152
 Companies
-You are given an n x n binary matrix grid where 1 represents land and 0 represents water.
+You are given an n x n binary matrix grid where 1 represents land and 0
+represents water.
 
-An island is a 4-directionally connected group of 1's not connected to any other 1's. There are exactly two islands in grid.
+An island is a 4-directionally connected group of 1's not connected to any other
+1's. There are exactly two islands in grid.
 
 You may change 0's to 1's to connect the two islands to form one island.
 
@@ -44,15 +46,80 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int shortestBridge(vector<vector<int>>& grid) {
+  // step1:
+  // get 2 islands first
+  // how to represent island
+  // just vector of {x,y}
+  // then dist from each block in island 1 to each block in island 2
+  vector<pair<int, int>> island1;
+  vector<pair<int, int>> island2;
+  vector<vector<bool>> visited;
 
+  void bfs(bool isFirst, int x, int y) {
+    queue<pair<int, int>> nn;
+    nn.push({y, x});
+    visited[x][y] = true;
+    while (!nn.empty()) {
+      auto pr = nn.front();
+      nn.pop();
+      int nx = pr.second;
+      int ny = pr.first;
+      if (isFirst) {
+        island1.push_back(pr);
+      } else {
+        island2.push_back(pr);
+      }
+      int lx = nx - 1;
+      int rx = nx + 1;
+      int dy = ny + 1;
+      int uy = ny - 1;
+      if (lx >= 0 && !visited[ny][lx]) {
+        visited[ny][lx] = true;
+        nn.push({ny, lx});
+      }
+      if (rx < visited.size() && !visited[ny][rx]) {
+        visited[ny][rx] = true;
+        nn.push({ny, rx});
+      }
+      if (dy < visited.size() && !visited[dy][nx]) {
+        visited[dy][nx] = true;
+        nn.push({dy, nx});
+      }
+      if (uy >= 0 && !visited[uy][nx]) {
+        visited[uy][nx] = true;
+        nn.push({uy, nx});
+      }
     }
+  }
+
+  void makeIslands(vector<vector<int>>& grid) {
+    bool firstIslandFound = false;
+    for (int i = 0; i < grid.size(); ++i) {
+      for (int j = 0; j < grid.size(); ++j) {
+        if (!grid[i][j]) continue;
+
+        if (!visited[i][j]) {
+          bfs(firstIslandFound, i, j);
+          firstIslandFound = true;
+        }
+      }
+    }
+  }
+  int getMinDist() {}
+
+ public:
+  int shortestBridge(vector<vector<int>>& grid) {
+    int s = grid.size();
+    vector<vector<bool>> _visited(s, vector<bool>(s, false));
+    makeIslands(grid);
+    return getMinDist();
+  }
 };
 
 /*
