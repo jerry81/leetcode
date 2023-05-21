@@ -62,10 +62,17 @@ class Solution {
 public:
     int minDepth(TreeNode* root) {
       // bfs, stop when a leaf reached
-      if (!root->left) return 1;
+      if (!root) return 0;
+      if (!root->left && !root->right) return 1;
 
-      if (!root->right) return 1;
+      if (!root->left) {
+        return 1+minDepth(root->right);
+      }
 
-      return std::min(1+minDepth(root->left), 1+minDepth(root->right)));
+      if (!root->right) {
+        return 1+minDepth(root->left);
+      }
+
+      return std::min(1+minDepth(root->left), 1+minDepth(root->right));
     }
 };
