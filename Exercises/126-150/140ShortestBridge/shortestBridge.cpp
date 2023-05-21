@@ -61,10 +61,10 @@ class Solution {
   vector<pair<int, int>> island2;
   vector<vector<bool>> visited;
 
-  void bfs(bool isFirst, int x, int y,vector<vector<int>>& grid) {
+  void bfs(bool isFirst, int y, int x,vector<vector<int>>& grid) {
     queue<pair<int, int>> nn;
     nn.push({y, x});
-    visited[x][y] = true;
+    visited[y][x] = true;
     while (!nn.empty()) {
       auto pr = nn.front();
       nn.pop();
@@ -105,7 +105,7 @@ class Solution {
         if (!grid[i][j]) continue;
 
         if (!visited[i][j]) {
-          bfs(!firstIslandFound, i, j,grid);
+          bfs(!firstIslandFound, i, j, grid);
           firstIslandFound = true;
         }
       }
@@ -158,4 +158,11 @@ expect 1
 10001
 11111
 
+case, expect 1
+[[0,0,0,1,1],[0,0,0,1,0],[0,0,0,1,1],[0,0,1,0,1],[0,0,1,1,0]]
+00011
+00010
+00011
+00101
+00110
 */
