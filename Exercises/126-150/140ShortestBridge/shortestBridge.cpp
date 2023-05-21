@@ -116,7 +116,7 @@ class Solution {
     for (auto pr:island1) {
       for (auto pr2:island2) {
         int dist = abs(pr.first-pr2.first) + abs(pr.second-pr2.second);
-        mn = std::min(dist,mn);
+        mn = std::min(dist-1,mn);
       }
     }
     return mn;
@@ -128,14 +128,6 @@ class Solution {
     vector<vector<bool>> _visited(s, vector<bool>(s, false));
     visited = _visited;
     makeIslands(grid);
-     cout << "island1" << endl;
-    for (auto a: island1) {
-       cout << "y " << a.first << " , x " << a.second << endl;
-    }
-         cout << "island2" << endl;
-    for (auto a: island2) {
-       cout << "y " << a.first << " , x " << a.second << endl;
-    }
     return getMinDist();
   }
 };
