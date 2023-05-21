@@ -47,15 +47,25 @@ public:
     int maxProfit(vector<int>& prices) {
       // keep vector of min/max
       // start new pair each time there is "drop"
-      bool init = false;
       int curmin = INT_MAX;
       int curmax = 0;
       int maxDiff = 0;
       for (int price: prices) {
-        if (!init) {
+        if (curmax < price) curmax = price;
+
+        if (curmin > price) {
+          curmin = price;
 
         }
+
+        maxDiff = std::max(maxDiff, (curmax-curmin));
       }
       return maxDiff;
     }
 };
+
+/*
+
+[7,1,5,3,6,4]
+
+*/
