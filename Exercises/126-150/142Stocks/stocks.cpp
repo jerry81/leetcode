@@ -55,7 +55,7 @@ public:
 
         if (curmin > price) {
           curmin = price;
-
+          curmax = price;
         }
 
         maxDiff = std::max(maxDiff, (curmax-curmin));
@@ -68,4 +68,5 @@ public:
 
 [7,1,5,3,6,4]
 
+n,x,d:  7,7,0  1,1,0, 1,4, 3, 1,4
 */
