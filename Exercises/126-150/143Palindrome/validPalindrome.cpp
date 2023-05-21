@@ -47,8 +47,20 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  string normalize(string &s) {
+    string ret = "";
+    for (char c: s) {
+      if (isalpha(c)) {
+        ret+=tolower(c);
+      }
+    }
+    return ret;
+  }
 public:
     bool isPalindrome(string s) {
-
+      string reversed = normalize(s);
+      string original = reversed;
+      std::reverse(reversed.begin(), reversed.end());
+      return original == reversed;
     }
 };
