@@ -61,7 +61,7 @@ class Solution {
   vector<pair<int, int>> island2;
   vector<vector<bool>> visited;
 
-  void bfs(bool isFirst, int x, int y) {
+  void bfs(bool isFirst, int x, int y,vector<vector<int>>& grid) {
     queue<pair<int, int>> nn;
     nn.push({y, x});
     visited[x][y] = true;
@@ -79,19 +79,19 @@ class Solution {
       int rx = nx + 1;
       int dy = ny + 1;
       int uy = ny - 1;
-      if (lx >= 0 && !visited[ny][lx]) {
+      if (lx >= 0 && !visited[ny][lx] && grid[ny][lx]) {
         visited[ny][lx] = true;
         nn.push({ny, lx});
       }
-      if (rx < visited.size() && !visited[ny][rx]) {
+      if (rx < visited.size() && !visited[ny][rx] && grid[ny][lx]) {
         visited[ny][rx] = true;
         nn.push({ny, rx});
       }
-      if (dy < visited.size() && !visited[dy][nx]) {
+      if (dy < visited.size() && !visited[dy][nx] && grid[dy][nx]) {
         visited[dy][nx] = true;
         nn.push({dy, nx});
       }
-      if (uy >= 0 && !visited[uy][nx]) {
+      if (uy >= 0 && !visited[uy][nx] && grid[uy][nx]) {
         visited[uy][nx] = true;
         nn.push({uy, nx});
       }
@@ -105,19 +105,28 @@ class Solution {
         if (!grid[i][j]) continue;
 
         if (!visited[i][j]) {
-          bfs(firstIslandFound, i, j);
+          bfs(!firstIslandFound, i, j,grid);
           firstIslandFound = true;
         }
       }
     }
   }
-  int getMinDist() {}
+  int getMinDist() {return 0;}
 
  public:
   int shortestBridge(vector<vector<int>>& grid) {
     int s = grid.size();
     vector<vector<bool>> _visited(s, vector<bool>(s, false));
+    visited = _visited;
     makeIslands(grid);
+     cout << "island1" << endl;
+    for (auto a: island1) {
+       cout << "y " << a.first << " , x " << a.second << endl;
+    }
+         cout << "island2" << endl;
+    for (auto a: island2) {
+       cout << "y " << a.first << " , x " << a.second << endl;
+    }
     return getMinDist();
   }
 };
