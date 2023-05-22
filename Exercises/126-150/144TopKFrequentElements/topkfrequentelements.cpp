@@ -38,9 +38,26 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <queue>
+#include <unordered_map>
+
+using namespace std;
+
 class Solution {
+unordered_map<int, int> freq;
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-
+      vector<int> res;
+      for (int n:nums) {
+        freq[n]++;
+      }
+      return res;
     }
 };
+
+/*
+
+init array from 0 to 20000
+
+*/
