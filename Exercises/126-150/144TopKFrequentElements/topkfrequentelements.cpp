@@ -52,6 +52,16 @@ public:
       for (int n:nums) {
         freq[n]++;
       }
+      vector<pair<int,int>> pairs;
+      for (auto a: freq) {
+        pairs.push_back(a);
+      }
+      sort(pairs.begin(), pairs.end(), [](pair<int,int> a, pair<int,int> b){
+        return a.second > b.second;
+      });
+      for (int i = 0; i < k; ++i) {
+        res.push_back(pairs[i].first);
+      }
       return res;
     }
 };
