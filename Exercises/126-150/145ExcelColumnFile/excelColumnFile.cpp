@@ -46,13 +46,29 @@ Acceptance Rate
 */
 
 #include <string>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
 public:
     string convertToTitle(int columnNumber) {
-
+      int quotient = columnNumber / 1;
+      int i = 1;
+      while (quotient > 1) {
+        int divisor = pow(26, i);
+        i++;
+        quotient = columnNumber/divisor;
+      }
+      int power = i-1;
+      int current = pow(26,power);
+      int multiplier = columnNumber / current;
+      int remainder = columnNumber % current;
+      if (i == 0) {
+        return ""+(char)multiplier+64;
+      } else {
+        return (char)(multiplier+64)+convertToTitle(remainder);
+      }
     }
 };
 
@@ -63,4 +79,9 @@ public:
 // 700 + 0 + 1
 // base 26
 //  26^2 to 26*26^2, 1*26^1 to 26*26^1, 26^0
-// starting position first
+// get largest possible digit
+// then recursively go, subtracting from total until we are at the 1s
+// 'A' - 65, 'Z' - 90
+// 1 -> 65
+// 2 -> 66
+// 26 -> 90
