@@ -53,14 +53,17 @@ using namespace std;
 class Solution {
 public:
     string convertToTitle(int columnNumber) {
-      int quotient = columnNumber / 1;
+      if (columnNumber == 0) return "";
+      if (columnNumber == 1) return "A";
+      int quotient = columnNumber;
       int i = 1;
-      while (quotient > 1) {
+      while (true) {
         int divisor = pow(26, i);
+        if (divisor >= columnNumber) break;
         i++;
-        quotient = columnNumber/divisor;
       }
       int power = i-1;
+      if (power < 0) return "";
       int current = pow(26,power);
       int multiplier = columnNumber / current;
       int remainder = columnNumber % current;
