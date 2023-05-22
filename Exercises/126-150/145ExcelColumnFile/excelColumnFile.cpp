@@ -5,7 +5,8 @@ Easy
 3.8K
 545
 Companies
-Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+Given an integer columnNumber, return its corresponding column title as it
+appears in an Excel sheet.
 
 For example:
 
@@ -45,34 +46,40 @@ Acceptance Rate
 
 */
 
-#include <string>
 #include <cmath>
-
+#include <string>
 using namespace std;
 
 class Solution {
-public:
-    string convertToTitle(int columnNumber) {
-      if (columnNumber == 0) return "";
-      if (columnNumber == 1) return "A";
-      int quotient = columnNumber;
-      int i = 1;
-      while (true) {
-        int divisor = pow(26, i);
-        if (divisor >= columnNumber) break;
-        i++;
-      }
-      int power = i-1;
-      if (power < 0) return "";
-      int current = pow(26,power);
-      int multiplier = columnNumber / current;
-      int remainder = columnNumber % current;
-      if (i == 0) {
-        return ""+(char)multiplier+64;
-      } else {
-        return (char)(multiplier+64)+convertToTitle(remainder);
-      }
+ public:
+  string convertToTitle(int columnNumber) {
+    if (columnNumber == 0) return "";
+    if (columnNumber == 1) return "A";
+    int quotient = columnNumber;
+    int i = 1;
+    while (true) {
+      long long divisor = pow(26, i);
+      if (divisor >= columnNumber) break;
+      i++;
     }
+    int power = i - 1;
+    if (power < 0) return "";
+    int current = pow(26, power);
+    int multiplier = columnNumber / current;
+    int remainder = columnNumber % current;
+
+    if (power > 1 && multiplier == 1 && remainder <= pow(26, power - 1)) {
+      multiplier = 26;
+    } else if (remainder == 0 && power > 0) {
+      multiplier--;
+      remainder += current;
+    }
+    if (i == 0) {
+      return "" + (char)multiplier + 64;
+    } else {
+      return (char)(multiplier + 64) + convertToTitle(remainder);
+    }
+  }
 };
 
 // zy ->
