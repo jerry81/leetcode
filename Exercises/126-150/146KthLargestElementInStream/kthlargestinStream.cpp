@@ -49,13 +49,26 @@ Acceptance Rate
 #include <vector>
 using namespace std;
 class KthLargest {
+vector<int> _nums;
+int _k;
 public:
     KthLargest(int k, vector<int>& nums) {
-
+      sort(nums.begin(), nums.end());
+      _nums = nums;
+      _k = k;
     }
 
     int add(int val) {
-
+      bool broke = false;
+      for (int i = 0; i < _nums.size(); ++i) {
+        if (_nums[i] > val) {
+          _nums.insert(_nums.begin()+(i-1), val);
+          broke = true;
+          break;
+        }
+      }
+      if (!broke) _nums.push_back(val);
+      return _nums[_k-1];
     }
 };
 
