@@ -39,12 +39,24 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+int mx = 0;
+int maxE = 0;
 public:
     int majorityElement(vector<int>& nums) {
-
+      unordered_map<int, int> freq;
+      for (int i: nums) {
+        freq[i]++;
+        int newv = freq[i];
+        if (mx < newv) {
+          mx = newv;
+          maxE = i;
+        }
+      }
+      return maxE;
     }
 };
