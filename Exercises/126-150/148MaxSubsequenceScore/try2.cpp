@@ -57,30 +57,25 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int _size;
-long long _max = 0;
-void maxScoreR(vector<int>& nums1, vector<int>& nums2, int k, int curk, long long accum, int mn, int idx) {
-
-  if (curk > k) return;
-
-  if (curk == k) {
-    long long prod = accum * mn;
-    _max = max(prod, _max);
-    return;
-  }
-
-  if (idx >= _size) return;
-
-  int cur1 = nums1[idx];
-  int cur2 = nums2[idx];
-  maxScoreR(nums1, nums2, k, curk+1, accum+cur1, min(mn, cur2), idx+1);
-  maxScoreR(nums1, nums2, k, curk, accum, mn, idx+1);
+static bool comp(pair<int,int> p1, pair<int,int> p2) {
+  return p1.second > p2.second;
 }
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
-      _size = nums1.size();
-      maxScoreR(nums1, nums2, k, 0, 0, INT_MAX, 0);
-      return _max;
+      vector<pair<int,int>> pairs;
+      for (int i = 0; i < nums1.size(); ++i) {
+        pairs.push_back({nums1[i], nums2[i]});
+      }
+      sort(pairs.begin(), pairs.end(), comp);
+      priority_queue<int, std::vector<int>, std::greater<int>> sum_heap;
+      // make pq and init sum
+      long long cursum;
+      for (int i = 0; i < k; ++i) {
+        sum_heap.push(pairs[i].first);
+        cursum+=pairs[i].first;
+      }
+      long long res = cursum*pairs[k-1].second;
+      return res;
     }
 };
 
