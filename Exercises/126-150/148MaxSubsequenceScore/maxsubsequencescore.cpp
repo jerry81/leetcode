@@ -56,16 +56,30 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-void traverse(bool countOmissions, int s, int k, string accum, vector<string>& possibilities) {
-  vector<string> ret;
-
-}
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
       int s = nums1.size();
-      bool countOmissions = k > s-k;
       vector<string> possibilities;
-      traverse(countOmissions, s, k, "", possibilities);
+      vector<string> processing;
+      processing.push_back("");
+      int curIdx = 0;
+      while (!processing.empty() && curIdx < s) {
+        vector<string> nextprocessing;
+        for (string s: processing) {
+          string nexts = s + (char)(curIdx + '0');
+          string omitted = s;
+          nextprocessing.push_back(omitted);
+          if (nexts.size() < k) nextprocessing.push_back(nexts);
+
+          if (nexts.size() == k) possibilities.push_back(nexts);
+        }
+        processing = nextprocessing;
+        curIdx++;
+      }
+      for (string possibility: possibilities) {
+        cout << possibility << endl;
+      }
+      return 0;
     }
 };
 
