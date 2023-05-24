@@ -55,8 +55,18 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<string> traverse(bool countOmissions, int s, int k) {
+  vector<string> ret;
+}
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
-
+      int s = nums1.size();
+      bool countOmissions = k > s-k;
+      vector<string> possibilities = traverse(countOmissions, s, k);
     }
 };
+
+/*
+  recursively knapsack
+  stop when the required k or (size-k) met
+*/
