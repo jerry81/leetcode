@@ -69,12 +69,25 @@ public:
       sort(pairs.begin(), pairs.end(), comp);
       priority_queue<int, std::vector<int>, std::greater<int>> sum_heap;
       // make pq and init sum
-      long long cursum;
+      long long cursum = 0;
       for (int i = 0; i < k; ++i) {
         sum_heap.push(pairs[i].first);
         cursum+=pairs[i].first;
       }
       long long res = cursum*pairs[k-1].second;
+      // try the remaining possibilities
+      for (int i = k; i < nums1.size(); ++i) {
+        int mn = sum_heap.top();
+        auto p = pairs[i];
+        if (mn < p.first) {
+          cursum-=mn;
+          sum_heap.pop();
+          sum_heap.push(p.first);
+          cursum+=p.first;
+          long long testRes = cursum*p.second;
+          res = max(testRes, res);
+        }
+      }
       return res;
     }
 };
