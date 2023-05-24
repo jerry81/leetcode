@@ -56,34 +56,43 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int _size;
+long long _max = 0;
+void maxScoreR(vector<int>& nums1, vector<int>& nums2, int k, int curk, long long accum, int mn, int idx) {
+
+  if (curk > k) return;
+
+  if (curk == k) {
+    long long prod = accum * mn;
+    _max = max(prod, _max);
+    return;
+  }
+
+  if (idx >= _size) return;
+
+  int cur1 = nums1[idx];
+  int cur2 = nums2[idx];
+  maxScoreR(nums1, nums2, k, curk+1, accum+cur1, min(mn, cur2), idx+1);
+  maxScoreR(nums1, nums2, k, curk, accum, mn, idx+1);
+}
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
-      int s = nums1.size();
-      vector<string> possibilities;
-      vector<string> processing;
-      processing.push_back("");
-      int curIdx = 0;
-      while (!processing.empty() && curIdx < s) {
-        vector<string> nextprocessing;
-        for (string s: processing) {
-          string nexts = s + (char)(curIdx + '0');
-          string omitted = s;
-          nextprocessing.push_back(omitted);
-          if (nexts.size() < k) nextprocessing.push_back(nexts);
-
-          if (nexts.size() == k) possibilities.push_back(nexts);
-        }
-        processing = nextprocessing;
-        curIdx++;
-      }
-      for (string possibility: possibilities) {
-        cout << possibility << endl;
-      }
-      return 0;
+      _size = nums1.size();
+      maxScoreR(nums1, nums2, k, 0, 0, INT_MAX, 0);
+      return _max;
     }
 };
 
 /*
   recursively knapsack
   stop when the required k or (size-k) met
+
+  i think this will TLE terribly without any memoization
+
+  we can break this down to 2 subproblems
+
+  - maximize sum of nums1
+  - maximize min of nums2
+
+  -
 */
