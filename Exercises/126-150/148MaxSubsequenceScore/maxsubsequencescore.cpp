@@ -52,17 +52,20 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Solution {
-vector<string> traverse(bool countOmissions, int s, int k) {
+void traverse(bool countOmissions, int s, int k, string accum, vector<string>& possibilities) {
   vector<string> ret;
+
 }
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
       int s = nums1.size();
       bool countOmissions = k > s-k;
-      vector<string> possibilities = traverse(countOmissions, s, k);
+      vector<string> possibilities;
+      traverse(countOmissions, s, k, "", possibilities);
     }
 };
 
