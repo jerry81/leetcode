@@ -46,10 +46,36 @@ Acceptance Rate
 38.1%
 
 */
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
 
 class Solution {
+int getRand(int mx) {
+  srand(time(0));
+  return (rand() % mx) + 1;
+}
 public:
     double new21Game(int n, int k, int maxPts) {
-
+      double probability = 0;
+      int successes;
+      for (int i = 0; i < 100000; ++i) {
+        int total = 0;
+        while (total < k) {
+          total+=getRand(maxPts);
+        }
+        if (total < n) successes++;
+      }
+      probability = (double) (successes/100000);
+      return probability;
     }
 };
+
+/*
+
+naive
+
+- brute force train a probability
+
+*/
