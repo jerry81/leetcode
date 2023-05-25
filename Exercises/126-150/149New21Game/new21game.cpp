@@ -7,7 +7,10 @@ Medium
 Companies
 Alice plays the following game, loosely based on the card game "21".
 
-Alice starts with 0 points and draws numbers while she has less than k points. During each draw, she gains an integer number of points randomly from the range [1, maxPts], where maxPts is an integer. Each draw is independent and the outcomes have equal probabilities.
+Alice starts with 0 points and draws numbers while she has less than k points.
+During each draw, she gains an integer number of points randomly from the range
+[1, maxPts], where maxPts is an integer. Each draw is independent and the
+outcomes have equal probabilities.
 
 Alice stops drawing numbers when she gets k or more points.
 
@@ -46,32 +49,38 @@ Acceptance Rate
 38.1%
 
 */
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 #include <vector>
 
 using namespace std;
-
 class Solution {
-vector<double> dp;
-public:
-    double new21Game(int n, int k, int maxPts) {
-      dp[0] = 1;
-      double prob = (double)(1.0/(double)maxPts);
-      double ret = 0.0;
-      double sum = 0.0;
-      for (int i = 1; i <= n; ++i) {
-        // add head, subtract tail
-        int head = i-1;
-        int tail = i-maxPts;
-        if (tail >= 0) {
-          sum-=dp[tail];
-        }
-        sum+= dp[head];
-        dp[i] = sum*prob;
+ public:
+  double new21Game(int n, int k, int maxPts) {
+    vector<double> dp(5000, 0.0);
+    dp[0] = 1;
+    double prob = (double)(1.0 / (double)maxPts);
+    double ret = 0.0;
+    double sum = 0.0;
+    for (int i = 1; i <= n; ++i) {
+      // add head, subtract tail
+      int head = i - 1;
+      int tail = i - maxPts - 1;
+      if (tail >= 0) {
+        sum -= dp[tail];
       }
-      return dp[n];
+      if (head < k) {
+        sum += dp[head];
+      }
+
+      dp[i] = sum * prob;
     }
+    for (int i = k; i <= n; ++i) {
+      ret += dp[i];
+    }
+
+    return ret;
+  }
 };
 
 /*
@@ -103,7 +112,6 @@ dp[1] = dp[0]/10
 dp[1] = 1/10
 dp[2] = dp[1]/10 + dp[0]/10
 dp[2] = 1/10 + (1/10)(1/10) = 11/100 <-- checks out
-dp[3] = (dp[2] + dp[1] + dp[0]) / 10 = (1+ 1/10 + 11/100) / 10 = (121/1000) checks out
-dp[4] = (dp[3] + dp[2] + dp[1]+dp[0]) / 10
+dp[3] = (dp[2] + dp[1] + dp[0]) / 10 = (1+ 1/10 + 11/100) / 10 = (121/1000)
+checks out dp[4] = (dp[3] + dp[2] + dp[1]+dp[0]) / 10
 */
-
