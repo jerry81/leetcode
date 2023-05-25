@@ -57,7 +57,8 @@ using namespace std;
 class Solution {
  public:
   double new21Game(int n, int k, int maxPts) {
-    vector<double> dp(5000, 0.0);
+    if (k==0) return 1.0;
+    vector<double> dp(10001, 0.0);
     dp[0] = 1;
     double prob = (double)(1.0 / (double)maxPts);
     double ret = 0.0;
@@ -75,7 +76,8 @@ class Solution {
 
       dp[i] = sum * prob;
     }
-    for (int i = k; i <= n; ++i) {
+    int lim = min(n, maxPts*k);
+    for (int i = k; i <= lim; ++i) {
       ret += dp[i];
     }
 
