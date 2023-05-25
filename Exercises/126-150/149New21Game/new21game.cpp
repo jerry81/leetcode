@@ -48,17 +48,29 @@ Acceptance Rate
 */
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-int getRand(int mx) {
-  srand(time(0));
-  return (rand() % mx) + 1;
-}
+vector<double> dp;
 public:
     double new21Game(int n, int k, int maxPts) {
-
+      dp[0] = 1;
+      double prob = (double)(1.0/(double)maxPts);
+      double ret = 0.0;
+      double sum = 0.0;
+      for (int i = 1; i <= n; ++i) {
+        // add head, subtract tail
+        int head = i-1;
+        int tail = i-maxPts;
+        if (tail >= 0) {
+          sum-=dp[tail];
+        }
+        sum+= dp[head];
+        dp[i] = sum*prob;
+      }
+      return dp[n];
     }
 };
 
@@ -92,6 +104,6 @@ dp[1] = 1/10
 dp[2] = dp[1]/10 + dp[0]/10
 dp[2] = 1/10 + (1/10)(1/10) = 11/100 <-- checks out
 dp[3] = (dp[2] + dp[1] + dp[0]) / 10 = (1+ 1/10 + 11/100) / 10 = (121/1000) checks out
-dp[4] = (dp[])
+dp[4] = (dp[3] + dp[2] + dp[1]+dp[0]) / 10
 */
 
