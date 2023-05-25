@@ -58,17 +58,7 @@ int getRand(int mx) {
 }
 public:
     double new21Game(int n, int k, int maxPts) {
-      double probability = 0;
-      int successes;
-      for (int i = 0; i < 100000; ++i) {
-        int total = 0;
-        while (total < k) {
-          total+=getRand(maxPts);
-        }
-        if (total < n) successes++;
-      }
-      probability = (double) (successes/100000);
-      return probability;
+
     }
 };
 
@@ -78,4 +68,30 @@ naive
 
 - brute force train a probability
 
+- tried it, TLE.
+
+- need a mathematical approximation O(1) solution
+
+- official solution is DP
+- probability to draw one card out of max is p
+- dp[x] represents probability to get to x points
+- base case dp[0] is 1 - no draws always gets 0
+- look for recurrence
+- dp[1] = p
+- dp[2] = p(dp[1]) + p
+- dp[max] = p(dp[1]) + p(dp[2]) ... p(dp[max-1])
+- simplify
+- dp[max] = p(dp[1] + ..... dp[max-1]);
+
+- then work out
+- k = 2, n = 2, maxPoints = 10
+
+dp[0] = 1
+dp[1] = dp[0]/10
+dp[1] = 1/10
+dp[2] = dp[1]/10 + dp[0]/10
+dp[2] = 1/10 + (1/10)(1/10) = 11/100 <-- checks out
+dp[3] = (dp[2] + dp[1] + dp[0]) / 10 = (1+ 1/10 + 11/100) / 10 = (121/1000) checks out
+dp[4] = (dp[])
 */
+
