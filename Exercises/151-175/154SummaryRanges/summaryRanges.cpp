@@ -67,9 +67,15 @@ public:
         }
 
         if (nums[i] != (nums[i-1]+1)) {
-          pairs.push_back({start, i});
-          start = i;
+          pairs.push_back({start, nums[i-1]});
+          start = nums[i];
         }
       }
+      pairs.push_back({start,nums[nums.size()-1]});
+      for (auto a: pairs) {
+        cout << "pair " << a.first << " " << a.second << endl;
+      }
+      vector<string> res;
+      return res;
     }
 };
