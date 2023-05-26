@@ -54,6 +54,23 @@ public:
 
 /*
 
-ideas
+ideas:
+
+DP + recursion
+
+pick greedily (guessing) or
+solve all possibilities
+
+example one shows greedy doesn't work.
+
+- base cases
+- 2M >= items - take them all
+- first example doesn't show need for dp
+- at each tree node we have
+- 1 to 2M children
+- we have A and B's sums
+- we have bool identifying whose turn it is
+- we have pointer to head of array
+- we have current M
 
 */
