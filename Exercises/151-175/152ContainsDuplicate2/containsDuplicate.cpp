@@ -47,6 +47,17 @@ public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
       unordered_map<int, vector<int>> freq;
       for (int i=0; i < nums.size(); ++i) {
+        freq[nums[i]].push_back(i);
       }
+      for (auto a: freq) {
+        int prev = -1;
+        for (int b: a.second) {
+          if (prev >= 0) {
+            if (b - prev <= k) return true;
+          }
+          prev = b;
+        }
+      }
+      return false;
     }
 };
