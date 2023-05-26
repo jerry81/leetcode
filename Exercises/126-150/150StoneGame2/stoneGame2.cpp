@@ -46,21 +46,23 @@ Acceptance Rate
 using namespace std;
 class Solution {
  vector<vector<vector<int>>> _lookup;
- int s;
+ int size;
  vector<int> _piles;
 int r(int aToPlay, int head, int m) {
   if (_lookup[aToPlay][head][m] >= 0) return _lookup[aToPlay][head][m];
 
+  cout << "recurse " << endl;
   int nextTurn = aToPlay == 0 ? 1 : 0;
-  if (head >= s) return 0;
+  if (head >= size) return 0;
   int res = 0;
   int s = 0;
   for (int i = 1; i <= m*2; ++i) {
     int nextm = max(i,m);
     int idx = i+head;
-    if (idx >= s) break;
+    if (idx >= size) break;
 
     s+=_piles[idx];
+    cout << " s is now " << s << endl;
     if (!aToPlay) {
       res = max(res, s+r(1,idx,nextm));
     } else {
@@ -72,9 +74,9 @@ int r(int aToPlay, int head, int m) {
 }
 public:
     int stoneGameII(vector<int>& piles) {
-      s = piles.size();
+      size = piles.size();
       _piles = piles;
-      vector<vector<vector<int>>> lookup(2, vector<vector<int>>(s, vector<int>(s, -1)));
+      vector<vector<vector<int>>> lookup(2, vector<vector<int>>(size, vector<int>(size, -1)));
       _lookup = lookup;
       return r(false, 0, 1);
     }
