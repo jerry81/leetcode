@@ -48,37 +48,34 @@ class Solution {
  vector<vector<vector<int>>> _lookup;
  int size;
  vector<int> _piles;
-int r(int aToPlay, int head, int m) {
-  if (_lookup[aToPlay][head][m] >= 0) return _lookup[aToPlay][head][m];
+int r(int turn, int head, int m) {
 
-  cout << "recurse " << endl;
-  int nextTurn = aToPlay == 0 ? 1 : 0;
   if (head >= size) return 0;
-  int res = 0;
-  int s = 0;
-  for (int i = 1; i <= m*2; ++i) {
+  if (_lookup[turn][head][m] != -1) return _lookup[turn][head][m];
+  int res = (turn == 0) ? -1 : 100000;
+
+
+  int sum = 0;
+  for (int i = 1; i <= min(m*2,size-head); ++i) {
     int nextm = max(i,m);
     int idx = i+head;
-    if (idx >= size) break;
 
-    s+=_piles[idx];
-    cout << " s is now " << s << endl;
-    if (!aToPlay) {
-      res = max(res, s+r(1,idx,nextm));
+    sum+=_piles[idx-1];
+    if (turn==0) {
+      res = max(res, sum+r(1,idx,nextm));
     } else {
       res = min(res, r(0, idx, nextm));
     }
   }
-      _lookup[aToPlay][head][m] = res;
-    return res;
+    return _lookup[turn][head][m] = res;
 }
 public:
     int stoneGameII(vector<int>& piles) {
       size = piles.size();
       _piles = piles;
-      vector<vector<vector<int>>> lookup(2, vector<vector<int>>(size, vector<int>(size, -1)));
+      vector lookup(2, vector(size+1, vector<int>(size+1, -1)));
       _lookup = lookup;
-      return r(false, 0, 1);
+      return r(0, 0, 1);
     }
 };
 /*
