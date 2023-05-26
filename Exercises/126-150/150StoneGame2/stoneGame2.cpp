@@ -44,7 +44,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
  vector<vector<vector<int>>> _lookup;
  int s;
@@ -67,8 +66,9 @@ int r(int aToPlay, int head, int m) {
     } else {
       res = min(res, r(0, idx, nextm));
     }
-    _lookup[aToPlay][head][m] = res;
   }
+      _lookup[aToPlay][head][m] = res;
+    return res;
 }
 public:
     int stoneGameII(vector<int>& piles) {
@@ -79,7 +79,6 @@ public:
       return r(false, 0, 1);
     }
 };
-
 /*
 
 ideas:
