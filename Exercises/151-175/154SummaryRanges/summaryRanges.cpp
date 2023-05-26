@@ -58,6 +58,8 @@ using namespace std;
 class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
+      vector<string> res;
+      if (nums.empty()) return res;
       int start;
       vector<pair<int,int>> pairs;
       for (int i = 0; i < nums.size(); ++i) {
@@ -72,10 +74,17 @@ public:
         }
       }
       pairs.push_back({start,nums[nums.size()-1]});
+
       for (auto a: pairs) {
-        cout << "pair " << a.first << " " << a.second << endl;
+        string str;
+        if (a.first == a.second) {
+          str = to_string(a.first);
+        } else {
+          str = to_string(a.first) + "->" + to_string(a.second);
+        }
+        res.push_back(str);
       }
-      vector<string> res;
+
       return res;
     }
 };
