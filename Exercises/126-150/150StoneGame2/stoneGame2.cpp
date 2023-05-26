@@ -52,7 +52,7 @@ int r(int turn, int head, int m) {
 
   if (head >= size) return 0;
   if (_lookup[turn][head][m] != -1) return _lookup[turn][head][m];
-  int res = (turn == 0) ? -1 : 100000;
+  int res = (turn == 0) ? -1 : INT_MAX;
 
 
   int sum = 0;
