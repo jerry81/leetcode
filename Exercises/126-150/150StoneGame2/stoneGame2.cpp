@@ -46,9 +46,29 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+pair<int,int> r(bool aToPlay, int head, vector<int>& piles, int M) {
+  int ulim = 2*M;
+  if (ulim >= (piles.size() - head)) {
+    int sum = 0;
+    for (int i = head; i < piles.size(); ++i) {
+      // optimization - this could be repeated.  can use prefix sums for faster sum lookup
+      // could use hashmap to store as well.
+      sum+=piles[i];
+    }
+    if (aToPlay) {
+      return {sum,0};
+    } else {
+      return {0,sum};
+    }
+  }
+  for (int x = 1; x < ulim; ++x) {
+    int idx = x+head;
+  }
+
+}
 public:
     int stoneGameII(vector<int>& piles) {
-
+      pair<int,int> res = r(true,0,piles,1);
     }
 };
 
