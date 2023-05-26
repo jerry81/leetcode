@@ -52,9 +52,23 @@ class Solution {
 int r(int aToPlay, int head, int m) {
   if (_lookup[aToPlay][head][m] >= 0) return _lookup[aToPlay][head][m];
 
+  int nextTurn = aToPlay == 0 ? 1 : 0;
   if (head >= s) return 0;
+  int res = 0;
+  int s = 0;
+  for (int i = 1; i <= m*2; ++i) {
+    int nextm = max(i,m);
+    int idx = i+head;
+    if (idx >= s) break;
 
-  int sum =
+    s+=_piles[idx];
+    if (!aToPlay) {
+      res = max(res, s+r(1,idx,nextm));
+    } else {
+      res = min(res, r(0, idx, nextm));
+    }
+    _lookup[aToPlay][head][m] = res;
+  }
 }
 public:
     int stoneGameII(vector<int>& piles) {
