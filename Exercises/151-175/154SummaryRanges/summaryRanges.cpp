@@ -58,7 +58,18 @@ using namespace std;
 class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
+      int start;
+      vector<pair<int,int>> pairs;
       for (int i = 0; i < nums.size(); ++i) {
+        if (i == 0) {
+          start = nums[i];
+          continue;
+        }
+
+        if (nums[i] != (nums[i-1]+1)) {
+          pairs.push_back({start, i});
+          start = i;
+        }
       }
     }
 };
