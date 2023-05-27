@@ -58,13 +58,13 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<vector<vector<int>>> _lookup;
+vector<vector<int>> _lookup;
  int size;
  vector<int> _piles;
  int r(int turn, int head) {
 
   if (head >= size) return 0;
-  if (_lookup[turn][head][m] != -1) return _lookup[turn][head][m];
+  if (_lookup[turn][head] != -1) return _lookup[turn][head];
   int res = (turn == 0) ? -1 : INT_MAX;
 
 
@@ -79,13 +79,13 @@ vector<vector<vector<int>>> _lookup;
       res = min(res, r(0, idx));
     }
   }
-    return _lookup[turn][head][m] = res;
+    return _lookup[turn][head] = res;
 }
 public:
     string stoneGameIII(vector<int>& stoneValue) {
       size = stoneValue.size();
       _piles = stoneValue;
-      vector lookup(2, vector(size+1, vector<int>(size+1, -1)));
+      vector lookup(2, vector<int>(size+1, -1));
       _lookup = lookup;
       int sum = 0;
       for (int i: stoneValue) {
