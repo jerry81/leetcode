@@ -64,8 +64,8 @@ vector<vector<int>> _lookup;
  int r(int turn, int head) {
 
   if (head >= size) return 0;
-  if (_lookup[turn][head] != -1) return _lookup[turn][head];
-  int res = (turn == 0) ? -1 : INT_MAX;
+  if (_lookup[turn][head] > -1001) return _lookup[turn][head];
+  int res = (turn == 0) ? INT_MIN : INT_MAX;
 
 
   int sum = 0;
@@ -85,7 +85,7 @@ public:
     string stoneGameIII(vector<int>& stoneValue) {
       size = stoneValue.size();
       _piles = stoneValue;
-      vector lookup(2, vector<int>(size+1, -1));
+      vector lookup(2, vector<int>(size+1, -1001));
       _lookup = lookup;
       int sum = 0;
       for (int i: stoneValue) {
@@ -100,4 +100,3 @@ public:
       return ret;
     }
 };
-
