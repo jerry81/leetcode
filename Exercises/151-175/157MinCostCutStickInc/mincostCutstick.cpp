@@ -72,18 +72,16 @@ cut 1
 3,4 4,7 - 3
 total -> 7+6+4+3 = 20
 
-all permutations
-0123
-0132
-0213
-0231
-0312
-0321
-1023
-1032
-1203
-1230
-1302
-1320
+pick optimally
+- 0,7
+- 1,3,4,5
+- 01 17
+- 03 37
+- 04 47
+- 05 57
+
+SPOILER: editorial
+- pattern?
+  - at each step choose cut that leads to largest resulting lengths
 
 */
