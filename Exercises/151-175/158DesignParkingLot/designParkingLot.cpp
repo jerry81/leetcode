@@ -48,7 +48,7 @@ int _big;
 int _medium;
 int _small;
 int cBig = 0;
-int cMediuum = 0;
+int cMedium = 0;
 int cSmall = 0;
 public:
     ParkingSystem(int big, int medium, int small) {
