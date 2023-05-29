@@ -44,13 +44,34 @@ Acceptance Rate
 */
 
 class ParkingSystem {
+int _big;
+int _medium;
+int _small;
+int cBig = 0;
+int cMediuum = 0;
+int cSmall = 0;
 public:
     ParkingSystem(int big, int medium, int small) {
-
+      _big = big;
+      _medium = medium;
+      _small = small;
     }
 
     bool addCar(int carType) {
-
+      switch(carType) {
+        case 1: {
+          cBig++;
+          return cBig <= _big;
+        }
+        case 2: {
+          cMedium++;
+          return cMedium <= _medium;
+        }
+        default: {
+          cSmall++;
+          return cSmall <= _small;
+        }
+      }
     }
 };
 
