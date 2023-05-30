@@ -46,20 +46,21 @@ using namespace std;
 
 class Solution {
   bool isPrime(int n) {
-    for (int i = 0; i <= ((int)sqrt(n)+1); ++i) {
+    for (int i = 2; i <= ((int)sqrt(n)+1); ++i) {
       if (n%i == 0) return false;
     }
     return true;
   }
 public:
     bool isUgly(int n) {
-      for (int i = 5; i < ((int)sqrt(n)+1); i+2) {
+      for (int i = 5; i < n/2+1; i=i+2) {
         if (i%3 == 0) continue;
 
         if (i%5 == 0) continue;
 
-        if (n%i == 0 && !isPrime(i)) return false;
+        if (n%i == 0 && isPrime(i)) return false;
       }
+
       return true;
     }
 };
