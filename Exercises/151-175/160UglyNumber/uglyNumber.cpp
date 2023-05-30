@@ -90,30 +90,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  bool isPrime(int n) {
-    for (int i = 2; i <= ((int)sqrt(n)+1); ++i) {
-      if (n%i == 0) return false;
-    }
-    return true;
-  }
 public:
     bool isUgly(int n) {
 
       if (n<0) return false;
       if (n==0) return false;
 
-      for (int i = 5; i < n/2+1; i=i+2) {
-        if (i%3 == 0) continue;
-
-        if (i%5 == 0) continue;
-
-        if (n%i == 0 && isPrime(i)) return false;
+      while (n%2 == 0) {
+        n/=2;
       }
-
-      // final check
-      if (n>=7 && isPrime(n)) return false;
-
-      return true;
+      while (n%3 == 0) {
+        n/=3;
+      }
+      while (n%5 == 0) {
+        n/=5;
+      }
+      return n==1;
     }
 };
 
@@ -128,4 +120,21 @@ public:
   try all primes?
   directly get factors and check primeness
   - negative number doesn't work
+*/
+
+/*
+
+SPOILER!
+
+For n>0n > 0n>0, we have to examine if the integer is an ugly number or not.
+As per the given definition, the only permitted prime factors for an ugly number are 2, 3, and 5. Thus, if we remove all 2's, 3's, and 5's from the prime factorization of this integer, we can check if there is some other prime in the remaining factorization or not.
+
+What we can do is check if the integer is divisible by 2 or not. If yes, then we have obtained one prime factor as 2. Then, we have to find the prime factors of the integer obtained by dividing this integer by 2. We will keep dividing our integer by 2 when it is divisible by 2.
+
+At this point, this integer is no longer divisible by 2. Thus, try dividing it with the next permitted factor, i. e. 3. Keep dividing the integer by 3 when it is divisible by 3.
+
+At this point, this integer is no longer divisible by 2 or by 3. Thus, try dividing it with the next permitted factor, i. e. 5. Keep dividing the integer by 5 when it is divisible by 5.
+
+Now, the integer is no longer divisible by 2, 3, or 5. If this integer is not equal to 1, we can deduce that there are other prime factors of this integer, apart from 2, 3, and 5. Hence, the number is not ugly. If the integer was 1, the number is ugly.
+
 */
