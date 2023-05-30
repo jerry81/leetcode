@@ -15,11 +15,10 @@ string toS(vector<int> inp) {
   return ret;
 }
 void t(TreeNode* root, vector<int> curPath) {
-  if (root == nullptr) {
-    paths.push_back(toS(curPath));
-    return;
-  }
+  if (root == nullptr) return;
+
   curPath.push_back(root->val);
+  if (root->left == nullptr && root->right==nullptr) paths.push_back(toS(curPath));
   t(root->left, curPath);
   t(root->right, curPath);
 }
