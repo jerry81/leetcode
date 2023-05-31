@@ -48,7 +48,6 @@ Acceptance Rate
 #include <unordered_map>
 
 using namespace std;
-
 class Solution {
   vector<string> split(string str) {
     // Returns first token
@@ -59,12 +58,13 @@ class Solution {
     // delimiters present in str[].
     while (token != nullptr) {
       ret.push_back(token);
-      token = strtok(nullptr, "/");
+      token = strtok(nullptr, " ");
     }
 
     return ret;
   }
   unordered_map<char, string> lookup;
+  unordered_map<string, char> strLookup;
 
  public:
   bool wordPattern(string pattern, string s) {
@@ -72,10 +72,13 @@ class Solution {
     for (int i = 0; i < sv.size(); ++i) {
       char c = pattern[i];
       string str = sv[i];
-      if (lookup.find(c) == lookup.end()) {
+      if (lookup.find(c) == lookup.end() && strLookup.find(str) == strLookup.end()){
         lookup[c] = str;
-      } else {
+        strLookup[str] = c;
+      } else if (lookup.find(c) != lookup.end()) {
         if (lookup[c] != str) return false;
+      } else {
+        if (strLookup[str] != c) return false;
       }
     }
     return true;
