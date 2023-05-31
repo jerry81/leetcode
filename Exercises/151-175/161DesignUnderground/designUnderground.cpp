@@ -85,25 +85,36 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
+#include <cmath>
+#include <vector>
+#include <numeric>
 
 using namespace std;
 
+
 class UndergroundSystem {
+
+unordered_map<string, unordered_map<string, vector<int>>> history;
+unordered_map<int, pair<string,int>> currentTrips;
 public:
     UndergroundSystem() {
 
     }
 
     void checkIn(int id, string stationName, int t) {
-
+      currentTrips[id] = { stationName, t };
     }
 
     void checkOut(int id, string stationName, int t) {
-
+      auto currentTrip = currentTrips[id];
+      history[currentTrip.first][stationName].push_back(abs(t-currentTrip.second));
     }
 
     double getAverageTime(string startStation, string endStation) {
-
+      auto v = history[startStation][endStation];
+      double sum = accumulate(v.begin(), v.end(), 0.0);
+      return sum/(double)v.size();
     }
 };
 
