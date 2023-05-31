@@ -7,7 +7,8 @@ Easy
 Companies
 Given a pattern and a string s, find if s follows the same pattern.
 
-Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s.
+Here follow means a full match, such that there is a bijection between a letter
+in pattern and a non-empty word in s.
 
 
 
@@ -43,12 +44,40 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
-public:
-    bool wordPattern(string pattern, string s) {
+  vector<string> split(string str) {
+    // Returns first token
+    vector<string> ret;
+    char *token = strtok(str.data(), " ");
 
+    // Keep printing tokens while one of the
+    // delimiters present in str[].
+    while (token != nullptr) {
+      ret.push_back(token);
+      token = strtok(nullptr, "/");
     }
+
+    return ret;
+  }
+  unordered_map<char, string> lookup;
+
+ public:
+  bool wordPattern(string pattern, string s) {
+    vector<string> sv = split(s);
+    for (int i = 0; i < sv.size(); ++i) {
+      char c = pattern[i];
+      string str = sv[i];
+      if (lookup.find(c) == lookup.end()) {
+        lookup[c] = str;
+      } else {
+        if (lookup[c] != str) return false;
+      }
+    }
+    return true;
+  }
 };
