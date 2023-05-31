@@ -69,6 +69,7 @@ class Solution {
  public:
   bool wordPattern(string pattern, string s) {
     vector<string> sv = split(s);
+    if (sv.size() != pattern.size()) return false;
     for (int i = 0; i < sv.size(); ++i) {
       char c = pattern[i];
       string str = sv[i];
