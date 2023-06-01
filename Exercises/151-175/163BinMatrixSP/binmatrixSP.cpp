@@ -5,13 +5,16 @@ Medium
 4.8K
 186
 Companies
-Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.
+Given an n x n binary matrix grid, return the length of the shortest clear path
+in the matrix. If there is no clear path, return -1.
 
-A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell (i.e., (n - 1, n - 1)) such that:
+A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0))
+to the bottom-right cell (i.e., (n - 1, n - 1)) such that:
 
 All the visited cells of the path are 0.
-All the adjacent cells of the path are 8-directionally connected (i.e., they are different and they share an edge or a corner).
-The length of a clear path is the number of visited cells of this path.
+All the adjacent cells of the path are 8-directionally connected (i.e., they are
+different and they share an edge or a corner). The length of a clear path is the
+number of visited cells of this path.
 
 
 
@@ -46,23 +49,38 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-      int n = grid.size();
-      vector<vector<bool>> visited(n, vector<bool>(n, false));
-      visited[0][0] = true;
-      queue<pair<int,int>> nn;
-      nn.push({0,0});
+ public:
+  int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    int n = grid.size();
+    vector<vector<bool>> visited(n, vector<bool>(n, false));
+    visited[0][0] = true;
+    queue<pair<int, int>> nn;
+    nn.push({0, 0});
+    int res = INT_MAX;
+    int pathLength = 0;
+    while (!nn.empty()) {
+      pathLength++;
+      queue<pair<int, int>> nextn;
       while (!nn.empty()) {
-        queue<pair<int,int>> nextn;
-        auto curp = nn.top();
+        auto [cy, cx] = nn.front();
         nn.pop();
+        if (cy == n-1 && cx == n-1) {
+          return pathLength;
+        }
+        int uy = cy-1;
+        int dy = cy+1;
+        int lx = cx-1;
+        int rx = cx+1;
+        // add 8 neighbors!
+        if ()
       }
     }
+    return -1;
+  }
 };
