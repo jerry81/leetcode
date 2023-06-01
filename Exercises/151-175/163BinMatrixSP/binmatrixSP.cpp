@@ -133,6 +133,7 @@ class Solution {
           }
         }
       }
+      nn = nextn;
     }
     return -1;
   }
