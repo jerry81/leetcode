@@ -62,7 +62,6 @@ class Solution {
     visited[0][0] = true;
     queue<pair<int, int>> nn;
     nn.push({0, 0});
-    int res = INT_MAX;
     int pathLength = 0;
     while (!nn.empty()) {
       pathLength++;
@@ -70,15 +69,69 @@ class Solution {
       while (!nn.empty()) {
         auto [cy, cx] = nn.front();
         nn.pop();
-        if (cy == n-1 && cx == n-1) {
+        if (cy == n - 1 && cx == n - 1) {
           return pathLength;
         }
-        int uy = cy-1;
-        int dy = cy+1;
-        int lx = cx-1;
-        int rx = cx+1;
+        int uy = cy - 1;
+        int dy = cy + 1;
+        int lx = cx - 1;
+        int rx = cx + 1;
         // add 8 neighbors!
-        if ()
+        if (uy >= 0) {
+          if (!visited[uy][cx]) {
+            nextn.push({uy, cx});
+            visited[uy][cx] = true;
+          }
+          // up right
+          if (rx < n) {
+            if (!visited[uy][rx]) {
+              nextn.push({uy, rx});
+              visited[uy][rx] = true;
+            }
+          }
+          // up left
+          if (lx >= 0) {
+            if (!visited[uy][lx]) {
+              nextn.push({uy, lx});
+              visited[uy][lx] = true;
+            }
+          }
+        }
+
+        if (dy < n) {
+          if (!visited[dy][cx]) {
+            nextn.push({dy, cx});
+            visited[dy][cx] = true;
+          }
+          // up right
+          if (rx < n) {
+            if (!visited[dy][rx]) {
+              nextn.push({dy, rx});
+              visited[dy][rx] = true;
+            }
+          }
+          // up left
+          if (lx >= 0) {
+            if (!visited[dy][lx]) {
+              nextn.push({dy, lx});
+              visited[dy][lx] = true;
+            }
+          }
+        }
+
+        if (lx >= 0) {
+          if (!visited[cy][lx]) {
+            nextn.push({cy, lx});
+            visited[cy][lx] = true;
+          }
+        }
+
+        if (rx < n) {
+          if (!visited[cy][rx]) {
+            nextn.push({cy, rx});
+            visited[cy][rx] = true;
+          }
+        }
       }
     }
     return -1;
