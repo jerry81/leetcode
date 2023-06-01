@@ -59,6 +59,8 @@ class Solution {
   int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
     int n = grid.size();
     vector<vector<bool>> visited(n, vector<bool>(n, false));
+    if (grid[0][0] == 1) return -1;
+
     visited[0][0] = true;
     queue<pair<int, int>> nn;
     nn.push({0, 0});
@@ -69,7 +71,7 @@ class Solution {
       while (!nn.empty()) {
         auto [cy, cx] = nn.front();
         nn.pop();
-        if (cy == n - 1 && cx == n - 1) {
+        if (cy == n - 1 && cx == n - 1 && grid[cy][cx] == 0) {
           return pathLength;
         }
         int uy = cy - 1;
