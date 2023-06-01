@@ -78,20 +78,20 @@ class Solution {
         int rx = cx + 1;
         // add 8 neighbors!
         if (uy >= 0) {
-          if (!visited[uy][cx]) {
+          if (!visited[uy][cx] && grid[uy][cx] == 0) {
             nextn.push({uy, cx});
             visited[uy][cx] = true;
           }
           // up right
           if (rx < n) {
-            if (!visited[uy][rx]) {
+            if (!visited[uy][rx] && grid[uy][rx] == 0) {
               nextn.push({uy, rx});
               visited[uy][rx] = true;
             }
           }
           // up left
           if (lx >= 0) {
-            if (!visited[uy][lx]) {
+            if (!visited[uy][lx] && grid[uy][lx] == 0) {
               nextn.push({uy, lx});
               visited[uy][lx] = true;
             }
@@ -99,20 +99,20 @@ class Solution {
         }
 
         if (dy < n) {
-          if (!visited[dy][cx]) {
+          if (!visited[dy][cx] && grid[dy][cx] == 0) {
             nextn.push({dy, cx});
             visited[dy][cx] = true;
           }
           // up right
           if (rx < n) {
-            if (!visited[dy][rx]) {
+            if (!visited[dy][rx] && grid[dy][rx] == 0) {
               nextn.push({dy, rx});
               visited[dy][rx] = true;
             }
           }
           // up left
           if (lx >= 0) {
-            if (!visited[dy][lx]) {
+            if (!visited[dy][lx] && grid[dy][lx] == 0) {
               nextn.push({dy, lx});
               visited[dy][lx] = true;
             }
@@ -120,14 +120,14 @@ class Solution {
         }
 
         if (lx >= 0) {
-          if (!visited[cy][lx]) {
+          if (!visited[cy][lx] && grid[cy][lx] == 0) {
             nextn.push({cy, lx});
             visited[cy][lx] = true;
           }
         }
 
         if (rx < n) {
-          if (!visited[cy][rx]) {
+          if (!visited[cy][rx] && grid[cy][rx] == 0) {
             nextn.push({cy, rx});
             visited[cy][rx] = true;
           }
