@@ -59,10 +59,13 @@ public:
       for (int i = 1; i < _size; ++i) {
         prefixSums[i] = prefixSums[i-1] + nums[i];
       }
+
     }
 
     int sumRange(int left, int right) {
-      return prefixSums[right] - prefixSums[left];
+      if (left == 0) return prefixSums[right];
+
+      return prefixSums[right] - prefixSums[left-1];
     }
 };
 
