@@ -61,11 +61,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
 vector<vector<int>> neighbors;
+bool intersects(vector<int> cur, vector<int> comp) {
+  // hit detection
+  // dist between the two points <= radius
+  int radius = cur[2];
+  int curx = cur[0];
+  int cury = cur[1];
+  int compx = comp[0];
+  int compy = comp[1];
+  int dx = abs(compx - curx);
+  int dy = abs(compy - cury);
+  double dist = sqrt((dx*dx) + (dy*dy));
+  return dist <= radius;
+}
 public:
     int maximumDetonation(vector<vector<int>>& bombs) {
       int number_of_bombs = bombs.size();
@@ -77,6 +91,16 @@ public:
           if (i == j) continue;
 
           vector<int> comparedBomb = bombs[j];
+          if (intersects(currentBomb, comparedBomb)) neighbors[i].push_back(j);
+
+        }
+      }
+      // test intersections
+      for (int i = 0; i < neighbors.size(); ++i) {
+        cout << i << "neighbors are " << endl;
+        vector<int> neigh = neighbors[i];
+        for (int j = 0; j < neigh.size(); ++j) {
+          cout << "neighbor is " << neigh[j] << endl;
         }
       }
     }
