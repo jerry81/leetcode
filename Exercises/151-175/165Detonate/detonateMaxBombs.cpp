@@ -65,8 +65,43 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> neighbors;
 public:
     int maximumDetonation(vector<vector<int>>& bombs) {
+      int number_of_bombs = bombs.size();
+      neighbors.resize(number_of_bombs, vector<int>());
+      // make neighbors
+      for (int i = 0; i < bombs.size(); ++i) {
+        vector<int> currentBomb = bombs[i];
+        for (int j = 0; j < bombs.size(); ++j) {
+          if (i == j) continue;
 
+          vector<int> comparedBomb = bombs[j];
+        }
+      }
     }
 };
+
+/*
+
+try using bfs islands
+n^2 comparison of each bomb to each other bomb?
+
+AB AC AD AE...
+BA BC BD BE... b/c AB != BA
+CA CB CD CE...
+
+example 1
+
+AB - false     A: []
+BA - true      B: [A]   B->A
+
+example 3
+- sbould be using disjoint union
+A: [B,C] B, C->D->E, visited
+B: [], visited
+C: [D], [C->D->E, visited]
+D: [E]  [D->E, visited]
+E: [B,C,D] <- 3 - but revisiting of B, C, and D
+
+*/
