@@ -49,13 +49,20 @@ Acceptance Rate
 using namespace std;
 
 class NumArray {
+vector<int> prefixSums;
+int _size;
 public:
     NumArray(vector<int>& nums) {
-
+      _size = nums.size();
+      prefixSums.resize(_size, 0);
+      prefixSums[0] = nums[0];
+      for (int i = 1; i < _size; ++i) {
+        prefixSums[i] = prefixSums[i-1] + nums[i];
+      }
     }
 
     int sumRange(int left, int right) {
-
+      return prefixSums[right] - prefixSums[left];
     }
 };
 
