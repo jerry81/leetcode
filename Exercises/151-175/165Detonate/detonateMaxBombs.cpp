@@ -76,8 +76,8 @@ bool intersects(vector<int> cur, vector<int> comp) {
   int cury = cur[1];
   int compx = comp[0];
   int compy = comp[1];
-  int dx = abs(compx - curx);
-  int dy = abs(compy - cury);
+  long long dx = abs(compx - curx);
+  long long dy = abs(compy - cury);
   double dist = sqrt((dx*dx) + (dy*dy));
   return dist <= radius;
 }
@@ -157,4 +157,8 @@ C: [D], [C->D->E, visited]
 D: [E]  [D->E, visited]
 E: [B,C,D] <- 3 - but revisiting of B, C, and D
 
+
+failing case!
+[[1,1,100000],[100000,100000,1]]
+runtime error: signed integer overflow: 99999 * 99999 cannot be represented in type 'int' (solution.cpp)
 */
