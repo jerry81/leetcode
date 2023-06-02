@@ -82,7 +82,24 @@ bool intersects(vector<int> cur, vector<int> comp) {
   return dist <= radius;
 }
 
-int bfs(int start, vector<int>& visited) {
+int bfs(int start, vector<bool>& visited) {
+  vector<bool> bfsVisited(visited.size(), false);
+  bfsVisited[start] = true;
+  queue<int> nn;
+  int count = 0;
+  while (!nn.empty()) {
+    int cur = nn.front();
+    nn.pop();
+    count++;
+    visited[cur] = true;
+    for (int n: neighbors[cur]) {
+      if (!bfsVisited[n]) {
+        nn.push(n);
+        bfsVisited[n] = true;
+      }
+    }
+  }
+  return count;
 }
 
 public:
