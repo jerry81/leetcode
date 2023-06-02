@@ -86,11 +86,13 @@ int bfs(int start, vector<bool>& visited) {
   vector<bool> bfsVisited(visited.size(), false);
   bfsVisited[start] = true;
   queue<int> nn;
+  nn.push(start);
   int count = 0;
   while (!nn.empty()) {
     int cur = nn.front();
     nn.pop();
     count++;
+
     visited[cur] = true;
     for (int n: neighbors[cur]) {
       if (!bfsVisited[n]) {
@@ -123,8 +125,9 @@ public:
       vector<bool> pathCreated(number_of_bombs, false);
       for (int i = 0; i < number_of_bombs; ++i) {
         if (!pathCreated[i]) {
-          int size = bfs(i, pathCreated);
-          if (size > res) res = size;
+          int sz = bfs(i, pathCreated);
+
+          if (sz > res) res = sz;
         }
       }
 
