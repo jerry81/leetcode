@@ -62,6 +62,7 @@ Acceptance Rate
 
 #include <vector>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -80,6 +81,10 @@ bool intersects(vector<int> cur, vector<int> comp) {
   double dist = sqrt((dx*dx) + (dy*dy));
   return dist <= radius;
 }
+
+int bfs(int start, vector<int>& visited) {
+}
+
 public:
     int maximumDetonation(vector<vector<int>>& bombs) {
       int number_of_bombs = bombs.size();
@@ -95,14 +100,18 @@ public:
 
         }
       }
-      // test intersections
-      for (int i = 0; i < neighbors.size(); ++i) {
-        cout << i << "neighbors are " << endl;
-        vector<int> neigh = neighbors[i];
-        for (int j = 0; j < neigh.size(); ++j) {
-          cout << "neighbor is " << neigh[j] << endl;
+
+      // get max path size
+      int res = 0;
+      vector<bool> pathCreated(number_of_bombs, false);
+      for (int i = 0; i < number_of_bombs; ++i) {
+        if (!pathCreated[i]) {
+          int size = bfs(i, pathCreated);
+          if (size > res) res = size;
         }
       }
+
+      return res;
     }
 };
 
