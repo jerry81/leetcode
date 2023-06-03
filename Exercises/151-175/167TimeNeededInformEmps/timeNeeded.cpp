@@ -88,9 +88,7 @@ class Solution {
       auto cur = nn.front();
       nn.pop();
       int emp = cur.first;
-      cerr << "emp is " << emp << endl;
       int curHeight = informTime[emp] + cur.second;
-      cerr << "height is " << curHeight << endl;
       if (curHeight > res) res = curHeight;
 
       if (subordinates[emp].empty()) continue;
