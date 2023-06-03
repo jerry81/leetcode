@@ -52,6 +52,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -64,11 +65,34 @@ void buildSubordinates(vector<int>& manager) {
     subordinates[manager[i]].push_back(i);
   }
 }
+
+int bfs(vector<int>& informTime, int head) {
+  int res = 0;
+  vector<bool> visited(informTime.size(), false);
+  queue<int> nn;
+  nn.push(head);
+  visited[head] = true;
+  while (!nn.empty()) {
+    int cur = nn.front();
+    nn.pop();
+    if (subordinates[cur].empty()) continue;
+
+    res+=informTime[cur];
+    for (int i: subordinates[cur]) {
+      if (!visited[i]) {
+        visited[i] = true;
+        nn.push(i);
+      }
+    }
+  }
+  return res;
+}
 class Solution {
 public:
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
       subordinates.resize(n, vector<int>());
       buildSubordinates(manager);
+      return bfs(informTime, headID);
     }
 };
 
@@ -78,6 +102,6 @@ build neighbors
 
 start with headID
 
-islands
+bfs traverse
 
 */
