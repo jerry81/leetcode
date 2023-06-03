@@ -55,9 +55,29 @@ Acceptance Rate
 
 using namespace std;
 
+vector<vector<int>> subordinates;
+
+void buildSubordinates(vector<int>& manager) {
+  for (int i = 0; i < manager.size(); ++i) {
+    if (manager[i] == -1) continue;
+
+    subordinates[manager[i]].push_back(i);
+  }
+}
 class Solution {
 public:
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-
+      subordinates.resize(n, vector<int>());
+      buildSubordinates(manager);
     }
 };
+
+/*
+
+build neighbors
+
+start with headID
+
+islands
+
+*/
