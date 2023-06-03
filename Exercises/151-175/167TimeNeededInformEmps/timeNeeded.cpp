@@ -5,15 +5,23 @@ Medium
 2.8K
 185
 Companies
-A company has n employees with a unique ID for each employee from 0 to n - 1. The head of the company is the one with headID.
+A company has n employees with a unique ID for each employee from 0 to n - 1.
+The head of the company is the one with headID.
 
-Each employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th employee, manager[headID] = -1. Also, it is guaranteed that the subordination relationships have a tree structure.
+Each employee has one direct manager given in the manager array where manager[i]
+is the direct manager of the i-th employee, manager[headID] = -1. Also, it is
+guaranteed that the subordination relationships have a tree structure.
 
-The head of the company wants to inform all the company employees of an urgent piece of news. He will inform his direct subordinates, and they will inform their subordinates, and so on until all employees know about the urgent news.
+The head of the company wants to inform all the company employees of an urgent
+piece of news. He will inform his direct subordinates, and they will inform
+their subordinates, and so on until all employees know about the urgent news.
 
-The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e., After informTime[i] minutes, all his direct subordinates can start spreading the news).
+The i-th employee needs informTime[i] minutes to inform all of his direct
+subordinates (i.e., After informTime[i] minutes, all his direct subordinates can
+start spreading the news).
 
-Return the number of minutes needed to inform all the employees about the urgent news.
+Return the number of minutes needed to inform all the employees about the urgent
+news.
 
 
 
@@ -27,8 +35,9 @@ Example 2:
 
 Input: n = 6, headID = 2, manager = [2,2,-1,2,2,2], informTime = [0,0,1,0,0,0]
 Output: 1
-Explanation: The head of the company with id = 2 is the direct manager of all the employees in the company and needs 1 minute to inform them all.
-The tree structure of the employees in the company is shown.
+Explanation: The head of the company with id = 2 is the direct manager of all
+the employees in the company and needs 1 minute to inform them all. The tree
+structure of the employees in the company is shown.
 
 
 Constraints:
@@ -51,54 +60,75 @@ Acceptance Rate
 
 */
 
-#include <vector>
+#include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
-vector<vector<int>> subordinates;
+class Solution {
+  vector<vector<int>> subordinates;
 
-void buildSubordinates(vector<int>& manager) {
-  for (int i = 0; i < manager.size(); ++i) {
-    if (manager[i] == -1) continue;
+  void buildSubordinates(vector<int>& manager) {
+    for (int i = 0; i < manager.size(); ++i) {
+      int imanager = manager[i];
+      if (imanager == -1) continue;
 
-    subordinates[manager[i]].push_back(i);
+      subordinates[imanager].push_back(i);
+    }
   }
-}
 
-int bfs(vector<int>& informTime, int head) {
-  int res = 0;
-  vector<bool> visited(informTime.size(), false);
-  queue<pair<int,int>> nn;
-  nn.push({head,0});
-  visited[head] = true;
-  while (!nn.empty()) {
-    auto cur = nn.front();
-    nn.pop();
-    int emp = cur.first;
-    int curHeight = informTime[emp] + cur.second;
-    if (curHeight > res) res = curHeight;
+  int bfs(vector<int>& informTime, int head, int sz) {
+    int res = 0;
+    vector<bool> visited(sz, false);
+    queue<pair<int, int>> nn;
+    nn.push({head, 0});
+    visited[head] = true;
+    while (!nn.empty()) {
+      auto cur = nn.front();
+      nn.pop();
+      int emp = cur.first;
+      cerr << "emp is " << emp << endl;
+      int curHeight = informTime[emp] + cur.second;
+      cerr << "height is " << curHeight << endl;
+      if (curHeight > res) res = curHeight;
 
-    if (subordinates[emp].empty()) continue;
+      if (subordinates[emp].empty()) continue;
 
-
-    for (int i: subordinates[emp]) {
-      if (!visited[i]) {
-        visited[i] = true;
-        nn.push({i,curHeight});
+      for (int i : subordinates[emp]) {
+        if (!visited[i]) {
+          visited[i] = true;
+          nn.push({i, curHeight});
+        }
       }
     }
+    return res;
   }
-  return res;
-}
-class Solution {
-public:
-    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-      subordinates.resize(n, vector<int>());
-      buildSubordinates(manager);
-      return bfs(informTime, headID);
-    }
+
+ public:
+  int numOfMinutes(int n, int headID, vector<int>& manager,
+                   vector<int>& informTime) {
+    subordinates.resize(n, vector<int>(0));
+    buildSubordinates(manager);
+    return bfs(informTime, headID, n);
+  }
 };
+
+int main() {
+  Solution s;
+  vector<int> mgr1 = {3, 3, -1, 2};
+  vector<int> inf1 = {0, 0, 162, 914};
+  int res = s.numOfMinutes(4, 2, mgr1, inf1);
+  cout << "expect something " << res << endl;
+  vector<int> mgr2 = {-1};
+  vector<int> inf2 = {0};
+  int res2 = s.numOfMinutes(1, 0, mgr2, inf2);
+  cout << "expect something " << res2 << endl;
+  vector<int> mgr3 = {2, 2, -1, 2, 2, 2};
+  vector<int> inf3 = {0, 0, 1, 0, 0, 0};
+  int res3 = s.numOfMinutes(6, 2, mgr3, inf3);
+  cout << "expect something " << res3 << endl;
+}
 
 /*
 
