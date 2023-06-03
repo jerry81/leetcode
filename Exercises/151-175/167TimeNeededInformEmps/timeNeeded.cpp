@@ -69,19 +69,23 @@ void buildSubordinates(vector<int>& manager) {
 int bfs(vector<int>& informTime, int head) {
   int res = 0;
   vector<bool> visited(informTime.size(), false);
-  queue<int> nn;
-  nn.push(head);
+  queue<pair<int,int>> nn;
+  nn.push({head,0});
   visited[head] = true;
   while (!nn.empty()) {
-    int cur = nn.front();
+    auto cur = nn.front();
     nn.pop();
-    if (subordinates[cur].empty()) continue;
+    int emp = cur.first;
+    int curHeight = informTime[emp] + cur.second;
+    if (curHeight > res) res = curHeight;
 
-    res+=informTime[cur];
-    for (int i: subordinates[cur]) {
+    if (subordinates[emp].empty()) continue;
+
+
+    for (int i: subordinates[emp]) {
       if (!visited[i]) {
         visited[i] = true;
-        nn.push(i);
+        nn.push({i,curHeight});
       }
     }
   }
@@ -103,5 +107,9 @@ build neighbors
 start with headID
 
 bfs traverse
+
+// fix - all "informs" should happen in parallel.
+// so this becomes a height counting problem.
+// not all heights are created equal - we are looking for the max height
 
 */
