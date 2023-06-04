@@ -75,7 +75,6 @@ class Solution {
 
       vector<bool> visitedSnap = visited;
 
-      cout << "examining " << i << endl;
       visited[i] = true;
       queue<int> nn;
       nn.push(i);
