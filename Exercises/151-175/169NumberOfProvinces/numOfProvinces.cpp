@@ -66,11 +66,16 @@ class Solution {
         }
       }
     }
+
     vector<bool> visited(n, false);
     int result = 0;
 
     for (int i = 0; i < n; ++i) {
       if (visited[i]) continue;
+
+      vector<bool> visitedSnap = visited;
+
+      cout << "examining " << i << endl;
       visited[i] = true;
       queue<int> nn;
       nn.push(i);
@@ -83,7 +88,7 @@ class Solution {
             nn.push(n);
             visited[n] = true;
           } else {
-            indirect = true;
+            if (visitedSnap[n]) indirect = true;
           }
         }
       }
