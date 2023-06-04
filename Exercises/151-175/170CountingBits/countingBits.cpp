@@ -1,39 +1,41 @@
-#include <vector>
 #include <bitset>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-bool isPowerOfTwo(int number) {
-    if (number <= 0)
-        return false;
+  bool isPowerOfTwo(int number) {
+    if (number <= 0) return false;
 
     return (number & (number - 1)) == 0;
-}
-public:
-    vector<int> countBits(int n) {
-      vector<int> memo(n+1, -1);
-      vector<bool> bits(32, false);
-      vector<int> res;
-      if (n==0) return {0};
-      memo[0] = 0;
-      res.push_back(0);
-      if (n==1) return {1};
-      memo[1] = 1;
-      res.push_back(1);
-      int prevPower = 1;
-      for (int i = 2; i <=n; ++i) {
-        if (isPowerOfTwo(i)) {
-          memo[i] = 1;
-          prevPower = i;
-          res.push_back(1);
-        } else {
-          memo[i] = memo[prevPower] + memo[i-prevPower];
-          res.push_back(memo[i]);
-        }
+  }
+
+ public:
+  vector<int> countBits(int n) {
+    vector<int> memo(n + 1, -1);
+    vector<bool> bits(32, false);
+    vector<int> res;
+    if (n == 0) return {0};
+
+    memo[0] = 0;
+    res.push_back(0);
+    if (n == 1) return {0, 1};
+
+    memo[1] = 1;
+    res.push_back(1);
+    int prevPower = 1;
+    for (int i = 2; i <= n; ++i) {
+      if (isPowerOfTwo(i)) {
+        memo[i] = 1;
+        prevPower = i;
+        res.push_back(1);
+      } else {
+        memo[i] = memo[prevPower] + memo[i - prevPower];
+        res.push_back(memo[i]);
       }
-      return res;
     }
+    return res;
+  }
 };
 
 /*
@@ -92,7 +94,8 @@ Easy
 8.9K
 424
 Companies
-Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+Given an integer n, return an array ans of length n + 1 such that for each i (0
+<= i <= n), ans[i] is the number of 1's in the binary representation of i.
 
 
 
@@ -124,9 +127,9 @@ Constraints:
 
 Follow up:
 
-It is very easy to come up with a solution with a runtime of O(n log n). Can you do it in linear time O(n) and possibly in a single pass?
-Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
-Accepted
+It is very easy to come up with a solution with a runtime of O(n log n). Can you
+do it in linear time O(n) and possibly in a single pass? Can you do it without
+using any built-in function (i.e., like __builtin_popcount in C++)? Accepted
 778K
 Submissions
 1M
