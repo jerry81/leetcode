@@ -12,7 +12,7 @@ bool isPowerOfTwo(int number) {
 }
 public:
     vector<int> countBits(int n) {
-      vector<int> memo(n, -1);
+      vector<int> memo(n+1, -1);
       vector<bool> bits(32, false);
       vector<int> res;
       if (n==0) return {0};
@@ -22,7 +22,7 @@ public:
       memo[1] = 1;
       res.push_back(1);
       int prevPower = 1;
-      for (int i = 2; i <n; ++i) {
+      for (int i = 2; i <=n; ++i) {
         if (isPowerOfTwo(i)) {
           memo[i] = 1;
           prevPower = i;
@@ -32,6 +32,7 @@ public:
           res.push_back(memo[i]);
         }
       }
+      return res;
     }
 };
 
