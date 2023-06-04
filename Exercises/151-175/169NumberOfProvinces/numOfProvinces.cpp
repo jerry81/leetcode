@@ -22,7 +22,6 @@ Input: isConnected = [[1,1,0],[1,1,0],[0,0,1]]
 Output: 2
 Example 2:
 
-
 Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
 Output: 3
 
@@ -45,12 +44,24 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
+
 
 class Solution {
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
-
+      int n = isConnected.size();
+      vector<bool> visited(n, false);
+      int result = 0;
+      queue<int> nn;
+      return result;
     }
 };
+
+/*
+
+first impressions - islands
+
+*/
