@@ -42,7 +42,7 @@ class Solution {
 public:
     string reverseVowels(string s) {
       string v = "";
-      string vowels = "aeiou";
+      string vowels = "aeiouAEIOU";
 
       for (char c: s) {
         if (vowels.find(c) != string::npos) {
