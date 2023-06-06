@@ -41,7 +41,22 @@ using namespace std;
 class Solution {
 public:
     string reverseVowels(string s) {
+      string v = "";
+      string vowels = "aeiou";
 
+      for (char c: s) {
+        if (vowels.find(c) != string::npos) {
+          v.push_back(c);
+        }
+      }
+
+      for (int i = 0; i < s.size(); ++i) {
+        if (vowels.find(s[i]) != string::npos) {
+          s[i] = v.back();
+          v.pop_back();
+        }
+      }
+      return s;
     }
 };
 
