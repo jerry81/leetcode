@@ -40,6 +40,24 @@ Acceptance Rate
 class Solution {
 public:
     bool isPerfectSquare(int num) {
+      if (num == 1) return true;
 
+      long long comp = num;
+      long long upper = num/2;
+      long long lower = 1;
+      while (upper >= lower) {
+        long long mid = (upper+lower)/2;
+        if (mid * mid == num) return true;
+
+        if (mid > num) {
+          upper = mid - 1;
+        } else {
+          lower = mid + 1;
+        }
+      }
+      return false;
     }
 };
+
+// range is 1 - num/2
+//
