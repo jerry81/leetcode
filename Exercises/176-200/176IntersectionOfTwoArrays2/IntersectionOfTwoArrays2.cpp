@@ -52,6 +52,11 @@ public:
 
       vector<int> ret;
       for (int n: nums2) {
+        if (freq[n] > 0) {
+          freq[n]--;
+          ret.push_back(n);
+        }
       }
+      return ret;
     }
 };
