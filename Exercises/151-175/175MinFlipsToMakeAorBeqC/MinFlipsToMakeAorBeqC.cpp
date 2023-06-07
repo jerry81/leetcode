@@ -80,9 +80,28 @@ Acceptance Rate
 
 */
 
+using namespace std;
+#include <string>
+#include <bitset>
+
 class Solution {
+string getBString(int inp) {
+  return bitset<sizeof(int) * 8>(inp).to_string();
+}
 public:
     int minFlips(int a, int b, int c) {
-
+      // convert a,b,c to bstrings
+      int res = 0;
+      string as = getBString(a);
+      string bs = getBString(b);
+      string cs = getBString(c);
+      for (int i = 0; i < as.size(); ++i) {
+        if (cs[i]) {
+          if (!as[i] || !bs[i]) res++;
+        } else {
+          if (as[i] || bs[i]) res++;
+        }
+      }
+      return res;
     }
 };
