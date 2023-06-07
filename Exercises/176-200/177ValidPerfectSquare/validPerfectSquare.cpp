@@ -36,7 +36,6 @@ Acceptance Rate
 43.4%
 
 */
-
 class Solution {
 public:
     bool isPerfectSquare(int num) {
@@ -49,7 +48,7 @@ public:
         long long mid = (upper+lower)/2;
         if (mid * mid == num) return true;
 
-        if (mid > num) {
+        if (mid*mid > num) {
           upper = mid - 1;
         } else {
           lower = mid + 1;
