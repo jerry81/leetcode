@@ -50,3 +50,14 @@ public:
       return true;
     }
 };
+
+/*
+
+editorial:
+
+get max and min o(N)
+diff is max-min/number of elements between
+but breaks if duplicates
+- extra check for dupes
+- check each item - min % diff == 0
+*/
