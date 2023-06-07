@@ -96,10 +96,15 @@ public:
       string bs = getBString(b);
       string cs = getBString(c);
       for (int i = 0; i < as.size(); ++i) {
-        if (cs[i]) {
-          if (!as[i] || !bs[i]) res++;
+        bool ab = as[i] == '1';
+        bool bb = bs[i] == '1';
+        bool cb = cs[i] == '1';
+        if (cb) {
+          if (!ab && !bb) res++;
         } else {
-          if (as[i] || bs[i]) res++;
+          if (ab) res++;
+
+          if (bb) res++;
         }
       }
       return res;
