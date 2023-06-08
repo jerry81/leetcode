@@ -47,7 +47,7 @@ int bsearchForZero(vector<int> row) {
   int low = 0;
   int high = row.size()-1;
   while (low < high) {
-    int mid = low+high / 2;
+    int mid = (low+high) / 2;
     int item = row[mid];
     if (item == 0) return mid;
     if (item > 0) {
@@ -66,7 +66,9 @@ public:
       int sum = 0;
       for (auto a: grid) {
         int idx = bsearchForZero(a);
-        sum+=grid.size() - idx;
+
+        sum+=a.size() - idx;
+
 
         if (a[idx] >= 0) sum--;
       }
