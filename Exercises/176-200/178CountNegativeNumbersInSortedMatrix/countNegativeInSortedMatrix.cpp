@@ -57,7 +57,6 @@ int bsearchForZero(vector<int> row) {
 
     high = mid-1;
   }
-  cerr << "low is " << low << " high is " << high << endl;
   return low;
 }
 
@@ -68,6 +67,8 @@ public:
       for (auto a: grid) {
         int idx = bsearchForZero(a);
         sum+=grid.size() - idx;
+
+        if (a[idx] >= 0) sum--;
       }
       return sum;
     }
