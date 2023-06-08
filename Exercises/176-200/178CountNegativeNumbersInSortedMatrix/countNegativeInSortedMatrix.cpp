@@ -43,34 +43,35 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int bsearchForZero(vector<int> row) {
-  int low = 0;
-  int high = row.size()-1;
-  while (low < high) {
-    int mid = (low+high) / 2;
-    int item = row[mid];
-    if (item == 0) return mid;
-    if (item > 0) {
-      low = mid+1;
-      continue;
-    }
+// int bsearchForZero(vector<int> row) {
+//   int low = 0;
+//   int high = row.size()-1;
+//   while (low < high) {
+//     int mid = (low+high) / 2;
+//     int item = row[mid];
+//     if (item == 0) return mid;
+//     if (item > 0) {
+//       low = mid+1;
+//       continue;
+//     }
 
-    high = mid-1;
-  }
-  return low;
-}
+//     high = mid-1;
+//   }
+//   return low;
+// }
 
 public:
     int countNegatives(vector<vector<int>>& grid) {
       // binary search to find 0 in each
       int sum = 0;
+
       for (auto a: grid) {
-        int idx = bsearchForZero(a);
-
-        sum+=a.size() - idx;
-
-
-        if (a[idx] >= 0) sum--;
+        for (int i = 0; i < a.size(); ++i) {
+          if (a[i] < 0) {
+            sum+=a.size() - i;
+            break;
+          }
+        }
       }
       return sum;
     }
