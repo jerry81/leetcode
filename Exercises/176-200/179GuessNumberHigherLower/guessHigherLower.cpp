@@ -55,10 +55,18 @@ Acceptance Rate
  *               otherwise return 0
  * int guess(int num);
  */
-
 class Solution {
 public:
     int guessNumber(int n) {
-
+      long long low = 1;
+      long long high = n;
+      while (true) {
+        long long mid = (low+high)/2;
+        int res = guess(mid);
+        if (res == 0) return mid;
+        if (res < 0) high = mid-1;
+        if (res > 0) low = mid+1;
+      }
+      return 0;
     }
 };
