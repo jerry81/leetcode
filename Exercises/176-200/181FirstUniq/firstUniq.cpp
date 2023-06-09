@@ -45,13 +45,14 @@ using namespace std;
 class Solution {
 public:
     int firstUniqChar(string s) {
-      map<char, vector<int>> freq;
+      map<char, int> freq;
+      for (char c: s) {
+        freq[c]++;
+      }
       for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
-        freq[c].push_back(i);
+        if (freq[c] == 1) return i;
       }
-      for (auto [_,vec]: freq) {
-        if (vec.size()==1) return vec[0];
-      }
+      return -1;
     }
 };
