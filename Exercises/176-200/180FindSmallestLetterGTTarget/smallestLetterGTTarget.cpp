@@ -51,6 +51,15 @@ using namespace std;
 class Solution {
 public:
     char nextGreatestLetter(vector<char>& letters, char target) {
+      int minc = (int) 'z' + 1;
+      for (char c:letters) {
+        if ((int) c > (int) target) {
+          if ((int) c < minc) {
+            minc = c;
+          }
+        }
+      }
 
+      return minc < (int)target ? char(minc): letters[0];
     }
 };
