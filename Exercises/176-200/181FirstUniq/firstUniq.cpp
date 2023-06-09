@@ -37,12 +37,21 @@ Acceptance Rate
 */
 
 #include <string>
+#include <map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
     int firstUniqChar(string s) {
-
+      map<char, vector<int>> freq;
+      for (int i = 0; i < s.size(); ++i) {
+        char c = s[i];
+        freq[c].push_back(i);
+      }
+      for (auto [_,vec]: freq) {
+        if (vec.size()==1) return vec[0];
+      }
     }
 };
