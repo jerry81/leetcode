@@ -9,14 +9,19 @@ You are given three positive integers: n, index, and maxSum. You want to constru
 
 nums.length == n
 nums[i] is a positive integer where 0 <= i < n.
-abs(nums[i] - nums[i+1]) <= 1 where 0 <= i < n-1.
+abs(nums[i] - nums[i+1]) <= 1 where 0 <= i < n-1. so, 1 or 0 diff
 The sum of all the elements of nums does not exceed maxSum.
 nums[index] is maximized.
 Return nums[index] of the constructed array.
 
 Note that abs(x) equals x if x >= 0, and -x otherwise.
 
+Input: n = 6, index = 1,  maxSum = 10
+Output: 3
 
+[454321] max sum exceeded
+[3,4,3,2,1,0]
+[2,3,2,1,0,0]
 
 Example 1:
 
@@ -28,6 +33,8 @@ Example 2:
 
 Input: n = 6, index = 1,  maxSum = 10
 Output: 3
+
+
 
 
 Constraints:
@@ -46,6 +53,13 @@ Acceptance Rate
 class Solution {
 public:
     int maxValue(int n, int index, int maxSum) {
-
+      // brute force trial and error
+      // mountain algorithm
+      // pick number try
+      // series from backwards coundowns from idx 0 to index, and index to n, stopping at zero.
+      // checking against max Sum
+      // bounds for smart picking
+      // less than maxSum
+      //
     }
 };
