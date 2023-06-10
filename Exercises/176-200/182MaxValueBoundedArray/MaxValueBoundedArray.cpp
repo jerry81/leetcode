@@ -73,7 +73,6 @@ class Solution {
 
     while (high >= low) {
       int mid = (high + low) / 2;
-      // cerr << "trying " << mid << endl;
      //  cout << "try " << mid << endl;
       int curSum = mid;
 
@@ -88,16 +87,18 @@ class Solution {
                                       // index 7, mid 5
                                       // [11112345]
 
+
+
       if (curSum > maxSum) {
         high = mid - 1;
         continue;
       }
-
-      long long sum2 = sumSeries(max(mid - (n - index), 1), mid - 1);
+      long long sum2 = sumSeries(max(mid - (n - index -1), 1), mid - 1);
       if (index < n - 1) curSum += sum2;
 
+
+
       if (itemsAfterIdx > mid) curSum += (itemsAfterIdx - mid) + 1;
-      // cout << "cursum of " << mid << " is " << curSum << endl;
 
       if (curSum > maxSum) {
         high = mid - 1;
@@ -123,10 +124,18 @@ int main() {
   // cout << "expect 2 " << s.maxValue(4, 2, 6) << endl;
   // cout << "expect 7 " << s.maxValue(3, 2, 18) << endl;
   // cout << "expect 1 " << s.maxValue(4, 0, 4) << endl;
-  cout << "expect 3 " << s.maxValue(9, 3, 16) << endl;
+  // cout << "expect 3 " << s.maxValue(9, 3, 16) << endl;
+    cout << "expect 6 " << s.maxValue(7, 5, 29) << endl;
+
 }
 
+
+
 /*
+
+  [1,2,3,4,5,6,5] - 26
+  // after first half: 21
+  //
 
   [1 1 2 3 2 1 1 1 1] = 13
   [1,1 1 2 1 1 1 1 1]
