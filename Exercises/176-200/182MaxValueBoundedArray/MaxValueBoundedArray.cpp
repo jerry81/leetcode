@@ -57,6 +57,8 @@ using namespace std;
 class Solution {
  public:
   long long sumSeries(int startV, int endV) {
+    if (startV < 0) return 0;
+    if (endV < 0) return 0;
     if (endV < startV) return 0;
 
     int n = endV - startV + 1;
@@ -67,46 +69,60 @@ class Solution {
     int high = maxSum;
     int low = 0;
     int result;
+    int itemsAfterIdx = n - index - 1;
     while (high >= low) {
-      int mid = (high+low)/2;
+      int mid = (high + low) / 2;
       // cerr << "trying " << mid << endl;
       int curSum = mid;
 
       // 0 to mid if index > mid mid 7, idx 2 then 5,6,7
-      long long sum1 = sumSeries(max(mid-index, 0),mid-1);
-      if (index > 0) curSum+= sum1;
+
+      long long sum1 = sumSeries(max(mid - index, 1), mid - 1);
+      if (index > 0) {
+        curSum += sum1;
+      }
+      if (index > mid) curSum += (index - mid + 1);  // off by one?
+                                                     // index 7, mid 5
+                                                     // [11112345]
+
       if (curSum > maxSum) {
-        high = mid-1;
+        high = mid - 1;
         continue;
       }
-      long long sum2=sumSeries(max(mid-(n-index), 0), mid-1);
-      if (index < n-1) curSum+=sum2;
+
+      long long sum2 = sumSeries(max(mid - (n - index), 1), mid - 1);
+      if (index < n - 1) curSum += sum2;
+
+
+      if (itemsAfterIdx > mid) curSum += (itemsAfterIdx - mid) + 1;
       if (curSum > maxSum) {
-        high = mid-1;
+        high = mid - 1;
         continue;
       }
+
       if (curSum == maxSum) {
-        return mid;
+        return max(1,mid);
       }
       if (curSum <= maxSum) result = low;
-      low = mid+1;
+      low = mid + 1;
     }
-    return result;
-    // brute force trial and error
-    // mountain algorithm
-    // pick number try
-    // series from backwards coundowns from idx 0 to index, and index to n,
-    // stopping at zero. checking against max Sum bounds for smart picking less
-    // than maxSum
-    // 3,4,3,2,1
+    return max(1, result);
   }
 };
 
-int main() { Solution s;
+int main() {
+  Solution s;
   // cout << "expect 6 " << s.sumSeries(0,3) << endl;
   //  cout << "expect 5 " << s.sumSeries(2,3) << endl;
-  cout << "expect 4 " << s.sumSeries(4,4) << endl;
-  cout << "expect 3 " << s.maxValue(6,1,10) << endl;
-  cout << "expect 2 " << s.maxValue(4,2,6) << endl;
-  cout << "expect 7 " << s.maxValue(3,2,18) << endl;
- }
+  cout << "expect 4 " << s.sumSeries(4, 4) << endl;
+  cout << "expect 3 " << s.maxValue(6, 1, 10) << endl;
+  cout << "expect 2 " << s.maxValue(4, 2, 6) << endl;
+  cout << "expect 7 " << s.maxValue(3, 2, 18) << endl;
+  cout << "expect 1 " << s.maxValue(4, 0, 4) << endl;
+}
+
+/*
+
+changes - add 1s at the end
+
+*/
