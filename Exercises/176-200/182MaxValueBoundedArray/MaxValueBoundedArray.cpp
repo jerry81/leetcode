@@ -51,6 +51,10 @@ Acceptance Rate
 */
 
 class Solution {
+long long sumSeries(int startV, int endV) {
+  int n = endV-startV+1;
+  return (long long)(n/2) * (long long)(startV + endV);
+}
 public:
     int maxValue(int n, int index, int maxSum) {
       // brute force trial and error
