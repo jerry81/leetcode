@@ -70,9 +70,11 @@ class Solution {
     int low = 0;
     int result;
     int itemsAfterIdx = n - index - 1;
+
     while (high >= low) {
       int mid = (high + low) / 2;
       // cerr << "trying " << mid << endl;
+     //  cout << "try " << mid << endl;
       int curSum = mid;
 
       // 0 to mid if index > mid mid 7, idx 2 then 5,6,7
@@ -81,9 +83,10 @@ class Solution {
       if (index > 0) {
         curSum += sum1;
       }
-      if (index > mid) curSum += (index - mid + 1);  // off by one?
-                                                     // index 7, mid 5
-                                                     // [11112345]
+      if (index > mid)
+        curSum += (index - mid + 1);  // off by one?
+                                      // index 7, mid 5
+                                      // [11112345]
 
       if (curSum > maxSum) {
         high = mid - 1;
@@ -93,17 +96,18 @@ class Solution {
       long long sum2 = sumSeries(max(mid - (n - index), 1), mid - 1);
       if (index < n - 1) curSum += sum2;
 
-
       if (itemsAfterIdx > mid) curSum += (itemsAfterIdx - mid) + 1;
+      // cout << "cursum of " << mid << " is " << curSum << endl;
+
       if (curSum > maxSum) {
         high = mid - 1;
         continue;
       }
 
       if (curSum == maxSum) {
-        return max(1,mid);
+        return max(1, mid);
       }
-      if (curSum <= maxSum) result = low;
+      if (curSum <= maxSum) result = mid;
       low = mid + 1;
     }
     return max(1, result);
@@ -114,13 +118,20 @@ int main() {
   Solution s;
   // cout << "expect 6 " << s.sumSeries(0,3) << endl;
   //  cout << "expect 5 " << s.sumSeries(2,3) << endl;
-  cout << "expect 4 " << s.sumSeries(4, 4) << endl;
-  cout << "expect 3 " << s.maxValue(6, 1, 10) << endl;
-  cout << "expect 2 " << s.maxValue(4, 2, 6) << endl;
-  cout << "expect 7 " << s.maxValue(3, 2, 18) << endl;
-  cout << "expect 1 " << s.maxValue(4, 0, 4) << endl;
+  // cout << "expect 4 " << s.sumSeries(4, 4) << endl;
+  // cout << "expect 3 " << s.maxValue(6, 1, 10) << endl;
+  // cout << "expect 2 " << s.maxValue(4, 2, 6) << endl;
+  // cout << "expect 7 " << s.maxValue(3, 2, 18) << endl;
+  // cout << "expect 1 " << s.maxValue(4, 0, 4) << endl;
+  cout << "expect 3 " << s.maxValue(9, 3, 16) << endl;
 }
 
+/*
+
+  [1 1 2 3 2 1 1 1 1] = 13
+  [1,1 1 2 1 1 1 1 1]
+
+*/
 /*
 
 changes - add 1s at the end
