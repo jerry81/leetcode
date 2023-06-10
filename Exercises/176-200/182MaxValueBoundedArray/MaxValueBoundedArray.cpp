@@ -69,18 +69,18 @@ class Solution {
     int result;
     while (high >= low) {
       int mid = (high+low)/2;
+      // cerr << "trying " << mid << endl;
       int curSum = mid;
 
       // 0 to mid if index > mid mid 7, idx 2 then 5,6,7
       long long sum1 = sumSeries(max(mid-index, 0),mid-1);
-      curSum+= sum1;
+      if (index > 0) curSum+= sum1;
       if (curSum > maxSum) {
         high = mid-1;
         continue;
       }
       long long sum2=sumSeries(max(mid-(n-index), 0), mid-1);
-      curSum+=sum2;
-
+      if (index < n-1) curSum+=sum2;
       if (curSum > maxSum) {
         high = mid-1;
         continue;
@@ -88,7 +88,7 @@ class Solution {
       if (curSum == maxSum) {
         return mid;
       }
-      if (curSum < maxSum) result = low;
+      if (curSum <= maxSum) result = low;
       low = mid+1;
     }
     return result;
@@ -108,4 +108,5 @@ int main() { Solution s;
   cout << "expect 4 " << s.sumSeries(4,4) << endl;
   cout << "expect 3 " << s.maxValue(6,1,10) << endl;
   cout << "expect 2 " << s.maxValue(4,2,6) << endl;
+  cout << "expect 7 " << s.maxValue(3,2,18) << endl;
  }
