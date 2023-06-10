@@ -60,42 +60,52 @@ class Solution {
     if (endV < startV) return 0;
 
     int n = endV - startV + 1;
-    return (long long)(n / 2) * (long long)(startV + endV);
+    return (long long)(n * (long long)(startV + endV)) / 2;
   }
+
   int maxValue(int n, int index, int maxSum) {
     int high = maxSum;
     int low = 0;
-    while (high > low) {
+    int result;
+    while (high >= low) {
       int mid = (high+low)/2;
       int curSum = mid;
 
       // 0 to mid if index > mid mid 7, idx 2 then 5,6,7
-      curSum+=sumSeries(max(mid-index, 0),mid-1);
+      long long sum1 = sumSeries(max(mid-index, 0),mid-1);
+      curSum+= sum1;
       if (curSum > maxSum) {
         high = mid-1;
         continue;
       }
-      curSum+=sumSeries(max(mid-(n-index), 0), mid-1);
+      long long sum2=sumSeries(max(mid-(n-index), 0), mid-1);
+      curSum+=sum2;
+
       if (curSum > maxSum) {
         high = mid-1;
         continue;
       }
-      if (curSum == maxSum) return mid;
-      low = mid + 1;
+      if (curSum == maxSum) {
+        return mid;
+      }
+      if (curSum < maxSum) result = low;
+      low = mid+1;
     }
-    return min(high,low);
+    return result;
     // brute force trial and error
     // mountain algorithm
     // pick number try
     // series from backwards coundowns from idx 0 to index, and index to n,
     // stopping at zero. checking against max Sum bounds for smart picking less
     // than maxSum
-    //
+    // 3,4,3,2,1
   }
 };
 
 int main() { Solution s;
-  cout << "expect 6 " << s.sumSeries(0,3) << endl;
-   cout << "expect 5 " << s.sumSeries(2,3) << endl;
-
+  // cout << "expect 6 " << s.sumSeries(0,3) << endl;
+  //  cout << "expect 5 " << s.sumSeries(2,3) << endl;
+  cout << "expect 4 " << s.sumSeries(4,4) << endl;
+  cout << "expect 3 " << s.maxValue(6,1,10) << endl;
+  cout << "expect 2 " << s.maxValue(4,2,6) << endl;
  }
