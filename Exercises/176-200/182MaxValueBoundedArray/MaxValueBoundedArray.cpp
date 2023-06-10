@@ -68,13 +68,12 @@ class Solution {
   int maxValue(int n, int index, int maxSum) {
     int high = maxSum;
     int low = 0;
-    int result;
+    int result = 0;
     int itemsAfterIdx = n - index - 1;
 
     while (high >= low) {
       int mid = (high + low) / 2;
-     //  cout << "try " << mid << endl;
-      int curSum = mid;
+      long long curSum = mid;
 
       // 0 to mid if index > mid mid 7, idx 2 then 5,6,7
 
@@ -82,11 +81,10 @@ class Solution {
       if (index > 0) {
         curSum += sum1;
       }
-      if (index > mid)
+      if (index >= mid)
         curSum += (index - mid + 1);  // off by one?
                                       // index 7, mid 5
                                       // [11112345]
-
 
 
       if (curSum > maxSum) {
@@ -97,14 +95,14 @@ class Solution {
       if (index < n - 1) curSum += sum2;
 
 
+      if (itemsAfterIdx >= mid) curSum += (itemsAfterIdx - mid) + 1;
 
-      if (itemsAfterIdx > mid) curSum += (itemsAfterIdx - mid) + 1;
+
 
       if (curSum > maxSum) {
         high = mid - 1;
         continue;
       }
-
       if (curSum == maxSum) {
         return max(1, mid);
       }
@@ -125,13 +123,25 @@ int main() {
   // cout << "expect 7 " << s.maxValue(3, 2, 18) << endl;
   // cout << "expect 1 " << s.maxValue(4, 0, 4) << endl;
   // cout << "expect 3 " << s.maxValue(9, 3, 16) << endl;
-    cout << "expect 6 " << s.maxValue(7, 5, 29) << endl;
+    // cout << "expect 6 " << s.maxValue(7, 5, 29) << endl;
+  // cout << "expect 4 " << s.maxValue(9, 5, 24) << endl;
+  // cout << "expect 2 " << s.maxValue(4, 0, 6) << endl;
+   cout << "expect 132863030 " << s.maxValue(7, 0, 930041194) << endl;
 
 }
 
-
-
 /*
+
+  [2,1,1,1] - 5
+  [3,2,1,1] - 7
+    - first check 0
+    - seocnd check 0
+    - 3rd check 6
+    - 4th check 7
+
+  [1,1,2,3,4,5,4,3,2] - 25 over
+  first step - 1 to 5  - 15
+  second step 16
 
   [1,2,3,4,5,6,5] - 26
   // after first half: 21
