@@ -54,12 +54,12 @@ public:
     }
 
     void set(int index, int val) {
-      vector<int> cursnap = snaps.back();
-      cursnap[index] = val;
+      snaps[snaps.size()-1][index] = val;
     }
 
     int snap() {
       snaps.push_back(vector<int>(l,0));
+      return snaps.size()-2;
     }
 
     int get(int index, int snap_id) {
