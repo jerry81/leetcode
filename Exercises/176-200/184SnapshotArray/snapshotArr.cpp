@@ -58,7 +58,8 @@ public:
     }
 
     int snap() {
-      snaps.push_back(vector<int>(l,0));
+      vector<int> cpy = snaps.back();
+      snaps.push_back(cpy);
       return snaps.size()-2;
     }
 
