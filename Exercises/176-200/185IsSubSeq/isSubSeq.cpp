@@ -45,6 +45,12 @@ using namespace std;
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
+      if (s.empty()) return true;
+      // use recursion
+      char f = s[0];
+      size_t pos = t.find(f);
+      if (pos == string::npos) return false;
 
+      return isSubsequence(s.substr(1), t.substr(pos+1));
     }
 };
