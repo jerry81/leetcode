@@ -41,23 +41,29 @@ Acceptance Rate
 37.0%
 
 */
+#include <vector>
 
+using namespace std;
 class SnapshotArray {
+vector<vector<int>> snaps;
+int l;
 public:
     SnapshotArray(int length) {
-
+      l = length;
+      snaps.push_back(vector<int>(l,0));
     }
 
     void set(int index, int val) {
-
+      vector<int> cursnap = snaps.back();
+      cursnap[index] = val;
     }
 
     int snap() {
-
+      snaps.push_back(vector<int>(l,0));
     }
 
     int get(int index, int snap_id) {
-
+      return snaps[snap_id][index];
     }
 };
 
