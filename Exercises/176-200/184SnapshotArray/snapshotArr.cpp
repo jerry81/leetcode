@@ -42,15 +42,17 @@ Acceptance Rate
 
 */
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 class SnapshotArray {
-vector<vector<int>> snaps;
+vector<unordered_map<int,int>> snaps;
 int l;
 public:
     SnapshotArray(int length) {
       l = length;
-      snaps.push_back(vector<int>(l,0));
+
+      snaps.push_back(unordered_map<int,int>());
     }
 
     void set(int index, int val) {
@@ -58,13 +60,15 @@ public:
     }
 
     int snap() {
-      vector<int> cpy = snaps.back();
-      snaps.push_back(cpy);
+      snaps.push_back(unordered_map<int,int>());
       return snaps.size()-2;
     }
 
     int get(int index, int snap_id) {
-      return snaps[snap_id][index];
+      for (int i = snap_id; i >=0; --i) {
+        if (snaps[i].find(index) != snaps[i].end()) return snaps[i][index];
+      }
+      return 0;
     }
 };
 
@@ -75,3 +79,13 @@ public:
  * int param_2 = obj->snap();
  * int param_3 = obj->get(index,snap_id);
  */
+
+/*
+
+improve memory:
+instead of storing copy of array
+- store map of diffs
+- diffs contain new updated values
+
+- now when we get, we run thru the diffs?
+*/
