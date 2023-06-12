@@ -66,13 +66,14 @@ class Solution {
 
   string formatTime(string s) {
     string hrs = s.substr(0, 4);
-
+    int hrsi = stoi(hrs, 0, 2);
     string mins = s.substr(4);
+    string hrs_s = to_string(hrsi);
     int minsi = stoi(mins, 0, 2);
     string mins_s = to_string(minsi);
     if (mins_s.size() < 2) mins_s = '0' + mins_s;
 
-    return hrs + ":" + mins_s;
+    return hrs_s + ":" + mins_s;
   }
 
   void r(string curS, int toUse, vector<string>& res) {
