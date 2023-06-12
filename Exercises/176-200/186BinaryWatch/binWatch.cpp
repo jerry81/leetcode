@@ -48,8 +48,40 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+
+bool valid(string s) {
+  string hrs = s.substr(0, 4);
+  string mins = s.substr(4);
+  int hrsi = stoi(hrs, 0, 2);
+  int minsi = stoi(mins, 0, 2);
+  if (hrsi > 12) return false;
+
+  if (minsi > 60) return false;
+
+  return true;
+}
+
+void r(string curS, int toUse, vector<string>& res) {
+  if (curS.size() > 10) return;
+
+  if (toUse == 0) {
+
+  }
+}
+
 public:
     vector<string> readBinaryWatch(int turnedOn) {
+      // 4 for hour
+      // 6 for minutes
+      // try every possible hour and minute combo
+      vector<string> ret;
+      if (turnedOn >= 9) return ret;
 
+      r("", turnedOn, ret);
+
+      return ret;
     }
 };
+
+// go thru possibilities with tree-like recursion
+// r(string curTime, toUse)
