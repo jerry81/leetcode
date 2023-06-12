@@ -54,12 +54,13 @@ using namespace std;
 class Solution {
   bool valid(string s) {
     string hrs = s.substr(0, 4);
+
     string mins = s.substr(4);
     int hrsi = stoi(hrs, 0, 2);
     int minsi = stoi(mins, 0, 2);
-    if (hrsi > 12) return false;
+    if (hrsi > 11) return false;
 
-    if (minsi > 60) return false;
+    if (minsi > 59) return false;
 
     return true;
   }
