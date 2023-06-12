@@ -5,12 +5,16 @@ Easy
 1.2K
 2.2K
 Companies
-A binary watch has 4 LEDs on the top to represent the hours (0-11), and 6 LEDs on the bottom to represent the minutes (0-59). Each LED represents a zero or one, with the least significant bit on the right.
+A binary watch has 4 LEDs on the top to represent the hours (0-11), and 6 LEDs
+on the bottom to represent the minutes (0-59). Each LED represents a zero or
+one, with the least significant bit on the right.
 
 For example, the below binary watch reads "4:51".
 
 
-Given an integer turnedOn which represents the number of LEDs that are currently on (ignoring the PM), return all possible times the watch could represent. You may return the answer in any order.
+Given an integer turnedOn which represents the number of LEDs that are currently
+on (ignoring the PM), return all possible times the watch could represent. You
+may return the answer in any order.
 
 The hour must not contain a leading zero.
 
@@ -42,45 +46,59 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+  bool valid(string s) {
+    string hrs = s.substr(0, 4);
+    string mins = s.substr(4);
+    int hrsi = stoi(hrs, 0, 2);
+    int minsi = stoi(mins, 0, 2);
+    if (hrsi > 12) return false;
 
-bool valid(string s) {
-  string hrs = s.substr(0, 4);
-  string mins = s.substr(4);
-  int hrsi = stoi(hrs, 0, 2);
-  int minsi = stoi(mins, 0, 2);
-  if (hrsi > 12) return false;
+    if (minsi > 60) return false;
 
-  if (minsi > 60) return false;
-
-  return true;
-}
-
-void r(string curS, int toUse, vector<string>& res) {
-  if (curS.size() > 10) return;
-
-  if (toUse == 0) {
-
+    return true;
   }
-}
 
-public:
-    vector<string> readBinaryWatch(int turnedOn) {
-      // 4 for hour
-      // 6 for minutes
-      // try every possible hour and minute combo
-      vector<string> ret;
-      if (turnedOn >= 9) return ret;
+  string formatTime(string s) {
+    string hrs = s.substr(0, 4);
 
-      r("", turnedOn, ret);
+    string mins = s.substr(4);
+    int minsi = stoi(mins, 0, 2);
+    string mins_s = to_string(minsi);
+    if (mins_s.size() < 2) mins_s = '0' + mins_s;
 
-      return ret;
+    return hrs + ":" + mins_s;
+  }
+
+  void r(string curS, int toUse, vector<string>& res) {
+    if (curS.size() > 10) return;
+
+    if (toUse == 0) {
+      while (curS.size() < 10) curS += '0';
+      if (valid(curS)) res.push_back(formatTime(curS));
     }
+
+    r(curS+'0', toUse, res);
+    r(curS+'1', toUse-1, res);
+  }
+
+ public:
+  vector<string> readBinaryWatch(int turnedOn) {
+    // 4 for hour
+    // 6 for minutes
+    // try every possible hour and minute combo
+    vector<string> ret;
+    if (turnedOn >= 9) return ret;
+
+    r("", turnedOn, ret);
+
+    return ret;
+  }
 };
 
 // go thru possibilities with tree-like recursion
