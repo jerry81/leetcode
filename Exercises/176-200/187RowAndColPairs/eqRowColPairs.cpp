@@ -5,9 +5,11 @@ Medium
 557
 27
 Companies
-Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj) such that row ri and column cj are equal.
+Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj)
+such that row ri and column cj are equal.
 
-A row and column pair is considered equal if they contain the same elements in the same order (i.e., an equal array).
+A row and column pair is considered equal if they contain the same elements in
+the same order (i.e., an equal array).
 
 
 
@@ -43,13 +45,38 @@ Acceptance Rate
 
 */
 
+#include <sstream>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int equalPairs(vector<vector<int>>& grid) {
+  unordered_map<string, int> rowFreq;
 
+ public:
+  int equalPairs(vector<vector<int>>& grid) {
+    for (auto a : grid) {
+      std::stringstream ss;
+      for (int i : a) {
+        ss << to_string(i) << ",";
+      }
+
+      rowFreq[ss.str()]++;
     }
-};
+  }
+}
+}
+;
+
+/*
+
+0 1 2 3
+1
+2
+3
+
+row 0 0123
+
+n^2 gives TLE?
+*/
