@@ -64,10 +64,19 @@ class Solution {
 
       rowFreq[ss.str()]++;
     }
+
+    int result = 0;
+    for (int i = 0; i < grid[0].size(); ++i) {
+      stringstream ss;
+      for (int j = 0; j < grid.size(); ++j) {
+        ss << to_string(grid[j][i]) << ',';
+      }
+      string cmp = ss.str();
+      result += rowFreq[cmp];
+    }
+    return result;
   }
-}
-}
-;
+};
 
 /*
 
