@@ -59,8 +59,17 @@ Acceptance Rate
 
 
 class Solution {
+bool isLeaf(TreeNode* node) {
+  return (node->left==nullptr && node->right==nullptr);
+}
 public:
     int sumOfLeftLeaves(TreeNode* root) {
+      if (root==nullptr) return 0;
+      int sum = 0;
+      if (isLeaf(root->left)) {
+        sum+=root->left->val;
+      }
 
+      return sum + sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
     }
 };
