@@ -60,6 +60,7 @@ Acceptance Rate
 
 class Solution {
 bool isLeaf(TreeNode* node) {
+  if (node==nullptr) return false;
   return (node->left==nullptr && node->right==nullptr);
 }
 public:
