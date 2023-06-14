@@ -52,8 +52,15 @@ void r(TreeNode* root) {
 }
 
 int getMinDist() {
-  int ret = 0;
+  int ret = INT_MAX;
+  if (items.size() <= 1) return 0;
 
+  for (int i = 1; i < items.size(); ++i) {
+    int diff = items[i] - items[0];
+    if (diff < ret) {
+      ret = diff;
+    }
+  }
   return ret;
 }
 public:
