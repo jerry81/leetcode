@@ -5,11 +5,14 @@ Easy
 1.2K
 198
 Companies
-Given an integer num, return a string representing its hexadecimal representation. For negative integers, two’s complement method is used.
+Given an integer num, return a string representing its hexadecimal
+representation. For negative integers, two’s complement method is used.
 
-All the letters in the answer string should be lowercase characters, and there should not be any leading zeros in the answer except for the zero itself.
+All the letters in the answer string should be lowercase characters, and there
+should not be any leading zeros in the answer except for the zero itself.
 
-Note: You are not allowed to use any built-in library method to directly solve this problem.
+Note: You are not allowed to use any built-in library method to directly solve
+this problem.
 
 
 
@@ -35,9 +38,21 @@ Acceptance Rate
 
 */
 
-class Solution {
-public:
-    string toHex(int num) {
+#include <string>
 
+using namespace std;
+
+class Solution {
+  char hexTable[16] = {'0', '1', '2', '3', '4', '5', '6', '7',
+                       '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+ public:
+  string toHex(int num) {
+    string sol = "";
+    while (num >= 0) {
+      sol = hexTable[num%16] + sol;
+      num = num/16;
     }
+    return sol;
+  }
 };
