@@ -48,6 +48,7 @@ class Solution {
 
  public:
   string toHex(int num) {
+    if (num == 0) return "0";
     string sol = "";
     uint unum;
     if (num < 0) {
@@ -65,3 +66,5 @@ class Solution {
     return sol;
   }
 };
+
+// to fix, -2147483648 case
