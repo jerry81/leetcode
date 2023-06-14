@@ -28,9 +28,38 @@ Output: 1
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+#include <vector>
+using namespace std;
+
+ struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+
 class Solution {
+vector<int> items;
+void r(TreeNode* root) {
+  if (root==nullptr) return;
+
+  items.push_back(root->val);
+  r(root->left);
+  r(root->right);
+}
+
+int getMinDist() {
+  int ret = 0;
+
+  return ret;
+}
 public:
     int getMinimumDifference(TreeNode* root) {
-
+      r(root);
+      sort(items.begin(), items.end());
+      return getMinDist();
     }
 };
