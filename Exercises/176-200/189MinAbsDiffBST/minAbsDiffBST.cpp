@@ -56,7 +56,7 @@ int getMinDist() {
   if (items.size() <= 1) return 0;
 
   for (int i = 1; i < items.size(); ++i) {
-    int diff = items[i] - items[0];
+    int diff = items[i] - items[i-1];
     if (diff < ret) {
       ret = diff;
     }
