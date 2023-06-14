@@ -41,7 +41,6 @@ Acceptance Rate
 #include <string>
 
 using namespace std;
-
 class Solution {
   char hexTable[16] = {'0', '1', '2', '3', '4', '5', '6', '7',
                        '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -52,8 +51,7 @@ class Solution {
     string sol = "";
     uint unum;
     if (num < 0) {
-      num*=-1;
-      unum = num;
+      unum = (long long)num * -1;
       unum = ~unum;
       unum+=1;
     } else {
