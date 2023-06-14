@@ -49,9 +49,18 @@ class Solution {
  public:
   string toHex(int num) {
     string sol = "";
-    while (num >= 0) {
-      sol = hexTable[num%16] + sol;
-      num = num/16;
+    uint unum;
+    if (num < 0) {
+      num*=-1;
+      unum = num;
+      unum = ~unum;
+      unum+=1;
+    } else {
+      unum = num;
+    }
+    while (unum > 0) {
+      sol = hexTable[unum%16] + sol;
+      unum = unum/16;
     }
     return sol;
   }
