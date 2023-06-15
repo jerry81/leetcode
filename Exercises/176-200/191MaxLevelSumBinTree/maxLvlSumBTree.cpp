@@ -78,18 +78,21 @@ class Solution {
     queue<TreeNode *> nn;
     if (root != nullptr) nn.push(root);
 
-    int curSum = 0;
+
     while (!nn.empty()) {
       queue<TreeNode *> nextn;
+      int curSum = 0;
       while (!nn.empty()) {
         TreeNode *cur = nn.front();
         nn.pop();
-        if (cur == nullptr) continue;
+        if (cur != nullptr) {
 
-        curSum += cur->val;
-        nextn.push(cur->left);
-        nextn.push(cur->right);
+          curSum += cur->val;
+          nextn.push(cur->left);
+          nextn.push(cur->right);
+        }
       }
+
       if (curSum > maxSum) {
         maxSum = curSum;
         maxRow = curRow;
