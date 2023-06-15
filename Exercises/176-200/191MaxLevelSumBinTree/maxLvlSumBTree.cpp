@@ -53,7 +53,6 @@ Acceptance Rate
  */
 
 #include <queue>
-#include <unordered_map>
 
 using namespace std;
 
@@ -70,10 +69,25 @@ class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
       int maxSum = 0;
+      int maxRow = 1;
+      int curRow = 1;
       queue<TreeNode*> nn;
-      nn.push(root);
+      if (root!=nullptr) nn.push(root);
+
+      int curSum = 0;
       while (!nn.empty()) {
         queue<TreeNode*> nextn;
+        while (!nn.empty()) {
+          TreeNode *cur = nn.front();
+          nn.pop();
+          curSum += cur->val;
+        }
+        if (curSum > maxSum) {
+          maxSum = curSum;
+          maxRow = curRow;
+        }
+        curRow++;
+        nn = nextn;
       }
     }
 };
