@@ -52,6 +52,11 @@ Acceptance Rate
  * };
  */
 
+#include <queue>
+#include <unordered_map>
+
+using namespace std;
+
  struct TreeNode {
      int val;
      TreeNode *left;
@@ -64,6 +69,13 @@ Acceptance Rate
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-
+      int maxSum = 0;
+      queue<TreeNode*> nn;
+      nn.push(root);
+      while (!nn.empty()) {
+        queue<TreeNode*> nextn;
+      }
     }
 };
+
+// bfs to walk all items on each level
