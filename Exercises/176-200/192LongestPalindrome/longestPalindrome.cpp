@@ -36,12 +36,30 @@ Acceptance Rate
 
 */
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int longestPalindrome(string s) {
+      unordered_map<char, int> freq;
+      int ret = 0;
+      for (char c: s) freq[c]++;
+      int plusOne = 0;
+      for (auto [_,count]: freq) {
+        if (count > 0) {
+          ret+=(count/2)*2;
 
+          if (count % 2 != 0) plusOne = 1;
+        }
+      }
+      return ret;
     }
 };
+
+// another freq map counting problem?
+
+// sum up freq of each number / 2
+// can stick one extra odd item
+// abccccdd -> a1 b1 c4 d2 4 + 2 + 1
