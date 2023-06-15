@@ -5,9 +5,11 @@ Medium
 2.1K
 73
 Companies
-Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.
+Given the root of a binary tree, the level of its root is 1, the level of its
+children is 2, and so on.
 
-Return the smallest level x such that the sum of all the values of nodes at level x is maximal.
+Return the smallest level x such that the sum of all the values of nodes at
+level x is maximal.
 
 
 
@@ -48,7 +50,8 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
@@ -56,40 +59,46 @@ Acceptance Rate
 
 using namespace std;
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
 class Solution {
-public:
-    int maxLevelSum(TreeNode* root) {
-      int maxSum = 0;
-      int maxRow = 1;
-      int curRow = 1;
-      queue<TreeNode*> nn;
-      if (root!=nullptr) nn.push(root);
+ public:
+  int maxLevelSum(TreeNode *root) {
+    int maxSum = 0;
+    int maxRow = 1;
+    int curRow = 1;
+    queue<TreeNode *> nn;
+    if (root != nullptr) nn.push(root);
 
-      int curSum = 0;
+    int curSum = 0;
+    while (!nn.empty()) {
+      queue<TreeNode *> nextn;
       while (!nn.empty()) {
-        queue<TreeNode*> nextn;
-        while (!nn.empty()) {
-          TreeNode *cur = nn.front();
-          nn.pop();
-          curSum += cur->val;
-        }
-        if (curSum > maxSum) {
-          maxSum = curSum;
-          maxRow = curRow;
-        }
-        curRow++;
-        nn = nextn;
+        TreeNode *cur = nn.front();
+        nn.pop();
+        if (cur == nullptr) continue;
+
+        curSum += cur->val;
+        nextn.push(cur->left);
+        nextn.push(cur->right);
       }
+      if (curSum > maxSum) {
+        maxSum = curSum;
+        maxRow = curRow;
+      }
+      curRow++;
+      nn = nextn;
     }
+    return maxRow;
+  }
 };
 
 // bfs to walk all items on each level
