@@ -72,28 +72,28 @@ struct TreeNode {
 class Solution {
  public:
   int maxLevelSum(TreeNode *root) {
-    int maxSum = 0;
+    int maxSum = INT_MIN;
     int maxRow = 1;
     int curRow = 1;
     queue<TreeNode *> nn;
     if (root != nullptr) nn.push(root);
 
-
     while (!nn.empty()) {
       queue<TreeNode *> nextn;
       int curSum = 0;
+      bool hasItem = false;
       while (!nn.empty()) {
         TreeNode *cur = nn.front();
         nn.pop();
         if (cur != nullptr) {
-
+          hasItem = true;
           curSum += cur->val;
           nextn.push(cur->left);
           nextn.push(cur->right);
         }
       }
 
-      if (curSum > maxSum) {
+      if (hasItem && curSum > maxSum) {
         maxSum = curSum;
         maxRow = curRow;
       }
