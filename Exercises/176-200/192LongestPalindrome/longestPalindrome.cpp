@@ -54,7 +54,7 @@ public:
           if (count % 2 != 0) plusOne = 1;
         }
       }
-      return ret;
+      return ret + plusOne;
     }
 };
 
