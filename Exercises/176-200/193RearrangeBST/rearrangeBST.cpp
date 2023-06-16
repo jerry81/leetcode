@@ -101,6 +101,6 @@ public:
     int numOfWays(vector<int>& nums) {
       makePascal(nums.size());
 
-      return dfs(nums);
+      return dfs(nums) - 1;
     }
 };
