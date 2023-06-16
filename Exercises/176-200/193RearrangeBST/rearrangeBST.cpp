@@ -69,7 +69,7 @@ void makePascal(int sz) {
       nextRow.resize(i+1);
       nextRow[0] = 1;
       nextRow[i] = 1;
-      for (int j = 1; j <= i; ++j) {
+      for (int j = 1; j < i; ++j) {
         nextRow[j] = prevRow[j-1] + prevRow[j];
       }
     }
