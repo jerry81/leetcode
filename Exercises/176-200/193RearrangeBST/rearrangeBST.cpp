@@ -58,8 +58,32 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> pascal;
+void makePascal(int sz) {
+  for (int i = 0; i < sz; ++i) {
+    vector<int> nextRow;
+    if (i == 0) {
+      nextRow.push_back(1);
+    } else {
+      vector<int> prevRow = pascal[i-1];
+      nextRow.resize(i+1);
+      nextRow[0] = 1;
+      nextRow[i] = 1;
+      for (int j = 1; j <= i; ++j) {
+        nextRow[j] = prevRow[j-1] + prevRow[j];
+      }
+    }
+    pascal.push_back(nextRow);
+  }
+}
 public:
     int numOfWays(vector<int>& nums) {
-
+      makePascal(5);
+      for (auto a: pascal) {
+        cerr << endl;
+        for (auto b: a) {
+          cerr << b << " ";
+        }
+      }
     }
 };
