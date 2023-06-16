@@ -58,32 +58,49 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<vector<int>> pascal;
+vector<vector<long long>> pascal;
+long long mod = 1e9 + 7;
+
 void makePascal(int sz) {
   for (int i = 0; i < sz; ++i) {
-    vector<int> nextRow;
+    vector<long long> nextRow;
     if (i == 0) {
       nextRow.push_back(1);
     } else {
-      vector<int> prevRow = pascal[i-1];
+      vector<long long> prevRow = pascal[i-1];
       nextRow.resize(i+1);
       nextRow[0] = 1;
       nextRow[i] = 1;
       for (int j = 1; j < i; ++j) {
-        nextRow[j] = prevRow[j-1] + prevRow[j];
+        nextRow[j] = (prevRow[j-1] + prevRow[j]) % mod;
       }
     }
     pascal.push_back(nextRow);
   }
 }
+
+long long dfs(vector<int> nums) {
+  if (nums.size() < 3) return 1;
+
+  int root = nums[0];
+  vector<int> left;
+  vector<int> right;
+  for (int i = 1; i < nums.size(); ++i) {
+    int cur = nums[i];
+    if (cur < root) { left.push_back(cur); }
+    else { right.push_back(cur); }
+  }
+  long long leftRes = dfs(left) % mod;
+  long long rightRes = dfs(right) % mod;
+  long long combos = (leftRes * rightRes) % mod;
+  long long npickk = pascal[nums.size()-1][left.size()];
+  return (combos * npickk) % mod;
+}
+
 public:
     int numOfWays(vector<int>& nums) {
-      makePascal(5);
-      for (auto a: pascal) {
-        cerr << endl;
-        for (auto b: a) {
-          cerr << b << " ";
-        }
-      }
+      makePascal(nums.size());
+
+      return dfs(nums);
     }
 };
