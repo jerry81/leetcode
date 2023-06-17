@@ -122,18 +122,12 @@ class Solution {
  public:
   int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
     sz = arr1.size();
-    // sort arr2
     sort(arr2.begin(), arr2.end());
 
     int test1 = bsearch(arr2, 3);
-    // binary search helper to find first idx greater than val
-    // for each item in arr1
 
     int res = dfs(0, -1, arr1, arr2);
     return res <= sz ? res : -1;
 
-    // if find a decrease
-    // replace with binary search (greedy)
-    // if no available then return -1.
   }
 };
