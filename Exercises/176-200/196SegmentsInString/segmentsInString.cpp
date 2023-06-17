@@ -44,6 +44,21 @@ using namespace std;
 class Solution {
 public:
     int countSegments(string s) {
-
+      int sum = 0;
+      bool toggle = false;
+      for (char c: s) {
+        if (c == ' ') {
+          if (toggle) {
+            toggle = false;
+            sum++;
+          }
+        } else {
+          if (!toggle) {
+            toggle = true;
+          }
+        }
+      }
+      if (toggle) sum++;
+      return sum;
     }
 };
