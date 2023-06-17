@@ -5,9 +5,12 @@ Easy
 4.5K
 662
 Companies
-Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+Given two non-negative integers, num1 and num2 represented as string, return the
+sum of num1 and num2 as a string.
 
-You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+You must solve the problem without using any built-in library for handling large
+integers (such as BigInteger). You must also not convert the inputs to integers
+directly.
 
 
 
@@ -44,29 +47,29 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    string addStrings(string num1, string num2) {
-      // long addition problem
-      string sum = "";
-      int longer = max(num1.size(), num2.size());
-      int carry = 0;
-      for (int i = 0; i < longer; ++i) {
-        int idx1 = num1.size() - 1 - i;
-        int idx2 = num2.size() - 1 - i;
-        int addend1 = 0;
-        if (idx1 > -1) addend1 = num1[idx1] - '0';
-        int addend2 = 0;
-        if (idx2 > -1) addend2 = num2[idx2] - '0';
-        int sumi = addend1 + addend2 + carry;
-        if (sumi > 10) {
-          carry = 1;
-        } else {
-          carry = 0;
-        }
-        sumi %= 10;
-        sum = (char)(sumi + '0') + sum;
+ public:
+  string addStrings(string num1, string num2) {
+    // long addition problem
+    string sum = "";
+    int longer = max(num1.size(), num2.size());
+    int carry = 0;
+    for (int i = 0; i < longer; ++i) {
+      int idx1 = num1.size() - 1 - i;
+      int idx2 = num2.size() - 1 - i;
+      int addend1 = 0;
+      if (idx1 > -1) addend1 = num1[idx1] - '0';
+      int addend2 = 0;
+      if (idx2 > -1) addend2 = num2[idx2] - '0';
+      int sumi = addend1 + addend2 + carry;
+      if (sumi > 10) {
+        carry = 1;
+      } else {
+        carry = 0;
       }
-      if (carry == 1) sum = '1' + sum;
-      return sum;
+      sumi %= 10;
+      sum = (char)(sumi + '0') + sum;
     }
+    if (carry == 1) sum = '1' + sum;
+    return sum;
+  }
 };
