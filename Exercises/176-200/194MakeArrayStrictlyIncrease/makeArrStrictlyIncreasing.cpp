@@ -54,6 +54,7 @@ using namespace std;
 
 class Solution {
   map<pair<int, int>, int> lkup;
+  int sz;
 
   int bsearch(vector<int>& arr, int tgt) {
     int retval = INT_MAX;
@@ -79,6 +80,9 @@ class Solution {
 
   int dfs(int idx, int prev, vector<int>& arr, vector<int>& arr2) {
     // e.g. prev = 1, cur = 5
+    if (idx >= sz) {
+      return 0;
+    }
     if (lkup.find({idx, prev}) != lkup.end()) return lkup[{idx, prev}];
     int lt_prev_idx = bsearch(arr2, prev);
     int replaced = lt_prev_idx > -1 ? arr2[lt_prev_idx] : -1;
@@ -99,6 +103,8 @@ class Solution {
       } else {
         lkup[{idx,prev}] = withCur;
       }
+      cout << "returning result of " << idx << ", " << prev << endl;
+      cout << lkup[{idx,prev}] << endl;
       return lkup[{idx,prev}];
     } else {
       // e.g. prev = 5, cur = 3
@@ -108,20 +114,22 @@ class Solution {
                               ? lkup[{idx + 1, replaced}]
                               : 1 + dfs(idx + 1, replaced, arr, arr2);
       } else {
-        lkup[{idx,prev}] = INT_MAX;
+        lkup[{idx,prev}] = sz+1;
       }
     }
+
     return lkup[{idx,prev}];
   }
 
  public:
   int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
+    sz = arr1.size();
     // sort arr2
     sort(arr2.begin(), arr2.end());
     // binary search helper to find first idx greater than val
     // for each item in arr1
     int res = dfs(0, -1, arr1, arr2);
-    return res <= arr1.size() ? res : -1;
+    return res <= sz ? res : -1;
 
     // if find a decrease
     // replace with binary search (greedy)
