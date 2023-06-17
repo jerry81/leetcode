@@ -56,13 +56,13 @@ class Solution {
   map<pair<int, int>, int> lkup;
   int sz;
 
-  int bsearch(vector<int>& arr, int tgt) {
+  int bsearch(vector<int>& arr, int tgt) {  // tgt 3, arr 134 expect 2
     int retval = INT_MAX;
     int retidx = -1;
     int low = 0;
     int high = arr.size() - 1;
 
-    while (low < high) {
+    while (low <= high) {
       int mid = (low + high) / 2;
       int val = arr[mid];
       if (val > tgt) {
@@ -99,26 +99,24 @@ class Solution {
         int withReplace = (lkup.find({idx + 1, replaced}) != lkup.end())
                               ? lkup[{idx + 1, replaced}]
                               : 1 + dfs(idx + 1, replaced, arr, arr2);
-        lkup[{idx,prev}] = min(withReplace, withCur);
+        lkup[{idx, prev}] = min(withReplace, withCur);
       } else {
-        lkup[{idx,prev}] = withCur;
+        lkup[{idx, prev}] = withCur;
       }
-      cout << "returning result of " << idx << ", " << prev << endl;
-      cout << lkup[{idx,prev}] << endl;
-      return lkup[{idx,prev}];
+      return lkup[{idx, prev}];
     } else {
       // e.g. prev = 5, cur = 3
       // replace current with greater than prev or bust
       if (replaced > -1) {
-        lkup[{idx,prev}] = (lkup.find({idx + 1, replaced}) != lkup.end())
-                              ? lkup[{idx + 1, replaced}]
-                              : 1 + dfs(idx + 1, replaced, arr, arr2);
+        lkup[{idx, prev}] = (lkup.find({idx + 1, replaced}) != lkup.end())
+                                ? lkup[{idx + 1, replaced}]
+                                : 1 + dfs(idx + 1, replaced, arr, arr2);
       } else {
-        lkup[{idx,prev}] = sz+1;
+        lkup[{idx, prev}] = sz + 1;
       }
     }
 
-    return lkup[{idx,prev}];
+    return lkup[{idx, prev}];
   }
 
  public:
@@ -126,8 +124,11 @@ class Solution {
     sz = arr1.size();
     // sort arr2
     sort(arr2.begin(), arr2.end());
+
+    int test1 = bsearch(arr2, 3);
     // binary search helper to find first idx greater than val
     // for each item in arr1
+
     int res = dfs(0, -1, arr1, arr2);
     return res <= sz ? res : -1;
 
