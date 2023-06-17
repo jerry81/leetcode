@@ -45,7 +45,6 @@ Acceptance Rate
 #include <string>
 
 using namespace std;
-
 class Solution {
  public:
   string addStrings(string num1, string num2) {
@@ -61,7 +60,7 @@ class Solution {
       int addend2 = 0;
       if (idx2 > -1) addend2 = num2[idx2] - '0';
       int sumi = addend1 + addend2 + carry;
-      if (sumi > 10) {
+      if (sumi >= 10) {
         carry = 1;
       } else {
         carry = 0;
