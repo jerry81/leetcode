@@ -45,9 +45,18 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
-
+      // sort arr2
+      // binary search helper to find first idx greater than val
+      // for each item in arr1
+      // if find a decrease
+      // replace with binary search (greedy)
+      // if no available then return -1.
     }
 };
