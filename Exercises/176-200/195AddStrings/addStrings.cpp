@@ -54,11 +54,11 @@ public:
         int idx1 = num1.size() - 1 - i;
         int idx2 = num2.size() - 1 - i;
         int addend1 = 0;
-        if (idx1 > -1) addend1 = num1[i] - '0';
+        if (idx1 > -1) addend1 = num1[idx1] - '0';
         int addend2 = 0;
-        if (idx2 > -1) addend2 = num2[i] - '0';
+        if (idx2 > -1) addend2 = num2[idx2] - '0';
         int sumi = addend1 + addend2 + carry;
-        if (sumi < 10) {
+        if (sumi > 10) {
           carry = 1;
         } else {
           carry = 0;
