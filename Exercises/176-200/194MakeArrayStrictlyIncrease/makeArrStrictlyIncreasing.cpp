@@ -50,9 +50,33 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int bsearch(vector<int>& arr, int tgt) {
+  int retval = INT_MAX;
+  int retidx = -1;
+  int low = 0;
+  int high = arr.size()-1;
+
+  while (low < high) {
+    int mid = (low+high) / 2;
+    int val = arr[mid];
+    if (val > tgt) {
+
+      high = mid-1;
+      if (retval > val) {
+        retval = val;
+        retidx = mid;
+      }
+    } else {
+      low = mid+1;
+    }
+  }
+  return retidx;
+}
+
 public:
     int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
       // sort arr2
+      sort(arr2.begin(), arr2.end());
       // binary search helper to find first idx greater than val
       // for each item in arr1
       // if find a decrease
