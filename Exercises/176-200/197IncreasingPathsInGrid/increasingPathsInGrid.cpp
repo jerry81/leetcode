@@ -53,7 +53,6 @@ Acceptance Rate
 
 */
 
-#include <map>
 #include <queue>
 #include <string>
 #include <vector>
@@ -81,30 +80,21 @@ class Solution {
   void bfs(gridItem* gi, vector<vector<int>>& memo, vector<vector<int>>& g) {
     queue<pair<int, int>> neighbors;
     neighbors.push({gi->y, gi->x});
-    map<string, bool> visited;
-    visited[hash(gi->y, gi->x)] = true;
     while (!neighbors.empty()) {
-      queue<pair<int, int>> nextNeighbors;
-      while (!neighbors.empty()) {
-        auto cur = neighbors.front();
-        neighbors.pop();
-        int toApply = memo[cur.first][cur.second] % mod;
-        for (auto diffs : incr) {
-          int newy = diffs[0] + cur.first;
-          int newx = diffs[1] + cur.second;
-          if (newy < 0) continue;
-          if (newx < 0) continue;
-          if (newy >= memo.size()) continue;
-          if (newx >= memo[0].size()) continue;
-          if (visited[hash(newy, newx)]) continue;
-          if (g[newy][newx] <= g[cur.first][cur.second]) continue;
+      auto cur = neighbors.front();
+      neighbors.pop();
+      int toApply = memo[cur.first][cur.second] % mod;
+      for (auto diffs : incr) {
+        int newy = diffs[0] + cur.first;
+        int newx = diffs[1] + cur.second;
+        if (newy < 0) continue;
+        if (newx < 0) continue;
+        if (newy >= memo.size()) continue;
+        if (newx >= memo[0].size()) continue;
+        if (g[newy][newx] <= g[cur.first][cur.second]) continue;
 
-          visited[hash(newy, newx)] = true;
-          memo[newy][newx] += (toApply % mod);
-          nextNeighbors.push({newy, newx});
-        }
+        memo[newy][newx] += (toApply % mod);
       }
-      neighbors = nextNeighbors;
     }
   }
 
@@ -136,3 +126,5 @@ class Solution {
     return tally;
   }
 };
+
+// BFS not needed!
