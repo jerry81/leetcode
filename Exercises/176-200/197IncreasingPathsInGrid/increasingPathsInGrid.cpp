@@ -54,15 +54,48 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> memo;
+struct gridItem {
+  int x=-1;
+  int y=-1;
+  int val=0;
+  gridItem(int x, int y, int v) : x(x), y(y), val(v) {}
+};
+static bool compareGI(gridItem* a, gridItem* b) {
+  return (a->val) < (b->val);
+}
 public:
     int countPaths(vector<vector<int>>& grid) {
-      // get islands
+      int h = grid.size();
+      int w = grid[0].size();
+      vector<vector<int>> memo(h,vector<int>(w,1));
+      vector<gridItem*> processed;
+      for (int i = 0; i < h; ++i) {
+        auto row = grid[i];
+        for (int j = 0; j < row.size(); ++j) {
+          gridItem* g = new gridItem(j,i,row[j]);
+          processed.push_back(g);
+        }
+      }
+      sort(processed.begin(), processed.end(), compareGI);
+      for (auto a: processed) {
+        cout << "gi " << a->x << "," << a->y << endl;
+      }
+      return 0;
     }
 };
 
 /*
 1 1
 3 4
+
+labels for each
+00, 01
+10, 11
+
+100000 items to iterate at most
+1-3-4 found
+mark 00 01 10 as visited
 
 - relevant items
 1-3-4 - 3 + 2 + 1 = 6
@@ -72,10 +105,17 @@ public:
 1-3-4
 
 
-3 4
-1 1
+1 2
+4 3
 
-3 4
-1 3 4
-1 4
+14
+234
+1234
+34
+
+- sort
+1234
+234
+34, 14
+
 */
