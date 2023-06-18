@@ -56,6 +56,26 @@ using namespace std;
 class Solution {
 public:
     int countPaths(vector<vector<int>>& grid) {
-
+      // get islands
     }
 };
+
+/*
+1 1
+3 4
+
+- relevant items
+1-3-4 - 3 + 2 + 1 = 6
+1-4 - 1+1 - can't count this "4" twice
+1,3,4,1
+1-3, 3-4, 1-4
+1-3-4
+
+
+3 4
+1 1
+
+3 4
+1 3 4
+1 4
+*/
