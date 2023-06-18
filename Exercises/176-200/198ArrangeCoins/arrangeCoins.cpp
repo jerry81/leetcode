@@ -37,9 +37,27 @@ Acceptance Rate
 
 */
 
+#include <cmath>
+
+using namespace std;
+
 class Solution {
 public:
     int arrangeCoins(int n) {
-
+      int x = (-1 + sqrt(1 + 8*n)) / 2;
+      int x2 = (-1 - sqrt(1 + 8*n)) / 2;
+      return max(x,x2);
     }
 };
+
+// so each row is has
+// i coins where i is increasing from 1 to x
+// sum series
+// (x * (x + 1)) / 2 = n
+// 2n = x^2+x
+// 8 expect 3
+// 1 + 2 + 3 = 6
+// 8 = (x * x+1) / 2
+// 16 = (x^2 + x)
+// quadratic formula
+// or binary search guesses at x
