@@ -44,8 +44,8 @@ using namespace std;
 class Solution {
 public:
     int arrangeCoins(int n) {
-      int x = (-1 + sqrt(1 + 8*n)) / 2;
-      int x2 = (-1 - sqrt(1 + 8*n)) / 2;
+      long long x = (-1 + sqrt(1 + 8*(long long)n)) / 2;
+      long long x2 = (-1 - sqrt(1 + 8*(long long)n)) / 2;
       return max(x,x2);
     }
 };
