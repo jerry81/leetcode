@@ -49,14 +49,6 @@ public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
       sort(g.begin(), g.end());
       sort(s.begin(), s.end());
-      cout << "printing g " << endl;
-      for (int gi: g) {
-        cout << gi << ",";
-      }
-      cout << endl << "printing s " << endl;
-      for (int si: s) {
-        cout << si<<",";
-      }
       int res = 0;
       int ptr = s.size()-1;
       for (int i = g.size()-1; i >=0; --i) {
