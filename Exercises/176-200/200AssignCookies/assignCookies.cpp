@@ -57,6 +57,16 @@ public:
       for (int si: s) {
         cout << si<<",";
       }
-      return 0;
+      int res = 0;
+      int ptr = s.size()-1;
+      for (int i = g.size()-1; i >=0; --i) {
+        int curg = g[i];
+        if (ptr < 0) return res;
+        if (curg <= s[ptr]) {
+          ptr--;
+          res++;
+        }
+      }
+      return res;
     }
 };
