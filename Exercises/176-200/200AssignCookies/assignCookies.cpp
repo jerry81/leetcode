@@ -47,6 +47,16 @@ using namespace std;
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
-
+      sort(g.begin(), g.end());
+      sort(s.begin(), s.end());
+      cout << "printing g " << endl;
+      for (int gi: g) {
+        cout << gi << ",";
+      }
+      cout << endl << "printing s " << endl;
+      for (int si: s) {
+        cout << si<<",";
+      }
+      return 0;
     }
 };
