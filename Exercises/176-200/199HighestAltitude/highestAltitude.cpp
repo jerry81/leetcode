@@ -44,6 +44,14 @@ using namespace std;
 class Solution {
 public:
     int largestAltitude(vector<int>& gain) {
-
+      vector<int> alts;
+      int cur = 0;
+      int max = 0;
+      alts.push_back(cur);
+      for (int g: gain) {
+        cur+=g;
+        if (cur > max) max = cur;
+      }
+      return max;
     }
 };
