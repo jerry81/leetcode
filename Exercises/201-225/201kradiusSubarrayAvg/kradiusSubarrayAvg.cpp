@@ -68,22 +68,45 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int intavg(int sum, int count) { return sum / count; }
 
 class Solution {
  public:
   vector<int> getAverages(vector<int>& nums, int k) {
     int count = 2 * k + 1;
+    long long sum = 0;
+    bool sumInit = false;
     vector<int> res;
-    for (int i = 0; i < k; ++i) {
+    for (int i = 0; i < min(k,(int)nums.size()); ++i) {
       res.push_back(-1);
     }
     if (nums.size() >= k) {
       for (int i = k; i < nums.size() - k; ++i) {
-        res.push_back(0);
+        if ((i - k) < 0) {
+          res.push_back(-1);
+          continue;
+        }
+
+        if ((i + k) >= nums.size()) {
+          res.push_back(-1);
+          continue;
+        }
+
+        // actually need a sum!
+        if (sumInit) {
+          sum-=nums[i-k-1];
+          sum+=nums[i+k];
+          res.push_back(sum/count);
+        } else {
+          sumInit = true;
+          for (int j = i-k; j <= i+k; j++) {
+            sum+=nums[j];
+          }
+          res.push_back(sum/count);
+        }
       }
     }
 
