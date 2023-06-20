@@ -61,9 +61,23 @@ Acceptance Rate
 
 using namespace std;
 
+int intavg(int sum, int count) {
+  return sum/count;
+}
+
 class Solution {
 public:
     vector<int> getAverages(vector<int>& nums, int k) {
-
+      int count = 2*k + 1;
+      vector<int> res;
+      for (int i = 0; i < k; ++i) {
+        res.push_back(-1);
+      }
+      for (int i = k; i < nums.size()-k; ++i) {
+        res.push_back(0);
+      }
+      for (int i = nums.size()-k; i < nums.size(); ++i) {
+        res.push_back(-1);
+      }
     }
 };
