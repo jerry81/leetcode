@@ -110,11 +110,12 @@ class Solution {
       }
     }
 
-    if (nums.size() >= nums.size() - k) {
-      for (int i = nums.size() - k; i < nums.size(); ++i) {
+    if (res.size() < nums.size()) {
+      for (int i = res.size(); i < nums.size(); ++i) {
         res.push_back(-1);
       }
     }
     return res;
   }
 };
+
