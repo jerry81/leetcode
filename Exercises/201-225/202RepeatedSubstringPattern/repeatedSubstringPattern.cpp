@@ -48,11 +48,11 @@ public:
       // use substr and compare string
       // only need to check to halfway point
       int halfSize = s.size() / 2;
-      for (int i = 0; i <= halfSize; ++i) {
+      for (int i = 1; i <= halfSize; ++i) {
         string substrTry = s.substr(0,i);
         bool match = true;
-        for (int mult = 1; mult*i <= s.size(); ++mult) {
-          string substrCompare = s.substr(mult,i);
+        for (int mult = 1; mult*i < s.size(); ++mult) {
+          string substrCompare = s.substr(mult*i,i);
           if (substrTry != substrCompare) {
             match = false;
             break;
