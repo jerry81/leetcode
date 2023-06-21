@@ -50,30 +50,31 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <limits>
 
 using namespace std;
 
 class Solution {
-  long long sumCost(int tgt, vector<int>& nums, vector<int>& cost) {
+  long long sumCost(long long tgt, vector<int>& nums, vector<int>& cost) {
     long long rsum = 0;
     for (int i = 0; i < nums.size(); ++i) {
-      int cur = nums[i];
-      int diff = abs(nums[i] - tgt);
-      rsum += diff * cost[i];
+      long long cur = nums[i];
+      long long diff = abs(cur - tgt);
+      rsum += diff * (long long)cost[i];
     }
     return rsum;
   }
 
  public:
   long long minCost(vector<int>& nums, vector<int>& cost) {
-    int mine = INT_MAX;
-    int maxe = INT_MIN;
+    long long mine = numeric_limits<long long>::max();
+    long long maxe = numeric_limits<long long>::min();
     for (int i = 0; i < nums.size(); ++i) {
       if (nums[i] < mine) mine = nums[i];
 
       if (nums[i] > maxe) maxe = nums[i];
     }
-    int minsum = INT_MAX;
+    long long minsum = numeric_limits<long long>::max();
     while (mine < maxe) {
       int midpoint = (mine + maxe) / 2;
       int compare = midpoint + 1;
@@ -89,7 +90,7 @@ class Solution {
         if (sumCmp < minsum) minsum = sumCmp;
       }
     }
-    if (minsum == INT_MAX) minsum = sumCost(mine);
+    if (minsum == numeric_limits<long long>::max()) minsum = sumCost(mine, nums, cost);
 
 
     return minsum;
