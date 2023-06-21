@@ -38,9 +38,21 @@ Acceptance Rate
 
 */
 
+#include <bitset>
+using namespace std;
+
 class Solution {
 public:
     int hammingDistance(int x, int y) {
-
+      // to binary strs
+      bitset<sizeof(int) * 8> asB(x);
+      string xs = asB.to_string();
+      bitset<sizeof(int) * 8> asB2(y);
+      string ys = asB2.to_string();
+      int res = 0;
+      for (int i = 0; i < xs.size(); ++i) {
+        if (asB[i] != asB2[i]) res++;
+      }
+      return res;
     }
 };
