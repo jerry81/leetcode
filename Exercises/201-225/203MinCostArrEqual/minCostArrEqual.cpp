@@ -5,14 +5,16 @@ Hard
 713
 11
 Companies
-You are given two 0-indexed arrays nums and cost consisting each of n positive integers.
+You are given two 0-indexed arrays nums and cost consisting each of n positive
+integers.
 
 You can do the following operation any number of times:
 
 Increase or decrease any element of the array nums by 1.
 The cost of doing one operation on the ith element is cost[i].
 
-Return the minimum total cost such that all the elements of the array nums become equal.
+Return the minimum total cost such that all the elements of the array nums
+become equal.
 
 
 
@@ -49,52 +51,56 @@ Acceptance Rate
 
 #include <vector>
 
-
 using namespace std;
 
 class Solution {
-long long sumCost(int tgt, vector<int>& nums, vector<int>& cost) {
-  long long rsum = 0;
-  for (int i = 0; i < nums.size(); ++i) {
-    int cur = nums[i];
-    int diff = abs(nums[i] - tgt);
-    rsum += diff*cost[i];
+  long long sumCost(int tgt, vector<int>& nums, vector<int>& cost) {
+    long long rsum = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+      int cur = nums[i];
+      int diff = abs(nums[i] - tgt);
+      rsum += diff * cost[i];
+    }
+    return rsum;
   }
-  return rsum;
-}
 
-public:
-    long long minCost(vector<int>& nums, vector<int>& cost) {
-      int mine = INT_MAX;
-      int maxe = INT_MIN;
-      for (int i = 0; i < nums.size(); ++i) {
-        if (nums[i] < mine) mine = nums[i];
+ public:
+  long long minCost(vector<int>& nums, vector<int>& cost) {
+    int mine = INT_MAX;
+    int maxe = INT_MIN;
+    for (int i = 0; i < nums.size(); ++i) {
+      if (nums[i] < mine) mine = nums[i];
 
-        if (nums[i] > maxe) maxe = nums[i];
-      }
-      int minsum = INT_MAX;
+      if (nums[i] > maxe) maxe = nums[i];
+    }
+    int minsum = INT_MAX;
+    while (mine < maxe) {
       int midpoint = (mine + maxe) / 2;
-      int compare = midpoint+1;
-      long long sumMid=sumCost(midpoint, nums, cost);
-      long long sumCmp=sumCost(compare, nums, cost);
+      int compare = midpoint + 1;
+      long long sumMid = sumCost(midpoint, nums, cost);
+      long long sumCmp = sumCost(compare, nums, cost);
       if (sumMid < sumCmp) {
         // colder
         maxe = compare - 1;
+        if (sumMid < minsum) minsum = sumMid;
       } else {
         // warmer
         mine = compare;
+        if (sumCmp < minsum) minsum = sumCmp;
       }
-      cout << "maxe " << maxe << endl;
-      cout << "mine " << mine << endl;
-      return minsum;
-
     }
+    if (minsum == INT_MAX) minsum = sumCost(mine);
+
+
+    return minsum;
+  }
 };
 
 /*
 
 seen this problem before (electrical wiring problem)
-- but while the solution to that was to get some sort of average, this is different as each index has a different cost to "move"
+- but while the solution to that was to get some sort of average, this is
+different as each index has a different cost to "move"
 
 
 - kind of like the triangulation problem
