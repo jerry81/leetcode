@@ -60,7 +60,7 @@ long long sumCost(int tgt, vector<int>& nums, vector<int>& cost) {
     int diff = abs(nums[i] - tgt);
     rsum += diff*cost[i];
   }
-  return sumr;
+  return rsum;
 }
 
 public:
@@ -73,11 +73,19 @@ public:
         if (nums[i] > maxe) maxe = nums[i];
       }
       int minsum = INT_MAX;
-      for (int i = mine; i <= maxe; ++i) {
-        int cand = sumCost(i, nums, cost);
-        cout << "sumr is " << cand << endl;
-        if (cand < minsum) minsum = cand;
+      int midpoint = (mine + maxe) / 2;
+      int compare = midpoint+1;
+      long long sumMid=sumCost(midpoint, nums, cost);
+      long long sumCmp=sumCost(compare, nums, cost);
+      if (sumMid < sumCmp) {
+        // colder
+        maxe = compare - 1;
+      } else {
+        // warmer
+        mine = compare;
       }
+      cout << "maxe " << maxe << endl;
+      cout << "mine " << mine << endl;
       return minsum;
 
     }
@@ -88,4 +96,9 @@ public:
 seen this problem before (electrical wiring problem)
 - but while the solution to that was to get some sort of average, this is different as each index has a different cost to "move"
 
+
+- kind of like the triangulation problem
+- first seed the triangulation with min jump to max
+- get a warmer or colder
+-
 */
