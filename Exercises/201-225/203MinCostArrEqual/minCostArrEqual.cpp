@@ -49,11 +49,43 @@ Acceptance Rate
 
 #include <vector>
 
+
 using namespace std;
 
 class Solution {
+long long sumCost(int tgt, vector<int>& nums, vector<int>& cost) {
+  long long rsum = 0;
+  for (int i = 0; i < nums.size(); ++i) {
+    int cur = nums[i];
+    int diff = abs(nums[i] - tgt);
+    rsum += diff*cost[i];
+  }
+  return sumr;
+}
+
 public:
     long long minCost(vector<int>& nums, vector<int>& cost) {
+      int mine = INT_MAX;
+      int maxe = INT_MIN;
+      for (int i = 0; i < nums.size(); ++i) {
+        if (nums[i] < mine) mine = nums[i];
+
+        if (nums[i] > maxe) maxe = nums[i];
+      }
+      int minsum = INT_MAX;
+      for (int i = mine; i <= maxe; ++i) {
+        int cand = sumCost(i, nums, cost);
+        cout << "sumr is " << cand << endl;
+        if (cand < minsum) minsum = cand;
+      }
+      return minsum;
 
     }
 };
+
+/*
+
+seen this problem before (electrical wiring problem)
+- but while the solution to that was to get some sort of average, this is different as each index has a different cost to "move"
+
+*/
