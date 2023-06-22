@@ -55,7 +55,9 @@ public:
       vector<int> hold(n, 0);
       vector<int> free(n, 0);
       hold[0] = -prices[0];
-      for (int i = 0; i < n; ++i) {
+      for (int i = 1; i < n; ++i) {
+        hold[i] = max(hold[i-1], free[i-1]-prices[i]);
+        free[i] = max(hold[i-1]+prices[i]-fee, free[i-1]);
       }
 
       return free[n-1];
