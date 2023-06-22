@@ -51,6 +51,7 @@ class Solution {
 vector<unordered_map<int,int>> dp;
 int r(vector<int>& p, int fee, int idx, int held) {
   if (dp[idx].find(held) != dp[idx].end()) return dp[idx][held];
+
   if (idx >= p.size()-1) {
     if (held == 0) {
       dp[idx][0] = 0;
@@ -59,7 +60,18 @@ int r(vector<int>& p, int fee, int idx, int held) {
     dp[idx][held] = p[idx]-held-fee;
     return dp[idx][held];
   }
+
+  if (held == 0) { // buy options
+    dp[idx][0] = max(r(p,fee,idx+1,0), r(p,fee,idx+1,p[idx]));
+    return dp[idx][0];
+  } else { // sell options
+    int profit = p[idx]-held-fee;
+    dp[idx][held] = max(profit+r(p,fee,idx+1,0), r(p,fee,idx+1,held));
+    return dp[idx][held];
+  }
+  return 0;
 }
+
 public:
     int maxProfit(vector<int>& prices, int fee) {
       dp.resize(prices.size(), unordered_map<int,int>());
