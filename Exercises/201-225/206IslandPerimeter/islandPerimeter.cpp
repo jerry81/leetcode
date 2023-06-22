@@ -61,7 +61,7 @@ public:
             for (auto a: dirs) {
               int ny = i+a[0];
               int nx = j+a[1];
-              if (ny >= grid.size() || ny < 0) {
+              if (ny >= grid.size() || ny < 0 || nx >= row.size() || nx < 0) {
                 tally++;
               } else {
                 if (grid[ny][nx] == 0) tally++;
