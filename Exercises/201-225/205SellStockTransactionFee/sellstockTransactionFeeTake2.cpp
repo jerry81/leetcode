@@ -48,45 +48,17 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int _fee;
-vector<unordered_map<int,int>> dp;
-vector<int> _prices;
-int _size;
-int r(int idx, int held) {
-  if (dp[idx].find(held) != dp[idx].end()) return dp[idx][held];
-
-  if (idx >= _size-1) {
-    if (held == 0) {
-      dp[idx][0] = 0;
-      return 0;
-    }
-    dp[idx][held] = _prices[idx]-held-_fee;
-    return dp[idx][held];
-  }
-
-  if (held == 0) { // buy options
-    dp[idx][0] = max(r(idx+1,0), r(idx+1,_prices[idx]));
-    return dp[idx][0];
-  } else { // sell options
-    if (held > 0 && ((_fee+_prices[idx]) >= held)) {
-      dp[idx+1][0] = 0;
-      dp[idx][held] = r(idx+1,held);
-    } else {
-      dp[idx][held] = max(held-_prices[idx]-_fee+r(idx+1,0), r(idx+1,held));
-    }
-
-    return dp[idx][held];
-  }
-  return 0;
-}
 
 public:
     int maxProfit(vector<int>& prices, int fee) {
-      _fee = fee;
-      _size = prices.size();
-      _prices = prices;
-      dp.resize(prices.size(), unordered_map<int,int>());
-      return r(0, 0);
+      int n = prices.size();
+      vector<int> hold(n, 0);
+      vector<int> free(n, 0);
+      hold[0] = -prices[0];
+      for (int i = 0; i < n; ++i) {
+      }
+
+      return free[n-1];
     }
 };
 
@@ -97,6 +69,8 @@ Input: prices = [1,3,2,8,4,9], fee = 2
 Output: 8
 
 size = 6
+
+
 dp = { 0: {}, 1: {}, 2: {}, 3:{}, 4:{}, 5:{} }
 dp(0,0) = max(dp(1,prices[0]), dp(1,0))
 dp(1,prices[0]) = max(profit+dp(2,0), dp(2,prices[0]))
