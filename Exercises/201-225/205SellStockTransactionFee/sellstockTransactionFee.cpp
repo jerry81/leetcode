@@ -44,12 +44,26 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
+vector<unordered_map<int,int>> dp;
+int r(vector<int>& p, int fee, int idx, int held) {
+  if (dp[idx].find(held) != dp[idx].end()) return dp[idx][held];
+  if (idx >= p.size()-1) {
+    if (held == 0) {
+      dp[idx][0] = 0;
+      return 0;
+    }
+    dp[idx][held] = p[idx]-held-fee;
+    return dp[idx][held];
+  }
+}
 public:
     int maxProfit(vector<int>& prices, int fee) {
-
+      dp.resize(prices.size(), unordered_map<int,int>());
+      return r(prices, fee, 0, 0);
     }
 };
 
