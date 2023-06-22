@@ -52,3 +52,28 @@ public:
 
     }
 };
+
+/*
+
+analyze example
+Input: prices = [1,3,2,8,4,9], fee = 2
+Output: 8
+
+size = 6
+dp = { 0: {}, 1: {}, 2: {}, 3:{}, 4:{}, 5:{} }
+dp(0,0) = max(dp(1,prices[0]), dp(1,0))
+dp(1,prices[0]) = max(profit+dp(2,0), dp(2,prices[0]))
+dp(1,0) = max(dp(2,0), dp()
+..
+dp(5,x) = x<= 0 -> 0;  x>= 0 -> (prices[5] - x) - fee
+
+transaction is buy and sell combination
+
+dp with params: idx, held
+
+held -1 is nothing held
+
+next dp has choices
+if -1 (buy or dont buy)
+if >= 1 (sell or dont sell)
+*/
