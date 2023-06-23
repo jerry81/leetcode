@@ -56,7 +56,6 @@ public:
       if (nums.size() == 1) return 1;
 
       int res = 2;
-      int cur = 0;
       lookup.resize(501,vector<int>(0));
       for (int i=0;i<nums.size();++i) {
         int num = nums[i];
@@ -64,8 +63,22 @@ public:
       }
       for (int i = 0; i < nums.size()-1; ++i) {
         for (int j = 1; j < nums.size(); ++j) {
+          int cur = 2;
+          int curnum = nums[j];
+
+          int diff = nums[i]-curnum;
+          int k = j+1;
+          while (k < nums.size()) {
+            int expect = curnum+diff;
+            if (expect != nums[k]) break;
+            ++k;
+            curnum = nums[k];
+            ++cur;
+            if (cur > res) res = cur;
+          }
         }
       }
+      return res;
     }
 };
 
