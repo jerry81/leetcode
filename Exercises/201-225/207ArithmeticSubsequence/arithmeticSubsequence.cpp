@@ -66,26 +66,27 @@ class Solution {
       lookup[num].push_back(i);
     }
     for (int i = 0; i < nums.size() - 1; ++i) {
-      for (int j = 1; j < nums.size(); ++j) {
+      for (int j = i+1; j < nums.size(); ++j) {
         int cur = 2;
         int curnum = nums[j];
 
         int diff = curnum - nums[i];
         int k = j;
         while (k < nums.size()) {
-          cerr << "k is " << k << endl;
           int expect = curnum + diff;
           if (expect < 0) break;
 
+
           if (lookup[expect].empty()) break;
 
-          auto ptr =
-              lower_bound(lookup[expect].begin(), lookup[expect].end(), k + 1);
+          auto ptr = lower_bound(lookup[expect].begin(), lookup[expect].end(), k+1);
 
-          if (ptr == lookup[expect].end()) break;
+
+          if (ptr==lookup[expect].end()) break;
 
           curnum = nums[*ptr];
           ++cur;
+
           if (cur > res) res = cur;
 
           k = *ptr;
@@ -95,49 +96,3 @@ class Solution {
     return res;
   }
 };
-
-/*
-
-3,6,9,12
-
-output 4
-
-[12] - 1
-[9,12] - 2
-6 [9,12]
-3 [6,9,12]
-
-[9,4,7,2,10]
-output 3
-[2, 10]
-7 ]2,10] no
-4 [2 10] no
-9 [2 10] no
-[7, 10]
-4[7,10]
-9 [4,7,10] on
-[4,10]
-9[4,10] no
-[7,2]
-4[7,2] no
-9[7,2] no
-[4,2]
-9[4,2] no
-[4,7]
-9, [4,7] no
-
-[20,1,15,3,10,5,8]
-
-build lookup
-
-{ 20: [0],
-  1: [1],
-  15: [2],
-  3: [3],
-  10: []
-}
-
-
-expect 4
-[20,1] look for -18
-*/
