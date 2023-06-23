@@ -40,9 +40,24 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <cmath>
+
 class Solution {
 public:
     int findComplement(int num) {
-
+      std::vector<int> bits;
+      while (num!=0) {
+        int rem = num%2;
+        bits.push_back(rem);
+        num/=2;
+      }
+      int res = 0;
+      for (int i = 0; i < bits.size(); ++i) {
+        if (bits[i] == 0) {
+          res+=pow(2,i);
+        }
+      }
+      return res;
     }
 };
