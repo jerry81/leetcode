@@ -49,6 +49,7 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -59,31 +60,33 @@ class Solution {
     if (rods.size() < 2) return 0;
 
     int res = 0;
-    vector<pair<int, int>> possibleSupports;
-
-    possibleSupports.push_back({rods[0], {rods[1]}});
-    possibleSupports.push_back({0, rods[0] + rods[1]});
-    possibleSupports.push_back({0,0});
-    possibleSupports.push_back({rods[0], 0});
-    possibleSupports.push_back({rods[1],0});
+    unordered_map<int, unordered_map<int, bool>> possibleSupports;
+    int MAXTHRESH = 2500;
+    possibleSupports[rods[0]][rods[1]] = true;
+    possibleSupports[0][rods[0] + rods[1]] = true;
+    possibleSupports[0][0] = true;
+    possibleSupports[rods[0]][0];
+    possibleSupports[rods[1]][0];
     if (rods[0] == rods[1] && rods[0] > res) res = rods[0];
     for (int i = 2; i < rods.size(); ++i) {
-      vector<pair<int,int>> nextSupports;
-      for (auto [a,b]: possibleSupports) {
-        nextSupports.push_back({a,b});
-        if (a == b) {
-          nextSupports.push_back({a+rods[i], a});
-        } else {
-          int newa = a+rods[i];
-          if (newa == b && newa > res) res = newa;
+      unordered_map<int, unordered_map<int, bool>> nextSupports;
+      for (auto [a, rtmap] : possibleSupports) {
+        for (auto [b, _] : rtmap) {
+          nextSupports[a][b] = true;
+          if (a == b) {
+            if (a + rods[i] <= MAXTHRESH) nextSupports[a + rods[i]][a] = true;
+          } else {
+            int newa = a + rods[i];
+            if (newa == b && newa > res) res = newa;
 
-          int newb = b+rods[i];
-          if (newb == a && newb > res) res = newb;
-          nextSupports.push_back({newa, b});
-          nextSupports.push_back({a, newb});
+            int newb = b + rods[i];
+            if (newb == a && newb > res) res = newb;
+            if (newa <= MAXTHRESH) nextSupports[newa][b] = true;
+            if (newb <= MAXTHRESH) nextSupports[a][newb] = true;
+          }
         }
       }
-      possibleSupports=nextSupports;
+      possibleSupports = nextSupports;
     }
     // for (auto [a,b]: possibleSupports) {
     //   if (a == b && a > res) res = a;
