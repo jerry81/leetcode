@@ -66,11 +66,20 @@ class Solution {
     if (rods[0] == rods[1] && rods[0] > res) res = rods[0];
     for (int i = 2; i < rods.size(); ++i) {
       vector<pair<int,int>> nextSupports;
-      for (auto a: possibleSupports) {
-        if (a.first == a.second) {
+      for (auto [a,b]: possibleSupports) {
+        if (a == b) {
+          nextSupports.push_back({a+rods[i], a});
         } else {
+          int newa = a+rods[i];
+          if (newa == b && newa > res) res = newa;
+
+          int newb = b+rods[i];
+          if (newb == a && newb > res) res = newb;
+          nextSupports.push_back({newa, b});
+          nextSupports.push_back({a, newb});
         }
       }
+      possibleSupports=nextSupports;
     }
   }
 };
