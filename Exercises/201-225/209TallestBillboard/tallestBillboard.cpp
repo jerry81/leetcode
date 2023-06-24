@@ -63,10 +63,14 @@ class Solution {
 
     possibleSupports.push_back({rods[0], {rods[1]}});
     possibleSupports.push_back({0, rods[0] + rods[1]});
+    possibleSupports.push_back({0,0});
+    possibleSupports.push_back({rods[0], 0});
+    possibleSupports.push_back({rods[1],0});
     if (rods[0] == rods[1] && rods[0] > res) res = rods[0];
     for (int i = 2; i < rods.size(); ++i) {
       vector<pair<int,int>> nextSupports;
       for (auto [a,b]: possibleSupports) {
+        nextSupports.push_back({a,b});
         if (a == b) {
           nextSupports.push_back({a+rods[i], a});
         } else {
@@ -81,6 +85,10 @@ class Solution {
       }
       possibleSupports=nextSupports;
     }
+    // for (auto [a,b]: possibleSupports) {
+    //   if (a == b && a > res) res = a;
+    // }
+    return res;
   }
 };
 
@@ -107,8 +115,16 @@ larger case
 
 [1,3,4]
 
+[3,4] -> 3,4
+7,0
+
 [3,4] -> 0
 1+3, 4 - > 4
+3+1,4
+3,4+1
+7+1, 0
+7, 0+1
+
 3, 4+1 -> 0
 3+4,1 -> 0  - res is useless
 0 8
@@ -140,5 +156,8 @@ another player [8 1 3 4]
 
 rod count small <= 20
 try this brute force method
+
+more cases possible:
+- can choose to just not use an item also
 
 */
