@@ -60,13 +60,13 @@ class Solution {
     if (rods.size() < 2) return 0;
 
     int res = 0;
-    unordered_map<int, unordered_map<int, bool>> possibleSupports;
+    vector<vector<bool>> possibleSupports(5000,vector<bool>(5000,false));
     int MAXTHRESH = 2500;
     possibleSupports[rods[0]][rods[1]] = true;
     possibleSupports[0][rods[0] + rods[1]] = true;
     possibleSupports[0][0] = true;
-    possibleSupports[rods[0]][0];
-    possibleSupports[rods[1]][0];
+    possibleSupports[rods[0]][0] = true;
+    possibleSupports[rods[1]][0] = true;
     if (rods[0] == rods[1] && rods[0] > res) res = rods[0];
     for (int i = 2; i < rods.size(); ++i) {
       unordered_map<int, unordered_map<int, bool>> nextSupports;
