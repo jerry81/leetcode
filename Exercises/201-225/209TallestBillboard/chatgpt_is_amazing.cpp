@@ -8,8 +8,8 @@ class Solution {
 public:
   int tallestBillboard(vector<int>& rods) {
     int N = rods.size();
-    int sum = accumulate(rods.begin(), rods.end(), 0);
-    vector<vector<int>> dp(N + 1, vector<int>(2 * sum + 1, -1));
+    int sum = accumulate(rods.begin(), rods.end(), 0); // this is how to sum.
+    vector<vector<int>> dp(N + 1, vector<int>(2 * sum + 1, -1)); //
     dp[0][sum] = 0;
 
     for (int i = 1; i <= N; ++i) {
