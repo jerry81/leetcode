@@ -42,6 +42,8 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 class Solution {
@@ -58,7 +60,7 @@ public:
           cstring = "";
 
         }
-        cstring = c+cstring;
+        cstring = (char)toupper(c)+cstring;
       }
       if (!cstring.empty()) groups.push_back(cstring);
 
