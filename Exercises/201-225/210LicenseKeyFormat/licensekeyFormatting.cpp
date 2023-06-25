@@ -44,27 +44,27 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     string licenseKeyFormatting(string s, int k) {
       vector<string> groups;
       string cstring = "";
-      for (int i = s.size(); i >= 0; --i) {
+      for (int i = s.size()-1; i >= 0; --i) {
         char c = s[i];
         if (c == '-') continue;
 
-        if (cstring.size() < k) {
-          cstring+=c;
-        } else {
+        if (cstring.size() >= k) {
           groups.push_back(cstring);
-          cstring = ""+c;
+          cstring = "";
+
         }
+        cstring = c+cstring;
       }
+      if (!cstring.empty()) groups.push_back(cstring);
+
       cstring = "";
       for (string str: groups) {
-        cstring = str + cstring;
-        cstring += "-";
+        cstring = str + "-" + cstring;
       }
       cstring.pop_back();
       return cstring;
