@@ -77,11 +77,12 @@ int r(int idx, vector<int>& locations, int finish, int fuel) {
   }
 
   if (distToFinish == fuel) {
-    dp[idx][fuel] = 1;
+    dp[idx][fuel] = idx != finish ? 1 : 0;
     return dp[idx][fuel];
   }
 
-  long long csum = 0;
+
+  long long csum = idx != finish ? 1 : 0;
   for (int i = 0; i < locations.size(); ++i) {
     if (i == idx) continue;
 
@@ -96,7 +97,7 @@ int r(int idx, vector<int>& locations, int finish, int fuel) {
 public:
     int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
       dp.resize(locations.size(), unordered_map<int,int>());
-      return r(0,locations,finish,fuel);
+      return r(start,locations,finish,fuel);
     }
 };
 
