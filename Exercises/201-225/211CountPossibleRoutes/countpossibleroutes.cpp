@@ -91,7 +91,8 @@ int r(int idx, vector<int>& locations, int finish, int fuel) {
 public:
     int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
       dp.resize(locations.size(), unordered_map<int,int>());
-      return r(start,locations,finish,fuel);
+      int modifier = start == finish ? 1 : 0;
+      return modifier + r(start,locations,finish,fuel);
     }
 };
 
