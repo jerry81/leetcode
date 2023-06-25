@@ -58,12 +58,43 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+const int MOD = 1e9+7;
+vector<int, unordered_map<int, int>> dp;
+int r(int idx, vector<int>& locations, int start, int finish, int fuel) {
+  if (fuel <= 0) return 0;
+}
+
 public:
     int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
 
     }
 };
+
+/* analysis
+start and finish may or may not be in locations
+all paths start 1 and end 3
+figure out the meat
+
+
+Input: locations = [2,3,6,8,4], start = 1, finish = 3, fuel = 5
+Output: 4
+Explanation: The following are all possible routes, each uses 5 units of fuel:
+
+1 -> 3 cost = 3
+1 -> 2 -> 3  cost = 3 + 2 = 5
+1 -> 4 -> 3 cost = 1 + 4 = 5
+1 -> 4 -> 2 -> 3  - 1 + 2 + 2 = 5
+
+Input: locations = [4,3,1], start = 1, finish = 0, fuel = 6
+Output: 5
+
+1->0 cost 1
+1->0->1->0 cost 3
+
+
+*/
