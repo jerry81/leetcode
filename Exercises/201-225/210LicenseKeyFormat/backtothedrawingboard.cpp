@@ -56,12 +56,14 @@ class Solution {
  public:
   string licenseKeyFormatting(string s, int k) {
     bool changed = true;
-    transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return toupper(c); }); // fancy!
+    transform(s.begin(), s.end(), s.begin(),
+              [](unsigned char c) { return toupper(c); });  // fancy!
 
-    s.erase(std::remove(s.begin(), s.end(), '-'), s.end()); // erase-remove idiom
+    s.erase(std::remove(s.begin(), s.end(), '-'),
+            s.end());  // erase-remove idiom
 
-    for (int i = s.size()-1; i >= 0; i-=k) {
-     s.insert(i, 1, '-');
+    for (int i = s.size() - k; i > 0; i -= k) {
+      s.insert(i, 1, '-');
     }
   }
 };
