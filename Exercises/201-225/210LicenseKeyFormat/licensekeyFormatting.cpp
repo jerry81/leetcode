@@ -49,26 +49,21 @@ using namespace std;
 class Solution {
 public:
     string licenseKeyFormatting(string s, int k) {
-      vector<string> groups;
       string cstring = "";
+      string outstring = "";
       for (int i = s.size()-1; i >= 0; --i) {
         char c = s[i];
         if (c == '-') continue;
 
         if (cstring.size() >= k) {
-          groups.push_back(cstring);
+          outstring = cstring+"-"+outstring;
           cstring = "";
 
         }
         cstring = (char)toupper(c)+cstring;
       }
-      if (!cstring.empty()) groups.push_back(cstring);
+      if (!cstring.empty()) cstring+"-"+outstring;
 
-      cstring = "";
-      for (string str: groups) {
-        cstring = str + "-" + cstring;
-      }
-      cstring.pop_back();
-      return cstring;
+      return outstring;
     }
 };
