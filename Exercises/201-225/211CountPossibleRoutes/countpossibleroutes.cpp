@@ -76,12 +76,6 @@ int r(int idx, vector<int>& locations, int finish, int fuel) {
     return dp[idx][fuel];
   }
 
-  if (distToFinish == fuel) {
-    dp[idx][fuel] = idx != finish ? 1 : 0;
-    return dp[idx][fuel];
-  }
-
-
   long long csum = idx != finish ? 1 : 0;
   for (int i = 0; i < locations.size(); ++i) {
     if (i == idx) continue;
