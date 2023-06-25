@@ -41,12 +41,16 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
     string licenseKeyFormatting(string s, int k) {
-
+      vector<string> groups;
+      int cur = -1;
+      for (int i = s.size(); i >= 0; --i) {
+      }
     }
 };
