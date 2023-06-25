@@ -65,7 +65,7 @@ using namespace std;
 class Solution {
 const int MOD = 1e9+7;
 vector<unordered_map<int, int>> dp;
-int r(int idx, vector<int>& locations, int start, int finish, int fuel) {
+int r(int idx, vector<int>& locations, int finish, int fuel) {
   if (fuel <= 0) return 0;
 
   if (dp[idx].find(fuel) != dp[idx].end()) return dp[idx][fuel];
@@ -80,6 +80,16 @@ int r(int idx, vector<int>& locations, int start, int finish, int fuel) {
     dp[idx][fuel] = 1;
     return dp[idx][fuel];
   }
+
+  long long csum = 0;
+  for (int i = 0; i < locations.size(); ++i) {
+    if (i == idx) continue;
+
+    int fuelcost = abs(locations[i] - locations[idx]);
+    csum+=r(i, locations, finish, fuel-fuelcost);
+    csum%=MOD;
+  }
+  dp[idx][fuel] = csum;
 }
 
 public:
