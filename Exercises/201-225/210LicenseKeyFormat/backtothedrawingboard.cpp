@@ -65,5 +65,7 @@ class Solution {
     for (int i = s.size() - k; i > 0; i -= k) {
       s.insert(i, 1, '-');
     }
+
+    return s;
   }
 };
