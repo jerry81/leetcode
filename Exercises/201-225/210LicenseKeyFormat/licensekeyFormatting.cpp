@@ -49,8 +49,24 @@ class Solution {
 public:
     string licenseKeyFormatting(string s, int k) {
       vector<string> groups;
-      int cur = -1;
+      string cstring = "";
       for (int i = s.size(); i >= 0; --i) {
+        char c = s[i];
+        if (c == '-') continue;
+
+        if (cstring.size() < k) {
+          cstring+=c;
+        } else {
+          groups.push_back(cstring);
+          cstring = ""+c;
+        }
       }
+      cstring = "";
+      for (string str: groups) {
+        cstring = str + cstring;
+        cstring += "-";
+      }
+      cstring.pop_back();
+      return cstring;
     }
 };
