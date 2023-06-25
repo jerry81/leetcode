@@ -90,11 +90,13 @@ int r(int idx, vector<int>& locations, int finish, int fuel) {
     csum%=MOD;
   }
   dp[idx][fuel] = csum;
+  return dp[idx][fuel];
 }
 
 public:
     int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
       dp.resize(locations.size(), unordered_map<int,int>());
+      return r(0,locations,finish,fuel);
     }
 };
 
