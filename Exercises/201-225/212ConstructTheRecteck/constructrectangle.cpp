@@ -43,11 +43,22 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class Solution {
 public:
     vector<int> constructRectangle(int area) {
-
+      vector<int> res;
+      for (int w = sqrt(area); w >= 1; --w) {
+        float l = (float)area/(float)w;
+        if ((int)(area/w) == l) {
+          res[0] = (int)l;
+          res[1] = (int)w;
+        };
+      }
+      return res;
     }
 };
+
+/* brute force?? */
