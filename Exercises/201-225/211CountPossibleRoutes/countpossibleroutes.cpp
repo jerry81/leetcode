@@ -64,14 +64,27 @@ using namespace std;
 
 class Solution {
 const int MOD = 1e9+7;
-vector<int, unordered_map<int, int>> dp;
+vector<unordered_map<int, int>> dp;
 int r(int idx, vector<int>& locations, int start, int finish, int fuel) {
   if (fuel <= 0) return 0;
+
+  if (dp[idx].find(fuel) != dp[idx].end()) return dp[idx][fuel];
+
+  long long distToFinish = abs(locations[finish] - locations[idx]);
+  if (distToFinish > fuel) {
+    dp[idx][fuel] = 0;
+    return dp[idx][fuel];
+  }
+
+  if (distToFinish == fuel) {
+    dp[idx][fuel] = 1;
+    return dp[idx][fuel];
+  }
 }
 
 public:
     int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
-
+      dp.resize(locations.size(), unordered_map<int,int>());
     }
 };
 
