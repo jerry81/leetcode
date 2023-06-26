@@ -54,12 +54,57 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
+struct ComparePQ {
+    bool operator()(int a, int b) { return a < b; } // this is idiomatic...
+};
 public:
     long long totalCost(vector<int>& costs, int k, int candidates) {
-
+       priority_queue<int, vector<int>, ComparePQ> pq; // type of data, container impl, compartor
     }
 };
+
+/*
+
+analysis:  too straightforward to not  be an optimization trap
+
+cost [1,2,4,1], candidates 3, k 3
+expect 4
+
+124 241
+-> 241
+24
+2
+total cost 4
+
+
+costs = [17,12,10,2,7,2,11,20,8], k = 3, candidates = 4 - expect 11
+17,12,10,7,2,11,20,8 cost 2
+17,12,10,7,11,20,8 cost 4
+                   cost 11 yes
+
+brute force - calc min twice each round
+vector always shrinking
+[0,3] [5,8] (min in left) - picked = 3
+- shift from picked left
+[0,3] [4,7] but 4,7 same as 5,8 in previous step
+
+or
+pq good here
+[17,12,10,2] [7]  [2,11,20,8]  - bench
+
+dequeue
+then insert from bench
+[17,12,10,7] [] [2,11,20,8]
+
+dequeue
+[17,12,10,7] [11,20,8]
+
+
+left changed but right manages to still be the same
+
+*/
