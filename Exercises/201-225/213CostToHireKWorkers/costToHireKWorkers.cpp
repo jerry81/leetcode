@@ -84,11 +84,11 @@ class Solution {
   struct ComparePQ {
     bool operator()(VandI a, VandI b) {
       if (a.val < b.val) {
-        return true;
+        return false;
       } else if (a.val > b.val) {
         return true;
       } else {
-        return a.idx < b.idx;
+        return a.idx > b.idx;
       }
     }  // this is idiomatic...
   };
@@ -108,7 +108,7 @@ class Solution {
       benchLeft = i+1;
     }
     if (left.size() == candidates) {
-      for (int i = costs.size()-1; i >= candidates; --i) {
+      for (int i = costs.size()-1; i >= candidates && i > costs.size()-k-1; --i) {
         right.push(VandI(costs[i],i));
         benchRight = i-1;
       }
@@ -149,6 +149,7 @@ class Solution {
     return total;
   }
 };
+
 
 /*
 
