@@ -108,7 +108,7 @@ class Solution {
       benchLeft = i+1;
     }
     if (left.size() == candidates) {
-      for (int i = costs.size()-1; i >= candidates && i > costs.size()-k-1; --i) {
+      for (int i = costs.size()-1; i >= candidates && i > costs.size()-candidates-1; --i) {
         right.push(VandI(costs[i],i));
         benchRight = i-1;
       }
@@ -190,5 +190,23 @@ dequeue
 
 left changed but right manages to still be the same
 
+broken case:
 
+[31,25,72,79,74,65,84,91,18,59,27,9,81,33,17,58]
+k =
+11
+candidates =
+2
+
+1 - 17
+2 - 25 (31,72) (33,58)
+3 -31 (72,79) (33, 58)
+4 - 33 (72,79) (58,81)
+5 - 58 (72,79) (81,9)
+6 - 9 (72,79) (81,27)
+7 - 27 (72,79) (81,59)
+8 - 59 (72,79) (81, 18)
+9 - 18 - (72,79) (81, 91)
+10 - 72 - (79, 74),
+11 - 74
 */
