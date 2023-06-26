@@ -74,11 +74,10 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-
   struct VandI {
     int val;
     int idx;
-    VandI(int val, int idx):val(val),idx(idx){};
+    VandI(int val, int idx) : val(val), idx(idx){};
   };
 
   struct ComparePQ {
@@ -95,61 +94,62 @@ class Solution {
 
  public:
   long long totalCost(vector<int>& costs, int k, int candidates) {
-    priority_queue<VandI, vector<VandI>, ComparePQ> left;  // type of data, container impl, comparator
+    priority_queue<VandI, vector<VandI>, ComparePQ>
+        left;  // type of data, container impl, comparator
     priority_queue<VandI, vector<VandI>, ComparePQ> right;
     // prep pqs
     int benchLeft = 1;
-    int benchRight = costs.size()-2;
+    int benchRight = costs.size() - 2;
     long long total = 0;
     for (int i = 0; i < candidates; ++i) {
       if (i >= costs.size()) break;
 
-      left.push(VandI(costs[i],i));
-      benchLeft = i+1;
+      left.push(VandI(costs[i], i));
+      benchLeft = i + 1;
     }
     if (left.size() == candidates) {
-      for (int i = costs.size()-1; i >= candidates && i > costs.size()-candidates-1; --i) {
-        right.push(VandI(costs[i],i));
-        benchRight = i-1;
+      for (int i = costs.size() - 1;
+           i >= candidates && i > costs.size() - candidates - 1; --i) {
+        right.push(VandI(costs[i], i));
+        benchRight = i - 1;
       }
     }
     // loop k times
     for (int i = 0; i < k; ++i) {
-     if (right.empty()) {
-       total+=left.top().val;
-       left.pop();
-       continue;
-     }
+      if (right.empty()) {
+        total += left.top().val;
+        left.pop();
+        continue;
+      }
 
-     if (left.empty()) {
-       total+=right.top().val;
-       right.pop();
-       continue;
-     }
+      if (left.empty()) {
+        total += right.top().val;
+        right.pop();
+        continue;
+      }
 
-     auto lmin = left.top();
-     auto rmin = right.top();
-     if (lmin.val <= rmin.val) {
-       total+=lmin.val;
-       left.pop();
-       if (benchLeft <= benchRight) {
-         left.push(VandI(costs[benchLeft], benchLeft));
-         benchLeft++;
-       }
-     } else {
-       total+=rmin.val;
-       right.pop();
-       if (benchLeft <= benchRight) {
-         right.push(VandI(costs[benchRight], benchRight));
-         benchRight--;
-       }
-     }
+      auto lmin = left.top();
+      auto rmin = right.top();
+      if (lmin.val <= rmin.val) {
+        total += lmin.val;
+        left.pop();
+        if (benchLeft <= benchRight) {
+          left.push(VandI(costs[benchLeft], benchLeft));
+          benchLeft++;
+        }
+      } else {
+        total += rmin.val;
+        right.pop();
+        if (benchLeft <= benchRight) {
+          right.push(VandI(costs[benchRight], benchRight));
+          benchRight--;
+        }
+      }
     }
 
     return total;
   }
 };
-
 
 /*
 
