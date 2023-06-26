@@ -78,7 +78,7 @@ class Solution {
   struct VandI {
     int val;
     int idx;
-
+    VandI(int val, int idx):val(val),idx(idx){};
   };
 
   struct ComparePQ {
@@ -104,34 +104,45 @@ class Solution {
     for (int i = 0; i < candidates; ++i) {
       if (i >= costs.size()) break;
 
-      left.push(costs[i]);
+      left.push(VandI(costs[i],i));
       benchLeft = i+1;
     }
     if (left.size() == candidates) {
       for (int i = costs.size()-1; i >= candidates; --i) {
-        right.push(costs[i]);
+        right.push(VandI(costs[i],i));
         benchRight = i-1;
       }
     }
     // loop k times
     for (int i = 0; i < k; ++i) {
      if (right.empty()) {
-       total+=left.top();
+       total+=left.top().val;
        left.pop();
+       continue;
      }
 
-     int lmin = left.top();
-     int rmin = right.top();
-     if (lmin <= rmin) {
-       total+=lmin;
+     if (left.empty()) {
+       total+=right.top().val;
+       right.pop();
+       continue;
+     }
+
+     auto lmin = left.top();
+     auto rmin = right.top();
+     if (lmin.val <= rmin.val) {
+       total+=lmin.val;
        left.pop();
        if (benchLeft <= benchRight) {
-         left.push(costs[benchLeft]);
+         left.push(VandI(costs[benchLeft], benchLeft));
          benchLeft++;
-       } else if (!right.empty()) {
-
        }
      } else {
+       total+=rmin.val;
+       right.pop();
+       if (benchLeft <= benchRight) {
+         right.push(VandI(costs[benchRight], benchRight));
+         benchRight--;
+       }
      }
     }
 
