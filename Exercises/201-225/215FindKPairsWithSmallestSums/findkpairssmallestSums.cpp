@@ -57,7 +57,6 @@ class Solution {
   vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,
                                      int k) {
     int ptr1 = 0;
-
     int ptr2 = 0;
     vector<vector<int>> ret;
     for (int i = 0; i < k; ++i) {
@@ -82,9 +81,65 @@ class Solution {
         ptr1 = n1;
         continue;
       }
+
+      int next1 = nums1[n1];
+      int next2 = nums2[n2];
+
+      if (cur1 <= cur2) {
+        // keep cur1, search for stopping point
+        int toSearch = next1 + cur2 - cur1;
+        auto found = lower_bound(nums2.begin() + n2, nums2.end(), toSearch + 1);
+        int tmp = distance(nums2.begin(), found);
+        for (int i = n2; i <= tmp; ++i) {
+          vector<int> v;
+          v.push_back(cur1);
+          v.push_back(nums2[i]);
+        }
+        ptr1++;
+      } else {
+        int toSearch = next2 + cur1 - cur2;
+        auto found = lower_bound(nums1.begin() + n1, nums1.end(), toSearch + 1);
+        int tmp = distance(nums1.begin(), found);
+        for (int i = n2; i <= tmp; ++i) {
+          vector<int> v;
+          v.push_back(cur2);
+          v.push_back(nums1[i]);
+        }
+        ptr2++;
+      }
     }
   }
 };
+
+/*
+
+        [1,7,11] [2,4,6,8,9]
+        cur 1,2
+        keep - nums1
+        next 7
+        lowerbound 7 - entire array
+
+
+        [1,3,7,10] [5,6,7,8]
+
+        1 vs 5
+        look for next1 3 + cur2 5 = (8-1) = 7
+        ptr = 2
+        so 0,[1,2] goes in
+        ptr1+=1
+        ptr2=0
+        3,5
+        next1 7
+        cur2 5 look for 7+5 - cur1 3 = 9 3, [1,3] all go in
+        ptr2+=1
+        3 vs 6
+        loop for 3
+        next 7 + 6 = 13 - 3 = 10
+        search 10 (incl)
+        6,[2,3]
+        1 - next 3+5  = 8  lower bound 7,1
+
+      */
 
 /*
 
