@@ -72,6 +72,16 @@ class Solution {
       int n2 = ptr2 + 1;
 
       if (n1 >= nums1.size() && n2 >= nums2.size()) return ret;
+
+      if (n1 >= nums1.size()) {
+        ptr2 = n2;
+        continue;
+      }
+
+      if (n2 >= nums2.size()) {
+        ptr1 = n1;
+        continue;
+      }
     }
   }
 };
