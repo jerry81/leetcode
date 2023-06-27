@@ -61,10 +61,15 @@ public:
       for (int i: nums1) {
         for (int j = 0; j < nums2.size(); j++) {
           if (nums2[j] == i) {
+            int found = -1;
             for (int k = j+1; k < nums2.size(); ++k) {
-              if (nums2[k] > i) results.push_back(nums2[k]);
+              if (nums2[k] > i) {
+                found = nums2[k];
+                break;
+              }
             }
-            results.push_back(-1);
+            results.push_back(found);
+            continue;
           }
         }
       }
