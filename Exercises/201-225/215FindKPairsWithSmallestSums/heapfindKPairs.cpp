@@ -14,7 +14,7 @@ struct HeapItem {
 
 struct ComparePQ {
   bool operator()(HeapItem* a, HeapItem* b) {
-    return a->sum < b->sum;
+    return a->sum > b->sum;
   }  // this is idiomatic...
 };
 
@@ -30,6 +30,8 @@ class Solution {
 
     HeapItem* first = new HeapItem(nums1[0] + nums2[0], 0, 0);
     visited[getHash(0, 0)] = true;
+
+    pq.push(first);
 
     while (ret.size() < k) {
       HeapItem* minHI = pq.top();
