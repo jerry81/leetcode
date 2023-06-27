@@ -51,6 +51,7 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
+
 class Solution {
  public:
   vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,
@@ -84,25 +85,21 @@ class Solution {
       int next1 = nums1[n1];
       int next2 = nums2[n2];
 
-      if (cur1 <= cur2) {
+      if (cur1 < cur2) {
         // keep cur1, search for stopping point
-        cout << cur1 << " smaller than " << cur2 << endl;
+
         int toSearch = next1 + cur2 - cur1;
-        cout << "searching for " << toSearch << endl;
         auto found = lower_bound(nums2.begin() + n2, nums2.end(), toSearch + 1);
         int tmp = distance(nums2.begin(), found);
-        cout << "tmp is  " << tmp << endl;
         for (int i = n2; i <= tmp; ++i) {
-
           vector<int> v;
-          cout << "adding " << cur1 << endl;
           v.push_back(cur1);
           v.push_back(nums2[i]);
-          res.push_back(v);
-          if (res.size() == k) return res;
+          ret.push_back(v);
+          if (ret.size() == k) return ret;
         }
         ptr1++;
-      } else {
+      } else if (cur1 > cur2) {
         int toSearch = next2 + cur1 - cur2;
         auto found = lower_bound(nums1.begin() + n1, nums1.end(), toSearch + 1);
         int tmp = distance(nums1.begin(), found);
@@ -110,10 +107,41 @@ class Solution {
           vector<int> v;
           v.push_back(cur2);
           v.push_back(nums1[i]);
-          res.push_back(v);
-          if (res.size() == k) return res;
+          ret.push_back(v);
+          if (ret.size() == k) return ret;
         }
         ptr2++;
+      } else {
+        // super annoying case - equal - could continue ad infinitum
+        if (next1 <= next2) {
+          // keep cur1, search for stopping point
+
+          int toSearch = next1 + cur2 - cur1;
+          auto found =
+              lower_bound(nums2.begin() + n2, nums2.end(), toSearch + 1);
+          int tmp = distance(nums2.begin(), found);
+          for (int i = n2; i <= tmp; ++i) {
+            vector<int> v;
+            v.push_back(cur1);
+            v.push_back(nums2[i]);
+            ret.push_back(v);
+            if (ret.size() == k) return ret;
+          }
+          ptr1++;
+        } else {
+          int toSearch = next2 + cur1 - cur2;
+          auto found =
+              lower_bound(nums1.begin() + n1, nums1.end(), toSearch + 1);
+          int tmp = distance(nums1.begin(), found);
+          for (int i = n2; i <= tmp; ++i) {
+            vector<int> v;
+            v.push_back(cur2);
+            v.push_back(nums1[i]);
+            ret.push_back(v);
+            if (ret.size() == k) return ret;
+          }
+          ptr2++;
+        }
       }
     }
     return ret;
