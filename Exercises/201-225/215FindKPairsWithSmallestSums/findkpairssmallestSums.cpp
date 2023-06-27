@@ -51,7 +51,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
  public:
   vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,
@@ -59,7 +58,7 @@ class Solution {
     int ptr1 = 0;
     int ptr2 = 0;
     vector<vector<int>> ret;
-    for (int i = 0; i < k; ++i) {
+    while (true) {
       vector<int> vec;
       int cur1 = nums1[ptr1];
       int cur2 = nums2[ptr2];
@@ -87,13 +86,20 @@ class Solution {
 
       if (cur1 <= cur2) {
         // keep cur1, search for stopping point
+        cout << cur1 << " smaller than " << cur2 << endl;
         int toSearch = next1 + cur2 - cur1;
+        cout << "searching for " << toSearch << endl;
         auto found = lower_bound(nums2.begin() + n2, nums2.end(), toSearch + 1);
         int tmp = distance(nums2.begin(), found);
+        cout << "tmp is  " << tmp << endl;
         for (int i = n2; i <= tmp; ++i) {
+
           vector<int> v;
+          cout << "adding " << cur1 << endl;
           v.push_back(cur1);
           v.push_back(nums2[i]);
+          res.push_back(v);
+          if (res.size() == k) return res;
         }
         ptr1++;
       } else {
@@ -104,10 +110,13 @@ class Solution {
           vector<int> v;
           v.push_back(cur2);
           v.push_back(nums1[i]);
+          res.push_back(v);
+          if (res.size() == k) return res;
         }
         ptr2++;
       }
     }
+    return ret;
   }
 };
 
