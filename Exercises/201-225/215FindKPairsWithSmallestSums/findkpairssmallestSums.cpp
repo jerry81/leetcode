@@ -114,32 +114,19 @@ class Solution {
       } else {
         // super annoying case - equal - could continue ad infinitum
         if (next1 <= next2) {
-          // keep cur1, search for stopping point
-
-          int toSearch = next1 + cur2 - cur1;
-          auto found =
-              lower_bound(nums2.begin() + n2, nums2.end(), toSearch + 1);
-          int tmp = distance(nums2.begin(), found);
-          for (int i = n2; i <= tmp; ++i) {
-            vector<int> v;
-            v.push_back(cur1);
-            v.push_back(nums2[i]);
-            ret.push_back(v);
-            if (ret.size() == k) return ret;
-          }
+          // just increment 1
+          vector<int> v;
+          v.push_back(cur2);
+          v.push_back(next1);
+          ret.push_back(v);
+          if (ret.size() == k) return ret;
           ptr1++;
         } else {
-          int toSearch = next2 + cur1 - cur2;
-          auto found =
-              lower_bound(nums1.begin() + n1, nums1.end(), toSearch + 1);
-          int tmp = distance(nums1.begin(), found);
-          for (int i = n2; i <= tmp; ++i) {
-            vector<int> v;
-            v.push_back(cur2);
-            v.push_back(nums1[i]);
-            ret.push_back(v);
-            if (ret.size() == k) return ret;
-          }
+          vector<int> v;
+          v.push_back(cur1);
+          v.push_back(next2);
+          ret.push_back(v);
+          if (ret.size() == k) return ret;
           ptr2++;
         }
       }
