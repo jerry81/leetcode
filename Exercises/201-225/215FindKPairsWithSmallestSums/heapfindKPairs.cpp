@@ -58,11 +58,30 @@ class Solution {
           HeapItem* nextItem = new HeapItem(nums1[n1] + nums2[c2], n1, c2);
           pq.push(nextItem);
         }
-
         continue;
       }
 
-      // out of bounds
+      if (n1 < nums1.size()) {
+        if (!visited[getHash(n1, c2)]) {
+          visited[getHash(n1, c2)] = true;
+
+          HeapItem* nextItem = new HeapItem(nums1[n1] + nums2[c2], n1, c2);
+          pq.push(nextItem);
+        }
+        continue;
+      }
+
+      if (n2 < nums2.size()) {
+        if (!visited[getHash(c1, n2)]) {
+          visited[getHash(c1, c2)] = true;
+
+          HeapItem* nextItem1 = new HeapItem(nums1[c1] + nums2[n2], c1, n2);
+          pq.push(nextItem1);
+        }
+        continue;
+      }
+
+      return ret;
     }
     return ret;
   }
