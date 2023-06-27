@@ -5,9 +5,11 @@ Medium
 4.3K
 258
 Companies
-You are given two integer arrays nums1 and nums2 sorted in ascending order and an integer k.
+You are given two integer arrays nums1 and nums2 sorted in ascending order and
+an integer k.
 
-Define a pair (u, v) which consists of one element from the first array and one element from the second array.
+Define a pair (u, v) which consists of one element from the first array and one
+element from the second array.
 
 Return the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.
 
@@ -17,13 +19,13 @@ Example 1:
 
 Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
 Output: [[1,2],[1,4],[1,6]]
-Explanation: The first 3 pairs are returned from the sequence: [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
-Example 2:
+Explanation: The first 3 pairs are returned from the sequence:
+[1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6] Example 2:
 
 Input: nums1 = [1,1,2], nums2 = [1,2,3], k = 2
 Output: [[1,1],[1,1]]
-Explanation: The first 2 pairs are returned from the sequence: [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
-Example 3:
+Explanation: The first 2 pairs are returned from the sequence:
+[1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3] Example 3:
 
 Input: nums1 = [1,2], nums2 = [3], k = 3
 Output: [[1,3],[2,3]]
@@ -45,13 +47,63 @@ Acceptance Rate
 
 */
 
+#include <algorithm>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+ public:
+  vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,
+                                     int k) {
+    int ptr1 = 0;
 
+    int ptr2 = 0;
+    vector<vector<int>> ret;
+    for (int i = 0; i < k; ++i) {
+      vector<int> vec;
+      int cur1 = nums1[ptr1];
+      int cur2 = nums2[ptr2];
+      vec.push_back(cur1);
+      vec.push_back(cur2);
+      ret.push_back(vec);
+      // get next ptrs
+      int n1 = ptr1 + 1;
+      int n2 = ptr2 + 1;
+
+      if (n1 >= nums1.size() && n2 >= nums2.size()) return ret;
     }
+  }
 };
+
+/*
+
+
+Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
+Output: [[1,2],[1,4],[1,6]]
+Explanation: The first 3 pairs are returned from the sequence:
+[1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
+
+1,2
+1,7 or 1,4
+1 7 or 1,6
+
+Input: nums1 = [1,1,2], nums2 = [1,2,3], k = 2
+Output: [[1,1],[1,1]]
+Explanation: The first 2 pairs are returned from the sequence:
+[1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
+
+1 or 1
+1 or 1
+
+Input: nums1 = [1,2], nums2 = [3], k = 3
+Output: [[1,3],[2,3]]
+Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
+1 or 3
+2 or 3
+
+- but it can't be this straightforward
+- must be an optimization problem
+- sorted so, bsearch for the index
+
+*/
