@@ -46,7 +46,7 @@ class Solution {
       int n2 = c2 + 1;
       if (n1 < nums1.size() && n2 < nums2.size()) {
         if (!visited[getHash(c1, n2)]) {
-          visited[getHash(c1, c2)] = true;
+          visited[getHash(c1, n2)] = true;
 
           HeapItem* nextItem1 = new HeapItem(nums1[c1] + nums2[n2], c1, n2);
           pq.push(nextItem1);
@@ -73,7 +73,7 @@ class Solution {
 
       if (n2 < nums2.size()) {
         if (!visited[getHash(c1, n2)]) {
-          visited[getHash(c1, c2)] = true;
+          visited[getHash(c1, n2)] = true;
 
           HeapItem* nextItem1 = new HeapItem(nums1[c1] + nums2[n2], c1, n2);
           pq.push(nextItem1);
