@@ -59,7 +59,6 @@ Acceptance Rate
 #include <unordered_map>
 
 using namespace std;
-
 class Solution {
 public:
     double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
@@ -74,7 +73,7 @@ public:
       queue<pair<int,double>> nn; // item, weight
       // bfs start
       nn.push({start,1.0});
-      vector<double> minProbs(n,0);
+      vector<double> minProbs(n,0.0);
 
       double maxProb = 0.0;
       while (!nn.empty()) {
@@ -88,7 +87,7 @@ public:
           for (auto [neighborIdx, edgeMeta] : neighbormap) {
             auto [edgeIdx, edgeProb] = edgeMeta;
             double nextProb = edgeProb * prob;
-            if (neighborIdx != current && !minProbs[neighborIdx] > nextProb) {
+            if (neighborIdx != current && minProbs[neighborIdx] < nextProb) {
               minProbs[neighborIdx] = nextProb;
               nn.push({neighborIdx, nextProb});
             }
