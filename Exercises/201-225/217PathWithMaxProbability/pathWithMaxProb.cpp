@@ -74,7 +74,7 @@ public:
       queue<pair<int,double>> nn; // item, weight
       // bfs start
       nn.push({start,1.0});
-      vector<bool> visited(edges.size(),false);
+      vector<double> minProbs(n,0);
 
       double maxProb = 0.0;
       while (!nn.empty()) {
@@ -87,9 +87,10 @@ public:
           auto neighbormap = edgemap[current];
           for (auto [neighborIdx, edgeMeta] : neighbormap) {
             auto [edgeIdx, edgeProb] = edgeMeta;
-            if (!visited[edgeIdx]) {
-              visited[edgeIdx] = true;
-              nn.push({neighborIdx, prob*edgeProb});
+            double nextProb = edgeProb * prob;
+            if (neighborIdx != current && !minProbs[neighborIdx] > nextProb) {
+              minProbs[neighborIdx] = nextProb;
+              nn.push({neighborIdx, nextProb});
             }
           }
         }
