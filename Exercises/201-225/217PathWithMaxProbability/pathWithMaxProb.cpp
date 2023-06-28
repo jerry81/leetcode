@@ -86,7 +86,10 @@ public:
           auto neighbormap = edgemap[current];
           for (auto [neighborIdx, edgeMeta] : neighbormap) {
             auto [edgeIdx, edgeProb] = edgeMeta;
-            cout << "edgeIdx is " << edgeIdx << " edge Prob is " << edgeProb << endl;
+            if (!visited[edgeIdx]) {
+              visited[edgeIdx] = true;
+              nn.push({neighborIdx, prob*edgeProb});
+            }
           }
         }
       }
