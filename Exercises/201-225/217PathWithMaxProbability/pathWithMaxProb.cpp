@@ -55,12 +55,41 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+      // edge map
+      unordered_map<int, unordered_map<int, pair<int,double>>> edgemap;
+      for (int i = 0; i < edges.size(); ++i) {
+        vector<int> edge = edges[i];
+        edgemap[edge[0]][edge[1]] = {i,succProb[i]};
+      }
 
+      queue<pair<int,double>> nn; // item, weight
+      // bfs start
+      nn.push({start,1.0});
+      vector<bool> visited(edges.size(),false);
+
+      double maxProb = 0.0;
+      while (!nn.empty()) {
+        auto [current, prob] = nn.front();
+        nn.pop();
+        if (current == end) {
+          if (prob > maxProb) maxProb = prob;
+        } else {
+          // neighbors!
+          auto neighbormap = edgemap[current];
+          for (auto [neighborIdx, edgeMeta] : neighbormap) {
+            auto [edgeIdx, edgeProb] = edgeMeta;
+            cout << "edgeIdx is " << edgeIdx << " edge Prob is " << edgeProb << endl;
+          }
+        }
+      }
+      return maxProb;
     }
 };
