@@ -68,6 +68,7 @@ public:
       for (int i = 0; i < edges.size(); ++i) {
         vector<int> edge = edges[i];
         edgemap[edge[0]][edge[1]] = {i,succProb[i]};
+        edgemap[edge[1]][edge[0]] = {i,succProb[i]};
       }
 
       queue<pair<int,double>> nn; // item, weight
