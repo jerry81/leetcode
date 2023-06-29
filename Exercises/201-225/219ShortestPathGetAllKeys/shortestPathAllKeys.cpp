@@ -75,6 +75,9 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+ string asString(pair<int,int> p) {
+   return to_string(p.first) + "," + to_string(p.second);
+ }
  public:
   int shortestPathAllKeys(vector<string>& grid) {
     int m = grid.size(), n = grid[0].size();
@@ -82,7 +85,7 @@ class Solution {
     vector<vector<int>> moves = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
     // seen['key'] is only for BFS with key state equals 'keys'
-    unordered_map<int, unordered_set<pair<int, int>>> seen;
+    unordered_map<int, unordered_set<string>> seen;
 
     unordered_set<char> keySet;
     unordered_set<char> lockSet;
@@ -107,7 +110,7 @@ class Solution {
 
     // [row, column, key state, distance]
     q.push({startR, startC, 0, 0});
-    seen[0].insert({startR, startC});
+    seen[0].insert(asString({startR,startC}));
 
     while (!q.empty()) {
       auto cur = q.front();
@@ -136,7 +139,7 @@ class Solution {
             if (newKeys == allKeys) {
               return dist + 1;
             }
-            seen[newKeys].insert({newR, newC});
+            seen[newKeys].insert(asString({newR, newC}));
             q.push({newR, newC, newKeys, dist + 1});
           }
 
@@ -147,8 +150,8 @@ class Solution {
 
           // We can walk to this cell if we haven't been here before with the
           // same key state.
-          else if (seen[keys].count({newR, newC}) <= 0) {
-            seen[keys].insert({newR, newC});
+          else if (seen[keys].count(asString({newR, newC})) <= 0) {
+            seen[keys].insert(asString({newR, newC}));
             q.push({newR, newC, keys, dist + 1});
           }
         }
