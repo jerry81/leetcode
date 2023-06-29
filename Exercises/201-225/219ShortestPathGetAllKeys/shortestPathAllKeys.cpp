@@ -66,6 +66,12 @@ using namespace std;
 class Solution {
 public:
     int shortestPathAllKeys(vector<string>& grid) {
+      for (int i = 0; i < grid.size(); ++i) {
+        string row = grid[i];
+        for (int j = 0; j < row.size(); ++j) {
+          char item = row[j];
 
+        }
+      }
     }
 };
