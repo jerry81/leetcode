@@ -94,7 +94,20 @@ bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
 }
 public:
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-
+      int low = 0;
+      int high = cells.size() -1;
+      int ret = 0;
+      while (high > low) {
+        int mid = (high + low) / 2;
+        bool res = canCross(mid,row,col,cells);
+        if (res) {
+          low = mid + 1;
+          ret = mid;
+        } else {
+          high = mid - 1;
+        }
+      }
+      return ret;
     }
 };
 
