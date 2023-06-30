@@ -59,14 +59,13 @@ Acceptance Rate
 #include <queue>
 
 using namespace std;
-
 class Solution {
 
 bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
   vector<vector<int>> g(row, vector<int>(col, 0));
   for (int i = 0; i < day; ++i) {
     auto turnOff = cells[i];
-    g[turnOff[0]][turnOff[1]] = 1;
+    g[turnOff[0]-1][turnOff[1]-1] = 1;
   }
 
   vector<pair<int,int>> neighbors = {{-1,0},{1,0}, {0,-1}, {0,1}};
@@ -83,10 +82,15 @@ bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
     if (y >= row-1) return true;
 
     for (auto [cy,cx]: neighbors) {
+
       int dy = cy+y;
       int dx = cx+x;
-      if (dy >= 0 && dy < row && dx >= 0 && dx < col && g[dy][dx] == 0) {
-        nn.push({dy,dx});
+      if (dy >= 0 && dy < row && dx >= 0 && dx < col) {
+        if (g[dy][dx] == 0) {
+          nn.push({dy,dx});
+          g[dy][dx] = -1;
+        }
+
       }
     }
   }
