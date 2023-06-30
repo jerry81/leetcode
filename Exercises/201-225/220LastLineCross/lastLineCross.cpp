@@ -68,6 +68,8 @@ bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
     auto turnOff = cells[i];
     g[turnOff[0]][turnOff[1]] = 1;
   }
+
+  vector<pair<int,int>> neighbors = {{-1,0},{1,0}, {0,-1}, {0,1}};
   queue<pair<int,int>> nn;
   for (int i = 0; i < col; ++i) {
     if (g[0][i] == 0) {
@@ -75,6 +77,20 @@ bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
       nn.push({0,i});
     }
   }
+  while (!nn.empty()) {
+    auto [y,x] = nn.front();
+    nn.pop();
+    if (y >= row-1) return true;
+
+    for (auto [cy,cx]: neighbors) {
+      int dy = cy+y;
+      int dx = cx+x;
+      if (dy >= 0 && dy < row && dx >= 0 && dx < col && g[dy][dx] == 0) {
+        nn.push({dy,dx});
+      }
+    }
+  }
+  return false;
 }
 public:
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
