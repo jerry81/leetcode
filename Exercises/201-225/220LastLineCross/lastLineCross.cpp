@@ -56,12 +56,46 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
+
+bool canCross(int day,int row,int col,vector<vector<int>>& cells) {
+  vector<vector<int>> g(row, vector<int>(col, 0));
+  for (int i = 0; i < day; ++i) {
+    auto turnOff = cells[i];
+    g[turnOff[0]][turnOff[1]] = 1;
+  }
+  queue<pair<int,int>> nn;
+  for (int i = 0; i < col; ++i) {
+    if (g[0][i] == 0) {
+      g[0][i] = -1;
+      nn.push({0,i});
+    }
+  }
+}
 public:
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
 
     }
 };
+
+// trie?
+/*
+
+Input: row = 3, col = 3, cells = [[1,2],[2,1],[3,3],[2,2],[1,1],[1,3],[2,3],[3,2],[3,1]]
+Output: 3
+
+trie - 0,0  0,1  0,2
+       1,0  1,1  1,2
+       2,0, 2,1  2,2
+
+       0,0   [0,1, 1,0]
+       1,0   [2,0], 1,1]
+
+not brute force, b/c too easy
+
+brute force with binary search
+*/
