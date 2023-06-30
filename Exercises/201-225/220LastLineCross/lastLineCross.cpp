@@ -111,6 +111,7 @@ public:
           high = mid - 1;
         }
       }
+      if (canCross(high,row,col,cells)) return high;
       return ret;
     }
 };
