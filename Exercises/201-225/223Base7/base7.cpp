@@ -31,9 +31,36 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 class Solution {
 public:
     string convertToBase7(int num) {
+      string ret = "";
 
+      while (true) {
+        if (num == 0) break;
+        int rem = num % 7;
+        char add = '0' + rem;
+        ret = add + ret;
+        num = num / 7;
+      }
+
+      return ret;
+
+
+      // 100 -> 202
+      // 100%7 - 14*7 98?
+      // r = 2, 100/7 = 14
+      // 14%7 = 0
+      // r = 2
     }
 };
+
+int main () {
+  Solution s;
+  cerr << "expect 202 " << s.convertToBase7(100) << endl;
+}
