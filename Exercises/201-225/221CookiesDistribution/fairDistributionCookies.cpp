@@ -58,3 +58,39 @@ public:
 
     }
 };
+
+/*
+
+analysis
+
+another way to look at this -
+
+minimize the deviation between the k groups
+
+cookies = [8,15,10,20,8], k = 2
+// gen all possiblities
+
+8
+8, 15
+8, 10
+8, 20
+8, 8
+8 15 10
+8 15 20
+8 15 8
+8 15 10 20
+8 15 10 8
+
+[6,1,3,2,2,4,1,2], k = 3
+[6], [1,3,2,2,4,1,2] k = 2
+  [6] [1] k=1
+[1], [6,3,2,2,4,1,2] k = 2
+...
+[2], [6,1,3,2,2,4,1], k = 2
+[6,1], [3,2,2,4,1,2], k = 2
+[6,3], [1,2,2,4,1,2], k = 2
+[6,2], [1,3,2,4,1,2], k = 2
+...
+[6,2], [1,3,2,2,4,1], k = 2
+- feel a complexity explosion with this method
+*/
