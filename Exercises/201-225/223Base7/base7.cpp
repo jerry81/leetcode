@@ -39,6 +39,7 @@ using namespace std;
 class Solution {
 public:
     string convertToBase7(int num) {
+      if (num == 0) return "0";
       bool neg = num < 0;
       string ret = "";
       num = abs(num);
