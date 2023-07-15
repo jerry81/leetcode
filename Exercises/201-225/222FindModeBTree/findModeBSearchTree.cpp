@@ -72,15 +72,18 @@ struct TreeNode {
 
 using namespace std;
 
-unordered_map<int, int> counts;
+
 class Solution {
+  unordered_map<int, int> counts;
   void findModeR(TreeNode *root) {
     if (root == nullptr) return;
 
     counts[root->val]++;
+    findModeR(root->left);
+    findModeR(root->right);
   }
 
-  bool sortByFreq(pair<int,int> a, pair<int,int> b) {
+  static bool sortByFreq(pair<int,int> a, pair<int,int> b) {
    return a.second > b.second;
   }
 
@@ -102,6 +105,7 @@ class Solution {
         return res;
       }
     }
+    return res;
   }
 };
 
