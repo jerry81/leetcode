@@ -39,8 +39,9 @@ using namespace std;
 class Solution {
 public:
     string convertToBase7(int num) {
+      bool neg = num < 0;
       string ret = "";
-
+      num = abs(num);
       while (true) {
         if (num == 0) break;
         int rem = num % 7;
@@ -48,7 +49,7 @@ public:
         ret = add + ret;
         num = num / 7;
       }
-
+      if (neg) ret = '-'+ret;
       return ret;
       // 100 -> 202
       // 100%7 - 14*7 98?
