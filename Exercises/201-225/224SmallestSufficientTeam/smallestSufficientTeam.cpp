@@ -68,15 +68,18 @@ class Solution {
   map<string, long long> valueLookup;
   vector<int> peopleMasks;
   void traverse(vector<int> cur, int curIdx, long long curval, int curSize) {
+    if (curIdx > peopleMasks.size()) return;
     if (curSize > minCount) return;
 
     if (curval == tgt) {
       if (minCount > curSize) {
         minCount = curSize;
         res = cur;
-        return;
       }
+
+      return;
     }
+
 
     vector<int> nextcur = cur;
     nextcur.push_back(curIdx);
@@ -106,6 +109,7 @@ class Solution {
     }
     vector<int> init;
     // permuations time
+
     traverse(init, 0, 0, 0);
 
     return res;
