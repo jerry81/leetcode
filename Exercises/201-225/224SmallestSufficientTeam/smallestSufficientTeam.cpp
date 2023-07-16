@@ -50,15 +50,32 @@ Acceptance Rate
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {
-
+      vector<int> ret;
+      return ret;
     }
 };
+
+int main () {
+  cerr << "expect 2 " << (2 | 0) << endl;
+  cerr << "expect 5 " << (1 | 4) << endl;
+  int test = 2;
+  test |= 2;
+  cerr << "expect 2 " << test << endl;
+  test |= 1;
+  cerr << "expect 3 " << test << endl;
+  test |= 4;
+  cerr << "expect 7 " << test << endl;
+  test |= 2;
+  cerr << "expect 7 " << test << endl;
+  return 0;
+}
 
 /*
 how to represent the required skills
