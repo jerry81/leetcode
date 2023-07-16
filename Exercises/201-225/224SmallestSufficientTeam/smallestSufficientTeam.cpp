@@ -59,3 +59,39 @@ public:
 
     }
 };
+
+/*
+how to represent the required skills
+hashtable strings -
+{
+  "java"
+  "cpp",
+  "js"
+}
+
+how to see if set of people meet the skills
+- hashes?
+person one
+{
+  "ruby"
+  "cpp"
+  ...
+}
+- when "add a person"
+  - remove keys
+  - so adding person one makes req
+{
+  "java",
+  "js"
+}
+
+permutations of people [0,1...np]
+tree
+              _
+          0          _
+      01     0     1     _
+012    01  02  0 12  1  2   _     2^np
+
+
+
+*/
