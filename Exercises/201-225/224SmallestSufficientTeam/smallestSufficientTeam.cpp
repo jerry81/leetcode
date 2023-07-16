@@ -60,7 +60,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
   int minCount = INT_MAX;
   long long tgt = 0;
@@ -68,7 +67,7 @@ class Solution {
   map<string, long long> valueLookup;
   vector<int> peopleMasks;
   void traverse(vector<int> cur, int curIdx, long long curval, int curSize) {
-    if (curIdx > peopleMasks.size()) return;
+
     if (curSize > minCount) return;
 
     if (curval == tgt) {
@@ -80,18 +79,20 @@ class Solution {
       return;
     }
 
+        if (curIdx >= peopleMasks.size()) return;
 
     vector<int> nextcur = cur;
     nextcur.push_back(curIdx);
-    traverse(cur, curIdx+1, curval, curSize);
-    traverse(nextcur, curIdx+1, curval+peopleMasks[curIdx], curSize+1);
+    traverse(cur, curIdx + 1, curval, curSize);
+    long long personSkillMask = peopleMasks[curIdx];
+    if (personSkillMask > 0) {
+      traverse(nextcur, curIdx + 1, curval + personSkillMask, curSize + 1);
+    }
   }
 
  public:
   vector<int> smallestSufficientTeam(vector<string>& req_skills,
                                      vector<vector<string>>& people) {
-
-
     for (int i = 0; i < req_skills.size(); ++i) {
       long long cur = pow(2, i);
       valueLookup[req_skills[i]] = cur;
