@@ -66,6 +66,19 @@ public:
         valueLookup[req_skills[i]] = cur;
         tgt+=cur;
       }
+      // masks of people
+      vector<int> peopleMasks;
+      for (int i = 0; i < people.size(); ++i) {
+        vector<string> temp = people[i];
+        long long cur = 0;
+        for (string s: temp) {
+          cur += valueLookup[s];
+        }
+        peopleMasks.push_back(cur);
+      }
+      for (auto a:peopleMasks) {
+        cout << "a is " << a << endl;
+      }
       vector<int> ret;
       return ret;
     }
