@@ -51,12 +51,21 @@ Acceptance Rate
 #include <vector>
 #include <string>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
 class Solution {
+
 public:
     vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {
+      long long tgt = 0;
+      map<string, long long> valueLookup;
+      for (int i = 0; i < req_skills.size(); ++i) {
+        long long cur = pow(2,i);
+        valueLookup[req_skills[i]] = cur;
+        tgt+=cur;
+      }
       vector<int> ret;
       return ret;
     }
