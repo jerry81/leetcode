@@ -1,0 +1,104 @@
+/*
+
+506. Relative Ranks
+Easy
+1.1K
+56
+Companies
+You are given an integer array score of size n, where score[i] is the score of
+the ith athlete in a competition. All the scores are guaranteed to be unique.
+
+The athletes are placed based on their scores, where the 1st place athlete has
+the highest score, the 2nd place athlete has the 2nd highest score, and so on.
+The placement of each athlete determines their rank:
+
+The 1st place athlete's rank is "Gold Medal".
+The 2nd place athlete's rank is "Silver Medal".
+The 3rd place athlete's rank is "Bronze Medal".
+For the 4th place to the nth place athlete, their rank is their placement number
+(i.e., the xth place athlete's rank is "x"). Return an array answer of size n
+where answer[i] is the rank of the ith athlete.
+
+
+
+Example 1:
+
+Input: score = [5,4,3,2,1]
+Output: ["Gold Medal","Silver Medal","Bronze Medal","4","5"]
+Explanation: The placements are [1st, 2nd, 3rd, 4th, 5th].
+Example 2:
+
+Input: score = [10,3,8,9,4]
+Output: ["Gold Medal","5","Bronze Medal","Silver Medal","4"]
+Explanation: The placements are [1st, 5th, 3rd, 2nd, 4th].
+
+
+
+Constraints:
+
+n == score.length
+1 <= n <= 104
+0 <= score[i] <= 106
+All the values in score are unique.
+Accepted
+130.8K
+Submissions
+213.1K
+Acceptance Rate
+61.4%
+
+*/
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct Rank {
+  int idx;
+  int score;
+  int rank;
+};
+
+class Solution {
+  static bool compare(Rank a, Rank b) {
+    return a.score > b.score;
+  }
+  static bool compare2(Rank a, Rank b) {
+    return a.idx < b.idx;
+  }
+ public:
+  vector<string> findRelativeRanks(vector<int>& score) {
+    vector<Rank> ranks;
+    for (int i = 0; i < score.size(); ++i) {
+      int curS = score[i];
+      Rank r;
+      r.idx = i;
+      r.score = curS;
+      ranks.push_back(r);
+    }
+    sort(ranks.begin(), ranks.end(), compare);
+
+    for (int i = 0; i < ranks.size(); ++i) {
+      ranks[i].rank = i;
+    }
+
+    sort(ranks.begin(), ranks.end(), compare2);
+
+    vector<string> ret;
+    for (Rank r: ranks) {
+      string cur = to_string(r.rank+1);
+      if (r.rank == 0) {
+        cur = "Gold Medal";
+      }
+      if (r.rank == 1) {
+        cur = "Silver Medal";
+      }
+      if (r.rank == 2) {
+        cur = "Bronze Medal";
+      }
+      ret.push_back(cur);
+    }
+    return ret;
+  }
+};
