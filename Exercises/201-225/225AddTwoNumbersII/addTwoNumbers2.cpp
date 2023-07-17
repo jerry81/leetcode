@@ -93,7 +93,7 @@ class Solution {
     int ptr2 = s2;
     ListNode* cur = new ListNode();
     bool carry = false;
-    while (ptr1 >= 0 && ptr2 >= 0) {
+    while (ptr1 >= 0 || ptr2 >= 0 || carry > 0) {
       int sum;
       int addend1;
       int addend2;
