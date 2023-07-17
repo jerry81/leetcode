@@ -91,7 +91,7 @@ class Solution {
     int s2 = v2.size() - 1;
     int ptr1 = s1;
     int ptr2 = s2;
-    ListNode* cur;
+    ListNode* cur = new ListNode();
     bool carry = false;
     while (ptr1 >= 0 && ptr2 >= 0) {
       int sum;
@@ -118,9 +118,12 @@ class Solution {
       }
       cur->val = sum;
 
-      ListNode* next;
-      next->next = cur;
-      cur = next;
+      ListNode* nn = new ListNode();
+      nn->next = cur;
+      cur = nn;
+      offset++;
+      ptr1 = s1 - offset;
+      ptr2 = s2 - offset;
     }
     return cur->next;
   }
