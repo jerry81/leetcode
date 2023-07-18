@@ -102,6 +102,7 @@ class LRUCache {
       Node* toRmv = cache[key];
       if (front != nullptr && front == cache[key]) {
         front = front->prev;
+        cout << "front replaced " << endl;
       }
       cache.erase(key);
 
@@ -124,6 +125,8 @@ class LRUCache {
       cache[key] = n;
 
       back = n;
+
+      if (front == nullptr) front = n;
 
       return back->val;
     }
@@ -178,12 +181,8 @@ class LRUCache {
     back = n;
     cache[key] = n;
     cout << "set key " << key << endl;
+    cout << "front is " << front->key << endl;
+    cout << "back is " << back->key << endl;
     print(back);
   }
 };
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
