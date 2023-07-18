@@ -105,17 +105,23 @@ class LRUCache {
       Node* toRmv = cache[key];
       if (front != nullptr && front == cache[key]) {
         front = front->prev;
-        cout << "front replaced " << endl;
+        if (front != nullptr) front->next = nullptr;
+        // cout << "front replaced and is now " << front->key << endl;
       }
       cache.erase(key);
-
+      cout << "stitching " << endl;
       if (toRmv->prev != nullptr) {
+        cout << "toRmv prev is something " << endl;
         toRmv->prev->next = toRmv->next;
       }
 
       if (toRmv->next != nullptr) {
+        cout << "toRmv next is something " << endl;
+        cout << "it is " << toRmv->next->key << endl;;
         toRmv->next->prev = toRmv->prev;
       }
+
+      if (back == toRmv) back = back->next;
 
       Node* n = new Node();
       n->key = key;
@@ -130,7 +136,8 @@ class LRUCache {
       back = n;
 
       if (front == nullptr) front = n;
-
+      cout << "get " << key << endl;
+      print(back);
       return back->val;
     }
   }
@@ -182,7 +189,6 @@ class LRUCache {
     }
 
     if (back != nullptr) {
-      Node* temp = n;
       back->prev = n;
       n->next = back;
     }
