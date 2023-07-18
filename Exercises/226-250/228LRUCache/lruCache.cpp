@@ -70,6 +70,7 @@ every action is delete and insert
 
 struct Node {
   int val;
+  int key;
   Node* next;
   Node* prev;
 };
@@ -92,23 +93,42 @@ class LRUCache {
     if (cache.find(key) == cache.end()) {
       return -1;
     } else {
-      Node* n = cache[key];
-      return n->val;
+      Node* toRmv = cache[key];
+      cache.erase(key);
+      if (toRmv->prev != nullptr) {
+        toRmv->prev->next = toRmv->next;
+      }
+
+      if (toRmv->next != nullptr) {
+        toRmv->next->prev = toRmv->prev;
+      }
+
+      Node* n = new Node();
+      n->key = key;
+      n->val = toRmv->val;
+      if (back!=nullptr) {
+        back->prev = n;
+        n->next = back;
+      }
+
+      cache[key] = n;
+
+      return back->val;
     }
   }
 
   void put(int key, int value) {
     Node* n = new Node();
     n->val = value;
+    n->key = key;
     if (cache.find(key) == cache.end()) {
       // add
       // if capacity not reached.
       if (count < _capacity) {
         count++;
-        cache[key] = n;
       } else {
         Node* toRmv = front;
-        cache.erase(toRmv->);
+        cache.erase(toRmv->key);
         if (toRmv->prev != nullptr) {
           toRmv->prev->next = toRmv->next;
         }
@@ -116,7 +136,6 @@ class LRUCache {
           toRmv->next->prev = toRmv->prev;
         }
       }
-      // this is the new back
     } else {
       // update
       cache[key] = n;
@@ -128,10 +147,14 @@ class LRUCache {
         toRmv->next->prev = toRmv->prev;
       }
     }
-    if (front != nullptr) {
-      front->next = n;
+
+    if (back != nullptr) {
+      Node* temp = n;
+      back->prev = n;
+      n->next = back;
     }
-    front = n;
+    back = n;
+    cache[key] = n;
   }
 };
 
