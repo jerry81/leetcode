@@ -75,10 +75,12 @@ struct Node {
   Node* prev;
 };
 void print(Node* fr) {
+  cout << "-------PRINTING------" << endl;
   while (fr != nullptr) {
-    cout << "val is " << fr->val << "key is " << fr->key << endl;
+    cout << "key is " << fr->key << endl;
     fr = fr->next;
   }
+  cout << "------DONE--------"<<endl;
 }
 class LRUCache {
   int _capacity;
@@ -96,6 +98,7 @@ class LRUCache {
   }
 
   int get(int key) {
+    cout << "-----GET-----" << key << endl;
     if (cache.find(key) == cache.end()) {
       return -1;
     } else {
@@ -133,6 +136,7 @@ class LRUCache {
   }
 
   void put(int key, int value) {
+    cout << "-----PUT-----" << key <<","<<value<< endl;
     Node* n = new Node();
     n->val = value;
     n->key = key;
@@ -159,8 +163,12 @@ class LRUCache {
       }
     } else {
       // update
-      cache[key] = n;
       Node* toRmv = cache[key];
+      if (front == cache[key]) {
+        front = front->prev;
+      }
+      cache.erase(key);
+
       if (toRmv->prev != nullptr) {
         toRmv->prev->next = toRmv->next;
       }
