@@ -78,6 +78,8 @@ class LRUCache {
   unordered_map<int, Node*> cache;
   int seq;
   int count;
+  Node* front = nullptr;
+  Node* back = nullptr;
 
  public:
   LRUCache(int capacity) {
@@ -90,16 +92,46 @@ class LRUCache {
     if (cache.find(key) == cache.end()) {
       return -1;
     } else {
-
+      Node* n = cache[key];
+      return n->val;
     }
   }
 
   void put(int key, int value) {
+    Node* n = new Node();
+    n->val = value;
     if (cache.find(key) == cache.end()) {
+      // add
+      // if capacity not reached.
+      if (count < _capacity) {
+        count++;
+        cache[key] = n;
+      } else {
+        Node* toRmv = front;
+        cache.erase(toRmv->);
+        if (toRmv->prev != nullptr) {
+          toRmv->prev->next = toRmv->next;
+        }
+        if (toRmv->next != nullptr) {
+          toRmv->next->prev = toRmv->prev;
+        }
+      }
+      // this is the new back
     } else {
-
-       cache[key] = value;
+      // update
+      cache[key] = n;
+      Node* toRmv = cache[key];
+      if (toRmv->prev != nullptr) {
+        toRmv->prev->next = toRmv->next;
+      }
+      if (toRmv->next != nullptr) {
+        toRmv->next->prev = toRmv->prev;
+      }
     }
+    if (front != nullptr) {
+      front->next = n;
+    }
+    front = n;
   }
 };
 
