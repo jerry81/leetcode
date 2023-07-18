@@ -141,16 +141,18 @@ class LRUCache {
       } else {
 
         Node* toRmv = front;
-        // if (front->prev != nullptr) {
-        //   front = front->prev;
-        // }
+
+        cout << "will remove " << toRmv->key << endl;
         cache.erase(toRmv->key);
         if (toRmv->prev != nullptr) {
           toRmv->prev->next = toRmv->next;
+          front=front->prev;
+
         }
         if (toRmv->next != nullptr) {
           toRmv->next->prev = toRmv->prev;
         }
+
       }
     } else {
       // update
@@ -179,7 +181,6 @@ class LRUCache {
     print(back);
   }
 };
-
 /**
  * Your LRUCache object will be instantiated and called as such:
  * LRUCache* obj = new LRUCache(capacity);
