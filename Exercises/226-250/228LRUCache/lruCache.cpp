@@ -128,6 +128,7 @@ class LRUCache {
         count++;
       } else {
         Node* toRmv = front;
+        front = front->prev;
         cache.erase(toRmv->key);
         if (toRmv->prev != nullptr) {
           toRmv->prev->next = toRmv->next;
@@ -146,6 +147,10 @@ class LRUCache {
       if (toRmv->next != nullptr) {
         toRmv->next->prev = toRmv->prev;
       }
+    }
+
+    if (front == nullptr) {
+      front = n;
     }
 
     if (back != nullptr) {
