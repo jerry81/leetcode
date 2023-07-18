@@ -74,6 +74,12 @@ struct Node {
   Node* next;
   Node* prev;
 };
+void print(Node* fr) {
+  while (fr != nullptr) {
+    cout << "val is " << fr->val << "key is " << fr->key << endl;
+    fr = fr->next;
+  }
+}
 class LRUCache {
   int _capacity;
   unordered_map<int, Node*> cache;
@@ -94,7 +100,11 @@ class LRUCache {
       return -1;
     } else {
       Node* toRmv = cache[key];
+      if (front != nullptr && front == cache[key]) {
+        front = front->prev;
+      }
       cache.erase(key);
+
       if (toRmv->prev != nullptr) {
         toRmv->prev->next = toRmv->next;
       }
@@ -106,12 +116,14 @@ class LRUCache {
       Node* n = new Node();
       n->key = key;
       n->val = toRmv->val;
-      if (back!=nullptr) {
+      if (back != nullptr) {
         back->prev = n;
         n->next = back;
       }
 
       cache[key] = n;
+
+      back = n;
 
       return back->val;
     }
@@ -127,8 +139,11 @@ class LRUCache {
       if (count < _capacity) {
         count++;
       } else {
+
         Node* toRmv = front;
-        front = front->prev;
+        // if (front->prev != nullptr) {
+        //   front = front->prev;
+        // }
         cache.erase(toRmv->key);
         if (toRmv->prev != nullptr) {
           toRmv->prev->next = toRmv->next;
@@ -160,6 +175,8 @@ class LRUCache {
     }
     back = n;
     cache[key] = n;
+    cout << "set key " << key << endl;
+    print(back);
   }
 };
 
