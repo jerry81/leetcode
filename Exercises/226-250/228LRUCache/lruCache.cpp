@@ -5,14 +5,17 @@ Medium
 18.1K
 800
 Companies
-Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+Design a data structure that follows the constraints of a Least Recently Used
+(LRU) cache.
 
 Implement the LRUCache class:
 
 LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
-int get(int key) Return the value of the key if the key exists, otherwise return -1.
-void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
-The functions get and put must each run in O(1) average time complexity.
+int get(int key) Return the value of the key if the key exists, otherwise return
+-1. void put(int key, int value) Update the value of the key if the key exists.
+Otherwise, add the key-value pair to the cache. If the number of keys exceeds
+the capacity from this operation, evict the least recently used key. The
+functions get and put must each run in O(1) average time complexity.
 
 
 
@@ -52,19 +55,52 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
+
+using namespace std;
+
+/*
+
+new strat -
+DLL
+map of ptrs
+
+every action is delete and insert
+*/
+
+struct Node {
+  int val;
+  Node* next;
+  Node* prev;
+};
 class LRUCache {
-public:
-    LRUCache(int capacity) {
+  int _capacity;
+  unordered_map<int, Node*> cache;
+  int seq;
+  int count;
+
+ public:
+  LRUCache(int capacity) {
+    _capacity = capacity;
+    seq = 0;
+    count = 0;
+  }
+
+  int get(int key) {
+    if (cache.find(key) == cache.end()) {
+      return -1;
+    } else {
 
     }
+  }
 
-    int get(int key) {
+  void put(int key, int value) {
+    if (cache.find(key) == cache.end()) {
+    } else {
 
+       cache[key] = value;
     }
-
-    void put(int key, int value) {
-
-    }
+  }
 };
 
 /**
