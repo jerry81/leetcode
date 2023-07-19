@@ -53,7 +53,7 @@ public:
       for (auto a: intervals) {
         imap[a[1]].push_back(a[0]);
       }
-      int ret = 0;
+      int ret = INT_MIN;
       // sort vectors by start (reverse)
       int prevMax = 0;
       for (auto p: imap) {
