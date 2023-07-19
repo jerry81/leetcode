@@ -41,13 +41,60 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+      // make map of vectors of intervals
+      map<int, vector<int>> imap;
+      for (auto a: intervals) {
+        imap[a[1]].push_back(a[0]);
+      }
+      int ret = 0;
+      // sort vectors by start (reverse)
+      int prevMax = 0;
+      for (auto p: imap) {
+        sort(p.second.begin(), p.second.end());
+        reverse(p.second.begin(), p.second.end());
+        if (p.second[0] >= prevMax) {
+          ret+=p.second.size() - 1;
+        } else {
+          ret+=p.second.size();
+        }
+      }
+
+
+      return ret;
 
     }
 };
 
+/*
+
+[[1,2],[2,3],[3,4],[1,3]]
+
+1 2    2 3   3 4    1 3
+1 2 3 4
+1 1 1 1
+1->2
+   2->3
+      3->4
+1---->3
+
+[[1,2],[1,2],[1,2]]
+
+1->2
+1->2
+1->2
+
+1->7
+6->8
+3->9
+4->10
+3->11
+
+
+*/
