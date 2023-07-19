@@ -98,22 +98,22 @@ class LRUCache {
   }
 
   int get(int key) {
-    cout << "-----GET-----" << key << endl;
+   // cout << "-----GET-----" << key << endl;
     if (cache.find(key) == cache.end()) {
       return -1;
     } else {
       Node* toRmv = cache[key];
 
       cache.erase(key);
-      cout << "stitching " << endl;
+     // cout << "stitching " << endl;
       if (toRmv->prev != nullptr) {
-        cout << "toRmv prev is something " << endl;
+     //   cout << "toRmv prev is something " << endl;
         toRmv->prev->next = toRmv->next;
       }
 
       if (toRmv->next != nullptr) {
-        cout << "toRmv next is something " << endl;
-        cout << "it is " << toRmv->next->key << endl;;
+      //  cout << "toRmv next is something " << endl;
+   //     cout << "it is " << toRmv->next->key << endl;;
         toRmv->next->prev = toRmv->prev;
       }
       if (front != nullptr && front == toRmv) {
@@ -139,14 +139,14 @@ class LRUCache {
       back = n;
 
       if (front == nullptr) front = n;
-      cout << "get " << key << endl;
-      print(back);
+    //  cout << "get " << key << endl;
+     // print(back);
       return back->val;
     }
   }
 
   void put(int key, int value) {
-    cout << "-----PUT-----" << key <<","<<value<< endl;
+  //  cout << "-----PUT-----" << key <<","<<value<< endl;
     Node* n = new Node();
     n->val = value;
     n->key = key;
@@ -159,7 +159,7 @@ class LRUCache {
 
         Node* toRmv = front;
 
-        cout << "will remove " << toRmv->key << endl;
+     //   cout << "will remove " << toRmv->key << endl;
         cache.erase(toRmv->key);
         if (toRmv->prev != nullptr) {
           toRmv->prev->next = toRmv->next;
@@ -202,9 +202,9 @@ class LRUCache {
     }
     back = n;
     cache[key] = n;
-    cout << "set key " << key << endl;
-    cout << "front is " << front->key << endl;
-    cout << "back is " << back->key << endl;
-    print(back);
+  //  cout << "set key " << key << endl;
+  //  cout << "front is " << front->key << endl;
+  //  cout << "back is " << back->key << endl;
+    // print(back);
   }
 };
