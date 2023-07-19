@@ -61,6 +61,7 @@ public:
         reverse(p.second.begin(), p.second.end());
         if (p.second[0] >= prevMax) {
           ret+=p.second.size() - 1;
+          prevMax = p.first;
         } else {
           ret+=p.second.size();
         }
