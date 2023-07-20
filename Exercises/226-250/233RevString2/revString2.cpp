@@ -38,14 +38,28 @@ Acceptance Rate
 #include <string>
 
 using namespace std;
-
 class Solution {
+  string r(string s) {
+    string ret = "";
+    for (int i = s.size()-1; i >= 0; --i) {
+      ret.push_back(s[i]);
+    }
+    return ret;
+  }
 public:
     string reverseStr(string s, int k) {
       // chop and stitch
-      for (int i = 0; i*k < s.size(); i+=k) {
+      bool flipper = true;
+      string ret = "";
+      for (int i = 0; i <= s.size(); i+=k) {
         string temp = s.substr(i,k);
-        cout << "temp is " << temp << endl;
+        if (flipper) {
+          ret+=r(temp);
+        } else {
+          ret+=temp;
+        }
+        flipper=!flipper;
       }
+      return ret;
     }
 };
