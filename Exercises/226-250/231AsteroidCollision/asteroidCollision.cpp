@@ -58,29 +58,43 @@ class Solution {
   vector<int> asteroidCollision(vector<int>& asteroids) {
     vector<int> ret;
     for (int i : asteroids) {
-      while (true) {
-        if (ret.empty()) {
-          ret.push_back(i);
-          break;
+      if (ret.empty()) {
+        ret.push_back(i);
+        continue;
+      }
+      int bk = ret.back();
+      bool oppositeSigns = (bk < 0 && i >= 0) || (bk >= 0 && i < 0);
+      if (oppositeSigns) {
+        if (abs(bk) == abs(i)) {
+          ret.pop_back();
+          continue;
         }
 
-        int bk = ret.back();
-        bool oppositeSigns = (bk < 0 && i >= 0) || (bk >= 0 && i < 0);
-        if (oppositeSigns) {
-          if (abs(bk) <= abs(i)) {
-            ret.pop_back();
-          }
-
-          if (abs(bk) < abs(i)) {
+        while (!ret.empty() && abs(bk) < abs(i)) {
+          ret.pop_back();
+          if (ret.empty()) {
             ret.push_back(i);
             break;
           }
-        } else {
-          ret.push_back(i);
-          break;
+          bk = ret.back();
+          oppositeSigns = (bk < 0 && i >= 0) || (bk >= 0 && i < 0);
+          if (!oppositeSigns) {
+            ret.push_back(i);
+            break;
+          }
+          if (abs(i) == abs(bk)) {
+            ret.pop_back();
+            break;
+          }
+          if (abs(i) < abs(bk)) {
+            break;
+          }
         }
+      } else {
+        ret.push_back(i);
       }
     }
+
     return ret;
   }
 };
