@@ -63,7 +63,7 @@ class Solution {
         continue;
       }
       int bk = ret.back();
-      bool oppositeSigns = (bk < 0 && i >= 0) || (bk >= 0 && i < 0);
+      bool oppositeSigns = (bk >= 0 && i < 0);
       if (oppositeSigns) {
         if (abs(bk) == abs(i)) {
           ret.pop_back();
@@ -77,7 +77,7 @@ class Solution {
             break;
           }
           bk = ret.back();
-          oppositeSigns = (bk < 0 && i >= 0) || (bk >= 0 && i < 0);
+          oppositeSigns = (bk >= 0 && i < 0);
           if (!oppositeSigns) {
             ret.push_back(i);
             break;
