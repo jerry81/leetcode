@@ -42,24 +42,10 @@ using namespace std;
 class Solution {
 public:
     string reverseStr(string s, int k) {
-      string ret = "";
-      ret.resize(s.size(), ' ');
-
-      for (int i = 0; i < s.size(); ++i) {
-        // k == 2
-        // 0 1 3 2 4 5 7 6
-        // 0 1 2 3 4 5 6 7
-        // f   b   f   b
-        int base = i/k;
-        int rem = i % k;
-        if (rem == 0) rem = k;
-        bool forwards = base % 2 == 0;
-        if (forwards) {
-          ret[i] = s[i];
-        } else {
-          ret[i] = s[base+k-rem];
-        }
+      // chop and stitch
+      for (int i = 0; i*k < s.size(); i+=k) {
+        string temp = s.substr(i,k);
+        cout << "temp is " << temp << endl;
       }
-      return ret;
     }
 };
