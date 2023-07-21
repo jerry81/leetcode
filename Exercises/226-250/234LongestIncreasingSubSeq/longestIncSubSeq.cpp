@@ -50,3 +50,7 @@ public:
 
     }
 };
+
+// increasing subsequence from i
+// memoize the results?
+// brute force each index
