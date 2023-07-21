@@ -44,6 +44,7 @@ Acceptance Rate
 
 #include <unordered_map>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -56,9 +57,11 @@ class Solution {
     int cur = nums[idx];
     if (cur < last) {
       // take or leave
-      lookup[idx] = max()
+      lookup[idx] = max(r(nums, idx-1,last),1+r(nums,idx-1,cur));
     } else {
+      lookup[idx] = max(r(nums, idx-1, last), r(nums,idx-1,cur));
     }
+    return lookup[idx];
   }
 
  public:
@@ -66,7 +69,7 @@ class Solution {
     int ret = 1;
     int mx = 0;
     for (int i = nums.size()-1; i >= 0; --i) {
-      int maxIS = r(nums, i);
+      int maxIS = r(nums, i, INT_MAX);
       if (maxIS > mx) {
         mx = maxIS;
         ret = 1;
@@ -78,6 +81,14 @@ class Solution {
     return ret;
   }
 };
+
+int main() {
+  Solution s;
+  vector<int> test1 = {2,2,2,2,2};
+  cout << "expect 5 " << s.findNumberOfLIS(test1) << endl;
+  vector<int> test2 = {1,2,3,4,5};
+  cout << "expect 1 " << s.findNumberOfLIS(test2) << endl;
+}
 
 // increasing subsequence from i
 // memoize the results?
