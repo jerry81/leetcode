@@ -7,9 +7,11 @@ Easy
 Companies
 Given the root of a binary tree, return the length of the diameter of the tree.
 
-The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+The diameter of a binary tree is the length of the longest path between any two
+nodes in a tree. This path may or may not pass through the root.
 
-The length of a path between two nodes is represented by the number of edges between them.
+The length of a path between two nodes is represented by the number of edges
+between them.
 
 
 
@@ -46,41 +48,38 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
-class Solution {
-int max = 0;
-int r(TreeNode* root) {
-  if (root == nullptr) return 0;
-
-  int pathLen = 1+ r(root->left) + r(root->right);
-  if (pathLen > max) max = pathLen;
-  return pathLen;
-}
-public:
-    int diameterOfBinaryTree(TreeNode* root) {
-      r(root);
-      return max;
-    }
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
 };
+class Solution {
+  int mx = 0;
+  int heightr(TreeNode *root) {
+    if (root == nullptr) return 0;
+    return max(1 + heightr(root->left), 1 + heightr(root->right));
+  }
 
-/*
+  void r(TreeNode *root) {
+    if (root == nullptr) return;
+    int sm = heightr(root->left) + heightr(root->right);
+    if (sm > mx) mx = sm;
+    r(root->left);
+    r(root->right);
+  }
 
-
-// 1 2 4
-// 1 2 5
-// 1 3
-// left depth + right depth
-// try for each node
-
-*/
+ public:
+  int diameterOfBinaryTree(TreeNode *root) {
+    r(root);
+    return mx;
+  }
+};
