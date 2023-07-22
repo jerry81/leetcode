@@ -41,56 +41,61 @@ Output: 1.00000
 */
 
 using namespace std;
+#include <cmath>
 #include <queue>
+#include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
-#include <cmath>
 
 class Solution {
   vector<pair<int, int>> moves = {{2, 1},  {2, -1},  {1, 2},  {1, -2},
                                   {-2, 1}, {-2, -1}, {-1, 2}, {-1, -2}};
+  vector<vector<double>> probabilities;
 
  public:
   double knightProbability(int n, int k, int row, int column) {
     double inCount = 0;
-    queue<pair<int, int>> curMoves;
-    curMoves.push({row, column});
+    probabilities.resize(n, vector<double>(n, 0));
+    probabilities[row][column] = 1;
+    if (k == 0) return 1;
+
     int moveCount = 0;
+    double ret = 1;
     while (moveCount < k) {
-      queue<pair<int, int>> nextMoves;
       moveCount++;
-      while (!curMoves.empty()) {
-        pair<int, int> curMove = curMoves.front();
-        curMoves.pop();
-        for (auto move : moves) {
-          long long nextRow = curMove.first + move.first;
-          long long nextcol = curMove.second + move.second;
-          if (nextRow >= 0 && nextcol >= 0) {
-            if (nextRow < n && nextcol < n) {
-              nextMoves.push(
-                  {curMove.first + move.first, curMove.second + move.second});
+      vector<vector<double>> nextProbs(n, vector<double>(n, 0));
+      for (int r = 0; r < n; ++r) {
+        for (int c = 0; c < n; ++c) {
+          for (auto move : moves) {
+            long long nextRow = r + move.first;
+            long long nextcol = c + move.second;
+            if (nextRow >= 0 && nextcol >= 0) {
+              if (nextRow < n && nextcol < n) {
+                nextProbs[nextRow][nextcol]+=(probabilities[nextRow][nextcol]/8.0);
+              }
             }
           }
         }
       }
-      curMoves = nextMoves;
+      probabilities = nextProbs;
     }
-    double sz = curMoves.size();
-    while (!curMoves.empty()) {
-      auto point = curMoves.front();
-      if (point.first >= 0 && point.second >= 0) {
-        if (point.first < n && point.second < n) {
-          inCount++;
-        }
+
+    for (int r=0; r < n; ++r) {
+      for (int c=0; c<n;++c) {
+        ret+=probabilities[r][c];
       }
-      curMoves.pop();
     }
-    return inCount / (double)pow(8,k);
-  }
-};
 
-/*
+    return ret;
+  };
 
-OOPS
-missed the line moves "until it it has moved off the board"
-*/
+  /*
+
+  OOPS
+  missed the line moves "until it it has moved off the board"
+
+  but now we have mem limit exceeded.  which makes this an optimization problem
+  at its core.
+
+  */
