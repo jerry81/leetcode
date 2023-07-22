@@ -47,7 +47,6 @@ using namespace std;
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
 class Solution {
   vector<pair<int, int>> moves = {{2, 1},  {2, -1},  {1, 2},  {1, -2},
                                   {-2, 1}, {-2, -1}, {-1, 2}, {-1, -2}};
@@ -61,7 +60,7 @@ class Solution {
     if (k == 0) return 1;
 
     int moveCount = 0;
-    double ret = 1;
+    double ret = 0;
     while (moveCount < k) {
       moveCount++;
       vector<vector<double>> nextProbs(n, vector<double>(n, 0));
@@ -72,7 +71,7 @@ class Solution {
             long long nextcol = c + move.second;
             if (nextRow >= 0 && nextcol >= 0) {
               if (nextRow < n && nextcol < n) {
-                nextProbs[nextRow][nextcol]+=(probabilities[nextRow][nextcol]/8.0);
+                nextProbs[r][c] += (probabilities[nextRow][nextcol] / 8.0);
               }
             }
           }
@@ -81,21 +80,21 @@ class Solution {
       probabilities = nextProbs;
     }
 
-    for (int r=0; r < n; ++r) {
-      for (int c=0; c<n;++c) {
-        ret+=probabilities[r][c];
+    for (int r = 0; r < n; ++r) {
+      for (int c = 0; c < n; ++c) {
+        ret += probabilities[r][c];
       }
     }
 
     return ret;
-  };
+  }
+};
+/*
 
-  /*
+OOPS
+missed the line moves "until it it has moved off the board"
 
-  OOPS
-  missed the line moves "until it it has moved off the board"
+but now we have mem limit exceeded.  which makes this an optimization problem
+at its core.
 
-  but now we have mem limit exceeded.  which makes this an optimization problem
-  at its core.
-
-  */
+*/
