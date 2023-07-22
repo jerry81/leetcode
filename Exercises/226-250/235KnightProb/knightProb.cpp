@@ -44,6 +44,7 @@ using namespace std;
 #include <queue>
 #include <utility>
 #include <vector>
+#include <cmath>
 
 class Solution {
   vector<pair<int, int>> moves = {{2, 1},  {2, -1},  {1, 2},  {1, -2},
@@ -62,8 +63,14 @@ class Solution {
         pair<int, int> curMove = curMoves.front();
         curMoves.pop();
         for (auto move : moves) {
-          nextMoves.push(
-              {curMove.first + move.first, curMove.second + move.second});
+          long long nextRow = curMove.first + move.first;
+          long long nextcol = curMove.second + move.second;
+          if (nextRow >= 0 && nextcol >= 0) {
+            if (nextRow < n && nextcol < n) {
+              nextMoves.push(
+                  {curMove.first + move.first, curMove.second + move.second});
+            }
+          }
         }
       }
       curMoves = nextMoves;
@@ -78,6 +85,12 @@ class Solution {
       }
       curMoves.pop();
     }
-    return inCount/((double)sz);
+    return inCount / (double)pow(8,k);
   }
 };
+
+/*
+
+OOPS
+missed the line moves "until it it has moved off the board"
+*/
