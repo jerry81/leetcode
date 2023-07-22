@@ -59,8 +59,28 @@ Acceptance Rate
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
+int max = 0;
+int r(TreeNode* root) {
+  if (root == nullptr) return 0;
+
+  int pathLen = 1+ r(root->left) + r(root->right);
+  if (pathLen > max) max = pathLen;
+  return pathLen;
+}
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-
+      r(root);
+      return max;
     }
 };
+
+/*
+
+
+// 1 2 4
+// 1 2 5
+// 1 3
+// left depth + right depth
+// try for each node
+
+*/
