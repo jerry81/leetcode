@@ -50,26 +50,26 @@ using namespace std;
 
 class Solution {
   unordered_map<int, int> lookup;
-  int r(vector<int>& nums, int idx, int last) {
-    if (idx < 0) return 0;
+  int r(vector<int>& nums, int idx, int last, int stopAt) {
+    if (idx < stopAt) return 0;
     if (lookup.find(idx) != lookup.end()) return lookup[idx];
     if (idx >= nums.size()-1) return 1;
     int cur = nums[idx];
     if (cur < last) {
       // take or leave
-      lookup[idx] = max(r(nums, idx-1,last),1+r(nums,idx-1,cur));
+      lookup[idx] = max(r(nums, idx-1,last,stopAt),1+r(nums,idx-1,cur,stopAt));
     } else {
-      lookup[idx] = max(r(nums, idx-1, last), r(nums,idx-1,cur));
+      lookup[idx] = max(r(nums, idx-1, last,stopAt), r(nums,idx-1,cur,stopAt));
     }
     return lookup[idx];
   }
 
  public:
   int findNumberOfLIS(vector<int>& nums) {
-    int ret = 1;
+    int ret = 0;
     int mx = 0;
     for (int i = nums.size()-1; i >= 0; --i) {
-      int maxIS = r(nums, i, INT_MAX);
+      int maxIS = r(nums, nums.size()-1, INT_MAX, i);
       if (maxIS > mx) {
         mx = maxIS;
         ret = 1;
@@ -86,8 +86,9 @@ int main() {
   Solution s;
   vector<int> test1 = {2,2,2,2,2};
   cout << "expect 5 " << s.findNumberOfLIS(test1) << endl;
+  Solution s2;
   vector<int> test2 = {1,2,3,4,5};
-  cout << "expect 1 " << s.findNumberOfLIS(test2) << endl;
+  cout << "expect 1 " << s2.findNumberOfLIS(test2) << endl;
 }
 
 // increasing subsequence from i
