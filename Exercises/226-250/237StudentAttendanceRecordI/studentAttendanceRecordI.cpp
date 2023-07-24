@@ -50,6 +50,26 @@ using namespace std;
 class Solution {
 public:
     bool checkRecord(string s) {
+      int inARow = 0;
+      int totalAbs = 0;
+      for (char c: s) {
+        if (c == 'A') {
+          totalAbs++;
+          if (totalAbs > 1) return false;
 
+          inARow = 0;
+          continue;
+        }
+        if (c == 'L') {
+          inARow++;
+
+          if (inARow >= 3) return false;
+
+          continue;
+        }
+
+        inARow = false;
+      }
+      return true;
     }
 };
