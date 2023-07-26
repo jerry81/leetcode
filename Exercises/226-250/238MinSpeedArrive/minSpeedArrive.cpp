@@ -85,15 +85,17 @@ public:
 
       int low = 1;
       int high = pow(10,7);
-      int res = high;
+      int res = low;
       while (low < high) {
         int mid = (low+high) / 2;
-        int res = helper(dist, mid);
-        if (res <= hour) {
+        double res2 = helper(dist, mid);
+        cout << "res2 is " << res2 << endl;
+        if (res2 <= hour) {
+          cout << "res2 is now " << mid << endl;
           res = mid;
-          low = mid+1;
-        } else {
           high = mid-1;
+        } else {
+          low = mid+1;
         }
       }
       return res;
