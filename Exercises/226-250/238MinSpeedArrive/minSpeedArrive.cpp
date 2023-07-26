@@ -85,13 +85,18 @@ public:
 
       int low = 1;
       int high = pow(10,7);
+      int res = high;
       while (low < high) {
         int mid = (low+high) / 2;
         int res = helper(dist, mid);
-        if (res < hour) {
+        if (res <= hour) {
+          res = mid;
+          low = mid+1;
+        } else {
+          high = mid-1;
         }
       }
-      return 0;
+      return res;
     }
 };
 
