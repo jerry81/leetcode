@@ -58,13 +58,30 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
+int helper(vector<int>& dist, int speed) {
+  int sum = 0;
+  for (int i: dist) {
+    double quo = (double)dist[i]/(double)speed;
+    if (quo == (int)quo) {
+      sum+=(int)quo;
+    } else {
+      sum+=(int)quo+1;
+    }
+  }
+  return sum;
+}
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) {
       if (hour < (dist.size()-1)) return -1;
+
+      int min = 1;
+      int max = pow(10,7);
+      return 0;
     }
 };
 
