@@ -57,9 +57,26 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) {
-
+      if (hour < (dist.size()-1)) return -1;
     }
 };
+
+/*
+
+bsearch problem?
+
+bounds
+
+check upper bound -  (> size of vector - 1)
+
+lower bound - 1 km/hr
+-
+
+*/
