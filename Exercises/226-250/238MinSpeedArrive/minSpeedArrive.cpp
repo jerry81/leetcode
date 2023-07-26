@@ -85,20 +85,22 @@ public:
 
       int low = 1;
       int high = pow(10,7);
-      int res = low;
+      int res = high;
       while (low < high) {
         int mid = (low+high) / 2;
         double res2 = helper(dist, mid);
-        cout << "res2 is " << res2 << endl;
+        cout << "res2 using " << mid << " is " << res2 << endl;
+        cout << res2 << " <= " << hour << " is " << to_string((int)(res2 <= hour)) << endl;
         if (res2 <= hour) {
-          cout << "res2 is now " << mid << endl;
           res = mid;
+          cout << "res is now " << res << endl;
           high = mid-1;
         } else {
+          cout << "greater than " << endl;
           low = mid+1;
         }
       }
-      return res;
+      return (res==high)? high : res-1;
     }
 };
 
