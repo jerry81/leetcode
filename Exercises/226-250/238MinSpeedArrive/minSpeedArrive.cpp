@@ -89,18 +89,17 @@ public:
       while (low < high) {
         int mid = (low+high) / 2;
         double res2 = helper(dist, mid);
-        cout << "res2 using " << mid << " is " << res2 << endl;
-        cout << res2 << " <= " << hour << " is " << to_string((int)(res2 <= hour)) << endl;
         if (res2 <= hour) {
           res = mid;
-          cout << "res is now " << res << endl;
           high = mid-1;
         } else {
-          cout << "greater than " << endl;
           low = mid+1;
         }
       }
-      return (res==high)? high : res-1;
+      if (low == high) {
+        if (helper(dist, low) <= hour) return low;
+      }
+      return helper(dist, res) <= hour ? res : res-1;
     }
 };
 
