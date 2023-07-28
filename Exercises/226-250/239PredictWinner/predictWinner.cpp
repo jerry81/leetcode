@@ -55,24 +55,21 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
-  int scoreR(int front, int back, vector<int>& nums, bool p1, int &sum) {
-    if (front > back) return 0;
-    if (front == back) return nums[front];
-    int frontScore = nums[front] + scoreR(front + 1, back, nums, !p1, sum);
-    int backScore = nums[back] + scoreR(front, back - 1, nums, !p1, sum);
-
-    if (p1) {
-      int score = max(frontScore, backScore);
-      if (score == frontScore) {
-        sum+=nums[front];
+  int scoreR(int front, int back, vector<int>& nums, bool p1) {
+    if (front == back) {
+      if (p1) {
+        return nums[front];
       } else {
-        sum+=nums[back];
+        return -1 * nums[front];
       }
-      return max(frontScore, backScore);
-    } else {
-      return min(frontScore, backScore);
     }
-
+    if (p1) {
+      return max(nums[front] + scoreR(front + 1, back, nums, !p1),
+                 nums[back] + scoreR(front, back - 1, nums, !p1));
+    } else {
+      return min(scoreR(front + 1, back, nums, !p1) - nums[front],
+                 scoreR(front, back - 1, nums, !p1) - nums[back]);
+    }
   }
 
  public:
