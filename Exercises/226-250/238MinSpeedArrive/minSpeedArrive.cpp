@@ -81,7 +81,7 @@ double helper(vector<int>& dist, int speed) {
 }
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) {
-      if (hour < (dist.size()-1)) return -1;
+      if (hour <= (dist.size()-1)) return -1;
 
       int low = 1;
       int high = pow(10,7);
