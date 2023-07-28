@@ -54,21 +54,25 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
   int scoreR(int front, int back, vector<int>& nums, bool p1, int &sum) {
-    if (front > back) return;
+    if (front > back) return 0;
     if (front == back) return nums[front];
     int frontScore = nums[front] + scoreR(front + 1, back, nums, !p1, sum);
     int backScore = nums[back] + scoreR(front, back - 1, nums, !p1, sum);
 
     if (p1) {
       int score = max(frontScore, backScore);
-      sum+=score;
+      if (score == frontScore) {
+        sum+=nums[front];
+      } else {
+        sum+=nums[back];
+      }
       return max(frontScore, backScore);
     } else {
-      min(frontScore, backScore);
+      return min(frontScore, backScore);
     }
+
   }
 
  public:
@@ -77,6 +81,7 @@ class Solution {
     for (int i : nums) halfsum += i;
     halfsum /= 2;
     int p1Score = 0;
+
     int _ = scoreR(0, nums.size() - 1, nums, true, p1Score);
     return p1Score > halfsum;
   }
