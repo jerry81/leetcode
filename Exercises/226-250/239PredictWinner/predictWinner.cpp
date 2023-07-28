@@ -74,13 +74,10 @@ class Solution {
 
  public:
   bool PredictTheWinner(vector<int>& nums) {
-    int halfsum = 0;
-    for (int i : nums) halfsum += i;
-    halfsum /= 2;
     int p1Score = 0;
 
-    int _ = scoreR(0, nums.size() - 1, nums, true, p1Score);
-    return p1Score > halfsum;
+    int i = scoreR(0, nums.size() - 1, nums, true);
+    return i >= 0;
   }
 };
 
