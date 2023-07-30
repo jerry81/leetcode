@@ -48,6 +48,7 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
+
 class Solution {
 vector<vector<double>> dp;
 double r(int left, int right) {
@@ -58,24 +59,21 @@ return dp[left][right];
   }
 
 
-  if (left <= 0 && right >= 0) {
+  if (left <= 0 && right > 0) {
     return 1.0;
   }
   if (left <= 0 && right <= 0) {
     return .5;
   }
-  if (left >= 0 && right <= 0) {
+  if (left > 0 && right <= 0) {
     return 0.0;
   }
-  cout << "adding stuff " << left-4 << " and " << right << endl;
-  cout << "r(left-4, right - 0) is " << r(left-4, right) << endl;
   dp[left][right] = (r(left-4, right - 0) + r(left-3, right-1) + r(left-2, right-2) + r(left-1, right-3)) / 4.0;
   return dp[left][right];
 }
 public:
     double soupServings(int n) {
-      int totalServings = ceil(n / 25);
-      cout << "total servings is " << totalServings << endl;
+      int totalServings = ceil((double)n / 25.0);
       dp.resize(totalServings+1, vector<double>(totalServings+1, -1.0));
       return r(totalServings, totalServings);
     }
