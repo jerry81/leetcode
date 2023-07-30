@@ -44,11 +44,19 @@ Acceptance Rate
 46.7%
 
 */
+#include <cmath>
+#include <vector>
+
+using namespace std;
 
 class Solution {
+vector<vector<double>> dp;
+double r(int left, int right) {
+}
 public:
     double soupServings(int n) {
-
+      int totalServings = ceil(n / 50);
+      dp.resize(totalServings, vector<double>(totalServings, 0.0));
     }
 };
 
@@ -81,5 +89,16 @@ DC 0
 DD 0
 
 but number of turns is not always even
+
+n = 51
+expect - 0.65625
+2 rolls needed
+AX
+BX
+CA - 0
+CB - 0
+CC - .5
+CD - 1
+DX - 4
 
 */
