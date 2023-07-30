@@ -83,6 +83,7 @@ class Solution {
 
  public:
   double soupServings(int n) {
+    if (n >= 99999) return 1.0;
     int totalServings = ceil((double)n / 25.0);
     dp.resize(totalServings + 1, vector<double>(totalServings + 1, -1.0));
     return r(totalServings, totalServings);
