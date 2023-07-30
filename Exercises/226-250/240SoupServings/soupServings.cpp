@@ -52,11 +52,28 @@ using namespace std;
 class Solution {
 vector<vector<double>> dp;
 double r(int left, int right) {
+  if (dp[left][right] >= 0) return dp[left][right];
+
+  if (left <= 0 && right >= 0) {
+    dp[left][right] = 1.0;
+    return 1.0;
+  }
+  if (left <= 0 && right <= 0) {
+    dp[left][right] = .5;
+    return .5;
+  }
+  if (left >= 0 && right <= 0) {
+    dp[left][right] = 0.0;
+    return 0.0;
+  }
+  dp[left][right] = (r(left-4, right - 0) + r(left-3, right-1) + r(left-2, right-2), r(left-1, right-3)) / 4.0;
+  return dp[left][right];
 }
 public:
     double soupServings(int n) {
-      int totalServings = ceil(n / 50);
-      dp.resize(totalServings, vector<double>(totalServings, 0.0));
+      int totalServings = ceil(n / 25);
+      dp.resize(totalServings, vector<double>(totalServings, -1.0));
+      return r(totalServings, totalServings);
     }
 };
 
