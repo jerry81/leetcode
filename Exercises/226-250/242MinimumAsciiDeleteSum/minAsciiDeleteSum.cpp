@@ -64,7 +64,7 @@ class Solution {
     if (i1 < 0) {
       int sum = 0;
       while (i2 >= 0) {
-        sum += second[i2];
+        sum += (int)second[i2];
         i2--;
       }
       dp[as_hash] = sum;
@@ -74,7 +74,7 @@ class Solution {
     if (i2 < 0) {
       int sum = 0;
       while (i1 >= 0) {
-        sum += first[i1];
+        sum += (int)first[i1];
         i1--;
       }
       dp[as_hash] = sum;
@@ -82,6 +82,16 @@ class Solution {
     }
 
     if (first[i1] == second[i2]) {
+      dp[as_hash] = r(i1 - 1, i2 - 1);
+      return dp[as_hash];
+    }
+
+    if (first[i1] != second[i2]) {
+      int path1 = (int)first[i1] + r(i1 - 1, i2);
+      int path2 = (int)second[i2] + r(i1, i2 - 1);
+      int path3 = (int)first[i1] + (int)second[i2] + r(i1 - 1, i2 - 1);
+      dp[as_hash] = min(path1, min(path2, path3));
+      return dp[as_hash];
     }
   }
   string to_hash(int i1, int i2) { return to_string(i1) + "," + to_string(i2); }
@@ -90,6 +100,7 @@ class Solution {
   int minimumDeleteSum(string s1, string s2) {
     first = s1;
     second = s2;
+    return r(s1.size() - 1, s2.size() - 1);
   }
 };
 
