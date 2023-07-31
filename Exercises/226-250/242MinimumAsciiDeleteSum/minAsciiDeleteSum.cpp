@@ -86,13 +86,11 @@ class Solution {
       return dp[as_hash];
     }
 
-    if (first[i1] != second[i2]) {
-      int path1 = (int)first[i1] + r(i1 - 1, i2);
-      int path2 = (int)second[i2] + r(i1, i2 - 1);
-      int path3 = (int)first[i1] + (int)second[i2] + r(i1 - 1, i2 - 1);
-      dp[as_hash] = min(path1, min(path2, path3));
-      return dp[as_hash];
-    }
+    int path1 = (int)first[i1] + r(i1 - 1, i2);
+    int path2 = (int)second[i2] + r(i1, i2 - 1);
+    int path3 = (int)first[i1] + (int)second[i2] + r(i1 - 1, i2 - 1);
+    dp[as_hash] = min(path1, min(path2, path3));
+    return dp[as_hash];
   }
   string to_hash(int i1, int i2) { return to_string(i1) + "," + to_string(i2); }
 
