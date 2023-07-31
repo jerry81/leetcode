@@ -41,12 +41,47 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+string first;
+string second;
+unordered_map<string, int> dp;
+int r(int i1, int i2) {
+}
+string to_hash(int i1, int i2) {
+  return to_string(i1) + "," + to_string(i2);
+}
 public:
     int minimumDeleteSum(string s1, string s2) {
-
+      first = s1;
+      second = s2;
     }
 };
+
+/*
+
+2 stages
+
+1.  ways to delete to make equal
+  a.  something with subsequences? - longest common subsequence finds the min diff
+2.  optimize sums
+
+official solutions
+1.  recursion (TLE)
+  - base case
+    - both empty - cost 0
+    - one empty - delete all of the other
+  - recursive relation
+    1.  case - chars dont match
+      1.  delete from a
+      2.  delete from b
+      3.  delete from both
+    2.  case - chars match dont delete
+2.  bottom up dp
+3.  top down dp
+4.  space optimized bottom up
+
+*/
