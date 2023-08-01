@@ -51,19 +51,26 @@ class Solution {
     for (int i = 1; i <= k; ++i) {
       cur.push_back(i);
     }
-    while (true) {
-        vector<int> nextcur = cur;
+    vector<int> cpy = cur;
+    res.push_back(cpy);
+    int counter = 0;
+    while (counter < 100) {
+        bool dirty = false;
         // just get the next item
         for (int i = k-1; i >= 0; --i) {
-          if (nextcur[i] < n - (k-i-1)) {
-            nextcur[i]++;
+          if (cur[i] < n - (k-i-1)) {
+            cur[i]++;
+            dirty = true;
             // reset
             for (int j = i+1; j < k; ++j) {
-              nextcur[j] = nextcur[j-1]+1;
+              cur[j] = cur[j-1]+1;
             }
+            vector<int> cpy = cur;
+            res.push_back(cpy);
+            break;
           }
         }
-        if (nextcur == cur) return res;
+        if (!dirty) return res;
     }
     return res;
   }
