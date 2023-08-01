@@ -43,19 +43,6 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
- vector<int>* resetAt(vector<int> src, int idx, int start, int n, int k) {
-   // check out of bounds
-   if (start+k-idx > n) return nullptr;
-
-   vector<int> *ret;
-
-   *ret = src;
-   for (int i = idx; i < k; ++i) {
-     ret->at(i) = start;
-     start++;
-   }
-   return ret;
- }
  public:
   vector<vector<int>> combine(int n, int k) {
     vector<vector<int>> res;
@@ -64,22 +51,23 @@ class Solution {
     for (int i = 1; i <= k; ++i) {
       cur.push_back(i);
     }
-    for (int pivot = k - 1; pivot >= 0; --pivot) {
-      vector<int> *temp = resetAt(cur, pivot, k - pivot, n, k);
-      if (temp == nullptr) continue;
-
-      cur = *temp;
-      for (int j = 0; j >= (k-1)-pivot; ++j) {
-        while (cur[j] < (n-j)) {
-          cur[(k-1)-j]++;
-          vector<int> cp = cur;
-          res.push_back(cp);
+    while (true) {
+        vector<int> nextcur = cur;
+        // just get the next item
+        for (int i = k-1; i >= 0; --i) {
+          if (nextcur[i] < n - (k-i-1)) {
+            nextcur[i]++;
+            // reset
+            for (int j = i+1; j < k; ++j) {
+              nextcur[j] = nextcur[j-1]+1;
+            }
+          }
         }
-      }
+        if (nextcur == cur) return res;
     }
     return res;
   }
-}
+};
 
 /*
 
@@ -104,6 +92,22 @@ k = 3
 245
 345
 
+1,2,3
+...
+1,2,n
+1,3,4
+...
+1,3,n
+...
+1,n-1,n
+...
+2,3,4
+...
+2,3,n
+2,n-1,n
+n-2,n-1,n
+
+
 create initial
 n = ?
 k = ?
@@ -119,5 +123,23 @@ n-1
 [1,2,3,4,5.....,n-1, n]
 [1,2,3,4,5...k-1 (incremented from k-2), k, k+1]
 
+1234
+1235
+1236
+1245
+1246
+1256
+1345
+1346
+1356
+1456
+2345
+2346
+2356
+2456
+3456
 
+go more holistic
+try to make strictly increasing digits
+if maxxed backtrack a digit
 */
