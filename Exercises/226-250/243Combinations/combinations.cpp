@@ -42,11 +42,19 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
- vector<int> resetAt(vector<int> src, int idx, int start, int n, int k) {
+ vector<int>* resetAt(vector<int> src, int idx, int start, int n, int k) {
    // check out of bounds
-   if (start+k > n)
+   if (start+k-idx > n) return nullptr;
+
+   vector<int> *ret;
+
+   *ret = src;
+   for (int i = idx; i < k; ++i) {
+     ret->at(i) = start;
+     start++;
+   }
+   return ret;
  }
  public:
   vector<vector<int>> combine(int n, int k) {
@@ -57,6 +65,10 @@ class Solution {
       cur.push_back(i);
     }
     for (int pivot = k - 1; pivot >= 0; --pivot) {
+      vector<int> *temp = resetAt(cur, pivot, k - pivot, n, k);
+      if (temp == nullptr) continue;
+
+      cur = *temp;
       for (int j = 0; j >= (k-1)-pivot; ++j) {
         while (cur[j] < (n-j)) {
           cur[(k-1)-j]++;
@@ -65,10 +77,9 @@ class Solution {
         }
       }
     }
-    res.push_back(cur);
+    return res;
   }
 }
-;
 
 /*
 
