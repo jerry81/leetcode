@@ -44,6 +44,10 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+ vector<int> resetAt(vector<int> src, int idx, int start, int n, int k) {
+   // check out of bounds
+   if (start+k > n)
+ }
  public:
   vector<vector<int>> combine(int n, int k) {
     vector<vector<int>> res;
