@@ -47,12 +47,13 @@ public:
     vector<vector<int>> combine(int n, int k) {
       vector<vector<int>> res;
       for (int i = 1; i < n; ++i) {
-        vector<int> cur;
-        cur.push_back(i);
         for (int j = i+1; j <= n; ++j) {
+          vector<int> cur;
+          cur.push_back(i);
           cur.push_back(j);
+          res.push_back(cur);
         }
-        res.push_back(cur);
+
       }
       return res;
     }
