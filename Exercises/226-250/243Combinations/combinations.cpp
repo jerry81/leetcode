@@ -47,13 +47,62 @@ class Solution {
  public:
   vector<vector<int>> combine(int n, int k) {
     vector<vector<int>> res;
-    for (int i = 1; i < n; ++i) {
-      vector<int> cur;
-      for (int j = 0; j < k; ++j) {
-        cur.push_back(i + j);
-      }
-      res.push_back(cur);
+    vector<int> cur;
+    // initialize
+    for (int i = 1; i <= k; ++i) {
+      cur.push_back(i);
     }
-    return res;
+    for (int pivot = k - 1; pivot >= 0; --pivot) {
+      for (int j = 0; j >= (k-1)-pivot; ++j) {
+        while (cur[j] < (n-j)) {
+          cur[(k-1)-j]++;
+          vector<int> cp = cur;
+          res.push_back(cp);
+        }
+      }
+    }
+    res.push_back(cur);
   }
-};
+}
+;
+
+/*
+
+12
+13
+14
+23
+24
+34
+
+n = 5
+k = 3
+
+123
+124
+125
+134
+135
+145
+234
+235
+245
+345
+
+create initial
+n = ?
+k = ?
+for k places
+print incr
+vector [1,2,3,4,5,....,k]
+pivot at k incr k until it reaches n
+[1,2,3,4,5......, k-1, n]
+carry over pivot is idx k-1
+[1,2,3,4,5.....,k (idx is k-1),k+1] but only if it "fits" - so k-1 goes until
+n-1
+...
+[1,2,3,4,5.....,n-1, n]
+[1,2,3,4,5...k-1 (incremented from k-2), k, k+1]
+
+
+*/
