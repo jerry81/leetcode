@@ -5,7 +5,8 @@ Medium
 16.7K
 268
 Companies
-Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+Given an array nums of distinct integers, return all the possible permutations.
+You can return the answer in any order.
 
 
 
@@ -38,30 +39,28 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <iostream>
-#include <algorithm>
-
 
 using namespace std;
 
 class Solution {
-vector<vector<int>> res;
-void dfs(vector<int> cur,  vector<int> remain) {
-  if (remain.empty()) res.push_back(cur);
+  vector<vector<int>> res;
+  void dfs(vector<int> cur, vector<int> remain) {
+    if (remain.empty()) res.push_back(cur);
 
-  for (int i = 0; i < remain.size(); ++i)  {
-    vector<int> cpy = remain;
-    vector<int> cpy2 = cur;
-    cpy2.push_back(cpy[i]);
-    cpy.erase(cpy.begin() + i);
-    dfs(cpy2, cpy);
-  }
-}
-public:
-    vector<vector<int>> permute(vector<int>& nums) {
-      dfs({},nums);
-      return res;
+    for (int i = 0; i < remain.size(); ++i) {
+      vector<int> cpy = remain;
+      vector<int> cpy2 = cur;
+      cpy2.push_back(cpy[i]);
+      cpy.erase(cpy.begin() + i);
+      dfs(cpy2, cpy);
     }
+  }
+
+ public:
+  vector<vector<int>> permute(vector<int>& nums) {
+    dfs({}, nums);
+    return res;
+  }
 };
 
 /*
