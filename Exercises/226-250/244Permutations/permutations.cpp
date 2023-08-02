@@ -46,9 +46,20 @@ using namespace std;
 
 class Solution {
 vector<vector<int>> res;
+void dfs(vector<int> cur,  vector<int> remain) {
+  if (remain.empty()) res.push_back(cur);
+
+  for (int i = 0; i < remain.size(); ++i)  {
+    vector<int> cpy = remain;
+    vector<int> cpy2 = cur;
+    cpy2.push_back(cpy[i]);
+    cpy.erase(cpy.begin() + i);
+    dfs(cpy2, cpy);
+  }
+}
 public:
     vector<vector<int>> permute(vector<int>& nums) {
-
+      dfs({},nums);
       return res;
     }
 };
