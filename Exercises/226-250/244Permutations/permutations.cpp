@@ -38,12 +38,50 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
+#include <algorithm>
+
 
 using namespace std;
 
 class Solution {
+vector<vector<int>> res;
 public:
     vector<vector<int>> permute(vector<int>& nums) {
 
+      return res;
     }
 };
+
+/*
+
+012
+021
+102
+120
+201
+210
+
+0123 pivot at size-2 ?
+0132 swap from size-1 to pivot
+0213 pivot moves back - swap pivot and size-1 and reverse
+0231 swap size-1 and size-2 (loop to pivot)
+0312 swap & reverse
+0321
+1023
+1032
+1203
+1230
+1302
+1320
+
+OR
+
+dfs
+
+[0]
+[01] [02] [03]
+[012] [013]
+[0123]
+[1]
+*/
