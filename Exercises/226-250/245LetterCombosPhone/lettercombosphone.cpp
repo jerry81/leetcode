@@ -5,9 +5,11 @@ Medium
 16.2K
 874
 Companies
-Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+Given a string containing digits from 2-9 inclusive, return all possible letter
+combinations that the number could represent. Return the answer in any order.
 
-A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+A mapping of digits to letters (just like on the telephone buttons) is given
+below. Note that 1 does not map to any letters.
 
 
 
@@ -39,14 +41,23 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<string> letterCombinations(string digits) {
-
-    }
+ public:
+  vector<string> letterCombinations(string digits) {
+    unordered_map<char, vector<char>> lookup;
+    lookup['2'] = {'a', 'b', 'c'};
+    lookup['3'] = {'d', 'e', 'f'};
+    lookup['4'] = {'g', 'h', 'i'};
+    lookup['5'] = {'j', 'k', 'l'};
+    lookup['6'] = {'m', 'n', 'o'};
+    lookup['7'] = {'p', 'q', 'r', 's'};
+    lookup['8'] = {'t', 'u', 'v'};
+    lookup['9'] = {'w', 'x', 'y', 'z'};
+  }
 };
