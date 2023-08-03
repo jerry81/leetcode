@@ -70,7 +70,8 @@ Acceptance Rate
  * right(right) {}
  * };
  */
-
+#include <cmath>
+using namespace std;
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -82,6 +83,19 @@ struct TreeNode {
 };
 
 class Solution {
+ int res = 0;
+ int sumR(TreeNode* root) {
+   if (root == nullptr) return 0;
+
+   int self = root->val;
+   int leftS = sumR(root->left);
+   int rightS = sumR(root->right);
+   res+=abs(leftS-rightS);
+   return self+leftS+rightS;
+ }
  public:
-  int findTilt(TreeNode *root) {}
+  int findTilt(TreeNode *root) {
+    sumR(root);
+    return res;
+  }
 };
