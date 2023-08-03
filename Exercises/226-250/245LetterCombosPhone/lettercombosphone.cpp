@@ -48,9 +48,28 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  vector<string> results;
+  unordered_map<char, vector<char>> lookup;
+  void dfs(string remain, string current) {
+    if (current.empty()) return;
+    if (current.size() == 1) {
+      for (char c : lookup[current[0]]) {
+        string cpy = remain;
+        cpy+=c;
+        results.push_back(cpy);
+      }
+    }
+    for (char c: lookup[current[0]]) {
+      string cpy = remain;
+      cpy+=c;
+      string cpy2 = current;
+      cpy2.erase(cpy2.begin());
+      dfs(cpy, cpy2);
+    }
+  }
+
  public:
   vector<string> letterCombinations(string digits) {
-    unordered_map<char, vector<char>> lookup;
     lookup['2'] = {'a', 'b', 'c'};
     lookup['3'] = {'d', 'e', 'f'};
     lookup['4'] = {'g', 'h', 'i'};
@@ -59,5 +78,7 @@ class Solution {
     lookup['7'] = {'p', 'q', 'r', 's'};
     lookup['8'] = {'t', 'u', 'v'};
     lookup['9'] = {'w', 'x', 'y', 'z'};
+    dfs("", digits);
+    return results;
   }
 };
