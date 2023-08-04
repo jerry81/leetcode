@@ -74,18 +74,28 @@ class Solution {
     }
   }
 
+  bool verify(string s, unordered_map<char, TrieNode*> cur) {
+    if (s.empty()) return true;
+
+    string cpy = s;
+    char first = cpy[0];
+
+    cpy.erase(cpy.begin());
+    if (cur.find(first) == cur.end()) return false;
+
+    bool ret = true;
+    if (cur[first]->ender) {
+      ret = verify(s,root) || verify(s,cur[first]->nexts);
+    } else {
+      ret = verify(s, cur[first]->nexts);
+    }
+    return ret;
+  }
+
  public:
   bool wordBreak(string s, vector<string>& wordDict) {
     buildTrie(wordDict);
-    cout << "printing" << endl;
-    for (auto [a, b] : root) {
-      cout << "a's children" << a << endl;
-      for (auto [c, d] : b->nexts) {
-        cout << "c"
-             << ",";
-      }
-      cout << endl;
-    }
+    return verify(s, root);
   }
 };
 
