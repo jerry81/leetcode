@@ -43,11 +43,40 @@ Submissions
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
+struct TrieNode {
+  char c;
+  bool ender = false;
+  unordered_map<char, TrieNode*> nexts;
+  TrieNode(char c) : c(c) {};
+};
 class Solution {
+
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
 
     }
 };
+
+/*
+
+b/c there are 1000 dict words, optimization must happen
+build trie?
+
+look for fullest word possible
+
+Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
+
+c a t(end)
+       s (end)
+s a n d
+a n d
+d o g (end)
+      s (end)
+
+fork in the road here, must recursively try both
+c a t -> sandog
+c a t s -> andog
+*/
