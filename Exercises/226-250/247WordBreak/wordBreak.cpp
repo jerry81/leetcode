@@ -46,6 +46,7 @@ Submissions
 #include <unordered_map>
 #include <vector>
 using namespace std;
+
 struct TrieNode {
   char c;
   bool ender = false;
@@ -74,7 +75,11 @@ class Solution {
   }
 
   bool verify(string s, unordered_map<char, TrieNode*> cur) {
-    if (s.empty()) return true;
+    if (s.size() == 1) {
+      if (cur.find(s[0]) == cur.end()) return false;
+
+      return (cur[s[0]]->ender);
+    }
 
     string cpy = s;
     char first = cpy[0];
