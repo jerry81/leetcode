@@ -50,13 +50,16 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+      int total = mat.size() * mat[0].size();
+      if (total != r*c) return mat;
+
       vector<vector<int>> reshaped(r, vector<int>(c));
       int curc = 0;
       int curr = 0;
       for (auto a: mat) {
         for (auto b: a) {
           reshaped[curr][curc] = b;
-          if (curc < c-1) {
+          if (curc < (c-1)) {
             ++curc;
           } else {
             curc = 0;
