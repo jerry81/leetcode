@@ -46,7 +46,6 @@ Submissions
 #include <unordered_map>
 #include <vector>
 using namespace std;
-
 struct TrieNode {
   char c;
   bool ender = false;
@@ -56,7 +55,7 @@ struct TrieNode {
 class Solution {
   unordered_map<char, TrieNode*> root;
 
-  void buildTreeR(unordered_map<char, TrieNode*> root, string s) {
+  void buildTreeR(unordered_map<char, TrieNode*> &root, string s) {
     if (s.empty()) return;
 
     char f = s[0];
@@ -85,9 +84,9 @@ class Solution {
 
     bool ret = true;
     if (cur[first]->ender) {
-      ret = verify(s,root) || verify(s,cur[first]->nexts);
+      ret = verify(cpy,root) || verify(cpy,cur[first]->nexts);
     } else {
-      ret = verify(s, cur[first]->nexts);
+      ret = verify(cpy, cur[first]->nexts);
     }
     return ret;
   }
