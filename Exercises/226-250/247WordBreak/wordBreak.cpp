@@ -5,9 +5,11 @@ Medium
 14.9K
 628
 Companies
-Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
+Given a string s and a dictionary of strings wordDict, return true if s can be
+segmented into a space-separated sequence of one or more dictionary words.
 
-Note that the same word in the dictionary may be reused multiple times in the segmentation.
+Note that the same word in the dictionary may be reused multiple times in the
+segmentation.
 
 
 
@@ -20,9 +22,8 @@ Example 2:
 
 Input: s = "applepenapple", wordDict = ["apple","pen"]
 Output: true
-Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
-Note that you are allowed to reuse a dictionary word.
-Example 3:
+Explanation: Return true because "applepenapple" can be segmented as "apple pen
+apple". Note that you are allowed to reuse a dictionary word. Example 3:
 
 Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
 Output: false
@@ -41,23 +42,51 @@ Submissions
 
 */
 
-#include <vector>
 #include <string>
 #include <unordered_map>
+#include <vector>
 using namespace std;
 
 struct TrieNode {
   char c;
   bool ender = false;
   unordered_map<char, TrieNode*> nexts;
-  TrieNode(char c) : c(c) {};
+  TrieNode(char c) : c(c){};
 };
 class Solution {
+  unordered_map<char, TrieNode*> root;
 
-public:
-    bool wordBreak(string s, vector<string>& wordDict) {
+  void buildTreeR(unordered_map<char, TrieNode*> root, string s) {
+    if (s.empty()) return;
 
+    char f = s[0];
+    s.erase(s.begin());
+    if (root.find(f) == root.end()) root[f] = new TrieNode(f);
+
+    if (s.empty()) root[f]->ender = true;
+
+    buildTreeR(root[f]->nexts, s);
+  }
+
+  void buildTrie(vector<string>& wordDict) {
+    for (string s : wordDict) {
+      buildTreeR(root, s);
     }
+  }
+
+ public:
+  bool wordBreak(string s, vector<string>& wordDict) {
+    buildTrie(wordDict);
+    cout << "printing" << endl;
+    for (auto [a, b] : root) {
+      cout << "a's children" << a << endl;
+      for (auto [c, d] : b->nexts) {
+        cout << "c"
+             << ",";
+      }
+      cout << endl;
+    }
+  }
 };
 
 /*
