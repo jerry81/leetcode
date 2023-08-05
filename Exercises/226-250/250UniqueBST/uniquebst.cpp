@@ -48,6 +48,8 @@ Acceptance Rate
  */
 
 #include <vector>
+#include <map>
+#include <string>
 
 using namespace std;
 
@@ -61,37 +63,26 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 class Solution {
- vector<TreeNode*> res;
- void r(TreeNode* &cur, vector<int> left, vector<int> right) {
- }
- void splitV(int pivot, vector<int> &l, vector<int> &r, vector<int> &full) {
-   for (int i: full) {
-     if (i == pivot) continue;
-     if (i < pivot) {
-       l.push_back(i);
-     } else {
-       r.push_back(i);
-     }
-   }
- }
+
+  string to_hash(int i, int j) {
+    return to_string(i) + ","+ to_string(j);
+  }
+  vector<TreeNode *> r(int start, int end, ) {
+
+  }
+
  public:
   vector<TreeNode *> generateTrees(int n) {
-    // make a copyable vector
-    vector<int> seq;
-    for (int i = 1; i <= n; ++i) {
-      seq.push_back(i);
-    }
-    for (int i = 0; i < n; ++i) {
-      vector<int> left;
-      vector<int> right;
-      TreeNode *root = new TreeNode(i);
-      splitV(i,left,right,seq);
-      r(root,left,right);
-      res.push_back(root);
-    }
-    return res;
+    int start = 1;
+    int end = n;
+    vector<vector<vector<TreeNode *>>> dp;
+    return r(1,n,dp);
   }
 };
+
+// make in one pass?
+// low,high
+// 1,4
 
 /*
 123
