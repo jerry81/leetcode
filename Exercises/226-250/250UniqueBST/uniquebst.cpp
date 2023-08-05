@@ -61,8 +61,20 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 class Solution {
+ vector<TreeNode*> res;
+ void r(TreeNode* &cur, vector<int> left, vector<int> right) {
+ }
  public:
-  vector<TreeNode *> generateTrees(int n) {}
+  vector<TreeNode *> generateTrees(int n) {
+    // make a copyable vector
+    vector<int> seq;
+    for (int i = 1; i <= n; ++i) {
+      seq.push_back(i);
+    }
+    for (int i = 0; i < n; ++i) {
+    }
+    return res;
+  }
 };
 
 /*
