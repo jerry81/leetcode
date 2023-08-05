@@ -47,9 +47,9 @@ Acceptance Rate
  * };
  */
 
-#include <vector>
 #include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -63,20 +63,41 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 class Solution {
+  string to_hash(int i, int j) { return to_string(i) + "," + to_string(j); }
+  vector<TreeNode *> r(int start, int end,
+                       map<string, vector<TreeNode *>> &dp) {
+    vector<TreeNode *> res;
+    string curHash = to_hash(start, end);
+    if (dp.find(curHash) != dp.end()) return dp[curHash];
 
-  string to_hash(int i, int j) {
-    return to_string(i) + ","+ to_string(j);
-  }
-  vector<TreeNode *> r(int start, int end, ) {
+    if (start > end) {
+      res.push_back(NULL);
+      dp[curHash] = res;
+      return res;
+    }
 
+    for (int i = start; i <= end; ++i) {
+      vector<TreeNode *> leftTree = r(start, i - 1, dp);
+      vector<TreeNode *> rightTree = r(i + 1, end, dp);
+
+      for (TreeNode *l : leftTree) {
+        for (TreeNode *r : rightTree) {
+          TreeNode *tn = new TreeNode(i, l, r);
+          res.push_back(tn);
+        }
+      }
+      dp[curHash] = res;
+    }
+
+    return res;
   }
 
  public:
   vector<TreeNode *> generateTrees(int n) {
     int start = 1;
     int end = n;
-    vector<vector<vector<TreeNode *>>> dp;
-    return r(1,n,dp);
+    map<string, vector<TreeNode *>> dp;
+    return r(1, n, dp);
   }
 };
 
