@@ -64,6 +64,16 @@ class Solution {
  vector<TreeNode*> res;
  void r(TreeNode* &cur, vector<int> left, vector<int> right) {
  }
+ void splitV(int pivot, vector<int> &l, vector<int> &r, vector<int> &full) {
+   for (int i: full) {
+     if (i == pivot) continue;
+     if (i < pivot) {
+       l.push_back(i);
+     } else {
+       r.push_back(i);
+     }
+   }
+ }
  public:
   vector<TreeNode *> generateTrees(int n) {
     // make a copyable vector
@@ -72,6 +82,12 @@ class Solution {
       seq.push_back(i);
     }
     for (int i = 0; i < n; ++i) {
+      vector<int> left;
+      vector<int> right;
+      TreeNode *root = new TreeNode(i);
+      splitV(i,left,right,seq);
+      r(root,left,right);
+      res.push_back(root);
     }
     return res;
   }
