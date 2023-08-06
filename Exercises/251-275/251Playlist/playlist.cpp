@@ -45,6 +45,20 @@ Acceptance Rate
 class Solution {
 public:
     int numMusicPlaylists(int n, int goal, int k) {
+      /*
+        dp counting problem.  make state tree
+        n=3,k=2
+            [],goal=3,k=1
+        [1->{1}],2 [2->{1}] [3->{1}]
+      [2],1  [3],1
 
+        n=2
+        [],3,0
+
+        // state respresented as
+        // goal, cachedItems
+        // i,countdown...
+
+      */
     }
 };
