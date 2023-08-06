@@ -68,6 +68,8 @@ class Solution {
 
     int choices2 = j - k;
     long long int prod2 = choices2 * r(i - 1, j, k, n);
+    if (prod2 < 0) prod2 = 0;
+
     prod2 %= MOD;
     long long sum = prod + prod2;
     sum%=MOD;
