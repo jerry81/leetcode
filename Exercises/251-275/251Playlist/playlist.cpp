@@ -42,10 +42,31 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
 class Solution {
+const int MOD = pow(10,9)+7;
+vector<vector<int>> dp;
+int r(int i, int j, int k, int n) {
+  if (dp[i][j] >= 0) return dp[i][j];
+
+  if (i < j) {
+    dp[i][j] = 0;
+    return 0;
+  }
+
+  int choices = n - j + 1;
+  long long int prod = choices * r(i-1,j-1,k,n);
+  prod%=MOD;
+
+}
 public:
     int numMusicPlaylists(int n, int goal, int k) {
-
+      dp.resize(goal, vector<int>(n,-1));
+      return r(goal, n, k, n);
     }
 };
 
