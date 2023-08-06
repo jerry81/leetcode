@@ -45,7 +45,11 @@ Acceptance Rate
 class Solution {
 public:
     int numMusicPlaylists(int n, int goal, int k) {
-      /*
+
+    }
+};
+
+/*
         dp counting problem.  make state tree
         n=3,k=2
             [],goal=3,k=1
@@ -63,5 +67,24 @@ public:
         // i,countdown...
 
       */
-    }
-};
+
+     /*
+
+     official: was right about memoization but that's about it
+     dp epiphany:  2 params - i,j
+       - i is len of playlist
+       - j is # unique songs
+
+     the start case dp[goal][n]
+
+     base case dp[0][0] = 1
+     dp[i][j] where i < j = 0;
+
+     relations
+     1.  play a unique song
+     dp[i-1][j-1] * (n-j+1) <-- play a unique song * number of unique songs
+     // as we get towards base case, unique songs increases
+     2.  replay old song
+     dp[i-1][j] * (j-k) <-- j-k is number of songs we can replay
+     // only use it if j > k
+     */
