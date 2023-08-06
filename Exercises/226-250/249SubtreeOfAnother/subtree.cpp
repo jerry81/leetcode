@@ -66,6 +66,37 @@ struct TreeNode {
 };
 
 class Solution {
+  TreeNode *find(TreeNode *root, int tgt) {
+    if (root->val == tgt) return root;
+
+    if (root == nullptr) return nullptr;
+
+    TreeNode *res;
+
+    res = find(root->left, tgt);
+    if (res != nullptr) return res;
+
+    res = find(root->right, tgt);
+
+    return res;
+  }
+
+  bool eq(TreeNode *a, TreeNode *b) {
+    if (a==nullptr && b==nullptr) return true;
+    if (a==nullptr && b!=nullptr) return false;
+    if (b==nullptr && a!=nullptr) return false;
+    if (a->val != b->val) return false;
+    if (a->val == b->val) {
+      return eq(a->left, b->left) && eq(a->right,b->right);
+    }
+
+  }
+
  public:
-  bool isSubtree(TreeNode *root, TreeNode *subRoot) {}
+  bool isSubtree(TreeNode *root, TreeNode *subRoot) {
+    TreeNode* start = find(root, subRoot->val);
+    if (start == nullptr) return false;
+
+    return eq(start,subRoot);
+  }
 };
