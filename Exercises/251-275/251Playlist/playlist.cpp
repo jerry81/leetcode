@@ -51,8 +51,8 @@ Acceptance Rate
 using namespace std;
 class Solution {
   const int MOD = pow(10, 9) + 7;
-  vector<vector<int>> dp;
-  int r(int i, int j, int k, int n) {
+  vector<vector<long long int>> dp;
+  long long int r(int i, int j, int k, int n) {
     if (i < 0 || j < 0) return 0;
 
     if (dp[i][j] >= 0) return dp[i][j];
@@ -79,7 +79,7 @@ class Solution {
 
  public:
   int numMusicPlaylists(int n, int goal, int k) {
-    dp.resize(goal+1, vector<int>(n+1, -1));
+    dp.resize(goal+1, vector<long long int>(n+1, -1));
     dp[0][0] = 1;
     return r(goal, n, k, n);
   }
