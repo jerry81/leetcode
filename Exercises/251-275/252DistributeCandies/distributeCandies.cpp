@@ -46,12 +46,23 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
 public:
     int distributeCandies(vector<int>& candyType) {
-
+      //min of types and half
+      int half = candyType.size()/2;
+      map<int, bool> seen;
+      int typeCount = 0;
+      for (int i: candyType) {
+        if (!seen[i]) {
+          seen[i] = true;
+          typeCount++;
+        }
+      }
+      return min(typeCount, half);
     }
 };
