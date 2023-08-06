@@ -49,11 +49,12 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
   const int MOD = pow(10, 9) + 7;
   vector<vector<int>> dp;
   int r(int i, int j, int k, int n) {
+    if (i < 0 || j < 0) return 0;
+
     if (dp[i][j] >= 0) return dp[i][j];
 
     if (i < j) {
@@ -68,13 +69,15 @@ class Solution {
     int choices2 = j - k;
     long long int prod2 = choices2 * r(i - 1, j, k, n);
     prod2 %= MOD;
-    dp[i][j] = prod + prod2;
+    long long sum = prod + prod2;
+    sum%=MOD;
+    dp[i][j] = sum;
     return dp[i][j];
   }
 
  public:
   int numMusicPlaylists(int n, int goal, int k) {
-    dp.resize(goal, vector<int>(n, -1));
+    dp.resize(goal+1, vector<int>(n+1, -1));
     dp[0][0] = 1;
     return r(goal, n, k, n);
   }
