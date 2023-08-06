@@ -67,9 +67,9 @@ struct TreeNode {
 
 class Solution {
   TreeNode *find(TreeNode *root, int tgt) {
-    if (root->val == tgt) return root;
-
     if (root == nullptr) return nullptr;
+
+    if (root->val == tgt) return root;
 
     TreeNode *res;
 
@@ -90,11 +90,14 @@ class Solution {
       return eq(a->left, b->left) && eq(a->right,b->right);
     }
 
+    return true;
+
   }
 
  public:
   bool isSubtree(TreeNode *root, TreeNode *subRoot) {
     TreeNode* start = find(root, subRoot->val);
+
     if (start == nullptr) return false;
 
     return eq(start,subRoot);
