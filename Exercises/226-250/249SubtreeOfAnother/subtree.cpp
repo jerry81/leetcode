@@ -65,20 +65,25 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <vector>
+using namespace std;
+
 class Solution {
-  TreeNode *find(TreeNode *root, int tgt) {
-    if (root == nullptr) return nullptr;
+  void find(TreeNode *root, int tgt, vector<TreeNode *> &res) {
+    if (root == nullptr) {
+      res.push_back(nullptr);
+      return;
+    }
 
-    if (root->val == tgt) return root;
+    if (root->val == tgt) {
+      res.push_back(root);
+    }
 
-    TreeNode *res;
 
-    res = find(root->left, tgt);
-    if (res != nullptr) return res;
+    find(root->left, tgt, res);
 
-    res = find(root->right, tgt);
+    find(root->right, tgt, res);
 
-    return res;
   }
 
   bool eq(TreeNode *a, TreeNode *b) {
@@ -96,10 +101,14 @@ class Solution {
 
  public:
   bool isSubtree(TreeNode *root, TreeNode *subRoot) {
-    TreeNode* start = find(root, subRoot->val);
+  vector<TreeNode*> starts;
+    find(root, subRoot->val,starts);
 
-    if (start == nullptr) return false;
+    if (starts.empty()) return false;
 
-    return eq(start,subRoot);
+    for (auto start: starts) {
+      if (eq(start,subRoot)) return true;
+    }
+    return false;
   }
 };
