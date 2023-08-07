@@ -43,12 +43,31 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
+map<int,int> freq;
 public:
     int findLHS(vector<int>& nums) {
+      for (int i: nums) {
+        freq[i]++;
+      }
+      int mx = 0;
+      for (auto a: freq) {
+        if (a.second == 0) continue;
 
+        if (freq[a.first+1] == 0) continue;
+
+        int total = a.second;
+        total+= freq[a.first+1];
+        if (total > mx) mx = total;
+      }
+      return mx;
     }
 };
+
+// counting:
+// store keys and frequencies of that key
+// iterate thru keys - always find the adjacent key to right
