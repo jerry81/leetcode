@@ -72,7 +72,7 @@ class Solution {
     int cmid = 0;
     while (cmin < cmax) {
       cmid = (cmin + cmax) / 2;
-      int midv = cand[midv];
+      int midv = cand[cmid];
       if (midv == tgt) return true;
       if (midv > tgt) {
         cmax = cmid - 1;
