@@ -53,7 +53,7 @@ class Solution {
     int rmax = matrix.size() - 1;
     int rmid = 0;
     int tgtR = 0;
-    while (rmin < rmax) {
+    while (rmin <= rmax) {
       rmid = (rmin + rmax) / 2;
       int midv = matrix[rmid][0];
       if (midv == tgt) return true;
@@ -70,7 +70,7 @@ class Solution {
     int cmin = 0;
     int cmax = cand.size() - 1;
     int cmid = 0;
-    while (cmin < cmax) {
+    while (cmin <= cmax) {
       cmid = (cmin + cmax) / 2;
       int midv = cand[cmid];
       if (midv == tgt) return true;
