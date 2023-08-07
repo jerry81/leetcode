@@ -54,7 +54,7 @@ class Solution {
     int rmid = 0;
     int tgtR = 0;
     while (rmin < rmax) {
-      int rmid = (rmin + rmax) / 2;
+      rmid = (rmin + rmax) / 2;
       int midv = matrix[rmid][0];
       if (midv == tgt) return true;
       if (midv > tgt) {
@@ -65,7 +65,23 @@ class Solution {
         rmin = rmid + 1;
       }
     }
-    cout << "tgtR is " << tgtR << endl;
+
+    vector<int> cand = matrix[tgtR];
+    int cmin = 0;
+    int cmax = cand.size() - 1;
+    int cmid = 0;
+    while (cmin < cmax) {
+      cmid = (cmin + cmax) / 2;
+      int midv = cand[midv];
+      if (midv == tgt) return true;
+      if (midv > tgt) {
+        cmax = cmid - 1;
+      }
+      if (midv < tgt) {
+        cmin = cmid + 1;
+      }
+    }
+    return false;
   }
 
  public:
