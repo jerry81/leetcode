@@ -8,8 +8,9 @@ Companies
 You are given an m x n integer matrix matrix with the following two properties:
 
 Each row is sorted in non-decreasing order.
-The first integer of each row is greater than the last integer of the previous row.
-Given an integer target, return true if target is in matrix or false otherwise.
+The first integer of each row is greater than the last integer of the previous
+row. Given an integer target, return true if target is in matrix or false
+otherwise.
 
 You must write a solution in O(log(m * n)) time complexity.
 
@@ -47,8 +48,31 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-
+  bool bsearch(int tgt, vector<vector<int>>& matrix) {
+    int rmin = 0;
+    int rmax = matrix.size() - 1;
+    int rmid = 0;
+    int tgtR = 0;
+    while (rmin < rmax) {
+      int rmid = (rmin + rmax) / 2;
+      int midv = matrix[rmid][0];
+      if (midv == tgt) return true;
+      if (midv > tgt) {
+        rmax = rmid - 1;
+      }
+      if (midv < tgt) {
+        tgtR = rmid;
+        rmin = rmid + 1;
+      }
     }
+    cout << "tgtR is " << tgtR << endl;
+  }
+
+ public:
+  bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    return bsearch(target, matrix);
+  }
 };
+
+// 2 bsearches?
+//
