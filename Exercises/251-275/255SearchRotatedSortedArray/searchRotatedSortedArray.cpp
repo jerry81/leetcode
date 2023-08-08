@@ -55,6 +55,12 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+ int n(int offset, int size, int i) {
+   return i+offset % size;
+   // pivot at 4 [4,5,6,7,0,1,2]
+   // ranges should be 4 to 10
+   // 0->4, 1->5, 2->6, 3->0
+ }
  public:
   int search(vector<int>& nums, int target) {
     // find rotation point by examining last item - can't be done as the numbers
@@ -121,29 +127,23 @@ class Solution {
         mi = midi+1;
         mxi-=1;
       }
-      // nums = [4,5,6,7,0,1,2], target = 3
-      // minv, midv, maxv, tgt
-      // 4, 7, 2, 0 - all greater than target, maxv < min, maxv < midv
-      // 7 to 2 (midi+1 to mxi)
-      // 4, 7, 2, 3
-      // target between maxv and minv
-      // 2 to 4 (mxi+1 to mi)
-      // cleanup - check equal for stopping condition
-      // reset min and max
-      // [4,5,6,7,0,1,2] target 6
-      // 4,7,2,6
-      // between minv and midv
-      // 4 to 7
-      // mi to midi-1
-      // [0,1,2,3,4,5,6,7] target 5
-      //  0, 4, 7, 5
-      // 4 to 7
-      // between midv and maxv
-      // midi + 1 to mxi
-
     }
-    cout << "pivot is " << pivot << endl;
-    return -1;
+
+    int mini = 0;
+    int maxi = sz;
+    int midi = 0;
+    while (mini < maxi) {
+      midi = mini + maxi / 2;
+      int midv = nums[n(pivot,nums.size(),midi)];
+      if (midv == target) return midi;
+      if (midv < target) {
+        mini = midi + 1;
+      } else {
+        maxi = midi - 1;
+      }
+    }
+
+    return nums[mini] == target ? mini : -1;
   }
 };
 
