@@ -56,7 +56,7 @@ using namespace std;
 
 class Solution {
  int n(int offset, int size, int i) {
-   return i+offset % size;
+   return (i+offset) % size;
    // pivot at 4 [4,5,6,7,0,1,2]
    // ranges should be 4 to 10
    // 0->4, 1->5, 2->6, 3->0
@@ -86,6 +86,7 @@ class Solution {
       if (mi == mxi) {
         if (nums[mi] < minv) {
           pivot = mi;
+          cout << "pivot set to " << pivot << endl;
           break;
         }
       }
@@ -131,22 +132,23 @@ class Solution {
 
     int mini = 0;
     int maxi = sz;
-    int midi = 0;
+    midi = 0;
     while (mini < maxi) {
       midi = mini + maxi / 2;
       int midv = nums[n(pivot,nums.size(),midi)];
-      if (midv == target) return midi;
+      if (midv == target) return n(pivot,nums.size(),midi);
       if (midv < target) {
         mini = midi + 1;
       } else {
         maxi = midi - 1;
       }
     }
-
-    return nums[mini] == target ? mini : -1;
+    int nmin = n(pivot, nums.size(),mini);
+    cout << "pivot is " << pivot << endl;
+    cout << "nmin is " << nmin << endl;
+    return nums[nmin] == target ? nmin : -1;
   }
 };
-
 
 // find pivot
 // [4,5,6,7,0,1,2]
