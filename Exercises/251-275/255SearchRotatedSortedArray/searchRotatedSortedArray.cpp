@@ -59,39 +59,52 @@ class Solution {
   int search(vector<int>& nums, int target) {
     // find rotation point by examining last item - can't be done as the numbers
     // are random (though sequential) binary search to find pivot point
-    // (smallest number) [4,5,6,7,0,1,2]
+    // (smallest number) [4,5,6,7,0,1,2] // both 4 and 2 greater than target ...
+    // mid (7) greater than target
+    // min > max
+    // mid+1 to 2
     int sz = nums.size();
     int curmin = nums.front();  // 4
     int curmax = nums.back();   // 2
-    if (curmax == target) return sz - 1;
-
-    if (curmin == target) return 0;
 
     int mi = 0;
     int mxi = sz - 1;
 
     int midi = 0;
     while (mi <= mxi) {
+      if (curmax == target) return mxi;
+
+      if (curmin == target) return mi;
+
       if (curmin > curmax) {
-        int tmp = mxi;
-        mxi = mi + sz;
-        mi = tmp;
-        int tmpv = curmin;
-        curmin = curmax;
-        curmax = tmpv;
+        if (curmin > target) {
+          int tmp = mxi;
+          mxi = mi + sz;
+          mi = tmp;
+          int tmpv = curmin;
+          curmin = curmax;
+          curmax = tmpv;
+        } else { // curmax < target
+          int tmp = mxi;
+          mxi = mi + sz;
+          mi = tmp;
+          int tmpv = curmin;
+          curmin = curmax;
+          curmax = tmpv;
+        }
       }
       int nmin = mi;
       int nmax = mxi;
-      midi = ((mi + mxi) / 2)%sz;  // 3
-      int midv = nums[midi];  // 7
+      midi = ((mi + mxi) / 2) % sz;  // 3
+      int midv = nums[midi];         // 7
       if (midv == target) return midv;
 
       if (midv < target) {
-        mi = midi+1;
+        mi = midi + 1;
       }
 
       if (midv < target) {
-        mxi = midi-1;
+        mxi = midi - 1;
       }
     }
     return -1;
