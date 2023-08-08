@@ -55,10 +55,24 @@ public:
       // find rotation point by examining last item - can't be done as the numbers are random (though sequential)
       // binary search to find pivot point (smallest number)
       // [4,5,6,7,0,1,2]
+      int sz = nums.size();
       int curmin = nums.front(); // 4
       int curmax = nums.back(); // 2
+      if (curmax == target) return sz-1;
+
+      if (curmin == target) return 0;
+
       int mi = 0;
-      int mxi = nums.size()-1;
+      int mxi = sz-1;
+
+      if (curmin > curmax) {
+        int tmp = mxi;
+        mxi = mi+sz;
+        mi = tmp;
+        int tmpv = curmin;
+        curmin = curmax;
+        curmax = tmpv;
+      }
       int midi = 0;
       while (mi <= mxi) {
         int nmin = mi % nums.size();
