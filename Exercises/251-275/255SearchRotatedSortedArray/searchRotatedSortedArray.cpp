@@ -62,6 +62,11 @@ public:
         midi = (mi + mxi) / 2;
         int midv = nums[midi];
         if (midv == target) return midv;
+
+        if (midv < curmin && midv < target) {
+          curmin = midv;
+          mi = midi+1;
+        }
       }
       // then we have an offset
       // use modulo to "normalize" indexes with a typical binary search
