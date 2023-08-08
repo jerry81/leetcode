@@ -46,7 +46,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     int maxCount(int m, int n, vector<vector<int>>& ops) {
@@ -59,8 +58,8 @@ public:
         int nt = a[1];
         for (int i = 0; i < mt; ++i) {
           for (int j = 0; j < nt; ++j) {
-            mat[mt][nt]++;
-            if (mat[mt][nt] > mx) mx = mat[mt][nt];
+            mat[i][j]++;
+            if (mat[i][j] > mx) mx = mat[i][j];
           }
         }
       }
@@ -70,5 +69,7 @@ public:
           if (b == mx) ret++;
         }
       }
+
+      return ret;
     }
 };
