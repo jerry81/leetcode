@@ -55,12 +55,13 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
- int n(int offset, int size, int i) {
-   return (i+offset) % size;
-   // pivot at 4 [4,5,6,7,0,1,2]
-   // ranges should be 4 to 10
-   // 0->4, 1->5, 2->6, 3->0
- }
+  int n(int offset, int size, int i) {
+    return (i + offset) % size;
+    // pivot at 4 [4,5,6,7,0,1,2]
+    // ranges should be 4 to 10
+    // 0->4, 1->5, 2->6, 3->0
+  }
+
  public:
   int search(vector<int>& nums, int target) {
     // find rotation point by examining last item - can't be done as the numbers
@@ -112,38 +113,39 @@ class Solution {
         pivot = midi;
       }
 
-
       if (curmid < curmax) {
         if (curmin < curmid) {
-          pivot = mi;
+          if (curmin < minv) {
+            pivot = mi;
+          }
           break;
         } else {
           // 4 0 1 2 3
           mi += 1;
-          mxi = midi-1;
+          mxi = midi - 1;
 
           continue;
         }
       } else {
-        mi = midi+1;
-        mxi-=1;
+        mi = midi + 1;
+        mxi -= 1;
       }
     }
 
     int mini = 0;
-    int maxi = sz-1;
+    int maxi = sz - 1;
     midi = 0;
     while (mini < maxi) {
       midi = (mini + maxi) / 2;
-      int midv = nums[n(pivot,nums.size(),midi)];
-      if (midv == target) return n(pivot,nums.size(),midi);
+      int midv = nums[n(pivot, nums.size(), midi)];
+      if (midv == target) return n(pivot, nums.size(), midi);
       if (midv < target) {
         mini = midi + 1;
       } else {
         maxi = midi - 1;
       }
     }
-    int nmin = n(pivot, nums.size(),mini);
+    int nmin = n(pivot, nums.size(), mini);
     return nums[nmin] == target ? nmin : -1;
   }
 };
