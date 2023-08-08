@@ -52,6 +52,20 @@ using namespace std;
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-
+      // find rotation point by examining last item - can't be done as the numbers are random (though sequential)
+      // binary search to find pivot point (smallest number)
+      int curmin = nums.front();
+      int mi = 0;
+      int mxi = nums.size()-1;
+      int midi = 0;
+      while (mi <= mxi) {
+        midi = (mi + mxi) / 2;
+        int midv = nums[midi];
+        if (midv == target) return midv;
+      }
+      // then we have an offset
+      // use modulo to "normalize" indexes with a typical binary search
+      return 0;
     }
 };
+
