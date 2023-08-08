@@ -54,22 +54,25 @@ public:
     int search(vector<int>& nums, int target) {
       // find rotation point by examining last item - can't be done as the numbers are random (though sequential)
       // binary search to find pivot point (smallest number)
-      int curmin = nums.front();
+      // [4,5,6,7,0,1,2]
+      int curmin = nums.front(); // 4
+      int curmax = nums.back(); // 2
       int mi = 0;
       int mxi = nums.size()-1;
       int midi = 0;
       while (mi <= mxi) {
-        midi = (mi + mxi) / 2;
-        int midv = nums[midi];
+        int nmin = mi % nums.size();
+        int nmax = mxi % nums.size();
+        midi = (mi + mxi) / 2; // 3
+        int midv = nums[midi]; // 7
         if (midv == target) return midv;
 
-        if (midv < curmin && midv < target) {
+        if (midv < curmin && midv < target) { // false
           curmin = midv;
           mi = midi+1;
         }
+
       }
-      // then we have an offset
-      // use modulo to "normalize" indexes with a typical binary search
       return 0;
     }
 };
