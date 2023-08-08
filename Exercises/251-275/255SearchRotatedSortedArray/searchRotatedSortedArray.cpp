@@ -60,53 +60,99 @@ class Solution {
     // find rotation point by examining last item - can't be done as the numbers
     // are random (though sequential) binary search to find pivot point
     // (smallest number) [4,5,6,7,0,1,2] // both 4 and 2 greater than target ...
+    // 4-7 no
+    // 2-7 no
+    // 7-2 yes
+    // min = mid+1 max = max-1
     // mid (7) greater than target
     // min > max
     // mid+1 to 2
     int sz = nums.size();
-    int curmin = nums.front();  // 4
-    int curmax = nums.back();   // 2
 
     int mi = 0;
     int mxi = sz - 1;
 
     int midi = 0;
+    // get pivot
+    int pivot = -1;
+    int minv = INT_MAX;
     while (mi <= mxi) {
-      if (curmax == target) return mxi;
-
-      if (curmin == target) return mi;
-
-      if (curmin > curmax) {
-        if (curmin > target) {
-          int tmp = mxi;
-          mxi = mi + sz;
-          mi = tmp;
-          int tmpv = curmin;
-          curmin = curmax;
-          curmax = tmpv;
-        } else { // curmax < target
-          int tmp = mxi;
-          mxi = mi + sz;
-          mi = tmp;
-          int tmpv = curmin;
-          curmin = curmax;
-          curmax = tmpv;
+      if (mi == mxi) {
+        if (nums[mi] < minv) {
+          pivot = mi;
+          break;
         }
       }
-      int nmin = mi;
-      int nmax = mxi;
-      midi = ((mi + mxi) / 2) % sz;  // 3
-      int midv = nums[midi];         // 7
-      if (midv == target) return midv;
 
-      if (midv < target) {
-        mi = midi + 1;
+      int curmax = nums[mxi];
+      int curmin = nums[mi];
+
+      if (curmax < minv) {
+        minv = curmax;
+        pivot = mxi;
       }
 
-      if (midv < target) {
-        mxi = midi - 1;
+      if (curmin < minv) {
+        minv = curmin;
+        pivot = mi;
       }
+
+      midi = mi + mxi / 2;
+
+      int curmid = nums[midi];
+
+      if (curmid < minv) {
+        minv = curmid;
+        pivot = curmid;
+      }
+
+      if (curmid < curmax) {
+        if (curmin < curmid) {
+          pivot = curmin;
+          break;
+        } else {
+          // 4 0 1 2 3
+          mi += 1;
+          mxi = midi-1;
+
+          continue;
+        }
+      } else {
+        mi = midi+1;
+        mxi-=1;
+      }
+      // nums = [4,5,6,7,0,1,2], target = 3
+      // minv, midv, maxv, tgt
+      // 4, 7, 2, 0 - all greater than target, maxv < min, maxv < midv
+      // 7 to 2 (midi+1 to mxi)
+      // 4, 7, 2, 3
+      // target between maxv and minv
+      // 2 to 4 (mxi+1 to mi)
+      // cleanup - check equal for stopping condition
+      // reset min and max
+      // [4,5,6,7,0,1,2] target 6
+      // 4,7,2,6
+      // between minv and midv
+      // 4 to 7
+      // mi to midi-1
+      // [0,1,2,3,4,5,6,7] target 5
+      //  0, 4, 7, 5
+      // 4 to 7
+      // between midv and maxv
+      // midi + 1 to mxi
+
     }
+    cout << "pivot is " << pivot << endl;
     return -1;
   }
 };
+
+
+// find pivot
+// [4,5,6,7,0,1,2]
+// 7 2 (0 2)
+// winner 0
+// [7,0,1,2,4,5,6]
+// 7,2
+// 7,1
+// 7,0
