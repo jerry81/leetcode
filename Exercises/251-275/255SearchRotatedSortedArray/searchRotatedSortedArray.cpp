@@ -103,13 +103,13 @@ class Solution {
         pivot = mi;
       }
 
-      midi = mi + mxi / 2;
+      midi = (mi + mxi) / 2;
 
       int curmid = nums[midi];
 
       if (curmid < minv) {
         minv = curmid;
-        pivot = curmid;
+        pivot = midi;
       }
 
 
@@ -131,10 +131,10 @@ class Solution {
     }
 
     int mini = 0;
-    int maxi = sz;
+    int maxi = sz-1;
     midi = 0;
     while (mini < maxi) {
-      midi = mini + maxi / 2;
+      midi = (mini + maxi) / 2;
       int midv = nums[n(pivot,nums.size(),midi)];
       if (midv == target) return n(pivot,nums.size(),midi);
       if (midv < target) {
