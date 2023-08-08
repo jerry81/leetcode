@@ -86,7 +86,6 @@ class Solution {
       if (mi == mxi) {
         if (nums[mi] < minv) {
           pivot = mi;
-          cout << "pivot set to " << pivot << endl;
           break;
         }
       }
@@ -113,9 +112,10 @@ class Solution {
         pivot = curmid;
       }
 
+
       if (curmid < curmax) {
         if (curmin < curmid) {
-          pivot = curmin;
+          pivot = mi;
           break;
         } else {
           // 4 0 1 2 3
@@ -144,8 +144,6 @@ class Solution {
       }
     }
     int nmin = n(pivot, nums.size(),mini);
-    cout << "pivot is " << pivot << endl;
-    cout << "nmin is " << nmin << endl;
     return nums[nmin] == target ? nmin : -1;
   }
 };
