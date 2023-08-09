@@ -41,14 +41,43 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
-
+int countPairs(vector<int>& nums, int thresh) {
+  int i = 0;
+  int count = 0;
+  while (i < nums.size()-1) {
+    int j = nums[i];
+    int k = nums[i+1];
+    if (abs(j-k) < thresh) {
+      ++count;
+      ++i;
+    }
+    ++i;
+  }
+  return count;
+}
 public:
     int minimizeMax(vector<int>& nums, int p) {
 
+      sort(nums.begin(), nums.end());
+      int mx = abs(nums.back() - nums.front());
+      int mn = 0;
+      int res = mx;
+      while (mn < mx) {
+        int mid = mn + (mx-mn) / 2;
+        int pairs = countPairs(nums, mid);
+        if (pairs >= p) {
+          res = mid;
+          mx = mid-1;
+        } else {
+          mn = mid+1;
+        }
+      }
+      return res;
     }
 };
 
@@ -78,5 +107,41 @@ keep track of items in pq
 if capacity
 if diff < pq pop top, insert
 
+cur [], remain [0,1,2,3,4,5]
+[0]
+  [0,1] [0,2] [0,3] [0,4] [0,5]
+[1]
+  [0,1]<-- dont recount this [1,2] [1,3]
+[2]
+  [2,3]
+  base:
+  if remain just has two items,
+
+  pick 2 each time?
+
+  01, 02, 03, 04, 05
+  12, 13, 14, 15
+  23, 24, 25,
+  34, 35
+  45
+
+  01 2345
+  02 1345
+  03 1245
+  04 1235
+  05 1234
+
+  Peek official: not dp, but greedy+Binary search
+  sort arr
+
+  sorted
+  [1,1,2,3,7,10]
+  [1,1] [2,3]
+
+  sorted
+  [1,2,2,4]
+  [1,2] or
+  [2,2] or <--
+  [2,4]
 
 */
