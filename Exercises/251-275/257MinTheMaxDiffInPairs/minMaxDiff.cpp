@@ -45,8 +45,38 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+
 public:
     int minimizeMax(vector<int>& nums, int p) {
 
     }
 };
+
+/*
+
+Input: nums = [10,1,2,7,1,3], p = 2
+Output: 1
+
+compare 0,1 0,2 0,3 ... 0,5
+compare 1,2 1,3 1,4 ,1,5
+etc...
+4,5 - but indexes can't be reused
+so 0,1  precludes all items from 0 row and 1 row 0x and 1x
+
+or we make n*n matrix
+_ 01 02 03 04 05
+10 _ 12 13 14 15
+
+or just dp/dfs it
+
+pick idx from a pool - eliminate that from pool
+keep track of depth
+at depth p you end
+every other pick calc diff
+keep pq (max on top)
+keep track of items in pq
+if capacity
+if diff < pq pop top, insert
+
+
+*/
