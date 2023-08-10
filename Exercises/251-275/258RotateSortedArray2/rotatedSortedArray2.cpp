@@ -40,6 +40,7 @@ Follow up: This problem is similar to Search in Rotated Sorted Array, but nums m
 #include <vector>
 
 using namespace std;
+
 class Solution {
 private:
     int findPivotIndex(vector<int>& nums) {
@@ -62,14 +63,20 @@ private:
 public:
     bool search(vector<int>& nums, int target) {
         int pivot = findPivotIndex(nums);
-        for (int i = pivot; i < nums.size(); ++i) {
+        for (int i = 0; i < nums.size(); ++i) {
           int idx = pivot - i;
+
           if (idx < 0) idx = nums.size()+idx;
           if (nums[idx] > nums[pivot]) {
             pivot = idx+1;
             break;
+          } else if (nums[idx] < nums[pivot]) {
+              pivot = idx;
+              break;
           }
         }
+
+        cout << "pivot after is " << pivot << endl;
 
         int left = 0;
         int right = nums.size() - 1;
