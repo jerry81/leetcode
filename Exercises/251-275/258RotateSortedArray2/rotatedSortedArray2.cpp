@@ -62,6 +62,7 @@ private:
 public:
     bool search(vector<int>& nums, int target) {
         int pivot = findPivotIndex(nums);
+
         int left = 0;
         int right = nums.size() - 1;
 
