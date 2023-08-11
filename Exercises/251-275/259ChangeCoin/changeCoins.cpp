@@ -54,27 +54,34 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class Solution {
-  int r(int amount, vector<int>& coins, vector<int>& dp) {
-    if (dp[amount] >= 0) return dp[amount];
-    int sum = 0;
-    for (int coin : coins) {
-      int remaining = amount - coin;
-      if (dp[remaining] < 0) {
-        dp[remaining] = r(remaining, coins, dp);
-      }
-      sum += dp[remaining];
+  vector<vector<int>> dp;
+  int n;
+  int r(int i, int amount, vector<int>& coins) {
+    if (amount < 0) return 0;
+    if (i >= n) return 0;
+
+    if (dp[i][amount] >= 0) return dp[i][amount];
+
+    if (coins[i] > amount) {
+      dp[i][amount] = r(i+1, amount, coins);
+    } else {
+      dp[i][amount] = r(i+1, amount, coins) + r(i, amount-coins[i], coins);
     }
-    dp[amount] = sum;
+    return dp[i][amount];
   }
 
  public:
   int change(int amount, vector<int>& coins) {
     // memoized dfs
-    vector<int> _dp(amount, -1);
-    _dp[0] = 1;
-    return r(amount, coins, _dp);
+    n = coins.size();
+    dp.resize(coins.size()-1, vector<int>(amount+1, -1));
+    for (int i = 0; i < coins.size()-1) {
+      dp[i][0] = 1;
+    }
+    return r(0, amount, coins);
   }
 };
