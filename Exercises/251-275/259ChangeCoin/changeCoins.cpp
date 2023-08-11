@@ -57,10 +57,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
- int r(int amount, vector<int>& coins, vector<int>& dp) {
-   if (amount == 0) {
-   } ;
- }
+  int r(int amount, vector<int>& coins, vector<int>& dp) {
+    if (dp[amount] >= 0) return dp[amount];
+    int sum = 0;
+    for (int coin : coins) {
+      int remaining = amount - coin;
+      if (dp[remaining] < 0) {
+        dp[remaining] = r(remaining, coins, dp);
+      }
+      sum += dp[remaining];
+    }
+    dp[amount] = sum;
+  }
+
  public:
   int change(int amount, vector<int>& coins) {
     // memoized dfs
