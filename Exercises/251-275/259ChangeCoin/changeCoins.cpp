@@ -57,12 +57,15 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
- void r(int amount, vector<int>& coins) {
+ int r(int amount, vector<int>& coins, vector<int>& dp) {
+   if (amount == 0) {
+   } ;
  }
-
  public:
   int change(int amount, vector<int>& coins) {
     // memoized dfs
-    vector<int> dp(amount, -1);
+    vector<int> _dp(amount, -1);
+    _dp[0] = 1;
+    return r(amount, coins, _dp);
   }
 };
