@@ -78,8 +78,8 @@ class Solution {
   int change(int amount, vector<int>& coins) {
     // memoized dfs
     n = coins.size();
-    dp.resize(coins.size()-1, vector<int>(amount+1, -1));
-    for (int i = 0; i < coins.size()-1) {
+    dp.resize(n, vector<int>(amount+1, -1));
+    for (int i = 0; i < n; ++i) {
       dp[i][0] = 1;
     }
     return r(0, amount, coins);
