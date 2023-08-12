@@ -52,10 +52,10 @@ using namespace std;
 class Solution {
 int res = 0;
 void r(int y, int x, vector<vector<int>>& obstacleGrid, int h, int w) {
-  if (y == (h-1) && x == (w-1)) res++;
   if (y >= h) return;
   if (x >= w) return;
   if (obstacleGrid[y][x] == 1) return;
+  if (y == (h-1) && x == (w-1)) res++;
   int right = x+1;
   int d = y+1;
   r(d,x,obstacleGrid,h,w);
