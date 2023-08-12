@@ -52,8 +52,8 @@ public:
       int minm = m;
       int minn = n;
       for (auto a: ops) {
-        if (ops[0] < minm) minm = a[0];
-        if (ops[1] < minn) minn = a[1];
+        if (a[0] < minm) minm = a[0];
+        if (a[1] < minn) minn = a[1];
       }
 
       return minm * minn;
