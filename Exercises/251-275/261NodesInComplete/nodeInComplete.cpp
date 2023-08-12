@@ -47,8 +47,8 @@ Acceptance Rate
 */
 
 #include <algorithm>
-#include <string>
 #include <cmath>
+#include <string>
 
 using namespace std;
 
@@ -65,7 +65,7 @@ class Solution {
   int rh(TreeNode *root) {
     if (root == nullptr) return 0;
 
-    return max(1+rh(root->left), 1+rh(root->right));
+    return max(1 + rh(root->left), 1 + rh(root->right));
   }
 
   string maxPath(TreeNode *root) {
@@ -83,16 +83,18 @@ class Solution {
 
   int sumStr(string s) {
     if (s.empty()) return 0;
-    if (s.size()==1) return 1;
+    if (s.size() == 1) return 1;
     s.pop_back();
-    int sum = pow(2,s.size());
-    for (int i = 0; i < s.size(); ++i) {
+    long long sum = pow(2, s.size() + 1) - 1;
+    int e = 0;
+    for (int i = s.size() - 1; i >= 0; --i) {
+      int addend = pow(2, e);
+      e++;
+      if (s[i] == 'L') sum -= addend;
     }
     return sum;
   }
 
  public:
-  int countNodes(TreeNode *root) {
-    return sumStr(maxPath(root));
-  }
+  int countNodes(TreeNode *root) { return sumStr(maxPath(root)); }
 };
