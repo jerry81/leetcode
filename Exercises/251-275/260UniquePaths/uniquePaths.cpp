@@ -50,8 +50,14 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> res;
+void r(int y, int x, vector<int> path, vector<vector<int>>& obstacleGrid, int h, int w) {
+}
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-
+      r(0,0,{},obstacleGrid,obstacleGrid.size(),obstacleGrid[0].size());
+      return res;
     }
 };
+
+// definitely a dfs
