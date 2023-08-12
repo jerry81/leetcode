@@ -46,6 +46,10 @@ Acceptance Rate
 
 */
 
+#include <algorithm>
+#include <string>
+
+using namespace std;
 
 struct TreeNode {
   int val;
@@ -56,10 +60,29 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
-
 class Solution {
-  int rh(TreeNode *root) {}
+  int rh(TreeNode *root) {
+    if (root == nullptr) return 0;
+
+    return max(1+rh(root->left), 1+rh(root->right));
+  }
+
+  string maxPath(TreeNode *root) {
+    if (root == nullptr) return "";
+    int leftH = rh(root->left);
+    int rightH = rh(root->right);
+    if (leftH <= rightH && rightH > 0) {
+      return "R" + maxPath(root->right);
+    } else if (leftH > 0) {
+      return "L" + maxPath(root->left);
+    }
+
+    return "C";
+  }
 
  public:
-  int countNodes(TreeNode *root) {}
+  int countNodes(TreeNode *root) {
+    cout << "path is " << maxPath(root) << endl;
+    return 0;
+  }
 };
