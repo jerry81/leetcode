@@ -50,12 +50,20 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<vector<int>> res;
-void r(int y, int x, vector<int> path, vector<vector<int>>& obstacleGrid, int h, int w) {
+int res = 0;
+void r(int y, int x, vector<vector<int>>& obstacleGrid, int h, int w) {
+  if (y == (h-1) && x == (w-1)) res++;
+  if (y >= h) return;
+  if (x >= w) return;
+  if (obstacleGrid[y][x] == 1) return;
+  int right = x+1;
+  int d = y+1;
+  r(d,x,obstacleGrid,h,w);
+  r(y,right,obstacleGrid,h,w);
 }
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-      r(0,0,{},obstacleGrid,obstacleGrid.size(),obstacleGrid[0].size());
+      r(0,0,obstacleGrid,obstacleGrid.size(),obstacleGrid[0].size());
       return res;
     }
 };
