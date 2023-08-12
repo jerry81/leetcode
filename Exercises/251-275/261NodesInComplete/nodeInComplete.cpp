@@ -48,6 +48,7 @@ Acceptance Rate
 
 #include <algorithm>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -80,9 +81,18 @@ class Solution {
     return "C";
   }
 
+  int sumStr(string s) {
+    if (s.empty()) return 0;
+    if (s.size()==1) return 1;
+    s.pop_back();
+    int sum = pow(2,s.size());
+    for (int i = 0; i < s.size(); ++i) {
+    }
+    return sum;
+  }
+
  public:
   int countNodes(TreeNode *root) {
-    cout << "path is " << maxPath(root) << endl;
-    return 0;
+    return sumStr(maxPath(root));
   }
 };
