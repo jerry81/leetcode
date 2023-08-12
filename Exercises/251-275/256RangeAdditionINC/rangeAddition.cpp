@@ -49,27 +49,15 @@ using namespace std;
 class Solution {
 public:
     int maxCount(int m, int n, vector<vector<int>>& ops) {
-      vector<vector<int>> mat(m,vector<int>(n, 0));
-      int mx = -1;
-      int ret = 0;
-      if (ops.empty()) return n*m;
+      int minm = m;
+      int minn = n;
       for (auto a: ops) {
-        int mt = a[0];
-        int nt = a[1];
-        for (int i = 0; i < mt; ++i) {
-          for (int j = 0; j < nt; ++j) {
-            mat[i][j]++;
-            if (mat[i][j] > mx) mx = mat[i][j];
-          }
-        }
+        if (ops[0] < minm) minm = a[0];
+        if (ops[1] < minn) minn = a[1];
       }
 
-      for (auto a: mat) {
-        for (auto b: a) {
-          if (b == mx) ret++;
-        }
-      }
-
-      return ret;
+      return minm * minn;
     }
 };
+
+// MLE, so we should use something more straightforward
