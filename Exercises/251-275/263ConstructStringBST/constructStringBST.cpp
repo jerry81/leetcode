@@ -72,5 +72,25 @@ using namespace std;
 
 class Solution {
  public:
-  string tree2str(TreeNode *root) {}
+  string tree2str(TreeNode *root) {
+    string str = to_string(root->val);
+    if (root->left != nullptr && root->right != nullptr) {
+      str += "(";
+      str += tree2str(root->left);
+      str += ")";
+      str += "(";
+      str += tree2str(root->right);
+      str += ")";
+    } else if (root->left == nullptr && root->right != nullptr) {
+      str += "()";
+      str += "(";
+      str += tree2str(root->right);
+      str += ")";
+    } else if (root->left != nullptr && root->right == nullptr) {
+      str += "(";
+      str += tree2str(root->left);
+      str += ")";
+    }
+    return str;
+  }
 };
