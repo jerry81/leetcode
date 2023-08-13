@@ -53,12 +53,12 @@ using namespace std;
 class Solution {
   bool r(vector<int>& nums, int idx, vector<int>& dp, int& n) {
     if (dp[idx] >= 0) return (bool)dp[idx];
-    if (idx >= n-2) return false;
-    if (idx == n-3) { // last pair
+    if (idx >= n-1) return false;
+    if (idx == n-2) { // last pair
       dp[idx] = (nums[idx] == nums[idx+1]) ? 1 : 0;
       return dp[idx];
     }
-    if (idx == n-4) { // last triplet
+    if (idx == n-3) { // last triplet
       bool allSame = nums[idx] == nums[idx+1] && nums[idx] == nums[idx+2];
       bool consecutive = (nums[idx] == (nums[idx+1] - 1)) && (nums[idx] == (nums[idx+2] - 2));
       dp[idx] = allSame || consecutive;
