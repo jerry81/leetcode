@@ -54,10 +54,13 @@ public:
     int findKthLargest(vector<int>& nums, int k) {
 
       priority_queue<int,vector<int>, CustomComparator> pq;
-      pq.push(1);
-      pq.push(2);
-      cout << "expect 2 " << pq.top() << endl;
-      return 0;
+      for (int i = 0; i < k; ++i) pq.push(nums[i]);
+
+      for (int j = k; j < nums.size(); ++j) {
+        pq.push(nums[j]);
+        pq.pop();
+      }
+      return pq.top();
     }
 };
 
