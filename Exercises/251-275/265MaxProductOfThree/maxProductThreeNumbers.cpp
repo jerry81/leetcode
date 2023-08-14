@@ -38,10 +38,12 @@ class Solution {
 public:
     int maximumProduct(vector<int>& nums) {
       int product = 1;
+      int product2 = 1;
       sort(nums.begin(), nums.end());
       for (int i = nums.size()-3; i < nums.size(); ++i) {
         product*=nums[i];
       }
-      return product;
+      product2 = nums[0] * nums[1] * nums.back();
+      return max(product, product2);
     }
 };
