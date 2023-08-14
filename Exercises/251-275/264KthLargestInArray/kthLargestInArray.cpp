@@ -37,12 +37,41 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
+struct CustomComparator {
+  bool operator()(int a, int b) const {
+    return a > b;
+  }
+};
 class Solution {
+
+
 public:
     int findKthLargest(vector<int>& nums, int k) {
 
+      priority_queue<int,vector<int>, CustomComparator> pq;
+      pq.push(1);
+      pq.push(2);
+      cout << "expect 2 " << pq.top() << endl;
+      return 0;
     }
 };
+
+/*
+
+Input: nums = [3,2,1,5,6,4], k = 2
+
+3,2 - 2
+3,2,1 - 2
+3,2,1,5 - 3
+5,3,6 - 5
+
+
+Example 2:
+
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+*/
