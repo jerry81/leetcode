@@ -64,20 +64,9 @@ class Solution {
     ListNode* beforehead = nullptr;
     ListNode* after = nullptr;
     ListNode* afterhead = nullptr;
-    ListNode* target = nullptr;
-    ListNode* tgthead = nullptr;
     while (head != nullptr) {
       int curval = head->val;
-      if (curval == x) {
-        if (target == nullptr) {
-          target = new ListNode(x);
-          tgthead = target;
-        } else {
-          ListNode* newLN = new ListNode(x);
-          target->next = newLN;
-          target = target->next;
-        }
-      } else if (curval < x) {
+      if (curval < x) {
         if (before == nullptr) {
           before = new ListNode(curval);
           beforehead = before;
@@ -99,8 +88,7 @@ class Solution {
       head = head->next;
     }
     // connect the peices
-    before->next = tgthead;
-    target->next = afterhead;
+    before->next = afterhead;
     return beforehead;
   }
 };
@@ -109,5 +97,8 @@ class Solution {
 
 iterate once
 three nodes (before, after, and target)
+nope - misread
+- relative order preserved
+- change to 2 nodes
 
 */
