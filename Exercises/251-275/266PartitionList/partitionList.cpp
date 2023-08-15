@@ -5,9 +5,11 @@ Medium
 5.8K
 663
 Companies
-Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+Given the head of a linked list and a value x, partition it such that all nodes
+less than x come before nodes greater than or equal to x.
 
-You should preserve the original relative order of the nodes in each of the two partitions.
+You should preserve the original relative order of the nodes in each of the two
+partitions.
 
 
 
@@ -46,9 +48,54 @@ Acceptance Rate
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
-public:
-    ListNode* partition(ListNode* head, int x) {
 
-    }
+struct ListNode {
+  int val;
+  ListNode* next;
+  ListNode() : val(0), next(nullptr) {}
+  ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
+
+class Solution {
+ public:
+  ListNode* partition(ListNode* head, int x) {
+    ListNode* before;
+    ListNode* beforehead;
+    ListNode* after;
+    ListNode* afterhead;
+    ListNode* target;
+    ListNode* tgthead;
+    while (head != nullptr) {
+      int curval = head->val;
+      if (curval == x) {
+        if (target == nullptr) {
+          target = new ListNode(x);
+          tgthead = target;
+        } else {
+          ListNode* newLN = new ListNode(x);
+          target->next = newLN;
+          target = target->next;
+        }
+      } else if (curval < x) {
+        if (before == nullptr) {
+          before = new ListNode(curval);
+          beforehead = before;
+        } else {
+          ListNode* newLN = new ListNode(x);
+          target->next = newLN;
+          target = target->next;
+        }
+      } else {
+      }
+      head = head->next;
+    }
+  }
+};
+
+/*
+
+iterate once
+three nodes (before, after, and target)
+
+*/
