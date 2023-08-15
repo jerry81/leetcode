@@ -60,12 +60,12 @@ struct ListNode {
 class Solution {
  public:
   ListNode* partition(ListNode* head, int x) {
-    ListNode* before;
-    ListNode* beforehead;
-    ListNode* after;
-    ListNode* afterhead;
-    ListNode* target;
-    ListNode* tgthead;
+    ListNode* before = nullptr;
+    ListNode* beforehead = nullptr;
+    ListNode* after = nullptr;
+    ListNode* afterhead = nullptr;
+    ListNode* target = nullptr;
+    ListNode* tgthead = nullptr;
     while (head != nullptr) {
       int curval = head->val;
       if (curval == x) {
