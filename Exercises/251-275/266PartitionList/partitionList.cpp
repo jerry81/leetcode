@@ -82,14 +82,26 @@ class Solution {
           before = new ListNode(curval);
           beforehead = before;
         } else {
-          ListNode* newLN = new ListNode(x);
-          target->next = newLN;
-          target = target->next;
+          ListNode* newLN = new ListNode(curval);
+          before->next = newLN;
+          before = before->next;
         }
       } else {
+        if (after == nullptr) {
+          after = new ListNode(curval);
+          afterhead = after;
+        } else {
+          ListNode* newLN = new ListNode(curval);
+          after->next = newLN;
+          after = after->next;
+        }
       }
       head = head->next;
     }
+    // connect the peices
+    before->next = tgthead;
+    target->next = afterhead;
+    return beforehead;
   }
 };
 
