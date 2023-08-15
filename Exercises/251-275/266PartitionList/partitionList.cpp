@@ -60,10 +60,13 @@ struct ListNode {
 class Solution {
  public:
   ListNode* partition(ListNode* head, int x) {
+    if (head == nullptr) return head;
+
     ListNode* before = nullptr;
     ListNode* beforehead = nullptr;
     ListNode* after = nullptr;
     ListNode* afterhead = nullptr;
+
     while (head != nullptr) {
       int curval = head->val;
       if (curval < x) {
@@ -87,6 +90,7 @@ class Solution {
       }
       head = head->next;
     }
+    if (before == nullptr) return afterhead;
     // connect the peices
     before->next = afterhead;
     return beforehead;
