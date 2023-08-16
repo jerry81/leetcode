@@ -54,3 +54,15 @@ public:
 
     }
 };
+
+/*
+
+issue - sliding window on each step removes one item and adds one item
+pq doesn't do well with popping anything but min/max
+if we maintain our own sorted list
+then each operation will require searching for the dropped item and inserting the added item
+we can first check if the max was dropped and if the newly added item becomes the new max?
+what if max just naturally "dies" and a new replacement is not found yet?
+then we rely on sorted list still or rediscover the max
+
+*/
