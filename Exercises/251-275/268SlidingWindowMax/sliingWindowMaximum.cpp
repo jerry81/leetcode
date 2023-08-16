@@ -70,7 +70,7 @@ public:
           continue;
         }
 
-        while (curnum > cache.back()) {
+        while (!cache.empty() && curnum > nums[cache.back()]) {
           cache.pop_back();
         }
 
@@ -89,14 +89,14 @@ public:
 
         int curnum = nums[endIdx];
 
-        if (curnum > cache.front()) {
+        if (curnum > nums[cache.front()]) {
           cache.clear();
           cache.push_back(endIdx);
           ret.push_back(nums[cache.front()]);
           continue;
         }
 
-        while (curnum > cache.back()) {
+        while (!cache.empty() && curnum > nums[cache.back()]) {
           cache.pop_back();
         }
 
@@ -107,7 +107,6 @@ public:
       return ret;
     }
 };
-
 /*
 
 issue - sliding window on each step removes one item and adds one item
