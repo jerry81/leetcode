@@ -80,7 +80,7 @@ public:
       ret.push_back(nums[cache.front()]);
       int stop = nums.size() - k;
       // move sliding window to end
-      for (int i = 1; i < stop; ++i) {
+      for (int i = 1; i <= stop; ++i) {
         if (cache.front() < i) {
           cache.pop_front();
         }
@@ -92,6 +92,7 @@ public:
         if (curnum > cache.front()) {
           cache.clear();
           cache.push_back(endIdx);
+          ret.push_back(nums[cache.front()]);
           continue;
         }
 
