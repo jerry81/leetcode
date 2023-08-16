@@ -45,13 +45,40 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <deque>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+      vector<int> ret;
+      deque<int> cache;
+      // establish sliding window
+      // go from 0 to k-1
+      for (int i = 0; i < k; ++i) {
+        if (cache.empty()) {
+          cache.push_back(i);
+          continue;
+        }
 
+        int curnum = nums[i];
+
+        if (nums[cache.front()] < curnum) {
+          cache.clear();
+          cache.push_back(i);
+          continue;
+        }
+
+        while (curnum > cache.back()) {
+          cache.pop_back();
+        }
+
+        cache.push_back(i);
+      }
+      // record first result
+      // move sliding window to end
+      return ret;
     }
 };
 
@@ -70,7 +97,8 @@ then we rely on sorted list still or rediscover the max
 /*
 
 official
-1:  monotonic deque
+1 (only solution):  monotonic deque
+  - monotonic means increasing or decreasing
   - can ignore items with index lower than current max
     - discared them
 */
