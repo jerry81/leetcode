@@ -7,7 +7,9 @@ Easy
 Companies
 You are given an integer array nums consisting of n elements, and an integer k.
 
-Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+Find a contiguous subarray whose length is equal to k that has the maximum
+average value and return this value. Any answer with a calculation error less
+than 10-5 will be accepted.
 
 
 
@@ -41,8 +43,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    double findMaxAverage(vector<int>& nums, int k) {
+ public:
+  double findMaxAverage(vector<int>& nums, int k) {
+    double ret = 0;
+    double avg = 0;
+    int cursum = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+      cursum += i;
 
+      if (i >= k) {
+        cursum -= nums[i - k];
+      }
+
+      if (i >= k - 1) {
+        avg = (double)cursum / (double)k;
+        if (avg > ret) ret = avg;
+      }
     }
+    return avg;
+  }
 };
