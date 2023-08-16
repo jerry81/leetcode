@@ -89,6 +89,12 @@ public:
 
         int curnum = nums[endIdx];
 
+        if (cache.empty()) {
+          cache.push_back(endIdx);
+          ret.push_back(nums[cache.back()]);
+          continue;
+        }
+
         if (curnum > nums[cache.front()]) {
           cache.clear();
           cache.push_back(endIdx);
