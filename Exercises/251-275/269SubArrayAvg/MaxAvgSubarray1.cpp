@@ -45,11 +45,11 @@ using namespace std;
 class Solution {
  public:
   double findMaxAverage(vector<int>& nums, int k) {
-    double ret = 0;
+    double ret = INT_MIN;
     double avg = 0;
     int cursum = 0;
     for (int i = 0; i < nums.size(); ++i) {
-      cursum += i;
+      cursum += nums[i];
 
       if (i >= k) {
         cursum -= nums[i - k];
@@ -60,6 +60,6 @@ class Solution {
         if (avg > ret) ret = avg;
       }
     }
-    return avg;
+    return ret;
   }
 };
