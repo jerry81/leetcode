@@ -66,3 +66,39 @@ what if max just naturally "dies" and a new replacement is not found yet?
 then we rely on sorted list still or rediscover the max
 
 */
+
+/*
+
+official
+1:  monotonic deque
+  - can ignore items with index lower than current max
+    - discared them
+*/
+
+/*
+
+deque data structure
+double-ended queue
+  - unlike traditional - add to back and remove from front
+  - can insert and remove from both front and rear
+
+#include <deque>
+
+    std::deque<int> myDeque;
+
+    // Adding elements
+    myDeque.push_back(10);   // Add 10 to the rear
+    myDeque.push_front(5);   // Add 5 to the front
+
+    // Removing elements
+    int frontElement = myDeque.front(); // Get the front element (5)
+    int rearElement = myDeque.back();   // Get the rear element (10)
+    myDeque.pop_front();  // Remove the front element
+    myDeque.pop_back();   // Remove the rear element
+
+    // Accessing elements
+    int firstElement = myDeque[0];  // Access the front element
+    int lastElement = myDeque.back();  // Access the rear element
+
+    return 0;
+*/
