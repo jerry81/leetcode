@@ -77,7 +77,32 @@ public:
         cache.push_back(i);
       }
       // record first result
+      ret.push_back(nums[cache.front()]);
+      int stop = nums.size() - k;
       // move sliding window to end
+      for (int i = 1; i < stop; ++i) {
+        if (cache.front() < i) {
+          cache.pop_front();
+        }
+
+        int endIdx = i+k-1;
+
+        int curnum = nums[endIdx];
+
+        if (curnum > cache.front()) {
+          cache.clear();
+          cache.push_back(endIdx);
+          continue;
+        }
+
+        while (curnum > cache.back()) {
+          cache.pop_back();
+        }
+
+        cache.push_back(endIdx);
+
+        ret.push_back(nums[cache.front()]);
+      }
       return ret;
     }
 };
