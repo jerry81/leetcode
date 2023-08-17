@@ -50,27 +50,51 @@ using namespace std;
 class Solution {
   string hsh(int y, int x) { return to_string(y) + "," + to_string(x); }
 
+  vector<vector<int>> dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
  public:
   vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
     queue<pair<int,int>> neighbors;
     int h = mat.size();
     int w = mat[0].size();
     vector<vector<int>> res(h, vector<int>(w, 0));
-
+    unordered_map<string, bool> visited;
     for (int y = 0; y < mat.size(); ++y) {
       for (int x = 0; x < mat[0].size(); ++x) {
         if (mat[y][x] == 0) {
-          res[y][x] = 0;
           neighbors.push({y,x});
+          visited[hsh(y,x)] = true;
         }
       }
     }
 
+    int dst = 0;
     while (!neighbors.empty()) {
       queue<pair<int,int>> nn;
       while (!neighbors.empty()) {
+        auto [cy,cx] = neighbors.front();
+        neighbors.pop();
+        res[cy][cx] = dst;
+        for (auto a: dirs) {
+          string asHsh = hsh(cy,cx);
+          if (visited[asHsh]) continue;
 
+          int ny = a[0] + cy;
+          int nx = a[1] + cx;
+          if (ny < 0) continue;
+
+          if (ny >= h) continue;
+
+          if (nx < 0) continue;
+
+          if (nx >= w) continue;
+
+          nn.push({ny,nx});
+
+          visited[asHsh] = true;
+        }
       }
+      dst++;
+      neighbors = nn;
     }
 
     return res;
