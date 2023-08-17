@@ -41,20 +41,21 @@ Acceptance Rate
 
 */
 
-#include <string>
-#include <vector>
-#include <unordered_map>
 #include <queue>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
   string hsh(int y, int x) { return to_string(y) + "," + to_string(x); }
 
-  vector<vector<int>> dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+  vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
  public:
   vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-    queue<pair<int,int>> neighbors;
+    queue<pair<int, int>> neighbors;
     int h = mat.size();
     int w = mat[0].size();
     vector<vector<int>> res(h, vector<int>(w, 0));
@@ -62,23 +63,23 @@ class Solution {
     for (int y = 0; y < mat.size(); ++y) {
       for (int x = 0; x < mat[0].size(); ++x) {
         if (mat[y][x] == 0) {
-          neighbors.push({y,x});
-          visited[hsh(y,x)] = true;
+          neighbors.push({y, x});
+          visited[hsh(y, x)] = true;
         }
       }
     }
 
     int dst = 0;
     while (!neighbors.empty()) {
-      queue<pair<int,int>> nn;
+      queue<pair<int, int>> nn;
       while (!neighbors.empty()) {
-        auto [cy,cx] = neighbors.front();
+        auto [cy, cx] = neighbors.front();
         neighbors.pop();
         res[cy][cx] = dst;
-        for (auto a: dirs) {
+        for (auto a : dirs) {
           int ny = a[0] + cy;
           int nx = a[1] + cx;
-          string asHsh = hsh(ny,nx);
+          string asHsh = hsh(ny, nx);
           if (visited[asHsh]) continue;
           if (ny < 0) continue;
 
@@ -88,7 +89,7 @@ class Solution {
 
           if (nx >= w) continue;
 
-          nn.push({ny,nx});
+          nn.push({ny, nx});
 
           visited[asHsh] = true;
         }
