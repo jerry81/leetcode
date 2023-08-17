@@ -47,6 +47,7 @@ Acceptance Rate
 #include <queue>
 
 using namespace std;
+
 class Solution {
   string hsh(int y, int x) { return to_string(y) + "," + to_string(x); }
 
@@ -75,11 +76,10 @@ class Solution {
         neighbors.pop();
         res[cy][cx] = dst;
         for (auto a: dirs) {
-          string asHsh = hsh(cy,cx);
-          if (visited[asHsh]) continue;
-
           int ny = a[0] + cy;
           int nx = a[1] + cx;
+          string asHsh = hsh(ny,nx);
+          if (visited[asHsh]) continue;
           if (ny < 0) continue;
 
           if (ny >= h) continue;
