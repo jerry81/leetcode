@@ -5,7 +5,9 @@ Easy
 6.3K
 250
 Companies
-Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.
+Given the root of a binary search tree and an integer k, return true if there
+exist two elements in the BST such that their sum is equal to k, or false
+otherwise.
 
 
 
@@ -44,21 +46,44 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
 struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
-class Solution {
-public:
-    bool findTarget(TreeNode* root, int k) {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
-    }
+class Solution {
+
+bool find(TreeNode *root, int k) {
+  if (root == nullptr) return false;
+  int cur = root->val;
+  if (cur == k) return true;
+
+  if (k < cur) {
+    return find(root->left, k);
+  } else {
+    return find(root->right,k);
+  }
+}
+
+bool r(TreeNode *root, int k, TreeNode *orig) {
+  if (root == nullptr) return false;
+  int cur = root->val;
+  int diff = k - cur;
+  if (diff == k) return r(root->left,k,orig) || r(root->right,k,orig);
+  return find(orig,diff) || r(root->left,k,orig) || r(root->right,k,orig);
+}
+ public:
+  bool findTarget(TreeNode *root, int k) {
+    return r(root,k,root);
+  }
 };
