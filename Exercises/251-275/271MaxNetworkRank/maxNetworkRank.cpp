@@ -95,10 +95,23 @@ class Solution {
 
     vector<City*> cloned = cities;
     sort(cities.begin(), cities.end(), comp);
-    int highIdx = 0;
-    int lowIdx = 1;
-    int highVal = cities[highIdx]->indegree;
-    int lowVal = cities[lowIdx]->indegree;
+
+    // worst case: all the indegrees are the same.
+    // becomes an issue of finding the pair that is not connected
+    int mx = INT_MIN;
+
+    for (int highIdx = 0; highIdx < n - 1; ++highIdx) {
+      for (int lowIdx = highIdx + 1; lowIdx < n; ++lowIdx) {
+        City* highCity = cities[highIdx];
+        City* lowCity = cities[lowIdx];
+        int subtractor = cloned[highCity->idx]->neighbors[lowCity->idx] ? 1 : 0;
+        int totalVal = highCity->indegree + lowCity->indegree - subtractor;
+        if (mx < totalVal) {
+          mx = totalVal;
+        }
+      }
+    }
+    return mx;
   }
 };
 // sort by in degrees
