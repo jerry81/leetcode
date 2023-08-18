@@ -57,10 +57,43 @@ Acceptance Rate
 
 using namespace std;
 
+struct City {
+  vector<bool> neighbors;
+  int indegree = 0;
+  City(){};
+};
+
+bool comp(City* a, City* b) {
+  return a->indegree > b->indegree;
+}
+
 class Solution {
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+      // iterate roads
+      // build neighbors
+      vector<City*> cities(n, new City());
+      cerr << "cities size is " << cities.size() << endl;
+      for (auto c: cities) {
+        c->neighbors.resize(n, false);
+      }
 
+      cerr << "resized " << endl;
+
+      for (auto r: roads) {
+        cerr << "r[0] " << r[0] << " and r[1] " << r[1] << endl;
+        int outc = r[0];
+        cerr << "cities[r[0]] neighbor size " << cities[outc]->neighbors.size() << endl;
+
+        cities[r[0]]->neighbors[r[1]] = true;
+        cities[r[1]]->indegree++;
+      }
+
+      cerr << "processed " << endl;
+
+      sort(cities.begin(), cities.end(), comp);
+
+      return cities[0]->indegree + cities[1]->indegree;
     }
 };
 
