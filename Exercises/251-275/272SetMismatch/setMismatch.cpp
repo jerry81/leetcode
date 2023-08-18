@@ -43,6 +43,17 @@ using namespace std;
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
+      vector<int> res(2,0);
+      for (int i = 1; i < nums.size();++i) {
+        if (nums[i] == nums[i-1]) {
+          res[0] = nums[i];
+          continue;
+        }
 
+        if (nums[i] != nums[i-1] - 1) {
+          res[1] = nums[i-1] + 1;
+        }
+      }
+      return res;
     }
 };
