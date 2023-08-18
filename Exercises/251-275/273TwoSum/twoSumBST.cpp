@@ -79,7 +79,7 @@ bool r(TreeNode *root, int k, TreeNode *orig) {
   if (root == nullptr) return false;
   int cur = root->val;
   int diff = k - cur;
-  if (diff == k) return r(root->left,k,orig) || r(root->right,k,orig);
+  if ((diff*2) == k) return r(root->left,k,orig) || r(root->right,k,orig);
   return find(orig,diff) || r(root->left,k,orig) || r(root->right,k,orig);
 }
  public:
