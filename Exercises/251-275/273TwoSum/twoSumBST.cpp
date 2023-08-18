@@ -62,28 +62,28 @@ struct TreeNode {
 };
 
 class Solution {
+  bool find(TreeNode *root, int k) {
+    if (root == nullptr) return false;
+    int cur = root->val;
+    if (cur == k) return true;
 
-bool find(TreeNode *root, int k) {
-  if (root == nullptr) return false;
-  int cur = root->val;
-  if (cur == k) return true;
-
-  if (k < cur) {
-    return find(root->left, k);
-  } else {
-    return find(root->right,k);
+    if (k < cur) {
+      return find(root->left, k);
+    } else {
+      return find(root->right, k);
+    }
   }
-}
 
-bool r(TreeNode *root, int k, TreeNode *orig) {
-  if (root == nullptr) return false;
-  int cur = root->val;
-  int diff = k - cur;
-  if ((diff*2) == k) return r(root->left,k,orig) || r(root->right,k,orig);
-  return find(orig,diff) || r(root->left,k,orig) || r(root->right,k,orig);
-}
+  bool r(TreeNode *root, int k, TreeNode *orig) {
+    if (root == nullptr) return false;
+    int cur = root->val;
+    int diff = k - cur;
+    if ((diff * 2) == k)
+      return r(root->left, k, orig) || r(root->right, k, orig);
+    return find(orig, diff) || r(root->left, k, orig) ||
+           r(root->right, k, orig);
+  }
+
  public:
-  bool findTarget(TreeNode *root, int k) {
-    return r(root,k,root);
-  }
+  bool findTarget(TreeNode *root, int k) { return r(root, k, root); }
 };
