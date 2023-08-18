@@ -39,21 +39,23 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
       vector<int> res(2,0);
+      sort(nums.begin(), nums.end());
+      int offset = -1;
       for (int i = 1; i < nums.size();++i) {
-        if (nums[i] == nums[i-1]) {
+        if (res[1] == 0 && i != nums[i+offset]) {
+          res[1] = i;
+        }
+        if (offset < 0 && nums[i] == nums[i+offset]) {
           res[0] = nums[i];
-          continue;
+          offset = 0;
         }
 
-        if (nums[i] != nums[i-1] - 1) {
-          res[1] = nums[i-1] + 1;
-        }
       }
+      if (res[1] == 0) res[1] = nums.size();
       return res;
     }
 };
