@@ -72,24 +72,25 @@ public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
       // iterate roads
       // build neighbors
-      vector<City*> cities(n, new City());
-      cerr << "cities size is " << cities.size() << endl;
-      for (auto c: cities) {
-        c->neighbors.resize(n, false);
+      vector<City*> cities;
+      for (int i = 0; i < n; ++i) {
+        cities.push_back(new City());
+        cities[i]->neighbors.resize(n, false);
       }
 
-      cerr << "resized " << endl;
 
       for (auto r: roads) {
-        cerr << "r[0] " << r[0] << " and r[1] " << r[1] << endl;
-        int outc = r[0];
-        cerr << "cities[r[0]] neighbor size " << cities[outc]->neighbors.size() << endl;
 
         cities[r[0]]->neighbors[r[1]] = true;
+        cerr<< "setting cities[r[1]] " << cities[r[1]] << endl;
         cities[r[1]]->indegree++;
+
+      }
+      cout << "printing cities " << endl;
+      for (int i = 0; i < cities.size(); ++i) {
+        cout << "city " << i << " indegree " << cities[i]->indegree << endl;
       }
 
-      cerr << "processed " << endl;
 
       sort(cities.begin(), cities.end(), comp);
 
