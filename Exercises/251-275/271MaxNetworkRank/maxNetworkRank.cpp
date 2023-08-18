@@ -58,6 +58,7 @@ Acceptance Rate
 using namespace std;
 
 struct City {
+  int idx;
   vector<bool> neighbors;
   int indegree = 0;
   City(){};
@@ -75,6 +76,7 @@ public:
       vector<City*> cities;
       for (int i = 0; i < n; ++i) {
         cities.push_back(new City());
+        cities[i]-idx = i;
         cities[i]->neighbors.resize(n, false);
       }
 
@@ -82,20 +84,15 @@ public:
       for (auto r: roads) {
 
         cities[r[0]]->neighbors[r[1]] = true;
-        cerr<< "setting cities[r[1]] " << cities[r[1]] << endl;
+        cities[r[1]]->neighbors[r[0]] = true;
         cities[r[1]]->indegree++;
-
-      }
-      cout << "printing cities " << endl;
-      for (int i = 0; i < cities.size(); ++i) {
-        cout << "city " << i << " indegree " << cities[i]->indegree << endl;
+        cities[r[0]]->indegree++;
       }
 
-
+      vector<City*> cloned = cities;
       sort(cities.begin(), cities.end(), comp);
-
-      return cities[0]->indegree + cities[1]->indegree;
+      bool connected = cloned[cities[0]->idx]->neighbors[cities[1]->idx];
+      return cities[0]->indegree + cities[1]->indegree - connected;;
     }
 };
-
 // sort by in degrees
