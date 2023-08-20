@@ -56,10 +56,15 @@ vector<unordered_map<int,bool>> groups;
 public:
     vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {
       vector<int> result;
-      groups.resize(m);
+      groups.resize(n);
+      int groupId = m;
       for (int i = 0; i < group.size(); ++i) {
-        if (group[i] >= 0) {
-          groups[group[i]][i]=true;
+        int g_id = group[i];
+        if (g_id == -1) {
+          groups[groupId][i] = true;
+          groupId++;
+        } else {
+          groups[g_id][i] = true;
         }
       }
       // make beforeitems into a graph?
