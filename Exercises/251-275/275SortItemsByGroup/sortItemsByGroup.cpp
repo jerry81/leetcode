@@ -98,7 +98,7 @@ class Solution {
         if (childGroupId != parentGroupId) {
           // group dependency detected
           // add group dependency
-          if (group_neighbors[parentGroupId].find(childGroupId) !=
+          if (group_neighbors[parentGroupId].find(childGroupId) ==
               group_neighbors[parentGroupId].end()) {
             group_neighbors[parentGroupId].insert(childGroupId);
             groupIndegrees[childGroupId]->val++;
@@ -109,7 +109,7 @@ class Solution {
       indegrees[child]->val += parents.size();
     }
     vector<InDegree*> copied = indegrees;
-    sort(indegrees.begin(), indegrees.end());
+    sort(indegrees.begin(), indegrees.end(), sortIndegrees);
     vector<int> sortedIds;
     while (!indegrees.empty()) {
       if (indegrees[0]->val > 0) return {};
@@ -131,7 +131,7 @@ class Solution {
     }
     vector<int> sortedGroupIds;
     vector<InDegree*> origGroups = groupIndegrees;
-    sort(groupIndegrees.begin(), groupIndegrees.end(),sortIndegrees);
+    sort(groupIndegrees.begin(), groupIndegrees.end(), sortIndegrees);
     while (!groupIndegrees.empty()) {
       if (groupIndegrees[0]->val > 0) return {};
       vector<InDegree*> nextIndegrees;
@@ -154,12 +154,13 @@ class Solution {
     // final stretch: populate the final list in order based on group order
 
     vector<vector<int>> reorderedGroups(groupId);
-    for (int i:sortedIds) {
+    for (int i : sortedIds) {
       reorderedGroups[group[i]].push_back(i);
     }
 
-    for (int gr: sortedGroupIds) {
-      result.insert(result.end(), reorderedGroups[gr].begin(), reorderedGroups[gr].end());
+    for (int gr : sortedGroupIds) {
+      result.insert(result.end(), reorderedGroups[gr].begin(),
+                    reorderedGroups[gr].end());
     }
     // for (InDegree i: indegrees) {
     //   cout << "indegree " << i.id << ", " << i.val << endl;
