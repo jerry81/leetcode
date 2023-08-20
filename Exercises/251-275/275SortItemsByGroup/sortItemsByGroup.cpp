@@ -47,25 +47,56 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <unordered_map>
+#include <map>
+#include <unordered_set>
 
 using namespace std;
 
+struct InDegree {
+  int id = -1;
+  int val = 0;
+  InDegree(int i, int v) : id(i), val(v) {};
+};
 class Solution {
-vector<unordered_map<int,bool>> inEdges;
+map<int,unordered_set<int>> neighbors;
+map<int,unordered_set<int>> group_neighbors;
+vector<InDegree> indegrees;
+vector<InDegree> groupIndegrees;
 public:
     vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {
       vector<int> result;
       int groupId = m;
       for (int i = 0; i < group.size(); ++i) {
+        InDegree cur = InDegree(i,0);
+        indegrees.push_back(cur);
         if (group[i] == -1) {
           group[i] = groupId;
           groupId++;
         }
       }
 
-      for (int gr: group) {
-        cout << "grid is " << gr << end;
+      for (int i = 0; i < groupId; ++i) {
+        InDegree cur = InDegree(i,0);
+        groupIndegrees.push_back(cur);
+      }
+
+      for (int child = 0; child < n; ++child) {
+        vector<int> parents = beforeItems[child];
+        int childGroupId = group[child];
+        for (int parent: parents) {
+          neighbors[parent].insert(child);
+          int parentGroupId = group[parent];
+          if (childGroupId != parentGroupId) {
+            // group dependency detected
+            // add group dependency
+            if (group_neighbors[parentGroupId].find(childGroupId) != group_neighbors[parentGroupId].end()) {
+                group_neighbors[parentGroupId].insert(childGroupId);
+                groupIndegrees[childGroupId].val++;
+            }
+            // add group neighbor
+          }
+        }
+        indegrees[child].val+=parents.size();
       }
       // make beforeitems into a graph?
       return result;
