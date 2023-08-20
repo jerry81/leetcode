@@ -111,15 +111,12 @@ class Solution {
     vector<InDegree*> copied = indegrees;
     sort(indegrees.begin(), indegrees.end());
     vector<int> sortedIds;
-    cout << "size " << indegrees.size() << endl;
     while (!indegrees.empty()) {
-      cout << "size of 0 is " << indegrees[0]->val << endl;
       if (indegrees[0]->val > 0) return {};
       vector<InDegree*> nextIndegrees;
       for (int i = 0; i < indegrees.size(); ++i) {
         InDegree* cur = indegrees[i];
         if (cur->val == 0) {
-          cout << "pushing " << cur->id << endl;
           sortedIds.push_back(cur->id);
           unordered_set<int> toReduce = neighbors[cur->id];
           for (int i : toReduce) {
@@ -132,11 +129,27 @@ class Solution {
       sort(nextIndegrees.begin(), nextIndegrees.end(), sortIndegrees);
       indegrees = nextIndegrees;
     }
-    cout << "sorted " << endl;
-    for (int sid : sortedIds) {
-      cout << sid << endl;
-    }
     vector<int> sortedGroupIds;
+    vector<InDegree*> origGroups = groupIndegrees;
+    sort(groupIndegrees.begin(), groupIndegrees.end(),sortIndegrees);
+    while (!groupIndegrees.empty()) {
+      if (groupIndegrees[0]->val > 0) return {};
+      vector<InDegree*> nextIndegrees;
+      for (int i = 0; i < groupIndegrees.size(); ++i) {
+        InDegree* cur = groupIndegrees[i];
+        if (cur->val == 0) {
+          sortedGroupIds.push_back(cur->id);
+          unordered_set<int> toReduce = group_neighbors[cur->id];
+          for (int i : toReduce) {
+            origGroups[i]->val--;
+          }
+        } else {
+          nextIndegrees.push_back(cur);
+        }
+      }
+      sort(nextIndegrees.begin(), nextIndegrees.end(), sortIndegrees);
+      groupIndegrees = nextIndegrees;
+    }
     // for (InDegree i: indegrees) {
     //   cout << "indegree " << i.id << ", " << i.val << endl;
     // }
