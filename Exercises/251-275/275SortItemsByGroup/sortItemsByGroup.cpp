@@ -52,20 +52,20 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<unordered_map<int,bool>> groups;
+vector<unordered_map<int,bool>> inEdges;
 public:
     vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {
       vector<int> result;
-      groups.resize(n);
       int groupId = m;
       for (int i = 0; i < group.size(); ++i) {
-        int g_id = group[i];
-        if (g_id == -1) {
-          groups[groupId][i] = true;
+        if (group[i] == -1) {
+          group[i] = groupId;
           groupId++;
-        } else {
-          groups[g_id][i] = true;
         }
+      }
+
+      for (int gr: group) {
+        cout << "grid is " << gr << end;
       }
       // make beforeitems into a graph?
       return result;
