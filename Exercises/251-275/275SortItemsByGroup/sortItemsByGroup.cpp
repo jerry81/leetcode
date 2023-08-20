@@ -150,6 +150,17 @@ class Solution {
       sort(nextIndegrees.begin(), nextIndegrees.end(), sortIndegrees);
       groupIndegrees = nextIndegrees;
     }
+
+    // final stretch: populate the final list in order based on group order
+
+    vector<vector<int>> reorderedGroups(groupId);
+    for (int i:sortedIds) {
+      reorderedGroups[group[i]].push_back(i);
+    }
+
+    for (int gr: sortedGroupIds) {
+      result.insert(result.end(), reorderedGroups[gr].begin(), reorderedGroups[gr].end());
+    }
     // for (InDegree i: indegrees) {
     //   cout << "indegree " << i.id << ", " << i.val << endl;
     // }
@@ -158,7 +169,7 @@ class Solution {
     //   cout << "group indegree " << i.id << ", " << i.val << endl;
     // }
     // make beforeitems into a graph?
-    return {0, 5, 2, 6, 3, 4, 1, 7};
+    return result;
   }
 };
 
