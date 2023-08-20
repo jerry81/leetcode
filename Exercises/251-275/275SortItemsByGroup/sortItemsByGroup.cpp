@@ -47,15 +47,37 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-vector<int> groups;
-vector<vector<int>> prevs;
 class Solution {
+vector<unordered_map<int,bool>> groups;
 public:
     vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {
-      groups.resize(n,-1);
-      prevs.resize(n);
+      vector<int> result;
+      groups.resize(m);
+      for (int i = 0; i < group.size(); ++i) {
+        if (group[i] >= 0) {
+          groups[group[i]][i]=true;
+        }
+      }
+      // make beforeitems into a graph?
+      return result;
     }
 };
+
+/*
+
+[-1,-1,1,0,0,1,0,-1], beforeItems = [[],[6],[5],[6],[3],[],[4],[]]
+contradiction:
+
+6 before 1
+5 before 2
+6 before 3
+3 before 4
+4 before 6
+
+6->3->4->6 (circular)
+
+*/
