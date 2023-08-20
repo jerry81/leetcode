@@ -162,14 +162,6 @@ class Solution {
       result.insert(result.end(), reorderedGroups[gr].begin(),
                     reorderedGroups[gr].end());
     }
-    // for (InDegree i: indegrees) {
-    //   cout << "indegree " << i.id << ", " << i.val << endl;
-    // }
-
-    // for (InDegree i: groupIndegrees) {
-    //   cout << "group indegree " << i.id << ", " << i.val << endl;
-    // }
-    // make beforeitems into a graph?
     return result;
   }
 };

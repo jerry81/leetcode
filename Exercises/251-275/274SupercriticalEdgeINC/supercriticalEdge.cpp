@@ -54,9 +54,42 @@ Acceptance Rate
 
 using namespace std;
 
+struct UnionFind {
+  int weight = 0;
+  vector<int> parents;
+  vector<int> sizes;
+  int maxSize = 1;
+  int size = 0;
+
+  UnionFind(int sz):size(sz) {
+    parents.resize(size);
+    sizes.resize(sz,1);
+    for (int i = 0; i < size; ++i) {
+      parents[i] = i;
+    }
+  }
+
+  int getParent(int x) {
+    if (parents[x] != x) parents[x] = getParent(parents[x]);
+
+    return parents[x];
+  }
+
+  bool connect(int x, int y) {
+    int parentX = getParent(x);
+    int parentY = getParent(y);
+    if (parentX == parentY) return false;
+
+
+  }
+
+};
+
 class Solution {
 public:
     vector<vector<int>> findCriticalAndPseudoCriticalEdges(int n, vector<vector<int>>& edges) {
-
+      // basically brute force
+      // union find DS needed
+      // unite() -> true if parents are the same
     }
 };
