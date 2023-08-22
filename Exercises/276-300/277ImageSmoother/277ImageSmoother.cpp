@@ -60,11 +60,12 @@ using namespace std;
 class Solution {
  public:
   vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
-    vector<vector<int>> result;
     int h = img.size();
     int w = img[0].size();
     vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {1, 1},  {-1, 1},
                                 {0, 1}, {0, -1}, {1, -1}, {-1, -1}};
+    vector<vector<int>> result(h, vector<int>(w));
+
     for (int y = 0; y < h; ++y) {
       for (int x = 0; x < w; ++x) {
         int neighbors = 0;
