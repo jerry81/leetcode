@@ -45,23 +45,18 @@ Acceptance Rate
 
 using namespace std;
 
-struct Move {
+struct MoveS {
   int dx = 0;
   int dy = 0;
-  Move(int y, int x): dx(x), dy(y) {};
 };
 class Solution {
 public:
     bool judgeCircle(string moves) {
-      map<char, Move> movemap;
-      Move up = Move(-1,0);
-      movemap['U'] = up;
-      Move down = Move(1,0);
-      movemap['D'] = down;
-      Move left = Move(0,-1);
-      movemap['L'] = left;
-      Move right = Move(0,1);
-      movemap['R'] = right;
+      unordered_map<char, MoveS> movemap;
+      movemap['U'] =  MoveS{-1,0};
+      movemap['D'] = MoveS{1,0};
+      movemap['L'] = MoveS{0,-1};
+      movemap['R'] = MoveS{0,1};
       int y = 0;
       int x = 0;
       for (char c: moves) {
