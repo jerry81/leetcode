@@ -68,7 +68,7 @@ class Solution {
 
     for (int y = 0; y < h; ++y) {
       for (int x = 0; x < w; ++x) {
-        int neighbors = 0;
+        int neighbors = 1;
         int sum = 0;
         for (vector<int> d : dirs) {
           int cy = y+d[0];
@@ -78,6 +78,7 @@ class Solution {
             sum += img[cy][cx];
           }
         }
+        sum+=img[y][x];
         result[y][x] = sum/neighbors;
       }
     }
