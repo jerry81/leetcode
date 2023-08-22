@@ -41,12 +41,33 @@ Acceptance Rate
 */
 
 #include <string>
+#include <map>
 
 using namespace std;
 
+struct Move {
+  int dx = 0;
+  int dy = 0;
+  Move(int y, int x): dx(x), dy(y) {};
+};
 class Solution {
 public:
     bool judgeCircle(string moves) {
-
+      map<char, Move> movemap;
+      Move up = Move(-1,0);
+      movemap['U'] = up;
+      Move down = Move(1,0);
+      movemap['D'] = down;
+      Move left = Move(0,-1);
+      movemap['L'] = left;
+      Move right = Move(0,1);
+      movemap['R'] = right;
+      int y = 0;
+      int x = 0;
+      for (char c: moves) {
+        y+=movemap[c].dy;
+        x+=movemap[c].dx;
+      }
+      return y == 0 && x == 0;
     }
 };
