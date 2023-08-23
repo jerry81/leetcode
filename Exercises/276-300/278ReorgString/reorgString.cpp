@@ -75,14 +75,13 @@ class Solution {
     }
 
     bool wrapped = false;
-    int idx = items[0].freq * 2 + 2;
-
+    int idx = items[0].freq * 2;
 
     for (int i = 1; i < items.size(); ++i) {
       for (int j = 0; j < items[i].freq; ++j) {
         if (!wrapped && idx < s.size()) {
           ret[idx] = items[i].c;
-          idx+=2;
+          idx += 2;
           continue;
         }
 
