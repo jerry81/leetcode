@@ -70,28 +70,32 @@ class Solution {
 
     if (items[0].freq > ceil((double)((double)s.size()) / 2.0)) return "";
 
-    int lastOdd = 1;
-    int lastEven = 0;
-    bool isEven = true;
+    for (int i = 0; i < items[0].freq; ++i) {
+      ret[i * 2] = items[0].c;
+    }
 
-    for (Item i : items) {
-      int lastSeen = 0;
-      int lastIdx = 0;
-      if (lastEven < lastOdd) {
-        isEven = true;
-        lastSeen = lastEven;
-      } else {
-        isEven = false;
-        lastSeen = lastOdd;
-      }
-      for (int j = 0; j < i.freq; j++) {
-        lastIdx = lastSeen + (j * 2);
-        ret[lastIdx] = i.c;
-      }
-      if (isEven) {
-        lastEven = lastIdx + 2;
-      } else {
-        lastOdd = lastIdx + 2;
+    bool wrapped = false;
+    int idx = items[0].freq * 2 + 2;
+
+
+    for (int i = 1; i < items.size(); ++i) {
+      for (int j = 0; j < items[i].freq; ++j) {
+        if (!wrapped && idx < s.size()) {
+          ret[idx] = items[i].c;
+          idx+=2;
+          continue;
+        }
+
+        if (!wrapped) {
+          wrapped = true;
+          idx = 1;
+        }
+
+        while (ret[idx] != ' ') {
+          idx++;
+        }
+
+        ret[idx] = items[i].c;
       }
     }
     return ret;
