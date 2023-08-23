@@ -54,7 +54,7 @@ public:
     string reorganizeString(string s) {
       // recursion & backtracking
       map<char,int> freqMap;
-      string ret = "";
+      string ret(s.size(),' ');
       vector<Item> items;
       for (char c: s) {
         if (freqMap.find(c) == freqMap.end()) {
@@ -67,7 +67,25 @@ public:
         items.push_back(Item(v,k));
       }
       sort(items.begin(), items.end(), compareItem);
-      cout << "first item is " << items[0].c << ", " << items[0].freq << endl;
+
+      int lastOdd = 1;
+      int lastEven = 0;
+      bool isEven = true;
+
+      for (Item i: items) {
+        for (int j = 0; j < i.freq; j++) {
+            int lastSeen = 0;
+            if (lastEven < lastOdd) {
+              isEven = true;
+              lastSeen = lastEven;
+            } else {
+              isEven = false;
+              lastSeen = true;
+            }
+
+            ret[lastSeen+(j*2)+(int)(!isEven)] = i.c;
+        }
+      }
       return ret;
     }
 };
