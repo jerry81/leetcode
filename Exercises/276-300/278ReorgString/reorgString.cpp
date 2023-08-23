@@ -35,10 +35,10 @@ Acceptance Rate
 
 */
 
+#include <cmath>
 #include <map>
 #include <string>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -68,7 +68,7 @@ class Solution {
     }
     sort(items.begin(), items.end(), compareItem);
 
-    if (items[0].freq > ceil((double)((double)s.size())/2.0)) return "";
+    if (items[0].freq > ceil((double)((double)s.size()) / 2.0)) return "";
 
     int lastOdd = 1;
     int lastEven = 0;
@@ -82,18 +82,17 @@ class Solution {
         lastSeen = lastEven;
       } else {
         isEven = false;
-        lastSeen = true;
+        lastSeen = lastOdd;
       }
       for (int j = 0; j < i.freq; j++) {
         lastIdx = lastSeen + (j * 2);
         ret[lastIdx] = i.c;
       }
       if (isEven) {
-        lastEven = lastIdx;
+        lastEven = lastEven == lastIdx ? lastIdx + 2 : lastIdx;
       } else {
-        lastOdd = lastIdx;
+        lastOdd = lastOdd == lastIdx ? lastIdx + 2 : lastIdx;
       }
-      isEven = !isEven;
     }
     return ret;
   }
