@@ -89,9 +89,9 @@ class Solution {
         ret[lastIdx] = i.c;
       }
       if (isEven) {
-        lastEven = lastEven == lastIdx ? lastIdx + 2 : lastIdx;
+        lastEven = lastIdx + 2;
       } else {
-        lastOdd = lastOdd == lastIdx ? lastIdx + 2 : lastIdx;
+        lastOdd = lastIdx + 2;
       }
     }
     return ret;
