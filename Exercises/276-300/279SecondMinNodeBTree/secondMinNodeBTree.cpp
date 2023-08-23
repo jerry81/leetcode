@@ -55,6 +55,9 @@ Acceptance Rate
  * };
  */
 
+#include <vector>
+using namespace std;
+
 struct TreeNode {
      int val;
      TreeNode *left;
@@ -65,8 +68,35 @@ struct TreeNode {
  };
 
 class Solution {
+
+vector<int> values;
+
+void r(TreeNode* root) {
+  // inorder traversal
+  if (root == nullptr) return;
+
+  if (root->left == nullptr) {
+    values.push_back(root->val);
+  } else {
+    r(root->left);
+  }
+
+  r(root->right);
+}
+
 public:
     int findSecondMinimumValue(TreeNode* root) {
+       r(root);
+       int lowest = INT_MAX;
+       bool found = false;
+       for (int v: values) {
+         if (v < lowest) {
+           if (found == true) return lowest;
 
+           found = true;
+           lowest = v;
+         }
+       }
+       return -1;
     }
 };
