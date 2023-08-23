@@ -41,6 +41,23 @@ using namespace std;
 class Solution {
 public:
     string reorganizeString(string s) {
+      // recursion & backtracking
 
     }
 };
+
+/*
+
+"aaab"
+01 no
+02 no
+03 yes
+031 yes
+0312 no
+032 yes
+0321 no
+
+this would be brute force
+
+or - find clever tricks with duplicates
+*/
