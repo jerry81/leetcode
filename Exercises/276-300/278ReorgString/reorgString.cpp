@@ -54,6 +54,7 @@ public:
     string reorganizeString(string s) {
       // recursion & backtracking
       map<char,int> freqMap;
+      string ret = "";
       vector<Item> items;
       for (char c: s) {
         if (freqMap.find(c) == freqMap.end()) {
@@ -62,6 +63,12 @@ public:
           freqMap[c]++;
         }
       }
+      for (auto [k,v]:freqMap) {
+        items.push_back(Item(v,k));
+      }
+      sort(items.begin(), items.end(), compareItem);
+      cout << "first item is " << items[0].c << ", " << items[0].freq << endl;
+      return ret;
     }
 };
 
