@@ -5,25 +5,32 @@ Hard
 2.5K
 3.7K
 Companies
-Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
+Given an array of strings words and a width maxWidth, format the text such that
+each line has exactly maxWidth characters and is fully (left and right)
+justified.
 
-You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
+You should pack your words in a greedy approach; that is, pack as many words as
+you can in each line. Pad extra spaces ' ' when necessary so that each line has
+exactly maxWidth characters.
 
-Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+Extra spaces between words should be distributed as evenly as possible. If the
+number of spaces on a line does not divide evenly between words, the empty slots
+on the left will be assigned more spaces than the slots on the right.
 
-For the last line of text, it should be left-justified, and no extra space is inserted between words.
+For the last line of text, it should be left-justified, and no extra space is
+inserted between words.
 
 Note:
 
-A word is defined as a character sequence consisting of non-space characters only.
-Each word's length is guaranteed to be greater than 0 and not exceed maxWidth.
-The input array words contains at least one word.
+A word is defined as a character sequence consisting of non-space characters
+only. Each word's length is guaranteed to be greater than 0 and not exceed
+maxWidth. The input array words contains at least one word.
 
 
 Example 1:
 
-Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
-Output:
+Input: words = ["This", "is", "an", "example", "of", "text", "justification."],
+maxWidth = 16 Output:
 [
    "This    is    an",
    "example  of text",
@@ -38,12 +45,14 @@ Output:
   "acknowledgment  ",
   "shall be        "
 ]
-Explanation: Note that the last line is "shall be    " instead of "shall     be", because the last line must be left-justified instead of fully-justified.
-Note that the second line is also left-justified because it contains only one word.
+Explanation: Note that the last line is "shall be    " instead of "shall be",
+because the last line must be left-justified instead of fully-justified. Note
+that the second line is also left-justified because it contains only one word.
 Example 3:
 
-Input: words = ["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"], maxWidth = 20
-Output:
+Input: words =
+["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"],
+maxWidth = 20 Output:
 [
   "Science  is  what we",
   "understand      well",
@@ -70,14 +79,34 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<string> fullJustify(vector<string>& words, int maxWidth) {
-
+  int calcNextStop(int curWordI, vector<string>& words, int maxWidth) {
+    int numWords = 0;
+    int curLen = 0;
+    while (words[curWordI].size() + curLen + max(0, numWords + 1) < maxWidth) {
+      numWords++;
+      curLen += words[curWordI].size();
+      curWordI++;
     }
+    return curWordI;
+  }
+
+ public:
+  vector<string> fullJustify(vector<string>& words, int maxWidth) {
+    int curwordI = 0;
+    // try to fit words in line
+    // at least one space
+    int nextStop = calcNextStop(curwordI, words, maxWidth);
+    cout << "first stop is " << nextStop << endl;
+  }
 };
+
+// wtf mate, lets jump straight to official sol
+/*
+  ha, no algorithmic tricks required
+*/
