@@ -103,10 +103,20 @@ class Solution {
  public:
   vector<string> fullJustify(vector<string>& words, int maxWidth) {
     int curwordI = 0;
+    vector<string> ret;
     // try to fit words in line
     // at least one space
     auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
-    cout << "first stop is " << nextStop << " and spaces is " << spaces << endl;
+    int numwords = nextStop - curwordI;
+    int perGap = spaces/numwords-1;
+    string curString = "";
+    string gap = string(perGap, ' ');
+    for (int i = curwordI; i < nextStop; ++i) {
+      curString+=words[curwordI];
+      if (i < nextStop-1 ) curString+=gap;
+    }
+    ret.push_back(curString);
+    return ret;
   }
 };
 
