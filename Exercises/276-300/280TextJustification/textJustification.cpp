@@ -120,11 +120,13 @@ class Solution {
       }
       string curString = "";
       string gap = string(perGap, ' ');
-      if (nextStop >= words.size()) {
+      if (nextStop >= words.size() || numwords == 1) {
         for (int i = curwordI; i < nextStop; ++i) {
           curString += words[i];
           if (i == nextStop - 1) {
-            curString += gap;
+            while (curString.size() < maxWidth) {
+              curString+=' ';
+            }
           } else {
             curString += ' ';
           }
