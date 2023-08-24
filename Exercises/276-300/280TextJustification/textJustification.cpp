@@ -90,7 +90,7 @@ class Solution {
     int numWords = 0;
     int curLen = 0;
     int totalWordLen = 0;
-    while (words[curWordI].size() + curLen + max(0, numWords - 1) < maxWidth) {
+    while (words[curWordI].size() + curLen < maxWidth) {
       numWords++;
       totalWordLen += words[curWordI].size();
       curLen = totalWordLen + max(0, numWords - 1);
@@ -111,26 +111,38 @@ class Solution {
     while (curwordI < words.size()) {
       auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
       int numwords = nextStop - curwordI;
-      int perGap = numwords > 1 ? spaces / (numwords - 1) : spaces - max(0, numwords -1);
+      int perGap = numwords > 1 ? spaces / (numwords - 1)
+                                : spaces - max(0, numwords - 1);
+      int calculatedSpaces = perGap * (numwords - 1);
+      int diff = 0;
+      if (calculatedSpaces < spaces) {
+        diff = spaces - calculatedSpaces;
+      }
       string curString = "";
       string gap = string(perGap, ' ');
       if (nextStop >= words.size()) {
         for (int i = curwordI; i < nextStop; ++i) {
           curString += words[i];
-          if (i == nextStop - 1) curString += gap;
+          if (i == nextStop - 1) {
+            curString += gap;
+          } else {
+            curString += ' ';
+          }
         }
       } else {
         for (int i = curwordI; i < nextStop; ++i) {
           curString += words[i];
           if (i < nextStop - 1) {
             curString += gap;
-          } else {
-            curString += ' ';
+            if (diff > 0) {
+              curString += ' ';
+              diff--;
+            }
           }
         }
-        ret.push_back(curString);
-        curwordI = nextStop;
       }
+      ret.push_back(curString);
+      curwordI = nextStop;
     }
 
     return ret;
@@ -140,4 +152,9 @@ class Solution {
 // wtf mate, lets jump straight to official sol
 /*
   ha, no algorithmic tricks required
+
+["Science is what we","understand      well","enough to explain to","a computer.
+Art is","everything  else  we","do                  "]
+["Science  is  what we","understand      well","enough to explain to","a
+computer.  Art is","everything  else  we","do                  "]
 */
