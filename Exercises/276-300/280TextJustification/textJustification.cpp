@@ -96,6 +96,7 @@ class Solution {
       curLen = totalWordLen + max(0, numWords - 1);
 
       curWordI++;
+      if (curWordI >= words.size()) break;
     }
     int extraSpaces = maxWidth - totalWordLen;
     return {curWordI, extraSpaces};
@@ -107,16 +108,31 @@ class Solution {
     vector<string> ret;
     // try to fit words in line
     // at least one space
-    auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
-    int numwords = nextStop - curwordI;
-    int perGap = spaces / (numwords - 1);
-    string curString = "";
-    string gap = string(perGap, ' ');
-    for (int i = curwordI; i < nextStop; ++i) {
-      curString += words[i];
-      if (i < nextStop - 1) curString += gap;
+    while (curwordI < words.size()) {
+      auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
+      int numwords = nextStop - curwordI;
+      int perGap = numwords > 1 ? spaces / (numwords - 1) : spaces - max(0, numwords -1);
+      string curString = "";
+      string gap = string(perGap, ' ');
+      if (nextStop >= words.size()) {
+        for (int i = curwordI; i < nextStop; ++i) {
+          curString += words[i];
+          if (i == nextStop - 1) curString += gap;
+        }
+      } else {
+        for (int i = curwordI; i < nextStop; ++i) {
+          curString += words[i];
+          if (i < nextStop - 1) {
+            curString += gap;
+          } else {
+            curString += ' ';
+          }
+        }
+        ret.push_back(curString);
+        curwordI = nextStop;
+      }
     }
-    ret.push_back(curString);
+
     return ret;
   }
 };
