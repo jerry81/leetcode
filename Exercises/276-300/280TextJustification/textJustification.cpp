@@ -90,10 +90,12 @@ class Solution {
     int numWords = 0;
     int curLen = 0;
     int totalWordLen = 0;
-    while (words[curWordI].size() + curLen < maxWidth) {
+    int modifier = 0;
+    while (words[curWordI].size() + curLen + modifier <= maxWidth) {
       numWords++;
       totalWordLen += words[curWordI].size();
       curLen = totalWordLen + max(0, numWords - 1);
+      modifier = 1;
 
       curWordI++;
       if (curWordI >= words.size()) break;
@@ -120,12 +122,17 @@ class Solution {
       }
       string curString = "";
       string gap = string(perGap, ' ');
-      if (nextStop >= words.size() || numwords == 1) {
-        for (int i = curwordI; i < nextStop; ++i) {
+      if (numwords == 1) {
+        curString += words[curwordI];
+        while (curString.size() < maxWidth) {
+          curString += ' ';
+        }
+      } else if (nextStop >= words.size()) {
+        for (int i = curwordI; i < words.size(); ++i) {
           curString += words[i];
           if (i == nextStop - 1) {
             while (curString.size() < maxWidth) {
-              curString+=' ';
+              curString += ' ';
             }
           } else {
             curString += ' ';
