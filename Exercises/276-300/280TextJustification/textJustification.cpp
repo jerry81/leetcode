@@ -85,15 +85,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int calcNextStop(int curWordI, vector<string>& words, int maxWidth) {
+  pair<int,int> calcNextStop(int curWordI, vector<string>& words, int maxWidth) {
     int numWords = 0;
     int curLen = 0;
-    while (words[curWordI].size() + curLen + max(0, numWords + 1) < maxWidth) {
+    int totalWordLen = 0;
+    while (words[curWordI].size() + curLen + max(0, numWords - 1) < maxWidth) {
       numWords++;
-      curLen += words[curWordI].size();
+      totalWordLen += words[curWordI].size();
+      curLen = totalWordLen + max(0, numWords - 1);
+
       curWordI++;
     }
-    return curWordI;
+    int extraSpaces = maxWidth - totalWordLen;
+    return { curWordI, extraSpaces };
   }
 
  public:
@@ -101,8 +105,8 @@ class Solution {
     int curwordI = 0;
     // try to fit words in line
     // at least one space
-    int nextStop = calcNextStop(curwordI, words, maxWidth);
-    cout << "first stop is " << nextStop << endl;
+    auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
+    cout << "first stop is " << nextStop << " and spaces is " << spaces << endl;
   }
 };
 
