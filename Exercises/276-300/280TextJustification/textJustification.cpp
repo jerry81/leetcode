@@ -85,7 +85,8 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  pair<int,int> calcNextStop(int curWordI, vector<string>& words, int maxWidth) {
+  pair<int, int> calcNextStop(int curWordI, vector<string>& words,
+                              int maxWidth) {
     int numWords = 0;
     int curLen = 0;
     int totalWordLen = 0;
@@ -97,7 +98,7 @@ class Solution {
       curWordI++;
     }
     int extraSpaces = maxWidth - totalWordLen;
-    return { curWordI, extraSpaces };
+    return {curWordI, extraSpaces};
   }
 
  public:
@@ -108,12 +109,12 @@ class Solution {
     // at least one space
     auto [nextStop, spaces] = calcNextStop(curwordI, words, maxWidth);
     int numwords = nextStop - curwordI;
-    int perGap = spaces/numwords-1;
+    int perGap = spaces / (numwords - 1);
     string curString = "";
     string gap = string(perGap, ' ');
     for (int i = curwordI; i < nextStop; ++i) {
-      curString+=words[curwordI];
-      if (i < nextStop-1 ) curString+=gap;
+      curString += words[i];
+      if (i < nextStop - 1) curString += gap;
     }
     ret.push_back(curString);
     return ret;
