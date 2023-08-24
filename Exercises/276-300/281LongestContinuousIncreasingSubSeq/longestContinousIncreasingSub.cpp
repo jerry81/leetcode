@@ -44,17 +44,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int maxSubseq(vector<int>& nums, int idx, int mx) {
-    if (idx >= nums.size()) return 0;
-
-    if (idx = nums.size() - 1) return nums[idx] > mx ? 1 : 0;
-
-    if (nums[idx] <= mx) return maxSubseq(nums, idx+1, mx);
-
-    return max(maxSubseq(nums, idx+1, mx), 1 + maxSubseq(nums,idx+1,nums[idx]));
-  }
 public:
     int findLengthOfLCIS(vector<int>& nums) {
-      return maxSubseq(nums, 0, INT_MIN);
+      int ret = 0;
+      int curmax = INT_MIN;
+      int curlen = 0;
+      for (int n:nums) {
+        if (n > curmax) {
+          curlen++;
+          if (ret < curlen) ret = curlen;
+
+        } else {
+          curlen = 1;
+        }
+        curmax = n;
+      }
+      return ret;
     }
 };
