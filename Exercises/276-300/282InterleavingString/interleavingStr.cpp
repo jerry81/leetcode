@@ -65,7 +65,7 @@ class Solution {
   bool r(int p1, int p2, int p3, bool is1, string &s1, string &s2, string &s3) {
     if (is1) {
       if (p1 >= s1.size()) {
-        return p3 >= s3.size();
+        return p3 >= s3.size() && p2 >= s2.size();
       }
 
       // matching time
@@ -83,7 +83,7 @@ class Solution {
       }
     } else {
       if (p2 >= s2.size()) {
-        return p3 >= s3.size();
+        return p3 >= s3.size() && p1 >= s1.size();
       }
 
       if (s2[p2] != s3[p3]) return false;
@@ -105,6 +105,7 @@ class Solution {
 
  public:
   bool isInterleave(string s1, string s2, string s3) {
+    if (s1.size()+s2.size()!=s3.size()) return false;
     return r(0,0,0,false,s1,s2,s3) || r(0,0,0,true,s1,s2,s3);
     // params - p1, p2, p3, is1
     // base cases active pointer >= len and p3 >= len - true
