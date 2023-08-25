@@ -67,10 +67,26 @@ class Solution {
       if (p1 >= s1.size()) {
         return p3 >= s3.size();
       }
+
+      // matching time
+      if (s1[p1] != s3[p3]) return false;
+
+      while (p1 < s1.size() && p3 < s3.size()) {
+        if (s1[p1] == s3[p3]) {
+          if (r(p1+1,p2,p3+1,!is1,s1,s2,s3)) return true;
+
+          p1++;
+          p3++;
+        } else {
+          break;
+        }
+      }
     } else {
       if (p2 >= s2.size()) {
         return p3 >= s3.size();
       }
+
+      if (s2[p2] != s3[p3]) return false;
     }
   }
 
