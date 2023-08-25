@@ -98,7 +98,9 @@ class Solution {
           break;
         }
       }
+      return false;
     }
+    return false;
   }
 
  public:
