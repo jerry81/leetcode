@@ -39,9 +39,29 @@ Acceptance Rate
 
 #include <string>
 
+using namespace std;
+
 class Solution {
 public:
     bool validPalindrome(string s) {
+      int p1 = 0;
+      int p2 = s.size()-1;
+      bool error = false;
+      while (p1 < p2) {
+        if (s[p1] != s[p2]) {
+          if (error) return false;
 
+          error = true;
+          if (s[p1+1] == s[p2]) {
+            p1+=1;
+          } else {
+            p2-=1;
+          }
+          continue;
+        }
+        p1++;
+        p2--;
+      }
+      return true;
     }
 };
