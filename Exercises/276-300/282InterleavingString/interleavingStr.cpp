@@ -115,8 +115,10 @@ class Solution {
           break;
         }
       }
+      dp[hsh] = false;
       return false;
     }
+    dp[hsh] = false;
     return false;
   }
 
