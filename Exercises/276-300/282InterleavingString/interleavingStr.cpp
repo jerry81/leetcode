@@ -59,17 +59,30 @@ Acceptance Rate
 
 #include <string>
 
+#include <map>
+
 using namespace std;
 
 class Solution {
+  map<string, bool> dp;
+  string toHash(int p1, int p2, int p3, bool is1) {
+    return to_string(p1) + "," + to_string(p2) + "," + to_string(p3) + "," + to_string(is1);
+  }
   bool r(int p1, int p2, int p3, bool is1, string &s1, string &s2, string &s3) {
+    string hsh = toHash(p1,p2,p3,is1);
+    if (dp.find(hsh) != dp.end()) return dp[hsh];
+
     if (is1) {
       if (p1 >= s1.size()) {
-        return p3 >= s3.size() && p2 >= s2.size();
+        dp[hsh] = p3 >= s3.size() && p2 >= s2.size();
+        return dp[hsh];
       }
 
       // matching time
-      if (s1[p1] != s3[p3]) return false;
+      if (s1[p1] != s3[p3]) {
+        dp[hsh] = false;
+        return false;
+      }
 
       while (p1 < s1.size() && p3 < s3.size()) {
         if (s1[p1] == s3[p3]) {
@@ -83,10 +96,14 @@ class Solution {
       }
     } else {
       if (p2 >= s2.size()) {
-        return p3 >= s3.size() && p1 >= s1.size();
+        dp[hsh] = p3 >= s3.size() && p1 >= s1.size();
+        return dp[hsh];
       }
 
-      if (s2[p2] != s3[p3]) return false;
+      if (s2[p2] != s3[p3]) {
+        dp[hsh] = false;
+        return false;
+      }
 
       while (p2 < s2.size() && p3 < s3.size()) {
         if (s2[p2] == s3[p3]) {
