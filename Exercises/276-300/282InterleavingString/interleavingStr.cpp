@@ -63,10 +63,20 @@ using namespace std;
 
 class Solution {
   bool r(int p1, int p2, int p3, bool is1, string &s1, string &s2, string &s3) {
+    if (is1) {
+      if (p1 >= s1.size()) {
+        return p3 >= s3.size();
+      }
+    } else {
+      if (p2 >= s2.size()) {
+        return p3 >= s3.size();
+      }
+    }
   }
 
  public:
   bool isInterleave(string s1, string s2, string s3) {
+    return r(0,0,0,false,s1,s2,s3) || r(0,0,0,true,s1,s2,s3);
     // params - p1, p2, p3, is1
     // base cases active pointer >= len and p3 >= len - true
     // active pointer < len but p3 done - false
@@ -75,6 +85,5 @@ class Solution {
     // else for each matching letter dfs
     // s1 match n chars
     // must try 1 to n chars
-    //
   }
 };
