@@ -57,7 +57,7 @@ class Solution {
   }
   static bool ccompare(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
-  int r(int idx, vector<vector<int>> sorted, int last) {
+  int r(int idx, vector<vector<int>> &sorted, int last) {
     string hsh = toHash(idx, last);
 
     if (dp.find(hsh) != dp.end()) return dp[hsh];
