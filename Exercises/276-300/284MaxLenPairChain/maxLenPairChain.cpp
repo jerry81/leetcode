@@ -57,19 +57,20 @@ class Solution {
   }
   static bool ccompare(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
-  int r(int idx, vector<vector<int>> &sorted, int last) {
+  int r(int idx, vector<vector<int>> &sorted, int last, int &n) {
+
+    if (idx >= n) return 0;
+
     string hsh = toHash(idx, last);
 
     if (dp.find(hsh) != dp.end()) return dp[hsh];
 
-    if (idx >= sorted.size()) return 0;
-
     // take it or leave it
     vector<int> cur = sorted[idx];
     if (cur[0] <= last) {
-      dp[hsh] = r(idx + 1, sorted, last);
+      dp[hsh] = r(idx + 1, sorted, last, n);
     } else {
-      dp[hsh] = max(r(idx + 1, sorted, last), 1 + r(idx + 1, sorted, cur[1]));
+      dp[hsh] = max(r(idx + 1, sorted, last,n), 1 + r(idx + 1, sorted, cur[1],n));
     }
     return dp[hsh];
   }
@@ -77,8 +78,9 @@ class Solution {
  public:
   int findLongestChain(vector<vector<int>>& pairs) {
     vector<vector<int>> sorted = pairs;
+    int n = sorted.size();
     sort(sorted.begin(), sorted.end(), ccompare);
-    return r(0, sorted, -1001);
+    return r(0, sorted, -1001, n);
   }
 };
 // sort pairs
