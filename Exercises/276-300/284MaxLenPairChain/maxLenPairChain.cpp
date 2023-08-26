@@ -44,14 +44,14 @@ Acceptance Rate
 
 */
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-  map<string, int> dp;
+  unordered_map<string, int> dp;
   string toHash(int idx, int last) {
     return to_string(idx) + "," + to_string(last);
   }
