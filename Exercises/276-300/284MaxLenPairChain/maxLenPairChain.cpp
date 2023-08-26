@@ -5,13 +5,16 @@ Medium
 3.4K
 118
 Companies
-You are given an array of n pairs pairs where pairs[i] = [lefti, righti] and lefti < righti.
+You are given an array of n pairs pairs where pairs[i] = [lefti, righti] and
+lefti < righti.
 
-A pair p2 = [c, d] follows a pair p1 = [a, b] if b < c. A chain of pairs can be formed in this fashion.
+A pair p2 = [c, d] follows a pair p1 = [a, b] if b < c. A chain of pairs can be
+formed in this fashion.
 
 Return the length longest chain which can be formed.
 
-You do not need to use up all the given intervals. You can select pairs in any order.
+You do not need to use up all the given intervals. You can select pairs in any
+order.
 
 
 
@@ -41,13 +44,42 @@ Acceptance Rate
 
 */
 
+#include <map>
+#include <string>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int findLongestChain(vector<vector<int>>& pairs) {
+  map<string, int> dp;
+  string toHash(int idx, int last) {
+    return to_string(idx) + "," + to_string(last);
+  }
+  bool ccompare(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
+  int r(int idx, vector<vector<int>> sorted, int last) {
+    string hsh = toHash(idx, last);
+
+    if (dp.find(hsh) != dp.end()) return dp[hsh];
+
+    if (idx >= sorted.size()) return 0;
+
+    // take it or leave it
+    vector<int> cur = sorted[idx];
+    if (cur[0] <= last) {
+      dp[hsh] = r(idx + 1, sorted, last);
+    } else {
+      dp[hsh] = max(r(idx + 1, sorted, last), 1 + r(idx + 1, sorted, cur[1]));
     }
+    return dp[hsh];
+  }
+
+ public:
+  int findLongestChain(vector<vector<int>>& pairs) {
+    vector<vector<int>> sorted = pairs;
+    sort(sorted.begin(), sorted.end(), ccompare);
+    return r(0, sorted, -1001);
+  }
 };
+// sort pairs
+// dp + recursion
