@@ -55,7 +55,7 @@ class Solution {
   string toHash(int idx, int last) {
     return to_string(idx) + "," + to_string(last);
   }
-  bool ccompare(vector<int> a, vector<int> b) { return a[0] < b[0]; }
+  static bool ccompare(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
   int r(int idx, vector<vector<int>> sorted, int last) {
     string hsh = toHash(idx, last);
