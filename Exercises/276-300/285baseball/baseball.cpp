@@ -84,20 +84,21 @@ public:
       vector<int> scores;
       for (string s: operations) {
         if (s == "+") {
-          int operand1 = s.back();
-          s.pop_back();
-          s.push_back(operand1 + s.back());
+          int operand1 = scores.back();
+          scores.push_back(operand1 + scores[scores.size()-2]);
         } else if (s == "C") {
-          s.pop_back();
+          scores.pop_back();
         } else if (s == "D") {
-          int toAdd = s.back() * 2;
-          s.pop_back();
-          s.push_back(toAdd);
+          int toAdd = scores.back() * 2;
+          scores.push_back(toAdd);
         } else {
           scores.push_back(stoi(s));
-
         }
       }
-      return scores.back();
+      int res = 0;
+      for (int i: scores) {
+        res+=i;
+      }
+      return res;
     }
 };
