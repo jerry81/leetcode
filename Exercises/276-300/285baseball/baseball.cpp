@@ -5,9 +5,11 @@ Easy
 2.5K
 1.8K
 Companies
-You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.
+You are keeping the scores for a baseball game with strange rules. At the
+beginning of the game, you start with an empty record.
 
-You are given a list of strings operations, where operations[i] is the ith operation you must apply to the record and is one of the following:
+You are given a list of strings operations, where operations[i] is the ith
+operation you must apply to the record and is one of the following:
 
 An integer x.
 Record a new score of x.
@@ -17,9 +19,11 @@ Record a new score that is the sum of the previous two scores.
 Record a new score that is the double of the previous score.
 'C'.
 Invalidate the previous score, removing it from the record.
-Return the sum of all the scores on the record after applying all the operations.
+Return the sum of all the scores on the record after applying all the
+operations.
 
-The test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.
+The test cases are generated such that the answer and all intermediate
+calculations fit in a 32-bit integer and that all operations are valid.
 
 
 
@@ -61,44 +65,41 @@ Since the record is empty, the total sum is 0.
 Constraints:
 
 1 <= operations.length <= 1000
-operations[i] is "C", "D", "+", or a string representing an integer in the range [-3 * 104, 3 * 104].
-For operation "+", there will always be at least two previous scores on the record.
-For operations "C" and "D", there will always be at least one previous score on the record.
-Accepted
-276.3K
-Submissions
-368.5K
+operations[i] is "C", "D", "+", or a string representing an integer in the range
+[-3 * 104, 3 * 104]. For operation "+", there will always be at least two
+previous scores on the record. For operations "C" and "D", there will always be
+at least one previous score on the record. Accepted 276.3K Submissions 368.5K
 Acceptance Rate
 75.0%
 
 */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int calPoints(vector<string>& operations) {
-      vector<int> scores;
-      for (string s: operations) {
-        if (s == "+") {
-          int operand1 = scores.back();
-          scores.push_back(operand1 + scores[scores.size()-2]);
-        } else if (s == "C") {
-          scores.pop_back();
-        } else if (s == "D") {
-          int toAdd = scores.back() * 2;
-          scores.push_back(toAdd);
-        } else {
-          scores.push_back(stoi(s));
-        }
+ public:
+  int calPoints(vector<string>& operations) {
+    vector<int> scores;
+    for (string s : operations) {
+      if (s == "+") {
+        int operand1 = scores.back();
+        scores.push_back(operand1 + scores[scores.size() - 2]);
+      } else if (s == "C") {
+        scores.pop_back();
+      } else if (s == "D") {
+        int toAdd = scores.back() * 2;
+        scores.push_back(toAdd);
+      } else {
+        scores.push_back(stoi(s));
       }
-      int res = 0;
-      for (int i: scores) {
-        res+=i;
-      }
-      return res;
     }
+    int res = 0;
+    for (int i : scores) {
+      res += i;
+    }
+    return res;
+  }
 };
