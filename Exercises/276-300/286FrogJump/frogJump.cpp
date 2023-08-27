@@ -58,7 +58,7 @@ using namespace std;
 class Solution {
   unordered_map<string, bool> dp;
   unordered_map<int, int> value_map;
-  vector<int> possibilities = {-1,0,1};
+  vector<int> possibilities = {-1, 0, 1};
   string toHash(int idx, int last) {
     return to_string(idx) + "," + to_string(last);
   }
@@ -79,12 +79,12 @@ class Solution {
       return dp[hsh];
     }
     bool res = false;
-    for (int p: possibilities) {
-      int tryStone = last+cur;
+    for (int p : possibilities) {
+      int tryStone = last + p + cur;
       if (value_map.find(tryStone) == value_map.end()) continue;
 
       if (value_map[tryStone] > idx) {
-        res = res || r(value_map[tryStone], tryStone, stones,n);
+        res = res || r(value_map[tryStone], last + p, stones, n);
       }
     }
     dp[hsh] = res;
