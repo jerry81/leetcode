@@ -47,8 +47,12 @@ public:
       while (n != 0) {
         int half = n/2;
         int r = n%2;
-        if (!started) cur = r;
-        started = true;
+        if (!started) {
+          cur = r;
+          started = true;
+          n = half;
+          continue;
+        }
         if (cur == !!r) return false;
         cur = r;
         n = half;
