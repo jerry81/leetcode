@@ -71,10 +71,9 @@ class Solution {
       while (idx < s.size()) {
         int cur = s[idx] - '0';
         if (compV == cur) {
+          if (secondCount == count) break;
+
           secondCount++;
-          if (secondCount = count) {
-            break;
-          }
         } else {
           break;
         }
