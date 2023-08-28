@@ -64,7 +64,20 @@ class Solution {
         }
         idx++;
       }
+      if (idx == s.size()) continue;
       int compV = !startV;
+      int secondCount = 1;
+      idx++;
+      while (idx < s.size()) {
+        int cur = s[idx] = '0';
+        if (compV == cur) {
+          secondCount++;
+        } else {
+          break;
+        }
+        idx++;
+      }
+      if (count == secondCount) res++;
     }
     return res;
   }
