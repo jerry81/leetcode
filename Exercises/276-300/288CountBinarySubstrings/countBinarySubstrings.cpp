@@ -69,15 +69,19 @@ class Solution {
       int secondCount = 1;
       idx++;
       while (idx < s.size()) {
-        int cur = s[idx] = '0';
+        int cur = s[idx] - '0';
         if (compV == cur) {
           secondCount++;
+          if (secondCount = count) {
+            break;
+          }
         } else {
           break;
         }
         idx++;
       }
       if (count == secondCount) res++;
+
     }
     return res;
   }
