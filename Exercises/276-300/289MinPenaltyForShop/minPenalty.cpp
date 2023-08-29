@@ -77,7 +77,6 @@ public:
       int endV = n - yes[n-1];
       int minV;
       int minI;
-      cout << "beginV is " << beginV << endl;
       if (beginV <= endV) {
         minI = 0;
         minV = beginV;
