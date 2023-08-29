@@ -92,9 +92,11 @@ public:
         if (minV == 0) return minI;
 
         int penaltyBefore = (i+1) - yes[i]; // N count to i
-        int penaltyAfter = yes[n-1] - (i+1); // Y count after i
+        int penaltyAfter = yes[n-1] - yes[i]; // Y count after i
+
         int cur = penaltyBefore + penaltyAfter;
-        if (minV > cur) {
+        if (customers[i] == 'Y') cur++;
+        if (minV > cur && minI > i) {
           minV = cur;
           minI = i;
         }
