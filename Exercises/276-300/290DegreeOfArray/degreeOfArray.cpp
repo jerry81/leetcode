@@ -57,15 +57,9 @@ class Solution {
     int first = -1;
     int last = -1;
     int freq = 0;
+    int val;
   };
-  static bool compare(Num a, Num b) {
-    if (a.freq > b.freq) return true;
-
-    int alen = a.last - a.first;
-    int blen = b.last - b.first;
-
-    return (alen < blen);
-  }
+  static bool compare(Num a, Num b) { return a.freq > b.freq; }
 
  public:
   int findShortestSubArray(vector<int>& nums) {
@@ -73,6 +67,7 @@ class Solution {
     vector<Num> lookup(50000);
     for (int i = 0; i < nums.size(); ++i) {
       Num item = lookup[nums[i]];
+      item.val = nums[i];
       item.freq++;
       if (item.first < 0) item.first = i;
       item.last = i;
@@ -84,10 +79,11 @@ class Solution {
     int sz = (item.last - item.first) + 1;
     int idx = 1;
     int res = sz;
-    while (item.freq != degree) {
+    while (true) {
       item = lookup[idx];
+      if (item.freq != degree) break;
       sz = (item.last - item.first) + 1;
-      res = min(res,sz);
+      res = min(res, sz);
       idx++;
     }
     return res;
