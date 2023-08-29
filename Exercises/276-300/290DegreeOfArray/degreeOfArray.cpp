@@ -64,7 +64,7 @@ class Solution {
     int alen = a.last - a.first;
     int blen = b.last - b.first;
 
-    return (alen > blen);
+    return (alen < blen);
   }
 
  public:
@@ -79,5 +79,17 @@ class Solution {
       lookup[nums[i]] = item;
     }
     sort(lookup.begin(), lookup.end(), compare);
+    int degree = lookup[0].freq;
+    Num item = lookup[0];
+    int sz = (item.last - item.first) + 1;
+    int idx = 1;
+    int res = sz;
+    while (item.freq != degree) {
+      item = lookup[idx];
+      sz = (item.last - item.first) + 1;
+      res = min(res,sz);
+      idx++;
+    }
+    return res;
   }
 };
