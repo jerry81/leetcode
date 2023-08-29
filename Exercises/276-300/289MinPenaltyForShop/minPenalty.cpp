@@ -73,13 +73,32 @@ public:
         yes.push_back(accum);
       }
 
-      int res = INT_MAX;
-      for (int i = 0; i < n; ++i) {
-        int penaltyBefore = i - yes[i];// N count to here
-        int penaltyAfter = yes[n-1] - i;
-        int cur = penaltyBefore;
-        res = min(res, cur);
+      int beginV = yes[n-1];
+      int endV = n - yes[n-1];
+      int minV;
+      int minI;
+      if (beginV <= endV) {
+        minI = 0;
+        minV = beginV;
+      } else {
+        minI = n;
+        minV = endV;
       }
-      return res;
+
+      // handle edges
+      // close at 0 - y count
+      // total no count
+      for (int i = 1; i < n; ++i) {
+        if (minV == 0) return minI;
+
+        int penaltyBefore = (i+1) - yes[i]; // N count to i
+        int penaltyAfter = yes[n-1] - (i+1); // Y count after i
+        int cur = penaltyBefore + penaltyAfter;
+        if (minV > cur) {
+          minV = cur;
+          minI = i;
+        }
+      }
+      return minI;
     }
 };
