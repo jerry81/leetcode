@@ -91,12 +91,13 @@ public:
       for (int i = 1; i < n; ++i) {
         if (minV == 0) return minI;
 
-        int penaltyBefore = (i+1) - yes[i]; // N count to i
+        int penaltyBefore = i - yes[i-1]; // N count to i
         int penaltyAfter = yes[n-1] - yes[i]; // Y count after i
 
         int cur = penaltyBefore + penaltyAfter;
         if (customers[i] == 'Y') cur++;
-        if (minV > cur && minI > i) {
+
+        if (minV >= cur && minI > i) {
           minV = cur;
           minI = i;
         }
