@@ -56,12 +56,27 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
     int bestClosingTime(string customers) {
+      // prefix sum of Y
+      vector<int> yes;
+      int accum = 0;
+      for (char c: customers) {
+        if (c == 'Y') accum++;
 
+        yes.push_back(accum);
+      }
+
+      int res = INT_MAX;
+      for (int i: yes) {
+        int cur;
+        res = min(res, cur);
+      }
+      return res;
     }
 };
