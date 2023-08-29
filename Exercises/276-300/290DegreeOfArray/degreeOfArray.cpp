@@ -53,8 +53,31 @@ public:
 using namespace std;
 
 class Solution {
-public:
-    int findShortestSubArray(vector<int>& nums) {
-      // struct for
+  struct Num {
+    int first = -1;
+    int last = -1;
+    int freq = 0;
+  };
+  static bool compare(Num a, Num b) {
+    if (a.freq > b.freq) return true;
+
+    int alen = a.last - a.first;
+    int blen = b.last - b.first;
+
+    return (alen > blen);
+  }
+
+ public:
+  int findShortestSubArray(vector<int>& nums) {
+    // struct - first idx, freq, last idx
+    vector<Num> lookup(50000);
+    for (int i = 0; i < nums.size(); ++i) {
+      Num item = lookup[nums[i]];
+      item.freq++;
+      if (item.first < 0) item.first = i;
+      item.last = i;
+      lookup[nums[i]] = item;
     }
+    sort(lookup.begin(), lookup.end(), compare);
+  }
 };
