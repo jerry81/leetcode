@@ -63,6 +63,7 @@ using namespace std;
 class Solution {
 public:
     int bestClosingTime(string customers) {
+      int n = customers.size();
       // prefix sum of Y
       vector<int> yes;
       int accum = 0;
@@ -73,8 +74,10 @@ public:
       }
 
       int res = INT_MAX;
-      for (int i: yes) {
-        int cur;
+      for (int i = 0; i < n; ++i) {
+        int penaltyBefore = i - yes[i];// N count to here
+        int penaltyAfter = yes[n-1] - i;
+        int cur = penaltyBefore;
         res = min(res, cur);
       }
       return res;
