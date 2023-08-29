@@ -77,6 +77,7 @@ public:
       int endV = n - yes[n-1];
       int minV;
       int minI;
+      cout << "beginV is " << beginV << endl;
       if (beginV <= endV) {
         minI = 0;
         minV = beginV;
@@ -89,7 +90,6 @@ public:
       // close at 0 - y count
       // total no count
       for (int i = 1; i < n; ++i) {
-        if (minV == 0) return minI;
 
         int penaltyBefore = i - yes[i-1]; // N count to i
         int penaltyAfter = yes[n-1] - yes[i]; // Y count after i
@@ -97,7 +97,7 @@ public:
         int cur = penaltyBefore + penaltyAfter;
         if (customers[i] == 'Y') cur++;
 
-        if (minV >= cur && minI > i) {
+        if (minV > cur || (minV >= cur && minI > i)) {
           minV = cur;
           minI = i;
         }
