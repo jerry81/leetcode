@@ -62,9 +62,11 @@ class Solution {
     for (int i = n - 2; i >= 0; --i) {
       int cur = nums[i];
       if (cur > curMax) {
-        int divisions = ceil((double)cur / (double)curMax);
+        double fl = (double)cur / (double)curMax;
+        int divisions = ceil(fl);
+        int nextItem = floor((double)cur/(double)divisions);
         count += (divisions - 1);
-        curMax = divisions;
+        curMax = nextItem;
       } else {
         curMax = cur;
       }
