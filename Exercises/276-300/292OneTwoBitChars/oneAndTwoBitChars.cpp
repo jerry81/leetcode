@@ -45,8 +45,29 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+
+bool r(int idx, vector<int>& bits, int &n){
+  if (idx == n-1) return true;
+
+  if (idx >= n) return false;
+  int cur = bits[idx];
+  if (cur == 0) {
+    return r(idx+1, bits, n);
+  } else {
+    return r(idx+2, bits, n);
+  }
+}
 public:
     bool isOneBitCharacter(vector<int>& bits) {
-
+      int n = bits.size();
+      return r(0,bits,n);
     }
 };
+
+/*
+
+like staircase problem
+
+recursive
+
+*/
