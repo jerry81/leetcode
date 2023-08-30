@@ -62,8 +62,8 @@ class Solution {
     for (int i = n - 2; i >= 0; --i) {
       int cur = nums[i];
       if (cur > curMax) {
-        int divisions = ceil((double)curMax / (double)cur);
-        count += divisions - 1;
+        int divisions = ceil((double)cur / (double)curMax);
+        count += (divisions - 1);
         curMax = divisions;
       } else {
         curMax = cur;
@@ -72,7 +72,6 @@ class Solution {
     return count;
   }
 };
-
 /*
 
 brainstorm
