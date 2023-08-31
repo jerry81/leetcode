@@ -46,6 +46,7 @@ class Solution {
     string s = to_string(i);
     for (int c: s) {
       int asi = c - '0';
+      if (asi == 0) return 0;
       if (i % asi != 0) return false;
     }
     return true;
