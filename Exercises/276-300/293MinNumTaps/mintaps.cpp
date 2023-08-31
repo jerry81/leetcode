@@ -54,18 +54,20 @@ class Solution {
 public:
     int minTaps(int n, vector<int>& ranges) {
       vector<int> maxEnds(n+1);
-      int curMax = -1;
-      for (int i = 0; i <= n; ++i) {
-        curMax = max(curMax,ranges[i] + i);
-        maxEnds[i] = curMax;
+      for (int i = 0; i < ranges.size(); ++i) {
+        int projectedMx = min(n,ranges[i] + i);
+        int projectedMn = max(0,i - ranges[i]);
+        maxEnds[projectedMn] = max(maxEnds[projectedMn],projectedMx);
       }
-      int count, cur, nxt = 0;
+      int count = 0;
+      int cur = 0;
+      int nxt = 0;
       for (int i = 0; i <= n; ++i) {
         int reach = maxEnds[i];
         if (i > nxt) return -1;
         if (i > cur) {
           count++;
-          cur = reach;
+          cur = nxt;
         }
 
         nxt = max(nxt,reach);
