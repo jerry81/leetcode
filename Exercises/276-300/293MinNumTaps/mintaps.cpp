@@ -53,12 +53,24 @@ using namespace std;
 class Solution {
 public:
     int minTaps(int n, vector<int>& ranges) {
-      vector<int> maxEnds(n);
+      vector<int> maxEnds(n+1);
       int curMax = -1;
-      for (int i = 0; i < n; ++i) {
+      for (int i = 0; i <= n; ++i) {
         curMax = max(curMax,ranges[i] + i);
         maxEnds[i] = curMax;
       }
+      int count, cur, nxt = 0;
+      for (int i = 0; i <= n; ++i) {
+        int reach = maxEnds[i];
+        if (i > nxt) return -1;
+        if (i > cur) {
+          count++;
+          cur = reach;
+        }
+
+        nxt = max(nxt,reach);
+      }
+      return count;
     }
 };
 
