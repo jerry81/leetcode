@@ -53,6 +53,27 @@ using namespace std;
 class Solution {
 public:
     int minTaps(int n, vector<int>& ranges) {
-
+      vector<int> maxEnds(n);
+      int curMax = -1;
+      for (int i = 0; i < n; ++i) {
+        curMax = max(curMax,ranges[i] + i);
+        maxEnds[i] = curMax;
+      }
     }
 };
+
+/*
+
+brute force - check all combos of sprinklers using knapsack
+
+optimization knapsack with dp
+
+straight to editorial
+
+official 1 - DP
+  - representation - taps needed to water from position 0 to i
+official 2 - greedy
+  - take largest spanning taps?
+  - build
+
+*/
