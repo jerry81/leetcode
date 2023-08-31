@@ -37,12 +37,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class Solution {
+  bool selfDividing(int i) {
+    string s = to_string(i);
+    for (int c: s) {
+      int asi = c - '0';
+      if (i % asi != 0) return false;
+    }
+    return true;
+  }
 public:
     vector<int> selfDividingNumbers(int left, int right) {
-
+      vector<int> res;
+      for (int i = left; i <= right; ++i) {
+        if (selfDividing(i)) res.push_back(i);
+      }
+      return res;
     }
 };
