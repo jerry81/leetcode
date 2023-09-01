@@ -37,11 +37,16 @@ Acceptance Rate
 */
 
 #include <string>
+#include <algorithm>
 
-using namespace string;
+using namespace std;
 class Solution {
 public:
     string toLowerCase(string s) {
-
+      string ret;
+      for (char c: s) {
+        ret.push_back(tolower(c));
+      }
+      return ret;
     }
 };
