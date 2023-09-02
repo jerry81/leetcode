@@ -51,3 +51,11 @@ public:
 
     }
 };
+
+/*
+
+official
+top down
+bottom up
+trie
+*/
