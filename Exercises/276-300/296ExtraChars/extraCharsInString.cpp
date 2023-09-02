@@ -55,6 +55,12 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  vector<int> dp;
+  int r(int idx, string& s, set<string>& lookup) {
+    if (dp[idx] >= 0) return dp[idx];
+
+  }
+
  public:
   int minExtraChar(string s, vector<string>& dictionary) {
     // make lookup
@@ -62,7 +68,8 @@ class Solution {
     for (auto s : dictionary) {
       lookup.insert(s);
     }
-
+    dp.resize(s.size(), -1);
+    return r(0, s, lookup);
   }
 };
 
