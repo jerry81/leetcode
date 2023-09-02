@@ -56,9 +56,22 @@ using namespace std;
 
 class Solution {
   vector<int> dp;
-  int r(int idx, string& s, set<string>& lookup) {
+  int r(int idx, string& s, set<string>& lookup, int& n) {
+    if (idx >= n) return 0;
+
     if (dp[idx] >= 0) return dp[idx];
 
+    // leave it
+    int skip = 1+r(idx+1, s, lookup, n);
+    for (int sz = 1; sz + idx < n; ++sz) {
+      string test = s.substr(idx, sz);
+      if (lookup.find(test) != lookup.end()) {
+        int cur = r(idx+sz, s, lookup,n);
+        skip = min(cur,skip);
+      }
+    }
+    dp[idx] = skip;
+    return dp[idx];
   }
 
  public:
@@ -68,8 +81,9 @@ class Solution {
     for (auto s : dictionary) {
       lookup.insert(s);
     }
-    dp.resize(s.size(), -1);
-    return r(0, s, lookup);
+    int n = s.size();
+    dp.resize(n, -1);
+    return r(0, s, lookup, n);
   }
 };
 
