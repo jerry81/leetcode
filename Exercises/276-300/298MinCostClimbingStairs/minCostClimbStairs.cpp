@@ -56,8 +56,9 @@ class Solution {
   int r(int idx, vector<int>& cost, int &n) {
     if (idx >= n) return 0;
 
-    if (dp[idx] > -1) return dp[idx];
-    int curCost = idx > -1 : cost[idx] : 0;
+    if (idx >= 0 && dp[idx] > -1) return dp[idx];
+    int curCost = idx > -1 ? cost[idx] : 0;
+    if (idx < 0) return min(r(idx+1, cost, n), r(idx+2, cost, n));
     dp[idx] = curCost + min(r(idx+1, cost, n), r(idx+2, cost, n));
     return dp[idx];
   }
