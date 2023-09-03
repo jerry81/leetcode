@@ -40,9 +40,20 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
+vector<vector<int>> dp;
+int r(int &m, int &n, int x, int y) {
+  if (x == m-1 && y == n-1) return 1;
+  if (x >= m) return 0;
+  if (y >= n) return 0;
+}
 public:
     int uniquePaths(int m, int n) {
-
+      dp
+      return r(m,n,0,0);
     }
 };
