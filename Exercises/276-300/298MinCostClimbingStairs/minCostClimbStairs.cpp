@@ -52,8 +52,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  vector<int> dp;
+  int r(int idx, vector<int>& cost, int &n) {
+    if (idx >= n) return 0;
+
+    if (dp[idx] > -1) return dp[idx];
+    int curCost = idx > -1 : cost[idx] : 0;
+    dp[idx] = curCost + min(r(idx+1, cost, n), r(idx+2, cost, n));
+    return dp[idx];
+  }
 public:
     int minCostClimbingStairs(vector<int>& cost) {
-
+      int n = cost.size();
+      dp.resize(n, -1);
+      dp[n-1] = cost[n-1];
+      dp[n-2] = cost[n-2];
+      return r(-1, cost, n);
     }
 };
