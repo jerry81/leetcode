@@ -63,7 +63,7 @@ class Solution {
 
     // leave it
     int skip = 1+r(idx+1, s, lookup, n);
-    for (int sz = 1; sz + idx < n; ++sz) {
+    for (int sz = 1; (sz + idx) <= n; ++sz) {
       string test = s.substr(idx, sz);
       if (lookup.find(test) != lookup.end()) {
         int cur = r(idx+sz, s, lookup,n);
