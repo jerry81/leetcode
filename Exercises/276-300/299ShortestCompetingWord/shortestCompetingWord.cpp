@@ -64,7 +64,7 @@ using namespace std;
 
 class Solution {
   bool isComplete(map<char, int> baseline, map<char, int> comp) {
-    for (auto [k,v]: baseline) {
+    for (auto [k, v] : baseline) {
       if (comp.find(k) == comp.end()) return false;
 
       if (comp[k] < v) return false;
@@ -74,24 +74,23 @@ class Solution {
 
  public:
   string shortestCompletingWord(string licensePlate, vector<string>& words) {
-    map<string, map<char, int>> lookup;
     map<char, int> freq;
-    for (string s : words) {
-      for (char c : s) {
-        lookup[s][c]++;
-      }
-    }
+
     for (char c : licensePlate) {
       if (isalpha(c)) freq[tolower(c)]++;
     }
 
     int minSz = INT_MAX;
     string res;
-    for (auto [k,mp]: lookup) {
-      if (isComplete(freq, mp)) {
-        if (k.size() < minSz) {
-          minSz = k.size();
-          res = k;
+    for (string s : words) {
+      map<char, int> cur;
+      for (char c : s) {
+        cur[c]++;
+      }
+      if (isComplete(freq, cur)) {
+        if (s.size() < minSz) {
+          minSz = s.size();
+          res = s;
         }
       }
     }
