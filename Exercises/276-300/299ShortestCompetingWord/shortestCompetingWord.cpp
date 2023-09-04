@@ -50,12 +50,22 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
 public:
     string shortestCompletingWord(string licensePlate, vector<string>& words) {
-
+      map<string, map<char,int>> lookup;
+      map<char, int> freq;
+      for (string s: words) {
+        for (char c: s) {
+          lookup[s][c]++;
+        }
+      }
+      for (char c: licensePlate) {
+        if (isalpha(c)) freq[c]++;
+      }
     }
 };
