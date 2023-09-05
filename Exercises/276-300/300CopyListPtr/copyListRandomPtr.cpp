@@ -110,21 +110,17 @@ class Solution {
     */
    Node* cur = head;
    bool init = false;
-   Node* copyHead;
     while (cur != nullptr) {
       Node* copy = new Node(cur->val);
       lookup1[cur] = copy;
       cur = cur->next;
-      if (!init) {
-        copyHead = lookup1[cur];
-        init = true;
-      }
     }
     cur = head;
     while (cur != nullptr) {
-      lookup1[cur]->next = cur->next;
-      lookup1[cur]->random = cur->random;
+      lookup1[cur]->next = lookup1[cur->next];
+      lookup1[cur]->random = lookup1[cur->random];
+      cur = cur->next;
     }
-    return copyHead;
+    return lookup1[head];
   }
 };
