@@ -5,9 +5,12 @@ Easy
 656
 501
 Companies
-Given two integers left and right, return the count of numbers in the inclusive range [left, right] having a prime number of set bits in their binary representation.
+Given two integers left and right, return the count of numbers in the inclusive
+range [left, right] having a prime number of set bits in their binary
+representation.
 
-Recall that the number of set bits an integer has is the number of 1's present when written in binary.
+Recall that the number of set bits an integer has is the number of 1's present
+when written in binary.
 
 For example, 21 written in binary is 10101, which has 3 set bits.
 
@@ -50,9 +53,33 @@ Acceptance Rate
 
 */
 
-class Solution {
-public:
-    int countPrimeSetBits(int left, int right) {
+#include <cmath>
 
+using namespace std;
+
+class Solution {
+  bool isPrime(int n) {
+    for (int i = 2; i <= sqrt(n); ++i) {
+      if (n % i == 0) return false;
     }
+    return true;
+  }
+  int countSetBits(int n) {
+    int ret = 0;
+    while (n > 0) {
+      if (n%2 == 1) ret++;
+      n/=2;
+    }
+    return ret;
+  }
+
+ public:
+  int countPrimeSetBits(int left, int right) {
+    /* def: set bits - number of 1s when written in binary */
+    int ret;
+    for (int i = left; i <= right; ++i) {
+      if (isPrime(countSetBits(i))) ++ret;
+    }
+    return ret;
+  }
 };
