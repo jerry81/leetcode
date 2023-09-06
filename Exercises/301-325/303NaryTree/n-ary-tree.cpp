@@ -86,7 +86,7 @@ public:
     int maxDepth(Node* root) {
       if (root == nullptr) return 0;
 
-      int mx = 0;
+      int mx = 1;
       for (Node* c: root->children) {
         mx = max(1+maxDepth(c), mx);
       }
