@@ -58,6 +58,7 @@ Acceptance Rate
  */
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -82,5 +83,21 @@ public:
         allNodes.push_back(cpy);
         cpy=cpy->next;
       }
+      int curK = 0;
+      int curIdx = 0;
+      int origK = k;
+      vector<ListNode*> res;
+      while (curK < origK) {
+        double per = (double)totalCount / (double)k;
+        int curCount = ceil(per);
+        for (int i = 0; i < curCount; ++i) {
+          res.push_back(allNodes[curIdx]);
+          curIdx++;
+          totalCount--;
+        }
+        curK++;
+        k--;
+      }
+      return res;
     }
 };
