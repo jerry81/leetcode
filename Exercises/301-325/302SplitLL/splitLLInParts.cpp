@@ -89,12 +89,24 @@ public:
       vector<ListNode*> res;
       while (curK < origK) {
         double per = (double)totalCount / (double)k;
+
         int curCount = ceil(per);
-        for (int i = 0; i < curCount; ++i) {
-          res.push_back(allNodes[curIdx]);
-          curIdx++;
-          totalCount--;
+        if (curCount < 1) {
+          res.push_back({});
+          k--;
+          curK++;
+          continue;
         }
+        ListNode* tmpH = allNodes[curIdx];
+
+        ListNode* tmp = tmpH;
+        for (int i = 0; i < curCount - 1; ++i) {
+          if (tmp) tmp=tmp->next;
+        }
+        curIdx += curCount;
+        totalCount -= curCount;
+        if (tmp) tmp->next = nullptr;
+        res.push_back(tmpH);
         curK++;
         k--;
       }
