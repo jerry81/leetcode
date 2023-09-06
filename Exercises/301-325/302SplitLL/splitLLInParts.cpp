@@ -72,6 +72,15 @@ struct ListNode {
 class Solution {
 public:
     vector<ListNode*> splitListToParts(ListNode* head, int k) {
-
+      // recursively find how many items the current split should have
+      // first make a map and get count
+      int totalCount = 0;
+      vector<ListNode*> allNodes;
+      ListNode* cpy = head;
+      while (cpy!=nullptr) {
+        totalCount++;
+        allNodes.push_back(cpy);
+        cpy=cpy->next;
+      }
     }
 };
