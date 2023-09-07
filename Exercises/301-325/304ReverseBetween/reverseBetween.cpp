@@ -81,8 +81,11 @@ class Solution {
     }
     int lidx = left-1;
     int ridx = right-1;
+    ListNode* ret = nodes[0];
     if (lidx > 0) {
       nodes[lidx-1] -> next = nodes[ridx];
+    } else {
+      ret = nodes[ridx];
     }
     for (int i = ridx; i > lidx; --i) {
       nodes[i] -> next = nodes[i-1];
@@ -90,6 +93,6 @@ class Solution {
     ListNode* finalItem =  (right < nodes.size()) ? nodes[right] : nullptr;
     nodes[lidx] -> next = finalItem;
 
-    return nodes[0];
+    return ret;
   }
 };
