@@ -5,7 +5,9 @@ Medium
 9.9K
 449
 Companies
-Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+Given the head of a singly linked list and two integers left and right where
+left <= right, reverse the nodes of the list from position left to position
+right, and return the reversed list.
 
 
 
@@ -49,19 +51,31 @@ Acceptance Rate
  * };
  */
 
+#include <vector>
 using namespace std;
 
- struct ListNode {
-     int val;
-     ListNode *next;
-     ListNode() : val(0), next(nullptr) {}
-     ListNode(int x) : val(x), next(nullptr) {}
-     ListNode(int x, ListNode *next) : val(x), next(next) {}
- };
+struct ListNode {
+  int val;
+  ListNode* next;
+  ListNode() : val(0), next(nullptr) {}
+  ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
 
 class Solution {
-public:
-    ListNode* reverseBetween(ListNode* head, int left, int right) {
-
+ public:
+  ListNode* reverseBetween(ListNode* head, int left, int right) {
+    /*
+      my guess:  put them into array
+      then left-1's next becomes right
+      from right to left+1, next becomes cur-1
+      left's next becomes right+1
+    */
+    vector<ListNode*> nodes;
+    ListNode* tmp = head;
+    while (tmp != nullptr) {
+      nodes.push_back(tmp);
+      tmp = tmp->next;
     }
+  }
 };
