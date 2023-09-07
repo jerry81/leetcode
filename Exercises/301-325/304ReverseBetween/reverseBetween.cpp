@@ -71,11 +71,25 @@ class Solution {
       from right to left+1, next becomes cur-1
       left's next becomes right+1
     */
+   if (head == nullptr) return nullptr;
+
     vector<ListNode*> nodes;
     ListNode* tmp = head;
     while (tmp != nullptr) {
       nodes.push_back(tmp);
       tmp = tmp->next;
     }
+    int lidx = left-1;
+    int ridx = right-1;
+    if (lidx > 0) {
+      nodes[lidx-1] -> next = nodes[ridx];
+    }
+    for (int i = ridx; i > lidx; --i) {
+      nodes[i] -> next = nodes[i-1];
+    }
+    ListNode* finalItem =  (right < nodes.size()) ? nodes[right] : nullptr;
+    nodes[lidx] -> next = finalItem;
+
+    return nodes[0];
   }
 };
