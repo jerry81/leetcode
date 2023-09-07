@@ -87,7 +87,14 @@ class Node {
 
 class Solution {
   vector<int> res;
-  void r(Node* n) {}
+  void r(Node* n) {
+    if (n == nullptr) return;
+
+    res.push_back(n->val);
+    for (Node* c: n->children) {
+      r(c);
+    }
+  }
 
  public:
   vector<int> preorder(Node* root) {
