@@ -84,8 +84,20 @@ class Node {
 };
 
 class Solution {
+  vector<int> res;
+  void r(Node* n) {
+    if (n == nullptr) return;
+
+    for (Node* c : n->children) {
+      r(c);
+    }
+
+    res.push_back(n->val);
+  }
+
  public:
   vector<int> postorder(Node* root) {
-
+    r(root);
+    return res;
   }
 };
