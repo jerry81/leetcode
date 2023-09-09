@@ -62,6 +62,8 @@ class Solution {
     // recurrence - remaining number?
     int count = 0;
     for (int i : sorted) {
+      if (i == remaining) count+=1;
+
       if (i > remaining) break;
 
       int lookup = dp[remaining - i];
@@ -86,14 +88,12 @@ class Solution {
     vector<int> sorted = nums;
     vector<int> dp(target + 1, -1);
     sort(sorted.begin(), sorted.end());
-    cout << "dp size " << dp.size() << endl;
-    cout << "dp[3]" << dp[3] << endl;
     // seed
 
     if (sorted[0] < dp.size()) dp[sorted[0]] = 1;
     for (int i = 1; i <= target; ++i) {
-      cout << "i is " << i << endl;
       if (dp[i] < 0) dp[i] = r(i, dp, sorted);
     }
     return dp[target];
   }
+};
