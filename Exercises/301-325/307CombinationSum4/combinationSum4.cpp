@@ -60,14 +60,14 @@ using namespace std;
 class Solution {
   int r(int remaining, vector<int>& dp, vector<int>& sorted) {
     // recurrence - remaining number?
-    int count = 0;
+    long long count = 0;
     for (int i : sorted) {
       if (i == remaining) count+=1;
 
       if (i > remaining) break;
 
-      int lookup = dp[remaining - i];
-      int add = lookup >= 0 ? lookup : r(remaining - i, dp, sorted);
+      long long lookup = dp[remaining - i];
+      long long add = lookup >= 0 ? lookup : r(remaining - i, dp, sorted);
       count += add;
     }
     return count;
