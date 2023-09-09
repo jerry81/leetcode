@@ -59,10 +59,9 @@ using namespace std;
 
 class Solution {
   int r(int remaining, vector<int>& dp, vector<int>& sorted) {
-    // recurrence - remaining number?
     long long count = 0;
     for (int i : sorted) {
-      if (i == remaining) count+=1;
+      if (i == remaining) count += 1;
 
       if (i > remaining) break;
 
@@ -78,22 +77,12 @@ class Solution {
     // analysis
     // dp + recursion probably
     // base case - options > than target then return 0
-    /*
-      Input: nums = [9], target = 3
-      Output: 0
-      maybe sorted doesn't matter
-    */
     // sort to optimize breaking out
-    // sort from low to high
     vector<int> sorted = nums;
     vector<int> dp(target + 1, -1);
     sort(sorted.begin(), sorted.end());
-    // seed
-
-    if (sorted[0] < dp.size()) dp[sorted[0]] = 1;
-    for (int i = 1; i <= target; ++i) {
+    for (int i = 1; i <= target; ++i)
       if (dp[i] < 0) dp[i] = r(i, dp, sorted);
-    }
     return dp[target];
   }
 };
