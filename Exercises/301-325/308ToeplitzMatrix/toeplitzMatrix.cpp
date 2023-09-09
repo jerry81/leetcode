@@ -4,9 +4,11 @@ Easy
 3.4K
 156
 Companies
-Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false.
+Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return
+false.
 
-A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.
+A matrix is Toeplitz if every diagonal from top-left to bottom-right has the
+same elements.
 
 
 
@@ -38,14 +40,10 @@ n == matrix[i].length
 
 Follow up:
 
-What if the matrix is stored on disk, and the memory is limited such that you can only load at most one row of the matrix into the memory at once?
-What if the matrix is so large that you can only load up a partial row into the memory at once?
-Accepted
-286.8K
-Submissions
-419.2K
-Acceptance Rate
-68.4%
+What if the matrix is stored on disk, and the memory is limited such that you
+can only load at most one row of the matrix into the memory at once? What if the
+matrix is so large that you can only load up a partial row into the memory at
+once? Accepted 286.8K Submissions 419.2K Acceptance Rate 68.4%
 */
 
 #include <vector>
@@ -53,8 +51,28 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
-
+ public:
+  bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+    int h = matrix.size();
+    int w = matrix[0].size();
+    int x = 0;
+    for (int y = 0; y < h; ++y) {
+      int match = matrix[y][x];
+      while (x < w && y < h) {
+        if (matrix[y][x] != match) return false;
+        x++;
+        y++;
+      }
     }
+    int y = 0;
+    for (int x = 1; x < w; ++x) {
+      int match = matrix[y][x];
+      while (x < w && y < h) {
+        if (matrix[y][x] != match) return false;
+        x++;
+        y++;
+      }
+    }
+    return true;
+  }
 };
