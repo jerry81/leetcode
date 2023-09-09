@@ -55,21 +55,23 @@ class Solution {
   bool isToeplitzMatrix(vector<vector<int>>& matrix) {
     int h = matrix.size();
     int w = matrix[0].size();
-    int x = 0;
     for (int y = 0; y < h; ++y) {
-      int match = matrix[y][x];
-      while (x < w && y < h) {
-        if (matrix[y][x] != match) return false;
+      int match = matrix[y][0];
+      int x = 0;
+      int y2 = y;
+      while (x < w && y2 < h) {
+        if (matrix[y2][x] != match) return false;
         x++;
-        y++;
+        y2++;
       }
     }
-    int y = 0;
-    for (int x = 1; x < w; ++x) {
-      int match = matrix[y][x];
-      while (x < w && y < h) {
-        if (matrix[y][x] != match) return false;
-        x++;
+    for (int x = 0; x < w; ++x) {
+      int match = matrix[0][x];
+      int y = 0;
+      int x2 = x;
+      while (x2 < w && y < h) {
+        if (matrix[y][x2] != match) return false;
+        x2++;
         y++;
       }
     }
