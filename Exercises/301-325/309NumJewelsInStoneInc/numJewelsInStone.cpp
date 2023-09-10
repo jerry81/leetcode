@@ -36,12 +36,21 @@ Acceptance Rate
 */
 
 #include <string>
+#include <set>
 
 using namespace std;
 
 class Solution {
 public:
     int numJewelsInStones(string jewels, string stones) {
-
+      set<char> lookup;
+      for (char c: jewels) {
+        lookup.insert(c);
+      }
+      int res = 0;
+      for (char c: stones) {
+        if (lookup.find(c) != lookup.end()) res++;
+      }
+      return res;
     }
 };
