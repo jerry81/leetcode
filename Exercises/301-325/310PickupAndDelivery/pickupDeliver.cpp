@@ -41,19 +41,20 @@ Submissions
 Acceptance Rate
 63.1%
 */
-#include <map>
-#include <vector>
+#include <cmath>
 using namespace std;
 class Solution {
-  map<string, int> lookup;
-
  public:
   int countOrders(int n) {
-    vector<int> ap;
-    for (int i = 0; i < n; ++i) {
-      ap.push_back(i);
+    int MOD = pow(10, 9) + 7;
+    long long fact = 1;
+    for (int i = 2; i <= 2 * n; ++i) {
+      fact *= i;
+      if (i % 2 == 0) fact /= 2;
+      fact %= MOD;
     }
-    vector<bool> ad(n);
+
+    return fact;
   }
 };
 
