@@ -62,7 +62,28 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
+#include <climits>
+#include <iostream>
+#include <vector>
+
+using namespace std;
 class Solution {
+  vector<int> flat;
+  void r(TreeNode *root) {
+    if (root==nullptr) return;
+
+    r(root->left);
+    flat.push_back(root->val);
+    r(root->right);
+  }
+
  public:
-  int minDiffInBST(TreeNode *root) {}
+  int minDiffInBST(TreeNode *root) {
+    // inorder traversal should be sequential
+    r(root);
+    for (int f : flat) {
+      cout << "f is " << f << endl;
+    }
+  }
 };
