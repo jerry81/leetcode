@@ -82,8 +82,11 @@ class Solution {
   int minDiffInBST(TreeNode *root) {
     // inorder traversal should be sequential
     r(root);
-    for (int f : flat) {
-      cout << "f is " << f << endl;
+    int res = abs(flat[0] - flat[1]);
+    for (int i = 1; i < flat.size()-1; ++i) {
+      int diff = abs(flat[i] - flat[i+1]);
+      res = min(res,diff);
     }
+    return res;
   }
 };
