@@ -67,8 +67,20 @@ class Solution {
       freqMaps[item].push_back(i);
     }
     vector<vector<int>> res;
-    for (auto [_,v]: freqMaps)
-      res.push_back(v);
+    for (auto [k, v] : freqMaps) {
+      vector<int> vtemp = v;
+      vector<int> tmp;
+      while (!vtemp.empty()) {
+        if (tmp.size() == k) {
+          res.push_back(tmp);
+          tmp = {};
+        }
+        tmp.push_back(vtemp.back());
+        vtemp.pop_back();
+      }
+      res.push_back(tmp);
+    }
+
     return res;
   }
 };
