@@ -78,7 +78,7 @@ class Solution {
       visited.insert(v);
     }
     sort(vals.begin(), vals.end());
-    int res = INT_MAX;
+    int res = 0;
     for (int i = 0; i < vals.size() - 1; ++i) {
       int curVal = vals[i];
       int nVal = vals[i + 1];
@@ -87,7 +87,7 @@ class Solution {
         int found = false;
         for (int j = curVal; j >= 0; --j) {
           if (visited.find(j) == visited.end()) {
-            res = += (curVal-j);
+            res += (curVal-j);
             visited.insert(j);
             found = true;
             break;
