@@ -51,9 +51,9 @@ Acceptance Rate
 */
 
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
 
 using namespace std;
 
@@ -76,11 +76,21 @@ class Solution {
     for (auto [_, v] : freq) vals.push_back(v);
     sort(vals.begin(), vals.end());
     int res = INT_MAX;
-    for (int i = 0; i < vals.size()-1; ++i) {
+    for (int i = 0; i < vals.size() - 1; ++i) {
       int curVal = vals[i];
-      int nVal = vals[i+1];
+      int nVal = vals[i + 1];
       if (curVal == nVal && visited.find(curVal) != visited.end()) {
         visited.insert(curVal);
+        int count = 0;
+        int idx = i - 1;
+        int valAtIdx = vals[idx];
+        int diff = curVal - valAtIdx;
+        while (diff != 0) {
+          idx = idx - 1;
+          valAtIdx = vals[idx];
+          diff = curVal - valAtIdx;
+        }
+        res = min(diff, res);
       }
     }
     return res;
