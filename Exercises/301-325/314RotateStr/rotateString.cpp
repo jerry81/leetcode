@@ -42,16 +42,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  bool test(string &s, string &goal, int idx) {}
+  bool test(string &s, string &goal, int &n, int idx) {
+    for (int i = 0; i < n; ++i) {
+      if (s[i] != goal[(idx+i) % n]) return false;
+    }
+    return true;
+  }
 
  public:
   bool rotateString(string s, string goal) {
-    if (s.size() != goal.size()) return false;
+    int n = s.size();
+    if (n != goal.size()) return false;
 
     char first = s[0];
-    for (int i = 0; i < goal.size(); ++i) {
+    for (int i = 0; i < n; ++i) {
       if (goal[i] == first) {
-        if (test(s, goal, i)) return true;
+        if (test(s, goal,n, i)) return true;
       }
     }
     return false;
