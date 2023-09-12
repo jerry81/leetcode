@@ -53,6 +53,7 @@ Acceptance Rate
 #include <map>
 #include <string>
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -63,6 +64,7 @@ class Solution {
       set up freq map
     */
     map<char, int> freq;
+    set<int> visited;
     if (s.length() == 1) return 0;
 
     for (char c : s) {
@@ -73,8 +75,14 @@ class Solution {
     vector<int> vals;
     for (auto [_, v] : freq) vals.push_back(v);
     sort(vals.begin(), vals.end());
+    int res = INT_MAX;
     for (int i = 0; i < vals.size()-1; ++i) {
-
+      int curVal = vals[i];
+      int nVal = vals[i+1];
+      if (curVal == nVal && visited.find(curVal) != visited.end()) {
+        visited.insert(curVal);
+      }
     }
+    return res;
   }
 };
