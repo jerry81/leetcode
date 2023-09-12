@@ -79,7 +79,6 @@ class Solution {
     }
     sort(vals.begin(), vals.end());
     int res = INT_MAX;
-    bool init = false;
     for (int i = 0; i < vals.size() - 1; ++i) {
       int curVal = vals[i];
       int nVal = vals[i + 1];
@@ -88,19 +87,17 @@ class Solution {
         int found = false;
         for (int j = curVal; j >= 0; --j) {
           if (visited.find(j) == visited.end()) {
-            res = min(res, curVal-j);
-            init = true;
+            res = += (curVal-j);
             visited.insert(j);
             found = true;
             break;
           }
         }
         if (!found) {
-          res = min(res, curVal);
-          init = true;
+          res += curVal;
         }
       }
     }
-    return init ? res : 0;
+    return res;
   }
 };
