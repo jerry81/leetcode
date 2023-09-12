@@ -73,33 +73,32 @@ class Solution {
       freq[c]++;
     }
     vector<int> vals;
-    for (auto [_, v] : freq) vals.push_back(v);
+    for (auto [_, v] : freq) {
+      vals.push_back(v);
+      visited.insert(v);
+    }
     sort(vals.begin(), vals.end());
     int res = INT_MAX;
     bool init = false;
     for (int i = 0; i < vals.size() - 1; ++i) {
       int curVal = vals[i];
       int nVal = vals[i + 1];
-      if (curVal == nVal && visited.find(curVal) == visited.end()) {
-        visited.insert(curVal);
-        int count = 0;
-        int idx = i - 1;
-        int valAtIdx = vals[idx];
-        int prev = curVal;
-        int diff = prev - valAtIdx;
-
-        while (diff < 2 && idx >= 0) {
-          int nxt = idx-1;
-          if (nxt < 0) break;
-          prev = vals[idx];
-          valAtIdx = vals[nxt];
-
-          diff = prev - valAtIdx;
-          idx--;
+      if (curVal == nVal) {
+        // set of values
+        int found = false;
+        for (int j = curVal; j >= 0; --j) {
+          if (visited.find(j) == visited.end()) {
+            res = min(res, curVal-j);
+            init = true;
+            visited.insert(j);
+            found = true;
+            break;
+          }
         }
-        if (diff >= 2) res = 1;
-        if (idx < 0) return diff;
-        init = true;
+        if (!found) {
+          res = min(res, curVal);
+          init = true;
+        }
       }
     }
     return init ? res : 0;
