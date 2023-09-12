@@ -5,9 +5,11 @@ Easy
 3.2K
 124
 Companies
-Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.
+Given two strings s and goal, return true if and only if s can become goal after
+some number of shifts on s.
 
-A shift on s consists of moving the leftmost character of s to the rightmost position.
+A shift on s consists of moving the leftmost character of s to the rightmost
+position.
 
 For example, if s = "abcde", then it will be "bcdea" after one shift.
 
@@ -40,9 +42,18 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  bool test(string &s, string &goal, int idx) {}
 
-public:
-    bool rotateString(string s, string goal) {
+ public:
+  bool rotateString(string s, string goal) {
+    if (s.size() != goal.size()) return false;
 
+    char first = s[0];
+    for (int i = 0; i < goal.size(); ++i) {
+      if (goal[i] == first) {
+        if (test(s, goal, i)) return true;
+      }
     }
+    return false;
+  }
 };
