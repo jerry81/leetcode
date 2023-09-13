@@ -72,7 +72,7 @@ class Solution {
     for (string w: words) {
       string morse = "";
       for (char c: w) {
-        int idx = 'a' - c;
+        int idx = c - 'a';
         morse += lookup[idx];
       }
       resW.insert(morse);
