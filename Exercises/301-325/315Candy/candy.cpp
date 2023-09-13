@@ -61,7 +61,8 @@ class Solution {
     vector<int> weights(n, 1);
     // forwards loop
     // compare neighbor
-    for (int i = 0; i < n - 1; ++i) {
+    int i = 0;
+    while (i < n-1) {
       int j = i + 1;
       int cur = ratings[i];
       int next = ratings[j];
@@ -71,8 +72,12 @@ class Solution {
         cur = next;
         if (j < ratings.size()) next = ratings[j];
       }
+      i = j;
     }
-    for (int i = n - 1; i >= 1; --i) {
+    // extreme case - fully ascending or descending
+
+    i = n - 1;
+    while (i >= 1) {
       int j = i - 1;
       int cur = ratings[i];
       int next = ratings[j];
@@ -82,6 +87,7 @@ class Solution {
         cur = next;
         if (j >= 0) next = ratings[j];
       }
+      i = j;
     }
     int res = 0;
     for (int w : weights) res += w;
