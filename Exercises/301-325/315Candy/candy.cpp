@@ -69,7 +69,7 @@ class Solution {
         weights[j] = weights[j - 1] + 1;
         j++;
         cur = next;
-        next = ratings[j];
+        if (j < ratings.size()) next = ratings[j];
       }
     }
     for (int i = n - 1; i >= 1; --i) {
@@ -77,10 +77,10 @@ class Solution {
       int cur = ratings[i];
       int next = ratings[j];
       while (j >= 0 && next > cur) {
-        weights[j] = max(weights[j - 1] + 1, weights[j]);
+        weights[j] = max(weights[j + 1] + 1, weights[j]);
         j--;
         cur = next;
-        next = ratings[j];
+        if (j >= 0) next = ratings[j];
       }
     }
     int res = 0;
