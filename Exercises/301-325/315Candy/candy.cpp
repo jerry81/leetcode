@@ -46,9 +46,38 @@ Acceptance Rate
 
 using namespace std;
 
+// greedy? stick 1 in the lowest priorities of the graph
+// graph problem?
+// if neighbor equal then no constraint on either
+
 class Solution {
 public:
     int candy(vector<int>& ratings) {
-
+      int n = ratings.size();
+      vector<int> weights(n,1);
+      // forwards loop
+      // compare neighbor
+      for (int i = 0; i < n-1; ++i) {
+        int j = i+1;
+        int cur = ratings[i];
+        int next = ratings[j];
+        while (j < ratings.size() && next > cur) {
+          weights[j] = weights[j-1]+1;
+          j++;
+          cur = next;
+          next = ratings[j];
+        }
+      }
+      if (int i = n-1; i >= 1; --i) {
+        int j = i-1;
+        int cur = ratings[i];
+        int next = ratings[j];
+        while (j >= 0 && next > cur) {
+          weights[j] = max(weights[j-1]+1, weights[j]);
+          j--;
+          cur = next;
+          next = ratings[j];
+        }
+      }
     }
 };
