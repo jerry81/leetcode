@@ -55,22 +55,28 @@ Acceptance Rate
 #include <map>
 #include <string>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
-  map<string, vector<string>> neighbors;
+  struct Airport {
+    unordered_set<string> neighbors;
+    unordered_set<string> parents;
+  };
+  map<string, Airport*> airports;
 
  public:
   vector<string> findItinerary(vector<vector<string>>& tickets) {
     for (vector<string> s : tickets) {
       string src = s[0];
       string dest = s[1];
-      if (neighbors.find(src) == neighbors.end()) {
-        vector<string> init;
-        neighbors[src] = init;
+      if (airports.find(src) == airports.end()) {
+        Airport* init = new Airport();
+        airports[src] = init;
       }
-      neighbors[src].push_back(dest);
+      airports[src]->neighbors.insert(dest);
+      airports[dest]->parents.insert(src);
     }
   }
 };
