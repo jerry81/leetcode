@@ -68,7 +68,9 @@ class Solution {
     Airport(string name) : name(name) {}
   };
   static bool cc(Airport* a, Airport* b) {
-    return a->parents.size() < b->parents.size();
+    if (a->parents.size() < b->parents.size()) return true;
+    if (a->parents.size() == b->parents.size()) return a->name < b->name;
+    return false;
   }
   map<string, Airport*> airports;
   vector<Airport*> sortable;
@@ -92,7 +94,6 @@ class Solution {
       airports[dest]->parents.insert(src);
     }
     sort(sortable.begin(), sortable.end(), cc);
-    cout << "first item is " << sortable[0]->name << endl;
     // sort airports lexicographic order
     return {};
   }
