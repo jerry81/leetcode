@@ -63,31 +63,25 @@ class Solution {
   struct Airport {
     string name;
     set<string> neighbors;
-    set<string> parents;
+   //  set<string> parents;
     Airport(string name) : name(name) {}
   };
-  static bool cc(Airport* a, Airport* b) {
-    if (a->parents.size() < b->parents.size()) return true;
-    if (a->parents.size() == b->parents.size()) return a->name < b->name;
-    return false;
-  }
+  map<string,int> ticketTmpl;
   string hashTicket(string a, string b) { return a + "," + b; }
   map<string, Airport*> airports;
-  vector<Airport*> sortable;
-  map<string, bool> vistedTmpl;
   int ticketCount = 0;
 
-  vector<string> r(vector<string> accum, set<string> visited, int ticketsUsed,
+  vector<string> r(vector<string> accum, map<string,int> visited, int ticketsUsed,
                    string curAirport, int& target) {
     Airport* aobj = airports[curAirport];
     accum.push_back(curAirport);
     if (ticketsUsed == target) return accum;
     // greedy doesn't work for some cases
     for (string neigh : aobj->neighbors) {
-      set<string> visitedC = visited;
+      map<string,int> visitedC = visited;
       string asHash = hashTicket(aobj->name, neigh);
-      if (visitedC.find(asHash) == visitedC.end()) {
-        visitedC.insert(asHash);
+      if (visitedC[asHash] > 0) {
+        visitedC[asHash]--;
         vector<string> res = r(accum, visitedC, ticketsUsed + 1, neigh, target);
         if (!res.empty()) return res;
       }
@@ -101,27 +95,27 @@ class Solution {
     for (vector<string> s : tickets) {
       string src = s[0];
       string dest = s[1];
+      string hsh = hashTicket(src,dest);
+      ticketTmpl[hsh]++;
       if (airports.find(src) == airports.end()) {
         Airport* init = new Airport(src);
         airports[src] = init;
-        sortable.push_back(init);
       }
       if (airports.find(dest) == airports.end()) {
         Airport* init = new Airport(dest);
         airports[dest] = init;
-        sortable.push_back(init);
       }
       airports[src]->neighbors.insert(dest);
-      airports[dest]->parents.insert(src);
+      //airports[dest]->parents.insert(src);
     }
-    sort(sortable.begin(), sortable.end(), cc);
     // sort airports lexicographic order
-    set<string> v;
-    vector<string> res = r({}, v, 0, sortable[0]->name, ticketCount);
-    int i = 1;
-    while (res.empty()) {
-      res = r({}, v, 0, sortable[i]->name, ticketCount);
-      i++;
-    }
+    vector<string> res = r({}, ticketTmpl, 0, "JFK", ticketCount);
+    return res;
   }
 };
+
+/*
+
+[["EZE","TIA"],["EZE","HBA"],["AXA","TIA"],["JFK","AXA"],["ANU","JFK"],["ADL","ANU"],["TIA","AUA"],["ANU","AUA"],["ADL","EZE"],["ADL","EZE"],["EZE","ADL"],["AXA","EZE"],["AUA","AXA"],["JFK","AXA"],["AXA","AUA"],["AUA","ADL"],["ANU","EZE"],["TIA","ADL"],["EZE","ANU"],["AUA","ANU"]]
+
+*/
