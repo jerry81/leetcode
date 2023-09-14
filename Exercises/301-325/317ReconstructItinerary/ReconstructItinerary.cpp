@@ -87,7 +87,7 @@ class Solution {
       string asHash = hashTicket(aobj->name, neigh);
       if (visitedC.find(asHash) == visitedC.end()) {
         visitedC.insert(asHash);
-        r(accum, visitedC, ticketsUsed + 1, neigh, target);
+        return r(accum, visitedC, ticketsUsed + 1, neigh, target);
       }
     }
     return {};
