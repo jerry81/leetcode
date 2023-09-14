@@ -52,7 +52,7 @@ Acceptance Rate
 
 */
 
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <string>
 #include <vector>
@@ -60,26 +60,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  struct Airport {
-    string name;
-    set<string> neighbors;
-   //  set<string> parents;
-    Airport(string name) : name(name) {}
-  };
-  map<string,int> ticketTmpl;
+  unordered_map<string,int> ticketTmpl;
   string hashTicket(string a, string b) { return a + "," + b; }
-  map<string, Airport*> airports;
+  unordered_map<string, set<string>> airports;
   int ticketCount = 0;
 
-  vector<string> r(vector<string> accum, map<string,int> visited, int ticketsUsed,
+  vector<string> r(vector<string> accum, unordered_map<string,int> visited, int ticketsUsed,
                    string curAirport, int& target) {
-    Airport* aobj = airports[curAirport];
     accum.push_back(curAirport);
     if (ticketsUsed == target) return accum;
     // greedy doesn't work for some cases
-    for (string neigh : aobj->neighbors) {
-      map<string,int> visitedC = visited;
-      string asHash = hashTicket(aobj->name, neigh);
+    for (string neigh : airports[curAirport]) {
+      unordered_map<string,int> visitedC = visited;
+      string asHash = hashTicket(curAirport, neigh);
       if (visitedC[asHash] > 0) {
         visitedC[asHash]--;
         vector<string> res = r(accum, visitedC, ticketsUsed + 1, neigh, target);
@@ -97,23 +90,13 @@ class Solution {
       string dest = s[1];
       string hsh = hashTicket(src,dest);
       ticketTmpl[hsh]++;
-      if (airports.find(src) == airports.end()) {
-        Airport* init = new Airport(src);
-        airports[src] = init;
-      }
-      if (airports.find(dest) == airports.end()) {
-        Airport* init = new Airport(dest);
-        airports[dest] = init;
-      }
-      airports[src]->neighbors.insert(dest);
-      //airports[dest]->parents.insert(src);
+
+      airports[src].insert(dest);
     }
-    // sort airports lexicographic order
     vector<string> res = r({}, ticketTmpl, 0, "JFK", ticketCount);
     return res;
   }
 };
-
 /*
 
 [["EZE","TIA"],["EZE","HBA"],["AXA","TIA"],["JFK","AXA"],["ANU","JFK"],["ADL","ANU"],["TIA","AUA"],["ANU","AUA"],["ADL","EZE"],["ADL","EZE"],["EZE","ADL"],["AXA","EZE"],["AUA","AXA"],["JFK","AXA"],["AXA","AUA"],["AUA","ADL"],["ANU","EZE"],["TIA","ADL"],["EZE","ANU"],["AUA","ANU"]]
