@@ -52,15 +52,14 @@ Acceptance Rate
 
 */
 
+#include <map>
 #include <set>
 #include <string>
-#include <map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-
   struct Airport {
     string name;
     set<string> neighbors;
@@ -72,11 +71,31 @@ class Solution {
     if (a->parents.size() == b->parents.size()) return a->name < b->name;
     return false;
   }
+  string hashTicket(string a, string b) { return a + "," + b; }
   map<string, Airport*> airports;
   vector<Airport*> sortable;
+  map<string, bool> vistedTmpl;
+  int ticketCount = 0;
+
+  vector<string> r(vector<string> accum, set<string> visited, int ticketsUsed,
+                   string curAirport, int& target) {
+    Airport* aobj = airports[curAirport];
+    accum.push_back(curAirport);
+    if (ticketsUsed == target) return accum;
+    for (string neigh : aobj->neighbors) {
+      set<string> visitedC = visited;
+      string asHash = hashTicket(aobj->name, neigh);
+      if (visitedC.find(asHash) == visitedC.end()) {
+        visitedC.insert(asHash);
+        r(accum, visitedC, ticketsUsed + 1, neigh, target);
+      }
+    }
+    return {};
+  }
 
  public:
   vector<string> findItinerary(vector<vector<string>>& tickets) {
+    ticketCount = tickets.size();
     for (vector<string> s : tickets) {
       string src = s[0];
       string dest = s[1];
@@ -95,6 +114,8 @@ class Solution {
     }
     sort(sortable.begin(), sortable.end(), cc);
     // sort airports lexicographic order
-    return {};
+    set<string> v;
+    vector<string> res = r({}, v, 0,sortable[0]->name,ticketCount);
+    return res;
   }
 };
