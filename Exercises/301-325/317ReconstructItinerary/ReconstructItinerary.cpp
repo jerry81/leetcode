@@ -82,12 +82,14 @@ class Solution {
     Airport* aobj = airports[curAirport];
     accum.push_back(curAirport);
     if (ticketsUsed == target) return accum;
+    // greedy doesn't work for some cases
     for (string neigh : aobj->neighbors) {
       set<string> visitedC = visited;
       string asHash = hashTicket(aobj->name, neigh);
       if (visitedC.find(asHash) == visitedC.end()) {
         visitedC.insert(asHash);
-        return r(accum, visitedC, ticketsUsed + 1, neigh, target);
+        vector<string> res = r(accum, visitedC, ticketsUsed + 1, neigh, target);
+        if (!res.empty()) return res;
       }
     }
     return {};
@@ -115,7 +117,11 @@ class Solution {
     sort(sortable.begin(), sortable.end(), cc);
     // sort airports lexicographic order
     set<string> v;
-    vector<string> res = r({}, v, 0,sortable[0]->name,ticketCount);
-    return res;
+    vector<string> res = r({}, v, 0, sortable[0]->name, ticketCount);
+    int i = 1;
+    while (res.empty()) {
+      res = r({}, v, 0, sortable[i]->name, ticketCount);
+      i++;
+    }
   }
 };
