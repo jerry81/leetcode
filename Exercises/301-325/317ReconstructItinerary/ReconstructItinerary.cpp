@@ -52,19 +52,26 @@ Acceptance Rate
 
 */
 
-#include <map>
+#include <set>
 #include <string>
+#include <map>
 #include <vector>
-#include <unordered_set>
 
 using namespace std;
 
 class Solution {
+
   struct Airport {
-    unordered_set<string> neighbors;
-    unordered_set<string> parents;
+    string name;
+    set<string> neighbors;
+    set<string> parents;
+    Airport(string name) : name(name) {}
   };
+  static bool cc(Airport* a, Airport* b) {
+    return a->parents.size() < b->parents.size();
+  }
   map<string, Airport*> airports;
+  vector<Airport*> sortable;
 
  public:
   vector<string> findItinerary(vector<vector<string>>& tickets) {
@@ -72,11 +79,21 @@ class Solution {
       string src = s[0];
       string dest = s[1];
       if (airports.find(src) == airports.end()) {
-        Airport* init = new Airport();
+        Airport* init = new Airport(src);
         airports[src] = init;
+        sortable.push_back(init);
+      }
+      if (airports.find(dest) == airports.end()) {
+        Airport* init = new Airport(dest);
+        airports[dest] = init;
+        sortable.push_back(init);
       }
       airports[src]->neighbors.insert(dest);
       airports[dest]->parents.insert(src);
     }
+    sort(sortable.begin(), sortable.end(), cc);
+    cout << "first item is " << sortable[0]->name << endl;
+    // sort airports lexicographic order
+    return {};
   }
 };
