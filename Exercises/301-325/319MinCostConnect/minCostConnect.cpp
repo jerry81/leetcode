@@ -117,6 +117,8 @@ class Solution {
     UnionFind *uf = new UnionFind(n);
     int edgeCount = 0;
     for (Edge* e : edges) {
+      if (edgeCount >= n-1) break;
+
       // if doesn't make a cycle, add e
       int a = e->pointA;
       int b = e->pointB;
