@@ -36,11 +36,28 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class Solution {
+double calculateArea(double x1, double y1, double x2, double y2, double x3, double y3) {
+    return 0.5 * abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2));
+}
 public:
     double largestTriangleArea(vector<vector<int>>& points) {
-
+      double res = 0;
+      int n = points.size();
+      for (int i = 0; i < n-2; ++i) {
+        for (int j = i+1; j < n-1; ++j) {
+          for (int k = j+1; k < n; ++k) {
+            vector<int> p1 = points[i];
+            vector<int> p2 = points[j];
+            vector<int> p3 = points[k];
+            double area = calculateArea(p1[0],p1[1],p2[0],p2[1],p3[0],p3[1]);
+            res = max(res,area);
+          }
+        }
+      }
+      return res;
     }
 };
