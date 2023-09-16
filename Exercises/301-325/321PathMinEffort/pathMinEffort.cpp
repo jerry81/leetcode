@@ -80,7 +80,7 @@ struct State {
 };
 
 struct ComparePQ {
-    bool operator()(State *a, State *b) { return a->p->weight < b->p->weight; }
+    bool operator()(State *a, State *b) { return a->p->weight > b->p->weight; }
 };
 
 class Solution {
@@ -94,7 +94,7 @@ class Solution {
 
     vector<vector<int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
 
-    Point *start = new Point(0,0,INT_MAX);
+    Point *start = new Point(0,0,INT_MIN);
     unordered_map<string, bool> startst;
     startst[toH(start)] = true;
     State *cur = new State(start, startst);
