@@ -56,8 +56,8 @@ class Solution {
     for (string s : banned) b.insert(s);
     string cur = "";
     for (char c : paragraph) {
-      if (c == ' ') {
-        if (b.find(cur) != b.end()) {
+      if (c == ' ' || ispunct(c)) {
+        if (b.find(cur) == b.end()) {
           freq[cur]++;
           if (freq[cur] > mx) {
             mx = freq[cur];
@@ -65,6 +65,8 @@ class Solution {
           }
         }
         cur = "";
+      } else {
+        cur += tolower(c);
       }
     }
     return res;
