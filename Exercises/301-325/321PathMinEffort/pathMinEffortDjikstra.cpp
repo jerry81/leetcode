@@ -94,33 +94,31 @@ class Solution {
     cur->weight = 0;
     priority_queue<Point *, vector<Point *>, ComparePQ> pq;
     pq.push(cur);
-    int counter = 0;
-      while (!pq.empty() && counter < 50) {
-       counter++;
-        cur = pq.top();
-        int cx = cur->x;
-        int cy = cur->y;
-        int cw = cur->weight;
-        if (cx == w-1 && cy == h-1) return cw;
+    while (!pq.empty()) {
+      cur = pq.top();
+      int cx = cur->x;
+      int cy = cur->y;
+      int cw = cur->weight;
+      if (cx == w - 1 && cy == h - 1) return cw;
 
-        visited[toH(cur)] = true;
-        pq.pop();
-        // unvisited neighhbors -> queue
-        for (auto d : dirs) {
-          int ny = d[0] + cy;
-          int nx = d[1] + cx;
-          if (ny < 0) continue;
-          if (nx < 0) continue;
-          if (ny >= h) continue;
-          if (nx >= w) continue;
-          string hsh = toH(ny, nx);
-          if (visited[hsh]) continue;
-          int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
-          int nextW = max(nextDiff, cw);
-          Point *np = new Point(ny,nx);
-          np->weight = nextW;
-          pq.push(np);
-        }
+      visited[toH(cur)] = true;
+      pq.pop();
+      // unvisited neighhbors -> queue
+      for (auto d : dirs) {
+        int ny = d[0] + cy;
+        int nx = d[1] + cx;
+        if (ny < 0) continue;
+        if (nx < 0) continue;
+        if (ny >= h) continue;
+        if (nx >= w) continue;
+        string hsh = toH(ny, nx);
+        if (visited[hsh]) continue;
+        int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
+        int nextW = max(nextDiff, cw);
+        Point *np = new Point(ny, nx);
+        np->weight = nextW;
+        pq.push(np);
+      }
     }
     return 0;
   }
