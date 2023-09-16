@@ -62,13 +62,14 @@ Acceptance Rate
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 struct Point {
   int y = -1;
   int x = -1;
-  int weight = -1;
+  int weight = INT_MIN;
   Point(int y, int x, int w) : y(y), x(x), weight(w){};
 };
 
@@ -89,11 +90,11 @@ class Solution {
   int minimumEffortPath(vector<vector<int>>& heights) {
     int h = heights.size();
     int w = heights[0].size();
-    int startW = heights[0][0];
+    if (h == 1 && w == 1) return 0;
 
     vector<vector<int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
 
-    Point *start = new Point(0,0,startW);
+    Point *start = new Point(0,0,INT_MAX);
     unordered_map<string, bool> startst;
     startst[toH(start)] = true;
     State *cur = new State(start, startst);
@@ -119,7 +120,9 @@ class Solution {
         if (nx >= w) continue;
         string hsh = toH(ny,nx);
         if (state[hsh]) continue;
-        Point *np = new Point(ny,nx,heights[ny][nx]+cw);
+        int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
+        int nextW = max(nextDiff,cw);
+        Point *np = new Point(ny,nx,nextW);
         unordered_map<string, bool> nextSt;
         nextSt = state;
         nextSt[hsh] = true;
