@@ -50,7 +50,7 @@ class Solution {
  public:
   string mostCommonWord(string paragraph, vector<string>& banned) {
     unordered_map<string, int> freq;
-    unordered_set<string> b;
+    unordered_set<string> b = {""};
     string res = "";
     int mx = 0;
     for (string s : banned) b.insert(s);
@@ -69,6 +69,14 @@ class Solution {
         cur += tolower(c);
       }
     }
+    if (b.find(cur) == b.end()) {
+      freq[cur]++;
+      if (freq[cur] > mx) {
+        mx = freq[cur];
+        res = cur;
+      }
+    }
+
     return res;
   }
 };
