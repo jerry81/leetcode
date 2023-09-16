@@ -79,8 +79,8 @@ struct ComparePQ {
 
 class Solution {
   unordered_map<string, bool> visited;
-  string toH(int x, int y) { return to_string(y) + "," + to_string(x); };
-  string toH(Point *p) { return toH(p->x, p->y); }
+  string toH(int y, int x) { return to_string(y) + "," + to_string(x); };
+  string toH(Point *p) { return toH(p->y, p->x); }
 
  public:
   int minimumEffortPath(vector<vector<int>> &heights) {
@@ -94,13 +94,15 @@ class Solution {
     cur->weight = 0;
     priority_queue<Point *, vector<Point *>, ComparePQ> pq;
     pq.push(cur);
-      while (!pq.empty()) {
+    int counter = 0;
+      while (!pq.empty() && counter < 50) {
+       counter++;
         cur = pq.top();
         int cx = cur->x;
         int cy = cur->y;
         int cw = cur->weight;
-
         if (cx == w-1 && cy == h-1) return cw;
+
         visited[toH(cur)] = true;
         pq.pop();
         // unvisited neighhbors -> queue
@@ -117,6 +119,7 @@ class Solution {
           int nextW = max(nextDiff, cw);
           Point *np = new Point(ny,nx);
           np->weight = nextW;
+          pq.push(np);
         }
     }
     return 0;
@@ -125,3 +128,5 @@ class Solution {
 
 // bfs + pq
 // mem limit exceeded... fack!
+
+// double adds are happening brah
