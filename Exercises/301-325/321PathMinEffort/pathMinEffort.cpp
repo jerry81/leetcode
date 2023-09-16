@@ -58,11 +58,11 @@ Acceptance Rate
 
 */
 
+#include <cmath>
 #include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -73,66 +73,69 @@ struct Point {
   Point(int y, int x, int w) : y(y), x(x), weight(w){};
 };
 
-struct State {
-  Point *p;
-  unordered_map<string, bool> visited;
-  State(Point *p, unordered_map<string, bool> st):p(p), visited(st){}
-};
-
 struct ComparePQ {
-    bool operator()(State *a, State *b) { return a->p->weight > b->p->weight; }
+  bool operator()(Point *a, Point *b) { return a->weight > b->weight; }
 };
 
 class Solution {
- string toH(int x, int y) { return to_string(y) + "," + to_string(x); };
- string toH(Point *p) { return toH(p->x, p->y); }
+  unordered_map<string, bool> visited;
+  string toH(int x, int y) { return to_string(y) + "," + to_string(x); };
+  string toH(Point *p) { return toH(p->x, p->y); }
+
  public:
-  int minimumEffortPath(vector<vector<int>>& heights) {
+  int minimumEffortPath(vector<vector<int>> &heights) {
     int h = heights.size();
     int w = heights[0].size();
     if (h == 1 && w == 1) return 0;
 
-    vector<vector<int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-    Point *start = new Point(0,0,INT_MIN);
-    unordered_map<string, bool> startst;
-    startst[toH(start)] = true;
-    State *cur = new State(start, startst);
-    priority_queue<State*, vector<State*>, ComparePQ> pq;
+    Point *cur = new Point(0, 0, INT_MIN);
+    priority_queue<Point *, vector<Point *>, ComparePQ> pq;
     pq.push(cur);
+    int res = INT_MAX;
     while (!pq.empty()) {
-      cur = pq.top();
-      Point *curp = cur->p;
-      int cx = curp->x;
-      int cy = curp->y;
-      int cw = curp->weight;
-      auto state = cur->visited;
+      // ring by ring bfs
+      priority_queue<Point *, vector<Point *>, ComparePQ> npq;
+      while (!pq.empty()) {
+        cur = pq.top();
+        int cx = cur->x;
+        int cy = cur->y;
+        int cw = cur->weight;
 
-      if (cx == w-1 && cy == h-1) return cw;
-      pq.pop();
-      // unvisited neighhbors -> queue
-      for (auto d: dirs) {
-        int ny = d[0] + cy;
-        int nx = d[1] + cx;
-        if (ny < 0) continue;
-        if (nx < 0) continue;
-        if (ny >= h) continue;
-        if (nx >= w) continue;
-        string hsh = toH(ny,nx);
-        if (state[hsh]) continue;
-        int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
-        int nextW = max(nextDiff,cw);
-        Point *np = new Point(ny,nx,nextW);
-        unordered_map<string, bool> nextSt;
-        nextSt = state;
-        nextSt[hsh] = true;
-        State *ns = new State(np, nextSt);
-        pq.push(ns);
+        if (cx == w-1 && cy == h-1) res = min(res, cw);
+
+        pq.pop();
+        // unvisited neighhbors -> queue
+        unordered_map<string, Point *> updates;
+        for (auto d : dirs) {
+          int ny = d[0] + cy;
+          int nx = d[1] + cx;
+          if (ny < 0) continue;
+          if (nx < 0) continue;
+          if (ny >= h) continue;
+          if (nx >= w) continue;
+          string hsh = toH(ny, nx);
+          if (visited[hsh]) continue;
+          int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
+          int nextW = max(nextDiff, cw);
+          if (updates.find(hsh) != updates.end()) {
+            updates[hsh] = new Point(ny, nx, min(updates[hsh]->weight, nextW));
+          } else {
+            updates[hsh] = new Point(ny, nx, nextW);
+            ;
+          }
+        }
+        for (auto [hsh, np] : updates) {
+          visited[hsh] = true;
+          npq.push(np);
+        }
       }
-
+      pq = npq;
     }
-    return 0;
+    return res;
   }
 };
 
-// dfs + dp
+// bfs + pq
+// mem limit exceeded... fack!
