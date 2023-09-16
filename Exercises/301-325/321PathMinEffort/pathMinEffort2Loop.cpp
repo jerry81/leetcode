@@ -93,6 +93,7 @@ class Solution {
     Point *cur = new Point(0, 0, INT_MIN);
     priority_queue<Point *, vector<Point *>, ComparePQ> pq;
     pq.push(cur);
+    visited[toH(cur)] = true;
     int res = INT_MAX;
     while (!pq.empty()) {
       // ring by ring bfs
@@ -120,10 +121,9 @@ class Solution {
           int nextDiff = abs(heights[ny][nx] - heights[cy][cx]);
           int nextW = max(nextDiff, cw);
           if (updates.find(hsh) != updates.end()) {
-            updates[hsh] = new Point(ny, nx, min(updates[hsh]->weight, nextW));
+            updates[hsh]->weight = min(updates[hsh]->weight, nextW);
           } else {
             updates[hsh] = new Point(ny, nx, nextW);
-            ;
           }
         }
         for (auto [hsh, np] : updates) {
