@@ -55,7 +55,7 @@ struct State {
   int i;
   int cmask;
   int len = 1;
-  State(int i, int c) : i(i), cmask(c){};
+  State(int i, int c, int l) : i(i), cmask(c), len(l){};
 };
 class Solution {
  public:
@@ -69,7 +69,7 @@ class Solution {
       int p = pow(2, i);
       allVisitedMask += p;
       masks.push_back(p);
-      State* s = new State(i, p);
+      State* s = new State(i, p, 1);
 
       states.push(s);
     }
@@ -78,7 +78,6 @@ class Solution {
       State* cur = states.front();
       int cmask = cur->cmask;
       int curi = cur->i;
-      cout << "curi is " << curi << endl;
       states.pop();
       if (visited[cmask][curi]) continue;
       visited[cmask][curi] = true;
@@ -86,7 +85,7 @@ class Solution {
       int nextLen = cur->len + 1;
       for (int neigh : graph[curi]) {
         int nmask = masks[curi] | masks[neigh];
-        State* nxt = new State(nmask, neigh, nextlen);
+        State* nxt = new State(nmask, neigh, nextLen);
         states.push(nxt);
       }
     }
