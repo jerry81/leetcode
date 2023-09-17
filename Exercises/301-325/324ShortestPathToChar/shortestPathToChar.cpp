@@ -52,8 +52,8 @@ using namespace std;
 class Solution {
  public:
   vector<int> shortestToChar(string s, char c) {
-    vector<int> ret;
     int n = s.size();
+    vector<int> ret(n);
     bool found = false;
     for (int i = 0; i < n; ++i) {
       if (s[i] == c) {
@@ -66,7 +66,8 @@ class Solution {
       }
     }
     for (int i = n - 2; i >= 0; --i) {
-      ret[i] = min(ret[i], ret[i + 1]);
+      ret[i] = min(ret[i], ret[i + 1]+1);
     }
+    return ret;
   }
 };
