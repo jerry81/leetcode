@@ -51,7 +51,7 @@ using namespace std;
 struct State {
   int i;
   int cmask;
-  int len=0;
+  int len=1;
   State(int i, int c):i(i), cmask(c) {};
 };
 class Solution {
@@ -67,9 +67,16 @@ public:
         allVisitedMask+=p;
         masks.push_back(p);
         State* s = new State(i, p);
+        visited[p][i] = true;
         states.push(s);
       }
-      w
+      while (!states.empty()) {
+        State* cur = states.front();
+        states.pop();
+        if (visited[cur->cmask][cur->i]) continue;
 
+        if (cur->cmask == allVisitedMask) return cur->len;
+      }
+      return -1;
     }
 };
