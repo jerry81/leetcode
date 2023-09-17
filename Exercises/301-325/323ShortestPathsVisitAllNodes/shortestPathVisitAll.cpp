@@ -54,7 +54,7 @@ using namespace std;
 struct State {
   int i;
   int cmask;
-  int len = 1;
+  int len = 0;
   State(int i, int c, int l) : i(i), cmask(c), len(l){};
 };
 class Solution {
@@ -69,7 +69,7 @@ class Solution {
       int p = pow(2, i);
       allVisitedMask += p;
       masks.push_back(p);
-      State* s = new State(i, p, 1);
+      State* s = new State(i, p, 0);
 
       states.push(s);
     }
@@ -79,13 +79,14 @@ class Solution {
       int cmask = cur->cmask;
       int curi = cur->i;
       states.pop();
+      if (cmask == allVisitedMask) return cur->len;
+
       if (visited[cmask][curi]) continue;
       visited[cmask][curi] = true;
-      if (cmask == allVisitedMask) return cur->len;
       int nextLen = cur->len + 1;
       for (int neigh : graph[curi]) {
-        int nmask = masks[curi] | masks[neigh];
-        State* nxt = new State(nmask, neigh, nextLen);
+        int nmask = cmask | masks[neigh];
+        State* nxt = new State(neigh, nmask, nextLen);
         states.push(nxt);
       }
     }
