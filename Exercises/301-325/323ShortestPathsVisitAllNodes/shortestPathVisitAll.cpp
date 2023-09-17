@@ -5,9 +5,12 @@ Hard
 3.5K
 146
 Companies
-You have an undirected, connected graph of n nodes labeled from 0 to n - 1. You are given an array graph where graph[i] is a list of all the nodes connected with node i by an edge.
+You have an undirected, connected graph of n nodes labeled from 0 to n - 1. You
+are given an array graph where graph[i] is a list of all the nodes connected
+with node i by an edge.
 
-Return the length of the shortest path that visits every node. You may start and stop at any node, you may revisit nodes multiple times, and you may reuse edges.
+Return the length of the shortest path that visits every node. You may start and
+stop at any node, you may revisit nodes multiple times, and you may reuse edges.
 
 
 
@@ -42,50 +45,51 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <cmath>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 struct State {
   int i;
   int cmask;
-  int len=1;
-  State(int i, int c):i(i), cmask(c) {};
+  int len = 1;
+  State(int i, int c) : i(i), cmask(c){};
 };
 class Solution {
-public:
-    int shortestPathLength(vector<vector<int>>& graph) {
-      int sz = graph.size();
-      int allVisitedMask = 0;
-      vector<vector<bool>> visited(allVisitedMask, vector<bool>(sz));
-      vector<int> masks;
-      queue<State*> states;
-      for (int i = 0; i < sz; ++i) {
-        int p = pow(2,i);
-        allVisitedMask+=p;
-        masks.push_back(p);
-        State* s = new State(i, p);
+ public:
+  int shortestPathLength(vector<vector<int>>& graph) {
+    int sz = graph.size();
+    int allVisitedMask = 0;
 
-        states.push(s);
-      }
-      while (!states.empty()) {
-        State* cur = states.front();
-        int cmask = cur->cmask;
-        int curi = cur->i;
-        states.pop();
-        if (visited[cmask][curi]) continue;
-        visited[cmask][curi] = true;
-        if (cmask == allVisitedMask) return cur->len;
-        cur->len++;
-        for (int neigh: graph[curi]) {
-          int nmask = masks[curi] | masks[neigh];
-          cur->cmask = nmask;
-          cur->i = neigh;
-          states.push(cur);
-        }
-      }
-      return -1;
+    vector<int> masks;
+    queue<State*> states;
+    for (int i = 0; i < sz; ++i) {
+      int p = pow(2, i);
+      allVisitedMask += p;
+      masks.push_back(p);
+      State* s = new State(i, p);
+
+      states.push(s);
     }
+    vector<vector<bool>> visited(allVisitedMask, vector<bool>(sz));
+    while (!states.empty()) {
+      State* cur = states.front();
+      int cmask = cur->cmask;
+      int curi = cur->i;
+      cout << "curi is " << curi << endl;
+      states.pop();
+      if (visited[cmask][curi]) continue;
+      visited[cmask][curi] = true;
+      if (cmask == allVisitedMask) return cur->len;
+      int nextLen = cur->len + 1;
+      for (int neigh : graph[curi]) {
+        int nmask = masks[curi] | masks[neigh];
+        State* nxt = new State(nmask, neigh, nextlen);
+        states.push(nxt);
+      }
+    }
+    return -1;
+  }
 };
