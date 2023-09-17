@@ -67,15 +67,24 @@ public:
         allVisitedMask+=p;
         masks.push_back(p);
         State* s = new State(i, p);
-        visited[p][i] = true;
+
         states.push(s);
       }
       while (!states.empty()) {
         State* cur = states.front();
+        int cmask = cur->cmask;
+        int curi = cur->i;
         states.pop();
-        if (visited[cur->cmask][cur->i]) continue;
-
-        if (cur->cmask == allVisitedMask) return cur->len;
+        if (visited[cmask][curi]) continue;
+        visited[cmask][curi] = true;
+        if (cmask == allVisitedMask) return cur->len;
+        cur->len++;
+        for (int neigh: graph[curi]) {
+          int nmask = masks[curi] | masks[neigh];
+          cur->cmask = nmask;
+          cur->i = neigh;
+          states.push(cur);
+        }
       }
       return -1;
     }
