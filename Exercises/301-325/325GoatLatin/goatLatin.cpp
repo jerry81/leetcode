@@ -81,15 +81,24 @@ class Solution {
       char first = w[0];
       if (vowels.find(first) != vowels.end()) {
         w += "ma";
-        retV.push_back(w);
       } else {
         // swap first and last
         char tmp = w.back();
-        w[w.size()-1] = first;
+        w[w.size() - 1] = first;
         w[0] = tmp;
-        w+="ma";
-        retV.push_back(w);
+        w += "ma";
       }
+      for (int j = 0; j < i + 1; ++j) {
+        w += "a";
+      }
+      retV.push_back(w);
     }
+    string ret = "";
+    for (string s: retV) {
+      ret+=s;
+      ret+=" ";
+    }
+    ret.pop_back();
+    return ret;
   }
 };
