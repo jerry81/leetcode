@@ -57,13 +57,14 @@ class Solution {
   vector<string> split(string str, string delimiter) {
     // Returns first token
     vector<string> ret;
-    char *token = strtok(str.data(), delimiter.c_str());
+    const char *del = delimiter.c_str();
+    char *token = strtok(str.data(), del);
 
     // Keep printing tokens while one of the
     // delimiters present in str[].
     while (token != nullptr) {
       ret.push_back(token);
-      token = strtok(nullptr, "/");
+      token = strtok(nullptr, del);
     }
 
     return ret;
@@ -82,10 +83,9 @@ class Solution {
       if (vowels.find(first) != vowels.end()) {
         w += "ma";
       } else {
-        // swap first and last
-        char tmp = w.back();
-        w[w.size() - 1] = first;
-        w[0] = tmp;
+        // pop and append
+        w.erase(0,1);
+        w.push_back(first);
         w += "ma";
       }
       for (int j = 0; j < i + 1; ++j) {
@@ -94,9 +94,9 @@ class Solution {
       retV.push_back(w);
     }
     string ret = "";
-    for (string s: retV) {
-      ret+=s;
-      ret+=" ";
+    for (string s : retV) {
+      ret += s;
+      ret += " ";
     }
     ret.pop_back();
     return ret;
