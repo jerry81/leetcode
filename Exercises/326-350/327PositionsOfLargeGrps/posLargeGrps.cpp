@@ -55,10 +55,17 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> largeGroupPositions(string s) {
-      vector<vector<int> res;
+      vector<vector<int>> res;
       char cur = ' ';
       int starti = 0;
-      int endi = 0;
+      for (int i = 0; i < s.size(); ++i) {
+        char c = s[i];
+        if (c != cur) {
+          cur = c;
+          if ((i-starti) >= 2) res.push_back({starti, i});
+          starti = i;
+        }
+      }
       return res;
     }
 };
