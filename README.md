@@ -2,10 +2,20 @@
 
 leetcode solutions
 
+# Algorithms
+
+## Djikstra's
+
+1.  Setup priority Queue table that will store weighted edges
+2.  Setup distances table, initialize all nodes's distances as inf
+3.  arbitrarily pick start node - mark dist as 0, insert into pq
+4.  while pq not empty
+  5.  Pop edge, update distance, mark as visited
+  6.  for each neighboring edge, if not visited add to queue
+
 # TIL
 
 ```
-
 
 User
 can you describe the syntax here (c++)
@@ -23,8 +33,6 @@ The implementation of the function simply compares the values of a and b using t
 
 This function call operator can be used when an instance of the class or struct is invoked as if it were a function, such as in the following example:
 
-cpp
-Copy code
 SomeClass compare;
 bool result = compare(10, 20);
 In the above example, an instance of the class or struct containing the operator() function is created as compare. Then, the instance is called as a function with the arguments 10 and 20. The operator() function is executed, and the result is stored in the variable result.
