@@ -55,6 +55,10 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> largeGroupPositions(string s) {
-
+      vector<vector<int> res;
+      char cur = ' ';
+      int starti = 0;
+      int endi = 0;
+      return res;
     }
 };
