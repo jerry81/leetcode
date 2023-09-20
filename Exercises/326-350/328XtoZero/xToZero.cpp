@@ -84,7 +84,7 @@ class Solution {
 
       int diff = x - curSum;
       if (index1.find(diff) != index1.end()) {
-        res = max(res, index1[diff] + i + 1);
+        res = min(res, index1[diff] + i + 1);
       }
     }
 
@@ -92,14 +92,14 @@ class Solution {
       int cur = pf[i];
 
       if (cur == x) {
-        res = max(res, i + 1);
+        res = min(res, i + 1);
         break;
       }
 
       int diff = x - cur;
 
       if (index2.find(diff) != index2.end()) {
-        res = max(res, index2[diff] + i + 1);
+        res = min(res, index2[diff] + i + 1);
       }
     }
 
