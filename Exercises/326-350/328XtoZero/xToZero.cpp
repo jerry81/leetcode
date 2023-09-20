@@ -62,47 +62,39 @@ class Solution {
     int n = nums.size();
     int res = INT_MAX;
 
-    vector<int> pf;
     int curSum = 0;
     for (int i = 0; i < n; ++i) {
       curSum += nums[i];
       index1[curSum] = i + 1;  // i+1 ops to get to curSum
-      pf.push_back(curSum);
       if (curSum > x) break;
     }
     curSum = 0;
-    vector<int> rf;
     for (int i = n - 1; i >= 0; --i) {
       curSum += nums[i];
-      rf.push_back(curSum);
-      index2[curSum] = n - i;  // i+1 ops to get to curSum
+      index2[curSum] = n - i + 1;  // i+1 ops to get to curSum
       if (curSum == x) {
-        res = min(res, n - i);
+        res = min(res, (n - i));
         break;
       }
       if (curSum > x) break;
 
       int diff = x - curSum;
-      if (index1.find(diff) != index1.end()) {
-        res = min(res, index1[diff] + i + 1);
-      }
+      if (index1.find(diff) != index1.end())
+        res = min(res, index1[diff] + (n - i));
     }
 
-    for (int i = 0; i < pf.size(); ++i) {
-      int cur = pf[i];
-
+    for (auto [cur, turns] : index1) {
       if (cur == x) {
-        res = min(res, i + 1);
+        res = min(res, turns);
         break;
       }
 
       int diff = x - cur;
 
-      if (index2.find(diff) != index2.end()) {
-        res = min(res, index2[diff] + i + 1);
-      }
+      if (index2.find(diff) != index2.end())
+        res = min(res, index2[diff] + turns);
     }
 
-    return res < INT_MAX ? res : -1;
+    return res < INT_MAX && res <= n ? res : -1;
   }
 };
