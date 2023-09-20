@@ -46,6 +46,7 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -54,25 +55,54 @@ class Solution {
  public:
   int minOperations(vector<int>& nums, int x) {
     // prefix sums forward
+    unordered_map<int, int> index1;
+    unordered_map<int, int> index2;
+
+    if (nums.empty()) return -1;
     int n = nums.size();
+    int res = INT_MAX;
+
     vector<int> pf;
     int curSum = 0;
     for (int i = 0; i < n; ++i) {
       curSum += nums[i];
+      index1[curSum] = i + 1;  // i+1 ops to get to curSum
       pf.push_back(curSum);
+      if (curSum > x) break;
     }
     curSum = 0;
     vector<int> rf;
     for (int i = n - 1; i >= 0; --i) {
       curSum += nums[i];
       rf.push_back(curSum);
-    }
-    for (int i: pf) {
-      cout << "pf " << i << endl;
+      index2[curSum] = n - i;  // i+1 ops to get to curSum
+      if (curSum == x) {
+        res = min(res, n - i);
+        break;
+      }
+      if (curSum > x) break;
+
+      int diff = x - curSum;
+      if (index1.find(diff) != index1.end()) {
+        res = max(res, index1[diff] + i + 1);
+      }
     }
 
-    for (int i: rf) {
-      cout << "rf " << i << endl;
+    for (int i = 0; i < pf.size(); ++i) {
+      int cur = pf[i];
+
+      if (cur == x) {
+        res = max(res, i + 1);
+        break;
+      }
+
+      int diff = x - cur;
+
+      if (index2.find(diff) != index2.end()) {
+        res = max(res, index2[diff] + i + 1);
+      }
     }
+
+    return res < INT_MAX ? res : -1;
   }
 };
