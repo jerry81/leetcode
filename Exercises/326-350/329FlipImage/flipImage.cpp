@@ -50,6 +50,14 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
-
+      vector<vector<int>> res;
+      for (vector v: image) {
+        reverse(v.begin(), v.end());
+        for (int i = 0; i < v.size(); ++i) {
+          v[i] = v[i] == 0 ? 1: 0;
+        }
+        res.push_back(v);
+      }
+      return res;
     }
 };
