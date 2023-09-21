@@ -48,9 +48,10 @@ class Solution {
   double getMedian(vector<int>& nums) {
     int n = nums.size();
     if (n % 2 == 1) {
-      return nums[(int)(n/2)];
+      return nums[(int)(n / 2)];
     } else {
-      return ((double)nums[(int)(n/2)] + (double)nums[(int)((n/2)-1)]) / (double) 2.0;
+      return ((double)nums[(int)(n / 2)] + (double)nums[(int)((n / 2) - 1)]) /
+             (double)2.0;
     }
   }
   vector<int> merge(vector<int>& nums1, vector<int>& nums2, int& n1, int& n2) {
@@ -80,9 +81,7 @@ class Solution {
     int n1 = nums1.size();
     int n2 = nums2.size();
     vector<int> merged = merge(nums1, nums2, n1, n2);
-    for (int i: merged) {
-      cout << i << endl;
-    }
+
     return getMedian(merged);
   }
 };
