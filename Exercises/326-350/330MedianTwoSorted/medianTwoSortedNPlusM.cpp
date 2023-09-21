@@ -45,15 +45,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  double getMedian(vector<int>& nums) {}
+  double getMedian(vector<int>& nums) {
+    int n = nums.size();
+    if (n % 2 == 1) {
+      return nums[(int)(n/2)];
+    } else {
+      return ((double)nums[(int)(n/2)] + (double)nums[(int)((n/2)-1)]) / (double) 2.0;
+    }
+  }
   vector<int> merge(vector<int>& nums1, vector<int>& nums2, int& n1, int& n2) {
     int i1 = 0;
     int i2 = 0;
     vector<int> ret;
-    while (i1 < n1 && i2 < n2) {
-      int num1 = (i1 < n1) ? nums1[n1] : INT_MAX;
-      int num2 = (i2 < n2) ? nums2[n2] : INT_MAX;
-      if (num1 >= num2) {
+    while (i1 < n1 || i2 < n2) {
+      int num1 = (i1 < n1) ? nums1[i1] : INT_MAX;
+      int num2 = (i2 < n2) ? nums2[i2] : INT_MAX;
+      if (num1 <= num2) {
         ret.push_back(num1);
         i1++;
       } else {
@@ -61,6 +68,7 @@ class Solution {
         i2++;
       }
     }
+    return ret;
   }
 
  public:
@@ -72,6 +80,9 @@ class Solution {
     int n1 = nums1.size();
     int n2 = nums2.size();
     vector<int> merged = merge(nums1, nums2, n1, n2);
+    for (int i: merged) {
+      cout << i << endl;
+    }
     return getMedian(merged);
   }
 };
