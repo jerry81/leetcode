@@ -5,7 +5,8 @@ Easy
 6.7K
 304
 Companies
-Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+Given two strings s and t, return true if they are equal when both are typed
+into empty text editors. '#' means a backspace character.
 
 Note that after backspacing an empty text, the text will continue empty.
 
@@ -50,8 +51,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    bool backspaceCompare(string s, string t) {
+  string type_out(string inp) {
+    string ret = "";
+    for (char c : inp) {
+      if (c == "#" && !ret.empty()) {
+        ret.pop_back();
+        continue;
+      }
 
+      ret+=c;
     }
+    return ret;
+  }
+
+ public:
+  bool backspaceCompare(string s, string t) {
+    string typeds = type_out(s);
+    string typedt = type_out(t);
+    return typeds == typedt;
+  }
 };
