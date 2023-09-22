@@ -21,6 +21,16 @@ leetcode solutions
     - search in nums2 for this value (totalIdx is idxSum + idxFound)
     - we then repeat with our new search space depending totalIdx's value
 
+## Find if string a is subsequence of string b
+
+- use recursion
+- base case is a empty -> return true
+- search for first char in a in b
+- if not found -> false
+- pop a
+- drop all chars before first found index in b
+- r(a, b)
+
 # TIL
 
 ```
