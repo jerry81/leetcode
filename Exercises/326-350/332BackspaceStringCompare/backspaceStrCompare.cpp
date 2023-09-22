@@ -54,7 +54,7 @@ class Solution {
   string type_out(string inp) {
     string ret = "";
     for (char c : inp) {
-      if (c == "#" && !ret.empty()) {
+      if (c == '#' && !ret.empty()) {
         ret.pop_back();
         continue;
       }
