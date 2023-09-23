@@ -49,6 +49,17 @@ using namespace std;
 class Solution {
 public:
     bool buddyStrings(string s, string goal) {
+      int n = s.size();
 
+      for (int i = 0; i < n-1; ++i) {
+        string cpy = s;
+        char tmp = cpy[i];
+        for (int j = i+1; j < n; ++j) {
+          cpy[i] = cpy[j];
+          cpy[j] = tmp;
+          if (cpy == goal) return true;
+        }
+      }
+      return false;
     }
 };
