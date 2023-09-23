@@ -79,6 +79,6 @@ class Solution {
       seen.insert(s[i]);
     }
 
-    return repeat;
+    return swapped || (!found && repeat);
   }
 };
