@@ -31,6 +31,10 @@ leetcode solutions
 - drop all chars before first found index in b
 - r(a, b)
 
+## champagne pouring
+
+- simulation - this is basically a brute force application of math
+
 # TIL
 
 ```
