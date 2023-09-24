@@ -53,18 +53,25 @@ class Solution {
 public:
     double champagneTower(int poured, int query_row, int query_glass) {
       vector<vector<double>> flows(query_row+1, vector<double>(query_row+1, 0.0));
-      int row = 0;
-      flows[0][0] = poured;
+      int row = 1;
+      flows[0][0] = (double)poured;
       // int cups = ((query_row+1) * (query_row+2)) / 2;
       // if (poured > cups) return 1.0;
 
       while (row <= query_row) {
 
         for (int col = 0; col <= row; ++col) {
-          int lparent = col != 0 ? flows[row-1][col-1] : 0;
-          int rparent = col != row ? flows[row-1][col] : 0;
-          flows[row][col] = (lparent-1)/2 + (rparent-1)/2;
+          double lparent = col > 0 ? flows[row-1][col-1] : 0;
+          double rparent = col < row ? flows[row-1][col] : 0;
+          lparent -= 1;
+          rparent -= 1;
+          lparent /= 2.0;
+          rparent /= 2.0;
+          lparent = max(0.0, lparent);
+          rparent = max(0.0, rparent);
+          flows[row][col] = lparent + rparent;
         }
+        ++row;
       }
 
       return flows[query_row][query_glass];
