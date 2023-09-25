@@ -45,9 +45,28 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <bitset>
+
+using namespace std;
+
 class Solution {
 public:
     int binaryGap(int n) {
-
+      bitset<sizeof(int) * 8> binary(n);
+      string binaryStr = binary.to_string();
+      int last1 = -1;
+      int gap = 0;
+      for (int i = 0; i < binaryStr.size(); ++i) {
+        char cur = binaryStr[i];
+        if (cur == '1') {
+          if (last1 >= 0) {
+            int diff = i - last1;
+            gap = max(gap,diff);
+          }
+          last1 = i;
+        }
+      }
+      return gap;
     }
 };
