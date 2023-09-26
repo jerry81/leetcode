@@ -7,22 +7,26 @@
 using namespace std;
 
 class Solution {
-string r(set<char> remaining, int idx, int &s, unordered_map<char, vector<int>> &lookup) {
-  if (remaining.empty()) return "";
+string r(string accum, set<char> remaining, int idx, int &s, int &t, unordered_map<char, vector<int>> &lookup) {
+  cout << "accum is " << accum << endl;
+
+  if (remaining.empty()) return accum;
 
   if (idx >= s) return "";
 
-  set<char> cpy = remaining;
+
   for (char c: remaining) {
+    set<char> cpy = remaining;
     cpy.erase(c);
     vector<int> pos = lookup[c];
     auto p = upper_bound(pos.begin(), pos.end(), idx);
-    if (p==pos.end()) return "";
+    if (p==pos.end()) continue;
 
     int nextIdx = *p;
-    string res = c+r(cpy,nextIdx,s,lookup);
-    if (res.size() == s) return res;
+    string res = r(accum+c,cpy,nextIdx,s,t,lookup);
+    if (res.size() == t) return res;
   }
+  return "";
 }
 
 public:
@@ -34,6 +38,9 @@ public:
         chars.insert(c);
         positions[c].push_back(i);
       }
-
+      int sz = s.size();
+      int tgt = chars.size();
+      string res = r("",chars, -1, sz,tgt, positions);
+      return res;
     }
 };
