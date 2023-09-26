@@ -35,6 +35,19 @@ leetcode solutions
 
 - simulation - this is basically a brute force application of math
 
+## greedy O(N) solve subsequence dropping duplicates
+
+- don't know why this problem kicked my ass so much.
+- given a string, remove dups and give the lexocographically smallest subsequence
+
+- plow ahead from 0 to N, one pass, no recursion
+- stack keeps track of items in your subsequence
+- always compare top of stack with the current item
+- if item is lexocographically larger, add to stack
+- if smaller pop with condition that you will be able to use a duplicate later on
+  - (genius) - check if there is a possible duplicate later on by keeping track of the last index the item appears.
+
+
 # TIL
 
 ```
