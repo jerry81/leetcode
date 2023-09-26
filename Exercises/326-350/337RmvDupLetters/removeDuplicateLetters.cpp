@@ -52,14 +52,28 @@ struct CWithI {
   int i;
 };
 class Solution {
+
+  static bool cc(CWithI ci1, CWithI ci2) {
+    return ci1.i < ci2.i;
+  }
+
+  string sortAndCombine(vector<CWithI> ci) {
+    sort(ci.begin(), ci.end(), cc);
+    string ret = "";
+    for (auto a: ci) {
+      ret+=a.c;
+    }
+    return ret;
+  }
+
   map<char, vector<int>> lookups;
 
-  vector<CWithI> res;
+  string res;
 
   void r(int lastIdx, vector<CWithI> cur, int &sz, vector<char> keys) {
     if (cur.size() == sz) {
-      res = cur;
-      cout << "res found " << endl;
+      res = sortAndCombine(cur);
+      cout << "res is " << res << endl;
     }
 
     if (keys.empty()) return;
@@ -69,14 +83,12 @@ class Solution {
     vector<char> nextKeys = keys;
     nextKeys.erase(nextKeys.begin());
 
-    cout << "c is " << c << endl;
     vector<int> v = lookups[c];
     auto uppr = upper_bound(v.begin(), v.end(), lastIdx);
     auto lwr = lower_bound(v.begin(), v.end(), lastIdx);
 
     if (uppr != v.end()) {
       int nextIdx = distance(v.begin(), uppr);
-      cout << "nextIdx is " << nextIdx << endl;
       CWithI ci;
       ci.c = c;
       ci.i = nextIdx;
@@ -107,9 +119,6 @@ class Solution {
     vector<char> keys;
     for (auto [k, _] : lookups) {
       keys.push_back(k);
-    }
-    for (char c: keys) {
-      cout << "key is " << c << endl;
     }
     r(-1, {}, sz, keys);
     return "";
