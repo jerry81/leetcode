@@ -44,16 +44,43 @@ Acceptance Rate
 
 using namespace std;
 
+struct CWithI {
+  char c;
+  int i;
+};
 class Solution {
 map<char, vector<int>> lookups;
+
+vector<CWithI> res;
+
+void r(char c, int lastIdx, vector<CWithI> cur, int &sz) {
+
+  if (cur.size() == sz) res = cur;
+
+  if (c > 'z') return;
+
+  vector<int> v = lookups[c];
+  for (int i: v) {
+    if (i > lastIdx) {
+      vector<CWithI> tmp = cur;
+      CWithI ci;
+      ci.i = i;
+      ci.c = c;
+      tmp.push_back(ci);
+      r(c+1, i, tmp, sz);
+    }
+  }
+}
 public:
     string removeDuplicateLetters(string s) {
       for (int i = 0; i < s.size(); ++i) {
         lookups[s[i]].push_back(i);
       }
-      string res = "";
-      for (auto [a, v]: lookups) {
+      int sz = lookups.size();
+      r('a', -1, {}, sz);
+      for (CWithI ci: res) {
+        cout << "c is " << ci.c << " i is " << ci.i << endl;
       }
-      return res;
+      return "";
     }
 };
