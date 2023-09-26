@@ -41,17 +41,28 @@ Acceptance Rate
 #include <string>
 #include <unordered_map>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+string knapsack(int idx, int mask, int &fullmask, int &sz, string &s) {
+  return "";
+}
 public:
     string removeDuplicateLetters(string s) {
       unordered_map<char, int> chars;
       int fullmask = 0;
+      int counter = 0;
+      unordered_map<char,int> masks;
       for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
-        if (chars.find(c) == chars.end()) chars[c] = i;
+        if (chars.find(c) == chars.end()) {
+          chars[c] = i;
+          masks[c] = pow(2,counter);
+          fullmask+=masks[c];
+          ++counter;
+        }
       }
       // bitmask can be used to check if a char has been "used"
       // knapsack, take or leave - leave if duplicate, also leave voluntarily
