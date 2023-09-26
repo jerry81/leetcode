@@ -8,8 +8,6 @@ using namespace std;
 
 class Solution {
 string r(string accum, set<char> remaining, int idx, int &s, int &t, unordered_map<char, vector<int>> &lookup) {
-  cout << "accum is " << accum << endl;
-
   if (remaining.empty()) return accum;
 
   if (idx >= s) return "";
