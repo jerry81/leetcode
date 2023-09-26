@@ -46,6 +46,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+string res = "";
 string knapsack(int idx, int mask, int &fullmask, int &sz, string &s) {
   return "";
 }
