@@ -41,6 +41,8 @@ Acceptance Rate
 #include <string>
 #include <map>
 #include <vector>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -53,22 +55,23 @@ map<char, vector<int>> lookups;
 
 vector<CWithI> res;
 
-void r(char c, int lastIdx, vector<CWithI> cur, int &sz) {
+void r(int lastIdx, vector<CWithI> cur, int &sz, vector<char> keys) {
 
   if (cur.size() == sz) res = cur;
 
-  if (c > 'z') return;
+  if (keys.empty()) return;
 
   vector<int> v = lookups[c];
-  for (int i: v) {
-    if (i > lastIdx) {
-      vector<CWithI> tmp = cur;
-      CWithI ci;
-      ci.i = i;
-      ci.c = c;
-      tmp.push_back(ci);
-      r(c+1, i, tmp, sz);
-    }
+  auto uppr = upper_bound(v.begin(), v.end(), lastIdx);
+  auto lwr = lower_bound(v.begin(), v.end(), lastIdx);
+
+  if (uppr != v.end()) {
+    int nextIdx = distance(v.begin(), uppr);
+    r()
+  }
+
+  if (lwr != v.end()) {
+    int nextIdx = distance(v.begin(), lwr);
   }
 }
 public:
@@ -77,10 +80,11 @@ public:
         lookups[s[i]].push_back(i);
       }
       int sz = lookups.size();
-      r('a', -1, {}, sz);
-      for (CWithI ci: res) {
-        cout << "c is " << ci.c << " i is " << ci.i << endl;
+      vector<char> keys;
+      for (auto [k,_]: lookups) {
+        keys.push_back(k);
       }
+      r(-1, {}, sz, keys);
       return "";
     }
 };
