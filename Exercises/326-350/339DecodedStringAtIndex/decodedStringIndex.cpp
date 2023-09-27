@@ -63,25 +63,42 @@ struct SRegister {
   SRegister *parent = nullptr;
   int repeatCount = 1;
   long long int len = 0;
+  int csize = 0;
   SRegister(string cur, int idx, int repeatCount, long long parentLen)
       : cur(cur), idx(idx), repeatCount(repeatCount) {
-    int sz = cur.size();
-    len = sz;
-    long long repeatBlock = parentLen + sz;
+    csize = cur.size();
+    len = csize;
+    long long repeatBlock = parentLen + csize;
     len += (repeatBlock) * (repeatCount - 1);
     len += idx - 1;
   }
 };
 class Solution {
   vector<SRegister *> registers;
+
+  string solve(SRegister *sr, int stopAt) {
+    string ret = "l";
+    int offset = stopAt - (sr->idx);
+    // find the stopping register
+    while (sr->parent != nullptr) {
+      cout << "parent len is " << sr->parent->len << endl;
+      if (sr->parent->len < offset) break;
+      sr = sr->parent;
+    }
+    cout << "target sr is " << sr->cur << "(offset is )" << offset
+         << " and target len is " << sr->len << endl;
+    return ret;
+    // must walk each register
+
+    // - starting from its root, but skip to the relevant loop, shouldn't we
+  }
   string dec(string s, int stopAt) {
     string res = "";
     string curAccum = "";
     int curIdx = 1;
     for (char c : s) {
-       if (curIdx >= stopAt) {
-           cout << "now we handle endcase " << endl;
-        }
+      if (curIdx >= stopAt) cout << "handle it " << endl;
+
       if (isdigit(c)) {
         // apply repeats
         SRegister *t = nullptr;
@@ -99,9 +116,7 @@ class Solution {
         curAccum += c;
       }
     }
-    cout << "lastLen is " << registers.back()->len<< endl;
-    cout << "last start idx is " << registers.back()->idx << endl;
-    return "l";
+    return solve(registers.back(), stopAt);
   }
 
  public:
