@@ -73,18 +73,33 @@ class Solution {
             j--;
           }
           string ret(1, s[j]);
-          cout << "returning " << ret << endl;
           return ret;
         }
-
         if (clen > k) {
-          // reduce down to answer
+          int modu = k % lens[i - 1];  // previous size
+          while (true) {
+            // find modu
+            for (int i = 0; i < lens.size(); ++i) {
+              int len = lens[i];
+              if (len == modu) {
+                while (isdigit(s[i])) i--;
+
+                string ret(1, s[i]);
+                return ret;
+              }
+              if (len > modu) {
+                modu = modu % lens[i - 1];
+                if (modu == 0) modu = lens[i - 1];
+                break;
+              }
+            }
+          }
         }
+
       } else {
         clen++;
         if (k == clen) {
-          cout << "returning bullseye " << endl;
-          string ret(1,c);
+          string ret(1, c);
           return ret;
         }
       }
