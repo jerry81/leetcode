@@ -52,55 +52,51 @@ Acceptance Rate
 */
 
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 struct SRegister {
   string cur = "";
-  string accum = "";
-  int idx = 0;
-  int curSz = 0;
-  int accumSz = 0;
-  int totalSz = 0;
+  vector<int> startIndexes;
+  SRegister *parent = nullptr;
   int repeatCount = 1;
-  SRegister(string cur, string accum, int repeatCount, int idx)
-      : cur(cur), accum(accum), repeatCount(repeatCount) {
-        curSz = cur.size();
-        accumSz = accum.size();
-        totalSz = curSz + accumSz;
-      }
+  long long int len = 0;
+  SRegister(string cur, int idx, int repeatCount)
+      : cur(cur), repeatCount(repeatCount) {
+    len = (parent->len + cur.size()) * repeatCount;
+    for (int i = 0; i < repeatCount; ++i) {
+      startIndexes.push_back(idx*len);
+    }
+  }
 };
 class Solution {
-
-  unordered_map<int,SRegister*> registers;
+  vector<SRegister *> registers;
   vector<int> indexes;
   string dec(string s, int stopAt) {
     string res = "";
     string curAccum = "";
     string totalAccum = "";
-
     int curIdx = 0;
-    for (char c: s) {
+    for (char c : s) {
       if (isdigit(c)) {
-        curAccum = "";
-        SRegister *r = new SRegister(curAccum,totalAccum,c-'0',curIdx);
+        // apply repeats
 
+        curAccum = "";
+        SRegister *r = new SRegister(curAccum, totalAccum, curIdx);
+        registers.push_back(r);
+        curIdx = totalAccum.size();
       } else {
-        if (curIdx == stopAt) {
-          return c+"";
-        }
-        curAccum+=c;
-        totalAccum+=c;
+        if (curIdx == stopAt) return c + "";
+        curAccum += c;
+        totalAccum += c;
         curIdx++;
       }
     }
   }
 
-  string solve(int k) {
-    return "";
-  }
+  string solve(int k) { return ""; }
 
  public:
   string decodeAtIndex(string s, int k) {
