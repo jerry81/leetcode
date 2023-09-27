@@ -61,7 +61,7 @@ class Solution {
 
  public:
   string decodeAtIndex(string s, int k) {
-    int clen = 0;
+    long long clen = 0;
     for (int i = 0; i < s.size(); ++i) {
       char c = s[i];
       if (isdigit(c)) {
