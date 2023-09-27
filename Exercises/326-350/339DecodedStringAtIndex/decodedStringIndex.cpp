@@ -65,9 +65,11 @@ struct SRegister {
   long long int len = 0;
   SRegister(string cur, int idx, int repeatCount, long long parentLen)
       : cur(cur), idx(idx), repeatCount(repeatCount) {
-      int sz = cur.size();
-    len = (parentLen + cur.size()) * (repeatCount-1);
-    len+=cur.size();
+    int sz = cur.size();
+    len = sz;
+    long long repeatBlock = parentLen + sz;
+    len += (repeatBlock) * (repeatCount - 1);
+    len += idx - 1;
   }
 };
 class Solution {
@@ -79,16 +81,19 @@ class Solution {
     for (char c : s) {
       if (isdigit(c)) {
         // apply repeats
+        SRegister *t = nullptr;
 
-        SRegister *r = new SRegister(curAccum, curIdx, c - '0');
-        if (!registers.empty()) {
-          SRegister *t = registers.back();
+        if (!registers.empty()) t = registers.back();
+        long long parentlen = (!t) ? 0 : t->len;
+        SRegister *r = new SRegister(curAccum, curIdx, c - '0', parentlen);
+        if (t != nullptr) {
           r->parent = t;
         }
         registers.push_back(r);
-        curIdx += r->len;
+        curIdx = r->len - 1;
         curAccum = "";
         cout << "idx is now " << curIdx << endl;
+        cout << "block len is " << r->len << endl;
       } else {
         if (curIdx == stopAt) return to_string(c);
         curAccum += c;
@@ -103,7 +108,6 @@ class Solution {
     return res;
   }
 };
-
 // low acceptance rate means brute force (simulation will not work)
 // what do we store for a23456789999
 // i0 [a] i1 [2 i0] i2 [3 i1] etc...
