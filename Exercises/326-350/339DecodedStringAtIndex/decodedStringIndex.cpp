@@ -79,6 +79,9 @@ class Solution {
     string curAccum = "";
     int curIdx = 1;
     for (char c : s) {
+       if (curIdx >= stopAt) {
+           cout << "now we handle endcase " << endl;
+        }
       if (isdigit(c)) {
         // apply repeats
         SRegister *t = nullptr;
@@ -90,15 +93,14 @@ class Solution {
           r->parent = t;
         }
         registers.push_back(r);
-        curIdx = r->len - 1;
+        curIdx = r->len + 1;
         curAccum = "";
-        cout << "idx is now " << curIdx << endl;
-        cout << "block len is " << r->len << endl;
       } else {
-        if (curIdx == stopAt) return to_string(c);
         curAccum += c;
       }
     }
+    cout << "lastLen is " << registers.back()->len<< endl;
+    cout << "last start idx is " << registers.back()->idx << endl;
     return "l";
   }
 
