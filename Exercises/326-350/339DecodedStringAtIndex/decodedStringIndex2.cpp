@@ -69,13 +69,23 @@ class Solution {
         clen *= mult;
         if (clen == k) {
           int j = i;
-          while (isdigit(s[j])) j--;
-          return to_string(s[j]);
+          while (isdigit(s[j])) {
+            j--;
+          }
+          string ret(1, s[j]);
+          cout << "returning " << ret << endl;
+          return ret;
+        }
+
+        if (clen > k) {
+          // reduce down to answer
         }
       } else {
         clen++;
         if (k == clen) {
-          return to_string(c);
+          cout << "returning bullseye " << endl;
+          string ret(1,c);
+          return ret;
         }
       }
       lens.push_back(clen);
