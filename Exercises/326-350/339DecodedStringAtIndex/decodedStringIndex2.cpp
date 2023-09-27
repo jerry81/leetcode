@@ -77,6 +77,7 @@ class Solution {
         }
         if (clen > k) {
           int modu = k % lens[i - 1];  // previous size
+          if (modu == 0) modu = lens[i-1];
           while (true) {
             // find modu
             for (int i = 0; i < lens.size(); ++i) {
@@ -113,3 +114,11 @@ class Solution {
 // i0 [a] i1 [2 i0] i2 [3 i1] etc...
 // what do we store for leet2code3
 // i0 [leet, leet] i1 [2 i0] i2 [code, leetcode], i3 [3, i2]
+
+/*
+
+
+"n2f7x7bv4l"
+k = 110
+
+*/
