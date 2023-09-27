@@ -59,10 +59,16 @@ using namespace std;
 struct Register {
   string cur = "";
   string accum = "";
+  int curSz = 0;
+  int accumSz = 0;
+  int totalSz = 0;
   int repeatCount = 1;
-  Register *repeatRegister = nullptr;
-  Register(string cur, string accum, int repeatCount, Register *repeatRegister)
-      : cur(cur), accum(accum), repeatCount(repeatCount), repeatRegister(repeatRegister) {}
+  Register(string cur, string accum, int repeatCount)
+      : cur(cur), accum(accum), repeatCount(repeatCount) {
+        curSz = cur.size();
+        accumSz = accum.size();
+        totalSz = curSz + accumSz;
+      }
 };
 class Solution {
 
@@ -71,7 +77,22 @@ class Solution {
     string curAccum = "";
     string totalAccum = "";
     int regIdx = -1;
+    bool prevWasNumber = false;
     for (char c: s) {
+      if (isdigit(c)) {
+        if (prevWasNumber) { // combine
+        }
+        prevWasNumber = true;
+        if (regIdx < 0) {
+          Register *r = new Register(curAccum, totalAccum, )
+        }
+        regIdx++;
+        curAccum = "";
+      } else {
+        prevWasNumber = false;
+        curAccum+=c;
+        totalAccum+=c;
+      }
     }
   }
 
