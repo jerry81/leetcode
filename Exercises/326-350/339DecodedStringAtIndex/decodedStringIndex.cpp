@@ -59,44 +59,50 @@ using namespace std;
 
 struct SRegister {
   string cur = "";
-  vector<int> startIndexes;
+  int idx = 0;
   SRegister *parent = nullptr;
   int repeatCount = 1;
   long long int len = 0;
   SRegister(string cur, int idx, int repeatCount)
-      : cur(cur), repeatCount(repeatCount) {
-    len = (parent->len + cur.size()) * repeatCount;
-    for (int i = 0; i < repeatCount; ++i) {
-      startIndexes.push_back(idx*len);
-    }
+      : cur(cur), idx(idx), repeatCount(repeatCount) {
+    int parentL = (parent != nullptr) ? parent->len : 0;
+    cout << "cur.size() " << cur.size() << endl;
+    cout << "repeatCount is " << repeatCount << endl;
+    len = (parentL + cur.size()) * repeatCount;
+    cout << "len will be set to " << len << endl;
   }
 };
 class Solution {
   vector<SRegister *> registers;
-  vector<int> indexes;
   string dec(string s, int stopAt) {
     string res = "";
     string curAccum = "";
-    string totalAccum = "";
-    int curIdx = 0;
+    int curIdx = 1;
     for (char c : s) {
       if (isdigit(c)) {
         // apply repeats
+        cout << "repeatcount is " << c - '0' << endl;
 
-        curAccum = "";
-        SRegister *r = new SRegister(curAccum, totalAccum, curIdx);
+        SRegister *r = new SRegister(curAccum, curIdx, c - '0');
+        if (!registers.empty()) {
+          SRegister *t = registers.back();
+          r->parent = t;
+        }
         registers.push_back(r);
-        curIdx = totalAccum.size();
+        cout << "register len is " << r->len << endl;
+        curIdx += r->len;
+        curAccum = "";
       } else {
-        if (curIdx == stopAt) return c + "";
+        cout << "error danger " << curIdx << "," << stopAt << endl;
+        if (curIdx == stopAt) return to_string(c);
+
         curAccum += c;
-        totalAccum += c;
         curIdx++;
       }
+      cout << "next CurIdx is " << curIdx << endl;
     }
+    return "l";
   }
-
-  string solve(int k) { return ""; }
 
  public:
   string decodeAtIndex(string s, int k) {
