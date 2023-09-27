@@ -63,13 +63,11 @@ struct SRegister {
   SRegister *parent = nullptr;
   int repeatCount = 1;
   long long int len = 0;
-  SRegister(string cur, int idx, int repeatCount)
+  SRegister(string cur, int idx, int repeatCount, long long parentLen)
       : cur(cur), idx(idx), repeatCount(repeatCount) {
-    int parentL = (parent != nullptr) ? parent->len : 0;
-    cout << "cur.size() " << cur.size() << endl;
-    cout << "repeatCount is " << repeatCount << endl;
-    len = (parentL + cur.size()) * repeatCount;
-    cout << "len will be set to " << len << endl;
+      int sz = cur.size();
+    len = (parentLen + cur.size()) * (repeatCount-1);
+    len+=cur.size();
   }
 };
 class Solution {
@@ -81,7 +79,6 @@ class Solution {
     for (char c : s) {
       if (isdigit(c)) {
         // apply repeats
-        cout << "repeatcount is " << c - '0' << endl;
 
         SRegister *r = new SRegister(curAccum, curIdx, c - '0');
         if (!registers.empty()) {
@@ -89,17 +86,13 @@ class Solution {
           r->parent = t;
         }
         registers.push_back(r);
-        cout << "register len is " << r->len << endl;
         curIdx += r->len;
         curAccum = "";
+        cout << "idx is now " << curIdx << endl;
       } else {
-        cout << "error danger " << curIdx << "," << stopAt << endl;
         if (curIdx == stopAt) return to_string(c);
-
         curAccum += c;
-        curIdx++;
       }
-      cout << "next CurIdx is " << curIdx << endl;
     }
     return "l";
   }
