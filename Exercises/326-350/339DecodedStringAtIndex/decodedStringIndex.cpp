@@ -53,17 +53,19 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-struct Register {
+struct SRegister {
   string cur = "";
   string accum = "";
+  int idx = 0;
   int curSz = 0;
   int accumSz = 0;
   int totalSz = 0;
   int repeatCount = 1;
-  Register(string cur, string accum, int repeatCount)
+  SRegister(string cur, string accum, int repeatCount, int idx)
       : cur(cur), accum(accum), repeatCount(repeatCount) {
         curSz = cur.size();
         accumSz = accum.size();
@@ -72,26 +74,26 @@ struct Register {
 };
 class Solution {
 
-  vector<Register*> registers;
-  void dec(string s) {
+  unordered_map<int,SRegister*> registers;
+  vector<int> indexes;
+  string dec(string s, int stopAt) {
+    string res = "";
     string curAccum = "";
     string totalAccum = "";
-    int regIdx = -1;
-    bool prevWasNumber = false;
+
+    int curIdx = 0;
     for (char c: s) {
       if (isdigit(c)) {
-        if (prevWasNumber) { // combine
-        }
-        prevWasNumber = true;
-        if (regIdx < 0) {
-          Register *r = new Register(curAccum, totalAccum, )
-        }
-        regIdx++;
         curAccum = "";
+        SRegister *r = new SRegister(curAccum,totalAccum,c-'0',curIdx);
+
       } else {
-        prevWasNumber = false;
+        if (curIdx == stopAt) {
+          return c+"";
+        }
         curAccum+=c;
         totalAccum+=c;
+        curIdx++;
       }
     }
   }
@@ -102,8 +104,7 @@ class Solution {
 
  public:
   string decodeAtIndex(string s, int k) {
-    dec(s);
-    string res = solve(k);
+    string res = dec(s, k);
     return res;
   }
 };
