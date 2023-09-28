@@ -5,11 +5,14 @@ Easy
 1.3K
 164
 Companies
-A sentence is a string of single-space separated words where each word consists only of lowercase letters.
+A sentence is a string of single-space separated words where each word consists
+only of lowercase letters.
 
-A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+A word is uncommon if it appears exactly once in one of the sentences, and does
+not appear in the other sentence.
 
-Given two sentences s1 and s2, return a list of all the uncommon words. You may return the answer in any order.
+Given two sentences s1 and s2, return a list of all the uncommon words. You may
+return the answer in any order.
 
 
 
@@ -38,12 +41,11 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
-#include <unordered_set>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
-
 
 vector<string> split(string str, string delimiter) {
   // Returns first token
@@ -55,25 +57,37 @@ vector<string> split(string str, string delimiter) {
   // delimiters present in str[].
   while (token != nullptr) {
     ret.push_back(token);
-    token = strtok(nullptr,del);
+    token = strtok(nullptr, del);
   }
 
   return ret;
 }
 
 class Solution {
-public:
-    vector<string> uncommonFromSentences(string s1, string s2) {
-      unordered_set<string> seen;
-      vector<string> spl = split(s1, " ");
-      for (string s: spl) {
-        seen.insert(s);
-      }
-      spl = split(s2, " ");
-      vector<string> res;
-      for (string s: spl) {
-        if (seen.find(s) != seen.end()) res.push_back(s);
-      }
-      return res;
+ public:
+  vector<string> uncommonFromSentences(string s1, string s2) {
+    unordered_map<string, int> seen;
+    unordered_map<string, int> seen2;
+    vector<string> spl1 = split(s1, " ");
+    for (string s : spl1) {
+      seen[s]++;
     }
+    vector<string> spl2 = split(s2, " ");
+    vector<string> res;
+    for (string s : spl2) {
+      seen2[s]++;
+    }
+    for (auto [k, v] : seen) {
+      if (v == 1) {
+        if (seen2.find(k) == seen2.end()) res.push_back(k);
+      }
+    }
+    for (auto [k, v] : seen2) {
+      if (v == 1) {
+        if (seen.find(k) == seen.end()) res.push_back(k);
+      }
+    }
+
+    return res;
+  }
 };
