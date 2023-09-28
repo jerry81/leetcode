@@ -54,6 +54,23 @@ using namespace std;
 class Solution {
 public:
     int projectionArea(vector<vector<int>>& grid) {
+      // top down
+      int sz = grid.size();
+      int top = sz*sz;
+      int side = 0;
+      int front = 0;
 
+
+      for (int i = 0; i < grid.size(); ++i) {
+        int mxY = 0;
+        int mxX = 0;
+        for (int j = 0; j < grid.size(); ++j) {
+          mxY = max(mxY,grid[i][j]);
+          mxX = max(mxX,grid[j][i]);
+        }
+        side+=mxX;
+        front+=mxY;
+      }
+      return side+top+front;
     }
 };
