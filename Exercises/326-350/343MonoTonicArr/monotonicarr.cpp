@@ -47,6 +47,31 @@ using namespace std;
 class Solution {
 public:
     bool isMonotonic(vector<int>& nums) {
+      bool identified = false;
+      bool increasing = false;
+      for (int i = 0; i < nums.size()-1; ++i) {
+        int cur = nums[i];
+        int next = nums[i+1];
+        if (next == cur) {
+          continue;
+        }
+        if (next < cur) {
+          if (!identified) {
+            identified = true;
+            continue;
+          }
 
+          if (increasing) return false;
+        } else {
+          if (!identified) {
+            identified = true;
+            increasing = true;
+            continue;
+          }
+
+          if (!increasing) return false;
+        }
+      }
+      return true;
     }
 };
