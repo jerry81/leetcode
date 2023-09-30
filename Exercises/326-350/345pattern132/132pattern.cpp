@@ -50,11 +50,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  bool r(int idx, vector<int>& nums) {}
+  bool r(int idx, int pos, int last, vector<int>& nums, int &s) {
+    if (idx >= s) return false;
+
+    if (pos == 0) {
+      // take or leave
+      return r(idx+1, pos+1, nums[idx], nums, s) || r(idx+1, pos, last, nums, s);
+
+    } else if (pos == 1) {
+    } else {
+    }
+  }
 
  public:
   bool find132pattern(vector<int>& nums) {
     // subsequence problem
-    return r(0, nums);
+    int s = nums.size();
+    return r(0, 0, -1, nums, s);
   }
 };
