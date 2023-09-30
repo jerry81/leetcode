@@ -5,7 +5,9 @@ Medium
 6.1K
 339
 Companies
-Given an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i], nums[j] and nums[k] such that i < j < k and nums[i] < nums[k] < nums[j].
+Given an array of n integers nums, a 132 pattern is a subsequence of three
+integers nums[i], nums[j] and nums[k] such that i < j < k and nums[i] < nums[k]
+< nums[j].
 
 Return true if there is a 132 pattern in nums, otherwise, return false.
 
@@ -25,7 +27,8 @@ Example 3:
 
 Input: nums = [-1,3,2,0]
 Output: true
-Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
+Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3,
+0] and [-1, 2, 0].
 
 
 Constraints:
@@ -47,8 +50,11 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    bool find132pattern(vector<int>& nums) {
+  bool r(int idx, vector<int>& nums) {}
 
-    }
+ public:
+  bool find132pattern(vector<int>& nums) {
+    // subsequence problem
+    return r(0, nums);
+  }
 };
