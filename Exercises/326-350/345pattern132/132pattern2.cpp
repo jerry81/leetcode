@@ -45,13 +45,12 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <set>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-
  public:
   bool find132pattern(vector<int>& nums) {
     // subsequence problem
@@ -59,13 +58,13 @@ class Solution {
     vector<int> mins;
     set<int> searchable;
     int curmin = INT_MAX;
-    for (int i = 0; i < s;++i) {
+    for (int i = 0; i < s; ++i) {
       int cur = nums[i];
-      curmin = min(curmin,cur);
+      curmin = min(curmin, cur);
       mins.push_back(curmin);
     }
-    for (int i = s-1; i > 0; --i) {
-      int prev = nums[i-1];
+    for (int i = s - 1; i > 0; --i) {
+      int prev = mins[i - 1];
       int cur = nums[i];
 
       searchable.insert(cur);
@@ -74,7 +73,15 @@ class Solution {
 
       auto pos = lower_bound(searchable.begin(), searchable.end(), cur);
       if (pos != searchable.end()) {
-        if (*pos) > prev) return true;
+        if (*pos > prev) {
+          if (*pos < cur) return true;
+
+          if (*pos == cur) {
+            if (pos == searchable.begin()) continue;
+            pos--;
+            if (*pos < cur) return true;
+          }
+        }
       }
     }
     return false;
