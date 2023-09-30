@@ -50,14 +50,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  bool r(int idx, int pos, int last, vector<int>& nums, int &s) {
+  bool r(int idx, int pos, int last, vector<int>& nums, int& s) {
     if (idx >= s) return false;
 
     if (pos == 0) {
       // take or leave
-      return r(idx+1, pos+1, nums[idx], nums, s) || r(idx+1, pos, last, nums, s);
+      return r(idx + 1, pos + 1, nums[idx], nums, s) ||
+             r(idx + 1, pos, last, nums, s);
 
     } else if (pos == 1) {
+      // greater than
+      int cur = nums[idx];
+      bool possibilities = false;
+      if (cur > last) {
+        possibilities = r(idx + 1, pos + 1, nums[idx], nums, s);
+      }
+      return possibilities || r(idx + 1, pos, last, nums, s);
     } else {
     }
   }
