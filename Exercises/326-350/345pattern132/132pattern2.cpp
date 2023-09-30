@@ -49,39 +49,35 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
  public:
   bool find132pattern(vector<int>& nums) {
-    // subsequence problem
-    int s = nums.size();
-    vector<int> mins;
-    set<int> searchable;
-    int curmin = INT_MAX;
-    for (int i = 0; i < s; ++i) {
-      int cur = nums[i];
-      curmin = min(curmin, cur);
-      mins.push_back(curmin);
+    int n = nums.size();
+    if (n < 3) {
+      return false;
     }
-    for (int i = s - 1; i > 0; --i) {
-      int prev = mins[i - 1];
-      int cur = nums[i];
 
-      searchable.insert(cur);
+    vector<int> minPrefix(n);
+    minPrefix[0] = nums[0];
 
-      if (prev >= cur) continue;
-
-      auto pos = lower_bound(searchable.begin(), searchable.end(), cur);
-            if (pos == searchable.begin()) continue;
-
-            pos--;
-
-            if (*pos < cur && prev < *pos) return true;
-
-
-
-
+    for (int i = 1; i < n; ++i) {
+      minPrefix[i] = min(minPrefix[i - 1], nums[i]);
     }
+
+    stack<int> s;
+
+    for (int i = n - 1; i >= 0; --i) {
+      if (nums[i] > minPrefix[i]) {
+        while (!s.empty() && s.top() <= minPrefix[i]) {
+          s.pop();
+        }
+        if (!s.empty() && s.top() < nums[i]) {
+          return true;
+        }
+        s.push(nums[i]);
+      }
+    }
+
     return false;
   }
 };
