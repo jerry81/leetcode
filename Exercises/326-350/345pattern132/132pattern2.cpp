@@ -72,19 +72,15 @@ class Solution {
       if (prev >= cur) continue;
 
       auto pos = lower_bound(searchable.begin(), searchable.end(), cur);
-      if (pos != searchable.end()) {
-        if (*pos > prev) {
-          if (*pos < cur && prev) return true;
-
-          if (*pos == cur) {
             if (pos == searchable.begin()) continue;
 
             pos--;
+
             if (*pos < cur && prev < *pos) return true;
 
-          }
-        }
-      }
+
+
+
     }
     return false;
   }
