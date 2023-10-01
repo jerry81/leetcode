@@ -47,7 +47,10 @@ leetcode solutions
 - if smaller pop with condition that you will be able to use a duplicate later on
   - (genius) - check if there is a possible duplicate later on by keeping track of the last index the item appears.
 
+## if you want to build a tree and return the whole tree (aka first node)
 
+- you need two pointers - one to the head of the new tree
+- another for the tail.
 # TIL
 
 ```
@@ -72,3 +75,4 @@ SomeClass compare;
 bool result = compare(10, 20);
 In the above example, an instance of the class or struct containing the operator() function is created as compare. Then, the instance is called as a function with the arguments 10 and 20. The operator() function is executed, and the result is stored in the variable result.
 ```
+
