@@ -5,7 +5,9 @@ Easy
 4.1K
 659
 Companies
-Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.
+Given the root of a binary search tree, rearrange the tree in in-order so that
+the leftmost node in the tree is now the root of the tree, and every node has no
+left child and only one right child.
 
 
 
@@ -42,40 +44,49 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+#include <vector>
+
+using namespace std;
+
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode* left, TreeNode* right)
+      : val(x), left(left), right(right) {}
+};
 
 class Solution {
-TreeNode* ret;
-void r(TreeNode* root, TreeNode* root2) {
-  if (root == nullptr) return;
-  if (root->left != nullptr) {
-    r(root->left, root2);
-  } else {
-    TreeNode* created = new TreeNode(root->val);
-    if (root2 == nullptr) {
-      root2 = created;
-    } else {
-      root2->right = created;
-      root2 = root2->right;
-    }
-    r(root->right, root2);
+  vector<int> seq;
+  void r(TreeNode* root) {
+    if (root == nullptr) return;
+    r(root->left);
+    seq.push_back(root->val);
+    r(root->right);
   }
-}
 
-public:
-    TreeNode* increasingBST(TreeNode* root) {
-      r(root,ret);
-      return ret;
+ public:
+  TreeNode* increasingBST(TreeNode* root) {
+    r(root);
+    TreeNode* ret;
+    TreeNode* cur;
+    for (int i : seq) {
+      TreeNode* nxt = new TreeNode(i);
+      if (ret == nullptr) {
+        ret = nxt;
+        cur = ret;
+      } else {
+        cur->right = nxt;
+        cur = cur->right;
+      }
     }
+    return ret;
+  }
 };
