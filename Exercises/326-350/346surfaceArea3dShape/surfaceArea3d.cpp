@@ -56,8 +56,28 @@ class Solution {
  public:
   int surfaceArea(vector<vector<int>>& grid) {
     // top, bottom, left, right, front, back
+    // missing: donut situations
+    // for every block, add surface area.
+    // subtract a point for each neighbor
+    // top down
     int sz = grid.size();
     int area = 0;
-    area += (2 * sz);
+    vector<vector<int>> neigh = {{0,-1},{0,1},{-1,0},{1,0}};
+    for (int i = 0; i < sz; ++i) {
+      for (int j = 0; j < sz; ++j) {
+        int height = grid[i][j];
+        area+=4*height;
+        area+=2; // top and bottom
+        // remove area covered by neighbors
+        for (auto n: neigh) {
+          int y = i+n[0];
+          int x = j+n[1];
+          if (y < 0 || x < 0 || y >= sz || x >= sz) continue;
+          int nheight = grid[y][x];
+          area-=min(height,nheight);
+        }
+      }
+    }
+    return area;
   }
 };
