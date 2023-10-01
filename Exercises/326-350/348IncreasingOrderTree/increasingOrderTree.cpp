@@ -64,29 +64,26 @@ struct TreeNode {
 };
 
 class Solution {
-  vector<int> seq;
+  TreeNode* ret;
+  TreeNode* cur;
   void r(TreeNode* root) {
-    if (root == nullptr) return;
+    if (!root) return;
     r(root->left);
-    seq.push_back(root->val);
+    int v = root->val;
+    TreeNode* nxt = new TreeNode(v);
+    if (!ret) {
+      ret = nxt;
+      cur = ret;
+    } else {
+      cur->right = nxt;
+      cur = cur->right;
+    }
     r(root->right);
   }
 
  public:
   TreeNode* increasingBST(TreeNode* root) {
     r(root);
-    TreeNode* ret;
-    TreeNode* cur;
-    for (int i : seq) {
-      TreeNode* nxt = new TreeNode(i);
-      if (ret == nullptr) {
-        ret = nxt;
-        cur = ret;
-      } else {
-        cur->right = nxt;
-        cur = cur->right;
-      }
-    }
     return ret;
   }
 };
