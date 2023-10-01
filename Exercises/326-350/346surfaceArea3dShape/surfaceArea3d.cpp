@@ -67,7 +67,7 @@ class Solution {
       for (int j = 0; j < sz; ++j) {
         int height = grid[i][j];
         area+=4*height;
-        area+=2; // top and bottom
+        if (height > 0) area+=2; // top and bottom
         // remove area covered by neighbors
         for (auto n: neigh) {
           int y = i+n[0];
