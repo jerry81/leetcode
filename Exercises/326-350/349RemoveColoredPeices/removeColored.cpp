@@ -103,5 +103,6 @@ public:
           }
         }
       }
+      return aMoves > bMoves;
     }
 };
