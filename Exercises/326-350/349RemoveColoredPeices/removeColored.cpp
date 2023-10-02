@@ -79,7 +79,29 @@ public:
       int bConsecCount = 0;
       int aMoves = 0;
       int bMoves = 0;
+      bool isA = false;
       for (char c: colors) {
+        if (c == 'A') {
+          if (isA) {
+            aConsecCount++;
+            if (aConsecCount >= 3) {
+              aMoves++;
+            }
+          } else {
+            aConsecCount = 1;
+            isA = true;
+          }
+        } else {
+          if (isA) {
+            bConsecCount = 1;
+            isA = false;
+          } else {
+            bConsecCount++;
+            if (bConsecCount >= 3) {
+              bMoves++;
+            }
+          }
+        }
       }
     }
 };
