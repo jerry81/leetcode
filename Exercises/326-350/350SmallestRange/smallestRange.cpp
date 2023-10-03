@@ -53,7 +53,9 @@ using namespace std;
 class Solution {
 public:
     int smallestRangeI(vector<int>& nums, int k) {
-      int mn = min(nums);
-      int mx = max(nums);
+      auto mn = min_element(nums.begin(), nums.end());
+      auto mx = max_element(nums.begin(), nums.end());
+      int absDiff = abs(*mn-*mx);
+      return min(absDiff-k, 0);
     }
 };
