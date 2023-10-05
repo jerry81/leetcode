@@ -55,11 +55,11 @@ class Solution {
     }
 
     int seed = freq[deck[0]];
-    int stop = max(seed,2);
+    int stop = max(seed, 2);
     for (int i = 2; i <= stop; ++i) {
       bool pass = true;
-      for (auto [_,v]: freq) {
-        if (v%i != 0) {
+      for (auto [_, v] : freq) {
+        if (v % i != 0) {
           pass = false;
           break;
         }
