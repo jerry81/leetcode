@@ -49,26 +49,44 @@ using namespace std;
 
 class Solution {
 
-vector<string> customSplit(string s) {
+pair<vector<string>, string> customSplit(string s) {
   vector<string> ret;
   string curStr = "";
+  string accum = "";
   for (char c: s) {
     if (!isalpha(c)) {
       if (!curStr.empty()) ret.push_back(curStr);
-      string str = "" + c;
+      string str(1,c);
       ret.push_back(str);
       curStr = "";
     } else {
       curStr+=c;
+      accum+=c;
     }
   }
   if (!curStr.empty()) ret.push_back(curStr);
 
-  return ret;
+  return {ret,accum};
 }
 
 public:
     string reverseOnlyLetters(string s) {
+      auto [strs,accum] = customSplit(s);
+      string ret = "";
 
+      int idx = accum.size()-1;
+      for (string s: strs) {
+        int curStr = "";
+        char c = s[0];
+        if (isalpha(c)) {
+          int countdown = s.size();
+          curStr+=accum[idx];
+          idx--;
+        } else {
+          curStr = s;
+        }
+        ret.push_back(curStr);
+      }
+      return ret;
     }
 };
