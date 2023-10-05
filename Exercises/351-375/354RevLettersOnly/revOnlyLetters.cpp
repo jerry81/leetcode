@@ -51,8 +51,20 @@ class Solution {
 
 vector<string> customSplit(string s) {
   vector<string> ret;
+  string curStr = "";
   for (char c: s) {
+    if (!isalpha(c)) {
+      if (!curStr.empty()) ret.push_back(curStr);
+      string str = "" + c;
+      ret.push_back(str);
+      curStr = "";
+    } else {
+      curStr+=c;
+    }
   }
+  if (!curStr.empty()) ret.push_back(curStr);
+
+  return ret;
 }
 
 public:
