@@ -54,26 +54,20 @@ class Solution {
       freq[i]++;
     }
 
-    int base = INT_MAX;
-    for (auto [_, v] : freq) {
-      base = min(base, v);
+    int seed = freq[deck[0]];
+    int stop = max(seed,2);
+    for (int i = 2; i <= stop; ++i) {
+      bool pass = true;
+      for (auto [_,v]: freq) {
+        if (v%i != 0) {
+          pass = false;
+          break;
+        }
+      }
+
+      if (pass) return true;
     }
 
-    int newBase = base;
-
-    for (int i = 0; i < base / 2; ++i) {
-      int rem = base % i;
-      if (rem != 0) continue;
-
-      int div = base / i;
-      newBase = min(newBase, div);
-    }
-
-    if (newBase < 2) return false;
-
-    for (auto [_, v] : freq) {
-      if (v % newBase != 0) return false;
-    }
-    return true;
+    return false;
   }
 };
