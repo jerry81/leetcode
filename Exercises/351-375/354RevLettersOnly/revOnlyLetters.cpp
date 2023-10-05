@@ -42,10 +42,19 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
+
 class Solution {
+
+vector<string> customSplit(string s) {
+  vector<string> ret;
+  for (char c: s) {
+  }
+}
+
 public:
     string reverseOnlyLetters(string s) {
 
