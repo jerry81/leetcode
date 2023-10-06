@@ -36,8 +36,31 @@ Acceptance Rate
 */
 
 class Solution {
+int r(int n) {
+  if (n == 2) return 2;
+
+  if (n == 3) return 3;
+
+  int minus3 = n-3;
+
+  if (minus3 > 1) return 3 * r(minus3);
+
+  int minus2 = n-2;
+
+  return 2*r(minus2);
+}
 public:
     int integerBreak(int n) {
+      if (n == 2) return 1;
 
+      if (n == 3) return 2;
+
+      return r(n);
     }
 };
+
+/*
+
+10 -> 2 2 2 2 2 -> 3 3 2 2
+
+*/
