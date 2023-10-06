@@ -50,6 +50,20 @@ using namespace std;
 class Solution {
 public:
     vector<int> sortArrayByParityII(vector<int>& nums) {
-
+      vector<int> odd;
+      vector<int> even;
+      for (int n: nums) {
+        if (n%2 == 0) {
+          even.push_back(n);
+        } else {
+          odd.push_back(n);
+        }
+      }
+      vector<int> res;
+      for (int i = 0; i < odd.size(); ++i) {
+        res.push_back(even[i]);
+        res.push_back(odd[i]);
+      }
+      return res;
     }
 };
