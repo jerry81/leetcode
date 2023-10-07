@@ -60,7 +60,7 @@ class Solution {
   int r(int idx, int cmax, int rem, int &sz, int &mx) {
     if (sz <= idx) return 0;
 
-    if (idx == (sz-1)) return rem == 0 ? 1:0;
+    if (idx == (sz - 1)) return rem == 0 ? 1 : 0;
 
     if (rem < 0) return 0;
 
@@ -68,17 +68,20 @@ class Solution {
 
     if (memo[idx][cmax][rem] >= 0) return memo[idx][cmax][rem];
 
-    int choices = 1;
-    if (rem == 0) {
-      choices = cmax;
-      return choices * (r(idx+1,cmax,0,sz,mx));
+    int choices = cmax * r(idx + 1, cmax, rem, sz, mx);
+
+    int incrChoices = 0;
+
+    for (int i = cmax+1; i <= mx; ++i) {
+      incrChoices += r(idx+1, i, rem-1, sz, mx);
     }
 
+    memo[idx][cmax][rem] = incrChoices+choices;
 
     // for a range
     // idx -
 
-    return 1;
+    return memo[idx][cmax][rem];
   }
 
  public:
