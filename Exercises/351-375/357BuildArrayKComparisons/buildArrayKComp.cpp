@@ -78,6 +78,7 @@ class Solution {
 
     for (int i = cmax+1; i <= mx; ++i) {
       incrChoices += r(idx+1, i, rem-1, sz, mx);
+      incrChoices %= MOD;
     }
 
     memo[idx][cmax][rem] = incrChoices+choices % MOD;
