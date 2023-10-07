@@ -5,15 +5,18 @@ Hard
 517
 12
 Companies
-You are given three integers n, m and k. Consider the following algorithm to find the maximum element of an array of positive integers:
+You are given three integers n, m and k. Consider the following algorithm to
+find the maximum element of an array of positive integers:
 
 
 You should build the array arr which has the following properties:
 
 arr has exactly n integers.
 1 <= arr[i] <= m where (0 <= i < n).
-After applying the mentioned algorithm to arr, the value search_cost is equal to k.
-Return the number of ways to build the array arr under the mentioned conditions. As the answer may grow large, the answer must be computed modulo 109 + 7.
+After applying the mentioned algorithm to arr, the value search_cost is equal to
+k. Return the number of ways to build the array arr under the mentioned
+conditions. As the answer may grow large, the answer must be computed modulo 109
++ 7.
 
 
 
@@ -21,13 +24,13 @@ Example 1:
 
 Input: n = 2, m = 3, k = 1
 Output: 6
-Explanation: The possible arrays are [1, 1], [2, 1], [2, 2], [3, 1], [3, 2] [3, 3]
-Example 2:
+Explanation: The possible arrays are [1, 1], [2, 1], [2, 2], [3, 1], [3, 2] [3,
+3] Example 2:
 
 Input: n = 5, m = 2, k = 3
 Output: 0
-Explanation: There are no possible arrays that satisify the mentioned conditions.
-Example 3:
+Explanation: There are no possible arrays that satisify the mentioned
+conditions. Example 3:
 
 Input: n = 9, m = 1, k = 1
 Output: 1
@@ -53,18 +56,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int r(int idx, int cmax, int rem, int &sz, int & mx) {
+  vector<vector<vector<int>>> memo;
+  int r(int idx, int cmax, int rem, int &sz, int &mx) {
     if (sz <= idx) return 0;
 
-    if (sz-1 == idx) {
+    if (sz - 1 == idx) {
       return mx - cmax;
     }
   }
-public:
-    int numOfArrays(int n, int m, int k) {  // size, max, tgtcost
-      // cost increases when item > curmax
-      if (k > m) return 0;
 
+ public:
+  int numOfArrays(int n, int m, int k) {  // size, max, tgtcost
+    // cost increases when item > curmax
+    memo.resize(n, vector<vector<int>>(m, vector<int>(k, -1)));
+    if (k > m) return 0;
 
-    }
+    return r(0, 0, k, n, m);
+  }
 };
