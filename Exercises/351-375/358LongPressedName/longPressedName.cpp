@@ -5,9 +5,13 @@ Easy
 2.3K
 333
 Companies
-Your friend is typing his name into a keyboard. Sometimes, when typing a character c, the key might get long pressed, and the character will be typed 1 or more times.
+Your friend is typing his name into a keyboard. Sometimes, when typing a
+character c, the key might get long pressed, and the character will be typed 1
+or more times.
 
-You examine the typed characters of the keyboard. Return True if it is possible that it was your friends name, with some characters (possibly none) being long pressed.
+You examine the typed characters of the keyboard. Return True if it is possible
+that it was your friends name, with some characters (possibly none) being long
+pressed.
 
 
 
@@ -20,7 +24,8 @@ Example 2:
 
 Input: name = "saeed", typed = "ssaaedd"
 Output: false
-Explanation: 'e' must have been pressed twice, but it was not in the typed output.
+Explanation: 'e' must have been pressed twice, but it was not in the typed
+output.
 
 
 Constraints:
@@ -41,8 +46,15 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    bool isLongPressedName(string name, string typed) {
+ public:
+  bool isLongPressedName(string name, string typed) {
+    // recursion?
+    if (name.empty() && typed.empty()) return true;
 
-    }
+    if (typed.empty()) return false;
+
+    if (name.back() == typed.back()) name.pop_back();
+    typed.pop_back();
+    return isLongPressedName(name, typed);
+  }
 };
