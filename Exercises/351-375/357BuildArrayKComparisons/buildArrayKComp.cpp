@@ -60,16 +60,23 @@ class Solution {
   int r(int idx, int cmax, int rem, int &sz, int &mx) {
     if (sz <= idx) return 0;
 
-    if (mx < cmax) return 0;
+    if (idx == (sz-1)) return rem == 0 ? 1:0;
 
-    if (mx == cmax) return 1;
+    if (rem < 0) return 0;
+
+    if (rem > 0 && mx < cmax) return 0;
 
     if (memo[idx][cmax][rem] >= 0) return memo[idx][cmax][rem];
 
-    if ((sz - 1) == idx) {
-      memo[idx][cmax][rem] = max((mx - cmax), 0);
-      return memo[idx][cmax][rem];
+    int choices = 1;
+    if (rem == 0) {
+      choices = cmax;
+      return choices * (r(idx+1,cmax,0,sz,mx));
     }
+
+
+    // for a range
+    // idx -
 
     return 1;
   }
