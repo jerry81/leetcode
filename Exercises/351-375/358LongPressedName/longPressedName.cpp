@@ -46,31 +46,28 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  bool r(string name, string typed, char prev) {
+ public:
+  bool isLongPressedName(string name, string typed) {
+    // recursion?
     if (name.empty()) return true;
 
     if (typed.empty()) return false;
 
-    char nextPrev = prev;
+    char curback = name.back();
 
-    if (name.back() == typed.back()) {
-      name.pop_back();
-      nextPrev = name.back();
+    if (curback == typed.back()) {
+      while (!typed.empty() && !name.empty() && typed.back() == curback) {
+        typed.pop_back();
+        if (name.back() == curback) name.pop_back();
+      }
+      return isLongPressedName(name, typed);
     }
 
-    if (prev != typed.back()) return false;
-
-    typed.pop_back();
-
-    return r(name, typed, nextPrev);
-  }
-
- public:
-  bool isLongPressedName(string name, string typed) {
-    // recursion?
-
-    return r(name, typed, ' ');
+    return false;
   }
 };
 
 // fix: only can pop typed if prev popped matches
+
+// when can we pop typed only?
+// when a matched has been made
