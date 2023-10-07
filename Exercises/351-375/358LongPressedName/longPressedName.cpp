@@ -49,7 +49,7 @@ class Solution {
  public:
   bool isLongPressedName(string name, string typed) {
     // recursion?
-    if (name.empty() && typed.empty()) return true;
+    if (name.empty()) return true;
 
     if (typed.empty()) return false;
 
