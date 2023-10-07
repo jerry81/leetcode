@@ -49,16 +49,23 @@ class Solution {
  public:
   bool isLongPressedName(string name, string typed) {
     // recursion?
-    if (name.empty()) return true;
+    if (name.empty() && typed.empty()) return true;
+
+    if (name.empty()) return false;
 
     if (typed.empty()) return false;
 
     char curback = name.back();
 
     if (curback == typed.back()) {
-      while (!typed.empty() && !name.empty() && typed.back() == curback) {
+      int typoCount = 0;
+      while (!typed.empty() && typed.back() == curback) {
         typed.pop_back();
-        if (name.back() == curback) name.pop_back();
+        typoCount++;
+      }
+      while (!name.empty() && name.back() == curback && typoCount > 0) {
+        name.pop_back();
+        typoCount--;
       }
       return isLongPressedName(name, typed);
     }
