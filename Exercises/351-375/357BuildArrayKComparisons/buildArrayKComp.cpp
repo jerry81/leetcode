@@ -48,9 +48,23 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
+  int r(int idx, int cmax, int rem, int &sz, int & mx) {
+    if (sz <= idx) return 0;
+
+    if (sz-1 == idx) {
+      return mx - cmax;
+    }
+  }
 public:
-    int numOfArrays(int n, int m, int k) {
+    int numOfArrays(int n, int m, int k) {  // size, max, tgtcost
+      // cost increases when item > curmax
+      if (k > m) return 0;
+
 
     }
 };
