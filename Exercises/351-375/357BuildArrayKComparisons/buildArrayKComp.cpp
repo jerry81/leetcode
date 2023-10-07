@@ -60,9 +60,9 @@ class Solution {
   int MOD = pow(10,9) + 7;
   vector<vector<vector<long long int>>> memo;
   long long int r(int idx, int cmax, int rem, int &sz, int &mx) {
-    if (sz <= idx) return 0;
+    if (sz < idx) return 0;
 
-    if (idx == (sz - 1)) return rem == 0 ? 1 : 0;
+    if (idx == sz) return rem == 0 ? 1 : 0;
 
     if (rem < 0) return 0;
 
