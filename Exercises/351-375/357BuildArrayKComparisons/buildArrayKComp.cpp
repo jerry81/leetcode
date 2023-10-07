@@ -60,15 +60,18 @@ class Solution {
   int r(int idx, int cmax, int rem, int &sz, int &mx) {
     if (sz <= idx) return 0;
 
-    if (sz - 1 == idx) {
-      return mx - cmax;
-    }
+    if (mx < cmax) return 0;
+
+    if (memo[idx][cmax][rem] >= 0) return memo[idx][cmax][rem];
+
+    if ((sz - 1) == idx) return max((mx - cmax), 0);
+
   }
 
  public:
   int numOfArrays(int n, int m, int k) {  // size, max, tgtcost
     // cost increases when item > curmax
-    memo.resize(n, vector<vector<int>>(m, vector<int>(k, -1)));
+    memo.resize(n, vector<vector<int>>(m+1, vector<int>(k+1, -1)));
     if (k > m) return 0;
 
     return r(0, 0, k, n, m);
