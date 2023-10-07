@@ -52,12 +52,14 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
-  vector<vector<vector<int>>> memo;
-  int r(int idx, int cmax, int rem, int &sz, int &mx) {
+  int MOD = pow(10,9) + 7;
+  vector<vector<vector<long long int>>> memo;
+  long long int r(int idx, int cmax, int rem, int &sz, int &mx) {
     if (sz <= idx) return 0;
 
     if (idx == (sz - 1)) return rem == 0 ? 1 : 0;
@@ -68,15 +70,17 @@ class Solution {
 
     if (memo[idx][cmax][rem] >= 0) return memo[idx][cmax][rem];
 
-    int choices = cmax * r(idx + 1, cmax, rem, sz, mx);
+    long long int choices = cmax * r(idx + 1, cmax, rem, sz, mx);
 
-    int incrChoices = 0;
+    choices %= MOD;
+
+    long long int incrChoices = 0;
 
     for (int i = cmax+1; i <= mx; ++i) {
       incrChoices += r(idx+1, i, rem-1, sz, mx);
     }
 
-    memo[idx][cmax][rem] = incrChoices+choices;
+    memo[idx][cmax][rem] = incrChoices+choices % MOD;
 
     // for a range
     // idx -
@@ -87,7 +91,7 @@ class Solution {
  public:
   int numOfArrays(int n, int m, int k) {  // size, max, tgtcost
     // cost increases when item > curmax
-    memo.resize(n, vector<vector<int>>(m + 1, vector<int>(k + 1, -1)));
+    memo.resize(n, vector<vector<long long int>>(m + 1, vector<long long int>(k + 1, -1)));
 
     if (k > m) return 0;
 
