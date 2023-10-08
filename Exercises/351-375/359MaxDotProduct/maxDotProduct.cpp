@@ -65,6 +65,10 @@ class Solution {
     int mn1 = *min_element(nums1.begin(), nums1.end());
     int mx2 = *max_element(nums2.begin(), nums2.end());
     int mn2 = *min_element(nums2.begin(), nums2.end());
-    if (mx1 < 0 && mn2
+    if (mx1 < 0 && mn2 > 0) return mx1 * mn2;
+
+    if (mx2 < 0 && mn1 > 0) return mx2 * mn1;
+
+    return r(0,0,nums1,nums2);
   }
 };
