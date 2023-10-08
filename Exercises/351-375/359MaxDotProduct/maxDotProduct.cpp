@@ -56,7 +56,35 @@ using namespace std;
 class Solution {
   vector<vector<int>> memo;
   int r(int i1, int i2, vector<int>& nums1, vector<int>& nums2, int& s1,
-        int& s2) {}
+        int& s2) {
+    if (i1 == s1) return 0;
+
+    if (i2 == s2) return 0;
+
+    if (memo[i1][i2] > INT_MIN) return memo[i1][i2];
+
+    // use
+
+    int res = nums1[i1] * nums2[i2];
+
+    res += r(i1 + 1, i2 + 1, nums1, nums2, s1, s2);
+
+    // pass 1
+
+    int skip1 = r(i1+1, i2, nums1, nums2, s1,s2);
+
+    res = max(res, skip1);
+
+    // pass 2
+
+    int skip2 = r(i1, i2+1, nums1, nums2, s1, s2);
+
+    res = max(res, skip2);
+
+    memo[i1][i2] = res;
+
+    return res;
+  }
 
  public:
   int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
@@ -71,6 +99,8 @@ class Solution {
     if (mx1 < 0 && mn2 > 0) return mx1 * mn2;
 
     if (mx2 < 0 && mn1 > 0) return mx2 * mn1;
+
+    memo.resize(s1, vector<int>(s2, INT_MIN));
 
     return r(0, 0, nums1, nums2, s1, s2);
   }
