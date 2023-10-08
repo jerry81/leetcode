@@ -55,12 +55,15 @@ using namespace std;
 
 class Solution {
   vector<vector<int>> memo;
-  int r(int i1, int i2, vector<int>& nums1, vector<int>& nums2) {}
+  int r(int i1, int i2, vector<int>& nums1, vector<int>& nums2, int& s1,
+        int& s2) {}
 
  public:
   int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
     // dp try all subsequences?
     // greedy?
+    int s1 = nums1.size();
+    int s2 = nums2.size();
     int mx1 = *max_element(nums1.begin(), nums1.end());
     int mn1 = *min_element(nums1.begin(), nums1.end());
     int mx2 = *max_element(nums2.begin(), nums2.end());
@@ -69,6 +72,6 @@ class Solution {
 
     if (mx2 < 0 && mn1 > 0) return mx2 * mn1;
 
-    return r(0,0,nums1,nums2);
+    return r(0, 0, nums1, nums2, s1, s2);
   }
 };
