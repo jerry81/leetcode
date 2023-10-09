@@ -5,7 +5,8 @@ Medium
 18.8K
 452
 Companies
-Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+Given an array of integers nums sorted in non-decreasing order, find the
+starting and ending position of a given target value.
 
 If target is not found in the array, return [-1, -1].
 
@@ -47,12 +48,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    vector<int> searchRange(vector<int>& nums, int target) {
-      // first item right of target
-      auto iter = upper_bound(nums.begin(), nums.end(),target);
-      cout << "item before is " << *(iter-1) << endl;
-      // int left = distance(nums.begin(), )
-      return {};
-    }
+ public:
+  vector<int> searchRange(vector<int>& nums, int target) {
+    if (nums.empty()) return {-1, -1};
+
+    auto iter = upper_bound(nums.begin(), nums.end(), target);
+    if (iter == nums.end()) return {-1, -1};
+
+    int right = distance(nums.begin(), iter) - 1;
+
+    if (nums[right] != target) return {-1, -1};
+
+    iter = upper_bound(nums.begin(), nums.end(), target - 1);
+
+    int left = distance(nums.begin(), iter);
+
+    return {left, right};
+  }
 };
