@@ -57,9 +57,10 @@ class Solution {
     if (nums.size() == 1) return (nums[0] == target) ? firstItem : notFound;
 
     auto iter = upper_bound(nums.begin(), nums.end(), target);
-    if (iter == nums.end()) return notFound;
+    if (iter == nums.end() && target != *(iter-1)) return notFound;
 
     int right = distance(nums.begin(), iter) - 1;
+    if (right < 0) return notFound;
 
     if (nums[right] != target) return notFound;
 
