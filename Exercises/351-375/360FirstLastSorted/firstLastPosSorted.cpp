@@ -46,28 +46,22 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
- public:
-  vector<int> searchRange(vector<int>& nums, int target) {
-    vector<int> notFound = {-1, -1};
-    if (nums.empty()) return notFound;
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> notFound = {-1, -1};
+        int n = nums.size(); // new var
 
-    vector<int> firstItem = {0, 0};
-    if (nums.size() == 1) return (nums[0] == target) ? firstItem : notFound;
+        if (n == 0) return notFound;
 
-    auto iter = upper_bound(nums.begin(), nums.end(), target);
-    if (iter == nums.end() && target != *(iter-1)) return notFound;
+        int left = lower_bound(nums.begin(), nums.end(), target) - nums.begin(); // same as distance
 
-    int right = distance(nums.begin(), iter) - 1;
-    if (right < 0) return notFound;
+        if (left == n || nums[left] != target) return notFound; // handles target doesnt exist case
+          // lowerbaund is less than or equal to.
 
-    if (nums[right] != target) return notFound;
+        int right = upper_bound(nums.begin(), nums.end(), target) - nums.begin() - 1;
+        // upperbound is strictly greater than
 
-    iter = upper_bound(nums.begin(), nums.end(), target - 1);
-
-    int left = distance(nums.begin(), iter);
-
-    return {left, right};
-  }
+        return {left, right};
+    }
 };
