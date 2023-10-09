@@ -49,6 +49,10 @@ using namespace std;
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-
+      // first item right of target
+      auto iter = upper_bound(nums.begin(), nums.end(),target);
+      cout << "item before is " << *(iter-1) << endl;
+      // int left = distance(nums.begin(), )
+      return {};
     }
 };
