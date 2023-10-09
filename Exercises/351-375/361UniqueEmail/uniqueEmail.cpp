@@ -57,8 +57,6 @@ Acceptance Rate
 
 using namespace std;
 
-
-
 vector<string> split(string str, string delimiter) {
   // Returns first token
   vector<string> ret;
@@ -93,9 +91,11 @@ public:
           if (c != '.') newName+=c;
 
         }
+        newName += "@";
         newName += domain;
         rs.insert(newName);
       }
+
       return rs.size();
     }
 };
