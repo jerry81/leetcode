@@ -53,11 +53,52 @@ Acceptance Rate
 
 #include <string>
 
+#include <unordered_set>
+
 using namespace std;
 
+
+vector<string> split(string str, string delimiter) {
+  // Returns first token
+  vector<string> ret;
+  const char *del = delimiter.c_str();
+  char *token = strtok(str.data(), del);
+
+  // Keep printing tokens while one of the
+  // delimiters present in str[].
+  while (token != nullptr) {
+    ret.push_back(token);
+    token = strtok(nullptr,del);
+  }
+
+  return ret;
+}
 class Solution {
 public:
     int numUniqueEmails(vector<string>& emails) {
+      // split by @
+      // drop text after +
+      // drop .'s in local
+      unordered_set<string> rs;
 
+      for (string e: emails) {
+        vector<string> spl = split(e,"@");
+        string name = spl[0];
+        string domain = spl[1];
+        string newName = "";
+        for (char c: name) {
+          if (c != '.') newName+=c;
+
+          if (c == '+') break;
+        }
+        newName += domain;
+        rs.insert(newName);
+      }
+
+
+
+
+
+      return rs.size();
     }
 };
