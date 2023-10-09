@@ -45,14 +45,24 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class RecentCounter {
+vector<int> calls;
 public:
     RecentCounter() {
-
+      calls = {};
     }
 
     int ping(int t) {
+      calls.push_back(t);
 
+      while (t - calls.front() > 3000) {
+        calls.erase(calls.begin());
+      }
+      return calls.size();
     }
 };
 
