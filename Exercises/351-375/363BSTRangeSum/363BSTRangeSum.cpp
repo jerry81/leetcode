@@ -51,13 +51,21 @@ struct TreeNode {
 };
 
 class Solution {
- int sum = 0;
+  int sum = 0;
 
- void r(TreeNode *t, int &l, int &h) {
- }
+  void r(TreeNode *t, int &l, int &h) {
+    if (t == nullptr) return;
+
+    int v = t->val;
+    if (v >= l && v <= h) sum += v;
+
+    r(t->left, l, h);
+    r(t->right, l, h);
+  }
+
  public:
   int rangeSumBST(TreeNode *root, int low, int high) {
-   r(root, low, high);
-   return sum;
+    r(root, low, high);
+    return sum;
   }
 };
