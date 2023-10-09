@@ -50,14 +50,18 @@ using namespace std;
 class Solution {
  public:
   vector<int> searchRange(vector<int>& nums, int target) {
-    if (nums.empty()) return {-1, -1};
+    vector<int> notFound = {-1, -1};
+    if (nums.empty()) return notFound;
+
+    vector<int> firstItem = {0, 0};
+    if (nums.size() == 1) return (nums[0] == target) ? firstItem : notFound;
 
     auto iter = upper_bound(nums.begin(), nums.end(), target);
-    if (iter == nums.end()) return {-1, -1};
+    if (iter == nums.end()) return notFound;
 
     int right = distance(nums.begin(), iter) - 1;
 
-    if (nums[right] != target) return {-1, -1};
+    if (nums[right] != target) return notFound;
 
     iter = upper_bound(nums.begin(), nums.end(), target - 1);
 
