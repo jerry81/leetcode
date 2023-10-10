@@ -58,29 +58,29 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
-public:
-    int minOperations(vector<int>& nums) {
-        // Sort and remove duplicates
-        sort(nums.begin(), nums.end());
-        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+ public:
+  int minOperations(vector<int>& nums) {
+    // Sort and remove duplicates
+    sort(nums.begin(), nums.end());
+    nums.erase(unique(nums.begin(), nums.end()), nums.end());
 
-        int s = nums.size();
-        int res = INT_MAX;
+    int s = nums.size();
+    int res = INT_MAX;
 
-        for (int i = 0; i < s; ++i) {
-            int target = nums[i] + s - 1;
-            auto found = lower_bound(nums.begin(), nums.end(), target);
+    for (int i = 0; i < s; ++i) {
+      int target = nums[i] + s - 1;
+      auto found = lower_bound(nums.begin(), nums.end(), target);
 
-            int foundIdx = found - nums.begin();
-            int ops = s - foundIdx + i;
+      int foundIdx = found - nums.begin();
+      int ops = s - foundIdx + i;
 
-            if (foundIdx >= i && foundIdx < nums.size() && nums[foundIdx] == target) {
-                ops--;
-            }
+      if (foundIdx >= i && foundIdx < nums.size() && nums[foundIdx] == target) {
+        ops--;
+      }
 
-            res = min(ops, res);
-        }
-
-        return res;
+      res = min(ops, res);
     }
+
+    return res;
+  }
 };
