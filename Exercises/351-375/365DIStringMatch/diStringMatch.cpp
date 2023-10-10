@@ -5,11 +5,13 @@ Easy
 2.3K
 942
 Companies
-A permutation perm of n + 1 integers of all the integers in the range [0, n] can be represented as a string s of length n where:
+A permutation perm of n + 1 integers of all the integers in the range [0, n] can
+be represented as a string s of length n where:
 
 s[i] == 'I' if perm[i] < perm[i + 1], and
 s[i] == 'D' if perm[i] > perm[i + 1].
-Given a string s, reconstruct the permutation perm and return it. If there are multiple valid permutations perm, return any of them.
+Given a string s, reconstruct the permutation perm and return it. If there are
+multiple valid permutations perm, return any of them.
 
 
 
@@ -40,35 +42,39 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<int> diStringMatch(string s) {
-      int sz = s.size();
-      int mn = 0;
-      int cur = 0;
-      int mx = 0;
-      vector<int> res = {0};
-      for (char c: s) {
-        if (c == 'D') {
-          mn--;
-          res.push_back(mn);
-        } else {
-          mx++;
-          res.push_back(mx);
-        }
+ public:
+  vector<int> diStringMatch(string s) {
+    int sz = s.size();
+    int mn = 0;
+    int cur = 0;
+    int mx = 0;
+    vector<int> tmp = {0};
+    vector<int> res;
+    for (char c : s) {
+      if (c == 'D') {
+        mn--;
+        tmp.push_back(mn);
+      } else {
+        mx++;
+        tmp.push_back(mx);
       }
-
-      int diff = abs(mn);
-      if (diff > 0) {
-        for (int i:res) {
-          i+= diff;
-        }
-      }
-      return res;
     }
+
+    int diff = abs(mn);
+    if (diff > 0) {
+      for (int i : tmp) {
+        i += diff;
+        res.push_back(i);
+      }
+    } else {
+      return tmp;
+    }
+    return res;
+  }
 };
