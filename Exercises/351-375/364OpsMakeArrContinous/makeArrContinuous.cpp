@@ -5,13 +5,15 @@ Hard
 839
 8
 Companies
-You are given an integer array nums. In one operation, you can replace any element in nums with any integer.
+You are given an integer array nums. In one operation, you can replace any
+element in nums with any integer.
 
 nums is considered continuous if both of the following conditions are fulfilled:
 
 All elements in nums are unique.
-The difference between the maximum element and the minimum element in nums equals nums.length - 1.
-For example, nums = [4, 2, 5, 3] is continuous, but nums = [1, 2, 3, 5, 6] is not continuous.
+The difference between the maximum element and the minimum element in nums
+equals nums.length - 1. For example, nums = [4, 2, 5, 3] is continuous, but nums
+= [1, 2, 3, 5, 6] is not continuous.
 
 Return the minimum number of operations to make nums continuous.
 
@@ -57,8 +59,18 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int minOperations(vector<int>& nums) {
+ public:
+  int minOperations(vector<int>& nums) {
+    int s = nums.size();
 
+    sort(nums.begin(), nums.end());
+
+    // Use the unique function to remove duplicates
+    nums.erase(unique(nums.begin(), nums.end()), nums.end());
+
+    for (int n : nums) {
+      cout << n << endl;
     }
+    return 0;
+  }
 };
