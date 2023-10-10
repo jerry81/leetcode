@@ -62,5 +62,13 @@ public:
           res.push_back(mx);
         }
       }
+
+      int diff = abs(mn);
+      if (diff > 0) {
+        for (int i:res) {
+          i+= diff;
+        }
+      }
+      return res;
     }
 };
