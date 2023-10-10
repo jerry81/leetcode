@@ -62,15 +62,18 @@ class Solution {
  public:
   int minOperations(vector<int>& nums) {
     int s = nums.size();
-
     sort(nums.begin(), nums.end());
-
-    // Use the unique function to remove duplicates
     nums.erase(unique(nums.begin(), nums.end()), nums.end());
 
-    for (int n : nums) {
-      cout << n << endl;
+    int res = INT_MAX;
+    for (int i: nums) {
+      int ops = s;
+      int mx = i + s - 1;
+      auto a = lower_bound(nums.begin(), nums.end(), mx);
+      ops -= (a-nums.begin());
+      res = min(res,ops);
     }
-    return 0;
+
+    return res;
   }
 };
