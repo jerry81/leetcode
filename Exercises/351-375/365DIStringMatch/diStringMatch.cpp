@@ -48,6 +48,19 @@ using namespace std;
 class Solution {
 public:
     vector<int> diStringMatch(string s) {
-
+      int sz = s.size();
+      int mn = 0;
+      int cur = 0;
+      int mx = 0;
+      vector<int> res = {0};
+      for (char c: s) {
+        if (c == 'D') {
+          mn--;
+          res.push_back(mn);
+        } else {
+          mx++;
+          res.push_back(mx);
+        }
+      }
     }
 };
