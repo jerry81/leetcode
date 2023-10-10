@@ -66,12 +66,17 @@ class Solution {
     nums.erase(unique(nums.begin(), nums.end()), nums.end());
 
     int res = INT_MAX;
-    for (int i: nums) {
-      int ops = s;
-      int mx = i + s - 1;
+    for (int i = 0; i < s; ++i) {
+      int mx = nums[i] + s - 1;
       auto a = lower_bound(nums.begin(), nums.end(), mx);
-      ops -= (a-nums.begin());
-      res = min(res,ops);
+      int ops = 0;
+      int foundIdx = a - nums.begin();
+      ops=s-foundIdx;
+      if (foundIdx >= i && foundIdx < nums.size()) {
+        if (nums[foundIdx] == mx) ops--;
+      }
+      ops+=i;
+      res = min(ops,res);
     }
 
     return res;
