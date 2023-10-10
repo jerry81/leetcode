@@ -57,28 +57,30 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
- public:
-  int minOperations(vector<int>& nums) {
-    int s = nums.size();
-    sort(nums.begin(), nums.end());
-    nums.erase(unique(nums.begin(), nums.end()), nums.end());
+public:
+    int minOperations(vector<int>& nums) {
+        // Sort and remove duplicates
+        sort(nums.begin(), nums.end());
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
 
-    int res = INT_MAX;
-    for (int i = 0; i < s; ++i) {
-      int mx = nums[i] + s - 1;
-      auto a = lower_bound(nums.begin(), nums.end(), mx);
-      int ops = 0;
-      int foundIdx = a - nums.begin();
-      ops=s-foundIdx;
-      if (foundIdx >= i && foundIdx < nums.size()) {
-        if (nums[foundIdx] == mx) ops--;
-      }
-      ops+=i;
-      res = min(ops,res);
+        int s = nums.size();
+        int res = INT_MAX;
+
+        for (int i = 0; i < s; ++i) {
+            int target = nums[i] + s - 1;
+            auto found = lower_bound(nums.begin(), nums.end(), target);
+
+            int foundIdx = found - nums.begin();
+            int ops = s - foundIdx + i;
+
+            if (foundIdx >= i && foundIdx < nums.size() && nums[foundIdx] == target) {
+                ops--;
+            }
+
+            res = min(ops, res);
+        }
+
+        return res;
     }
-
-    return res;
-  }
 };
