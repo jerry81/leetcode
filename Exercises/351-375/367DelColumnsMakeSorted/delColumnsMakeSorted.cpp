@@ -70,8 +70,17 @@ using namespace std;
 class Solution {
 public:
     int minDeletionSize(vector<string>& strs) {
-        for (int col = 0; col < strs.size(); ++col) {
-
+        int cs = strs[0].size();
+        int rs = strs.size();
+        int res = 0;
+        for (int col = 0; col < cs; ++col) {
+          for (int row = 0; row < rs-1; ++row) {
+            if (strs[row+1][col] <= strs[row][col]) {
+              res++;
+              break;
+            }
+          }
         }
+        return res;
     }
 };
