@@ -44,12 +44,24 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
-
+      // brute force map
+      vector<int> freq(pow(10,9)+1, 0);
+      for (vector<int> f: flowers) {
+        for (int i = f[0]; i <= f[1]; ++i) {
+          freq[i]++;
+        }
+      }
+      vector<int> res;
+      for (int p: people) {
+        res.push_back(freq[p]);
+      }
+      return res;
     }
 };
