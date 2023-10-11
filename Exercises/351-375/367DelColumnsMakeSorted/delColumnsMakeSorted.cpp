@@ -75,7 +75,7 @@ public:
         int res = 0;
         for (int col = 0; col < cs; ++col) {
           for (int row = 0; row < rs-1; ++row) {
-            if (strs[row+1][col] <= strs[row][col]) {
+            if (strs[row+1][col] < strs[row][col]) {
               res++;
               break;
             }
