@@ -74,8 +74,13 @@ class Solution {
 
     for (int p : people) {
       int tgtidx = lower_bound(positions.begin(), positions.end(), p) - positions.begin();
-      int topush = positions[tgtidx];
-      if (positions[tgtidx] != p) topush--;
+      int topush = prefixSums[tgtidx];
+      if (tgtidx <= 0) {
+        if (prefixSums[tgtidx] != p) topush = 0;
+      } else {
+        if (positions[tgtidx] != p) topush = prefixSums[tgtidx-1];
+      }
+
       res.push_back(topush);
     }
 
