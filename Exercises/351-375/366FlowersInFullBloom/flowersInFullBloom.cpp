@@ -80,7 +80,7 @@ class Solution {
       }
       int topush = prefixSums[tgtidx];
       if (tgtidx == 0) {
-        if (prefixSums[tgtidx] != p) topush = 0;
+        if (positions[tgtidx] != p) topush = 0;
       } else {
         if (positions[tgtidx] != p) topush = prefixSums[tgtidx-1];
       }
