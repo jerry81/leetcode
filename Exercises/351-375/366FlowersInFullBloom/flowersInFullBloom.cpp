@@ -60,8 +60,8 @@ class Solution {
     map<int, int> diffs;
     vector<int> prefixSums;
     for (vector<int> v : flowers) {
-      diffs[v[0]] = 1;
-      diffs[v[1] + 1] = -1;
+      diffs[v[0]]++;
+      diffs[v[1] + 1]--;
     }
     int cur = 0;
     vector<int> positions;
@@ -74,8 +74,12 @@ class Solution {
 
     for (int p : people) {
       int tgtidx = lower_bound(positions.begin(), positions.end(), p) - positions.begin();
+      if (tgtidx < 0 || tgtidx >= prefixSums.size()) {
+        res.push_back(0);
+        continue;
+      }
       int topush = prefixSums[tgtidx];
-      if (tgtidx <= 0) {
+      if (tgtidx == 0) {
         if (prefixSums[tgtidx] != p) topush = 0;
       } else {
         if (positions[tgtidx] != p) topush = prefixSums[tgtidx-1];
