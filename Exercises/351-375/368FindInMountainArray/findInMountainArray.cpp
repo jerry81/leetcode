@@ -89,11 +89,11 @@ class Solution {
         // still increasing
         l = mid + 1;
       } else {
-        r = mid - 1;
+        r = mid;
       }
     }
 
-    int l = 0;
+    l = 0;
     int peak = r;
     while (l < r) {
       int mid = (l + r) / 2;
@@ -104,13 +104,13 @@ class Solution {
         // still increasing
         l = mid + 1;
       } else {
-        r = mid - 1;
+        r = mid;
       }
     }
 
     if (target == mountainArr.get(l)) return l;
-    int l = peak + 1;
-    int r = len - 1;
+    l = peak + 1;
+    r = len - 1;
 
     while (l < r) {
       int mid = (l + r) / 2;
@@ -121,9 +121,11 @@ class Solution {
         // still increasing
         l = mid + 1;
       } else {
-        r = mid - 1;
+        r = mid;
       }
     }
+
+    if (target == mountainArr.get(r)) return r;
 
     return -1;
   }
