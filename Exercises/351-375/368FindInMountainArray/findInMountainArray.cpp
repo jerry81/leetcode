@@ -68,6 +68,9 @@ Acceptance Rate
 class Solution {
 public:
     int findInMountainArray(int target, MountainArray &mountainArr) {
-
+      // binary search find peak
+      // binary search find target in first half
+      // binary search find target in second half
+      return -1;
     }
 };
