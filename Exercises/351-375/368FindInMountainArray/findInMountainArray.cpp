@@ -117,7 +117,7 @@ class Solution {
       int v = mountainArr.get(mid);
       if (v == target) return mid;
 
-      if (target > v) {
+      if (target < v) {
         // still increasing
         l = mid + 1;
       } else {
