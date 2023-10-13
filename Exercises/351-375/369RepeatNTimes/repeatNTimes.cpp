@@ -57,7 +57,7 @@ public:
       for (int num:nums) {
         freq[num]++;
       }
-      for (auto [k,v]:nums) {
+      for (auto [k,v]:freq) {
         if (n == v) return k;
       }
       return -1;
