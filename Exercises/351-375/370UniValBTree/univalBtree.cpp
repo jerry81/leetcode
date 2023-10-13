@@ -61,6 +61,15 @@ struct TreeNode {
 };
 
 class Solution {
+  bool r(TreeNode* cur, int &v) {
+    if (cur == nullptr) return true;
+    if (cur->val != v) return false;
+
+    return r(cur->left, v) && r(cur->right, v);
+  }
  public:
-  bool isUnivalTree(TreeNode *root) {}
+  bool isUnivalTree(TreeNode *root) {
+    int v = root->val;
+    return r(root, v);
+  }
 };
