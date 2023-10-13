@@ -44,12 +44,22 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int repeatedNTimes(vector<int>& nums) {
-
+      int len = nums.size();
+      int n = len / 2;
+      unordered_map<int, int> freq;
+      for (int num:nums) {
+        freq[num]++;
+      }
+      for (auto [k,v]:nums) {
+        if (n == v) return k;
+      }
+      return -1;
     }
 };
