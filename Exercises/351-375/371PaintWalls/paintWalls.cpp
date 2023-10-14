@@ -55,16 +55,23 @@ using namespace std;
 
 class Solution {
   vector<vector<int>> dp;
-  int r(int idx, int remain, int& s) {
+  int r(int idx, int remain, int& s, vector<int>& cost, vector<int>& time) {
     if (remain == 0) return 0;
 
     if (idx >= s) return INT_MAX;
+
+    if (dp[idx][remain] >= 0) return dp[idx][remain];
+
+    int c = cost[idx];
+    int t = time[idx];
+    int nxtI = idx + 1;
+    int take = c + r(nxtI, remain - 1 - time, s, cost, time);
   }
 
  public:
   int paintWalls(vector<int>& cost, vector<int>& time) {
     int sz = cost.size();
     dp.resize(sz, vector<int>(sz, -1));
-    return r(0, sz, sz);
+    return r(0, sz, sz, cost, time);
   }
 };
