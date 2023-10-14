@@ -49,16 +49,18 @@ Acceptance Rate
 
 */
 
+#include <cmath>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-  vector<vector<int>> dp;
+  const int MX = pow(10, 8) * 5 + 1;
+  vector<vector<long long int>> dp;
   int r(int idx, int remain, int& s, vector<int>& cost, vector<int>& time) {
-    if (remain == 0) return 0;
+    if (remain <= 0) return 0;
 
-    if (idx >= s) return INT_MAX;
+    if (idx >= s) return MX;
 
     if (dp[idx][remain] >= 0) return dp[idx][remain];
 
@@ -66,7 +68,7 @@ class Solution {
     int t = time[idx];
     int nxtI = idx + 1;
     int take = c + r(nxtI, remain - 1 - t, s, cost, time);
-    int leave = c + r(nxtI, remain, s,cost,time);
+    int leave = r(nxtI, remain, s, cost, time);
     dp[idx][remain] = min(take, leave);
     return dp[idx][remain];
   }
@@ -74,7 +76,7 @@ class Solution {
  public:
   int paintWalls(vector<int>& cost, vector<int>& time) {
     int sz = cost.size();
-    dp.resize(sz, vector<int>(sz, -1));
+    dp.resize(sz, vector<int>(sz + 1, -1));
     return r(0, sz, sz, cost, time);
   }
 };
