@@ -5,7 +5,9 @@ Easy
 2.9K
 396
 Companies
-Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
+Given an integer array nums, return the largest perimeter of a triangle with a
+non-zero area, formed from three of these lengths. If it is impossible to form
+any triangle of a non-zero area, return 0.
 
 
 
@@ -22,7 +24,8 @@ Explanation:
 You cannot use the side lengths 1, 1, and 2 to form a triangle.
 You cannot use the side lengths 1, 1, and 10 to form a triangle.
 You cannot use the side lengths 1, 2, and 10 to form a triangle.
-As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
+As we cannot use any three side lengths to form a triangle of non-zero area, we
+return 0.
 
 
 Constraints:
@@ -42,22 +45,25 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int largestPerimeter(vector<int>& nums) {
-      // rule of a triangle
-      // a+b > c
-      // sort(nums.begin(),nums.end(), greater<int>());
-      int res = 0;
-      int s = nums.size();
-      for (int i = 0; i < s-2; ++i) {
-        for (int j = i+1; j < s-1; ++j) {
-          for (int k = j+1; k < s-2; ++k) {
-            if (nums[i] < nums[j]+nums[k]) {
-               res = max(res, nums[i]+nums[j]+nums[k]);
-            }
+ public:
+  int largestPerimeter(vector<int>& nums) {
+    // rule of a triangle
+    // a+b > c
+    // sort(nums.begin(),nums.end(), greater<int>());
+    int res = 0;
+    int s = nums.size();
+    for (int i = 0; i < s - 2; ++i) {
+      for (int j = i + 1; j < s - 1; ++j) {
+        for (int k = j + 1; k < s; ++k) {
+          vector<int> tmp;
+          tmp = {nums[i], nums[j], nums[k]};
+          sort(tmp.begin(), tmp.end());
+          if (tmp[2] < tmp[1] + tmp[0]) {
+            res = max(res, nums[i] + nums[j] + nums[k]);
           }
         }
       }
-      return res;
     }
+    return res;
+  }
 };
