@@ -65,7 +65,10 @@ class Solution {
     int c = cost[idx];
     int t = time[idx];
     int nxtI = idx + 1;
-    int take = c + r(nxtI, remain - 1 - time, s, cost, time);
+    int take = c + r(nxtI, remain - 1 - t, s, cost, time);
+    int leave = c + r(nxtI, remain, s,cost,time);
+    dp[idx][remain] = min(take, leave);
+    return dp[idx][remain];
   }
 
  public:
