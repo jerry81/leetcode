@@ -56,7 +56,7 @@ using namespace std;
 
 class Solution {
   const int MX = pow(10, 8) * 5 + 1;
-  vector<vector<long long int>> dp;
+  vector<vector<int>> dp;
   int r(int idx, int remain, int& s, vector<int>& cost, vector<int>& time) {
     if (remain <= 0) return 0;
 
