@@ -49,21 +49,13 @@ class Solution {
   int largestPerimeter(vector<int>& nums) {
     // rule of a triangle
     // a+b > c
-    // sort(nums.begin(),nums.end(), greater<int>());
-    int res = 0;
     int s = nums.size();
+    sort(nums.begin(), nums.end(), greater<int>());
     for (int i = 0; i < s - 2; ++i) {
-      for (int j = i + 1; j < s - 1; ++j) {
-        for (int k = j + 1; k < s; ++k) {
-          vector<int> tmp;
-          tmp = {nums[i], nums[j], nums[k]};
-          sort(tmp.begin(), tmp.end());
-          if (tmp[2] < tmp[1] + tmp[0]) {
-            res = max(res, nums[i] + nums[j] + nums[k]);
-          }
-        }
-      }
+      int j = i + 1;
+      int k = j + 1;
+      if (nums[i] < nums[j] + nums[k]) return nums[i] + nums[j] + nums[k];
     }
-    return res;
+    return 0;
   }
 };
