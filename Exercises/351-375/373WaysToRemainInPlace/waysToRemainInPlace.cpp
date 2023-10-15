@@ -73,11 +73,11 @@ class Solution {
       return 1;
     }
 
-    int curRes = r(steps - 1, idx, l) % MOD;
+    long long int curRes = r(steps - 1, idx, l) % MOD;
     curRes += r(steps - 1, idx - 1, l) % MOD;
     curRes += r(steps - 1, idx + 1, l) % MOD;
-    memo[steps][idx] = curRes;
-    return curRes;
+    memo[steps][idx] = curRes % MOD;
+    return memo[steps][idx];
   }
 
  public:
