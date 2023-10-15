@@ -65,6 +65,10 @@ class Solution {
 
     if (steps < 0) return 0;
 
+    if (idx > steps) return 0;
+
+    if (idx == steps) return 1;
+
     if (memo[steps][idx] >= 0) return memo[steps][idx];
 
     if (steps == 0) {
@@ -73,9 +77,9 @@ class Solution {
       return 1;
     }
 
-    long long int curRes = r(steps - 1, idx, l) % MOD;
-    curRes += r(steps - 1, idx - 1, l) % MOD;
-    curRes += r(steps - 1, idx + 1, l) % MOD;
+    long long int curRes += r(steps - 1, idx, l) % MOD;
+    if (idx > 0) curRes += r(steps - 1, idx - 1, l) % MOD;
+    if (idx < (l-1)) curRes += r(steps - 1, idx + 1, l) % MOD;
     memo[steps][idx] = curRes % MOD;
     return memo[steps][idx];
   }
