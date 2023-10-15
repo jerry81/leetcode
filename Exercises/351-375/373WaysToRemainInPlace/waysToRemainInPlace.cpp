@@ -67,23 +67,23 @@ class Solution {
 
     if (memo[steps][idx] >= 0) return memo[steps][idx];
 
-    if (idx == 0) {
-      if (steps > 0) return 0;
+    if (steps == 0) {
+      if (idx != 0) return 0;
 
       return 1;
     }
 
-    memo[steps][idx] =
-        (r(steps - 1, idx, l) % MOD + r(steps - 1, idx - 1, l) % MOD +
-         r(steps - 1, idx + 1, l) % MOD) %
-        MOD;
-    return memo[steps][idx];
+    int curRes = r(steps - 1, idx, l) % MOD;
+    curRes += r(steps - 1, idx - 1, l) % MOD;
+    curRes += r(steps - 1, idx + 1, l) % MOD;
+    memo[steps][idx] = curRes;
+    return curRes;
   }
 
  public:
   int numWays(int steps, int arrLen) {
     // recursion
-    memo.resize(steps, vector<int>(arrLen, -1));
+    memo.resize(steps + 1, vector<int>(arrLen + 1, -1));
     return r(steps, 0, arrLen);
   }
 };
