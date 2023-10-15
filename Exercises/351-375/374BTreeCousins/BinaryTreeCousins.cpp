@@ -63,6 +63,10 @@ Acceptance Rate
  * };
  */
 
+#include <unordered_map>
+
+using namespace std;
+
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -72,7 +76,20 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
 class Solution {
+  unordered_map<int, int> depths;
+  void r(TreeNode *root, int depth) {
+    if (root == nullptr) return;
+    depths[root->val] = depth;
+    int nd = depth + 1;
+    r(root->left, nd);
+    r(root->right, nd);
+  }
+
  public:
-  bool isCousins(TreeNode *root, int x, int y) {}
+  bool isCousins(TreeNode *root, int x, int y) {
+    r(root, 0);
+    return depths[x] == depths[y];
+  }
 };
