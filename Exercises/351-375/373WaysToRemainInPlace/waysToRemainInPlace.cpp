@@ -77,7 +77,7 @@ class Solution {
       return 1;
     }
 
-    long long int curRes += r(steps - 1, idx, l) % MOD;
+    long long int curRes = r(steps - 1, idx, l) % MOD;
     if (idx > 0) curRes += r(steps - 1, idx - 1, l) % MOD;
     if (idx < (l-1)) curRes += r(steps - 1, idx + 1, l) % MOD;
     memo[steps][idx] = curRes % MOD;
@@ -87,6 +87,7 @@ class Solution {
  public:
   int numWays(int steps, int arrLen) {
     // recursion
+    arrLen = min(arrLen,steps); // wtf!
     memo.resize(steps + 1, vector<int>(arrLen + 1, -1));
     return r(steps, 0, arrLen);
   }
