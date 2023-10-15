@@ -78,18 +78,21 @@ struct TreeNode {
 };
 
 class Solution {
-  unordered_map<int, int> depths;
-  void r(TreeNode *root, int depth) {
+  unordered_map<int, pair<int,int>> depths;
+  void r(TreeNode *root, int depth, int parent) {
     if (root == nullptr) return;
-    depths[root->val] = depth;
+    int v = root->val;
+    depths[root->val] = {depth, parent};
     int nd = depth + 1;
-    r(root->left, nd);
-    r(root->right, nd);
+    r(root->left, nd, v);
+    r(root->right, nd, v);
   }
 
  public:
   bool isCousins(TreeNode *root, int x, int y) {
-    r(root, 0);
-    return depths[x] == depths[y];
+    r(root, 0, -1);
+    pair<int,int> xd = depths[x];
+    pair<int,int> yd = depths[y];
+    return xd.first == yd.first && xd.second != yd.second;
   }
 };
