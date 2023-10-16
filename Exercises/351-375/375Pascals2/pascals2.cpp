@@ -4,9 +4,11 @@ Easy
 4.2K
 313
 Companies
-Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's
+triangle.
 
-In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+In Pascal's triangle, each number is the sum of the two numbers directly above
+it as shown:
 
 
 
@@ -30,7 +32,8 @@ Constraints:
 0 <= rowIndex <= 33
 
 
-Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?
+Follow up: Could you optimize your algorithm to use only O(rowIndex) extra
+space?
 
 Accepted
 739.3K
@@ -45,23 +48,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    vector<int> getRow(int rowIndex) {
-        vector<int> cur = {1};
-        if (rowIndex == 0) return cur;
+ public:
+  vector<int> getRow(int rowIndex) {
+    vector<int> cur = {1};
+    if (rowIndex == 0) return cur;
 
-        cur.push_back(1);
-        if (rowIndex == 1) return cur;
+    cur.push_back(1);
+    if (rowIndex == 1) return cur;
 
-        for (int i = 2; i <= rowIndex; ++i) {
-          vector<int> nxt = {1};
-          for (int j = 0; j < cur.size()-1; ++j) {
-            nxt.push_back(cur[j]+cur[j+1]);
-          }
-          nxt.push_back(1);
-          cur = nxt;
-        }
-        return cur;
-
+    for (int i = 2; i <= rowIndex; ++i) {
+      vector<int> nxt = {1};
+      for (int j = 0; j < cur.size() - 1; ++j) {
+        nxt.push_back(cur[j] + cur[j + 1]);
+      }
+      nxt.push_back(1);
+      cur = nxt;
     }
+    return cur;
+  }
 };
