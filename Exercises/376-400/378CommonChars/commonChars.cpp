@@ -44,32 +44,35 @@ using namespace std;
 class Solution {
  public:
   vector<string> commonChars(vector<string>& words) {
-    vector<unordered_map<char, int>> freqs;
-    for (string w : words) {
-      unordered_map<char,int> tmp;
-      for (char c: w) {
-        tmp[c]++;
-      }
-    }
-    // brute force?
-    vector<string> res;
-    for (char c = 'a'; c <= 'z'; ++c) {
-      bool missing = false;
-      int count = INT_MAX;
-      for (auto a: freqs) {
-        if (a.find(c) == a.end()) {
-          missing = true;
-          break;
-        }
 
-        count = min(count, a[c]);
+    string foist = words.front();
+    vector<string> ret;
+    unordered_map<char, int> freq;
+    for (char c: foist) {
+      freq[c]++;
+      ret.push_back(string(1,c));
+    }
+
+    if (words.size() == 1) return ret;
+
+    ret = {};
+
+    for (int i = 1; i < words.size(); ++i) {
+      string cur = words[i];
+      unordered_map<char, int> cfreq;
+      for (char c: cur) {
+        if (foist.find(c) == string::npos) continue;
+        cfreq[c]++;
       }
-      if (!missing) {
-        for (int i = 0; i < count; ++i) {
-          res.push_back(string(1,c));
-        }
+      for (auto a: freq) {
+        freq[a.first] = min(freq[a.first], cfreq[a.first]);
       }
     }
-    return res;
+    for (auto a: freq) {
+      for (int i = 0; i < a.second; ++i) {
+        ret.push_back(string(1,a.first));
+      }
+    }
+    return ret;
   }
 };
