@@ -49,11 +49,23 @@ Acceptance Rate
 
 #include <vector>
 
+
 using namespace std;
 
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-
+      // make in/outdegree map
+      // return indegree n outdegree 0
+      vector<int> indegrees(n+1, 0);
+      vector<int> outdegrees(n+1, 0);
+      for (auto a: trust) {
+        outdegrees[a[0]]++;
+        indegrees[a[1]]++;
+      }
+      for (int i = 1; i <= n; ++i) {
+        if (outdegrees[i] == 0 && indegrees[i] == n) return i;
+      }
+      return 0;
     }
 };
