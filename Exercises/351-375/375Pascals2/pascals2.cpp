@@ -47,6 +47,21 @@ using namespace std;
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
+        vector<int> cur = {1};
+        if (rowIndex == 0) return cur;
+
+        cur.push_back(1);
+        if (rowIndex == 1) return cur;
+
+        for (int i = 2; i <= rowIndex; ++i) {
+          vector<int> nxt = {1};
+          for (int j = 0; j < cur.size()-1; ++j) {
+            nxt.push_back(cur[j]+cur[j+1]);
+          }
+          nxt.push_back(1);
+          cur = nxt;
+        }
+        return cur;
 
     }
 };
