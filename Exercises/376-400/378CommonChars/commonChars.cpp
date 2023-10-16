@@ -5,7 +5,9 @@ Easy
 3.4K
 269
 Companies
-Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates). You may return the answer in any order.
+Given a string array words, return an array of all characters that show up in
+all strings within the words (including duplicates). You may return the answer
+in any order.
 
 
 
@@ -33,14 +35,41 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<string> commonChars(vector<string>& words) {
-
+ public:
+  vector<string> commonChars(vector<string>& words) {
+    vector<unordered_map<char, int>> freqs;
+    for (string w : words) {
+      unordered_map<char,int> tmp;
+      for (char c: w) {
+        tmp[c]++;
+      }
     }
+    // brute force?
+    vector<string> res;
+    for (char c = 'a'; c <= 'z'; ++c) {
+      bool missing = false;
+      int count = INT_MAX;
+      for (auto a: freqs) {
+        if (a.find(c) == a.end()) {
+          missing = true;
+          break;
+        }
+
+        count = min(count, a[c]);
+      }
+      if (!missing) {
+        for (int i = 0; i < count; ++i) {
+          res.push_back(string(1,c));
+        }
+      }
+    }
+    return res;
+  }
 };
