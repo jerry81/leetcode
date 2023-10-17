@@ -66,13 +66,13 @@ class Solution {
     // two directional edge
     // only one root (no parent)
     int rootCount = n;
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
       nodes[i] = new Node();
     }
-    int counter = 1;
+    int counter = 0;
     for (int i : leftChild) {
       // populate i's parent
-      if (i >= 1) {
+      if (i >= 0) {
         if (nodes[i]->parent == -1) {
           rootCount--;
           nodes[i]->parent = counter;
@@ -86,9 +86,10 @@ class Solution {
       }
       counter++;
     }
+    counter = 0;
     for (int i : rightChild) {
       // populate i's parent
-      if (i >= 1) {
+      if (i >= 0) {
         if (nodes[i]->parent == -1) {
           rootCount--;
           nodes[i]->parent = counter;
