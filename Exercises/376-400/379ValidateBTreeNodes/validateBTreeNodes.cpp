@@ -55,6 +55,7 @@ using namespace std;
 
 struct Node {
   int parent = -1;
+  int root = -1;
 };
 
 class Solution {
@@ -76,6 +77,8 @@ class Solution {
         if (nodes[i]->parent == -1) {
           rootCount--;
           nodes[i]->parent = counter;
+          nodes[i]->root =
+              nodes[counter]->root >= 0 ? nodes[counter]->root : counter;
         } else if (nodes[i]->parent != counter) {
           // 2 parents
           return false;
@@ -86,6 +89,7 @@ class Solution {
           // 2 direction
           return false;
         }
+        if (nodes[i]->root == i) return false;
       }
       counter++;
     }
@@ -96,6 +100,8 @@ class Solution {
         if (nodes[i]->parent == -1) {
           rootCount--;
           nodes[i]->parent = counter;
+          nodes[i]->root =
+              nodes[counter]->root >= 0 ? nodes[counter]->root : counter;
         } else if (nodes[i]->parent != counter) {
           // 2 parents
           return false;
@@ -106,6 +112,7 @@ class Solution {
           // 2 direction
           return false;
         }
+        if (nodes[i]->root == i) return false;
       }
       counter++;
     }
