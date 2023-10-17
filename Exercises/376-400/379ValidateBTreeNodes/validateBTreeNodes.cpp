@@ -48,8 +48,8 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -58,11 +58,28 @@ struct Node {
 };
 
 class Solution {
+  unordered_map<int, Node*> nodes;
+
  public:
-  bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
+  bool validateBinaryTreeNodes(int n, vector<int>& leftChild,
+                               vector<int>& rightChild) {
     // more than two parents
     // two directional edge
-    for (int i: leftChild) {
+    // only one root (no parent)
+    int rootCount = n;
+    for (int i = 1; i <= n; ++i) {
+      nodes[i] = new Node();
+    }
+    int counter = 1;
+    for (int i : leftChild) {
+      // populate i's parent
+      if (i >= 1) {
+        if (nodes[i]->parent == nullptr) {
+          rootCount--;
+          nodes[i]->parent = counter;
+        }
+      }
+      counter++;
     }
   }
 };
