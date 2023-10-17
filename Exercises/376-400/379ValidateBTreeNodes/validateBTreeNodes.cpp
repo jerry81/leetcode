@@ -54,7 +54,7 @@ Acceptance Rate
 using namespace std;
 
 struct Node {
-  Node* parent;
+  int parent = -1;
 };
 
 class Solution {
@@ -63,7 +63,6 @@ class Solution {
  public:
   bool validateBinaryTreeNodes(int n, vector<int>& leftChild,
                                vector<int>& rightChild) {
-    // more than two parents
     // two directional edge
     // only one root (no parent)
     int rootCount = n;
@@ -74,12 +73,19 @@ class Solution {
     for (int i : leftChild) {
       // populate i's parent
       if (i >= 1) {
-        if (nodes[i]->parent == nullptr) {
+        if (nodes[i]->parent == -1) {
           rootCount--;
           nodes[i]->parent = counter;
+        } else if (nodes[i]->parent != counter) {
+          // 2 parents
+          return false;
+        } else if (nodes[counter]->parent == i) {
+          // 2 direction
+          return false;
         }
       }
       counter++;
     }
+    return rootCount == 1;
   }
 };
