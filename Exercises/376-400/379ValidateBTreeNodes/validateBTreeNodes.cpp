@@ -79,7 +79,10 @@ class Solution {
         } else if (nodes[i]->parent != counter) {
           // 2 parents
           return false;
-        } else if (nodes[counter]->parent == i) {
+        }
+        if (nodes[counter]->parent == i &&
+            nodes[i]->parent ==
+                counter) {  // already assumed nodes[i]->parent == counter
           // 2 direction
           return false;
         }
@@ -96,7 +99,10 @@ class Solution {
         } else if (nodes[i]->parent != counter) {
           // 2 parents
           return false;
-        } else if (nodes[counter]->parent == i) {
+        }
+        if (nodes[counter]->parent == i &&
+            nodes[i]->parent ==
+                counter) {  // already assumed nodes[i]->parent == counter
           // 2 direction
           return false;
         }
