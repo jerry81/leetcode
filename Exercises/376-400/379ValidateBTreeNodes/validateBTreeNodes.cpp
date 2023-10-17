@@ -86,6 +86,22 @@ class Solution {
       }
       counter++;
     }
+    for (int i : rightChild) {
+      // populate i's parent
+      if (i >= 1) {
+        if (nodes[i]->parent == -1) {
+          rootCount--;
+          nodes[i]->parent = counter;
+        } else if (nodes[i]->parent != counter) {
+          // 2 parents
+          return false;
+        } else if (nodes[counter]->parent == i) {
+          // 2 direction
+          return false;
+        }
+      }
+      counter++;
+    }
     return rootCount == 1;
   }
 };
