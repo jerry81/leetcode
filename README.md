@@ -51,6 +51,17 @@ leetcode solutions
 
 - you need two pointers - one to the head of the new tree
 - another for the tail.
+
+## Khan's Topological Sort
+
+- application - 380 - parallel courses 3
+- only for directed Acyclic graph
+- calculate indegrees for all nodes
+- use queue - store current indegree==0
+- iterate through lowest indegrees (0)
+  - while updating indegrees for their neighbors
+  - push to queue if indegree 0
+
 # TIL
 
 ```
