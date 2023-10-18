@@ -75,10 +75,11 @@ using namespace std;
 
 class Solution {
   struct Node {
+    int tidx = -1;
     int indegree = 0;
     vector<int> neighbors;
     int accum = 0;
-    Node(int accum) : accum(accum) {}
+    Node(int accum, int tidx) : accum(accum), tidx(tidx) {}
   };
 
   unordered_map<int, Node*> nodes;
@@ -88,7 +89,8 @@ class Solution {
     int counter = 1;
 
     for (int t : time) {
-      nodes[counter] = new Node(t);
+      nodes[counter] = new Node(t, counter - 1);
+
       counter++;
     }
     // make indegrees list
@@ -99,20 +101,31 @@ class Solution {
       nodes[depended]->neighbors.push_back(dependent);
     }
 
-    queue<Node*> nn;
+    queue<int> nn;
 
-    for (auto [idx,node]: nodes) {
-      if (node->indegree == 0) nn.push(node);
+    for (auto [idx, node] : nodes) {
+      if (node->indegree == 0) nn.push(idx);
     }
+
+    int res = 0;
 
     while (!nn.empty()) {
-      Node* f = nn.front();
+      int fi = nn.front();
       nn.pop();
-      for (int neigh: f->neighbors) {
+      Node* f = nodes[fi];
+      for (int neigh : f->neighbors) {
         Node* cur = nodes[neigh];
-
+        int newIn = cur->indegree - 1;
+        cur->indegree = newIn;
+        int neighT = time[cur->tidx];
+        int newAccum = max(neighT + f->accum, cur->accum);
+        res = max(res, newAccum);
+        cur->accum = newAccum;
+        nodes[neigh] = cur;
+        if (newIn == 0) nn.push(neigh);
       }
     }
+    return res;
     // or outdegree/indegrees?
     // times zero indexed
     // labels 1 indexed
