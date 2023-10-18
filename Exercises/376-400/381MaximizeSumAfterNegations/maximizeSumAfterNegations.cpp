@@ -52,6 +52,11 @@ using namespace std;
 class Solution {
 public:
     int largestSumAfterKNegations(vector<int>& nums, int k) {
-
+      vector<int> sorted = nums;
+      sort(sorted.begin(),sorted.end());
+      for (int i: sorted) {
+        cout << i << endl;
+      }
+      return 0;
     }
 };
