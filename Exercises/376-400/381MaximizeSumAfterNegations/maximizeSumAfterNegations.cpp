@@ -60,18 +60,16 @@ class Solution {
     for (int i : nums) {
       sum += i;
     }
-    for (int s: sorted) {
-
-      cout << s << endl;
-    }
     int idx = 0;
     while (k > 0) {
-      if (sorted[idx] < 0) {
-        sum += (2 * sorted[idx]);
+      int orig = sorted[idx];
+      sorted[idx] *= -1;
+      if (orig < 0) {
         idx++;
-      } else {
-        sum -= (2 * sorted[idx]);
       }
+
+      sum -= (2 * orig);
+
       k--;
     }
     return sum;
