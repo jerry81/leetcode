@@ -67,6 +67,7 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <unordered_map>
 #include <vector>
 
@@ -85,6 +86,7 @@ class Solution {
  public:
   int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
     int counter = 1;
+
     for (int t : time) {
       nodes[counter] = new Node(t);
       counter++;
@@ -97,6 +99,20 @@ class Solution {
       nodes[depended]->neighbors.push_back(dependent);
     }
 
+    queue<Node*> nn;
+
+    for (auto [idx,node]: nodes) {
+      if (node->indegree == 0) nn.push(node);
+    }
+
+    while (!nn.empty()) {
+      Node* f = nn.front();
+      nn.pop();
+      for (int neigh: f->neighbors) {
+        Node* cur = nodes[neigh];
+
+      }
+    }
     // or outdegree/indegrees?
     // times zero indexed
     // labels 1 indexed
