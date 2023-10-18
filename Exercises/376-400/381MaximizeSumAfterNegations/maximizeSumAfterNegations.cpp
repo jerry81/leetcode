@@ -5,10 +5,12 @@ Easy
 1.4K
 104
 Companies
-Given an integer array nums and an integer k, modify the array in the following way:
+Given an integer array nums and an integer k, modify the array in the following
+way:
 
 choose an index i and replace nums[i] with -nums[i].
-You should apply this process exactly k times. You may choose the same index i multiple times.
+You should apply this process exactly k times. You may choose the same index i
+multiple times.
 
 Return the largest possible sum of the array after modifying it in this way.
 
@@ -50,13 +52,24 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int largestSumAfterKNegations(vector<int>& nums, int k) {
-      vector<int> sorted = nums;
-      sort(sorted.begin(),sorted.end());
-      for (int i: sorted) {
-        cout << i << endl;
-      }
-      return 0;
+ public:
+  int largestSumAfterKNegations(vector<int>& nums, int k) {
+    vector<int> sorted = nums;
+    sort(sorted.begin(), sorted.end());
+    int sum = 0;
+    for (int i : nums) {
+      sum += i;
     }
+    int idx = 0;
+    while (k > 0) {
+      if (nums[idx] < 0) {
+        sum += 2 * nums[idx];
+        idx++;
+      } else {
+        nums[idx] -= 2 * nums[idx];
+      }
+      k--;
+    }
+    return sum;
+  }
 };
