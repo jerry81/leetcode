@@ -47,30 +47,27 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <vector>
 
 using namespace std;
-
 class Solution {
  public:
   int largestSumAfterKNegations(vector<int>& nums, int k) {
-    vector<int> sorted = nums;
-    sort(sorted.begin(), sorted.end());
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
     int sum = 0;
     for (int i : nums) {
       sum += i;
+      minHeap.push(i);
     }
-    int idx = 0;
-    while (k > 0) {
-      int orig = sorted[idx];
-      sorted[idx] *= -1;
-      if (orig < 0) {
-        idx++;
-      }
-
-      sum -= (2 * orig);
-
-      k--;
+    for (int i = 0; i < k; ++i) {
+      int cur = minHeap.top();
+      cur*=-1;
+      sum+=cur;
+      sum+=cur;
+      minHeap.pop();
+      minHeap.push(cur);
     }
     return sum;
   }
