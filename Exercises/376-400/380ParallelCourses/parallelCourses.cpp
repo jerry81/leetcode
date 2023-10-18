@@ -88,7 +88,7 @@ class Solution {
   int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
     if (time.size() == 1) return time[0];
 
-    if (relations.empty()) return *max_element(time.begin(),time.end());
+    if (relations.empty()) return *max_element(time.begin(), time.end());
 
     int counter = 1;
 
@@ -107,11 +107,11 @@ class Solution {
 
     queue<int> nn;
 
+    int res = 0;
     for (auto [idx, node] : nodes) {
       if (node->indegree == 0) nn.push(idx);
+      res = max(res, node->accum);
     }
-
-    int res = 0;
 
     while (!nn.empty()) {
       int fi = nn.front();
