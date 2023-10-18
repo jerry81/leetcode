@@ -86,6 +86,10 @@ class Solution {
 
  public:
   int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
+    if (time.size() == 1) return time[0];
+
+    if (relations.empty()) return *max_element(time.begin(),time.end());
+
     int counter = 1;
 
     for (int t : time) {
