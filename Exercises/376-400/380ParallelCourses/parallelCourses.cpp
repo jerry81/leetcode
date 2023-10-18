@@ -67,14 +67,36 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
+  struct Node {
+    int indegree = 0;
+    vector<int> neighbors;
+    int accum = 0;
+    Node(int accum) : accum(accum) {}
+  };
+
+  unordered_map<int, Node*> nodes;
+
  public:
   int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
-    // make dep graph
+    int counter = 1;
+    for (int t : time) {
+      nodes[counter] = new Node(t);
+      counter++;
+    }
+    // make indegrees list
+    for (vector<int> v : relations) {
+      int depended = v[0];
+      int dependent = v[1];
+      nodes[dependent]->indegree++;
+      nodes[depended]->neighbors.push_back(dependent);
+    }
+
     // or outdegree/indegrees?
     // times zero indexed
     // labels 1 indexed
@@ -101,4 +123,14 @@ do 1,2 3 first
 5+ max indegrees
 do 4 next
 
+indegrees:
+
+1 - 0, 2 - 0, 3 - 0, 4 - 1, 5 - 4
+
+1,2,3
+- 5 -> 9
+- 4 -> 7
+- indegree 0
+4
+- 5 -> 12
 */
