@@ -58,13 +58,13 @@ class Solution {
       cursum = i + cursum;
       psums.push_back(cursum);
     }
+    int sum3 = psums.back();
     for (int ptr1 = 0; ptr1 < sz - 2; ++ptr1) {
+      int sum1 = psums[ptr1];
+      if (sum3 != 3 * sum1) continue;
       for (int ptr2 = ptr1 + 1; ptr2 < sz - 1; ++ptr2) {
-        int sum1 = psums[ptr1];
-        int sum2 = psums[ptr2] - psums[ptr1];
-        if (sum2 != sum1) continue;
-        int sum3 = psums.back() - psums[ptr2];
-        if (sum3 == sum2) return true;
+        int sum2 = psums[ptr2];
+        if (sum2 == 2 * sum1) return true;
       }
     }
     return false;
