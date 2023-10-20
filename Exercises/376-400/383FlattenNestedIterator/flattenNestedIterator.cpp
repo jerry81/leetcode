@@ -92,12 +92,23 @@ class NestedInteger {
 };
 
 class NestedIterator {
+ vector<NestedInteger> stk;
+ int ptr = 0;
+ int sz;
+
  public:
-  NestedIterator(vector<NestedInteger> &nestedList) {}
+  NestedIterator(vector<NestedInteger> &nestedList) {
+    stk = nestedList;
+    sz = nestedList.size();
+  }
 
-  int next() {}
+  int next() {
+    if ()
+  }
 
-  bool hasNext() {}
+  bool hasNext() {
+    return ptr < sz-1;
+  }
 };
 
 /**
