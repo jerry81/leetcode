@@ -92,32 +92,39 @@ class NestedInteger {
 };
 
 class NestedIterator {
- vector<NestedInteger> stk;
- vector<int> ptrs = {0};
+  vector<NestedInteger> stk;
+  vector<int> ptrs = {0};
+  vector<int> flattened;
+  int ptr = 0;
+  int sz;
 
  public:
   NestedIterator(vector<NestedInteger> &nestedList) {
     stk = nestedList;
+    sz = nestedList.size();
+    for (NestedInteger ni : nestedList) {
+      if (ni.isInteger()) {
+        flattened.push_back(ni.getInteger());
+      } else {
+        vector<NestedInteger> lst = ni.getList();
+        NestedIterator *iter = new NestedIterator(lst);
+        vector<int> nFl = iter->getFlattened();
+        flattened.insert(flattened.end(), nFl.begin(), nFl.end());
+      }
+    }
+    sz = flattened.size();
   }
 
+  vector<int> getFlattened() { return flattened; }
+
   int next() {
-    NestedInteger cur = stk[sz];
-    if (cur.isInteger()) {
-      ptr++;
-    } else {
-      vector<NestedInteger> nl = cur.getList();
-      NestedIterator *ni = new NestedIterator(nl);
-    }
+    int ret = flattened[ptr];
+    ptr++;
+    return ret;
   }
 
   bool hasNext() {
-    while (!ptrs.empty()) {
-    }
+    // just check if the ptrs vector points to a valid item
+    return ptr < sz;
   }
 };
-
-/**
- * Your NestedIterator object will be instantiated and called as such:
- * NestedIterator i(nestedList);
- * while (i.hasNext()) cout << i.next();
- */
