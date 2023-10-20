@@ -93,21 +93,26 @@ class NestedInteger {
 
 class NestedIterator {
  vector<NestedInteger> stk;
- int ptr = 0;
- int sz;
+ vector<int> ptrs = {0};
 
  public:
   NestedIterator(vector<NestedInteger> &nestedList) {
     stk = nestedList;
-    sz = nestedList.size();
   }
 
   int next() {
-    if ()
+    NestedInteger cur = stk[sz];
+    if (cur.isInteger()) {
+      ptr++;
+    } else {
+      vector<NestedInteger> nl = cur.getList();
+      NestedIterator *ni = new NestedIterator(nl);
+    }
   }
 
   bool hasNext() {
-    return ptr < sz-1;
+    while (!ptrs.empty()) {
+    }
   }
 };
 
