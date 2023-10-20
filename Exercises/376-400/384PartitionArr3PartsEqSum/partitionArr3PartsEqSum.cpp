@@ -58,8 +58,8 @@ class Solution {
       cursum = i + cursum;
       psums.push_back(cursum);
     }
-    for (int ptr1 = 1; ptr1 < sz - 1; ++ptr1) {
-      for (int ptr2 = ptr1 + 1; ptr2 < sz; ++ptr2) {
+    for (int ptr1 = 0; ptr1 < sz - 2; ++ptr1) {
+      for (int ptr2 = ptr1 + 1; ptr2 < sz - 1; ++ptr2) {
         int sum1 = psums[ptr1];
         int sum2 = psums[ptr2] - psums[ptr1];
         if (sum2 != sum1) continue;
