@@ -5,9 +5,13 @@ Hard
 1.3K
 65
 Companies
-Given an integer array nums and an integer k, return the maximum sum of a non-empty subsequence of that array such that for every two consecutive integers in the subsequence, nums[i] and nums[j], where i < j, the condition j - i <= k is satisfied.
+Given an integer array nums and an integer k, return the maximum sum of a
+non-empty subsequence of that array such that for every two consecutive integers
+in the subsequence, nums[i] and nums[j], where i < j, the condition j - i <= k
+is satisfied.
 
-A subsequence of an array is obtained by deleting some number of elements (can be zero) from the array, leaving the remaining elements in their original order.
+A subsequence of an array is obtained by deleting some number of elements (can
+be zero) from the array, leaving the remaining elements in their original order.
 
 
 
@@ -46,13 +50,33 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int r(int i /* index */, vector<int> &nums, int &k, int &sz) {
-return 0;
-}
-public:
-    int constrainedSubsetSum(vector<int>& nums, int k) {
-      int sz = nums.size();
-      return r(0, nums, k, sz);
-      // dp + recursion
+  vector<int> memo;
+  int r(bool started, int i /* index */, vector<int> &nums, int &k, int &sz) {
+    if (i >= sz) return INT_MIN;
+
+    if (memo[i] > INT_MIN) return memo[i];
+
+    if (started) {
+      int mx = INT_MIN;
+      for (int j = 0; j <= k; ++j) {
+        int cur = j+i;
+        int take = nums[j] + r(true, cur+1, nums,k,sz);
+        mx = max(take,mx);
+      }
+      memo[i] = mx;
+    } else {
+      int take = nums[i] + r(true, i+1, nums,k,sz);
+      int leave = r(false, i+1, nums,k,sz);
+      memo[i] = max(take,leave);
     }
+    return memo[i];
+  }
+
+ public:
+  int constrainedSubsetSum(vector<int> &nums, int k) {
+    int sz = nums.size();
+    memo.resize(sz, INT_MIN);
+    return r(false, 0, nums, k, sz);
+    // dp + recursion
+  }
 };
