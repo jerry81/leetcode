@@ -46,8 +46,13 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int r(int i /* index */, vector<int> &nums, int &k, int &sz) {
+return 0;
+}
 public:
     int constrainedSubsetSum(vector<int>& nums, int k) {
-
+      int sz = nums.size();
+      return r(0, nums, k, sz);
+      // dp + recursion
     }
 };
