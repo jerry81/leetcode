@@ -59,15 +59,15 @@ class Solution {
     if (started) {
       int mx = INT_MIN;
       for (int j = 0; j <= k; ++j) {
-        int cur = j+i;
-        int take = nums[j] + r(true, cur+1, nums,k,sz);
-        mx = max(take,mx);
+        int cur = j + i;
+        int take = nums[j] + r(true, cur + 1, nums, k, sz);
+        mx = max(take, mx);
       }
       memo[i] = mx;
     } else {
-      int take = nums[i] + r(true, i+1, nums,k,sz);
-      int leave = r(false, i+1, nums,k,sz);
-      memo[i] = max(take,leave);
+      int take = nums[i] + r(true, i + 1, nums, k, sz);
+      int leave = r(false, i + 1, nums, k, sz);
+      memo[i] = max(take, leave);
     }
     return memo[i];
   }
