@@ -57,18 +57,31 @@ struct State {
 };
 
 struct ComparePQ {
-  bool operator()(State *a, State *b) { return a->sum > b->sum; }
+  bool operator()(State *a, State *b) { return a->sum < b->sum; }
 };
 
 class Solution {
  public:
-  int constrainedSubsetSum(vector<int> &nums, int k) { int res = nums[0];
-      priority_queue<State*, vector<State*>, ComparePQ> pq;
-      pq.push(new State(10,1));
-      pq.push(new State(15,2));
-      pq.push(new State(8,3));
-      pq.push(new State(9,3));
-      cout << "expect 15 " << pq.top();
-      return 0;
- }
+  int constrainedSubsetSum(vector<int> &nums, int k) {
+    int res = nums[0];
+    priority_queue<State *, vector<State *>, ComparePQ> pq;
+    pq.push(new State(nums[0], 0));
+    for (int i = 1; i < nums.size(); ++i) {
+      // pop all between i and i-k
+
+      while (pq.top()->ridx < i - k) {
+        pq.pop();
+      }
+      State *tp = pq.top();
+      int addend = tp->sum;
+      int cur = nums[i];
+      if (addend > 0) {
+        // use 0 instead
+        cur += addend;
+      }
+      res = max(res, cur);
+      pq.push(new State(cur, i));
+    }
+    return res;
+  }
 };
