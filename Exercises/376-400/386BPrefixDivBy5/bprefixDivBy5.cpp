@@ -41,11 +41,22 @@ Acceptance Rate
 
 */
 
+#include <cmath>
 #include <vector>
 
 using namespace std;
 
 class Solution {
+
  public:
-  vector<bool> prefixesDivBy5(vector<int>& nums) {}
+  vector<bool> prefixesDivBy5(vector<int>& nums) {
+    vector<bool> res;
+    int cur = 0;
+    for (int i:nums) {
+      cur = (cur << 1) + i;
+      res.push_back(cur%5 == 0);
+      cur %= 5;
+    }
+    return res;
+  }
 };
