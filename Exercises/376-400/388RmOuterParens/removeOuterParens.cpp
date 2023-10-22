@@ -69,11 +69,11 @@ class Solution {
     string res = "";
     for (char c : s) {
       if (c == '(') {
-        if (cnt > 0) res+= "(";
+        if (cnt > 0) res += "(";
         cnt++;
       } else {
-        if (cnt > 0) res+= ")";
         cnt--;
+        if (cnt > 0) res += ")";
       }
     }
     return res;
