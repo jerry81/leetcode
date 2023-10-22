@@ -46,6 +46,16 @@ using namespace std;
 class Solution {
 public:
     int maximumScore(vector<int>& nums, int k) {
-
+      // try to maximize the min val in subarray
+      // try to maximize the length of the subarray
+      int ptr1 = k-1;
+      int ptr2 = k+1;
+      int res = nums[k];
+      int count = 1;
+      int mn = res;
+      int sz = nums.size();
+      while (ptr1 >= 0 && ptr2 < sz) {
+      }
+      return res;
     }
 };
