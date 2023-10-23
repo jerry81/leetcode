@@ -65,6 +65,14 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
+#include <vector>
+
+using namespace std;
+
+int r(TreeNode *root, vector<int> accum) {
+  if (root == nullptr) return 0;
+};
 class Solution {
  public:
   int sumRootToLeaf(TreeNode *root) {}
