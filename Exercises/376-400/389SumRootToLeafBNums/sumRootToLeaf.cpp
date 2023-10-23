@@ -66,14 +66,32 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <cmath>
 #include <vector>
 
 using namespace std;
 
 int r(TreeNode *root, vector<int> accum) {
   if (root == nullptr) return 0;
+
+  accum.push_back(root->val);
+
+  if (root->left == nullptr && root->right == nullptr) {
+    reverse(accum.begin(), accum.end());
+    int pwr = 0;
+    int tmp = 0;
+    for (int i : accum) {
+      if (i == 1) tmp += pow(2, pwr);
+      pwr++;
+    }
+    return tmp;
+  }
+
+  return r(root->left, accum) + r(root->right, accum);
 };
 class Solution {
  public:
-  int sumRootToLeaf(TreeNode *root) {}
+  int sumRootToLeaf(TreeNode *root) {
+    return r(root, {});
+  }
 };
