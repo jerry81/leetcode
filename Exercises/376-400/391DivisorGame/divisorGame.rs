@@ -44,16 +44,16 @@ Acceptance Rate
 impl Solution { // module Solution - equiv to class or struct
     pub fn divisor_game(n: i32) -> bool { // public, function, i32 - 32-bit signed integer returns bool
       // recursive min-max
-      return r(n,true);
+      return Solution::r(n,true);
     }
 
-    fn r(n: i32, bool alice) -> bool {
-        if (n == 1) return !alice;
+    fn r(n: i32, alice: bool) -> bool {
+        if n == 1 { return !alice; }
 
-        bool ret = false;
+        let mut ret:bool = false;
         for i in 1..(n/2) {
           if (n%i == 0) {
-            if (r(n/i, !alice)) ret = true;
+            if Solution::r(n/i, !alice) { ret = true; }
           }
         }
 
