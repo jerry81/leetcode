@@ -44,19 +44,20 @@ Acceptance Rate
 impl Solution { // module Solution - equiv to class or struct
     pub fn divisor_game(n: i32) -> bool { // public, function, i32 - 32-bit signed integer returns bool
       // recursive min-max
-      return Solution::r(n,true);
-    }
+      // with dp bottom-up
+      // from n = 1 to n/2... (max 500)
+      let mut dp: Vec<i8> = vec![-1;1001];
+      dp[1] = 0;
 
-    fn r(n: i32, alice: bool) -> bool {
-        if n == 1 { return !alice; }
-
-        let mut ret:bool = false;
-        for i in 1..(n/2) {
-          if (n%i == 0) {
-            if Solution::r(n/i, !alice) { ret = true; }
-          }
+      for let i in 2..n {
+        for let j in 1..i/2 {
+            if i % j == 0 {
+              if !dp[i-j] == 1 {
+                dp[i] = 1;
+              }
+            }
         }
-
-        return ret;
+      }
+      return dp[n] == 1;
     }
 }
