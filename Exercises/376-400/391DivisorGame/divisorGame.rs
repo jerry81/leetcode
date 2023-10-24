@@ -46,20 +46,23 @@ impl Solution { // module Solution - equiv to class or struct
       // recursive min-max
       // with dp bottom-up
       // from n = 1 to n/2... (max 500)
-      let mut dp: Vec<i8> = vec![-1;1001];
-      dp[1] = 0;
+      let mut dp: Vec<bool> = vec![false;1001];
+      dp[1] = false;
 
       let n = n as usize;
 
       for i in 2..n {
         for j in 1..i/2 {
             if i % j == 0 {
-              if !dp[i-j] == 1 {
-                dp[i] = 1;
+              if !dp[i-j] {
+                dp[i] = true;
               }
             }
         }
+        if !dp[i-1] {
+          dp[i] = true;
+        }
       }
-      return dp[n] == 1;
+      return dp[n];
     }
 }
