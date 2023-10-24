@@ -64,13 +64,15 @@ struct TreeNode {
 class Solution {
  public:
   vector<int> largestValues(TreeNode *root) {
+
     vector<int> res;
+    if (root==nullptr) return res;
     // bfs
     queue<TreeNode *> q;
     q.push(root);
     while (!q.empty()) {
       queue<TreeNode *> nxt;
-      int mx = 0;
+      int mx = INT_MIN;
       while (!q.empty()) {
         TreeNode *cur = q.front();
         q.pop();
