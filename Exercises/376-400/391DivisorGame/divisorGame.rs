@@ -49,8 +49,10 @@ impl Solution { // module Solution - equiv to class or struct
       let mut dp: Vec<i8> = vec![-1;1001];
       dp[1] = 0;
 
-      for let i in 2..n {
-        for let j in 1..i/2 {
+      let n = n as usize;
+
+      for i in 2..n {
+        for j in 1..i/2 {
             if i % j == 0 {
               if !dp[i-j] == 1 {
                 dp[i] = 1;
