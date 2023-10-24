@@ -51,16 +51,13 @@ impl Solution { // module Solution - equiv to class or struct
 
       let n = n as usize;
 
-      for i in 2..n {
-        for j in 1..i/2 {
+      for i in 2..n+1 { // doesn't include the upperbound!
+        for j in 1..i/2+1 {
             if i % j == 0 {
               if !dp[i-j] {
                 dp[i] = true;
               }
             }
-        }
-        if !dp[i-1] {
-          dp[i] = true;
         }
       }
       return dp[n];
