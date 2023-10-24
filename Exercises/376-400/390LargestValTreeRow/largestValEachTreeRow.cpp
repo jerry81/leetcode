@@ -66,6 +66,23 @@ class Solution {
   vector<int> largestValues(TreeNode *root) {
     vector<int> res;
     // bfs
+    queue<TreeNode *> q;
+    q.push(root);
+    while (!q.empty()) {
+      queue<TreeNode *> nxt;
+      int mx = 0;
+      while (!q.empty()) {
+        TreeNode *cur = q.front();
+        q.pop();
+        mx = max(cur->val, mx);
+        if (cur->left != nullptr) nxt.push(cur->left);
+
+        if (cur->right != nullptr) nxt.push(cur->right);
+
+      }
+      res.push_back(mx);
+      q = nxt;
+    }
     return res;
   }
 };
