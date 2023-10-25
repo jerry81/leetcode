@@ -45,13 +45,14 @@ Acceptance Rate
 70.2%
 
 */
+struct Cell {
+  r:i32,
+  c:i32,
+  d:i32,
+}
 
 impl Solution {
-  struct Cell {
-    r:i32,
-    c:i32,
-    d:i32,
-  }
+
   pub fn all_cells_dist_order(rows: i32, cols: i32, r_center: i32, c_center: i32) -> Vec<Vec<i32>> {
     let mut ret  = Vec::new();
     let mut cells  = Vec::new();
