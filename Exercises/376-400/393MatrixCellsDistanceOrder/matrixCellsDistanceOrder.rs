@@ -53,8 +53,8 @@ impl Solution {
     d:i32,
   }
   pub fn all_cells_dist_order(rows: i32, cols: i32, r_center: i32, c_center: i32) -> Vec<Vec<i32>> {
-    let mut ret : Vec<Vec<i32>>;
-    let mut cells : Vec<Cell>;
+    let mut ret  = Vec::new();
+    let mut cells  = Vec::new();
     for r in 0..rows {
       for c in 0..cols {
         let dist = (r_center - r).abs() + (c_center - c).abs();
@@ -68,9 +68,8 @@ impl Solution {
     }
     cells.sort_by(|a,b| a.d.cmp(&b.d));
     for cl in cells {
-      let tmp:Vec<i32> = vec![cl.r,cl.c];
-      ret.push(tmp);
+      ret.push(vec![cl.r,cl.c]);
     }
-    return ret;
+    ret
   }
 }
