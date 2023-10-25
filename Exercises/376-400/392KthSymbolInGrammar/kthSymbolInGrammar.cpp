@@ -54,7 +54,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int r(int rows, int l, int r, int prev, int &tgt) {}
+  int r(int rows, int l, int r, int prev, int &tgt) {
+    if (rows == 0) {
+      if (tgt == l) return prev == 0 ? 0 : 1;
+      return prev == 0 ? 1 : 0;
+    }
+
+    int midpoint = (l + r - 1) / 2;
+    if (tgt > midpoint) {
+      int nxtprev = prev == 0 ? 1 : 0;
+      return r(rows - 1, midpoint + 1, r, nxtprev, tgt);
+    } else {
+      int nxtprev = prev = 0 ? 0 : 1;
+      return r(rows - 1, l, midpoint, nxtprev, tgt);
+    }
+  }
 
  public:
   int kthGrammar(int n, int k) {
