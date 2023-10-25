@@ -54,7 +54,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int rec(int rows, int l, int t, int prev, int &tgt) {
+  int rec(int rows, int l, int r, int prev, int &tgt) {
     if (rows == 0) {
       if (tgt == l) return prev == 0 ? 0 : 1;
       return prev == 0 ? 1 : 0;
@@ -62,10 +62,10 @@ class Solution {
 
     int midpoint = (l + r - 1) / 2;
     if (tgt > midpoint) {
-      int nxtprev == prev == 0 ? 1 : 0;
+      int nxtprev = prev == 0 ? 1 : 0;
       return rec(rows - 1, midpoint + 1, r, nxtprev, tgt);
     } else {
-      int nxtprev == prev = 0 ? 0 : 1;
+      int nxtprev = prev == 0 ? 0 : 1;
       return rec(rows - 1, l, midpoint, nxtprev, tgt);
     }
   }
