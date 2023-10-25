@@ -45,7 +45,7 @@ Acceptance Rate
 70.2%
 
 */
-struct Cell {
+struct Cell { // struct cant be in impl
   r:i32,
   c:i32,
   d:i32,
@@ -54,23 +54,23 @@ struct Cell {
 impl Solution {
 
   pub fn all_cells_dist_order(rows: i32, cols: i32, r_center: i32, c_center: i32) -> Vec<Vec<i32>> {
-    let mut ret  = Vec::new();
+    let mut ret  = Vec::new(); // vec constructor (no need for generic type) - type inference later
     let mut cells  = Vec::new();
     for r in 0..rows {
       for c in 0..cols {
-        let dist = (r_center - r).abs() + (c_center - c).abs();
-        let cell = Cell {
+        let dist = (r_center - r).abs() + (c_center - c).abs(); // abs
+        let cell = Cell { // struct delc and initializer
           r:r,
           c:c,
           d:dist
         };
-        cells.push(cell);
+        cells.push(cell); // append to vec
       }
     }
-    cells.sort_by(|a,b| a.d.cmp(&b.d));
+    cells.sort_by(|a,b| a.d.cmp(&b.d)); // custom comparator, lambda, closure, anonymous function, cmp
     for cl in cells {
       ret.push(vec![cl.r,cl.c]);
     }
-    ret
+    ret // auto-return
   }
 }
