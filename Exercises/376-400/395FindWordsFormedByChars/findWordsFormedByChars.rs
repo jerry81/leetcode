@@ -39,8 +39,27 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap; // LC runtime wants this
+
 impl Solution {
   pub fn count_characters(words: Vec<String>, chars: String) -> i32 {
-
+    let mut freq:HashMap<char, i32> = HashMap::new();
+    for c in chars.chars() {
+      let entry = freq.entry(c);
+      *entry.or_insert(0) += 1; // handle the key not exist case // rust doesn't have ++??
+    }
+    let mut res: i32 = 0;
+    for s in words {
+      let cpy = freq.clone();
+      for c in s.chars() {
+        let entry = cpy.entry(c);
+        if *entry.or_insert(0) <= 0 {
+          break;
+        }
+        *entry--;
+        res+=s.len();
+      }
+    }
+    res // TIL: no semicolon
   }
 }
