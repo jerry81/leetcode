@@ -45,13 +45,15 @@ impl Solution {
   pub fn count_characters(words: Vec<String>, chars: String) -> i32 {
     let mut freq:HashMap<char, i32> = HashMap::new();
     for c in chars.chars() {
-      let entry = freq.entry(c);
-      *entry.or_insert(0) += 1; // handle the key not exist case // rust doesn't have ++??
+
+      *freq.entry(c).or_insert(0) += 1; // handle the key not exist case // rust doesn't have ++??
     }
     let mut res: i32 = 0;
+
     for s in words {
       let mut cpy = freq.clone();
       let mut found = true;
+
       for c in s.chars() {
         if let Some(entry) = cpy.get_mut(&c) {
           if *entry > 0 {
@@ -65,6 +67,7 @@ impl Solution {
           break;
         }
       }
+
       if found {
         res+=s.len() as i32;
       }
