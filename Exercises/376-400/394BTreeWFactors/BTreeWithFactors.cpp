@@ -54,14 +54,14 @@ class Solution {
 
  public:
   int numFactoredBinaryTrees(vector<int>& arr) {
-    vector<int> lookup = vector<int>(1001, 0);
+    vector<long long int> lookup = vector<long long int>(1001, 0);
 
     long long res = 0;
     for (int cur : arr) {
       // get factors up to sqrt(cur);
       lookup[cur] = 1;  // add the inevitable one
       int upper = sqrt(cur);
-      for (int i = 2; i < upper; ++i) {
+      for (int i = 2; i <= upper; ++i) {
         if (cur % i != 0) continue;
 
         int f = cur / i;
@@ -70,9 +70,10 @@ class Solution {
           addend *= 2;
         }
         lookup[cur] += addend;
-        res += lookup[cur];
-        res %= MOD;
+        lookup[cur] %= MOD;
       }
+      res += lookup[cur];
+      res %= MOD;
     }
     return res;
   }
