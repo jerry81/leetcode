@@ -55,7 +55,11 @@ impl Solution {
       let mut found = true;
 
       for c in s.chars() {
-        if let Some(entry) = cpy.get_mut(&c) {
+        if let Some(entry) = cpy.get_mut(&c) { // this is rust pattern matching
+          /*
+            cpy.get_mut(&c) - get a mut reference to value associated with char c in the cpy hashmap
+            result Some(&mut i32) or None
+          */
           if *entry > 0 {
             *entry -= 1;
           } else {
