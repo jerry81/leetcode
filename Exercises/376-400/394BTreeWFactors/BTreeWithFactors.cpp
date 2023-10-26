@@ -46,6 +46,7 @@ Acceptance Rate
 
 #include <cmath>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -54,8 +55,8 @@ class Solution {
 
  public:
   int numFactoredBinaryTrees(vector<int>& arr) {
-    vector<long long int> lookup = vector<long long int>(1001, 0);
-
+    unordered_map<int,long long int> lookup;
+    sort(arr.begin(),arr.end());
     long long res = 0;
     for (int cur : arr) {
       // get factors up to sqrt(cur);
@@ -65,9 +66,11 @@ class Solution {
         if (cur % i != 0) continue;
 
         int f = cur / i;
-        int addend = lookup[f] * lookup[i];
+        long long int addend = lookup[f] * lookup[i];
+        addend %= MOD;
         if (f != i) {
           addend *= 2;
+          addend %= MOD;
         }
         lookup[cur] += addend;
         lookup[cur] %= MOD;
