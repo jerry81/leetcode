@@ -50,14 +50,23 @@ impl Solution {
     }
     let mut res: i32 = 0;
     for s in words {
-      let cpy = freq.clone();
+      let mut cpy = freq.clone();
+      let mut found = true;
       for c in s.chars() {
-        let entry = cpy.entry(c);
-        if *entry.or_insert(0) <= 0 {
+        if let Some(entry) = cpy.get_mut(&c) {
+          if *entry > 0 {
+            *entry -= 1;
+          } else {
+            found = false;
+            break;
+          }
+        } else {
+          found = false;
           break;
         }
-        *entry--;
-        res+=s.len();
+      }
+      if found {
+        res+=s.len() as i32;
       }
     }
     res // TIL: no semicolon
