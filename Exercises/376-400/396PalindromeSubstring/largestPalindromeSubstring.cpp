@@ -42,27 +42,41 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-pair<int,int> check(int ptr1, int ptr2, string &s) {
-  cout << "checking " << ptr1 << "," << ptr2 << endl;
-  return {0,0};
-}
-public:
-    string longestPalindrome(string s) {
-      int sz = s.size();
-      if (sz == 1) return s;
+  pair<int, int> check(int ptr1, int ptr2, string &s, int &sz) {
+    while (true) {
+      int nxt1 = ptr1--;
+      int nxt2 = ptr2++;
+      if (nxt1 < 0 || nxt2 >= sz) return {ptr1, ptr2};
 
-      string res = "";
-      int mxsz = 0;
-      int ptr1 = 0;
-      for (int ptr1 = 0; ptr1 < sz-1; ++ptr1) {
-        for (int i: {1,2}) {
-          int ptr2 = ptr1 + i;
-          if (s[ptr1] != s[ptr2]) continue;
-          pair<int,int> pr = check(ptr1, ptr2, &s);
-        }
-      }
-      return res;
+      if (s[nxt1] != s[nxt2]) return {ptr1, ptr2};
+
+      ptr1 = nxt1;
+      ptr2 = nxt2;
     }
+    return {-1,-1};
+  }
+
+ public:
+  string longestPalindrome(string s) {
+    int sz = s.size();
+    if (sz == 1) return s;
+
+    string res = "";
+    int mxsz = 0;
+    int ptr1 = 0;
+    for (int ptr1 = 0; ptr1 < sz - 1; ++ptr1) {
+      for (int i : {1, 2}) {
+        int ptr2 = ptr1 + i;
+        if (s[ptr1] != s[ptr2]) continue;
+        pair<int, int> pr = check(ptr1, ptr2, s, sz);
+      }
+    }
+    // one more case
+    if (mxsz < 2) {
+      if (s[sz-2] == s[sz-1]) return s.substr(sz-2, 2);
+    }
+    return res;
+  }
 };
 
 /*
