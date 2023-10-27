@@ -36,7 +36,47 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn is_boomerang(points: Vec<Vec<i32>>) -> bool {
+  fn calculate_slope(x1: i32, x2: i32, y1: i32, y2: i32) -> f64 {
+    if x1 == x2 {
+        f64::INFINITY
+    } else {
+        f64::from(y2 - y1) / f64::from(x2 - x1)
+    }
+}
+  fn is_distinct(points: Vec<Vec<i32>>) -> bool {
+    let pt1 = &points[0]; // this is known as borrowing aka creating references
+    let pt2 = &points[1];
+    let pt3 = &points[2];
+    if pt1[0] == pt2[0] && pt1[1] == pt2[1] {
+      return false;
+    }
+    if pt1[0] == pt3[0] && pt1[1] == pt3[1] {
+      return false;
+    }
+    if pt2[0] == pt3[0] && pt2[1] == pt3[1] {
+      return false;
+    }
+    return true;
+  }
 
+  fn on_line(points: Vec<Vec<i32>>) -> bool {
+    points.sort_by(|a, b| a[0].cmp(&b[0]));
+    let pt1 = &points[0];
+    let pt2 = &points[1];
+    let pt3 = &points[2];
+
+    let slope1_to_2 = calculate_slope(pt1[0], pt2[0], pt1[1], pt2[1]);
+    let slope2_to_3 = calculate_slope(pt2[0], pt3[0], pt2[1], pt3[1]);
+
+    slope1_to_2 == slope2_to_3
+  }
+
+  pub fn is_boomerang(points: Vec<Vec<i32>>) -> bool {
+    // check distinct
+    if !Solution::is_distinct(points) { return false; }
+    // check line
+    if !Solution::on_line(points) { return false; }
+
+    true
   }
 }
