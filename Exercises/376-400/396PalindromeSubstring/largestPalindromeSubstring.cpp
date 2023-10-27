@@ -44,8 +44,8 @@ using namespace std;
 class Solution {
   pair<int, int> check(int ptr1, int ptr2, string &s, int &sz) {
     while (true) {
-      int nxt1 = ptr1--;
-      int nxt2 = ptr2++;
+      int nxt1 = ptr1 - 1;
+      int nxt2 = ptr2 + 1;
       if (nxt1 < 0 || nxt2 >= sz) return {ptr1, ptr2};
 
       if (s[nxt1] != s[nxt2]) return {ptr1, ptr2};
@@ -53,7 +53,7 @@ class Solution {
       ptr1 = nxt1;
       ptr2 = nxt2;
     }
-    return {-1,-1};
+    return {-1, -1};
   }
 
  public:
@@ -69,7 +69,7 @@ class Solution {
         int ptr2 = ptr1 + i;
         if (s[ptr1] != s[ptr2]) continue;
         pair<int, int> pr = check(ptr1, ptr2, s, sz);
-        int cursz = pr.second - pr.first;
+        int cursz = pr.second - pr.first + 1;
         if (cursz > mxsz) {
           mxsz = cursz;
           res = s.substr(pr.first, mxsz);
@@ -78,7 +78,7 @@ class Solution {
     }
     // one more case
     if (mxsz < 2) {
-      if (s[sz-2] == s[sz-1]) return s.substr(sz-2, 2);
+      if (s[sz - 2] == s[sz - 1]) return s.substr(sz - 2, 2);
     }
     return res;
   }
