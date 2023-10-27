@@ -69,6 +69,11 @@ class Solution {
         int ptr2 = ptr1 + i;
         if (s[ptr1] != s[ptr2]) continue;
         pair<int, int> pr = check(ptr1, ptr2, s, sz);
+        int cursz = pr.second - pr.first;
+        if (cursz > mxsz) {
+          mxsz = cursz;
+          res = s.substr(pr.first, mxsz);
+        }
       }
     }
     // one more case
