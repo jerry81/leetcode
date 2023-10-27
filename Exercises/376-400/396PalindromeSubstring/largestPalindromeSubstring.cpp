@@ -61,8 +61,8 @@ class Solution {
     int sz = s.size();
     if (sz == 1) return s;
 
-    string res = "";
-    int mxsz = 0;
+    string res = string(1, s[0]);
+    int mxsz = 1;
     int ptr1 = 0;
     for (int ptr1 = 0; ptr1 < sz - 1; ++ptr1) {
       for (int i : {1, 2}) {
@@ -80,6 +80,7 @@ class Solution {
     if (mxsz < 2) {
       if (s[sz - 2] == s[sz - 1]) return s.substr(sz - 2, 2);
     }
+
     return res;
   }
 };
