@@ -39,24 +39,19 @@ Acceptance Rate
 */
 
 impl Solution {
-  fn try_remove(s: String) -> String {
+
+  pub fn remove_duplicates(s: String) -> String {
     let mut newv = Vec::new();
     for c in s.chars() {
-      if newv.len() <= 0 {
-        newv.push(c);
-      } else {
-        if newv.back() == c {
-          newv.pop();
-        } else {
-          newv.push(c);
+        match newv.last() {
+            Some(last_char) if *last_char == c => {
+                newv.pop();
+            }
+            _ => {
+                newv.push(c);
+            }
         }
-      }
     }
-    let ret: String = newv.into_iter().collect();
-    ret
-  }
-  pub fn remove_duplicates(s: String) -> String {
-    let str = Solution::try_remove(s);
-    str
+    newv.into_iter().collect()
   }
 }
