@@ -43,15 +43,15 @@ impl Solution {
   pub fn remove_duplicates(s: String) -> String {
     let mut newv = Vec::new();
     for c in s.chars() {
-        match newv.last() {
-            Some(last_char) if *last_char == c => {
+        match newv.last() { // like switch
+            Some(last_char) if *last_char == c => { // some because last returns optional
                 newv.pop();
             }
-            _ => {
+            _ => { // default case
                 newv.push(c);
             }
         }
     }
-    newv.into_iter().collect()
+    newv.into_iter().collect() // char vec to string
   }
 }
