@@ -43,7 +43,7 @@ impl Solution {
         f64::from(y2 - y1) / f64::from(x2 - x1)
     }
 }
-  fn is_distinct(points: Vec<Vec<i32>>) -> bool {
+  fn is_distinct(points: &Vec<Vec<i32>>) -> bool {
     let pt1 = &points[0]; // this is known as borrowing aka creating references
     let pt2 = &points[1];
     let pt3 = &points[2];
@@ -59,23 +59,24 @@ impl Solution {
     return true;
   }
 
-  fn on_line(points: Vec<Vec<i32>>) -> bool {
-    points.sort_by(|a, b| a[0].cmp(&b[0]));
-    let pt1 = &points[0];
-    let pt2 = &points[1];
-    let pt3 = &points[2];
+  fn on_line(points: &Vec<Vec<i32>>) -> bool {
+    let mut sorted = points.clone();
+    sorted.sort_by(|a, b| a[0].cmp(&b[0]));
+    let pt1 = &sorted[0];
+    let pt2 = &sorted[1];
+    let pt3 = &sorted[2];
 
-    let slope1_to_2 = calculate_slope(pt1[0], pt2[0], pt1[1], pt2[1]);
-    let slope2_to_3 = calculate_slope(pt2[0], pt3[0], pt2[1], pt3[1]);
+    let slope1_to_2 = Solution::calculate_slope(pt1[0], pt2[0], pt1[1], pt2[1]);
+    let slope2_to_3 = Solution::calculate_slope(pt2[0], pt3[0], pt2[1], pt3[1]);
 
     slope1_to_2 == slope2_to_3
   }
 
   pub fn is_boomerang(points: Vec<Vec<i32>>) -> bool {
     // check distinct
-    if !Solution::is_distinct(points) { return false; }
+    if !Solution::is_distinct(&points) { return false; }
     // check line
-    if !Solution::on_line(points) { return false; }
+    if Solution::on_line(&points) { return false; }
 
     true
   }
