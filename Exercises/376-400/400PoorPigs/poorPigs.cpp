@@ -63,23 +63,18 @@ Acceptance Rate
 */
 
 #include <cmath>
-#include <algorithm>
 
 using namespace std;
-
-// apparently we get opportunity binary search opportunities
 
 class Solution {
  public:
   int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
-    int opportunities = minutesToTest / minutesToDie;
-    int pigs = 0;
-    while (true) {
-      long long int test = pow(2, pigs) * opportunities;
-      if (test >= buckets) break;
+    float bottom = (static_cast<float>(minutesToTest) / minutesToDie) + 1.0;
+    float t = log(buckets);
+    float b = log(bottom);
 
-      pigs++;
-    }
-    return pigs;
+    // Print the result
+    float ratio = t / b;
+    return ceil(ratio);
   }
 };
