@@ -63,6 +63,10 @@ public:
     int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
       int opportunities = minutesToTest / minutesToDie;
       int pigsForOnePass = log2(buckets);
-      return pigsForOnePass / opportunities;
+      while (opportunities > 1) {
+        opportunities--;
+        if (pow(2,pigsForOnePass-1) > buckets) pigsForOnePass--;
+      }
+      return pigsForOnePass;
     }
 };
