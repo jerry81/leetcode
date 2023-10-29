@@ -39,8 +39,22 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_ocurrences(text: String, first: String, second: String) -> Vec<String> {
+    let split_result: Vec<&str> = text.split(' ').collect();
     let ret = Vec::new();
-    for let s in text {
+    let fst = false;
+    let sec = false;
+    for s in split_result {
+      if s == first {
+        fst = true;
+        sec = false;
+      } else if fst && s == second {
+        ret.push(s);
+        fst = false;
+        sec = false;
+      } else {
+        fst = false;
+        sec = false;
+      }
     }
   }
 }
