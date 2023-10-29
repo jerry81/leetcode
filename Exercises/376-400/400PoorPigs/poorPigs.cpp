@@ -69,12 +69,12 @@ using namespace std;
 class Solution {
  public:
   int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
-    float bottom = (static_cast<float>(minutesToTest) / minutesToDie) + 1.0;
-    float t = log(buckets);
-    float b = log(bottom);
+    double bottom = (double)(minutesToTest / minutesToDie) + 1.0;
+    double t = log2(buckets);
+    double b = log2(bottom);
 
     // Print the result
-    float ratio = t / b;
+    double ratio = t / b;
     return ceil(ratio);
   }
 };
