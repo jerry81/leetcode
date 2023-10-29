@@ -87,3 +87,38 @@ bool result = compare(10, 20);
 In the above example, an instance of the class or struct containing the operator() function is created as compare. Then, the instance is called as a function with the arguments 10 and 20. The operator() function is executed, and the result is stored in the variable result.
 ```
 
+## noob c++ mistakes
+
+- using namespace std; -imposing on others
+  - alternative
+```cpp
+using std::cout, std::string, std::endl;
+```
+- std::endl bad perf
+  - alternative
+```cpp
+  cout << "yay " << "\n";
+```
+
+- for loop over ranged base
+  - alternative
+```cpp
+  for (const auto &a: arr) {
+  }
+```
+
+- for loop when you could use find_if
+
+```cpp
+  const auto is_positive = [](const auto &x){ return x > 0; };
+  auto it = find_if(a.cbegin(), b.cbegin(), is_positive);
+```
+
+- using c-style array over std:array
+
+- using reinterpret_cast?!
+  - std::bit_cast does the same thing
+
+- using const_cast?!
+
+-
