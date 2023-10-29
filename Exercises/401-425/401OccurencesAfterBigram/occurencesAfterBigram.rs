@@ -39,6 +39,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_ocurrences(text: String, first: String, second: String) -> Vec<String> {
-
+    let ret = Vec::new();
+    for let s in text {
+    }
   }
 }
