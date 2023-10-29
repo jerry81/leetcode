@@ -63,22 +63,23 @@ Acceptance Rate
 */
 
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
+
+// apparently we get opportunity binary search opportunities
 
 class Solution {
  public:
   int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
     int opportunities = minutesToTest / minutesToDie;
-    int pigsForOnePass = log2(buckets);
-    int tmp = pigsForOnePass;
-    while (tmp > 0) {
-      if (pow(2, tmp - 1) * opportunities > buckets) {
-        tmp--;
-      } else {
-        break;
-      }
+    int pigs = 0;
+    while (true) {
+      long long int test = pow(2, pigs) * opportunities;
+      if (test >= buckets) break;
+
+      pigs++;
     }
-    return tmp;
+    return pigs;
   }
 };
