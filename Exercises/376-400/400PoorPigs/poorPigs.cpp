@@ -54,9 +54,15 @@ Acceptance Rate
 
 */
 
+#include <cmath>
+
+using namespace std;
+
 class Solution {
 public:
     int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
-        return 2;
+      int opportunities = minutesToTest / minutesToDie;
+      int pigsForOnePass = log2(buckets);
+      return pigsForOnePass / opportunities;
     }
 };
