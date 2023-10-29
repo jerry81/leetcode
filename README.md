@@ -121,4 +121,19 @@ using std::cout, std::string, std::endl;
 
 - using const_cast?!
 
--
+- not knowing looking up a nonexistent key with [] in map inserts it.
+
+- not marking const when you should
+
+- not using structured bindings
+```cpp
+for (const auto&[name,hex] : amap) {
+}
+```
+- can be done with struct too
+- variables assigned in order they appear in the struct.
+
+- using multiple out params (&params)
+- use struct instead
+
+- constexpr to let compiler know to compute at compile time.
