@@ -137,3 +137,83 @@ for (const auto&[name,hex] : amap) {
 - use struct instead
 
 - constexpr to let compiler know to compute at compile time.
+
+- destructors (what) should be marked virtual (what)
+```cpp
+class A {
+public:
+  virtual ~A() {
+  }
+}
+```
+
+- fields initialized in order they are declared, not the order they appear in initializer list
+
+- know default vs value initialization
+  - default initialized
+```cpp
+  int x;
+  int *x2 = new int
+```
+  - these contain garbage
+  - value initialized
+```cpp
+  int y{};
+  int *y2 = new int{};
+```
+  - init to 0;
+
+- no magic numbers
+- instead use constexpr
+
+- do not modify container while looping over it.
+
+- return moved? local variable
+  - moved means ownership transfers to one location to another
+  - aka mutated
+  - there is also std::move in c++
+    - a perf optimization - "move semantics"
+  - impl is a static_cast, double &&??
+```cpp
+constexpr int&& // && is rvalue reference to an int?
+move(int &&value) no except {
+  return static_cast<int &&>(value);
+}
+```
+
+- eval order not always l to r
+
+- unnecessary heap allocations
+  - heap allocation slower than stack allocation
+  - using "new" uses heap
+  - declaring without makes it stack allocated.
+
+- not using shared pointer and unique ptrs to do heap allocations
+  - unique ptr - gives heap-allocated pointer and when it goes out of scope, it deletes it
+  - shared ptr more expensive
+
+- mistake: constructing unique or shared directly instead of using make_unique or make_shared
+- not this:
+```cpp
+  auto customer = std::shared_ptr<Record>(new Record{0, "James"});
+```
+- but this:
+```cpp
+  auto customer = std::make_shared<Record>(0, "James");
+```
+
+- using new or delete when you can use unique_ptr
+
+- any manually resource mgmt
+
+- overuse of smart pointer when raw ptr can be used (don't care about ownership)
+
+- overuse of shared_ptr (not sure of usage)
+
+- shared_ptr is not thread safe
+
+- confusing *const and const *
+
+- const applies to whatever is to its left, unless it is on the left.
+
+- do not ignore compiler warnings!
