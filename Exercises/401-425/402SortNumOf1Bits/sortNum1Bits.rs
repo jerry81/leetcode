@@ -43,23 +43,22 @@ Acceptance Rate
 use std::collections::HashMap;
 use std::cmp::Ordering;
 
+#[derive(Debug, PartialOrd, PartialEq, Eq)] // autogen impl for various traits for struct or enum
 struct Item {
   num: i32,
   count: i32,
-};
+} // no semicolon allowed here
 
 impl Ord for Item { // custom comparator
   fn cmp(&self, other: &Self) -> Ordering { // small self, big self! - self - current instance, Self type of current instance
     match self.count.cmp(&other.count) { // here's that nifty match again
       Ordering::Equal => { // ordering is an enum - also Greater, Less
         self.num.cmp(&other.num)
-      }
+      },
+      result => result,
     }
-    result => result, // wut?  the catch-all in a match
   }
 }
-
-// PartialOrd ommitted
 
 impl Solution {
   pub fn sort_by_bits(arr: Vec<i32>) -> Vec<i32> {
@@ -78,7 +77,13 @@ impl Solution {
       };
       sorted.push(newItem);
     }
+    sorted.sort_by(|a,b| a.cmp(b));
     let mut ret = Vec::new();
+
+    for s in &sorted { // why the ampersand?  borrow?
+      ret.push(s.num);
+    }
+
     ret
   }
 }
