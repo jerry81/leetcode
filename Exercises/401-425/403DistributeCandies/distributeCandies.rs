@@ -52,11 +52,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn distribute_candies(candies: i32, num_people: i32) -> Vec<i32> {
-    let mut ret: Vec<i32> = vec![0; num_people];
+    let mut ret: Vec<i32> = vec![0; num_people as usize];
     let mut idx = 0;
-    while candies > 0 {
-      ret[idx%num_people]+=idx+1;
-      idx++;
+    let mut cand = candies;
+    while cand > 0 {
+      ret[idx%num_people as usize]+=idx as i32+1 ;
+      idx+=1;
+      cand-=idx
     }
+    ret
   }
 }
