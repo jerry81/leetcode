@@ -49,17 +49,21 @@ Acceptance Rate
 64.7%
 
 */
-
 impl Solution {
   pub fn distribute_candies(candies: i32, num_people: i32) -> Vec<i32> {
-    let mut ret: Vec<i32> = vec![0; num_people as usize];
-    let mut idx = 0;
-    let mut cand = candies;
-    while cand > 0 {
-      ret[idx%num_people as usize]+=idx as i32+1 ;
-      idx+=1;
-      cand-=idx
-    }
-    ret
+      let num_people = num_people as usize; // just overwrite?
+      let mut ret = vec![0; num_people]; // type decl was unnecessary?
+      let mut idx = 0;
+      let mut cand = candies;
+
+      while cand > 0 {
+          let give = idx as i32 + 1; // this was ok
+          let min = std::cmp::min(cand, give); // fixed my logic
+          ret[idx % num_people] += min;
+          idx += 1;
+          cand -= give;
+      }
+
+      ret
   }
 }
