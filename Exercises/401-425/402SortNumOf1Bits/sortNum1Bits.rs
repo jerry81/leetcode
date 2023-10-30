@@ -41,16 +41,37 @@ Acceptance Rate
 */
 
 use std::collections::HashMap;
+use std::cmp::Ordering;
 
 struct Item {
   num: i32,
   count: i32,
 };
 
+impl Ord for Item { // custom comparator
+  fn cmp(&self, other: &Self) -> Ordering { // small self, big self! - self - current instance, Self type of current instance
+    match self.count.cmp(&other.count) { // here's that nifty match again
+      Ordering::Equal => { // ordering is an enum - also Greater, Less
+        self.num.cmp(&other.num)
+      }
+    }
+    result => result, // wut?  the catch-all in a match
+  }
+}
+
+// PartialOrd ommitted
+
 impl Solution {
   pub fn sort_by_bits(arr: Vec<i32>) -> Vec<i32> {
     let mut sorted = Vec::new();
     for val in arr {
+      let bstr = format!("{:b}", val); // int -> binary string
+      let mut ct = 0;
+      for c in bstr.chars() {
+        if c == '1' {
+          ct+=1;
+        }
+      }
       let newItem = Item {
         num: val,
         count: ct,
