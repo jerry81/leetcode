@@ -51,5 +51,15 @@ using std::vector;
 
 class Solution {
  public:
-  vector<int> findArray(vector<int>& pref) {}
+  vector<int> findArray(vector<int>& pref) {
+    vector<int> ret;
+    for (int i : pref) {
+      if (ret.empty()) {
+        ret.push_back(i);
+      } else {
+        ret.push_back(ret.back()^i);
+      }
+    }
+    return ret;
+  }
 };
