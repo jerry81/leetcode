@@ -78,7 +78,6 @@ impl TreeNode {
     }
   }
 }
-
 use std::rc::Rc; // reference counting - smart ptr
 use std::cell::RefCell; // ref cell - interior mutability
 use std::collections::HashMap;
@@ -87,8 +86,8 @@ impl Solution {
       let mut ret = Vec::new();
       let mut freq:HashMap<i32,i32> = HashMap::new();
       Solution::r(&root, &mut freq);
-      let mut v: Vec<_> = freq.iter().collect(); // hm to vec
-      v.sort_by(|a,b| b.1.cmp(&a.1));
+      let mut v: Vec<_> = freq.iter().collect(); // hm to vec Vec<_> is type placeholder. Rust compiler will infer.
+      v.sort_by(|a,b| b.1.cmp(&a.1)); // .1 gets the value in the pair
       let mut mx = v[0].1;
       for (k,val) in v {
         if val == mx {
@@ -98,16 +97,14 @@ impl Solution {
       ret
     }
 
-    fn r(root: &Option<Rc<RefCell<TreeNode>>>, freq: &mut HashMap<i32, i32>) {
-      if root.is_none() {
-        return;
+    fn r(root: &Option<Rc<RefCell<TreeNode>>>, freq: &mut HashMap<i32, i32>) { // &mut specifies ref is mutable
+      if let Some(node) = root { // check if root is Some then assign node
+        let borrowed = node.borrow(); // unwrap for refcell/rc or option? borrow provided by RefCell
+        let value = borrowed.val;
+        *freq.entry(value).or_insert(0) += 1; // *dereference
+        Solution::r(&borrowed.left, freq); // &reference
+        Solution::r(&borrowed.right, freq);
       }
-
-      let borrowed = root.unwrap().borrow(); // unwrap for refcell/rc or option?
-      let value = borrowed.val;
-      *freq.entry(value).or_insert(0) += 1;
-      Solution::r(&borrowed.left, freq);
-      Solution::r(&borrowed.right, freq);
     }
 }
 
