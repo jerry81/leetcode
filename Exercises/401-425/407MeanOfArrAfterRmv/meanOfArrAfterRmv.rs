@@ -44,12 +44,12 @@ impl Solution {
   pub fn trim_mean(arr: Vec<i32>) -> f64 {
     let cur_count = arr.len();
     let to_rmv = cur_count / 20;
-    let mut cl = arr.clone();
-    cl.sort_by(|a,b| a.cmp(&b) );
+    let mut arr = arr;
+    arr.sort();
     let mut sum = 0;
     for i in to_rmv..cur_count-to_rmv {
-      sum+=cl[i];
+      sum+=arr[i];
     }
-    f64::from(sum) / f64::from(cur_count as i32-(2*to_rmv as i32))
+    sum as f64 / (cur_count as i32 - 2*to_rmv as i32) as f64
   }
 }
