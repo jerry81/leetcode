@@ -86,28 +86,28 @@ impl Solution {
     pub fn find_mode(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> { // Option -> Some or None
       let mut ret = Vec::new();
       let mut freq:HashMap<i32,i32> = HashMap::new();
-      self::r(root, freq);
-      let mut v = freq.iter().collect(); // hm to vec
+      Solution::r(&root, &mut freq);
+      let mut v: Vec<_> = freq.iter().collect(); // hm to vec
       v.sort_by(|a,b| b.1.cmp(&a.1));
-      let mut mx = v[0];
+      let mut mx = v[0].1;
       for (k,val) in v {
         if val == mx {
-          ret.push(k);
+          ret.push(*k);
         }
       }
       ret
     }
 
-    fn r(root: Option<Rc<RefCell<TreeNode>>>, freq: &mut HashMap<i32, i32>) {
+    fn r(root: &Option<Rc<RefCell<TreeNode>>>, freq: &mut HashMap<i32, i32>) {
       if root.is_none() {
         return;
       }
 
       let borrowed = root.unwrap().borrow(); // unwrap for refcell/rc or option?
-      let value = borrowed_node.val;
-      *Solution::freq.entry(value).or_insert(0) += 1;
-      Solution::r(borrowed.left.clone(), freq);
-      Solution::r(borrowed.right.clone(), freq);
+      let value = borrowed.val;
+      *freq.entry(value).or_insert(0) += 1;
+      Solution::r(&borrowed.left, freq);
+      Solution::r(&borrowed.right, freq);
     }
 }
 
