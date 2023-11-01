@@ -45,11 +45,11 @@ impl Solution {
     let cur_count = arr.len();
     let to_rmv = cur_count / 20;
     let mut cl = arr.clone();
-    cl.sort_by(|a,b| a.cmp(&b); );
+    cl.sort_by(|a,b| a.cmp(&b) );
     let mut sum = 0;
     for i in to_rmv..cur_count-to_rmv {
-      sum+=cli];
+      sum+=cl[i];
     }
-    f64::from(sum) / f64::from(cur_count-(2*to_rmv));
+    f64::from(sum) / f64::from(cur_count as i32-(2*to_rmv as i32))
   }
 }
