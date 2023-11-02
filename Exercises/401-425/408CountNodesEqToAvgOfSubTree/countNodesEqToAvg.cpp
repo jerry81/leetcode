@@ -68,7 +68,23 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
+struct R {
+  int tally = 0;
+  int count = 0;
+  int sm = 0;
+  R(int t, int c, int s) : tally(t), count(c), sm(s) {}
+};
 class Solution {
+  R *r(TreeNode *root) {
+    if (root == nullptr) return new R(0, 0, 0);
+
+    TreeNode *l = root->left;
+    TreeNode *ri = root->right;
+    R* lres = r(l);
+    R* rres = r(ri);
+  }
+
  public:
-  int averageOfSubtree(TreeNode *root) {}
+  int averageOfSubtree(TreeNode *root) { return r(root)->tally; }
 };
