@@ -76,21 +76,21 @@ struct R {
   R(int t, int c, int s) : tally(t), count(c), sm(s) {}
 };
 class Solution {
-  R *r(TreeNode *root) {
-    if (root == nullptr) return new R(0, 0, 0);
+  R r(TreeNode *root) {
+    if (root == nullptr) return R(0, 0, 0);
 
     TreeNode *l = root->left;
     TreeNode *ri = root->right;
-    R *lres = r(l);
-    R *rres = r(ri);
+    R lres = r(l);
+    R rres = r(ri);
     int v = root->val;
-    int csum = v + lres->sm + rres->sm;
-    int ccount = 1 + lres->count + rres->count;
+    int csum = v + lres.sm + rres.sm;
+    int ccount = 1 + lres.count + rres.count;
     int avg = csum / ccount;
     int curTally = avg == v ? 1 : 0;
-    return new R(curTally + lres->tally + rres->tally, ccount, csum);
+    return R(curTally + lres.tally + rres.tally, ccount, csum);
   }
 
  public:
-  int averageOfSubtree(TreeNode *root) { return r(root)->tally; }
+  int averageOfSubtree(TreeNode *root) { return r(root).tally; }
 };
