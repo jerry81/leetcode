@@ -56,6 +56,20 @@ impl Solution {
       *count += 1;
     }
     let mut ret = Vec::new();
+    let mut arr1 = arr1;
+    arr1.sort();
+    for &n in &arr2 {
+      if let Some(&cnt) = freq.get(&n) {
+        for _ in 0..cnt {
+          ret.push(n);
+        }
+      }
+    }
+    for &n in &arr1 {
+      if !lookup.contains(&n) {
+        ret.push(n);
+      }
+    }
     ret
   }
 }
