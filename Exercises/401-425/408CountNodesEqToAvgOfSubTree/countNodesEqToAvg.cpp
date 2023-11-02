@@ -81,8 +81,14 @@ class Solution {
 
     TreeNode *l = root->left;
     TreeNode *ri = root->right;
-    R* lres = r(l);
-    R* rres = r(ri);
+    R *lres = r(l);
+    R *rres = r(ri);
+    int v = root->val;
+    int csum = v + lres->sm + rres->sm;
+    int ccount = 1 + lres->count + rres->count;
+    int avg = csum / ccount;
+    int curTally = avg == v ? 1 : 0;
+    return new R(curTally + lres->tally + rres->tally, ccount, csum);
   }
 
  public:
