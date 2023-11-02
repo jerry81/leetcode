@@ -41,28 +41,18 @@ use std::collections::HashMap;
 
 impl Solution {
   pub fn relative_sort_array(arr1: Vec<i32>, arr2: Vec<i32>) -> Vec<i32> {
-    // brute force
-    // keep track of freq of items in arr1
-    // take care of arr2 items first
-    // sort array
-    // ignore items in hashset
-    let mut lookup = HashSet::new();
+    let mut lookup: HashSet<i32> = arr2.iter().cloned().collect();
     let mut freq = HashMap::new();
-    for &k in &arr2 {
-      lookup.insert(k);
+
+    for n in &arr1 {
+      *freq.entry(*n).or_insert(0) += 1;
     }
-    for &n in &arr1 {
-      let count = freq.entry(n).or_insert(0);
-      *count += 1;
-    }
-    let mut ret = Vec::new();
+    let mut ret: Vec<i32> = Vec::new();
     let mut arr1 = arr1;
     arr1.sort();
     for &n in &arr2 {
       if let Some(&cnt) = freq.get(&n) {
-        for _ in 0..cnt {
-          ret.push(n);
-        }
+        ret.extend(std::iter::repeat(n).take(cnt as usize));
       }
     }
     for &n in &arr1 {
