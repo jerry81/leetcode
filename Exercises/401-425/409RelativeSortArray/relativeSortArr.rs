@@ -36,8 +36,24 @@ Acceptance Rate
 
 */
 
+use std::colleections::HashSet;
+use std::colleections::HashMap;
+
+
 impl Solution {
   pub fn relative_sort_array(arr1: Vec<i32>, arr2: Vec<i32>) -> Vec<i32> {
-
+    // brute force
+    // keep track of freq of items in arr1
+    // take care of arr2 items first
+    // sort array
+    // ignore items in hashset
+    let lookup = HashSet::new();
+    let freq = HashMap::new();
+    for &k in &arr2 {
+      lookup.insert(k);
+    }
+    for &n in &arr1 {
+      freq[n]++;
+    }
   }
 }
