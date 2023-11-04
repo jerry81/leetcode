@@ -71,5 +71,6 @@ class Solution {
   int getLastMoment(int n, vector<int>& left, vector<int>& right) {
     int maxLeft = *max_element(left.begin(), left.end());
     int minRight = *min_element(right.begin(), right.end());
+    return max(n-minRight, maxLeft);
   }
 };
