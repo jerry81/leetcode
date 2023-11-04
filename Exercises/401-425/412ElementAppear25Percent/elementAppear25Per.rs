@@ -32,8 +32,21 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn find_special_integer(arr: Vec<i32>) -> i32 {
-
+    let thresh = arr.len() as i32 / 4;
+    let mut res = 0;
+    let mut freq: HashMap<i32,i32> = HashMap::new();
+    for i in arr {
+      *freq.entry(i).or_insert(0) += 1;
+    }
+    for (k, v) in &freq {
+      if *v > thresh {
+        return *k
+      }
+    }
+    0
   }
 }
