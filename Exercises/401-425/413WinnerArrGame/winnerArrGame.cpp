@@ -75,14 +75,22 @@ class Solution {
     while (winCount < k) {
       init = true;
       if (a > b) {
-        if (init && aWon) winCount++;
+        if (init && aWon) {
+          winCount++;
+        } else {
+          winCount = 1;
+        }
 
         aWon = true;
         q.push(b);
         b = q.front();
 
       } else {
-        if (init && !aWon) winCount++;
+        if (init && !aWon) {
+          winCount++;
+        } else {
+          winCount = 1;
+        }
 
         aWon = false;
         q.push(a);
