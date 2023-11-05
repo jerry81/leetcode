@@ -59,6 +59,9 @@ using namespace std;
 class Solution {
  public:
   int getWinner(vector<int>& arr, int k) {
+    if (k > arr.size()) {
+      return *max_element(arr.begin(),arr.end());
+    }
     int a;
     int b;
     queue<int> q;
