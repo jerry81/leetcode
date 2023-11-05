@@ -34,25 +34,23 @@ Acceptance Rate
 47.8%
 
 */
-
 use std::collections::HashMap;
 
 impl Solution {
   pub fn num_equiv_domino_pairs(dominoes: Vec<Vec<i32>>) -> i32 {
     let sz = dominoes.len();
     let mut res = 0;
-    for i in 0..sz-1 {
-      for j in i+1..sz {
-        let cura = &dominoes[i];
-        let curb = &dominoes[j];
-        if cura[0] == curb[0] && cura[1] == curb[1] {
-          res+=1;
-          continue;
-        }
+    let mut hm:HashMap<i32, HashMap<i32, i32>> = HashMap::new();
+    for d in dominoes {
+      let (mn, mx) = if d[0] < d[1] { (d[0], d[1]) } else { (d[1], d[0]) }; // cool destructuring
 
-        if (cura[0] == curb[1] && cura[1] == curb[0]) {
-          res+=1;
-        }
+      if let Some(inner_map /*decl*/) = hm.get_mut(&mn) {
+        res += inner_map.get(&mx).unwrap_or(&0);
+        *inner_map.entry(mx).or_insert(0) += 1;
+      } else {
+        let mut inner_map = HashMap::new();
+        inner_map.insert(mx, 1);
+        hm.insert(mn, inner_map);
       }
     }
     res
