@@ -78,11 +78,19 @@ class Solution {
         if (init && aWon) winCount++;
 
         aWon = true;
+        q.push(b);
+        b = q.front();
+
       } else {
-        if (init && !aWon) winCounbt++;
+        if (init && !aWon) winCount++;
 
         aWon = false;
+        q.push(a);
+        a = q.front();
       }
+
+      q.pop();
     }
+    return aWon ? a : b;
   }
 };
