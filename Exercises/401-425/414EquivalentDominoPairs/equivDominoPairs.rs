@@ -37,6 +37,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn num_equiv_domino_pairs(dominoes: Vec<Vec<i32>>) -> i32 {
-
+    int sz = dominoes.len();
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        let cura = dominoes[i];
+        let curb = dominoes[j];
+        if cura[0] == curb[0] && cura[1] == curb[1]
+      }
+    }
   }
 }
