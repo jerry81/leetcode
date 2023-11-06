@@ -60,15 +60,23 @@ struct ComparePQ {
 };
 class SeatManager {
   int sz;
-  int nxt = 1;
-  priority_queue<int, vector<int>, ComparePQ> pq;
+  int nxt = 0;
+  priority_queue<int, vector<int>, ComparePQ> holes;
 
  public:
   SeatManager(int n) { sz = n; }
 
-  int reserve() {}
+  int reserve() {
+    if (holes.empty()) return ++nxt;
 
-  void unreserve(int seatNumber) {}
+    int ret = holes.top();
+    holes.pop();
+    return ret;
+  }
+
+  void unreserve(int seatNumber) {
+    holes.push(seatNumber);
+  }
 };
 
 /**
