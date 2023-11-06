@@ -56,7 +56,7 @@ unreserve. Accepted 44.6K Submissions 65.3K Acceptance Rate 68.4%
 using namespace std;
 
 struct ComparePQ {
-  bool operator()(int a, int b) { return a < b; }
+  bool operator()(int a, int b) { return a > b; }
 };
 class SeatManager {
   int sz;
