@@ -78,7 +78,7 @@ class Solution {
     int sz = dist.size();
     vector<int> etl;
     for (int i = 0; i < sz; ++i) {
-      int timeToDeath = ceil(dist[i] / speed[i]);
+      int timeToDeath = ceil((float)dist[i] / (float)speed[i]);
       etl.push_back(timeToDeath);
     }
     sort(etl.begin(), etl.end(), std::greater());
@@ -94,6 +94,6 @@ class Solution {
       offset++;
       etl.pop_back();
     }
-    return max(res,1);
+    return max(res, 1);
   }
 };
