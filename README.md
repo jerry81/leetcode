@@ -217,3 +217,8 @@ move(int &&value) no except {
 - const applies to whatever is to its left, unless it is on the left.
 
 - do not ignore compiler warnings!
+
+## SQL tips
+
+- left join if you want to display all items from left table regardless if they have a corresponding item in right table (nulls where there are holes)
+- if you want to self join use inner join same table use alias to distinguish
