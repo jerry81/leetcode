@@ -94,6 +94,6 @@ class Solution {
       offset++;
       etl.pop_back();
     }
-    return res;
+    return max(res,1);
   }
 };
