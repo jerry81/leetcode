@@ -58,7 +58,7 @@ class Solution {
     // dp recursion problem
     int dx = abs(sx - fx);
     int dy = abs(sy - fy);
-    int mnT = min(dx,dy);
+    int mnT = max(dx,dy);
     return mnT <= t;
     // can revisit
     // like bfs ?
