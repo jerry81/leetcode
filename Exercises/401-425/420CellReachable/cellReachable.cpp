@@ -56,11 +56,16 @@ class Solution {
  public:
   bool isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
     // dp recursion problem
+    if (sx == fx && fy == sy) {
+      return t > 1 || t == 0;
+    }
     int dx = abs(sx - fx);
     int dy = abs(sy - fy);
     int mnT = max(dx,dy);
     return mnT <= t;
-    // can revisit
-    // like bfs ?
   }
 };
+
+/*
+yep the catch is when start position is equal to end position
+*/
