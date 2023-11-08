@@ -48,6 +48,7 @@ Acceptance Rate
 */
 
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -55,7 +56,10 @@ class Solution {
  public:
   bool isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
     // dp recursion problem
-    int manhattan = a
+    int dx = abs(sx - fx);
+    int dy = abs(sy - fy);
+    int mnT = min(dx,dy);
+    return mnT <= t;
     // can revisit
     // like bfs ?
   }
