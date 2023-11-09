@@ -51,12 +51,27 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
+const int MOD = pow(10,9) + 7;
 public:
     int countHomogenous(string s) {
-
+      long long int tmpres = 1;
+      int streak = 1;
+      char prev = s[0];
+      for (int i = 1; i < s.size(); ++i) {
+        int c = s[i];
+        if (prev == c) {
+          streak++;
+          tmpres+=streak;
+          tempres%=MOD;
+        } else {
+          streak = 1;
+        }
+      }
     }
 };
