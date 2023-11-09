@@ -222,3 +222,6 @@ move(int &&value) no except {
 
 - left join if you want to display all items from left table regardless if they have a corresponding item in right table (nulls where there are holes)
 - if you want to self join use inner join same table use alias to distinguish
+- full join puts all the rows togethers - there will be nulls where there is no foreign key match
+- select distinct to remove dup rows
+- the "on" in join on is just to determine which columns to join on.
