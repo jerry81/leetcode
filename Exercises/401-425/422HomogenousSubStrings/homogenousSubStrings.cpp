@@ -5,7 +5,8 @@ Medium
 740
 46
 Companies
-Given a string s, return the number of homogenous substrings of s. Since the answer may be too large, return it modulo 109 + 7.
+Given a string s, return the number of homogenous substrings of s. Since the
+answer may be too large, return it modulo 109 + 7.
 
 A string is homogenous if all the characters of the string are the same.
 
@@ -50,28 +51,33 @@ Acceptance Rate
 
 */
 
+#include <cmath>
 #include <string>
 #include <unordered_map>
-#include <cmath>
 
 using namespace std;
 
 class Solution {
-const int MOD = pow(10,9) + 7;
-public:
-    int countHomogenous(string s) {
-      long long int tmpres = 1;
-      int streak = 1;
-      char prev = s[0];
-      for (int i = 1; i < s.size(); ++i) {
-        int c = s[i];
-        if (prev == c) {
-          streak++;
-          tmpres+=streak;
-          tempres%=MOD;
-        } else {
-          streak = 1;
-        }
+  const int MOD = pow(10, 9) + 7;
+
+ public:
+  int countHomogenous(string s) {
+    long long int tmpres = 1;
+    int streak = 1;
+    char prev = s[0];
+    for (int i = 1; i < s.size(); ++i) {
+      int c = s[i];
+      if (prev == c) {
+        streak++;
+        tmpres += streak;
+        tmpres %= MOD;
+      } else {
+        streak = 1;
+        tmpres += 1;
+        tmpres %= MOD;
       }
+      prev = c;
     }
+    return tmpres;
+  }
 };
