@@ -51,12 +51,30 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
-
+      // graph problem, or hashmap
+      unordered_map<int, unordered_set<int>> lookup;
+      for (auto pair: adjacentPairs) {
+        lookup[pair[0]].insert(pair[1]);
+        lookup[pair[1]].insert(pair[0]);
+      }
+      vector<int> res;
+      // find the start
+      int start;
+      int cur;
+      for (auto a: lookup) {
+        if (a.second.size() == 1) {
+          start = a.first;
+          break;
+        }
+      }
+      return res;
     }
 };
