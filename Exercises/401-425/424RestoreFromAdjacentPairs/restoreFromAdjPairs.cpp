@@ -67,14 +67,31 @@ public:
       }
       vector<int> res;
       // find the start
-      int start;
+      int prev;
       int cur;
       for (auto a: lookup) {
         if (a.second.size() == 1) {
-          start = a.first;
+          prev = a.first;
+          res.push_back(prev);
+          cur = *a.second.begin();;
           break;
         }
       }
+      while (true) {
+        res.push_back(cur);
+        unordered_set<int> s = lookup[cur];
+        int tmp = cur;
+        for (int item: s) {
+          if (item != prev) {
+            cur = item;
+          }
+        }
+        prev = tmp;
+        if (s.size() == 1) {
+          break;
+        }
+      }
+
       return res;
     }
 };
