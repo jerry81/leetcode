@@ -6,10 +6,10 @@
 using namespace std;
 
 struct ComparePQ {
-  bool operator()(vector<int> a, vector<int> b) { return a[2] > b[2]; }
+  bool operator()(vector<int> a, vector<int> b) { return a[1] > b[1]; }
 };
 class Graph {
-  vector<vector<vector<int>>> _edges;
+  vector<vector<pair<int, int>>> _edges;
   int _n;
 
   string hashEdge(int a, int b) { return to_string(a) + "," + to_string(b); }
@@ -26,38 +26,27 @@ class Graph {
   void addEdge(vector<int> edge) {
     _edges[edge[0]].push_back({edge[1], edge[2]});
   }
-
   int shortestPath(int node1, int node2) {
-    vector<int> dists(_n, INT_MAX);
-    priority_queue<vector<int>, vector<vector<int>>, ComparePQ> q;
-    unordered_set<string> visited;
+    vector<int> costs(_n, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>,
+                   greater<pair<int, int>>>
+        pq;
+    costs[node1] = 0;
+    pq.push({0, node1});
 
-    dists[node1] = 0;
-    auto startingEdges = _edges[node1];
-    for (auto v : startingEdges) {
-      q.push({node1, v[0], v[1]});
-    }
-    while (!q.empty()) {
-      auto cur = q.top();
-      q.pop();
-      int src = cur[0];
-      int accumWeight = dists[src];
-      int dest = cur[1];
-      int weight = cur[2];
-
-      if (weight > dists[dest]) continue;
-      dists[dest] = weight;
-      visited.insert(hashEdge(src, dest));
-      auto neighs = _edges[dest];
-      for (auto newEdge : neighs) {
-        if (visited.find(hashEdge(dest, newEdge[0])) != visited.end()) continue;
-
-        int neighWeight = newEdge[1] + weight;
-        if (neighWeight < dists[newEdge[0]])
-          q.push({dest, newEdge[0], neighWeight});
+    while (!pq.empty()) {
+      auto [curr_cost, curr_node] = pq.top();
+      pq.pop();
+      for (auto [next_node, next_cost] : _edges[curr_node]) {
+        int cost = curr_cost + next_cost;
+        if (cost >= costs[next_node]) continue;
+        costs[next_node] = cost;
+        pq.push({cost, next_node});
       }
     }
-    return dists[node2] < INT_MAX ? dists[node2] : -1;
+
+    if (costs[node2] == INT_MAX) return -1;
+    return costs[node2];
   }
 };
 
