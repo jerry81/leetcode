@@ -70,7 +70,7 @@ struct Node {
 };
 
 struct ComparePQ {
-  bool operator()(vector<int> a, vector<int> b) { return a[2] > b[2]; }
+  bool operator()(vector<int> a, vector<int> b) { return a[2] < b[2]; }
 };
 class Graph {
   vector<vector<int>> _edges;
@@ -111,22 +111,21 @@ class Graph {
       auto curv = q.top();
       q.pop();
       int newWeight = dist[curv[0]] + curv[2];
-      if (curv[1] == node2) return newWeight;
+      dist[curv[1]] = min(dist[curv[1]],newWeight);
+      // if (curv[1] == node2) return dist[curv[1]];
+      if (visited.find(curv[1]) != visited.end()) continue;
 
-      dist[curv[1]] = newWeight;
       visited.insert(curv[1]);
       if (_nodes.find(curv[1]) == _nodes.end()) continue;
       auto nxtEdges = _nodes[curv[1]]->edges;
       for (auto a : nxtEdges) {
-        if (visited.find(a.first) != visited.end()) continue;
 
         q.push({curv[1], a.first, a.second});
       }
     }
-    return -1;
+    return visited.find(node2) == visited.end() ? -1 : dist[node2];
   }
 };
-
 /**
  * Your Graph object will be instantiated and called as such:
  * Graph* obj = new Graph(n, edges);
