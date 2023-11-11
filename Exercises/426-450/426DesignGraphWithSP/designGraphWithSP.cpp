@@ -70,7 +70,7 @@ struct Node {
 };
 
 struct ComparePQ {
-  bool operator()(vector<int> a, vector<int> b) { return a[2] < b[2]; }
+  bool operator()(vector<int> a, vector<int> b) { return a[2] > b[2]; }
 };
 class Graph {
   vector<vector<int>> _edges;
