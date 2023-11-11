@@ -59,6 +59,8 @@ Acceptance Rate
 
 #include <unordered_map>
 #include <vector>
+#include <queue>
+#include <unordered_set>
 
 using namespace std;
 
@@ -67,29 +69,37 @@ struct Node {
   vector<pair<int, int>> edges;
 };
 class Graph {
-  vector<vector<int>> _edges;
   unordered_map<int, Node*> _nodes;
   int _n;
 
  public:
   Graph(int n, vector<vector<int>>& edges) {
     _n = n;
-    _edges = edges;
     for (vector<int> v : edges) {
       if (_nodes.find(v[0]) == _nodes.end()) {
         Node* tmp = new Node();
         tmp->id = v[0];
-        tmp->edges.push_back({v[1],v[2]});
+        tmp->edges.push_back({v[1], v[2]});
         _nodes[v[0]] = tmp;
       } else {
-        _nodes[v[0]]->edges.push_back({v[1],v[2]});
+        _nodes[v[0]]->edges.push_back({v[1], v[2]});
       }
     }
   }
 
-  void addEdge(vector<int> edge) { _edges.push_back(edge); }
+  void addEdge(vector<int> edge) {
+    _nodes[edge[0]]->edges.push_back({edge[1], edge[2]});
+  }
 
-  int shortestPath(int node1, int node2) {}
+  int shortestPath(int node1, int node2) {
+    // djikstra or something
+    unordered_set<int> visited;
+    queue<int> q;
+    q.push(node1);
+    while (!q.empty()) {
+    }
+    return -1;
+  }
 };
 
 /**
