@@ -104,15 +104,19 @@ class Graph {
     vector<int> dist(_n, INT_MAX);
     visited.insert(node1);
     dist[node1] = 0;
-    for (pair<int, int> ed:  _nodes[node1]->edges) {
-      q.push({node1,ed.first, ed.second});
+    for (pair<int, int> ed : _nodes[node1]->edges) {
+      q.push({node1, ed.first, ed.second});
     }
     while (!q.empty()) {
       auto curv = q.top();
       q.pop();
       int newWeight = dist[curv[0]] + curv[2];
-      if (newWeight < dist[curv[1]]) {
-        dist[curv[1]] = newWeight;
+      if (curv[1] == node2) return newWeight;
+
+      dist[curv[1]] = newWeight;
+      auto nxtEdges = _nodes[curv[1]]->edges;
+      for (auto a : nxtEdges) {
+        q.push({curv[1], a.first, a.second});
       }
     }
     return -1;
