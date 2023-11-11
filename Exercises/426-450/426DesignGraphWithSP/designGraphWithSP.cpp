@@ -115,7 +115,7 @@ class Graph {
 
       dist[curv[1]] = newWeight;
       visited.insert(curv[1]);
-      if (_nodes.find(curv[1]) == _nodes.end() || visited.find(curv[1]) != visited.end()) continue;
+      if (_nodes.find(curv[1]) == _nodes.end()) continue;
       auto nxtEdges = _nodes[curv[1]]->edges;
       for (auto a : nxtEdges) {
         if (visited.find(a.first) != visited.end()) continue;
