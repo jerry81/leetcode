@@ -61,6 +61,7 @@ Acceptance Rate
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -99,10 +100,9 @@ class Graph {
 
   int shortestPath(int node1, int node2) {
     // djikstra or something
-    unordered_set<int> visited;
+    unordered_set<string> visited;
     priority_queue<vector<int>, vector<vector<int>>, ComparePQ> q;
     vector<int> dist(_n, INT_MAX);
-    visited.insert(node1);
     dist[node1] = 0;
     for (pair<int, int> ed : _nodes[node1]->edges) {
       q.push({node1, ed.first, ed.second});
@@ -110,20 +110,22 @@ class Graph {
     while (!q.empty()) {
       auto curv = q.top();
       q.pop();
+
       int newWeight = dist[curv[0]] + curv[2];
       dist[curv[1]] = min(dist[curv[1]],newWeight);
-      // if (curv[1] == node2) return dist[curv[1]];
-      if (visited.find(curv[1]) != visited.end()) continue;
+      visited.insert(to_string(curv[0]) + "," + to_string(curv[1]));
 
-      visited.insert(curv[1]);
+      // if (curv[1] == node2) return dist[curv[1]];
+
       if (_nodes.find(curv[1]) == _nodes.end()) continue;
       auto nxtEdges = _nodes[curv[1]]->edges;
       for (auto a : nxtEdges) {
+        if (visited.find(to_string(curv[0]) + "," + to_string(curv[1])) != visited.end()) continue;
 
         q.push({curv[1], a.first, a.second});
       }
     }
-    return visited.find(node2) == visited.end() ? -1 : dist[node2];
+    return dist[node2];
   }
 };
 /**
