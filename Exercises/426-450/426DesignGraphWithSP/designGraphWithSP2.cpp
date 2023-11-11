@@ -39,6 +39,20 @@ class Graph {
     while (!q.empty()) {
       auto cur = q.top();
       q.pop();
+      int src = cur[0];
+      int accumWeight = dists[src];
+      int dest = cur[1];
+      int weight = cur[2];
+
+      dists[dest] = min(dists[dest], accumWeight + weight);
+      visited.insert(hashEdge(src,dest));
+      auto neighs = _edges[dest];
+      for (auto newEdge: neighs) {
+        if (visited.find(hashEdge(newEdge[0], newEdge[1])) != visited.end()) continue;
+
+        newEdge[2] += accumWeight;
+        q.push(newEdge);
+      }
     }
     return dists[node2] < INT_MAX ? dists[node2] : -1;
   }
