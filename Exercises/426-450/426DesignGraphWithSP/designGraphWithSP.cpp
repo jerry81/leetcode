@@ -57,10 +57,10 @@ Acceptance Rate
 
 */
 
-#include <unordered_map>
-#include <vector>
 #include <queue>
+#include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 
@@ -68,13 +68,19 @@ struct Node {
   int id;
   vector<pair<int, int>> edges;
 };
+
+struct ComparePQ {
+  bool operator()(vector<int> a, vector<int> b) { return a[2] > b[2]; }
+};
 class Graph {
+  vector<vector<int>> _edges;
   unordered_map<int, Node*> _nodes;
   int _n;
 
  public:
   Graph(int n, vector<vector<int>>& edges) {
     _n = n;
+    _edges = edges;
     for (vector<int> v : edges) {
       if (_nodes.find(v[0]) == _nodes.end()) {
         Node* tmp = new Node();
@@ -94,9 +100,20 @@ class Graph {
   int shortestPath(int node1, int node2) {
     // djikstra or something
     unordered_set<int> visited;
-    queue<int> q;
-    q.push(node1);
+    priority_queue<vector<int>, vector<vector<int>>, ComparePQ> q;
+    vector<int> dist(_n, INT_MAX);
+    visited.insert(node1);
+    dist[node1] = 0;
+    for (pair<int, int> ed:  _nodes[node1]->edges) {
+      q.push({node1,ed.first, ed.second});
+    }
     while (!q.empty()) {
+      auto curv = q.top();
+      q.pop();
+      int newWeight = dist[curv[0]] + curv[2];
+      if (newWeight < dist[curv[1]]) {
+        dist[curv[1]] = newWeight;
+      }
     }
     return -1;
   }
