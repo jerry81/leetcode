@@ -1,24 +1,47 @@
 #include <queue>
+#include <string>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
 
+struct ComparePQ {
+  bool operator()(vector<int> a, vector<int> b) { return a[2] > b[2]; }
+};
 class Graph {
-vector<vector<vector<int>>> _edges;
+  vector<vector<vector<int>>> _edges;
+  int _n;
 
-public:
+  string hashEdge(int a, int b) { return to_string(a) + "," + to_string(b); }
+
+ public:
   Graph(int n, vector<vector<int>>& edges) {
     _edges.resize(n);
-    for (auto a: edges) {
-      _edges[a[0]].push_back({ a[1], a[2]});
+    for (auto a : edges) {
+      _edges[a[0]].push_back({a[1], a[2]});
     }
   }
 
   void addEdge(vector<int> edge) {
-    _edges[edge[0]].push_back({edge[1],edge[2]});
+    _edges[edge[0]].push_back({edge[1], edge[2]});
   }
 
-  int shortestPath(int node1, int node2) {}
+  int shortestPath(int node1, int node2) {
+    vector<int> dists(_n, INT_MAX);
+    priority_queue<vector<int>, vector<vector<int>>, ComparePQ> q;
+    unordered_set<string> visited;
+
+    dists[node1] = 0;
+    auto startingEdges = _edges[node1];
+    for (auto v: startingEdges) {
+      q.push(v);
+    }
+    while (!q.empty()) {
+      auto cur = q.top();
+      q.pop();
+    }
+    return dists[node2] < INT_MAX ? dists[node2] : -1;
+  }
 };
 
 /**
