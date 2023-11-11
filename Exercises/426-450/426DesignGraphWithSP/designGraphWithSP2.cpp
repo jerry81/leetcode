@@ -21,7 +21,6 @@ class Graph {
     for (auto a : edges) {
       _edges[a[0]].push_back({a[1], a[2]});
     }
-
   }
 
   void addEdge(vector<int> edge) {
@@ -35,8 +34,8 @@ class Graph {
 
     dists[node1] = 0;
     auto startingEdges = _edges[node1];
-    for (auto v: startingEdges) {
-      q.push({node1,v[0],v[1]});
+    for (auto v : startingEdges) {
+      q.push({node1, v[0], v[1]});
     }
     while (!q.empty()) {
       auto cur = q.top();
@@ -46,13 +45,16 @@ class Graph {
       int dest = cur[1];
       int weight = cur[2];
 
-      dists[dest] = min(dists[dest], accumWeight + weight);
-      visited.insert(hashEdge(src,dest));
+      if (weight > dists[dest]) continue;
+      dists[dest] = weight;
+      visited.insert(hashEdge(src, dest));
       auto neighs = _edges[dest];
-      for (auto newEdge: neighs) {
+      for (auto newEdge : neighs) {
         if (visited.find(hashEdge(dest, newEdge[0])) != visited.end()) continue;
 
-        q.push({dest,newEdge[0],newEdge[1]});
+        int neighWeight = newEdge[1] + weight;
+        if (neighWeight < dists[newEdge[0]])
+          q.push({dest, newEdge[0], neighWeight});
       }
     }
     return dists[node2] < INT_MAX ? dists[node2] : -1;
