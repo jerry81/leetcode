@@ -50,9 +50,17 @@ class Graph {
   }
 };
 
-/**
- * Your Graph object will be instantiated and called as such:
- * Graph* obj = new Graph(n, edges);
- * obj->addEdge(edge);
- * int param_2 = obj->shortestPath(node1,node2);
- */
+/*
+
+why did pair perform better than vector?
+
+
+You're correct. In general, vectors perform better than pairs for storing and accessing data. This is because vectors are dynamic arrays that can efficiently grow and shrink as needed, while pairs are fixed-size structures that cannot be resized.
+
+However, the previous answer was specifically addressing the context of the provided graph implementation. In that context, using vector<vector<vector<int>>> _edges introduces additional layers of indirection and memory access overhead compared to vector<vector<pair<int, int>>> _edges, which can lead to worse performance, especially for larger graphs.
+
+The reason for this difference is that accessing an edge in vector<vector<pair<int, int>>> _edges involves two levels of indirection (first to access the outer vector of pairs, and then to access the inner pair), while in vector<vector<vector<int>>> _edges, it involves three levels of indirection (first to access the outer vector of vectors, then to access the inner vector, and finally to access the integer value). This additional indirection can have a significant impact on performance, especially when dealing with large graphs with many edges.
+
+In general, you should use vectors whenever possible for storing and accessing sequential data. Pairs can be useful for storing small amounts of data that are always used together, but they should be avoided for larger amounts of data or for data that needs to be frequently resized.
+
+*/
