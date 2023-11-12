@@ -54,7 +54,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  unordered_map<int, unordered_set<int>> route_table;
+  unordered_map<int, vector<int>> route_table;
 
  public:
   int numBusesToDestination(vector<vector<int>>& routes, int source,
@@ -65,9 +65,7 @@ class Solution {
       for (int a : r) {
         if (source == a) sourceFound = true;
         if (target == a) targetFound = true;
-        for (int b : r) {
-          route_table[a].insert(b);
-        }
+        route_table[a] = r;
       }
     }
     if (!sourceFound || !targetFound) return -1;
