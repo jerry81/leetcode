@@ -83,9 +83,22 @@ class Solution {
     visited.insert(cur);
     while (!q.empty()) {
       queue<int> nxt;
+
       while (!q.empty()) {
-        res++;
+        int cur = q.front();
+        q.pop();
+        if (cur == target) return res;
+
+        // neighbors
+        auto a = route_table[cur];
+        for (int connectedStop : a) {
+          if (visited.find(connectedStop) != visited.end()) continue;
+
+          visited.insert(connectedStop);
+          nxt.push(connectedStop);
+        }
       }
+      res++;
       q = nxt;
     }
     return -1;
