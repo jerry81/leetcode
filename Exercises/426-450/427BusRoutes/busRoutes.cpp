@@ -57,6 +57,13 @@ class Solution {
  public:
   int numBusesToDestination(vector<vector<int>>& routes, int source,
                             int target) {
-
+    for (vector<int> r: routes) {
+      for (int a: r) {
+        for (int b: r) {
+          route_table[a].insert(b);
+        }
+      }
+    }
+    return -1;
   }
 };
