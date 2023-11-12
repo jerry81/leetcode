@@ -46,8 +46,17 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+
+using namespace std;
+
 class Solution {
+ unordered_map<int,unordered_set<int>> route_table;
  public:
   int numBusesToDestination(vector<vector<int>>& routes, int source,
-                            int target) {}
+                            int target) {
+
+  }
 };
