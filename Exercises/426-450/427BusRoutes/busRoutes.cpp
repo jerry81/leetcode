@@ -46,23 +46,47 @@ Acceptance Rate
 
 */
 
-#include <vector>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 
 class Solution {
- unordered_map<int,unordered_set<int>> route_table;
+  unordered_map<int, unordered_set<int>> route_table;
+
  public:
   int numBusesToDestination(vector<vector<int>>& routes, int source,
                             int target) {
-    for (vector<int> r: routes) {
-      for (int a: r) {
-        for (int b: r) {
+    bool sourceFound = false;
+    bool targetFound = false;
+    for (vector<int> r : routes) {
+      for (int a : r) {
+        if (source == a) sourceFound = true;
+        if (target == a) targetFound = true;
+        for (int b : r) {
           route_table[a].insert(b);
         }
       }
+    }
+    if (!sourceFound || !targetFound) return -1;
+
+    if (source == target) return 0;
+
+    int res = 0;
+    int cur = source;
+    // bfs?
+    queue<int> q;
+    q.push(cur);
+    unordered_set<int> visited;
+    visited.insert(cur);
+    while (!q.empty()) {
+      queue<int> nxt;
+      while (!q.empty()) {
+        res++;
+      }
+      q = nxt;
     }
     return -1;
   }
