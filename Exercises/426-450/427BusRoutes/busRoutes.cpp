@@ -61,11 +61,11 @@ class Solution {
                             int target) {
     bool sourceFound = false;
     bool targetFound = false;
-    for (vector<int> r : routes) {
-      for (int a : r) {
+    for (int i = 0; i < routes.size(); ++i) {
+      for (int a : routes[i]) {
         if (source == a) sourceFound = true;
         if (target == a) targetFound = true;
-        route_table[a] = r;
+        route_table[a].push_back(i);
       }
     }
     if (!sourceFound || !targetFound) return -1;
@@ -89,11 +89,13 @@ class Solution {
 
         // neighbors
         auto a = route_table[cur];
-        for (int connectedStop : a) {
-          if (visited.find(connectedStop) != visited.end()) continue;
+        for (int routeIdx : a) {
+          for (int stop : routes[routeIdx]) {
+            if (visited.find(stop) != visited.end()) continue;
 
-          visited.insert(connectedStop);
-          nxt.push(connectedStop);
+            visited.insert(stop);
+            nxt.push(stop);
+          }
         }
       }
       res++;
