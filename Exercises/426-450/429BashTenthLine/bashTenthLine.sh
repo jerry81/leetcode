@@ -34,4 +34,6 @@
 
 # Read from the file file.txt and output the tenth line to stdout.
 
-head -10 file.txt | tail -1
+# head -10 file.txt | tail -1
+
+cat file.txt | sed -n '10p'
