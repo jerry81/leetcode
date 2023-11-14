@@ -63,8 +63,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  int r(int idx, char match) {}
-
  public:
   int countPalindromicSubsequence(string s) {
     // count each only once so use unordered_set
@@ -77,18 +75,17 @@ class Solution {
     int sz = s.size();
     for (int i = 0; i < sz; ++i) {
       char c = s[i];
-      if (visited.find(c) != visited.end()) {
+      if (visited.find(c) == visited.end()) {
         visited.insert(c);
-        int start = sz-1;
+        int start = sz - 1;
         unordered_set<char> unique;
         while (s[start] != c) {
           start--;
         }
-        for (int j = start-1; j > i; --j) {
+        for (int j = start - 1; j > i; --j) {
           unique.insert(s[j]);
         }
-        res+=unique.size();
-        break;
+        res += unique.size();
       }
     }
     return res;
