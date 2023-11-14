@@ -74,6 +74,23 @@ class Solution {
     // unique items between
     unordered_set<char> visited;
     int res = 0;
+    int sz = s.size();
+    for (int i = 0; i < sz; ++i) {
+      char c = s[i];
+      if (visited.find(c) != visited.end()) {
+        visited.insert(c);
+        int start = sz-1;
+        unordered_set<char> unique;
+        while (s[start] != c) {
+          start--;
+        }
+        for (int j = start-1; j > i; --j) {
+          unique.insert(s[j]);
+        }
+        res+=unique.size();
+        break;
+      }
+    }
     return res;
   }
 };
