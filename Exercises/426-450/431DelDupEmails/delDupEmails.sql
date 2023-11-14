@@ -57,4 +57,4 @@ Acceptance Rate
 61.1%
 */
 
-delete from Person a using Person b where a.email = b.email and a.id != b.id returning *;
+delete from Person a using Person b where a.email = b.email and a.id != b.id and b.id < a.id returning *;

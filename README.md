@@ -225,3 +225,11 @@ move(int &&value) no except {
 - full join puts all the rows togethers - there will be nulls where there is no foreign key match
 - select distinct to remove dup rows
 - the "on" in join on is just to determine which columns to join on.
+- delete usage:
+```sql
+delete from table1 using table2 where do your stuff here returning *;
+```
+- delete usage when same table:
+```sql
+delete from table1 a using table2 b where a.id = b.id and etc... returning *;
+```
