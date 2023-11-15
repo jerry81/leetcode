@@ -57,13 +57,20 @@ Acceptance Rate
 46.0%
 */
 select id from (
-  select id, temperature,
-  LAG(temperature) OVER ( order by recordDate ) as prev_temp
+  select id, temperature, recordDate,
+  LAG(recordDate) OVER (ORDER BY recordDate) AS prev_recordDate,
+  LAG(temperature) OVER (ORDER BY recordDate) AS prev_temp
   from Weather
 )
-where prev_temp < temperature ;
+where prev_temp < temperature and recordDate = prev_recordDate + INTERVAL '1 day';
 /*
 1.  googled "postgres get previous row"
 2.  found postgresql LAG function https://www.postgresqltutorial.com/postgresql-window-function/postgresql-lag-function/
 
+*/
+
+/*
+TIL:
+INTERVAL '1 day'
+LAG is per column.
 */
