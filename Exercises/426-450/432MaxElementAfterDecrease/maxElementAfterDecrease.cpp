@@ -68,7 +68,7 @@ class Solution {
  public:
   int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {
     // dp and recursion?
-    int ceil = 1;
+    int ceil = 0;
     sort(arr.begin(), arr.end());
     for (int i = 0; i < arr.size(); ++i) {
       int cur = arr[i];
