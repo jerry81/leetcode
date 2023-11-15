@@ -68,8 +68,13 @@ class Solution {
  public:
   int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {
     // dp and recursion?
+    int ceil = 1;
     sort(arr.begin(), arr.end());
-    return min((int)arr.size(), *max_element(arr.begin(), arr.end()));
+    for (int i = 0; i < arr.size(); ++i) {
+      int cur = arr[i];
+      if (cur > ceil) ceil++;
+    }
+    return ceil;
     // oops forgot some cases
   }
 };
