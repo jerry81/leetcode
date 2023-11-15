@@ -233,3 +233,15 @@ delete from table1 using table2 where do your stuff here returning *;
 ```sql
 delete from table1 a using table2 b where a.id = b.id and etc... returning *;
 ```
+
+- LAG syntax
+- comparing dates with INTERVAL '1 day'
+```sql
+select id from (
+  select id, temperature, recordDate,
+  LAG(recordDate) OVER (ORDER BY recordDate) AS prev_recordDate,
+  LAG(temperature) OVER (ORDER BY recordDate) AS prev_temp
+  from Weather
+)
+where prev_temp < temperature and recordDate = prev_recordDate + INTERVAL '1 day';
+```
