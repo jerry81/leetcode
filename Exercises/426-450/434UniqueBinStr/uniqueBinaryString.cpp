@@ -45,11 +45,10 @@ Acceptance Rate
 
 */
 
-#include <string>
-#include <vector>
-// #include <unordered_set>
 #include <bitset>
 #include <cmath>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -64,14 +63,16 @@ class Solution {
       asInts.push_back(bits.to_ulong());
     }
     sort(asInts.begin(), asInts.end());
-    int mx = pow(2,sz)-1;
+    int mx = pow(2, sz) - 1;
+    int mxS = asInts.size();
     for (int i = 0; i < mx; ++i) {
+      if (i >= mxS) break;
       if (asInts[i] != i) {
         bitset<32> bts(i);
-        return bts.to_string();
+        return bts.to_string().substr(32 - sz);
       }
     }
-    bitset<32> d(0);
-    return d.to_string();
+    bitset<32> d(asInts.back() + 1);
+    return d.to_string().substr(32 - sz);
   }
 };
