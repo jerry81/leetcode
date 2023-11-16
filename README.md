@@ -253,3 +253,7 @@ where prev_temp < temperature and recordDate = prev_recordDate + INTERVAL '1 day
 select distinct on (player_id) player_id, event_date as first_login from Activity order by player_id, event_date;
 
 ```
+
+## todo
+
+- come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
