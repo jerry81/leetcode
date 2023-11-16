@@ -245,3 +245,11 @@ select id from (
 )
 where prev_temp < temperature and recordDate = prev_recordDate + INTERVAL '1 day';
 ```
+
+- select distinct on (column u want distinct)
+- also orderby multiple
+
+```sql
+select distinct on (player_id) player_id, event_date as first_login from Activity order by player_id, event_date;
+
+```
