@@ -83,7 +83,10 @@ class Solution {
         int diff = rv - nrv;
         accum -= diff * spread;
         lptr = min(lptr, rptr);
+        continue;
       }
+      lptr--;
+      accum = nxtAccum;
     }
 
     return res;
