@@ -114,7 +114,7 @@ class Solution {
   int maxFrequency(vector<int>& nums, int k) {
     sort(nums.begin(), nums.end());
     // brute force - try each
-    int res = 0;
+    int res = 1;
     int sz = nums.size();
     if (sz == 1) return 1;
     int accum = 0;
@@ -125,7 +125,7 @@ class Solution {
       int rv = nums[rptr];
       int nl = lptr - 1;
       if (nl < 0) {
-        res = max(res, rptr - lptr);
+        res = max(res, rptr - lptr + 1);
         break;
       }
       int nlv = nums[nl];
@@ -134,7 +134,7 @@ class Solution {
       if (nxtAccum > k) {
         // lptr reached the end already
         int spread = rptr - lptr;
-        res = max(res, spread);
+        res = max(res, spread + 1);
         // must update accum
 
         rptr--;
