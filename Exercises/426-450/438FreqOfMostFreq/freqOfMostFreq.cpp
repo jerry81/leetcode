@@ -113,10 +113,10 @@ class Solution {
  public:
   int maxFrequency(vector<int>& nums, int k) {
     sort(nums.begin(), nums.end());
-    // brute force - try each
     int res = 1;
     int sz = nums.size();
     if (sz == 1) return 1;
+
     int accum = 0;
     int rptr = sz - 1;
     int lptr = sz - 1;
