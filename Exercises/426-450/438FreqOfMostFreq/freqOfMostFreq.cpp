@@ -68,15 +68,21 @@ class Solution {
     while (lptr >= 0 && rptr > 0) {
       // check how far left lptr can go
       int rv = nums[rptr];
-      int nl = lptr-1;
+      int nl = lptr - 1;
       int nlv = nums[nl];
       int ops = rv - nlv;
-      int nxtAccum = accum+ops;
+      int nxtAccum = accum + ops;
       if (nxtAccum > k) {
         // lptr reached the end already
         int spread = rptr - lptr;
         res = max(res, spread);
+        // must update accum
+
         rptr--;
+        int nrv = nums[rptr];
+        int diff = rv - nrv;
+        accum -= diff * spread;
+        lptr = min(lptr, rptr);
       }
     }
 
