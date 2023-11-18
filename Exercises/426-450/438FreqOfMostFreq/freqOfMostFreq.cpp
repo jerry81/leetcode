@@ -61,26 +61,22 @@ class Solution {
     // brute force - try each
     int res = 0;
     int sz = nums.size();
+    if (sz == 1) return 1;
     int accum = 0;
     int rptr = sz - 1;
-    int lptr = sz - 2;
-    int nextAccum = nums[rptr] - nums[lptr];
-    if (sz == 1) return 1;
-    while (nextAccum <= k && lptr >= 0) {
-      accum = nextAccum;
-      lptr--;
-      nextAccum += nums[rptr] - nums[lptr];
-    }
-    int spread = rptr-lptr + 1;
-    res = spread;
-    for (int curR = rptr-1; curR > 0; --curR) {
-      // update accum
-      int newRight = nums[curR];
-      int diff = nums[curR+1] - newRight;
-      accum -= diff*(spread-1);
-      for (int curL = lptr-1; lptr >= 0; --curL) {
-        int newLeft = nums[curL];
-        accum+=newRight - newLeft;
+    int lptr = sz - 1;
+    while (lptr >= 0 && rptr > 0) {
+      // check how far left lptr can go
+      int rv = nums[rptr];
+      int nl = lptr-1;
+      int nlv = nums[nl];
+      int ops = rv - nlv;
+      int nxtAccum = accum+ops;
+      if (nxtAccum > k) {
+        // lptr reached the end already
+        int spread = rptr - lptr;
+        res = max(res, spread);
+        rptr--;
       }
     }
 
