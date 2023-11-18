@@ -54,6 +54,19 @@ using namespace std;
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k) {
-
+      sort(nums.begin(), nums.end());
+      // brute force - try each
+      int res = 0;
+      int sz = nums.size();
+      int accum = 0;
+      int rptr = sz-1;
+      int lptr = sz-2;
+      if (sz == 1) return 1;
+      while (accum <= k && lptr >= 0) {
+        accum+=(nums[rptr] - nums[lptr]);
+        rptr--;
+      }
+      res = max(rptr-lptr+1, res);
+      return res;
     }
 };
