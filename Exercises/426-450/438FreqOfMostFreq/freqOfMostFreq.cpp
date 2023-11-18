@@ -64,18 +64,23 @@ class Solution {
     int accum = 0;
     int rptr = sz - 1;
     int lptr = sz - 2;
+    int nextAccum = nums[rptr] - nums[lptr];
     if (sz == 1) return 1;
-    while (accum <= k && lptr >= 0) {
-      accum += (nums[rptr] - nums[lptr]);
-      rptr--;
+    while (nextAccum <= k && lptr >= 0) {
+      accum = nextAccum;
+      lptr--;
+      nextAccum += nums[rptr] - nums[lptr];
     }
     int spread = rptr-lptr + 1;
     res = spread;
     for (int curR = rptr-1; curR > 0; --curR) {
       // update accum
-      int diff = nums[curR+1] - nums[curR];
+      int newRight = nums[curR];
+      int diff = nums[curR+1] - newRight;
       accum -= diff*(spread-1);
       for (int curL = lptr-1; lptr >= 0; --curL) {
+        int newLeft = nums[curL];
+        accum+=newRight - newLeft;
       }
     }
 
