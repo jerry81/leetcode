@@ -60,6 +60,13 @@ public:
     int reductionOperations(vector<int>& nums) {
       int res = 0;
       sort(nums.begin(), nums.end());
+      int sz = nums.size();
+      if (sz == 1) return 0;
+      int prev = nums.back();
+      for (int i = sz-2; i >= 0; --i) {
+        int cur = nums[i];
+        if (cur < prev) res+=(sz-i);
+      }
       return res;
     }
 };
