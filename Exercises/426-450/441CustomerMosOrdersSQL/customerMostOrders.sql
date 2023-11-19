@@ -57,10 +57,11 @@
 -- Acceptance Rate
 -- 65.3%
 
-SELECT cusomer_number FROM orders t1
+SELECT t1.customer_number, item_count FROM orders t1
 FULL JOIN (
-    SELECT COUNT(*) AS item_count
+    SELECT customer_number, COUNT(*) AS item_count
     FROM orders
-    ORDER BY item_count
+    GROUP BY customer_number
+    ORDER BY item_count DESC
 ) t2 ON t1.customer_number = t2.customer_number
 LIMIT 1;
