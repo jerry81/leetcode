@@ -65,7 +65,8 @@ public:
       int prev = nums.back();
       for (int i = sz-2; i >= 0; --i) {
         int cur = nums[i];
-        if (cur < prev) res+=(sz-i);
+        if (cur < prev) res+=(sz-i-1);
+        prev = cur;
       }
       return res;
     }
