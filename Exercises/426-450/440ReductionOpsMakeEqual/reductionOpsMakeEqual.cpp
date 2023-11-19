@@ -58,6 +58,8 @@ using namespace std;
 class Solution {
 public:
     int reductionOperations(vector<int>& nums) {
-
+      int res = 0;
+      sort(nums.begin(), nums.end());
+      return res;
     }
 };
