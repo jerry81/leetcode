@@ -121,15 +121,15 @@ class Solution {
     int res = 0;
     if (msum > 0) {
       res += msum;
-      res += psums[rmetal - 1];
+      if (rmetal > 0) res += psums[rmetal - 1];
     }
     if (psum > 0) {
       res += psum;
-      res += psums[rpaper - 1];
+      if (rpaper > 0) res += psums[rpaper - 1];
     }
     if (gsum > 0) {
       res += gsum;
-      res += psums[rglass - 1];
+      if (rglass > 0) res += psums[rglass - 1];
     }
     return res;
   }
