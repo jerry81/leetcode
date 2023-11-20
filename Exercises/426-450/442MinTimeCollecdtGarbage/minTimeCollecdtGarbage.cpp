@@ -5,13 +5,20 @@ Medium
 1.2K
 169
 Companies
-You are given a 0-indexed array of strings garbage where garbage[i] represents the assortment of garbage at the ith house. garbage[i] consists only of the characters 'M', 'P' and 'G' representing one unit of metal, paper and glass garbage respectively. Picking up one unit of any type of garbage takes 1 minute.
+You are given a 0-indexed array of strings garbage where garbage[i] represents
+the assortment of garbage at the ith house. garbage[i] consists only of the
+characters 'M', 'P' and 'G' representing one unit of metal, paper and glass
+garbage respectively. Picking up one unit of any type of garbage takes 1 minute.
 
-You are also given a 0-indexed integer array travel where travel[i] is the number of minutes needed to go from house i to house i + 1.
+You are also given a 0-indexed integer array travel where travel[i] is the
+number of minutes needed to go from house i to house i + 1.
 
-There are three garbage trucks in the city, each responsible for picking up one type of garbage. Each garbage truck starts at house 0 and must visit each house in order; however, they do not need to visit every house.
+There are three garbage trucks in the city, each responsible for picking up one
+type of garbage. Each garbage truck starts at house 0 and must visit each house
+in order; however, they do not need to visit every house.
 
-Only one garbage truck may be used at any given moment. While one truck is driving or picking up garbage, the other two trucks cannot do anything.
+Only one garbage truck may be used at any given moment. While one truck is
+driving or picking up garbage, the other two trucks cannot do anything.
 
 Return the minimum number of minutes needed to pick up all the garbage.
 
@@ -36,9 +43,9 @@ The glass garbage truck:
 5. Travels from house 2 to house 3
 6. Collects the glass garbage at house 3
 Altogether, it takes 13 minutes to pick up all the glass garbage.
-Since there is no metal garbage, we do not need to consider the metal garbage truck.
-Therefore, it takes a total of 8 + 13 = 21 minutes to collect all the garbage.
-Example 2:
+Since there is no metal garbage, we do not need to consider the metal garbage
+truck. Therefore, it takes a total of 8 + 13 = 21 minutes to collect all the
+garbage. Example 2:
 
 Input: garbage = ["MMM","PGM","GP"], travel = [3,10]
 Output: 37
@@ -65,50 +72,65 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
-      // travel time prefix sums
-      vector<int> psums;
-      int prev = 0;
-      for (int t: travel) {
-        int csum = t + prev;
-        psums.push_back(csum);
-        prev = t;
+ public:
+  int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+    // travel time prefix sums
+    vector<int> psums;
+    int prev = 0;
+    for (int t : travel) {
+      if (!psums.empty()) {
+        prev = psums.back();
       }
-      int rglass = -1;
-      int gsum = 0;
-      int rpaper = -1;
-      int psum = 0;
-      int rmetal = -1;
-      int rsum = 0;
-      int curidx = -1;
-      for (string s: garbage) {
-        curidx++;
-        for (char c: s) {
-          switch (c) {
-            case 'G': {
-              gsum++;
-              rglass = curidx;
-              break;
-            }
-            case 'P': {
-              psum++;
-              rpaper = curidx;
-              break;
-            }
-            default: {
-              rsum++;
-              rmetal = curidx;
-            }
+      int csum = t + prev;
+      psums.push_back(csum);
+    }
+    int rglass = -1;
+    int gsum = 0;
+    int rpaper = -1;
+    int psum = 0;
+    int rmetal = -1;
+    int msum = 0;
+    int curidx = -1;
+    for (string s : garbage) {
+      curidx++;
+      for (char c : s) {
+        switch (c) {
+          case 'G': {
+            gsum++;
+            rglass = curidx;
+            break;
+          }
+          case 'P': {
+            psum++;
+            rpaper = curidx;
+            break;
+          }
+          default: {
+            msum++;
+            rmetal = curidx;
           }
         }
       }
-      return psums[rmetal-1]+psums[rglass]+psums[rpaper]+gsum+psum+rsum;
     }
+    int res = 0;
+    if (msum > 0) {
+      res += msum;
+      res += psums[rmetal - 1];
+    }
+    if (psum > 0) {
+      res += psum;
+      res += psums[rpaper - 1];
+    }
+    if (gsum > 0) {
+      res += gsum;
+      res += psums[rglass - 1];
+    }
+    return res;
+  }
 };
