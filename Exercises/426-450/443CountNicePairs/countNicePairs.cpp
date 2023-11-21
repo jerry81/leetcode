@@ -5,11 +5,15 @@ Medium
 868
 38
 Companies
-You are given an array nums that consists of non-negative integers. Let us define rev(x) as the reverse of the non-negative integer x. For example, rev(123) = 321, and rev(120) = 21. A pair of indices (i, j) is nice if it satisfies all of the following conditions:
+You are given an array nums that consists of non-negative integers. Let us
+define rev(x) as the reverse of the non-negative integer x. For example,
+rev(123) = 321, and rev(120) = 21. A pair of indices (i, j) is nice if it
+satisfies all of the following conditions:
 
 0 <= i < j < nums.length
 nums[i] + rev(nums[j]) == nums[j] + rev(nums[i])
-Return the number of nice pairs of indices. Since that number can be too large, return it modulo 109 + 7.
+Return the number of nice pairs of indices. Since that number can be too large,
+return it modulo 109 + 7.
 
 
 
@@ -39,13 +43,35 @@ Acceptance Rate
 
 */
 
+#include <cmath>
+#include <string>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int countNicePairs(vector<int>& nums) {
-
+ public:
+  int countNicePairs(vector<int>& nums) {
+    vector<int> revs;
+    for (int n : nums) {
+      string asS = to_string(n);
+      reverse(asS.begin(), asS.end());
+      int backToInt = stoi(asS);
+      revs.push_back(backToInt);
     }
+    long long int resL = 0;
+    const int MOD = pow(10, 9) + 7;
+    int sz = nums.size();
+    for (int i = 0; i < sz; ++i) {
+      for (int j = i + 1; j < sz; ++j) {
+        if (revs[i] == nums[j] && revs[j] == nums[i]) {
+          resL++;
+          resL %= MOD;
+        }
+      }
+    }
+
+    // binary search for nice pairs
+    return resL;
+  }
 };
