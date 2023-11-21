@@ -45,6 +45,8 @@ Acceptance Rate
 
 #include <cmath>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -53,24 +55,20 @@ class Solution {
  public:
   int countNicePairs(vector<int>& nums) {
     vector<int> revs;
+    long long int resL = 0;
+    const int MOD = pow(10, 9) + 7;
+
+    int sz = nums.size();
+    unordered_map<int, int> counts;
     for (int n : nums) {
       string asS = to_string(n);
       reverse(asS.begin(), asS.end());
       int backToInt = stoi(asS);
       revs.push_back(backToInt);
-    }
-    long long int resL = 0;
-    const int MOD = pow(10, 9) + 7;
-    int sz = nums.size();
-    for (int i = 0; i < sz - 1; ++i) {
-      for (int j = i + 1; j < sz; ++j) {
-        int add1 = revs[i] + nums[j];
-        int add2 = revs[j] + nums[i];
-        if (add1 == add2) {
-          resL++;
-          resL %= MOD;
-        }
-      }
+      long long int nicePairSum = n + backToInt;
+      resL += counts[nicePairSum];
+      resL %= MOD;
+      counts[nicePairSum]++;
     }
 
     // binary search for nice pairs
