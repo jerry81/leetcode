@@ -46,7 +46,6 @@ Acceptance Rate
 #include <cmath>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -70,8 +69,6 @@ class Solution {
       resL %= MOD;
       counts[nicePairDiff]++;
     }
-
-    // binary search for nice pairs
     return resL;
   }
 };
