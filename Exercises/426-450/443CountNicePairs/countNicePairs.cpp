@@ -62,9 +62,11 @@ class Solution {
     long long int resL = 0;
     const int MOD = pow(10, 9) + 7;
     int sz = nums.size();
-    for (int i = 0; i < sz; ++i) {
+    for (int i = 0; i < sz - 1; ++i) {
       for (int j = i + 1; j < sz; ++j) {
-        if (revs[i] == nums[j] && revs[j] == nums[i]) {
+        int add1 = revs[i] + nums[j];
+        int add2 = revs[j] + nums[i];
+        if (add1 == add2) {
           resL++;
           resL %= MOD;
         }
