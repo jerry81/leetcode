@@ -65,10 +65,10 @@ class Solution {
       reverse(asS.begin(), asS.end());
       int backToInt = stoi(asS);
       revs.push_back(backToInt);
-      long long int nicePairSum = n + backToInt;
-      resL += counts[nicePairSum];
+      long long int nicePairDiff = n - backToInt;
+      resL += counts[nicePairDiff];
       resL %= MOD;
-      counts[nicePairSum]++;
+      counts[nicePairDiff]++;
     }
 
     // binary search for nice pairs
