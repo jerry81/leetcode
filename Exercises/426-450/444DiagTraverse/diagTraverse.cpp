@@ -5,7 +5,8 @@ Medium
 1.1K
 92
 Companies
-Given a 2D integer array nums, return all elements of nums in diagonal order as shown in the below images.
+Given a 2D integer array nums, return all elements of nums in diagonal order as
+shown in the below images.
 
 
 
@@ -41,8 +42,18 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+ public:
+  vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+    int sz = nums.size();
+    vector<int> res;
+    for (int i = 0; i < sz; ++i) {
+      for (int j = i; j >= 0; --j) {
+        vector<int> v = nums[j];
+        if (nums[j].size() <= j) continue;
 
+        res.push_back(nums[j][j]);
+      }
     }
+    return res;
+  }
 };
