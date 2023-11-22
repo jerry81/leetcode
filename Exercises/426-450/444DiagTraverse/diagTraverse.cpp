@@ -46,18 +46,20 @@ class Solution {
   vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
     int sz = nums.size();
     vector<int> res;
+    int mxSz = sz;
     for (int r = 0; r < sz; ++r) {
       for (int d = 0; d <= r; ++d) {
         int cr = r - d;
         vector<int> v = nums[cr];
+        mxSz = max(mxSz, (int)v.size());
         if (v.size() <= d) continue;
 
         res.push_back(nums[cr][d]);
       }
     }
-    for (int sc = 1; sc < sz; ++sc) {
+    for (int sc = 1; sc < mxSz; ++sc) {
       int diff = 0;
-      for (int sr = sz - 1; sr >= sc; --sr) {
+      for (int sr = sz - 1; sr >= 0; --sr) {
         vector<int> row = nums[sr];
         int curc = diff+sc;
         diff++;
