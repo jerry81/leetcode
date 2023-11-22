@@ -56,10 +56,13 @@ class Solution {
       }
     }
     for (int sc = 1; sc < sz; ++sc) {
+      int diff = 0;
       for (int sr = sz - 1; sr >= sc; --sr) {
         vector<int> row = nums[sr];
-        if (sc >= row.size()) continue;
-        res.push_back(nums[sr][sc]);
+        int curc = diff+sc;
+        if (curc >= row.size()) continue;
+        res.push_back(nums[sr][curc]);
+        diff++;
       }
     }
 
