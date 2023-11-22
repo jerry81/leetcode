@@ -60,9 +60,10 @@ class Solution {
       for (int sr = sz - 1; sr >= sc; --sr) {
         vector<int> row = nums[sr];
         int curc = diff+sc;
+        diff++;
         if (curc >= row.size()) continue;
         res.push_back(nums[sr][curc]);
-        diff++;
+
       }
     }
 
