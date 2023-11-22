@@ -55,13 +55,29 @@ class Solution {
         res.push_back(nums[cr][d]);
       }
     }
+    for (int sc = 1; sc < sz; ++sc) {
+      for (int sr = sz - 1; sr >= sc; --sr) {
+        vector<int> row = nums[sr];
+        if (sc >= row.size()) continue;
+        res.push_back(nums[sr][sc]);
+      }
+    }
+
     return res;
   }
 };
 
 // 00 r = 0
 // 10 01 r = 1   r-d,d
-//
 // 20 11 02 r = 2
-// 21 12
-// 22
+// 30 12 21 03
+// 31 22 13   3 to 1, 1 to 3
+// 32 23  3 to 2, 2 to 3
+// 33  3 to 3
+
+/*
+1 2 3 4
+5 6 7 8
+9 0 1 2
+3 4 5 6
+*/
