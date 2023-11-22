@@ -46,14 +46,22 @@ class Solution {
   vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
     int sz = nums.size();
     vector<int> res;
-    for (int i = 0; i < sz; ++i) {
-      for (int j = i; j >= 0; --j) {
-        vector<int> v = nums[j];
-        if (nums[j].size() <= j) continue;
+    for (int r = 0; r < sz; ++r) {
+      for (int d = 0; d < sz; ++d) {
+        int cr = r-d;
+        vector<int> v = nums[cr];
+        if (v.size() <= d) continue;
 
-        res.push_back(nums[j][j]);
+        res.push_back(nums[cr][d]);
       }
     }
     return res;
   }
 };
+
+// 00 r = 0
+// 10 01 r = 1   r-d,d
+//
+// 20 11 02 r = 2
+// 21 12
+// 22
