@@ -47,8 +47,8 @@ class Solution {
     int sz = nums.size();
     vector<int> res;
     for (int r = 0; r < sz; ++r) {
-      for (int d = 0; d < sz; ++d) {
-        int cr = r-d;
+      for (int d = 0; d <= r; ++d) {
+        int cr = r - d;
         vector<int> v = nums[cr];
         if (v.size() <= d) continue;
 
