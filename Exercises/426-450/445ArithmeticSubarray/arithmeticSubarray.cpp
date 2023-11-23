@@ -69,7 +69,6 @@ class Solution {
   vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l,
                                         vector<int>& r) {
     vector<bool> res;
-    sort(nums.begin(), nums.end());
     for (int i = 0; i < l.size(); ++i) {
       int cl = l[i];
       int cr = r[i];
@@ -77,10 +76,12 @@ class Solution {
         res.push_back(true);
         continue;
       }
-      int diff = res[cl + 1] - res[cl];
+      std::vector<int> subarray(nums.begin()+cl, nums.begin()+cr);
+      sort(subarray.begin(), subarray.end());
+      int diff = subarray[0] - subarray[1];
       int checkPass = true;
-      for (int j = cl + 1; j < cr; ++j) {
-        if (res[j + 1] - res[j] != diff) {
+      for (int j = 1; j < subarray.size(); ++j) {
+        if (subarray[j + 1] - subarray[j] != diff) {
           res.push_back(false);
           checkPass = false;
           break;
