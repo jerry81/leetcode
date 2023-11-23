@@ -76,11 +76,13 @@ class Solution {
         res.push_back(true);
         continue;
       }
-      std::vector<int> subarray(nums.begin()+cl, nums.begin()+cr);
+      auto st = nums.begin() + cl;
+      auto ed = nums.begin() + cr + 1;
+      std::vector<int> subarray(st, ed);
       sort(subarray.begin(), subarray.end());
-      int diff = subarray[0] - subarray[1];
+      int diff = subarray[1] - subarray[0];
       int checkPass = true;
-      for (int j = 1; j < subarray.size(); ++j) {
+      for (int j = 1; j < subarray.size() - 1; ++j) {
         if (subarray[j + 1] - subarray[j] != diff) {
           res.push_back(false);
           checkPass = false;
