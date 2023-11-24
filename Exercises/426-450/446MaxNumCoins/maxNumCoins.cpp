@@ -58,5 +58,16 @@ using namespace std;
 
 class Solution {
  public:
-  int maxCoins(vector<int>& piles) {}
+  int maxCoins(vector<int>& piles) {
+    int res = 0;
+    sort(piles.begin(), piles.end());
+    int rt = piles.size() - 2;
+    int left = 0;
+    while (left < rt) {
+      res += piles[rt];
+      rt -= 2;
+      left++;
+    }
+    return res;
+  }
 };
