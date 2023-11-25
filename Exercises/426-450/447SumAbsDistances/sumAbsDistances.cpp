@@ -67,14 +67,14 @@ class Solution {
       int cur = nums[i];
       int cursm = 0;
       if (i > 0) {
-        int prevSum = nums[i - 1];
-        int itemCount = i;
-        int diff = itemCount * cur - prevSum;
+        int prevSum = ps[i - 1];
+        int toMakeEven = i * cur;
+        int diff = toMakeEven - prevSum;
         cursm += diff;
       }
-      if (i < (sz - 2)) {
-        int pSum = tot - nums[i + 1];
-        int diff = pSum - (sz - i - 1) * cur;
+      if (i < sz) {
+        int pSum = tot - ps[i];
+        int diff = pSum - ((sz - i - 1) * cur);
         cursm += diff;
       }
       res.push_back(cursm);
