@@ -87,4 +87,6 @@ class Solution {
 
 turns out to be a prefix sum problem
 
+prefix sums saves the recurrent calculation of
+n arithmeetic ops on each pass
 */
