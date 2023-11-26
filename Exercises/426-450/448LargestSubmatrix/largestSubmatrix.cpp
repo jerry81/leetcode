@@ -67,7 +67,7 @@ class Solution {
           ref[i][j] = val;
           continue;
         }
-        int prev = i-1;
+        int prev = ref[i-1][j];
         ref[i][j] = val ? prev+1 : 0;
       }
     }
@@ -77,7 +77,7 @@ class Solution {
       sort(row.begin(), row.end());
       int maxh = 0;
       for (int j = 0; j < cols; ++j) {
-        maxh = max(maxh, row[j];
+        maxh = max(maxh, row[j]);
         int area = (j+1) * maxh;
         res = max(area,res);
       }
