@@ -59,8 +59,16 @@ class Solution {
   int largestSubmatrix(vector<vector<int>>& matrix) {
     int rows = matrix.size();
     int cols = matrix[0].size();
+    vector<vector<int>> ref(rows, vector<int>(cols, 0));
     for (int i = 0; i < rows; ++i) {
       for (int j = 0; j < cols; ++j) {
+        int val = matrix[i][j];
+        if (i == 0) {
+          ref[i][j] = val;
+          continue;
+        }
+        int prev = i-1;
+        ref[i][j] = val ? prev+1 : 0;
       }
     }
   }
