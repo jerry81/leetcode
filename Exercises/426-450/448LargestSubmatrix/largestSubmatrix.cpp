@@ -71,5 +71,17 @@ class Solution {
         ref[i][j] = val ? prev+1 : 0;
       }
     }
+    int res = 0;
+    for (int i = 0; i < rows; ++i) {
+      auto row = ref[i];
+      sort(row.begin(), row.end());
+      int maxh = 0;
+      for (int j = 0; j < cols; ++j) {
+        maxh = max(maxh, row[j];
+        int area = (j+1) * maxh;
+        res = max(area,res);
+      }
+    }
+    return res;
   }
 };
