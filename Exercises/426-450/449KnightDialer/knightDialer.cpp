@@ -75,18 +75,20 @@ class Solution {
 
   const int MOD = pow(10, 9) + 7;
 
+  vector<vector<int>> memo;
+
   long long int r(int cur, int rem) {
     if (rem == 0) return 1;
+
+    if (memo[cur][rem] >= 0) return memo[cur][rem];
 
     long long int ret = 0;
     vector<int> options = movemap[cur];
     for (int o : options) {
-      if (o == 5) {
-      }
-
       ret += r(o, rem - 1);
       ret %= MOD;
     }
+    memo[cur][rem] = ret;
     return ret;
   }
 
@@ -95,6 +97,7 @@ class Solution {
     // dp/recursion problem i thinks
     // start on any square
     // handle 10 squares (base case)
+    memo.resize(10, vector<int>(5001, -1));
     long long int res = 0;
     for (int i = 0; i < 10; ++i) {
       res += r(i, n - 1);
