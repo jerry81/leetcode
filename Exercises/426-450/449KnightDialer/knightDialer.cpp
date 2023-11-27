@@ -73,6 +73,8 @@ class Solution {
       {1, 3},                      // 8
       {4, 2}};
 
+  vector<int> dp = vector<int>(5001, );
+
   const int MOD = pow(10, 9) + 7;
 
   long long int r(int cur, int rem) {
@@ -102,3 +104,9 @@ class Solution {
     return res;
   }
 };
+
+/*
+
+OFFICIAL: the above doesn't work - TLE on even low N's
+
+*/
