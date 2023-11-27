@@ -55,6 +55,7 @@ Acceptance Rate
 52.1%
 */
 
+#include <cmath>
 #include <vector>
 
 using namespace std;
@@ -72,11 +73,18 @@ class Solution {
       {1, 3},                      // 8
       {4, 2}};
 
+  const int MOD = pow(10, 9) + 7;
+
+  int r(int cur, int rem) {}
+
  public:
   int knightDialer(int n) {
     // dp/recursion problem i thinks
     // start on any square
     // handle 10 squares (base case)
-    // 0
+    long long int res = 0;
+    for (int i = 0; i < 10; ++i) {
+    }
+    return res;
   }
 };
