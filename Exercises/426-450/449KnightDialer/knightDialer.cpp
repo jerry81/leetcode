@@ -75,7 +75,19 @@ class Solution {
 
   const int MOD = pow(10, 9) + 7;
 
-  int r(int cur, int rem) {}
+  long long int r(int cur, int rem) {
+    if (rem == 0) return 1;
+
+    long long int ret = 0;
+    vector<int> options = movemap[cur];
+    for (int o:options) {
+      if (o == 5) {}
+
+      ret+= r(o, rem-1);
+      ret%=MOD;
+    }
+    return ret;
+  }
 
  public:
   int knightDialer(int n) {
@@ -84,6 +96,8 @@ class Solution {
     // handle 10 squares (base case)
     long long int res = 0;
     for (int i = 0; i < 10; ++i) {
+      res+=r(i,n-1);
+      res%=MOD;
     }
     return res;
   }
