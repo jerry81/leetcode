@@ -58,3 +58,5 @@
 -- 1.3M
 -- Acceptance Rate
 -- 68.5%
+
+select name, population, area from world where area >= 3000000 or population >= 25000000;
