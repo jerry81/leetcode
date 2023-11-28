@@ -64,14 +64,12 @@ Acceptance Rate
 
 #include <cmath>
 #include <string>
-#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-  unordered_map<string, long long int> memo;
-
-  string hsh(int idx, int cnt) { return to_string(idx) + "," + to_string(cnt); }
+  vector<vector<int>> memo;
 
   const int MOD = pow(10, 9) + 7;
 
@@ -84,22 +82,28 @@ class Solution {
     if (cur == 'S') cnt++;
 
     if (idx == 0) return (cnt == 2) ? 1 : 0;
-    string as_h = hsh(idx, cnt);
-    if (memo.find(as_h) != memo.end()) return memo[as_h];
+    if (memo[cnt][idx] > -1) return memo[cnt][idx];
 
     if (cnt == 2) {
       // can place divider
-      memo[as_h] = r(idx - 1, 0, c) % MOD + r(idx - 1, cnt, c) % MOD;
+      memo[cnt][idx] = r(idx - 1, 0, c) % MOD + r(idx - 1, cnt, c) % MOD;
     } else {
       // cannot place divider
-      memo[as_h] = r(idx - 1, cnt, c) % MOD;
+      memo[cnt][idx] = r(idx - 1, cnt, c) % MOD;
     }
-    return memo[as_h] % MOD;
+    return memo[cnt][idx] % MOD;
   }
 
  public:
   int numberOfWays(string corridor) {
+    memo.resize(4, vector<int>(100001, -1));
     int idx = corridor.size() - 1;
     return r(idx, 0, corridor);
   }
 };
+
+/*
+
+nasty test case with tons of Ps...
+
+*/
