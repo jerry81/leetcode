@@ -78,7 +78,7 @@ class Solution {
   long long int r(int idx, int cnt, string &c) {
     if (idx < 0) return 0;
 
-    if (cnt > 0) return 0;
+    if (cnt > 2) return 0;
 
     char cur = c[idx];
     if (cur == 'S') cnt++;
