@@ -60,6 +60,8 @@
 -- Acceptance Rate
 -- 51.9%
 
+-- TIL: subquery syntax
+
 select class from (
   select class, count(*) as cnt from courses group by class
 ) where cnt >= 5;
