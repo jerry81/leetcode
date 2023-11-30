@@ -44,17 +44,30 @@ Acceptance Rate
 
 */
 
+#include <bitset>
+#include <string>
 #include <cmath>
 
 using namespace std;
 
 class Solution {
-  bool isPowOf2(int n) { return n > 0 && fmod(log2(n), 1) == 0; }
 
  public:
   int minimumOneBitOperations(int n) {
-    if (isPowOf2(n)) return n*2-1;
+    if (n == 0) return 0;
 
-    return 0;
+    std::string binaryString = std::bitset<32>(n).to_string();
+    size_t firstOne = binaryString.find('1');
+    binaryString = binaryString.substr(firstOne);
+    int sz = binaryString.size();
+    int accum = 0;
+    for (int i = sz-1; i >= 0; i--) {
+      int exponent = sz-i;
+      char c = binaryString[i];
+      if (c == '1') {
+        accum = pow(2, exponent) - 1 - accum;
+      }
+    }
+    return accum;
   }
 };
