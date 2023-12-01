@@ -105,5 +105,16 @@
 -- 277.9K
 -- Acceptance Rate
 -- 66.0%
-
-select sp.name from SalesPerson sp join Orders o on sp.sales_id = o.sales_id join Company c on c.com_id = o.com_id where c.name != 'RED';
+SELECT sp.name
+FROM SalesPerson sp
+FULL JOIN Orders o ON sp.sales_id = o.sales_id
+FULL JOIN Company c ON c.com_id = o.com_id
+WHERE c.name IS NULL
+   OR (c.name != 'RED' AND NOT EXISTS (
+       SELECT 1
+       FROM Orders sub_o
+       JOIN Company sub_c ON sub_c.com_id = sub_o.com_id
+       WHERE sub_o.sales_id = sp.sales_id
+         AND sub_c.name = 'RED'
+   ))
+   AND sp.name IS NOT NULL;
