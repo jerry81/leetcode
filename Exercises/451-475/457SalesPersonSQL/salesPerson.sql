@@ -105,7 +105,8 @@
 -- 277.9K
 -- Acceptance Rate
 -- 66.0%
-SELECT sp.name
+
+SELECT DISTINCT sp.name
 FROM SalesPerson sp
 FULL JOIN Orders o ON sp.sales_id = o.sales_id
 FULL JOIN Company c ON c.com_id = o.com_id
