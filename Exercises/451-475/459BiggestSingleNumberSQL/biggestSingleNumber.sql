@@ -76,11 +76,11 @@
 -- 220.5K
 -- Acceptance Rate
 -- 57.8%
-select COALESCE(num, NULL) as num
-FROM generate_series(1, 1) AS series
-LEFT JOIN (
-  SELECT num, COUNT(*) AS c
+
+SELECT COALESCE(MAX(num), NULL) AS num
+FROM (
+  SELECT num
   FROM MyNumbers
   GROUP BY num
-  HAVING COUNT(*) = 1 order by num desc limit 1
-) AS subquery ON true;
+  HAVING COUNT(*) = 1
+) AS subquery;
