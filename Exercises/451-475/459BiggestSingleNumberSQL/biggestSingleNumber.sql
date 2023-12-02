@@ -77,10 +77,13 @@
 -- Acceptance Rate
 -- 57.8%
 
-SELECT COALESCE(MAX(num), NULL) AS num
+SELECT COALESCE(MAX(num), NULL) AS num -- coalesce kind of like a default value construct, can be chained
+-- max takes rows and returns one row with highest value in column specified
 FROM (
   SELECT num
   FROM MyNumbers
   GROUP BY num
-  HAVING COUNT(*) = 1
+  HAVING COUNT(*) = 1 -- having used together with groups (aggregates)
 ) AS subquery;
+
+-- aggregate functions: count, max, avg
