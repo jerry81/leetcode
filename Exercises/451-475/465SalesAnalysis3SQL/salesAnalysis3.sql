@@ -83,11 +83,10 @@ SELECT DISTINCT
   p.product_id, p.product_name
 FROM
   Product p
-LEFT JOIN
+RIGHT JOIN
   Sales s ON p.product_id = s.product_id
 WHERE
-  s.seller_id is not null AND
-  NOT EXISTS (
+  NOT EXISTS ( -- TIL: subselect inside WHERE that can reach outer Product p
     SELECT 1
     FROM Sales s
     WHERE
