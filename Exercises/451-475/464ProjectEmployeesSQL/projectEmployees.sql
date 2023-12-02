@@ -77,6 +77,6 @@
 -- 65.1%
 
 
-select p.project_id, AVG(experience_years) as average_years from Project p left join
+select p.project_id, ROUND(AVG(experience_years),2) as average_years from Project p left join -- ROUND function 2nd arg limits number of decimal places
 Employee e on p.employee_id = e.employee_id
 group by p.project_id;
