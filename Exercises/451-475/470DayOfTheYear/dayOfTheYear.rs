@@ -32,6 +32,7 @@ Acceptance Rate
 48.8%
 */
 
+// TIL: you can put a global static var outside of impl
 static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 impl Solution {
@@ -42,32 +43,32 @@ impl Solution {
 
     return false;
   }
-  fn parse_date(date_str: &str) -> Option<(u32, u32, u32)> {
+  fn parse_date(date_str: &str) -> Option<(u32, u32, u32)> { // TIL: Option comes OOB, wrap a "tuple" inside?
     // Split the date string by '/'
-    let mut parts = date_str.split('-');
+    let mut parts = date_str.split('-'); // TIL: split is a thing
 
     // Attempt to parse each part as an integer
     let year: Option<u32> = parts.next()?.parse().ok();
     let month: Option<u32> = parts.next()?.parse().ok();
-    let day: Option<u32> = parts.next()?.parse().ok();
+    let day: Option<u32> = parts.next()?.parse().ok(); // TIL: next(), parse(), ok()
 
 
 
     // If any part failed to parse, return None
     if year.is_none() || month.is_none() || day.is_none() {
-        return None;
+        return None; // TIL: flexibility of Option
     }
 
-    Some((year.unwrap(), month.unwrap(), day.unwrap()))
+    Some((year.unwrap(), month.unwrap(), day.unwrap())) // TIL: - Unwrap un-options it
   }
   pub fn day_of_year(date: String) -> i32 {
     let mut res:i32 = 0;
-    if let Some((year, month, day)) = Solution::parse_date(date.as_str()) {
-      println!("Year: {}, Month: {}, Day: {}", year, month, day);
+    if let Some((year, month, day)) = Solution::parse_date(date.as_str()) { // TIL: String and str are not the same
+      // TIL you must handle the NONE case of Some
       let lp:bool = Solution::is_leap_year(year);
-      if (month == 1) { return day as i32; }
+      if (month == 1) { return day as i32; } // TIL: "as" is powerful
 
-      for i in 0..month-1 {
+      for i in 0..month-1 { // TIL: this is the traditional for
         res+=DAYS_IN_MONTH[i as usize] as i32;
         if (i == 1 && lp) { res+= 1; }
       }
