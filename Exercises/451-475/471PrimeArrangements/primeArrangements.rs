@@ -36,10 +36,10 @@ Acceptance Rate
 
 */
 
-static MOD:i32=pow(10,9) + 7;
+static MOD:i64=1_000_000_007;
 impl Solution {
   fn is_prime(n:i32) -> bool {
-    let sr = sqrt(n);
+    let sr = f64::sqrt(n as f64) as i32;
     for i in 2..=sr {
       if n%i == 0 { return false; }
     }
@@ -49,18 +49,20 @@ impl Solution {
   pub fn num_prime_arrangements(n: i32) -> i32 {
     let mut res: i64 = 1;
     let mut prime_count: i32 = 0;
-    for i in 2..n {
-      if is_prime(i) {
+    if n == 1 { return 1; }
+
+    for i in 2..=n {
+      if Solution::is_prime(i) {
         prime_count+=1;
       }
     }
-    for i in 2..prime_count {
-      res*=i;
+    for i in 2..=prime_count {
+      res*=i as i64;
       res%=MOD;
     }
     let non_prime = n - prime_count;
-    for i in 2..non_prime {
-      res*=i;
+    for i in 2..=non_prime {
+      res*=i as i64;
       res%=MOD;
     }
     return res as i32;
