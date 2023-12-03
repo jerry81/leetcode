@@ -35,11 +35,16 @@ Acceptance Rate
 static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 impl Solution {
+  fn is_leap_year(yr:u32) -> bool {
+    if yr % 400 == 0 return true;
+
+    if yr % 4 == 0 && yr % 100 != 0 return true;
+
+    return false;
+  }
   fn parse_date(date_str: &str) -> Option<(u32, u32, u32)> {
     // Split the date string by '/'
     let mut parts = date_str.split('-');
-
-    println!("parts split {}", date_str);
 
     // Attempt to parse each part as an integer
     let year: Option<u32> = parts.next()?.parse().ok();
@@ -58,11 +63,19 @@ impl Solution {
   pub fn day_of_year(date: String) -> i32 {
     if let Some((year, month, day)) = Solution::parse_date(date.as_str()) {
       println!("Year: {}, Month: {}, Day: {}", year, month, day);
+      bool lp = Solution::is_leap_year(year);
+      if (month == 1) return day;
+
+      let mut res:i32 = 0;
+      for (int i = 0; i < month-1; ++i) {
+        res+=DAYS_IN_MONTH[i];
+        if (i == 1 && lp) res+= 1;
+      }
+      res+=day;
     } else {
-      println!("ass");
       return 0;
     }
-    return 0;
+    return res;
   }
 }
 
