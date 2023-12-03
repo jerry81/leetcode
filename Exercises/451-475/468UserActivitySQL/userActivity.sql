@@ -62,8 +62,10 @@
 -- 315.7K
 -- Acceptance Rate
 -- 47.8%
-
-SELECT day, count(*) as active_users
-FROM Activity
-WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 30 DAY) AND '2019-07-27' -- til: date_sub, interval 30 day
+SELECT activity_date as day, COUNT(*) as active_users
+FROM (
+  SELECT DISTINCT user_id, activity_date
+  FROM Activity
+  WHERE activity_date BETWEEN '2019-07-27'::date - interval '30 days' AND '2019-07-27'::date
+)
 GROUP BY user_id, activity_date;
