@@ -36,14 +36,14 @@ Acceptance Rate
 
 */
 
-static MOD:i64=1_000_000_007;
+static MOD:i64=1_000_000_007; // TIL underscores
 impl Solution {
   fn is_prime(n:i32) -> bool {
-    let sr = f64::sqrt(n as f64) as i32;
+    let sr = (n as f64).sqrt() as i32; // or f64::sqrt(n)
     for i in 2..=sr {
       if n%i == 0 { return false; }
     }
-    return true;
+    true; // Ruby style auto return
   }
 
   pub fn num_prime_arrangements(n: i32) -> i32 {
@@ -65,6 +65,6 @@ impl Solution {
       res*=i as i64;
       res%=MOD;
     }
-    return res as i32;
+    res as i32;
   }
 }
