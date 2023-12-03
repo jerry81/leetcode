@@ -36,9 +36,9 @@ static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 
 impl Solution {
   fn is_leap_year(yr:u32) -> bool {
-    if yr % 400 == 0 return true;
+    if yr % 400 == 0 { return true; }
 
-    if yr % 4 == 0 && yr % 100 != 0 return true;
+    if yr % 4 == 0 && yr % 100 != 0 { return true; }
 
     return false;
   }
@@ -61,17 +61,17 @@ impl Solution {
     Some((year.unwrap(), month.unwrap(), day.unwrap()))
   }
   pub fn day_of_year(date: String) -> i32 {
+    let mut res:i32 = 0;
     if let Some((year, month, day)) = Solution::parse_date(date.as_str()) {
       println!("Year: {}, Month: {}, Day: {}", year, month, day);
-      bool lp = Solution::is_leap_year(year);
-      if (month == 1) return day;
+      let lp:bool = Solution::is_leap_year(year);
+      if (month == 1) { return day as i32; }
 
-      let mut res:i32 = 0;
-      for (int i = 0; i < month-1; ++i) {
-        res+=DAYS_IN_MONTH[i];
-        if (i == 1 && lp) res+= 1;
+      for i in 0..month-1 {
+        res+=DAYS_IN_MONTH[i as usize] as i32;
+        if (i == 1 && lp) { res+= 1; }
       }
-      res+=day;
+      res+=day as i32;
     } else {
       return 0;
     }
