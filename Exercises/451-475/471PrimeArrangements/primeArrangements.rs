@@ -58,6 +58,11 @@ impl Solution {
       res*=i;
       res%=MOD;
     }
+    let non_prime = n - prime_count;
+    for i in 2..non_prime {
+      res*=i;
+      res%=MOD;
+    }
     return res as i32;
   }
 }
