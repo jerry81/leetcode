@@ -62,10 +62,12 @@
 -- 315.7K
 -- Acceptance Rate
 -- 47.8%
+
+
 SELECT activity_date as day, COUNT(*) as active_users
 FROM (
   SELECT DISTINCT user_id, activity_date
   FROM Activity
-  WHERE activity_date BETWEEN '2019-07-27'::date - interval '30 days' AND '2019-07-27'::date
+  WHERE activity_date BETWEEN '2019-07-27'::date - interval '29 days' AND '2019-07-27'::date
 )
-GROUP BY user_id, activity_date;
+GROUP BY activity_date;
