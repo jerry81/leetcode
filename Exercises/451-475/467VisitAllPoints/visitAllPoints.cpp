@@ -47,9 +47,24 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
 class Solution {
 public:
     int minTimeToVisitAllPoints(vector<vector<int>>& points) {
+      int res = 0;
 
+      int sz = points.size();
+      if (sz == 1) return 0;
+      for (int i = 0; i < sz-1; ++i) {
+        vector<int> pt1 = points[i];
+        vector<int> pt2 = points[i+1];
+        int time = max(abs(pt2[0] - pt1[0]), abs(pt2[1]-pt1[1]));
+        res+=time;
+      }
+      return res;
     }
 };
