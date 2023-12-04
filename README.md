@@ -296,7 +296,8 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 ```rs
       dist2 = distance[0..start as usize].iter().sum::<i32>() + distance[destination as usize..sz].iter().sum::<i32>();
 ```
-
+- Vec provides a way to get an iter() from it
+  - with iter() you can do aggregate functions like .sum()
 
 ## todo
 
