@@ -54,9 +54,14 @@ impl Solution {
       let mut ret = String::from("");
       let sz = num.len(); // size
       for i in 0..sz-2 {
-        let cur = &num.as_str()[i..i+2]; // str immutable and slices, String is mutable
-        if cur[0] == cur[1] && cur[1] == cur[2] {
+        let cur = &num.as_str()[i..i+3]; // str immutable and slices, String is mutable
+        let b = cur.as_bytes();
+        let c1 = b.get(0).unwrap();
+        let c2 = b.get(1).unwrap();
+        let c3 = b.get(2).unwrap();
+        if c1 == c2 && c2 == c3 {
           println!("yes");
+
         }
       }
       return ret;
