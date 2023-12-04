@@ -50,8 +50,7 @@ Acceptance Rate
 
 impl Solution {
     pub fn largest_good_integer(num: String) -> String {
-      let mut cur = String::from(""); // creating from literal
-      let mut ret = String::from("");
+      let mut ret:i32 = 0; // creating from literal
       let sz = num.len(); // size
       for i in 0..sz-2 {
         let cur = &num.as_str()[i..i+3]; // str immutable and slices, String is mutable
@@ -60,10 +59,10 @@ impl Solution {
         let c2 = b.get(1).unwrap();
         let c3 = b.get(2).unwrap();
         if c1 == c2 && c2 == c3 {
-          println!("yes");
-
+          let curDig:i32 = cur.to_digit().unwrap();
+          ret = ret.max(curDig);
         }
       }
-      return ret;
+      ret.to_string()
     }
 }
