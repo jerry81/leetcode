@@ -290,6 +290,14 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 *freq.entry(value).or_insert(0) += 1;
 ```
 
+- rust very type-picky:
+- here, the addends' type must be specified (by sepcifying sum function generic)
+- also note that the slicing needs usize type and wont accept i32
+```rs
+      dist2 = distance[0..start as usize].iter().sum::<i32>() + distance[destination as usize..sz].iter().sum::<i32>();
+```
+
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)

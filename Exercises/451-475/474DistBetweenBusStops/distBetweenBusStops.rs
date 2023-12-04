@@ -68,7 +68,7 @@ impl Solution {
       dist2 = distance[0..start as usize].iter().sum::<i32>() + distance[destination as usize..sz].iter().sum::<i32>();
     } else {
       dist1 = distance[start as usize..sz].iter().sum::<i32>()+distance[0..destination as usize].iter().sum::<i32>();
-      dist2 = distance[destination as usize..=start as usize].iter().sum();
+      dist2 = distance[destination as usize..start as usize].iter().sum();
     }
     res = dist1.min(dist2);
     res
