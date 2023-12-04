@@ -57,6 +57,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {
+    let sz = distance.len();
+    let mut dist1 = 0;
+    let mut dist2 = 0;
+    let mut res = 0;
+    if start == destination { return 0; }
 
+    if start < destination {
+      dist1 = distance[start..=destination].iter().sum();
+      dist2 = distance[0..=start].iter().sum() + distance[destiation,sz].iter().sum();
+    } else {
+      dist1 = distance[start..sz].iter().sum()+distance[0..=destination].iter.sum();
+      dist2 = distance[destination..=start].iter().sum();
+    }
+    res = dist1.min(dist2);
+    res
   }
 }
