@@ -254,6 +254,42 @@ select distinct on (player_id) player_id, event_date as first_login from Activit
 
 ```
 
+## RUST TILs
+
+- String is for mutable
+- &str are slices and immutable
+- unwrap unsafely converts from option to target type
+- cannot access indexes of string slice using a[0] notation
+  - instead &str.as_bytes().get(0).unwrap();
+- use let asI:i32 = &str.parse().unwrap() for converting str to int
+- for c in s.chars() to iterate chars of a String
+- for i in 0..10 replaces traditional for loop
+- for i in 0..=10 supported
+- rust has the ruby-like implicit return of the last accessed variable
+- rust vector equivalent is Vec and supports
+```rs
+Vec::push()
+```
+- HashMap is imported as such use
+```rs
+std::collections::HashMap;
+```
+- hashmaps converted to vectors using
+```rs
+let mut v: Vec<_> = freq.iter().collect();
+```
+- Vec has function sort_by
+```rs
+v.sort_by(|a,b| b.1.cmp(&a.1));
+```
+- the example above has a lambda function
+- Hashmaps keys are retreived using .entry
+- the return of .entry is a pointer which is the key that must be dereferenced to update the value at the key
+- or_insert is used to give default values if key doesn't exist.
+```rs
+*freq.entry(value).or_insert(0) += 1;
+```
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
