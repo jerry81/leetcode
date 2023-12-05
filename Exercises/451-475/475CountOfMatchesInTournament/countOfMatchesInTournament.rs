@@ -45,9 +45,16 @@ Acceptance Rate
 */
 
 impl Solution {
-    pub fn number_of_matches(n: i32) -> i32 {
-      if n < 2 { return 0; }
-      if n%2 == 1 { n+=1; }
-      return n/2 + number_of_matches(n/2);
+  pub fn number_of_matches(n: i32) -> i32 {
+    let mut nm = n;
+    if nm < 2 { return 0; }
+    let mut matches = nm/2;
+    let mut teams = 0;
+    if nm%2 == 1 {
+      teams = (nm+1)/2;
+    } else {
+      teams = matches;
     }
+    return matches + Solution::number_of_matches(teams);
+  }
 }
