@@ -39,16 +39,79 @@ Acceptance Rate
 
 */
 
+static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
 impl Solution {
+  fn is_leap_year(yr:u32) -> bool {
+    if yr % 400 == 0 { return true; }
+
+    if yr % 4 == 0 && yr % 100 != 0 { return true; }
+
+    return false;
+  }
+
+  pub fn day_of_year(day: i32, month: i32, year: i32) -> i32 {
+    let mut res:i32 = 0;
+    let lp:bool = Solution::is_leap_year(year as u32);
+    if (month == 1) { return day as i32; } // TIL: "as" is powerful
+    for i in 0..month-1 { // TIL: this is the traditional for
+      res+=DAYS_IN_MONTH[i as usize] as i32;
+      if (i == 1 && lp) { res+= 1; }
+    }
+    res+=day as i32;
+
+    return res;
+  }
+
   pub fn day_of_the_week(day: i32, month: i32, year: i32) -> String {
     // number of days from today
     // % 7 gives the offset from the day
+    let myDay = Solution::day_of_year(5,12,2023);
+    let thatDay = Solution::day_of_year(day,month,year);
     let mut ydiff = 2023 - year;
     let mut mdiff = 12 - month;
     let mut ddiff = 5 - day;
-    println!("days {}", ddiff);
-    println!("months {}", mdiff);
-    println!("years {}", ydiff);
-    "Monday"
+    let mut totalDiff = 0;
+    if year > 2023 {
+      for i in 2024..year {
+        let to_add = if Solution::is_leap_year(i as u32) { 366 } else { 365 }; //TODO: extract
+        totalDiff += to_add;
+      }
+      totalDiff += 365;
+      totalDiff -= myDay;
+      totalDiff += thatDay;
+    } else if year < 2023 {
+      for i in year..2023 {
+        let to_add = if Solution::is_leap_year(i as u32) { 366 } else { 365 };
+        totalDiff += to_add;
+      }
+      totalDiff+= myDay;
+      totalDiff+=365;
+      totalDiff-=thatDay;
+      if Solution::is_leap_year(year as u32) { totalDiff+=1 }
+    } else {
+        if thatDay < myDay {
+          totalDiff = myDay - thatDay;
+        } else {
+          totalDiff = thatDay - myDay;
+        }
+    }
+    totalDiff %= 7;
+    if totalDiff == 0 {
+      return "Wednesday".to_string();
+    } else if totalDiff == 1 {
+      return "Tuesday".to_string();
+    } else if totalDiff == 2 {
+      return "Monday".to_string();
+    } else if totalDiff == 3 {
+      return "Sunday".to_string();
+    } else if totalDiff == 4 {
+      return "Saturday".to_string();
+    } else if totalDiff == 5 {
+      return "Friday".to_string();
+    } else {
+      return "Thursday".to_string();
+    }
+    "Tuesday".to_string();
   }
 }
