@@ -105,7 +105,7 @@ impl Solution {
       } else if totalDiff == 1 {
         return "Wednesday".to_string();
       } else if totalDiff == 2 {
-        return "Thurday".to_string();
+        return "Thursday".to_string();
       } else if totalDiff == 3 {
         return "Friday".to_string();
       } else if totalDiff == 4 {
