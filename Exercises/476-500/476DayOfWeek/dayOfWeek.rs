@@ -41,6 +41,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn day_of_the_week(day: i32, month: i32, year: i32) -> String {
-
+    // number of days from today
+    // % 7 gives the offset from the day
+    let mut ydiff = 2023 - year;
+    let mut mdiff = 12 - month;
+    let mut ddiff = 5 - day;
+    println!("days {}", ddiff);
+    println!("months {}", mdiff);
+    println!("years {}", ydiff);
+    "Monday"
   }
 }
