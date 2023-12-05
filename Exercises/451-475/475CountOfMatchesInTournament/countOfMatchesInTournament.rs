@@ -46,6 +46,8 @@ Acceptance Rate
 
 impl Solution {
     pub fn number_of_matches(n: i32) -> i32 {
-
+      if n < 2 { return 0; }
+      if n%2 == 1 { n+=1; }
+      return n/2 + number_of_matches(n/2);
     }
 }
