@@ -87,6 +87,17 @@ bool result = compare(10, 20);
 In the above example, an instance of the class or struct containing the operator() function is created as compare. Then, the instance is called as a function with the arguments 10 and 20. The operator() function is executed, and the result is stored in the variable result.
 ```
 
+## math: sum of series of consecutive numbers between a and b
+
+- S = n/2 * (a+b) where n is number of terms, a is first and b is last term.
+- e.g. from 2 to 8
+- 8 - 2 + 1 terms so n is 7
+- 7 / 2 * (2 + 8) = 70 / 2 = 35.
+
+- from 3 to 9
+- 21 + 63 = 84 / = 42
+
+
 ## noob c++ mistakes
 
 - using namespace std; -imposing on others
@@ -298,6 +309,8 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 ```
 - Vec provides a way to get an iter() from it
   - with iter() you can do aggregate functions like .sum()
+
+
 
 ## todo
 
