@@ -46,8 +46,6 @@ impl Solution {
     let fullweeks = n / 7;
     let rem = n % 7;
     let start = fullweeks + 1;
-    println!("{}", fullweeks);
-    println!("{}", rem);
     let mut res = 0;
     for i in 0..fullweeks {
       res+=7*(i+4);
