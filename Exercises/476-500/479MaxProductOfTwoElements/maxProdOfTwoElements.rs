@@ -37,10 +37,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_product(nums: Vec<i32>) -> i32 {
+    let mut mu = nums;
     mu.sort_by(|a, b| b.cmp(a));
-    for i in 0..nums.len() {
-      println!("{}",mu[i]);
-    }
-    return 0;
+    return (mu[0]-1) * (mu[1]-1);
   }
 }
