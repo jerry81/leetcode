@@ -42,37 +42,27 @@ Acceptance Rate
 
 impl Solution {
     pub fn num_special(mat: Vec<Vec<i32>>) -> i32 {
-      let mut rows = Vec::new();
-      for r in 0..mat.len() {
-        let mut cnt = 0;
-        for c in 0..mat.len() {
-          if mat[r][c] == 1 {
-            cnt+=1;
-          }
-        }
-        if cnt == 1 {
-          rows.push(r);
-        }
-      }
-      let mut cols = Vec::new();
-      for c in 0..mat.len() {
-        let mut cnt = 0;
-        for r in 0..mat.len() {
-          if mat[r][c] == 1 {
-            cnt+=1;
-          }
-        }
-        if cnt == 1 {
-          cols.push(1);
-        } else {
-          cols.push(0);
-        }
-      }
       let mut res = 0;
-      for c in 0..mat.len() {
-        for r in 0..mat.len() {
-          if (cols[c] == 1 && rows[r] == 1) {
-            res+=1;
+      for r in 0..mat.len() {
+        for c in 0..mat.len() {
+
+          if mat[r][c] == 1 {
+            let mut has1 = false;
+            for i in 0..mat.len() {
+              if i == c { continue; }
+              if mat[r][i] == 1 {
+                has1 = true;
+                break;
+              }
+            }
+            for j in 0..mat.len() {
+              if j == r { continue; }
+              if mat[j][c] == 1 {
+                has1 = true;
+                break;
+              }
+            }
+            if !has1 { res+=1; }
           }
         }
       }
