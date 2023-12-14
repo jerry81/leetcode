@@ -95,7 +95,7 @@ class Solution {
       int z = 0;
       int o = 0;
       for (int j = 0; j < h; ++j) {
-        if (grid[i][j] == 0) {
+        if (grid[j][i] == 0) {
           z++;
         } else {
           o++;
@@ -105,10 +105,10 @@ class Solution {
     }
     vector<vector<int>> res(h, vector<int>(w, 0));
     for (int i = 0; i < h; ++i) {
-      auto [rz,ro] = rows[i];
+      auto [rz, ro] = rows[i];
       for (int j = 0; j < w; ++j) {
-        auto [cz,co] = cols[j];
-        res[i][j] = ro + co - rz - cz;
+        auto [cz, co] = cols[j];
+        res[i][j] = (ro + co) - (rz + cz);
       }
     }
     return res;
