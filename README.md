@@ -10,16 +10,16 @@ leetcode solutions
 2.  Setup distances table, initialize all nodes's distances as inf
 3.  arbitrarily pick start node - mark dist as 0, insert into pq
 4.  while pq not empty
-  5.  Pop edge, update distance, mark as visited
-  6.  for each neighboring edge, if not visited add to queue
+5.  Pop edge, update distance, mark as visited
+6.  for each neighboring edge, if not visited add to queue
 
 ## Find median in two arrays
 
- - we know the target "index" (half of all elements ish)
-    - so we need to find the number that gives us that target index
-    - start with nums1 midpoint (idxSum is idx of nums1's midpoint)
-    - search in nums2 for this value (totalIdx is idxSum + idxFound)
-    - we then repeat with our new search space depending totalIdx's value
+- we know the target "index" (half of all elements ish)
+  - so we need to find the number that gives us that target index
+  - start with nums1 midpoint (idxSum is idx of nums1's midpoint)
+  - search in nums2 for this value (totalIdx is idxSum + idxFound)
+  - we then repeat with our new search space depending totalIdx's value
 
 ## Find if string a is subsequence of string b
 
@@ -89,30 +89,33 @@ In the above example, an instance of the class or struct containing the operator
 
 ## math: sum of series of consecutive numbers between a and b
 
-- S = n/2 * (a+b) where n is number of terms, a is first and b is last term.
+- S = n/2 \* (a+b) where n is number of terms, a is first and b is last term.
 - e.g. from 2 to 8
 - 8 - 2 + 1 terms so n is 7
-- 7 / 2 * (2 + 8) = 70 / 2 = 35.
+- 7 / 2 \* (2 + 8) = 70 / 2 = 35.
 
 - from 3 to 9
 - 21 + 63 = 84 / = 42
-
 
 ## noob c++ mistakes
 
 - using namespace std; -imposing on others
   - alternative
+
 ```cpp
 using std::cout, std::string, std::endl;
 ```
+
 - std::endl bad perf
   - alternative
+
 ```cpp
   cout << "yay " << "\n";
 ```
 
 - for loop over ranged base
   - alternative
+
 ```cpp
   for (const auto &a: arr) {
   }
@@ -128,6 +131,7 @@ using std::cout, std::string, std::endl;
 - using c-style array over std:array
 
 - using reinterpret_cast?!
+
   - std::bit_cast does the same thing
 
 - using const_cast?!
@@ -137,10 +141,12 @@ using std::cout, std::string, std::endl;
 - not marking const when you should
 
 - not using structured bindings
+
 ```cpp
 for (const auto&[name,hex] : amap) {
 }
 ```
+
 - can be done with struct too
 - variables assigned in order they appear in the struct.
 
@@ -150,6 +156,7 @@ for (const auto&[name,hex] : amap) {
 - constexpr to let compiler know to compute at compile time.
 
 - destructors (what) should be marked virtual (what)
+
 ```cpp
 class A {
 public:
@@ -162,17 +169,21 @@ public:
 
 - know default vs value initialization
   - default initialized
+
 ```cpp
   int x;
   int *x2 = new int
 ```
-  - these contain garbage
-  - value initialized
+
+- these contain garbage
+- value initialized
+
 ```cpp
   int y{};
   int *y2 = new int{};
 ```
-  - init to 0;
+
+- init to 0;
 
 - no magic numbers
 - instead use constexpr
@@ -185,6 +196,7 @@ public:
   - there is also std::move in c++
     - a perf optimization - "move semantics"
   - impl is a static_cast, double &&??
+
 ```cpp
 constexpr int&& // && is rvalue reference to an int?
 move(int &&value) no except {
@@ -195,20 +207,25 @@ move(int &&value) no except {
 - eval order not always l to r
 
 - unnecessary heap allocations
+
   - heap allocation slower than stack allocation
   - using "new" uses heap
   - declaring without makes it stack allocated.
 
 - not using shared pointer and unique ptrs to do heap allocations
+
   - unique ptr - gives heap-allocated pointer and when it goes out of scope, it deletes it
   - shared ptr more expensive
 
 - mistake: constructing unique or shared directly instead of using make_unique or make_shared
 - not this:
+
 ```cpp
   auto customer = std::shared_ptr<Record>(new Record{0, "James"});
 ```
+
 - but this:
+
 ```cpp
   auto customer = std::make_shared<Record>(0, "James");
 ```
@@ -223,7 +240,7 @@ move(int &&value) no except {
 
 - shared_ptr is not thread safe
 
-- confusing *const and const *
+- confusing _const and const _
 
 - const applies to whatever is to its left, unless it is on the left.
 
@@ -237,16 +254,20 @@ move(int &&value) no except {
 - select distinct to remove dup rows
 - the "on" in join on is just to determine which columns to join on.
 - delete usage:
+
 ```sql
 delete from table1 using table2 where do your stuff here returning *;
 ```
+
 - delete usage when same table:
+
 ```sql
 delete from table1 a using table2 b where a.id = b.id and etc... returning *;
 ```
 
 - LAG syntax
 - comparing dates with INTERVAL '1 day'
+
 ```sql
 select id from (
   select id, temperature, recordDate,
@@ -278,25 +299,34 @@ select distinct on (player_id) player_id, event_date as first_login from Activit
 - for i in 0..=10 supported
 - rust has the ruby-like implicit return of the last accessed variable
 - rust vector equivalent is Vec and supports
+
 ```rs
 Vec::push()
 ```
+
 - HashMap is imported as such use
+
 ```rs
 std::collections::HashMap;
 ```
+
 - hashmaps converted to vectors using
+
 ```rs
 let mut v: Vec<_> = freq.iter().collect();
 ```
+
 - Vec has function sort_by
+
 ```rs
 v.sort_by(|a,b| b.1.cmp(&a.1));
 ```
+
 - the example above has a lambda function
 - Hashmaps keys are retreived using .entry
 - the return of .entry is a pointer which is the key that must be dereferenced to update the value at the key
 - or_insert is used to give default values if key doesn't exist.
+
 ```rs
 *freq.entry(value).or_insert(0) += 1;
 ```
@@ -304,16 +334,37 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 - rust very type-picky:
 - here, the addends' type must be specified (by sepcifying sum function generic)
 - also note that the slicing needs usize type and wont accept i32
+
 ```rs
       dist2 = distance[0..start as usize].iter().sum::<i32>() + distance[destination as usize..sz].iter().sum::<i32>();
 ```
+
 - Vec provides a way to get an iter() from it
+
   - with iter() you can do aggregate functions like .sum()
 
+- nice syntax sugar to destructure a vector
 
+````rs
+
+    for path in paths.iter() {
+      match path.as_slice() {
+          [item0, item1] => {
+              println!("Item 0: {}, Item 1: {}", item0, item1);
+              // Do something with item0 and item1
+          }
+          _ => {
+              // Handle the case where the nested vector doesn't have exactly two items
+              println!("Invalid nested vector: {:?}", path);
+          }
+      }
+```
+
+- see 482 dest city for example of using hashmap (handling nonexistent keys, accessing k,v)
 
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
 
 - refactor 476DayOfWeek
+````

@@ -45,9 +45,31 @@ Submissions
 Acceptance Rate
 78.2%
 */
+use std::collections::HashMap;
 
 impl Solution {
   pub fn dest_city(paths: Vec<Vec<String>>) -> String {
+    let mut hm:HashMap<String,i32> = HashMap::new();
 
+    for path in paths.iter() {
+      match path.as_slice() {
+          [item0, item1] => {
+            *hm.entry(item0.to_string()).or_insert(0) += 1;
+            *hm.entry(item1.to_string()).or_insert(0);
+              // Do something with item0 and item1
+
+          }
+          _ => {
+              // Handle the case where the nested vector doesn't have exactly two items
+              println!("Invalid nested vector: {:?}", path);
+          }
+      }
+    }
+    for (key, value) in hm.iter() {
+      if *value == 0 {
+        return key.to_string()
+      }
+    }
+    "".to_string()
   }
 }
