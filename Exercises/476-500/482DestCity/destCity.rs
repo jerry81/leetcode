@@ -56,7 +56,7 @@ impl Solution {
           [item0, item1] => {
             *hm.entry(item0.to_string()).or_insert(0) += 1;
             *hm.entry(item1.to_string()).or_insert(0);
-              // Do something with item0 and item1
+            // Do something with item0 and item1
 
           }
           _ => {
