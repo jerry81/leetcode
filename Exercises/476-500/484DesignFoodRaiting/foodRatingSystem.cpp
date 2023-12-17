@@ -78,16 +78,21 @@ Acceptance Rate
 
 using namespace std;
 
+
+
+
 class FoodRatings {
   unordered_map<string, int> name_number;
   vector<string> _cuisines;
   vector<int> _ratings;
+  vector<string> _foods;
   unordered_map<string, vector<int>> cuisine_numbers;
 
  public:
   FoodRatings(vector<string>& foods, vector<string>& cuisines,
               vector<int>& ratings) {
     int counter = 0;
+    _foods = foods;
     for (string food : foods) {
       name_number[food] = counter;
       counter++;
@@ -104,7 +109,18 @@ class FoodRatings {
     _ratings[food_idx] = newRating;
   }
 
-  string highestRated(string cuisine) {}
+  string highestRated(string cuisine) {
+    auto v = cuisine_numbers[cuisine];
+    int mx_rating = 0;
+    int mx_idx = -1;
+    for (int i:v) {
+      if (_ratings[i] > mx_rating) {
+        mx_idx = i;
+      } else if (_ratings[i] == mx_rating) {
+      }
+    }
+    return _foods[mx_idx];
+  }
 };
 
 /**
