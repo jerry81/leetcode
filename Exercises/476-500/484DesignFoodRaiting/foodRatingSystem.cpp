@@ -77,7 +77,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class FoodRatings {
   unordered_map<string, int> name_number;
   vector<string> _cuisines;
@@ -85,20 +84,20 @@ class FoodRatings {
   vector<string> _foods;
   unordered_map<string, vector<int>> cuisine_numbers;
 
- public:
+public:
   FoodRatings(vector<string>& foods, vector<string>& cuisines,
               vector<int>& ratings) {
-    int counter = 0;
-    _foods = foods;
-    for (string food : foods) {
-      name_number[food] = counter;
-      counter++;
+    int size = foods.size();
+    _foods.reserve(size);
+    _ratings.reserve(size);
+    _cuisines.reserve(size);
+
+    for (int i = 0; i < size; ++i) {
+      name_number[foods[i]] = i;
+      _foods.emplace_back(move(foods[i]));
+      cuisine_numbers[cuisines[i]].emplace_back(i);
+      _ratings.emplace_back(ratings[i]);
     }
-    _cuisines = cuisines;
-    for (int i = 0; i < cuisines.size(); ++i) {
-      cuisine_numbers[cuisines[i]].push_back(i);
-    }
-    _ratings = ratings;
   }
 
   void changeRating(string food, int newRating) {
@@ -107,20 +106,17 @@ class FoodRatings {
   }
 
   string highestRated(string cuisine) {
-    auto v = cuisine_numbers[cuisine];
-    int mx_rating = 0;
-    int mx_idx = -1;
-    for (int i : v) {
-      if (_ratings[i] > mx_rating) {
-        mx_idx = i;
-        mx_rating = _ratings[i];
-      } else if (_ratings[i] == mx_rating) {
-        string cur = _foods[mx_idx];
-        string cmp = _foods[i];
-        if (cmp < cur) mx_idx = i;
-      }
+    auto& v = cuisine_numbers[cuisine];
+
+    if (v.empty()) {
+      return "No food available for this cuisine";
     }
-    return _foods[mx_idx];
+
+    auto maxRatingIdx = max_element(v.begin(), v.end(), [this](int i, int j) {
+      return _ratings[i] != _ratings[j] ? _ratings[i] < _ratings[j] : _foods[i] < _foods[j];
+    });
+
+    return _foods[*maxRatingIdx];
   }
 };
 
