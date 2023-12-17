@@ -117,6 +117,9 @@ class FoodRatings {
       if (_ratings[i] > mx_rating) {
         mx_idx = i;
       } else if (_ratings[i] == mx_rating) {
+        string cur = _foods[mx_idx];
+        string cmp = _foods[i];
+        if (cmp < cur) mx_idx= i;
       }
     }
     return _foods[mx_idx];
