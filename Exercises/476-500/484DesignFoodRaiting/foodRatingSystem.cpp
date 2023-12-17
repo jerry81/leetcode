@@ -82,6 +82,7 @@ class FoodRatings {
   unordered_map<string, int> name_number;
   vector<string> _cuisines;
   vector<int> _ratings;
+  unordered_map<string, vector<int>> cuisine_numbers;
 
  public:
   FoodRatings(vector<string>& foods, vector<string>& cuisines,
@@ -92,10 +93,16 @@ class FoodRatings {
       counter++;
     }
     _cuisines = cuisines;
+    for (int i = 0; i < cuisines.size(); ++i) {
+      cuisine_numbers[cuisines[i]].push_back(i);
+    }
     _ratings = ratings;
   }
 
-  void changeRating(string food, int newRating) {}
+  void changeRating(string food, int newRating) {
+    int food_idx = name_number[food];
+    _ratings[food_idx] = newRating;
+  }
 
   string highestRated(string cuisine) {}
 };
