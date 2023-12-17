@@ -78,9 +78,6 @@ Acceptance Rate
 
 using namespace std;
 
-
-
-
 class FoodRatings {
   unordered_map<string, int> name_number;
   vector<string> _cuisines;
@@ -113,13 +110,14 @@ class FoodRatings {
     auto v = cuisine_numbers[cuisine];
     int mx_rating = 0;
     int mx_idx = -1;
-    for (int i:v) {
+    for (int i : v) {
       if (_ratings[i] > mx_rating) {
         mx_idx = i;
+        mx_rating = _ratings[i];
       } else if (_ratings[i] == mx_rating) {
         string cur = _foods[mx_idx];
         string cmp = _foods[i];
-        if (cmp < cur) mx_idx= i;
+        if (cmp < cur) mx_idx = i;
       }
     }
     return _foods[mx_idx];
