@@ -41,10 +41,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn buy_choco(prices: Vec<i32>, money: i32) -> i32 {
-    prices.sort();
-    for p in prices {
-      println!("{}", p);
+    let mut pricesm = prices;
+    pricesm.sort();
+    let minsum = pricesm[0]+pricesm[1];
+    if minsum <= money {
+      return money - minsum
+    }  else {
+      return money
     }
-    return money;
+    0
   }
 }
