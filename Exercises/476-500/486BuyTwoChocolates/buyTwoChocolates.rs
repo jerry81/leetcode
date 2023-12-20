@@ -41,6 +41,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn buy_choco(prices: Vec<i32>, money: i32) -> i32 {
-
+    prices.sort();
+    for p in prices {
+      println!("{}", p);
+    }
+    return money;
   }
 }
