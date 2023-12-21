@@ -51,5 +51,11 @@ public:
         x_vals.push_back(pt[0]);
       }
       sort(x_vals.begin(), x_vals.end());
+      int res = 0;
+      for (int i = 0; i < x_vals.size()-1; ++i) {
+        int diff = abs(x_vals[i+1] - x_vals[i]);
+        res = max(res,diff);
+      }
+      return res;
     }
 };
