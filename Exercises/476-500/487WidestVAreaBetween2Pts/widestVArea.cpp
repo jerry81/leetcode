@@ -46,6 +46,10 @@ using namespace std;
 class Solution {
 public:
     int maxWidthOfVerticalArea(vector<vector<int>>& points) {
-
+      vector<int> x_vals;
+      for (vector<int> pt: points) {
+        x_vals.push_back(pt[0]);
+      }
+      sort(x_vals.begin(), x_vals.end());
     }
 };
