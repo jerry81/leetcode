@@ -43,6 +43,8 @@ Submissions
 Acceptance Rate
 60.4%
 */
+
+
 impl Solution {
   pub fn max_score(s: String) -> i32 {
     // prefix sums
@@ -60,7 +62,7 @@ impl Solution {
       ones_ps.push(oc);
     }
     let mut max_score = 0;
-    for i in 0..s.len() {
+    for i in 0..s.len()-1 {
       let score = zeroes_ps[i] + oc - ones_ps[i];
       if score > max_score { max_score = score; }
     }
