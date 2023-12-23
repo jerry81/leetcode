@@ -50,7 +50,7 @@ impl Solution {
     let mut cy = 0;
     let mut cx = 0;
     hash_set.insert(Solution::hsh(0,0));
-    for let c in path.chars() {
+    for c in path.chars() {
       if c == 'N' {
         cy-=1;
       } else if c == 'S' {
@@ -60,13 +60,14 @@ impl Solution {
       } else {
         cx+=1;
       }
-      let ch = hsh(cy,cx);
-      if hash_set.contains(ch) {
-        return false;
+      let ch = Solution::hsh(cy,cx);
+      if hash_set.contains(&ch) {
+        return true;
       }
+      hash_set.insert(ch);
     }
 
-    true
+    false
 
   }
 }
