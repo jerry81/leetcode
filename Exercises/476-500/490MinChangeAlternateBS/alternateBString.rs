@@ -46,7 +46,7 @@ impl Solution {
   pub fn min_operations(s: String) -> i32 {
     let mut o_count = 0;
     let mut z_count = 0;
-    bool cur = false;
+    let mut cur = false;
     // start with zero
     for c in s.chars() {
       if cur {
@@ -61,5 +61,20 @@ impl Solution {
       }
       cur = !cur;
     }
+    cur = true;
+    for c in s.chars() {
+      if cur {
+        if c == '0' {
+          o_count+=1;
+        }
+      }
+      if !cur {
+        if c == '1' {
+          o_count+=1;
+        }
+      }
+      cur = !cur;
+    }
+    std::cmp::min(o_count, z_count)
   }
 }
