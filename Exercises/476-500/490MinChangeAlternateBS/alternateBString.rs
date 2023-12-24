@@ -44,6 +44,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_operations(s: String) -> i32 {
-
+    let mut o_count = 0;
+    let mut z_count = 0;
+    bool cur = false;
+    for c in s.chars() {
+    }
   }
 }
