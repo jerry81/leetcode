@@ -43,38 +43,29 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn tally(s:String, b:bool) -> i32 {
+    let mut _b = b;
+    let mut _s = s.clone();
+    let mut _count = 0;
+    for c in _s.chars() {
+      if _b {
+        if c == '0' {
+          _count+=1;
+        }
+      }
+      if !_b {
+        if c == '1' {
+          _count+=1;
+        }
+      }
+      _b = !_b;
+    }
+    _count
+  }
+
   pub fn min_operations(s: String) -> i32 {
-    let mut o_count = 0;
-    let mut z_count = 0;
-    let mut cur = false;
-    // start with zero
-    for c in s.chars() {
-      if cur {
-        if c == '0' {
-          z_count+=1;
-        }
-      }
-      if !cur {
-        if c == '1' {
-          z_count+=1;
-        }
-      }
-      cur = !cur;
-    }
-    cur = true;
-    for c in s.chars() {
-      if cur {
-        if c == '0' {
-          o_count+=1;
-        }
-      }
-      if !cur {
-        if c == '1' {
-          o_count+=1;
-        }
-      }
-      cur = !cur;
-    }
-    std::cmp::min(o_count, z_count)
+    let _s = s.clone();
+    let _s2 = s.clone();
+    std::cmp::min(Solution::tally(_s,false), Solution::tally(_s2,true))
   }
 }
