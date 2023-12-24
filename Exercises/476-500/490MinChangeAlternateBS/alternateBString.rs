@@ -47,7 +47,19 @@ impl Solution {
     let mut o_count = 0;
     let mut z_count = 0;
     bool cur = false;
+    // start with zero
     for c in s.chars() {
+      if cur {
+        if c == '0' {
+          z_count+=1;
+        }
+      }
+      if !cur {
+        if c == '1' {
+          z_count+=1;
+        }
+      }
+      cur = !cur;
     }
   }
 }
