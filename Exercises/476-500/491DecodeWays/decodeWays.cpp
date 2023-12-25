@@ -66,26 +66,25 @@ using namespace std;
 class Solution {
   vector<vector<int>> memo;
   int r(int idx, int carry, string &s, int &len) {
-    if (memo[idx][carry] >= 0) return memo[idx][carry];
-    if (idx >= len) return carry == -1;
+    if (idx == len) return carry == -1;
+    // if (memo[idx][carry] >= 0) return memo[idx][carry];
     char cur = s[idx];
     int as_i = cur - '0';
-    if (as_i == 0 && carry != 1 && carry != 2) return 0;
+    if (as_i == 0 && carry == -1) return 0;
 
     if (as_i > 6 && carry == 2) return 0;
 
-    if (as_i == 1 || as_i == 2) {
+    if (as_i == 1 || as_i == 2 && carry == -1) {
       // use it immediately
       int used = r(idx + 1, -1, s, len);
       int unused = r(idx + 1, as_i, s, len);
-      carry = max(0, carry);
-      memo[idx][carry] = used + unused;
+      //  memo[idx][carry] = used + unused;
       return used + unused;
     }
 
     carry = max(0, carry);
-    memo[idx][carry] = r(idx + 1, -1, s, len);
-    return memo[idx][carry];
+    return r(idx + 1, -1, s, len);
+    // return memo[idx][carry];
   }
 
  public:
