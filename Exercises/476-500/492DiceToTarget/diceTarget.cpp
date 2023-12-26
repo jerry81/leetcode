@@ -42,10 +42,16 @@ Acceptance Rate
 55.8%
 
 */
+#include <vector>
 
+using namespace std;
+
+vector<vector<int>> memo;
 class Solution {
 public:
     int numRollsToTarget(int n, int k, int target) {
-
+      if (n <= 0) return 0;
+      if (target <= 0) return 0;
+      if (n == 1) return (int) k <= target;
     }
 };
