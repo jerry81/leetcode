@@ -68,26 +68,23 @@ class Solution {
   int r(int idx, int carry, string &s, int &len) {
     if (idx >= len) return carry == -1;
 
-    if (memo[idx][max(carry,0)] >= 0) return memo[idx][max(carry,0)];
     char cur = s[idx];
     int as_i = cur - '0';
     if (as_i == 0 && carry == -1) return 0;
 
     if (as_i > 6 && carry == 2) return 0;
 
-    if (as_i == 1 || as_i == 2 && carry == -1) {
-      // use it immediately
+    if (memo[idx][max(carry, 0)] >= 0) return memo[idx][max(carry, 0)];
+
+    if ((as_i == 1 || as_i == 2) && carry == -1) {
       int used = r(idx + 1, -1, s, len);
       int unused = r(idx + 1, as_i, s, len);
-      //  memo[idx][carry] = used + unused;
-      memo[idx][max(carry,0)] = used+unused;
+      memo[idx][max(carry, 0)] = used + unused;
       return used + unused;
     }
 
-    carry = max(0, carry);
-    memo[idx][carry] = r(idx + 1, -1, s, len);
-    return memo[idx][carry];
-    // return memo[idx][carry];
+    memo[idx][max(carry, 0)] = r(idx + 1, -1, s, len);
+    return memo[idx][max(carry, 0)];
   }
 
  public:
