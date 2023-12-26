@@ -7,7 +7,9 @@ Medium
 Companies
 You have n dice, and each die has k faces numbered from 1 to k.
 
-Given three integers n, k, and target, return the number of possible ways (out of the kn total ways) to roll the dice, so the sum of the face-up numbers equals target. Since the answer may be too large, return it modulo 109 + 7.
+Given three integers n, k, and target, return the number of possible ways (out
+of the kn total ways) to roll the dice, so the sum of the face-up numbers equals
+target. Since the answer may be too large, return it modulo 109 + 7.
 
 
 
@@ -43,15 +45,32 @@ Acceptance Rate
 
 */
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
-vector<vector<int>> memo;
 class Solution {
-public:
-    int numRollsToTarget(int n, int k, int target) {
-      if (n <= 0) return 0;
-      if (target <= 0) return 0;
-      if (n == 1) return (int) k <= target;
+  vector<vector<int>> memo;
+  const int MOD = pow(10,9)+7;
+ public:
+  Solution() { memo.resize(31, vector<int>(1001, -1)); };
+
+  int numRollsToTarget(int n, int k, int target) {
+    if (n <= 0) return 0;
+
+    if (target <= 0) return 0;
+
+    if (n == 1) return (int)(k >= target);
+
+    if (memo[n][target] < 0) {
+      long long sum = 0;
+      for (int i = 1; i <= k; ++i) {
+        sum+=numRollsToTarget(n-1, k, target-i);
+        sum%=MOD;
+      }
+      memo[n][target] = sum;
     }
+
+    return memo[n][target];
+  };
 };
