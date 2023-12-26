@@ -44,14 +44,15 @@ Acceptance Rate
 55.8%
 
 */
-#include <vector>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
 class Solution {
   vector<vector<int>> memo;
-  const int MOD = pow(10,9)+7;
+  const int MOD = pow(10, 9) + 7;
+
  public:
   Solution() { memo.resize(31, vector<int>(1001, -1)); };
 
@@ -65,8 +66,8 @@ class Solution {
     if (memo[n][target] < 0) {
       long long sum = 0;
       for (int i = 1; i <= k; ++i) {
-        sum+=numRollsToTarget(n-1, k, target-i);
-        sum%=MOD;
+        sum += numRollsToTarget(n - 1, k, target - i);
+        sum %= MOD;
       }
       memo[n][target] = sum;
     }
