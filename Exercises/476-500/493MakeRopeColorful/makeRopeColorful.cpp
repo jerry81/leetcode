@@ -101,7 +101,8 @@ class Solution {
     unordered_set<char> visited;
     for (char c : colors) visited.insert(c);
     int unique = visited.size();
-    r(0, 0, 0, unique, colors, neededTime);
+    unordered_set<char> start;
+    r(0, 0, 0, start, '-', unique, colors, neededTime);
     return res;
   }
 };
