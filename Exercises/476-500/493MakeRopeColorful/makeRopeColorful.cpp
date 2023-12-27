@@ -67,7 +67,7 @@ using namespace std;
 class Solution {
   int res = INT_MAX;
   // unordered_map<int, int> memo;
-  int r(int idx, int cnt, int accum, unordered_set<char> visited, char prev, int& uniq, string& colors,
+  void r(int idx, int cnt, int accum, unordered_set<char> visited, char prev, int& uniq, string& colors,
         vector<int>& neededTime) {
     if (idx >= colors.size()) {
       if (cnt == uniq) res = min(accum, res);
