@@ -65,28 +65,43 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  unordered_map<int, int> memo;
-  int r(int idx, unordered_set<char> visited, int accum, string& colors,
+  int res = INT_MAX;
+  // unordered_map<int, int> memo;
+  int r(int idx, int cnt, int accum, unordered_set<char> visited, char prev, int& uniq, string& colors,
         vector<int>& neededTime) {
-    if (memo.find(idx) != memo.end()) return memo[idx];
-
-    if (idx >= colors.size()) return visited.empty() ? accum : 0;
-
-    char cur = colors[idx];
-
-    if (visited.find(cur) == visited.end()) {
-      // leave it
-      memo[idx] = r(idx + 1, colors, neededTime, visited);
-      return memo[idx];
+    if (idx >= colors.size()) {
+      if (cnt == uniq) res = min(accum, res);
+      return;
     }
 
-    // take it or leave it
-    int res2 = memo[idx] = min(r(idx + 1, colors, neededTime, visited))
+    char c = colors[idx];
+    if (prev == c) {
+      r(idx+1,cnt,accum,visited,prev,uniq,colors,neededTime);
+      return;
+    }
+
+    unordered_set<char> taken_visited = visited;
+    int taken_cnt = cnt;
+    int taken_accum = accum;
+    char taken_prev = prev;
+    if (visited.find(c) == visited.end()) {
+      taken_visited.insert(c);
+      taken_cnt++;
+      taken_accum+=neededTime[idx];
+      taken_prev=c;
+    }
+
+    r(idx+1,cnt,accum,visited,prev,uniq,colors,neededTime); // leave it
+    r(idx+1,taken_cnt,taken_accum,taken_visited,taken_prev,uniq,colors,neededTime);
+
   }
 
  public:
   int minCost(string colors, vector<int>& neededTime) {
     unordered_set<char> visited;
     for (char c : colors) visited.insert(c);
+    int unique = visited.size();
+    r(0, 0, 0, unique, colors, neededTime);
+    return res;
   }
 };
