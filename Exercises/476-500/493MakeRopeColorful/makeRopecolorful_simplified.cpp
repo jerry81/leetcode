@@ -24,8 +24,9 @@ class Solution {
         cur_time_accum = cur_time;
         cur_time_max = cur_time;
       }
+      prev_color = cur_color;
     }
-
+    res += (cur_time_accum - cur_time_max);
     return res;
   }
 };
