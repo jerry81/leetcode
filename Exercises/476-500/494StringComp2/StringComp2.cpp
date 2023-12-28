@@ -22,6 +22,10 @@ Output: 4
 Explanation: Compressing s without deleting anything will give us "a3bc3d" of length 6. Deleting any of the characters 'a' or 'c' would at most decrease the length of the compressed string to 5, for instance delete 2 'a' then we will have s = "abcccd" which compressed is abc3d. Therefore, the optimal way is to delete 'b' and 'd', then the compressed version of s will be "a3c3" of length 4.
 Example 2:
 
+a3 b1 c3 d1
+2 ops
+
+
 Input: s = "aabbaa", k = 2
 Output: 2
 Explanation: If we delete both 'b' characters, the resulting compressed string would be "a4" of length 2.
@@ -47,12 +51,21 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+int memo[101][101];
+int r(string &s, int &sz, int idx, int rem_k) {
+  if (sz-idx < rem_k) return 0;
+
+  if (memo[idx][rem_k] != -1) return meom[idx][rem_k];
+}
 public:
     int getLengthOfOptimalCompression(string s, int k) {
-
+      memset(memo, -1, sizeof(memo));
+      int sz = s.size();
+      return r(s,sz,0,k);
     }
 };
