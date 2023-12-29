@@ -68,17 +68,21 @@ class Solution {
     }
     return mx;
   }
-  int r(vector<int>& jobDifficulty, int &sz, int d, int st) {
-    if (st >= sz) return 7092850;
+  int r(vector<int>& jobDifficulty, int& sz, int d, int st) {
+    if (d == 1) return get_max(jobDifficulty, st, sz - 1);
+    int ret = INT_MAX;
+    if (st >= sz) return ret;
 
-    int en = sz-d;
-    for (int ce = 0; ce <= en; ++ce) {
-      cout << "day " << d << " end " << ce << endl;
+    int en = sz - d;
+
+    for (int ce = st; ce <= en; ++ce) {
       int mx = get_max(jobDifficulty, st, ce);
-      cout << "mx is " << mx << endl;
+      // cout << "mx on day " << d << " with range " << st << " to " << en
+      //      << " is " << mx << endl;
+      ret = min(ret, mx + r(jobDifficulty, sz, d - 1, ce + 1));
     }
 
-    return 0;
+    return ret;
   }
 
  public:
@@ -87,7 +91,8 @@ class Solution {
     int sz = jobDifficulty.size();
     memset(max_in_ranges, -1, sizeof(max_in_ranges));
     memset(max_in_ranges, -1, sizeof(max_in_ranges));
-    return r(jobDifficulty, sz, d, 0);
+    int res = r(jobDifficulty, sz, d, 0);
+    return res < INT_MAX ? res : -1;
   }
 };
 
