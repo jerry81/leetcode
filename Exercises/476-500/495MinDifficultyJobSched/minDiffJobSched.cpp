@@ -63,10 +63,11 @@ class Solution {
   int min_in_range[301][301];
   int get_max(vector<int>& jobDifficulty, int st, int en) {
     int mx = 0;
+    if (max_in_ranges[st][en] != -1) return max_in_ranges[st][en];
     for (int i = st; i <= en; ++i) {
       mx = max(jobDifficulty[i], mx);
     }
-    return mx;
+    return max_in_ranges[st][en] = mx;
   }
   int r(vector<int>& jobDifficulty, int& sz, int d, int st) {
     if (d == 1) return get_max(jobDifficulty, st, sz - 1);
