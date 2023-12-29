@@ -5,13 +5,18 @@ Hard
 2.7K
 244
 Companies
-You want to schedule a list of jobs in d days. Jobs are dependent (i.e To work on the ith job, you have to finish all the jobs j where 0 <= j < i).
+You want to schedule a list of jobs in d days. Jobs are dependent (i.e To work
+on the ith job, you have to finish all the jobs j where 0 <= j < i).
 
-You have to finish at least one task every day. The difficulty of a job schedule is the sum of difficulties of each day of the d days. The difficulty of a day is the maximum difficulty of a job done on that day.
+You have to finish at least one task every day. The difficulty of a job schedule
+is the sum of difficulties of each day of the d days. The difficulty of a day is
+the maximum difficulty of a job done on that day.
 
-You are given an integer array jobDifficulty and an integer d. The difficulty of the ith job is jobDifficulty[i].
+You are given an integer array jobDifficulty and an integer d. The difficulty of
+the ith job is jobDifficulty[i].
 
-Return the minimum difficulty of a job schedule. If you cannot find a schedule for the jobs return -1.
+Return the minimum difficulty of a job schedule. If you cannot find a schedule
+for the jobs return -1.
 
 
 
@@ -27,8 +32,8 @@ Example 2:
 
 Input: jobDifficulty = [9,9,9], d = 4
 Output: -1
-Explanation: If you finish a job per day you will still have a free day. you cannot find a schedule for the given jobs.
-Example 3:
+Explanation: If you finish a job per day you will still have a free day. you
+cannot find a schedule for the given jobs. Example 3:
 
 Input: jobDifficulty = [1,1,1], d = 3
 Output: 3
@@ -54,14 +59,36 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int max_in_ranges[301][301];
-int calcMax(vector<int>& jobDifficulty, int st, int en) {
-
-}
-public:
-    int minDifficulty(vector<int>& jobDifficulty, int d) {
-
+  int max_in_ranges[301][301];
+  int min_in_range[301][301];
+  int get_max(vector<int>& jobDifficulty, int st, int en) {
+    int mx = 0;
+    for (int i = st; i <= en; ++i) {
+      mx = max(jobDifficulty[i], mx);
     }
+    return mx;
+  }
+  int r(vector<int>& jobDifficulty, int &sz, int d, int st) {
+    if (st >= sz) return 7092850;
+
+    int en = sz-d;
+    for (int ce = 0; ce <= en; ++ce) {
+      cout << "day " << d << " end " << ce << endl;
+      int mx = get_max(jobDifficulty, st, ce);
+      cout << "mx is " << mx << endl;
+    }
+
+    return 0;
+  }
+
+ public:
+  int minDifficulty(vector<int>& jobDifficulty, int d) {
+    // get all combos
+    int sz = jobDifficulty.size();
+    memset(max_in_ranges, -1, sizeof(max_in_ranges));
+    memset(max_in_ranges, -1, sizeof(max_in_ranges));
+    return r(jobDifficulty, sz, d, 0);
+  }
 };
 
 // recursion + dp
