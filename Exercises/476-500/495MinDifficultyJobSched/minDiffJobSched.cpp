@@ -66,6 +66,7 @@ class Solution {
     if (max_in_ranges[st][en] != -1) return max_in_ranges[st][en];
     for (int i = st; i <= en; ++i) {
       mx = max(jobDifficulty[i], mx);
+      max_in_ranges[st][i] = mx;
     }
     return max_in_ranges[st][en] = mx;
   }
