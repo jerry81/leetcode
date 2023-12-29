@@ -71,20 +71,26 @@ class Solution {
     return max_in_ranges[st][en] = mx;
   }
   int r(vector<int>& jobDifficulty, int& sz, int d, int st) {
-    if (d == 1) return get_max(jobDifficulty, st, sz - 1);
+    if (d == 1) {
+      return min_in_range[st][sz - 1] = get_max(jobDifficulty, st, sz - 1);
+    }
     int ret = INT_MAX;
+
     if (st >= sz) return ret;
 
     int en = sz - d;
+    if (en < 0) return INT_MAX;
+
+    if (min_in_range[st][en] != -1) return min_in_range[st][en];
 
     for (int ce = st; ce <= en; ++ce) {
-      int mx = get_max(jobDifficulty, st, ce);
-      // cout << "mx on day " << d << " with range " << st << " to " << en
-      //      << " is " << mx << endl;
+      int mx = -1;
+      mx = get_max(jobDifficulty, st, ce);
+
       ret = min(ret, mx + r(jobDifficulty, sz, d - 1, ce + 1));
     }
 
-    return ret;
+    return min_in_range[st][en] = ret;
   }
 
  public:
@@ -92,7 +98,7 @@ class Solution {
     // get all combos
     int sz = jobDifficulty.size();
     memset(max_in_ranges, -1, sizeof(max_in_ranges));
-    memset(max_in_ranges, -1, sizeof(max_in_ranges));
+    memset(min_in_range, -1, sizeof(min_in_range));
     int res = r(jobDifficulty, sz, d, 0);
     return res < INT_MAX ? res : -1;
   }
