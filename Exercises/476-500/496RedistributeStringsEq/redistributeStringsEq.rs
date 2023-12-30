@@ -45,14 +45,14 @@ use std::collections::HashMap;
 
 impl Solution {
   pub fn make_equal(words: Vec<String>) -> bool {
-    let mut hm:HashMap<String,i32> = HashMap::new();
+    let mut hm:HashMap<char,i32> = HashMap::new();
     for i in 0..words.len() {
       for c in words[i].chars() {
         *hm.entry(c).or_insert(0) += 1;
       }
     }
     for (key, value) in hm.iter() {
-      if *value % 2 == 1 {
+      if *value % words.len() as i32 != 0 {
         return false
       }
     }
