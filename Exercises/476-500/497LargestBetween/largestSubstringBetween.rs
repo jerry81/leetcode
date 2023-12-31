@@ -43,7 +43,6 @@ Acceptance Rate
 
 use std::collections::HashMap;
 
-
 impl Solution {
 
     pub fn max_length_between_equal_characters(s: String) -> i32 {
@@ -55,8 +54,8 @@ impl Solution {
       }
       let mut res = -1;
       for (key,value) in &hm {
-        let spread = value[1] - value[0];
-        res = max(spread,res);
+        let spread = value[1] - value[0] - 1;
+        res = res.max(spread);
       }
       res
     }
