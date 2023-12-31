@@ -48,11 +48,16 @@ impl Solution {
 
     pub fn max_length_between_equal_characters(s: String) -> i32 {
       // brute
-      let mut hm:HashMap<char,i32> = HashMap::new();
-      for i in 0..s.len() {
-        let cur = s[i];
-        *hm.entry(cur).or_insert(0) += 1;
-        }
+      let mut hm:HashMap<char,Vec<i32>> = HashMap::new();
+      for (i, ch) in s.chars().enumerate() {
+        let entry = hm.entry(ch).or_insert_with(|| vec![i as i32, 0]);
+        entry[1] = i as i32;
       }
+      let mut res = -1;
+      for (key,value) in &hm {
+        let spread = value[1] - value[0];
+        res = max(spread,res);
+      }
+      res
     }
 }
