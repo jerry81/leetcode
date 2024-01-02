@@ -62,10 +62,16 @@ public:
       bool opmade = true;
       while (opmade) {
         opmade = false;
+        vector<int> cur;
         for (auto [k,v]: freq) {
           if (v<=0) continue;
 
+          opmade = true;
+          freq[k]--;
+          cur.push_back(k);
         }
+        res.push_back(cur);
       }
+      return res;
     }
 };
