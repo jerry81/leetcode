@@ -47,12 +47,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     vector<vector<int>> findMatrix(vector<int>& nums) {
+      unordered_map<int, int> freq;
+      for (int i: nums) {
+        freq[i]++;
+      }
+      vector<vector<int>> res;
+      bool opmade = true;
+      while (opmade) {
+        opmade = false;
+        for (auto [k,v]: freq) {
+          if (v<=0) continue;
 
+        }
+      }
     }
 };
