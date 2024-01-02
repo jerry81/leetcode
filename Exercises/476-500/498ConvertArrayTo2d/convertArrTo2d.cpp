@@ -70,7 +70,7 @@ public:
           freq[k]--;
           cur.push_back(k);
         }
-        res.push_back(cur);
+        if (!cur.empty()) res.push_back(cur);
       }
       return res;
     }
