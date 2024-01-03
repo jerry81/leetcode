@@ -60,14 +60,14 @@ impl Solution {
           }
         }
       }
-      while true {
-        if let Some(&value) = hm.get('b') {
+      loop {
+        if let Some(&value) = hm.get(&'b') {
           if value < 1 { break; }
           *hm.entry('b').or_insert(0) -= 1;
         } else {
           break;
         }
-        if let Some(&value) = hm.get('a') {
+        if let Some(&value) = hm.get(&'a') {
           if value < 1 { break; }
 
           *hm.entry('a').or_insert(0) -= 1;
@@ -75,7 +75,7 @@ impl Solution {
         } else {
           break;
         }
-        if let Some(&value) = hm.get('l') {
+        if let Some(&value) = hm.get(&'l') {
           if value < 2 { break; }
 
           *hm.entry('l').or_insert(0) -= 2;
@@ -83,7 +83,7 @@ impl Solution {
         } else {
           break;
         }
-        if let Some(&value) = hm.get('o') {
+        if let Some(&value) = hm.get(&'o') {
           if value < 2 { break; }
 
           *hm.entry('o').or_insert(0) -= 2;
@@ -91,7 +91,7 @@ impl Solution {
         } else {
           break;
         }
-        if let Some(&value) = hm.get('n') {
+        if let Some(&value) = hm.get(&'n') {
           if value < 1 { break; }
 
           *hm.entry('n').or_insert(0) -= 1;
