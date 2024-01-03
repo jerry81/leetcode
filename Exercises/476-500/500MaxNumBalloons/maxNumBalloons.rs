@@ -42,19 +42,64 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn max_number_of_balloons(text: String) -> i32 {
+      let mut hm: HashMap<char, i32> = HashMap::new();
       let mut res = 0;
       for c in text.chars() {
         match c { // TIL: match syntax (switch)
           'b' | 'a' | 'l' | 'o' | 'n' => {
+            // 2 o, 2 l
+            *hm.entry(c).or_insert(0)+=1;
             println!("matched {}", c);
           }
           _ => {
             println!("nope");
           }
         }
+      }
+      while true {
+        if let Some(&value) = hm.get('b') {
+          if value < 1 { break; }
+          *hm.entry('b').or_insert(0) -= 1;
+        } else {
+          break;
+        }
+        if let Some(&value) = hm.get('a') {
+          if value < 1 { break; }
 
+          *hm.entry('a').or_insert(0) -= 1;
+
+        } else {
+          break;
+        }
+        if let Some(&value) = hm.get('l') {
+          if value < 2 { break; }
+
+          *hm.entry('l').or_insert(0) -= 2;
+
+        } else {
+          break;
+        }
+        if let Some(&value) = hm.get('o') {
+          if value < 2 { break; }
+
+          *hm.entry('o').or_insert(0) -= 2;
+
+        } else {
+          break;
+        }
+        if let Some(&value) = hm.get('n') {
+          if value < 1 { break; }
+
+          *hm.entry('n').or_insert(0) -= 1;
+
+        } else {
+          break;
+        }
+        res+=1;
       }
       res
   }
