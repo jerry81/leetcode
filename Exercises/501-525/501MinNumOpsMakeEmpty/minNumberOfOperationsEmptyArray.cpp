@@ -64,8 +64,13 @@ class Solution {
     for (auto [k, v] : freq) {
       if (v == 1) return -1;
 
+      if (v == 2) {
+        res += 1;
+        continue;
+      }
+
       int rem = v % 3;
-      res += v / 3 + rem == 0 ? 0 : 1;
+      res += (v / 3) + ((rem == 0) ? 0 : 1);
     }
     return res;
   }
