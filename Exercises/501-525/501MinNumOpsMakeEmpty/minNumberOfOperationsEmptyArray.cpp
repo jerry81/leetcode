@@ -48,6 +48,7 @@ Acceptance Rate
 53.1%
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -55,6 +56,17 @@ using namespace std;
 class Solution {
  public:
   int minOperations(vector<int>& nums) {
+    unordered_map<int, int> freq;
+    int res = 0;
+    for (int i : nums) {
+      freq[i]++;
+    }
+    for (auto [k, v] : freq) {
+      if (v == 1) return -1;
 
+      int rem = v % 3;
+      res += v / 3 + rem == 0 ? 0 : 1;
+    }
+    return res;
   }
 };
