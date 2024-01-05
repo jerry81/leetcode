@@ -44,6 +44,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 
 using namespace std;
@@ -54,8 +55,6 @@ class Solution {
 int r(vector<int>& nums, int &sz, int prev, int idx/*, vector<int>& dp*/) {
   if (idx == sz) return 0;
 
-  // if (dp[idx] >= 0) return dp[idx];
-
   int cur = nums[idx];
   if (cur <= prev) return r(nums,sz,prev, idx+1);
 
@@ -63,7 +62,7 @@ int r(vector<int>& nums, int &sz, int prev, int idx/*, vector<int>& dp*/) {
 }
 public:
     int lengthOfLIS(vector<int>& nums) {
-    vector<int> dp(2600, -1);
+    // dp.resize(2600,-1);
       // try bottom up
       int sz = nums.size();
       return r(nums, sz, INT_MIN, 0);
