@@ -54,7 +54,7 @@ int r(vector<int>& nums, int &sz, int prev, int idx) {
   if (idx == sz) return 0;
 
   int cur = nums[idx];
-  if (cur <= prev) return 0;
+  if (cur <= prev) return r(nums,sz,prev, idx+1);
 
   return max(r(nums,sz,prev, idx+1), 1+r(nums,sz,cur,idx+1));
 }
