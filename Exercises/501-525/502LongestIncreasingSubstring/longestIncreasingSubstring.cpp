@@ -45,11 +45,23 @@ Acceptance Rate
 
 #include <vector>
 
+
 using namespace std;
 
 class Solution {
+
+int r(vector<int>& nums, int &sz, int prev, int idx) {
+  if (idx == sz) return 0;
+
+  int cur = nums[idx];
+  if (cur <= prev) return 0;
+
+  return max(r(nums,sz,prev, idx+1), 1+r(nums,sz,cur,idx+1));
+}
 public:
     int lengthOfLIS(vector<int>& nums) {
-
+      // try bottom up
+      int sz = nums.size();
+      return r(nums,sz,INT_MIN,0);
     }
 };
