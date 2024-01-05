@@ -5,8 +5,8 @@ Medium
 19.6K
 376
 Companies
-Given an integer array nums, return the length of the longest strictly increasing
-subsequence
+Given an integer array nums, return the length of the longest strictly
+increasing subsequence
 .
 
 
@@ -15,8 +15,8 @@ Example 1:
 
 Input: nums = [10,9,2,5,3,7,101,18]
 Output: 4
-Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
-Example 2:
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the
+length is 4. Example 2:
 
 Input: nums = [0,1,0,3,2,3]
 Output: 4
@@ -32,7 +32,8 @@ Constraints:
 -104 <= nums[i] <= 104
 
 
-Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
+Follow up: Can you come up with an algorithm that runs in O(n log(n)) time
+complexity?
 
 Accepted
 1.5M
@@ -44,27 +45,33 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <unordered_map>
-
 
 using namespace std;
 
-
 class Solution {
+ public:
+  int lengthOfLIS(vector<int>& nums) {
+    int res = 0;
+    int count = 0;
 
-int r(vector<int>& nums, int &sz, int prev, int idx/*, vector<int>& dp*/) {
-  if (idx == sz) return 0;
-
-  int cur = nums[idx];
-  if (cur <= prev) return r(nums,sz,prev, idx+1);
-
-  return max(r(nums,sz,prev, idx+1), 1+r(nums,sz,cur,idx+1));
-}
-public:
-    int lengthOfLIS(vector<int>& nums) {
-    // dp.resize(2600,-1);
-      // try bottom up
-      int sz = nums.size();
-      return r(nums, sz, INT_MIN, 0);
+    vector<vector<int>> stks = {{INT_MAX}};
+    for (int n : nums) {
+      vector<vector<int>> nextstks;
+      for (vector<int> stk : stks) {
+        int bk = stk.back();
+        if (n <= stk.back()) {
+          while (!stk.empty() && stk.back() >= n) {
+            stk.pop_back();
+          }
+        }
+        stk.push_back(n);
+        res = max(res, (int)stk.size());
+        if (nextstks.empty()) {
+          nextstks.push_back(stk);
+        } else {
+        }
+      }
     }
+    return res;
+  }
 };
