@@ -54,8 +54,8 @@ Acceptance Rate
 */
 
 #include <unordered_map>
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 
@@ -82,24 +82,31 @@ class Solution {
       indexedStartTimes.push_back({startTime[i], i});
     }
     sort(indexedStartTimes.begin(), indexedStartTimes.end(), compare);
-    vector<int> mxp(mxEnd+1, 0);
+    vector<int> mxp(mxEnd + 1, 0);
     int prevTime = mxStart;
     int curMx = 0;
     int idxPtr = sz - 1;
-    for (int i = mxStart; i >= 0; --i) {
-      auto [startTime, idx] = indexedStartTimes[idxPtr];
-      if (i != startTime) continue;
-      while (prevTime == startTime) {
-        startTime = indexedStartTimes[idxPtr].second;
+    int curTime = mxStart;
+    bool done = false;
+    while (true) {
+      if (done) break;
+      int curI = curTime;
+      while (prevTime == curTime) {
+        auto [sTime, idx] = indexedStartTimes[idxPtr];
         curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
+        mxp[idx] = max(curMx, mxp[idx]);
+        curTime = sTime;
         // can also add whatever is set on the upper bound
-        if (idxPtr == 0) break;
+        if (idxPtr == 0) { done = true; break; }
         idxPtr--;
       }
-      // new curMx, process old max, otherwise update curmx
-      mxp[i] = max(curMx, mxp[i]);
-      prevTime = startTime;
+      auto [curTime, newI] = indexedStartTimes[idxPtr];
+      for (int i = curI; i > newI;--i) {
+        mxp[i] = mxp[i+1];
+      }
     }
+    // new curMx, process old max, otherwise update curmx
+
     return *max_element(mxp.begin(), mxp.end());
   }
 };
