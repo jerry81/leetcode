@@ -56,7 +56,6 @@ Acceptance Rate
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <map>
 
 using namespace std;
 
@@ -83,7 +82,7 @@ class Solution {
       indexedStartTimes.push_back({startTime[i], i});
     }
     sort(indexedStartTimes.begin(), indexedStartTimes.end(), compare);
-    map<int, int> mxp;
+    vector<int> mxp(mxEnd + 1, 0);
     int prevTime = mxStart;
     int curMx = 0;
     int curTime = mxStart;
@@ -93,22 +92,20 @@ class Solution {
       if (curTime != sTime) {
         // mxp[sTime] = max(curMx, mxp[sTime]);
         // fill in
+        for (int i = curTime-1; i >= sTime+1; --i) {
+
+            mxp[i] = curMx;
+        }
         curTime = sTime;
         continue;
       }
       indexedStartTimes.pop_back();
-      // must add max after end time
-      auto ptr = mxp.lower_bound(endTime[idx]);
-      int modifier = ptr == mxp.end() ? 0 : ptr->second;
-      curMx = max(curMx, profit[idx] + modifier);
+      curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
       mxp[sTime] = max(curMx, mxp[sTime]);
     }
 
     // new curMx, process old max, otherwise update curmx
-    int res = 0;
-    for (auto [_,v]:mxp) {
-      res = max(res,v);
-    }
-    return res;
+
+    return *max_element(mxp.begin(), mxp.end());
   }
 };
