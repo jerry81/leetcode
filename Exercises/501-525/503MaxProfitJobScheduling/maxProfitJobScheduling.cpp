@@ -82,7 +82,9 @@ class Solution {
     int idxPtr = sz - 1;
     for (int i = mxStart; i >= 0; --i) {
       while (prevTime != indexedStartTimes[idxPtr].first) {
-        curMx = max(curMx, profit[indexedStartTimes[idxPtr].second]);
+        int idx = indexedStartTimes[idxPtr].second;
+        curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
+        // can also add whatever is set on the upper bound
         idxPtr--;
       }
       // new curMx, process old max, otherwise update curmx
