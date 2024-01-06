@@ -5,11 +5,15 @@ Hard
 5.7K
 73
 Companies
-We have n jobs, where every job is scheduled to be done from startTime[i] to endTime[i], obtaining a profit of profit[i].
+We have n jobs, where every job is scheduled to be done from startTime[i] to
+endTime[i], obtaining a profit of profit[i].
 
-You're given the startTime, endTime and profit arrays, return the maximum profit you can take such that there are no two jobs in the subset with overlapping time range.
+You're given the startTime, endTime and profit arrays, return the maximum profit
+you can take such that there are no two jobs in the subset with overlapping time
+range.
 
-If you choose a job that ends at time X you will be able to start another job that starts at time X.
+If you choose a job that ends at time X you will be able to start another job
+that starts at time X.
 
 
 
@@ -25,11 +29,9 @@ Example 2:
 
 
 
-Input: startTime = [1,2,3,4,6], endTime = [3,5,10,6,9], profit = [20,20,100,70,60]
-Output: 150
-Explanation: The subset chosen is the first, fourth and fifth job.
-Profit obtained 150 = 20 + 70 + 60.
-Example 3:
+Input: startTime = [1,2,3,4,6], endTime = [3,5,10,6,9], profit =
+[20,20,100,70,60] Output: 150 Explanation: The subset chosen is the first,
+fourth and fifth job. Profit obtained 150 = 20 + 70 + 60. Example 3:
 
 
 
@@ -51,13 +53,40 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
-
 class Solution {
-public:
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+  vector<pair<int, int>> indexedStartTimes;
 
+  static bool compare(pair<int, int> a, pair<int, int> b) {
+    auto [t1, _] = a;
+    auto [t2, __] = b;
+    return t1 < t2;
+  }
+
+ public:
+  int jobScheduling(vector<int>& startTime, vector<int>& endTime,
+                    vector<int>& profit) {
+    int sz = startTime.size();
+    int mxStart = 0;
+    for (int i = 0; i < sz; ++i) {
+      mxStart = max(startTime[i], mxStart);
+      indexedStartTimes.push_back({startTime[i], i});
     }
+    sort(indexedStartTimes.begin(), indexedStartTimes.end(), compare);
+    vector<int> mxp(sz, 0);
+    int prevTime = mxStart;
+    int curMx = 0;
+    int idxPtr = sz - 1;
+    for (int i = mxStart; i >= 0; --i) {
+      while (prevTime != indexedStartTimes[idxPtr].first) {
+        curMx = max(curMx, profit[indexedStartTimes[idxPtr].second]);
+        idxPtr--;
+      }
+      // new curMx, process old max, otherwise update curmx
+      mxp[i] = max(curMx, mxp[i]);
+    }
+  }
 };
