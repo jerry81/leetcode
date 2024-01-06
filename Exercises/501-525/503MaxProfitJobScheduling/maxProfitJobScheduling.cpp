@@ -55,6 +55,7 @@ Acceptance Rate
 
 #include <unordered_map>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
@@ -71,11 +72,13 @@ class Solution {
   int jobScheduling(vector<int>& startTime, vector<int>& endTime,
                     vector<int>& profit) {
     int sz = startTime.size();
+    unordered_set<int> starts_set;
     int mxStart = 0;
     int mxEnd = 0;
     for (int i = 0; i < sz; ++i) {
       mxStart = max(startTime[i], mxStart);
       mxEnd = max(mxEnd, endTime[i]);
+      starts_set.insert(startTime[i]);
       indexedStartTimes.push_back({startTime[i], i});
     }
     sort(indexedStartTimes.begin(), indexedStartTimes.end(), compare);
@@ -84,20 +87,18 @@ class Solution {
     int curMx = 0;
     int idxPtr = sz - 1;
     for (int i = mxStart; i >= 0; --i) {
-      while (prevTime == indexedStartTimes[idxPtr].first) {
-               cout << "ptr is " << idxPtr << endl;
-        int idx = indexedStartTimes[idxPtr].second;
-
-        cout << "idx is " << idx << endl;
+      auto [startTime, idx] = indexedStartTimes[idxPtr];
+      if (i != startTime) continue;
+      while (prevTime == startTime) {
+        startTime = indexedStartTimes[idxPtr].second;
         curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
         // can also add whatever is set on the upper bound
-        cout << "about to decre" << endl;
         if (idxPtr == 0) break;
         idxPtr--;
       }
       // new curMx, process old max, otherwise update curmx
       mxp[i] = max(curMx, mxp[i]);
-      prevTime = indexedStartTimes[idxPtr].first;
+      prevTime = startTime;
     }
     return *max_element(mxp.begin(), mxp.end());
   }
