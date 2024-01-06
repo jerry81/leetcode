@@ -57,6 +57,7 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
+
 class Solution {
   vector<pair<int, int>> indexedStartTimes;
 
@@ -78,29 +79,25 @@ class Solution {
       indexedStartTimes.push_back({startTime[i], i});
     }
     sort(indexedStartTimes.begin(), indexedStartTimes.end(), compare);
-    cout << "sz is " << sz << endl;
     vector<int> mxp(mxEnd+1, 0);
     int prevTime = mxStart;
     int curMx = 0;
     int idxPtr = sz - 1;
     for (int i = mxStart; i >= 0; --i) {
-      cout << "i is now " << i << endl;
-      while (idxPtr > 0 && prevTime == indexedStartTimes[idxPtr].first) {
+      while (prevTime == indexedStartTimes[idxPtr].first) {
+               cout << "ptr is " << idxPtr << endl;
         int idx = indexedStartTimes[idxPtr].second;
-        cout << "profit " << profit[idx] << " at " << idx << endl;
-        cout << "endtime idx is " << endTime[idx] << endl;
-        cout << "mxp size " << mxp.size() << endl;
 
+        cout << "idx is " << idx << endl;
         curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
         // can also add whatever is set on the upper bound
+        cout << "about to decre" << endl;
+        if (idxPtr == 0) break;
         idxPtr--;
-        cout << "idxPtr is now " << idxPtr << endl;
       }
       // new curMx, process old max, otherwise update curmx
       mxp[i] = max(curMx, mxp[i]);
-      cout << "idx " << i << " set to " << mxp[i] << endl;
       prevTime = indexedStartTimes[idxPtr].first;
-      cout << "prevTime is now " << prevTime << endl;
     }
     return *max_element(mxp.begin(), mxp.end());
   }
