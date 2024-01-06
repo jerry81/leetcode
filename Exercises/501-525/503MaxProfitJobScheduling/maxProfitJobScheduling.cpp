@@ -85,26 +85,25 @@ class Solution {
     vector<int> mxp(mxEnd + 1, 0);
     int prevTime = mxStart;
     int curMx = 0;
-    int idxPtr = sz - 1;
     int curTime = mxStart;
-    bool done = false;
-    while (true) {
-      if (done) break;
-      int curI = curTime;
-      while (prevTime == curTime) {
-        auto [sTime, idx] = indexedStartTimes[idxPtr];
-        curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
-        mxp[idx] = max(curMx, mxp[idx]);
+
+    while (!indexedStartTimes.empty()) {
+      auto [sTime, idx] = indexedStartTimes.back();
+      if (curTime != sTime) {
+        // mxp[sTime] = max(curMx, mxp[sTime]);
+        // fill in
+        for (int i = curTime-1; i >= sTime+1; --i) {
+
+            mxp[i] = curMx;
+        }
         curTime = sTime;
-        // can also add whatever is set on the upper bound
-        if (idxPtr == 0) { done = true; break; }
-        idxPtr--;
+        continue;
       }
-      auto [curTime, newI] = indexedStartTimes[idxPtr];
-      for (int i = curI; i > newI;--i) {
-        mxp[i] = mxp[i+1];
-      }
+      indexedStartTimes.pop_back();
+      curMx = max(curMx, profit[idx] + mxp[endTime[idx]]);
+      mxp[sTime] = max(curMx, mxp[sTime]);
     }
+
     // new curMx, process old max, otherwise update curmx
 
     return *max_element(mxp.begin(), mxp.end());
