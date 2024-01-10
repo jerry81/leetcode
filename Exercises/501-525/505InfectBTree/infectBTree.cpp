@@ -114,6 +114,23 @@ class Solution {
     queue<int> q;
     q.push(start);
     visited.insert(start);
+    int res = -1;
+    while (!q.empty()) {
+      queue<int> nq;
+      res++;
+      while (!q.empty()) {
+        int curi = q.front();
+        q.pop();
+        vector<int> neighbors = nodes[curi];
+        for (int n: neighbors) {
+          if (visited.find(n) != visited.end()) continue;
 
+          visited.insert(n);
+          nq.push(n);
+        }
+      }
+      q = nq;
+    }
+    return res;
   }
 };
