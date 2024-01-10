@@ -68,6 +68,7 @@ Acceptance Rate
  * };
  */
 
+#include <iostream>
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
@@ -92,6 +93,15 @@ class Solution {
 
     if (from >= 0) nodes[root->val].push_back(from);
 
+    if (root->left) {
+      nodes[root->val].push_back(root->left->val);
+      build(root->left, root->val);
+    }
+
+    if (root->right) {
+      nodes[root->val].push_back(root->right->val);
+      build(root->right, root->val);
+    }
   };
 
  public:
@@ -100,5 +110,12 @@ class Solution {
     // do a bfs from start
     // count steps
     build(root, -1);
+    for (auto [k, v] : nodes) {
+      cout << k << "'s neighbors " << endl;
+
+      for (int i : v) {
+        cout << i << endl;
+      }
+    }
   }
 };
