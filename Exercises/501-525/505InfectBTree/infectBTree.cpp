@@ -110,12 +110,10 @@ class Solution {
     // do a bfs from start
     // count steps
     build(root, -1);
-    for (auto [k, v] : nodes) {
-      cout << k << "'s neighbors " << endl;
+    unordered_set<int> visited;
+    queue<int> q;
+    q.push(start);
+    visited.insert(start);
 
-      for (int i : v) {
-        cout << i << endl;
-      }
-    }
   }
 };
