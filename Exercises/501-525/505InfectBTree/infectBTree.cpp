@@ -68,6 +68,13 @@ Acceptance Rate
  * };
  */
 
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+using namespace std;
+
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -79,6 +86,19 @@ struct TreeNode {
 };
 
 class Solution {
+  unordered_map<int, vector<int>> nodes;
+  void build(TreeNode *root, int from) {
+    if (!root) return;
+
+    if (from >= 0) nodes[root->val].push_back(from);
+
+  };
+
  public:
-  int amountOfTime(TreeNode *root, int start) {}
+  int amountOfTime(TreeNode *root, int start) {
+    // build neighbor map
+    // do a bfs from start
+    // count steps
+    build(root, -1);
+  }
 };
