@@ -56,7 +56,7 @@ Acceptance Rate
  * right(right) {}
  * };
  */
-
+using namespace std;
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -68,6 +68,17 @@ struct TreeNode {
 };
 
 class Solution {
+  int r(TreeNode *root, int mn, int mx) {
+    if (!root) return 0;
+
+    int cur = root->val;
+    mx = max(mx, cur);
+    mn = min(mn, cur);
+    int res = max(mx - mn, r(root->left, mn, mx));
+    res = max(res, r(root->right, mn, mx));
+    return res;
+  }
+
  public:
-  int maxAncestorDiff(TreeNode *root) {}
+  int maxAncestorDiff(TreeNode *root) { return r(root, root->val, root->val); }
 };
