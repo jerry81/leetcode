@@ -50,12 +50,12 @@ impl Solution {
     let sz = s.len();
     let mut vcount1 = 0;
     let mut vcount2 = 0;
-    let cs = s.chars();
     for i in 0..sz/2 {
-      if list.contains(&cs.at(i)) { vcount1++;}
+      // num_string.chars().nth(i).unwrap()
+      if list.contains(&s.chars().nth(i).unwrap()) { vcount1+=1;}
     }
     for i in sz/2..sz {
-      if list.contains(&cs.at(i)) { vcount2++;}
+      if list.contains(&s.chars().nth(i).unwrap()) { vcount2+=1;}
 
     }
     vcount1 == vcount2
