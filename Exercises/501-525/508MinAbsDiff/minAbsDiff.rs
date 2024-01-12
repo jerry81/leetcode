@@ -56,15 +56,16 @@ impl Solution {
       }
     }
     let mut res=Vec::new();
-    for i in 0..arr.len()-1 {
-      for j in i+1..arr.len() {
-        let absdiff = (arr[j]-arr[i]).abs();
+    let mut arr2 = arr;
+    arr2.sort();
+    for i in 0..arr2.len()-1 {
+      for j in i+1..arr2.len() {
+        let absdiff = (arr2[j]-arr2[i]).abs();
         if absdiff == mn {
-          res.push(vec![arr[j], arr[i]]);
+          res.push(vec![arr2[i], arr2[j]]);
         }
       }
     }
-    println!("min is {}", mn);
     return res;
   }
 }
