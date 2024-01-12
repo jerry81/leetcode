@@ -48,6 +48,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_abs_difference(arr: Vec<i32>) -> Vec<Vec<i32>> {
-
+    let mut mn = 100000;
+    for i in 0..arr.len()-1 {
+      for j in i+1..arr.len() {
+        let absdiff = (arr[j]-arr[i]).abs();
+        mn = mn.min(absdiff);
+      }
+    }
+    let mut res=Vec::new();
+    for i in 0..arr.len()-1 {
+      for j in i+1..arr.len() {
+        let absdiff = (arr[j]-arr[i]).abs();
+        if absdiff == mn {
+          res.push(vec![arr[j], arr[i]]);
+        }
+      }
+    }
+    println!("min is {}", mn);
+    return res;
   }
 }
