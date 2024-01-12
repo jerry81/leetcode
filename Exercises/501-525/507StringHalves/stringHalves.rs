@@ -46,6 +46,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn halves_are_alike(s: String) -> bool {
+    let list = ['a','e','i','o','u','A','E','I','O','U'];
+    let sz = s.len();
+    let mut vcount1 = 0;
+    let mut vcount2 = 0;
+    let cs = s.chars();
+    for i in 0..sz/2 {
+      if list.contains(&cs.at(i)) { vcount1++;}
+    }
+    for i in sz/2..sz {
+      if list.contains(&cs.at(i)) { vcount2++;}
 
+    }
+    vcount1 == vcount2
   }
 }
