@@ -71,7 +71,7 @@ class Solution {
       if (b.find(k) == b.end()) {
         res+=v;
       } else {
-        res+=v-b[k];
+        res+=max(0,v-b[k]);
       }
     }
     return res;
