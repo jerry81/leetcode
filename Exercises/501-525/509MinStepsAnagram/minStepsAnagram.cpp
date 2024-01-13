@@ -5,11 +5,13 @@ Medium
 Topics
 Companies
 Hint
-You are given two strings of the same length s and t. In one step you can choose any character of t and replace it with another character.
+You are given two strings of the same length s and t. In one step you can choose
+any character of t and replace it with another character.
 
 Return the minimum number of steps to make t an anagram of s.
 
-An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
+An Anagram of a string is a string that contains the same characters with a
+different (or the same) ordering.
 
 
 
@@ -22,8 +24,8 @@ Example 2:
 
 Input: s = "leetcode", t = "practice"
 Output: 5
-Explanation: Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to make t anagram of s.
-Example 3:
+Explanation: Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to
+make t anagram of s. Example 3:
 
 Input: s = "anagram", t = "mangaar"
 Output: 0
@@ -49,12 +51,29 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
-public:
-    int minSteps(string s, string t) {
-
+ public:
+  int minSteps(string s, string t) {
+    unordered_map<char, int> a;
+    unordered_map<char, int> b;
+    for (char c: s) {
+      a[c]++;
     }
+    for (char c: t) {
+      b[c]++;
+    }
+    int res = 0;
+    for (auto [k,v]: a) {
+      if (b.find(k) == b.end()) {
+        res+=v;
+      } else {
+        res+=abs(v-b[k]);
+      }
+    }
+    return res;
+  }
 };
