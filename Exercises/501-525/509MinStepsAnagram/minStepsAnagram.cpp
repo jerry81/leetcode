@@ -71,7 +71,7 @@ class Solution {
       if (b.find(k) == b.end()) {
         res+=v;
       } else {
-        res+=abs(v-b[k]);
+        res+=v-b[k];
       }
     }
     return res;
