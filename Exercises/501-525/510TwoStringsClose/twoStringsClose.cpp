@@ -69,6 +69,7 @@ class Solution {
   bool closeStrings(string word1, string word2) {
     unordered_map<char, int> freq1;
     unordered_map<char, int> freq2;
+    unordered_map<int, int> distribution;
     if (word1.size() != word2.size()) return false;
 
     for (char c : word1) {
@@ -77,5 +78,21 @@ class Solution {
     for (char c : word2) {
       freq2[c]++;
     }
+
+    for (auto [_, v] : freq1) {
+      distribution[v]++;
+    }
+
+    unordered_map<int,int> distribution2;
+    for (auto [_, v]: freq2) {
+      distribution2[v]++;
+    }
+
+    for (auto [k,v]: distribution) {
+      if (distribution2.find(k) == distribution2.end()) return false;
+
+      if (distribution2[k] != v) return false;
+    }
+    return true;
   }
 };
