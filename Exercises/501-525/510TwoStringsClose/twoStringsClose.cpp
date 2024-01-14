@@ -79,7 +79,9 @@ class Solution {
       freq2[c]++;
     }
 
-    for (auto [_, v] : freq1) {
+    for (auto [k, v] : freq1) {
+      if (freq2.find(k) == freq2.end()) return false;
+
       distribution[v]++;
     }
 
