@@ -362,6 +362,13 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - see 482 dest city for example of using hashmap (handling nonexistent keys, accessing k,v)
 
+- see 513 for notes on numeric
+col_name::numeric to fix float division
+round(num,2) to format decimals to 2 digits
+avg(case when {condition} then a else b end )
+conditional aggregate
+count(*) to get the # items in the group
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
