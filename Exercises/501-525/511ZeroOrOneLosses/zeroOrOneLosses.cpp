@@ -76,5 +76,13 @@ class Solution {
 
       loss_map[v[1]]++;
     }
+    vector<int> no_loss;
+    vector<int> one_loss;
+    for (auto [k,v]: loss_map) {
+      if (v==0) no_loss.push_back(k);
+
+      if (v==1) one_loss.push_back(k);
+    }
+    return {no_loss,one_loss};
   }
 };
