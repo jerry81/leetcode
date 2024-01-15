@@ -5,7 +5,8 @@ Medium
 Topics
 Companies
 Hint
-You are given an integer array matches where matches[i] = [winneri, loseri] indicates that the player winneri defeated player loseri in a match.
+You are given an integer array matches where matches[i] = [winneri, loseri]
+indicates that the player winneri defeated player loseri in a match.
 
 Return a list answer of size 2 where:
 
@@ -16,7 +17,8 @@ The values in the two lists should be returned in increasing order.
 Note:
 
 You should only consider the players that have played at least one match.
-The testcases will be generated such that no two matches will have the same outcome.
+The testcases will be generated such that no two matches will have the same
+outcome.
 
 
 Example 1:
@@ -58,13 +60,21 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+  unordered_map<int, int> loss_map;
 
+ public:
+  vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+    for (vector<int> v : matches) {
+      if (loss_map.find(v[0]) == loss_map.end()) loss_map[v[0]] = 0;
+
+
+      loss_map[v[1]]++;
     }
+  }
 };
