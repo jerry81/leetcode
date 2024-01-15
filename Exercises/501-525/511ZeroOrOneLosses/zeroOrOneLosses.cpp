@@ -73,16 +73,18 @@ class Solution {
     for (vector<int> v : matches) {
       if (loss_map.find(v[0]) == loss_map.end()) loss_map[v[0]] = 0;
 
-
       loss_map[v[1]]++;
     }
     vector<int> no_loss;
     vector<int> one_loss;
-    for (auto [k,v]: loss_map) {
-      if (v==0) no_loss.push_back(k);
+    for (auto [k, v] : loss_map) {
+      if (v == 0) no_loss.push_back(k);
 
-      if (v==1) one_loss.push_back(k);
+      if (v == 1) one_loss.push_back(k);
     }
-    return {no_loss,one_loss};
+    sort(no_loss.begin(), no_loss.end());
+    sort(one_loss.begin(), one_loss.end());
+
+    return {no_loss, one_loss};
   }
 };
