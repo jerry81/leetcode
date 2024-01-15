@@ -44,9 +44,10 @@ Acceptance Rate
 use std::collections::HashMap;
 
 impl Solution {
-  let mut freq:HashMap<i32,i32> = HashMap::new();
-  let mut rev_freq:HashMap<i32,i32> = HashMap::new();
+
   pub fn unique_occurrences(arr: Vec<i32>) -> bool {
+    let mut freq:HashMap<i32,i32> = HashMap::new();
+    let mut rev_freq:HashMap<i32,i32> = HashMap::new();
     for i in arr {
       *freq.entry(i).or_insert(0) += 1;
     }
@@ -54,8 +55,8 @@ impl Solution {
       *rev_freq.entry(*value).or_insert(0)+=1;
     }
     for (key,value) in freq.iter() {
-      if rev_freq[*value] != 1 {
-        false
+      if rev_freq[value] != 1 {
+        return false
       }
     }
     true
