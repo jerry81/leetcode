@@ -58,7 +58,6 @@ impl Solution {
     let mx = h*w;
 
     let orig_flat = orig[0] * w + orig[1];
-    println!("orig flat is {}", orig_flat);
     let mut new_flat = orig_flat + k;
     new_flat %= mx;
     let ret = vec![new_flat / w, new_flat % w];
