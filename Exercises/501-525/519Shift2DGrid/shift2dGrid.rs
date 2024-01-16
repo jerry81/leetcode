@@ -55,10 +55,13 @@ Acceptance Rate
 
 
 impl Solution {
-  fn get_new_position(orig: Vec<i32>, k: i32, m: i32) -> Vec<i32> {
+  fn get_new_position(orig: Vec<i32>, k: i32, h: i32, w: i32) -> Vec<i32> {
+    let mx = h*w;
+
     let orig_flat = orig[0] * m + orig[1];
     println!("orig flat is {}", new_flat);
     let new_flat = orig_flat + k;
+    new_flat %= mx;
     let mut ret = Vec::new();
     ret.push(new_flat/m);
     ret.push(new_flat%m);
@@ -66,14 +69,19 @@ impl Solution {
   }
 
   pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {
-    for i..grid.len() {
-      let row = grid[i];
-      for j..row.len() {
+    let h = grid.len();
+    let w = grid[0].len();
+    let mut res: Vec<Vec<i32>> = Vec::new();
+    for i in 0..h {
+      res.push(vec![0; w]);
+    }
+    for i in 0..h {
+      for j in 0..w {
         let orig = vec![i,j];
-        let cur = Solution::get_new_position(orig,k,row.len());
-        println!("now we have {},{}", cur[0],cur[1]);
+        let cur = Solution::get_new_position(orig,k,h,w);
+        res[cur[0]][cur[1]] = grid[i][j];
       }
     }
-    grid
+    res
   }
 }
