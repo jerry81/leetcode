@@ -369,6 +369,9 @@ avg(case when {condition} then a else b end )
 conditional aggregate
 count(*) to get the # items in the group
 
+- see 517 for usage on full join and coalesce for default values
+- also join on date between two dates
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
