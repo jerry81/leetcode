@@ -61,7 +61,9 @@ class RandomizedSet {
   unordered_set<int> _set;
 
  public:
-  RandomizedSet() {}
+  RandomizedSet() {
+      srand(static_cast<unsigned>(time(nullptr)));
+  }
 
   bool insert(int val) {
     bool ret = false;
@@ -79,7 +81,6 @@ class RandomizedSet {
 
   int getRandom() {
     // seed
-    srand(static_cast<unsigned>(time(nullptr)));
     size_t index = std::rand() % _set.size();
     auto it = begin(_set);
     advance(it, index);
