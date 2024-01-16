@@ -54,6 +54,15 @@ Acceptance Rate
 
 impl Solution {
     pub fn min_cost_to_move_chips(position: Vec<i32>) -> i32 {
-
+      let mut odds = 0;
+      let mut evens = 0;
+      for item in position {
+        if item % 2 == 0 {
+          evens+=1;
+        } else {
+          odds+=1;
+        }
+      }
+      evens.min(odds)
     }
 }
