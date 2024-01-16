@@ -66,7 +66,7 @@ impl Solution {
         l = 0;
         r = 0;
       }
-      res
     }
+    res
   }
 }
