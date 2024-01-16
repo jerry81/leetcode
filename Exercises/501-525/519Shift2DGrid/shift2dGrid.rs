@@ -61,19 +61,15 @@ impl Solution {
     println!("orig flat is {}", orig_flat);
     let mut new_flat = orig_flat + k;
     new_flat %= mx;
-    let mut ret = Vec::new();
-    ret.push(new_flat/w);
-    ret.push(new_flat%w);
+    let ret = vec![new_flat / w, new_flat % w];
     ret
   }
 
   pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {
     let h = grid.len();
     let w = grid[0].len();
-    let mut res: Vec<Vec<i32>> = Vec::new();
-    for i in 0..h {
-      res.push(vec![0; w]);
-    }
+    let mut res: Vec<Vec<i32>> = vec![vec![0; w]; h];
+
     for i in 0..h {
       for j in 0..w {
         let orig = vec![i as i32,j as i32];
