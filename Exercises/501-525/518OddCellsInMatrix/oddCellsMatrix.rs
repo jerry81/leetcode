@@ -62,18 +62,18 @@ impl Solution {
         grid.push(row);
     }
     for idx in 0..indices.len() {
-      let item = &indices[idx];
-      for i in 0..n {
-          grid[item[0] as usize][i as usize] += 1;
+      let item = &indices[idx]; // TIL: borrow
+      for i in 0..n as usize {
+          grid[item[0] as usize][i] += 1;
       }
-      for i in 0..m {
-          grid[i as usize][item[1] as usize] += 1;
+      for i in 0..m as usize {
+          grid[i][item[1] as usize] += 1;
       }
     }
     let mut res = 0;
-    for i in 0..m {
-        for j in 0..n {
-            if grid[i as usize][j as usize] % 2 == 1 {
+    for i in 0..m as usize {
+        for j in 0..n as usize {
+            if grid[i][j] % 2 == 1 {
                 res+=1;
             }
         }
