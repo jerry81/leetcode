@@ -59,7 +59,18 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn tictactoe(moves: Vec<Vec<i32>>) -> String {
 
+  pub fn tictactoe(moves: Vec<Vec<i32>>) -> String {
+    let mut grid:Vec<Vec<String>> = vec![vec![" ".to_string(); 3]; 3];
+    let mut a_to_move = true;
+    for mv in moves {
+      let mut player = "A";
+      if !a_to_move {
+        player = "B";
+      }
+      a_to_move = !a_to_move;
+      grid[mv[0] as usize][mv[1] as usize] = player.to_string();
+    }
+    "B".to_string()
   }
 }
