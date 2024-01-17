@@ -63,8 +63,8 @@ impl Solution {
   pub fn tictactoe(moves: Vec<Vec<i32>>) -> String {
     let mut grid:Vec<Vec<String>> = vec![vec![" ".to_string(); 3]; 3];
     let mut a_to_move = true;
-    let player_A = String::from("A");
-    let player_B = String::from("B");
+    let player_A = &String::from("A");
+    let player_B = &String::from("B");
 
     for mv in moves {
       let mut player = player_A;
@@ -76,37 +76,38 @@ impl Solution {
     }
     for pl in vec![player_A, player_B] {
       // rows
+      let mut won = true;
       for i in 0..2 {
-        let mut won = true
+
         for j in 0..2 {
-          if grid[i][j] != pl {
+          if grid[i][j] != *pl {
             won = false;
             break;
           }
         }
       }
-      if won { return pl; }
+      if won { return pl.to_string(); }
       // rows
       for i in 0..2 {
-        let mut won = true
+        won = true;
         for j in 0..2 {
-          if grid[j][i] != pl {
+          if grid[j][i] != *pl {
             won = false;
             break;
           }
         }
       }
-      if won { return pl; }
+      if won { return pl.to_string(); }
       // 2 diagonals
-      let mut won = true
+      won = true;
       for i in 0..2 { // 20, 11, 02
-        if grid[i][i] != pl {
+        if grid[i][i] != *pl {
           won = false;
           break;
         }
       }
-      if won { return pl; }
-      if grid[2][0] == pl && grid[1][1] == pl && grid[0][2] == pl { return pl; }
+      if won { return pl.to_string(); }
+      if grid[2][0] == *pl && grid[1][1] == *pl && grid[0][2] == *pl { return pl.to_string(); }
 
 
     }
