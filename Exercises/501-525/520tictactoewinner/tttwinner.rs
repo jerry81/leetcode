@@ -111,7 +111,11 @@ impl Solution {
 
 
     }
+        let moves_len = moves.len();
+        if moves_len < 9 {
+            return "Pending".to_string();
+        }
 
-    "Draw".to_string()
+        "Draw".to_string()
   }
 }
