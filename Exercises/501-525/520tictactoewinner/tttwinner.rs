@@ -61,6 +61,7 @@ Acceptance Rate
 impl Solution {
 
   pub fn tictactoe(moves: Vec<Vec<i32>>) -> String {
+      let moves_len = moves.len();
     let mut grid:Vec<Vec<String>> = vec![vec![" ".to_string(); 3]; 3];
     let mut a_to_move = true;
     let player_A = &String::from("A");
@@ -76,42 +77,27 @@ impl Solution {
     }
     for pl in vec![player_A, player_B] {
       // rows
-      let mut won = true;
-      for i in 0..2 {
-
-        for j in 0..2 {
-          if grid[i][j] != *pl {
-            won = false;
-            break;
-          }
+      for i in 0..=2 {
+        if grid[i][0] == *pl && grid[i][1] == *pl && grid[i][2] == *pl {
+            return pl.to_string();
         }
       }
-      if won { return pl.to_string(); }
       // rows
-      for i in 0..2 {
-        won = true;
-        for j in 0..2 {
-          if grid[j][i] != *pl {
-            won = false;
-            break;
+        for j in 0..=2 {
+          if grid[0][j] == *pl && grid[1][j] == *pl && grid[2][j] == *pl {
+              return pl.to_string();
           }
         }
-      }
-      if won { return pl.to_string(); }
+
       // 2 diagonals
-      won = true;
-      for i in 0..2 { // 20, 11, 02
-        if grid[i][i] != *pl {
-          won = false;
-          break;
-        }
+      if grid[0][0] == *pl && grid[1][1] == *pl && grid[2][2] == *pl {
+      return pl.to_string();
       }
-      if won { return pl.to_string(); }
       if grid[2][0] == *pl && grid[1][1] == *pl && grid[0][2] == *pl { return pl.to_string(); }
 
 
     }
-        let moves_len = moves.len();
+
         if moves_len < 9 {
             return "Pending".to_string();
         }
