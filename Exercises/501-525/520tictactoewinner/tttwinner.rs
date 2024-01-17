@@ -63,14 +63,54 @@ impl Solution {
   pub fn tictactoe(moves: Vec<Vec<i32>>) -> String {
     let mut grid:Vec<Vec<String>> = vec![vec![" ".to_string(); 3]; 3];
     let mut a_to_move = true;
+    let player_A = String::from("A");
+    let player_B = String::from("B");
+
     for mv in moves {
-      let mut player = "A";
+      let mut player = player_A;
       if !a_to_move {
-        player = "B";
+        player = player_B;
       }
       a_to_move = !a_to_move;
       grid[mv[0] as usize][mv[1] as usize] = player.to_string();
     }
-    "B".to_string()
+    for pl in vec![player_A, player_B] {
+      // rows
+      for i in 0..2 {
+        let mut won = true
+        for j in 0..2 {
+          if grid[i][j] != pl {
+            won = false;
+            break;
+          }
+        }
+      }
+      if won { return pl; }
+      // rows
+      for i in 0..2 {
+        let mut won = true
+        for j in 0..2 {
+          if grid[j][i] != pl {
+            won = false;
+            break;
+          }
+        }
+      }
+      if won { return pl; }
+      // 2 diagonals
+      let mut won = true
+      for i in 0..2 { // 20, 11, 02
+        if grid[i][i] != pl {
+          won = false;
+          break;
+        }
+      }
+      if won { return pl; }
+      if grid[2][0] == pl && grid[1][1] == pl && grid[0][2] == pl { return pl; }
+
+
+    }
+
+    "Draw".to_string()
   }
 }
