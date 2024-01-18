@@ -117,3 +117,5 @@
 -- Submissions
 -- 267,183
 
+-- Write your PostgreSQL query statement below
+select e.student_id, s.student_name, sb.subject_name, count(*) as attended_exams from Students s full join Examinations e on e.student_id=s.student_id full join Subjects sb on sb.subject_name = e.subject_name group by e.student_id,s.student_name,sb.subject_name order by e.student_id, sb.subject_name;
