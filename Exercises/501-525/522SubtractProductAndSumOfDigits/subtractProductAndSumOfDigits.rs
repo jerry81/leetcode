@@ -44,6 +44,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn subtract_product_and_sum(n: i32) -> i32 {
-
+    let str = n.to_string();
+    let mut prod = 1;
+    for c as i32 in str.chars() {
+      prod*=c;
+    }
+    let mut sum = 0;
+    for c as i32 in str.chars() {
+      sum*=c;
+    }
+    prod-sum
   }
 }
