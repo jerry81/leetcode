@@ -60,6 +60,7 @@ impl ListNode {
     }
   }
 }
+
 impl Solution {
   pub fn get_decimal_value(head: Option<Box<ListNode>>) -> i32 { // box is for memory allocation onto heap
     let mut lst:Vec<i32> = Vec::new();
@@ -71,16 +72,15 @@ impl Solution {
           h = (*boxed_node).next;
         }
         None => {
-          println!("head is nun");
           break;
         }
       }
     }
     let mut res = 0;
     let mut pwr = 0;
-    for i in lst.len()-1..=0 {
+    for i in (0..lst.len()).rev() {
       if lst[i] == 1 {
-        res+=2^pwr;
+        res+=(2 as i32).pow(pwr);
       }
       pwr+=1;
     }
