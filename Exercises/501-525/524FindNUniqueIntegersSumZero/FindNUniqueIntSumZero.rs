@@ -45,6 +45,9 @@ impl Solution {
     let mut cur = 0;
     let mut cursum = 0;
     let mut res:Vec<i32> = Vec::new();
+    if n == 2 {
+        return vec![1,-1];
+    }
     for i in 0..n-1 {
       res.push(cur);
       cursum+=cur;
