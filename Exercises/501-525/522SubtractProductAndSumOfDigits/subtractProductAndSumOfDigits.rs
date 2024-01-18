@@ -46,13 +46,14 @@ impl Solution {
   pub fn subtract_product_and_sum(n: i32) -> i32 {
     let str = n.to_string();
     let mut prod = 1;
-    for c as i32 in str.chars() {
-      prod*=c;
+    for c in str.chars() {
+      prod*=c.to_digit(10).unwrap_or(0) as i32;;
     }
-    let mut sum = 0;
-    for c as i32 in str.chars() {
-      sum*=c;
+    let mut sm = 0;
+    for c in str.chars() {
+      let item = c.to_digit(10).unwrap_or(0) as i32;
+      sm+=item;
     }
-    prod-sum
+    prod-sm
   }
 }
