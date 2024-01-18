@@ -372,6 +372,11 @@ count(*) to get the # items in the group
 - see 517 for usage on full join and coalesce for default values
 - also join on date between two dates
 
+- see 521 for usage on cross join and left join magic
+- cross join
+  - no "on" clause
+  - combines all possible combinations of each row of a and b
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
