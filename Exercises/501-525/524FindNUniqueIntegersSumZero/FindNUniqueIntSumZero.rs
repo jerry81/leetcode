@@ -45,7 +45,12 @@ impl Solution {
     let mut cur = 0;
     let mut cursum = 0;
     let mut res:Vec<i32> = Vec::new();
-    for i in 0..n {
+    for i in 0..n-1 {
+      res.push(cur);
+      cursum+=cur;
+      cur+=1;
     }
+    res.push(cursum*-1);
+    res
   }
 }
