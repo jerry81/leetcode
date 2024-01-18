@@ -48,12 +48,21 @@ impl Solution {
   pub fn freq_alphabets(s: String) -> String {
     let char_vector: Vec<char> = s.chars().collect();
     let l = char_vector.len();
-    for idx in 0..l {
+    let mut res_vector: Vec<char> = Vec::new();
+    let mut idx = 0;
+    while idx < l {
       let look_ahead = idx+2;
       if look_ahead < l && char_vector[look_ahead] == '#' {
-        println!("YO handle it at {}", idx);
+        let concat = char_vector[idx] + &char_vector[idx+1];
+        let digit_i32 = concat.parse::<i32>().unwrap() + 96;
+        res.push(std::char::from_u32(digit_i32 as u32).unwrap())
+        idx+=3;
+      } else {
+        let dig = char_vector[idx].to_digit(10).unwrap_or(0) as i32 + 96;
+        res.push(std::char::from_u32(dig as u32).unwrap())
+        idx+=1;
       }
     }
-    "".to_string();
+    res.into_iter().collect()
   }
 }
