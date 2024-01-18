@@ -67,7 +67,7 @@ impl Solution {
     loop {
       match h {
         Some(boxed_node) => {
-          println!("head is {}", (*boxed_node).val);
+          lst.push((*boxed_node).val);
           h = (*boxed_node).next;
         }
         None => {
@@ -76,6 +76,14 @@ impl Solution {
         }
       }
     }
-    0
+    let mut res = 0;
+    let mut pwr = 0;
+    for i in lst.len()-1..=0 {
+      if lst[i] == 1 {
+        res+=2^pwr;
+      }
+      pwr+=1;
+    }
+    res
   }
 }
