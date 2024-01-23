@@ -95,7 +95,8 @@
 
 -- Write your PostgreSQL query statement below
 
-select p.product_name as product_name, count(sum(o.unit)) as unit from Products p
+select p.product_name as product_name, sum(o.unit) as unit from Products p
 join Orders o on p.product_id=o.product_id
-group by product_id
-where unit >= 100
+WHERE order_date BETWEEN '2020-02-01' AND '2020-02-29' -- dis shit inclusive, where to modify select
+group by p.product_id, p.product_name
+having sum(o.unit) > 99 -- having to modify group by (must appear in group by or be aggregate)
