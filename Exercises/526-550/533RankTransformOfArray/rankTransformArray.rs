@@ -65,7 +65,18 @@ impl Solution {
     }
     let mut res: Vec<i32> = Vec::new();
     for i in arr {
-      res.push(*hm.get(&i).unwrap() as i32);
+      res.push(*hm.get(&i).unwrap() as i32); // so about the &..
+      /*
+      In the context of HashMap::get(&key), the & is used to take a reference to the key.
+      It doesn't represent the address of the key in memory as it might in other languages,
+      but rather it's a borrow of the key.
+
+      In Rust, the & symbol is used to create a reference to a value.
+      A reference is a lightweight way to allow code to access a value
+      without taking ownership of it. In the case of HashMap::get, taking a
+      reference to the key allows the HashMap to use the key for hashing
+      and comparison without transferring ownership of the key.
+      */
     }
     res
   }
