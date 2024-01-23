@@ -39,6 +39,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn days_between_dates(date1: String, date2: String) -> i32 {
-
+    // split into year, month day
+    let mut v1: Vec<String> = date1.split('-').map(String::from).collect(); // map works on iterator
+    let mut v2: Vec<String> = date2.split('-').map(String::from).collect();
+    let y1 = &v1[0];
+    let y2 = &v2[0];
+    let m1 = &v1[1];
+    let m2 = &v2[1];
+    let d1 = &v1[2];
+    let d2 = &v2[2];
+    for s in v1 {
+      println!("{}", s);
+    }
+    0
   }
 }
