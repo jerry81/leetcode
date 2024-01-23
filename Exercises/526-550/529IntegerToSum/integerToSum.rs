@@ -50,21 +50,21 @@ impl Solution {
   fn has_zero(n: i32) -> bool {
     let s = n.to_string();
     for c in s.chars() {
-      if c == '0' { return false; }
+      if c == '0' { return true; }
     }
-    true
+    false
   }
   pub fn get_no_zero_integers(n: i32) -> Vec<i32> {
     for i in 1..n {
-      if (has_zero(i)) { continue; }
+      if Solution::has_zero(i) { continue; }
 
       let diff = n - i;
 
-      if has_zero(diff) { continue; }
+      if Solution::has_zero(diff) { continue; }
 
-      return {i, has_zero}
+      return vec![i as i32, diff];
     }
 
-    {1,1}
+    vec![1,1]
   }
 }
