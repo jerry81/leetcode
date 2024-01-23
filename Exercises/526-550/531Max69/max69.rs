@@ -54,17 +54,14 @@ impl Solution {
   pub fn maximum69_number (num: i32) -> i32 {
     let mut v: Vec<char> = Vec::new();
     let mut replaced = false;
-    for c in num.to_string().chars() {
+    for mut c in num.to_string().chars() { // mut in loop!
       if !replaced && c == '6' {
        replaced = true;
        c = '9';
       }
       v.push(c);
     }
-    if !replaced {
-      v.pop();
-      v.push('6');
-    }
-    v.into_iter().collect().parse::<i32>().unwrap()
+    let char_string: String = v.into_iter().collect(); // split it into 2 lines!
+    char_string.parse::<i32>().unwrap()
   }
 }
