@@ -377,6 +377,8 @@ count(*) to get the # items in the group
   - no "on" clause
   - combines all possible combinations of each row of a and b
 
+- see 532 for usage on having clause together with where clause
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
