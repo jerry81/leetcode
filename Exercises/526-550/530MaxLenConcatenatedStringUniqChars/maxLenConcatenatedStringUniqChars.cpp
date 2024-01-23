@@ -65,7 +65,6 @@ using namespace std;
 class Solution {
   unordered_set<int> black_list;  // combinations that are illegal
   unordered_map<int, unordered_set<char>> lookups;
-  unordered_map<int, int> dp;
 
 
  int r(unordered_set<char> curset, int idx, vector<string>& arr, int &sz) {
@@ -73,11 +72,10 @@ class Solution {
 
    if (idx >= sz) return 0;
 
-   if (dp.find(idx) != dp.end()) return dp[idx];
-
    int leave = r(curset, idx+1, arr, sz);
    bool usable = true;
    unordered_set<char> nxt_set = curset;
+   int count = 0;
    for (char c: lookups[idx]) {
      if (curset.find(c) != curset.end()) {
        usable=false;
@@ -85,11 +83,12 @@ class Solution {
      }
 
      nxt_set.insert(c);
+     count++;
    }
-   int take = 0;
-   if (usable) take = r(nxt_set, idx+1,arr,sz);
 
-   return dp[idx] = max(take,leave);
+   int take = (usable) ? count + r(nxt_set, idx+1,arr,sz) : 0;
+
+   return max(take,leave);
  };
 
  public:
