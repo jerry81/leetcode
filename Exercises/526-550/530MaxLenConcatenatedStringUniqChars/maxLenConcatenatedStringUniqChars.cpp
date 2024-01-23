@@ -64,11 +64,22 @@ using namespace std;
 
 class Solution {
   unordered_set<int> black_list;  // combinations that are illegal
-  unordered_map<string, unordered_set<char>> lookups;
+  unordered_map<int, unordered_set<char>> lookups;
+  unordered_map<int, int> dp;
+
+
+ int r(unordered_set<char> curmap, int idx, vector<string>& arr, int &sz) {
+   if (black_list.find(idx) != black_list.end()) return r(curmap, idx++, arr, sz);
+
+   if (idx >= sz) return 0;
+
+   if (dp.find(idx) != dp.end()) return dp[idx];
+ };
 
  public:
   int maxLength(vector<string>& arr) {
-    for (int i = 0; i < arr.size(); ++i) {
+    int sz = arr.size();
+    for (int i = 0; i < sz; ++i) {
       string s = arr[i];
       unordered_set<char> char_set;
       for (char c : s) {
@@ -78,6 +89,9 @@ class Solution {
         }
         char_set.insert(c);
       }
+      lookups[i] = char_set;
     }
+
+
   }
 };
