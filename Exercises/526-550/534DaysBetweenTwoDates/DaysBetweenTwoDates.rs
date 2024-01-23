@@ -40,10 +40,10 @@ Acceptance Rate
 impl Solution {
   pub fn days_between_dates(date1: String, date2: String) -> i32 {
     // split into year, month day
-    let mut v1: Vec<String> = date1.split('-').map(String::from).collect(); // map works on iterator
-    let mut v2: Vec<String> = date2.split('-').map(String::from).collect();
-    let (y1, m1, d1) = (&v1[0], &v1[1], &v1[2]);
-    let (y2, m2, d2) = (&v2[0], &v2[1], &v2[2]);
+    let v1: Vec<String> = date1.split('-').map(String::from).collect(); // map works on iterator
+    let v2: Vec<String> = date2.split('-').map(String::from).collect();
+    let (y1, m1, d1) : (i32, i32, i32) = ((&v1[0]).parse().unwrap(), (&v1[1]).parse().unwrap(), (&v1[2]).parse().unwrap());
+    let (y2, m2, d2) : (i32, i32, i32) = ((&v2[0]).parse().unwrap(), (&v2[1]).parse().unwrap(), (&v2[2]).parse().unwrap());
 
     let (fy, sy, fm, sm, fd, sd) = if (y1, m1, d1) > (y2, m2, d2) {
       (y2, y1, m2, m1, d2, d1)
@@ -52,9 +52,14 @@ impl Solution {
     };
 
 
-    for s in v1 {
-      println!("{}", s);
+    println!("first date is {}-{}-{}", fy, fm, fd);
+
+    if fy == sy {
+      if fm == sm {
+        return sd - fd;
+      }
     }
     0
   }
 }
+
