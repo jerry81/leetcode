@@ -59,16 +59,17 @@ impl Solution {
       (y1, y2, m1, m2, d1, d2)
     };
 
-
-    println!("first date is {}-{}-{}", fy, fm, fd);
     if fy == sy {
       if fm == sm {
         return sd - fd;
       } else {
-        let mut days_count = 0;
+        let mut days_count = Solution::get_days_in_month(fm,fy) - fd;
+        // days left in fm
+
         for i in fm+1..sm {
           days_count+=Solution::get_days_in_month(i,fy);
         }
+        days_count+= sd;
         return days_count;
       }
     }
