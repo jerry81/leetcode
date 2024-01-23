@@ -38,6 +38,14 @@ Acceptance Rate
 */
 
 impl Solution {
+
+  pub fn get_days_in_month(cur: i32, yr: i32) -> i32 {
+    let DAYS_IN_MONTH = vec![31,28,31,30,31,30,31,31,30,31,30,31];
+
+    let leap = (yr%4 == 0 && yr%100 != 0) || yr % 400 == 0;
+    if cur == 2 && leap { 29 } else { DAYS_IN_MONTH[(cur-1) as usize]}
+  }
+
   pub fn days_between_dates(date1: String, date2: String) -> i32 {
     // split into year, month day
     let v1: Vec<String> = date1.split('-').map(String::from).collect(); // map works on iterator
@@ -53,14 +61,13 @@ impl Solution {
 
 
     println!("first date is {}-{}-{}", fy, fm, fd);
-    let DAYS_IN_MONTH = vec![31,28,31,30,31,30,31,31,30,31,30,31];
     if fy == sy {
       if fm == sm {
         return sd - fd;
       } else {
         let mut days_count = 0;
         for i in fm+1..sm {
-          days_count+=DAYS_IN_MONTH[i-1 as usize];
+          days_count+=Solution::get_days_in_month(i,fy);
         }
         return days_count;
       }
@@ -68,4 +75,5 @@ impl Solution {
     0
   }
 }
+
 
