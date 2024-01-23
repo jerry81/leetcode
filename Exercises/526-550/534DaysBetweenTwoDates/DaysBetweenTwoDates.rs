@@ -39,23 +39,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_leap(yr: i32) -> bool {
-    (yr%4 == 0 && yr%100 != 0) || yr % 400 == 0;
+    (yr%4 == 0 && yr%100 != 0) || yr % 400 == 0
   }
 
   pub fn get_days_in_month(cur: i32, yr: i32) -> i32 {
     let DAYS_IN_MONTH = vec![31,28,31,30,31,30,31,31,30,31,30,31];
 
-    if cur == 2 && is_leap(yr) { 29 } else { DAYS_IN_MONTH[(cur-1) as usize]}
+    if cur == 2 && Solution::is_leap(yr) { 29 } else { DAYS_IN_MONTH[(cur-1) as usize]}
   }
 
   pub fn get_days_in_year(yr: i32) -> i32 {
-    if is_leap(yr) { 366 } else { 365 }
+    if Solution::is_leap(yr) { 366 } else { 365 }
   }
 
-  pub fn get_remaining_days(yr: i32, mo: i32, day: i32) {
+  pub fn get_remaining_days(yr: i32, mo: i32, day: i32) -> i32 {
     let mut days_count = Solution::get_days_in_month(mo,yr) - day;
-    for i in fm+1..=12 {
-      days_count+=Solution::get_days_in_month(i,fy);
+    for i in mo+1..=12 {
+      days_count+=Solution::get_days_in_month(i,yr);
     }
     days_count
   }
@@ -92,10 +92,8 @@ impl Solution {
       days_count+= Solution::get_days_in_year(i);
     }
 
-    days_count+= get_days_in_year(sy) - get_remaining_days(sy,sm,sd);
+    days_count+= Solution::get_days_in_year(sy) - Solution::get_remaining_days(sy,sm,sd);
 
     days_count
   }
 }
-
-
