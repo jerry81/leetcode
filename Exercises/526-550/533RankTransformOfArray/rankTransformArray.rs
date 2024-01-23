@@ -47,9 +47,27 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn array_rank_transform(arr: Vec<i32>) -> Vec<i32> {
-    let sorted = arr;
+    let mut sorted = arr; // must be mutable or borrow error
+    let mut hm = HashMap::new();
     sorted.sort();
+    sorted = sorted.into_iter().rev().collect(); // into_iter works but not iter
+    let mut cur = 0;
+    let mut rnk = 0;
+    for i in sorted {
+      if i != cur {
+        rnk+=1;
+      }
+      cur = i;
+      hm.insert(i, rnk);
+    }
+    let mut res: Vec<i32> = Vec::new();
+    for i in arr {
+      res.push(hm.get(i).unwrap())
+    }
+    res
   }
 }
