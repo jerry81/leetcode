@@ -53,10 +53,16 @@ impl Solution {
 
 
     println!("first date is {}-{}-{}", fy, fm, fd);
-
+    let DAYS_IN_MONTH = vec![31,28,31,30,31,30,31,31,30,31,30,31];
     if fy == sy {
       if fm == sm {
         return sd - fd;
+      } else {
+        let mut days_count = 0;
+        for i in fm+1..sm {
+          days_count+=DAYS_IN_MONTH[i-1 as usize];
+        }
+        return days_count;
       }
     }
     0
