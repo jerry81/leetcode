@@ -68,12 +68,28 @@ class Solution {
   unordered_map<int, int> dp;
 
 
- int r(unordered_set<char> curmap, int idx, vector<string>& arr, int &sz) {
-   if (black_list.find(idx) != black_list.end()) return r(curmap, idx++, arr, sz);
+ int r(unordered_set<char> curset, int idx, vector<string>& arr, int &sz) {
+   if (black_list.find(idx) != black_list.end()) return r(curset, idx+1, arr, sz);
 
    if (idx >= sz) return 0;
 
    if (dp.find(idx) != dp.end()) return dp[idx];
+
+   int leave = r(curset, idx+1, arr, sz);
+   bool usable = true;
+   unordered_set<char> nxt_set = curset;
+   for (char c: lookups[idx]) {
+     if (curset.find(c) != curset.end()) {
+       usable=false;
+       break;
+     }
+
+     nxt_set.insert(c);
+   }
+   int take = 0;
+   if (usable) take = r(nxt_set, idx+1,arr,sz);
+
+   return dp[idx] = max(take,leave);
  };
 
  public:
@@ -91,7 +107,7 @@ class Solution {
       }
       lookups[i] = char_set;
     }
-
-
+    unordered_set<char> emp;
+    return r(emp, 0, arr, sz);
   }
 };
