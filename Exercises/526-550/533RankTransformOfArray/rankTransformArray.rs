@@ -65,8 +65,7 @@ impl Solution {
     }
     let mut res: Vec<i32> = Vec::new();
     for i in arr {
-      let item = hm.get(&i);
-      res.push(*item.unwrap() as i32);
+      res.push(*hm.get(&i).unwrap() as i32);
     }
     res
   }
