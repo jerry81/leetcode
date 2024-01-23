@@ -4,11 +4,13 @@ Medium
 Topics
 Companies
 Hint
-You are given an array of strings arr. A string s is formed by the concatenation of a subsequence of arr that has unique characters.
+You are given an array of strings arr. A string s is formed by the concatenation
+of a subsequence of arr that has unique characters.
 
 Return the maximum possible length of s.
 
-A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+A subsequence is an array that can be derived from another array by deleting
+some or no elements without changing the order of the remaining elements.
 
 
 
@@ -28,8 +30,8 @@ Example 2:
 
 Input: arr = ["cha","r","act","ers"]
 Output: 6
-Explanation: Possible longest valid concatenations are "chaers" ("cha" + "ers") and "acters" ("act" + "ers").
-Example 3:
+Explanation: Possible longest valid concatenations are "chaers" ("cha" + "ers")
+and "acters" ("act" + "ers"). Example 3:
 
 Input: arr = ["abcdefghijklmnopqrstuvwxyz"]
 Output: 26
@@ -54,13 +56,28 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 class Solution {
-public:
-    int maxLength(vector<string>& arr) {
+  unordered_set<int> black_list;  // combinations that are illegal
+  unordered_map<string, unordered_set<char>> lookups;
 
+ public:
+  int maxLength(vector<string>& arr) {
+    for (int i = 0; i < arr.size(); ++i) {
+      string s = arr[i];
+      unordered_set<char> char_set;
+      for (char c : s) {
+        if (char_set.find(c) != char_set.end()) {
+          black_list.insert(i);
+          continue;
+        }
+        char_set.insert(c);
+      }
     }
+  }
 };
