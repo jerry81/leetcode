@@ -82,14 +82,35 @@ struct TreeNode {
 };
 
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
   bool is_pp(vector<int> tested) {
-    bool ret = false;
-    return ret;
+    int sz = tested.size();
+    unordered_map<int, int> freq;
+    for (int i : tested) {
+      freq[i]++;
+    }
+    if (sz % 2 == 0) {
+      for (auto [_,v]: freq) {
+        if (v % 2 != 0) return false;
+      }
+      return true;
+      // even case
+    } else {
+      int odd_count = 0;
+      for (auto [_,v]: freq) {
+        if (v %2 == 1) {
+          odd_count++;
+          if (odd_count > 1) return false;
+        }
+      }
+      return true;
+    }
+    return true;
   }
 
   void getPaths(vector<vector<int>> &paths, vector<int> curPath,
