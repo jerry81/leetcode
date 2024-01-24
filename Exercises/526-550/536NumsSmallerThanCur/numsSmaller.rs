@@ -52,15 +52,16 @@ use std::collections::HashMap;
 
 impl Solution {
   pub fn smaller_numbers_than_current(nums: Vec<i32>) -> Vec<i32> {
-      let mut sorted = nums.clone(); // clone, not &
+      let mut sorted = nums.clone(); // clone, not & - creates a new vector that is copy - don't want to modify original nums
+      // if i didn't use clone, sorted would take ownership of nums.
       sorted.sort();
       let mut hm: HashMap<i32,i32> = sorted.iter().enumerate() // enumerate map chain TIL to directly convert the vec to hm
-        .fold(HashMap::new(), |mut acc, (idx, &v)| { // similar to es6 reduce
+        .fold(HashMap::new(), |mut acc, (idx, &v)| { // similar to es6 reduce - note fold owns its borrowed params in the closure body
           acc.entry(v).or_insert(idx as i32);
           acc
         });
 
-      let mut res: Vec<i32> = nums.iter().map(|&i| hm[&i])
+      let mut res: Vec<i32> = nums.iter().map(|&i| hm[&i]) // map does not own, match the pattern as declared in the parameters
         .collect();
       res
   }
