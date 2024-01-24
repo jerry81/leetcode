@@ -63,35 +63,30 @@ impl Solution {
                 acc
             });
 
+        for (key, value) in &sorted_map {
+            println!("k {}, v {}", key, value);
+        }
 
         let mut is_rev: bool = false;
 
         while !sorted_map.is_empty() {
-            if is_rev {
-                let keys: Vec<char> = sorted_map.keys().rev().cloned().collect();
-                for key in keys {
-                    if let Some(value) = sorted_map.get_mut(&key) {
-                        cv.push(key);
-                        *value -= 1;
-                        if *value == 0 {
-                            sorted_map.remove(&key);
-                        }
-                    }
-                }
-                is_rev = false;
+            let keys = if is_rev {
+                sorted_map.keys().rev().map(|&k| k).collect::<Vec<_>>()
             } else {
-                let keys: Vec<char> = sorted_map.keys().cloned().collect();
-                for key in keys {
-                    if let Some(value) = sorted_map.get_mut(&key) {
-                        cv.push(key);
-                        *value -= 1;
-                        if *value == 0 {
-                            sorted_map.remove(&key);
-                        }
+                sorted_map.keys().map(|&k| k).collect::<Vec<_>>()
+            };
+
+            for key in keys {
+                if let Some(value) = sorted_map.get_mut(&key) {
+                    cv.push(key);
+                    *value -= 1;
+                    if *value == 0 {
+                        sorted_map.remove(&key);
                     }
                 }
-                is_rev = true;
             }
+
+            is_rev = !is_rev;
         }
 
         let res: String = cv.into_iter().collect();
