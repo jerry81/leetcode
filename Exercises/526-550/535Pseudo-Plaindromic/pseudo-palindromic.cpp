@@ -88,9 +88,9 @@ struct TreeNode {
 using namespace std;
 
 class Solution {
-  bool is_pp(unordered_map<int, int> tested) {
+  bool is_pp(const unordered_map<int, int> tested) {
     int odd_count = 0;
-    for (auto [_, v] : tested) {
+    for (const auto [_, v] : tested) {
       if (v % 2 == 1) {
         odd_count++;
         if (odd_count > 1) return false;
@@ -99,29 +99,30 @@ class Solution {
     return true;
   }
 
-  int getPaths(unordered_map<int, int> freq, TreeNode *cur) {
+  int getPaths(unordered_map<int, int> &freq, TreeNode *cur) {
     if (!cur) {
       return 0;
     }
 
     bool traversed = false;
-    unordered_map<int, int> new_freq = freq;
-    new_freq[cur->val]++;
+    freq[cur->val]++;
     int res = 0;
     if (cur->left) {
-      res += getPaths(new_freq, cur->left);
+      res += getPaths(freq, cur->left);
 
       traversed = true;
     }
 
     if (cur->right) {
-      res += getPaths(new_freq, cur->right);
+      res += getPaths(freq, cur->right);
       traversed = true;
     }
 
     if (!traversed) {
-      if (is_pp(new_freq)) res = 1;
+      if (is_pp(freq)) res = 1;
     }
+
+    freq[cur->val]--; // popping from call stack, undo the changes.
 
     return res;
   }
