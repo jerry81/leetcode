@@ -52,11 +52,11 @@ use std::collections::HashMap;
 
 impl Solution {
   pub fn smaller_numbers_than_current(nums: Vec<i32>) -> Vec<i32> {
-      let mut sorted = &nums;
+      let mut sorted = nums.clone(); // clone, not &
       sorted.sort();
       let mut hm: HashMap<i32,i32> = HashMap::new();
-      for idx,v in enumerate(sorted) {
-        hm.entry(v).or_insert(idx);
+      for (idx,&v) in sorted.iter().enumerate() { // TIL: usage of enumerate
+        hm.entry(v).or_insert(idx as i32);
       }
       let mut res: Vec<i32> = Vec::new();
       for i in nums {
