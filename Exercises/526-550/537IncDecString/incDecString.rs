@@ -52,43 +52,49 @@ Acceptance Rate
 76.3%
 
 */
-
-use std::collections::BTreeMap; // sorted map
+use std::collections::BTreeMap;
 
 impl Solution {
-  pub fn sort_string(s: String) -> String {
-    let mut cv: Vec<char> = Vec::new();
-    let mut sorted_map: BTreeMap<char, i32> = s.chars()
-      .fold(BTreeMap::new(), |mut acc, c| { // no & necessary here, but why
-        *acc.entry(c).or_insert(1) += 1;
-        acc
-      });
+    pub fn sort_string(s: String) -> String {
+        let mut cv: Vec<char> = Vec::new();
+        let mut sorted_map: BTreeMap<char, i32> = s.chars()
+            .fold(BTreeMap::new(), |mut acc, c| {
+                *acc.entry(c).or_insert(0) += 1;
+                acc
+            });
 
-    let mut is_rev: bool = false;
 
-    while !sorted_map.is_empty() { // empty check, while loop
-      if is_rev {
-        for (key, value) in &sorted_map.iter().rev() {
-          cv.push(key);
-          value -= 1;
-          if value == 0 {
-            sorted_map.remove(&key); // BTreeMap entry removal.
-          }
+        let mut is_rev: bool = false;
+
+        while !sorted_map.is_empty() {
+            if is_rev {
+                let keys: Vec<char> = sorted_map.keys().rev().cloned().collect();
+                for key in keys {
+                    if let Some(value) = sorted_map.get_mut(&key) {
+                        cv.push(key);
+                        *value -= 1;
+                        if *value == 0 {
+                            sorted_map.remove(&key);
+                        }
+                    }
+                }
+                is_rev = false;
+            } else {
+                let keys: Vec<char> = sorted_map.keys().cloned().collect();
+                for key in keys {
+                    if let Some(value) = sorted_map.get_mut(&key) {
+                        cv.push(key);
+                        *value -= 1;
+                        if *value == 0 {
+                            sorted_map.remove(&key);
+                        }
+                    }
+                }
+                is_rev = true;
+            }
         }
-        is_rev = false;
-      } else {
-        for (key, value) in &sorted_map {
-          cv.push(key);
-          value -= 1;
-          if value == 0 {
-            sorted_map.remove(&key); // BTreeMap entry removal.
-          }
-        }
-        is_rev = true;
-      }
+
+        let res: String = cv.into_iter().collect();
+        res
     }
-
-
-    cv.collect().to_string()
-  }
 }
