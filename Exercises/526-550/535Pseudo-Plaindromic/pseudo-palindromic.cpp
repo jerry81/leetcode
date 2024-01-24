@@ -88,62 +88,52 @@ struct TreeNode {
 using namespace std;
 
 class Solution {
-  bool is_pp(vector<int> tested) {
-    int sz = tested.size();
-    unordered_map<int, int> freq;
-    for (int i : tested) {
-      freq[i]++;
-    }
-    if (sz % 2 == 0) {
-      for (auto [_,v]: freq) {
-        if (v % 2 != 0) return false;
+  bool is_pp(unordered_map<int, int> tested) {
+    int odd_count = 0;
+    for (auto [_, v] : tested) {
+      if (v % 2 == 1) {
+        odd_count++;
+        if (odd_count > 1) return false;
       }
-      return true;
-      // even case
-    } else {
-      int odd_count = 0;
-      for (auto [_,v]: freq) {
-        if (v %2 == 1) {
-          odd_count++;
-          if (odd_count > 1) return false;
-        }
-      }
-      return true;
     }
     return true;
   }
 
-  void getPaths(vector<vector<int>> &paths, vector<int> curPath,
-                TreeNode *cur) {
+  int getPaths(unordered_map<int, int> freq, TreeNode *cur) {
     if (!cur) {
-      return;
+      return 0;
     }
 
-    curPath.push_back(cur->val);
     bool traversed = false;
+    unordered_map<int, int> new_freq = freq;
+    new_freq[cur->val]++;
+    int res = 0;
     if (cur->left) {
-      getPaths(paths, curPath, cur->left);
+      res += getPaths(new_freq, cur->left);
+
       traversed = true;
     }
 
     if (cur->right) {
-      getPaths(paths, curPath, cur->right);
+      res += getPaths(new_freq, cur->right);
       traversed = true;
     }
 
     if (!traversed) {
-      paths.push_back(curPath);
+      if (is_pp(new_freq)) res = 1;
     }
+
+    return res;
   }
 
  public:
   int pseudoPalindromicPaths(TreeNode *root) {
-    vector<vector<int>> paths;
-    getPaths(paths, {}, root);
-    int res = 0;
-    for (auto v : paths) {
-      if (is_pp(v)) res++;
-    }
+    unordered_map<int, int> empty;
+    int res = getPaths(empty, root);
     return res;
   }
 };
+
+/*
+  atttempt 1: mem limit exceeded
+*/
