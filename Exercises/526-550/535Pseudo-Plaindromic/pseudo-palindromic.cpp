@@ -87,17 +87,31 @@ struct TreeNode {
 using namespace std;
 
 class Solution {
-  bool is_pp(vector<int> tested) {}
+  bool is_pp(vector<int> tested) {
+    bool ret = false;
+    return ret;
+  }
 
   void getPaths(vector<vector<int>> &paths, vector<int> curPath, TreeNode *cur) {
     if (!cur) {
-      paths.push_back(curPath);
       return;
     }
 
     curPath.push_back(cur->val);
-    getPaths(paths, curPath, cur->left);
-    getPaths(paths, curPath, cur->right);
+    bool traversed = false;
+    if (cur->left) {
+      getPaths(paths, curPath, cur->left);
+      traversed = true;
+    }
+
+    if (cur->right) {
+      getPaths(paths, curPath, cur->right);
+      traversed = true;
+    }
+
+    if (!traversed) {
+      paths.push_back(curPath);
+    }
   }
 
  public:
