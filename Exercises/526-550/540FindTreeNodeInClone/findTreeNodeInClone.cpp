@@ -76,7 +76,18 @@ struct TreeNode {
 };
 
 class Solution {
+ TreeNode* res;
+ void r(int tgt, TreeNode* cur) {
+   if (!cur) return;
+
+   if (tgt == cur->val) res = cur;
+   r(tgt, cur->left);
+   r(tgt, cur->right);
+ }
  public:
   TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned,
-                          TreeNode* target) {}
+                          TreeNode* target) {
+    r(target->val, cloned);
+    return res;
+  }
 };
