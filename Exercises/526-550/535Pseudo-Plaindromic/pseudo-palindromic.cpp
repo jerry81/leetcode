@@ -92,7 +92,8 @@ class Solution {
     return ret;
   }
 
-  void getPaths(vector<vector<int>> &paths, vector<int> curPath, TreeNode *cur) {
+  void getPaths(vector<vector<int>> &paths, vector<int> curPath,
+                TreeNode *cur) {
     if (!cur) {
       return;
     }
@@ -118,12 +119,10 @@ class Solution {
   int pseudoPalindromicPaths(TreeNode *root) {
     vector<vector<int>> paths;
     getPaths(paths, {}, root);
+    int res = 0;
     for (auto v : paths) {
-      cout << "printing path" << endl;
-      for (auto i : v) {
-        cout << i << endl;
-      }
+      if (is_pp(v)) res++;
     }
-    return 0;
+    return res;
   }
 };
