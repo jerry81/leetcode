@@ -45,6 +45,25 @@ Acceptance Rate
 
 impl Solution {
   pub fn generate_the_string(n: i32) -> String {
+    let mut cv:Vec<char> = Vec::new();
+    let mut n_c = n;
+    let mut cur_char = 'a';
+    let mut cur_char_cnt = 0;
+    while n_c > 0 {
+      n_c -=1;
+      if n_c == 1 && cur_char_cnt % 2 == 1 {
+          cur_char = cur_char.next().unwrap_or(cur_char);
+          cur_char_cnt = 0;
+      }
+      if n_c == 2 && cur_char_cnt % 2 == 1 {
+          cur_char = cur_char.next().unwrap_or(cur_char);
+          cur_char_cnt = 0;
+      }
+      cv.push(cur_char);
+      cur_char_cnt+=1;
 
+    }
+    let res:String = cv.iter().collect();
+    res
   }
 }
