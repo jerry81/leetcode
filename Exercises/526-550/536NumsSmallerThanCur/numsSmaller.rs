@@ -54,14 +54,14 @@ impl Solution {
   pub fn smaller_numbers_than_current(nums: Vec<i32>) -> Vec<i32> {
       let mut sorted = nums.clone(); // clone, not &
       sorted.sort();
-      let mut hm: HashMap<i32,i32> = HashMap::new();
-      for (idx,&v) in sorted.iter().enumerate() { // TIL: usage of enumerate
-        hm.entry(v).or_insert(idx as i32);
-      }
-      let mut res: Vec<i32> = Vec::new();
-      for i in nums {
-        res.push(hm[&i]);
-      }
+      let mut hm: HashMap<i32,i32> = sorted.iter().enumerate() // enumerate map chain TIL to directly convert the vec to hm
+        .fold(HashMap::new(), |mut acc, (idx, &v)| { // similar to es6 reduce
+          acc.entry(v).or_insert(idx as i32);
+          acc
+        });
+
+      let mut res: Vec<i32> = nums.iter().map(|&i| hm[&i])
+        .collect();
       res
   }
 }
