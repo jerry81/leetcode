@@ -52,7 +52,7 @@ Acceptance Rate
 76.3%
 
 */
-use std::collections::BTreeMap;
+use std::collections::BTreeMap; // sorted map
 
 impl Solution {
     pub fn sort_string(s: String) -> String {
@@ -63,23 +63,20 @@ impl Solution {
                 acc
             });
 
-        for (key, value) in &sorted_map {
-            println!("k {}, v {}", key, value);
-        }
 
         let mut is_rev: bool = false;
 
         while !sorted_map.is_empty() {
-            let keys = if is_rev {
-                sorted_map.keys().rev().map(|&k| k).collect::<Vec<_>>()
-            } else {
-                sorted_map.keys().map(|&k| k).collect::<Vec<_>>()
-            };
+          let keys: Vec<_> = if is_rev { // type placeholder to infer type
+            sorted_map.keys().rev().map(|&k| k).collect()
+          } else {
+            sorted_map.keys().map(|&k| k).collect()
+          };
 
-            for key in keys {
-                if let Some(value) = sorted_map.get_mut(&key) {
+            for key in keys { // one loop
+                if let Some(value) = sorted_map.get_mut(&key) { // get_mut so you can modify it
                     cv.push(key);
-                    *value -= 1;
+                    *value -= 1; // modify the value directly (dereference)
                     if *value == 0 {
                         sorted_map.remove(&key);
                     }
@@ -89,7 +86,7 @@ impl Solution {
             is_rev = !is_rev;
         }
 
-        let res: String = cv.into_iter().collect();
+        let res: String = cv.into_iter().collect(); // must be two lines
         res
     }
 }
