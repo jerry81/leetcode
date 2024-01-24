@@ -89,17 +89,27 @@ using namespace std;
 class Solution {
   bool is_pp(vector<int> tested) {}
 
-  void getPaths(vector<vector<int>> &paths, TreeNode *cur) {}
+  void getPaths(vector<vector<int>> &paths, vector<int> curPath, TreeNode *cur) {
+    if (!cur) {
+      paths.push_back(curPath);
+      return;
+    }
+
+    curPath.push_back(cur->val);
+    getPaths(paths, curPath, cur->left);
+    getPaths(paths, curPath, cur->right);
+  }
 
  public:
   int pseudoPalindromicPaths(TreeNode *root) {
     vector<vector<int>> paths;
-    getPaths(paths, root);
+    getPaths(paths, {}, root);
     for (auto v : paths) {
       cout << "printing path" << endl;
       for (auto i : v) {
         cout << i << endl;
       }
     }
+    return 0;
   }
 };
