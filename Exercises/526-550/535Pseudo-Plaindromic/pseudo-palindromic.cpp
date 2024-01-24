@@ -81,6 +81,7 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -88,6 +89,17 @@ using namespace std;
 class Solution {
   bool is_pp(vector<int> tested) {}
 
+  void getPaths(vector<vector<int>> &paths, TreeNode *cur) {}
+
  public:
-  int pseudoPalindromicPaths(TreeNode *root) {}
+  int pseudoPalindromicPaths(TreeNode *root) {
+    vector<vector<int>> paths;
+    getPaths(paths, root);
+    for (auto v : paths) {
+      cout << "printing path" << endl;
+      for (auto i : v) {
+        cout << i << endl;
+      }
+    }
+  }
 };
