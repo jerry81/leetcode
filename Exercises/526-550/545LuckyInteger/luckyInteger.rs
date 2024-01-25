@@ -50,12 +50,13 @@ use std::collections::HashMap;
 impl Solution {
   pub fn find_lucky(arr: Vec<i32>) -> i32 {
     let mut freq: HashMap<i32,i32> = HashMap::new();
-    for i in arr {
+    for i in arr.clone() {
       *freq.entry(i).or_insert(0) += 1;
     }
-    let mut res = 0;
-    for i in arr {
-      if freq[i] == i { res+=1 }
+    let mut res = -1;
+    for i in arr.clone() {
+      println!("freq of {} is {}", i, freq[&i]);
+      if freq[&i] == i { res = res.max(i) }
     }
     res
   }
