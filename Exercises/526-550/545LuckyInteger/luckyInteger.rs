@@ -55,7 +55,6 @@ impl Solution {
     }
     let mut res = -1;
     for i in arr.clone() {
-      println!("freq of {} is {}", i, freq[&i]);
       if freq[&i] == i { res = res.max(i) }
     }
     res
