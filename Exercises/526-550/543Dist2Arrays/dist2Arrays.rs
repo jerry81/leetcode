@@ -69,6 +69,12 @@ impl Solution {
     for i in a1 {
       let mut safe = true;
       for j in a2.clone() {
+        /*
+        In the second loop, you are iterating over a
+        clone of arr2, which requires cloning.
+        This is because a2.clone() creates a new owned
+        Vec<i32> that is then iterated over.
+        */
         if (i-j).abs() <= d {
             safe = false;
           break;
