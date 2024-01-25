@@ -63,6 +63,19 @@ impl Solution {
   pub fn find_the_distance_value(arr1: Vec<i32>, arr2: Vec<i32>, d: i32) -> i32 {
     let mut sz = arr1.len();
     sz = sz.min(arr2.len());
-    0
+    let mut a1:Vec<i32> = arr1.clone();
+    let mut a2:Vec<i32> = arr2.clone();
+    let mut res = 0;
+    for i in a1 {
+      let mut safe = true;
+      for j in a2.clone() {
+        if (i-j).abs() <= d {
+            safe = false;
+          break;
+        }
+      }
+      if safe { res+=1; }
+    }
+    res
   }
 }
