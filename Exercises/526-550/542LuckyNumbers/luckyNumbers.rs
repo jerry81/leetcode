@@ -55,6 +55,21 @@ impl Solution {
     let col_mx :Vec<i32> = vec![];
     let h = matrix.len();
     let w = matrix[0].len();
+    for i in 0..h {
+      let mut mx = 0;
+      let r = matrix[i];
+      for j in 0..w {
+        mx = mx.max(r[j]);
+      }
+      row_mx.push(mx);
+    }
+    for i in 0..w {
+      let mut mx = 0;
+      for j in 0..h {
+        mx = mx.max(matrix[j][i]);
+      }
+      col_mx.push(mx);
+    }
     vec![]
   }
 }
