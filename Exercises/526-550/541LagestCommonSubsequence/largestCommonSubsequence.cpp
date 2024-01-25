@@ -76,7 +76,7 @@ class Solution {
     if (m2.find(c) != m2.end()) {
       for (int i = 0; i < m2[c].size(); ++i) {
         if (m2[c][i] >= idx2) {
-          take_cnt = 1+r(t1,m1,m2,s1,s2,idx1+1, m2[c][i]);
+          take_cnt = 1+r(t1,m1,m2,s1,s2,idx1+1, m2[c][i]+1);
           break;
         }
       }
