@@ -51,20 +51,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn lucky_numbers (matrix: Vec<Vec<i32>>) -> Vec<i32> {
-    let mut row_mx :Vec<i32> = vec![];
+    let mut row_mn :Vec<i32> = vec![];
     let mut col_mx :Vec<i32> = vec![];
     let h = matrix.len();
     let w = matrix[0].len();
     for i in 0..h {
-      let mut mx = 0;
+      let mut mn = i32::MAX;
       let r = matrix[i].clone();
       for j in 0..w {
-        mx = mx.max(r[j]);
+        mn = mn.min(r[j]);
       }
-      row_mx.push(mx);
+      row_mn.push(mn);
     }
     for i in 0..w {
-      let mut mx = 0;
+      let mut mx = i32::MIN;
       for j in 0..h {
         mx = mx.max(matrix[j][i]);
       }
@@ -73,7 +73,7 @@ impl Solution {
     let mut res : Vec<i32> = vec![];
     for i in 0..h {
       for j in 0..w {
-        if matrix[i][j] == col_mx[j] && matrix[i[j] == row_mx[i] {
+        if matrix[i][j] == col_mx[j] && matrix[i][j] == row_mn[i] {
           res.push(matrix[i][j]);
         }
       }
