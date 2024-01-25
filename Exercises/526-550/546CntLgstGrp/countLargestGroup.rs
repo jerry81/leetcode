@@ -54,11 +54,11 @@ impl Solution {
 
 }
 
-fn sum_digits(n: i32) {
+fn sum_digits(n: i32) -> i32 {
   let ns = n.to_string();
-  let res = 0;
+  let mut res = 0;
   for c in ns.chars() {
-    res+=parse<i32>(c).unwrap();
+    res+=c.to_digit(10).unwrap();
   }
-  res
+  res as i32
 }
