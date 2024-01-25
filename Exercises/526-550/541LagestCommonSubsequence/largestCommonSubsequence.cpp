@@ -62,42 +62,39 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
-  map<pair<int, int>, int> dp;
+    vector<vector<int>> dp;
 
-  int r(string &t1, map<char, vector<int>> m1, map<char, vector<int>> m2, int &s1, int &s2, int idx1, int idx2) {
-    if (s1 <= idx1 || s2 <= idx2) return 0;
+    int r(string &t1, string &t2, int &s1, int &s2, int idx1, int idx2) {
+        if (idx1 >= s1 || idx2 >= s2) return 0;
 
-    if (dp.find({idx1, idx2}) != dp.end()) return dp[{idx1,idx2}];
-    char c = t1[idx1];
-    int take_cnt = 0;
-    // take
-    if (m2.find(c) != m2.end()) {
-      for (int i = 0; i < m2[c].size(); ++i) {
-        if (m2[c][i] >= idx2) {
-          take_cnt = 1+r(t1,m1,m2,s1,s2,idx1+1, m2[c][i]+1);
-          break;
+        if (dp[idx1][idx2] >= 0) {
+            return dp[idx1][idx2];
         }
-      }
-    }
-    // leave
-    int leave_cnt = r(t1,m1,m2,s1,s2,idx1+1, idx2);
-    return dp[{idx1,idx2}] = max(take_cnt, leave_cnt);
-  }
 
- public:
-  int longestCommonSubsequence(string text1, string text2) {
-    int s1 = text1.size();
-    int s2 = text2.size();
-    map<char, vector<int>> s1_map;
-    map<char, vector<int>> s2_map;
-    for (int i = 0; i < s1; ++i) {
-      s1_map[text1[i]].push_back(i);
+        char c1 = t1[idx1];
+        char c2 = t2[idx2];
+
+        int take_cnt = 0;
+
+        if (c1 == c2) {
+            take_cnt = 1 + r(t1, t2, s1, s2, idx1 + 1, idx2 + 1);
+        }
+
+        int leave_cnt1 = r(t1, t2, s1, s2, idx1 + 1, idx2);
+        int leave_cnt2 = r(t1, t2, s1, s2, idx1, idx2 + 1);
+
+        int leave_cnt = max(leave_cnt1, leave_cnt2);
+
+        return dp[idx1][idx2] = max(take_cnt, leave_cnt);
     }
-    for (int i = 0; i < s2; ++i) {
-      s2_map[text2[i]].push_back(i);
+
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int s1 = text1.size();
+        int s2 = text2.size();
+        dp.resize(s1 + 1, vector<int>(s2 + 1, -1));
+
+        return r(text1, text2, s1, s2, 0, 0);
     }
-    return r(text1, s1_map, s2_map, s1, s2, 0, 0);
-  }
 };
