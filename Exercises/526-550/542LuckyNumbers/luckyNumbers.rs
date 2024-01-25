@@ -70,6 +70,14 @@ impl Solution {
       }
       col_mx.push(mx);
     }
-    vec![]
+    let mut res : Vec<i32> = vec![];
+    for i in 0..h {
+      for j in 0..w {
+        if matrix[i][j] == col_mx[j] && matrix[i[j] == row_mx[i] {
+          res.push(matrix[i][j]);
+        }
+      }
+    }
+    res
   }
 }
