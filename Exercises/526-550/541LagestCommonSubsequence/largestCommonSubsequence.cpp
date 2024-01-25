@@ -66,7 +66,7 @@ using namespace std;
 class Solution {
   map<pair<int, int>, int> dp;
 
-  int r(string &t1, string &t2, map<char, vector<int>> m1, map<char, vector<int>> m2, int &s1, int &s2, int idx1, int idx2) {
+  int r(string &t1, map<char, vector<int>> m1, map<char, vector<int>> m2, int &s1, int &s2, int idx1, int idx2) {
     if (s1 <= idx1 || s2 <= idx2) return 0;
 
     if (dp.find({idx1, idx2}) != dp.end()) return dp[{idx1,idx2}];
@@ -76,14 +76,14 @@ class Solution {
     if (m2.find(c) != m2.end()) {
       for (int i = 0; i < m2[c].size(); ++i) {
         if (m2[c][i] >= idx2) {
-          take_cnt = 1+r(t1,t2,m1,m2,s1,s2,idx1+1, m2[c][i]);
+          take_cnt = 1+r(t1,m1,m2,s1,s2,idx1+1, m2[c][i]);
           break;
         }
       }
     }
     // leave
-    int leave_cnt = r(t1,t2,m1,m2,s1,s2,idx1+1, idx2);
-    dp[{idx1,idx2}] = max(take_cnt, leave_cnt);
+    int leave_cnt = r(t1,m1,m2,s1,s2,idx1+1, idx2);
+    return dp[{idx1,idx2}] = max(take_cnt, leave_cnt);
   }
 
  public:
@@ -98,6 +98,6 @@ class Solution {
     for (int i = 0; i < s2; ++i) {
       s2_map[text2[i]].push_back(i);
     }
-    return r(text1, text2, s1_map, s2_map, s1, s2, 0, 0);
+    return r(text1, s1_map, s2_map, s1, s2, 0, 0);
   }
 };
