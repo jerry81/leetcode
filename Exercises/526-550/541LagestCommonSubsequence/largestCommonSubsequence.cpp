@@ -54,11 +54,13 @@ Acceptance Rate
 */
 
 #include <string>
-#include <unordered_set>
+#includde <unordered_map>
 
 using namespace std;
 
 class Solution {
+int r(string &t1, string &t2, int &s1, int &s2, int idx1, int idx2) {
+}
 public:
     int longestCommonSubsequence(string text1, string text2) {
 
