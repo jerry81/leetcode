@@ -47,11 +47,19 @@ use std::collections::HashMap;
 impl Solution {
 
   pub fn count_largest_group(n: i32) -> i32 {
-    println!("sumdigits 22 is {}", sum_digits(22));
-    0
+    let mut sums:HashMap<i32,i32> = HashMap::new();
+    let mut lgstSz = 0;
+    for i in 1..=n {
+      let cur = sum_digits(i);
+      *sums.entry(cur).or_insert(0)+=1;
+      lgstSz = lgstSz.max(*sums.entry(cur).or_insert(0));
+    }
+    let mut res = 0;
+    for (_,v) in &sums {
+      if *v == lgstSz { res+=1; }
+    }
+    res
   }
-
-
 }
 
 fn sum_digits(n: i32) -> i32 {
