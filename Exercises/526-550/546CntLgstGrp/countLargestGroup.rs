@@ -42,9 +42,23 @@ Acceptance Rate
 66.5%
 
 */
+use std::collections::HashMap;
 
 impl Solution {
-  pub fn count_largest_group(n: i32) -> i32 {
 
+  pub fn count_largest_group(n: i32) -> i32 {
+    println!("sumdigits 22 is {}", sum_digits(22));
+    0
   }
+
+
+}
+
+fn sum_digits(n: i32) {
+  let ns = n.to_string();
+  let res = 0;
+  for c in ns.chars() {
+    res+=parse<i32>(c).unwrap();
+  }
+  res
 }
