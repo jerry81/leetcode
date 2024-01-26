@@ -45,11 +45,14 @@ Acceptance Rate
 impl Solution {
 
   pub fn min_subsequence(nums: Vec<i32>) -> Vec<i32> {
-    let sm = nums.iter().sum();
+    let sm:i32 = nums.iter().sum();
     let mn_sum = sm/2;
-    let res: Vec<Vec<i32>> = subseq(nums, 0, mn_sum);
+    let sz = nums.len();
+    let res: Vec<Vec<i32>> = subseq(nums, 0, mn_sum, sz);
+    vec![]
   }
 }
 
-fn subseq(nums:Vec<i32>, cur_sum: i32, mn_sum: i32) -> Vec<Vec<i32>> {
+fn subseq(nums:Vec<i32>, cur_sum: i32, mn_sum: i32, sz: usize) -> Vec<Vec<i32>> {
+  vec![vec![]]
 }
