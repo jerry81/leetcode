@@ -52,8 +52,8 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  const int MOD = 10e9 + 7;
-  vector<vector<int>> dp;
+  const int MOD = 1e9 + 7;
+  vector<vector<vector<int>>> dp;
   const vector<vector<int>> NEIGHBORS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
   int r(int y, int x, int movesLeft, int &h, int &w) {
     if (movesLeft <= 0) return 0;
@@ -62,7 +62,7 @@ class Solution {
 
     if (y < 0 || x < 0) return 0;
 
-    if (dp[y][x] >= 0) return dp[y][x];
+    if (dp[y][x][movesLeft] >= 0) return dp[y][x][movesLeft];
 
     long long int total = 0;
     for (auto v: NEIGHBORS) {
@@ -74,14 +74,15 @@ class Solution {
         total+=1;
       } else {
         total+=r(ny,nx,movesLeft-1,h,w);
+        total%=MOD;
       }
     }
-    return dp[y][x] = total;
+    return dp[y][x][movesLeft] = total;
   }
 
  public:
   int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-    dp.resize(m + 1, vector<int>(n + 1, -1));
+    dp.resize(m + 1, vector<vector<int>>(n + 1, vector<int>(51,-1)));
     return r(startRow, startColumn, maxMove, m, n);
   }
 };
