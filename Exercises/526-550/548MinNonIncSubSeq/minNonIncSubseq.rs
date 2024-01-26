@@ -48,15 +48,38 @@ impl Solution {
     let sm:i32 = nums.iter().sum();
     let mn_sum = sm/2;
     let sz = nums.len();
-    let mut res: Vec<Vec<i32>> = vec![vec![]];
-    subseq(vec![], 0, nums, 0, mn_sum, sz, &mut res);
+    let mut res: Vec<Vec<i32>> = vec![];
 
-    vec![]
+    subseq(vec![], 0, nums, 0, mn_sum, sz, &mut res);
+    println!("res size before {}", res.len());
+    res.sort_by(|a, b| {
+        let size_comparison = a.len().cmp(&b.len());
+        if size_comparison == std::cmp::Ordering::Equal {
+            a.iter().sum::<i32>().cmp(&b.iter().sum::<i32>())
+        } else {
+            size_comparison
+        }
+    });
+    println!("res size {}", res.len());
+    res.into_iter().next().unwrap()
   }
 }
 
 fn subseq(cur: Vec<i32>, idx: usize, nums:Vec<i32>, cur_sum: i32, mn_sum: i32, sz: usize, accum: &mut Vec<Vec<i32>>) {
+  let nc = nums.clone();
+  let cc = cur.clone();
+  if idx >= sz {
+
+    if cur_sum > mn_sum {
+        accum.push(cur);
+    }
+    return;
+  }
   // take
-  if idx > sz { return; }
+  let mut nxt = cur.clone();
+  nxt.push(nums[idx]);
+  let nxtsum = cur_sum+nums[idx];
+  subseq(nxt, idx+1, nums, nxtsum, mn_sum, sz,accum);
   // leave
+  subseq(cur, idx+1, nc, cur_sum, mn_sum, sz, accum);
 }
