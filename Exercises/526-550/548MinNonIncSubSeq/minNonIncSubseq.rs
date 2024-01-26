@@ -51,17 +51,17 @@ impl Solution {
     let mut res: Vec<Vec<i32>> = vec![];
 
     subseq(vec![], 0, nums, 0, mn_sum, sz, &mut res);
-    println!("res size before {}", res.len());
     res.sort_by(|a, b| {
         let size_comparison = a.len().cmp(&b.len());
         if size_comparison == std::cmp::Ordering::Equal {
-            a.iter().sum::<i32>().cmp(&b.iter().sum::<i32>())
+            b.iter().sum::<i32>().cmp(&a.iter().sum::<i32>())
         } else {
             size_comparison
         }
     });
-    println!("res size {}", res.len());
-    res.into_iter().next().unwrap()
+    let mut first_item: Vec<i32> = res.into_iter().next().unwrap();
+    first_item.sort();
+    first_item
   }
 }
 
