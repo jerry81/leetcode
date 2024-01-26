@@ -48,11 +48,15 @@ impl Solution {
     let sm:i32 = nums.iter().sum();
     let mn_sum = sm/2;
     let sz = nums.len();
-    let res: Vec<Vec<i32>> = subseq(nums, 0, mn_sum, sz);
+    let mut res: Vec<Vec<i32>> = vec![vec![]];
+    subseq(vec![], 0, nums, 0, mn_sum, sz, &mut res);
+
     vec![]
   }
 }
 
-fn subseq(nums:Vec<i32>, cur_sum: i32, mn_sum: i32, sz: usize) -> Vec<Vec<i32>> {
-  vec![vec![]]
+fn subseq(cur: Vec<i32>, idx: usize, nums:Vec<i32>, cur_sum: i32, mn_sum: i32, sz: usize, accum: &mut Vec<Vec<i32>>) {
+  // take
+  if idx > sz { return; }
+  // leave
 }
