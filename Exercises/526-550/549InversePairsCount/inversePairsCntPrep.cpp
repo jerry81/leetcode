@@ -33,26 +33,29 @@ Constraints:
 */
 
 #include <iostream>
-#include <vector>
 #include <map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-
-  int count_inverse_pairs(vector<int> v) {
-    int res = 0;
-    for (int i = 0; i < v.size()-1; ++i) {
-      for (int j = i+1; j < v.size(); ++j) {
-        if (v[i] > v[j]) res++;
-      }
-    }
-    return res;
-  }
-
  public:
   int kInversePairs(int n, int k) {
-    // print stuff out, look for a pattern
-
+    vector<vector<int>> dp(1001, vector<int>(1001, -1));
+    dp[0] = {1};
+    for (int i = 1; i < n; ++i) {
+      vector<int> prev = dp[i - 1];
+      vector<int> cur;
+      int sm = 0;
+      for (int j : prev) {
+        sm += j;
+        cur.push_back(j);
+      }
+      vector<int> curcpy = cur;
+      reverse(curcpy.begin(), curcpy.end());
+      cur.insert(cur.end(), curcpy.begin(), curcpy.end());
+      dp[i] = cur;
+    }
+    return dp.back()[k];
   }
 };
