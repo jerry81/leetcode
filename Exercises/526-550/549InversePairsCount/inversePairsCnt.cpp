@@ -53,7 +53,13 @@ class Solution {
   }
 
   int count_inverse_pairs(vector<int> v) {
-
+    int res = 0;
+    for (int i = 0; i < v.size()-1; ++i) {
+      for (int j = i+1; j < v.size(); ++j) {
+        if (v[i] > v[j]) res++;
+      }
+    }
+    return res;
   }
 
  public:
@@ -69,6 +75,8 @@ class Solution {
     for (vector<int> v: perms) {
       cout << endl;
       for (int i: v) cout << i << ",";
+      cout << endl;
+      cout << " has " << count_inverse_pairs(v) << " items"<<endl;
     }
     return 0;
   }
