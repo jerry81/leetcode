@@ -44,12 +44,16 @@ class Solution {
     if (remain.empty()) perms.push_back(cur);
 
     for (int i = 0; i < remain.size(); ++i) {
-      vector<int> cpy = remain;
-      vector<int> cpy2 = cur;
-      cpy2.push_back(cpy[i]);
-      cpy.erase(cpy.begin() + i);
-      dfs(cpy2, cpy);
+      vector<int> rm_cpy = remain;
+      vector<int> cur_cpy = cur;
+      cur_cpy.push_back(rm_cpy[i]);
+      rm_cpy.erase(rm_cpy.begin() + i);
+      dfs(cur_cpy, rm_cpy);
     }
+  }
+
+  int count_inverse_pairs(vector<int> v) {
+
   }
 
  public:
@@ -59,7 +63,13 @@ class Solution {
     for (int i = 1; i <= n; ++i) {
       nums.push_back(i);
     }
+
     dfs({}, nums);
+
+    for (vector<int> v: perms) {
+      cout << endl;
+      for (int i: v) cout << i << ",";
+    }
     return 0;
   }
 };
