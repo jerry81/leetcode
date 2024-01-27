@@ -34,6 +34,7 @@ Constraints:
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -71,13 +72,15 @@ class Solution {
     }
 
     dfs({}, nums);
-
+    map<int,int> pairs;
     for (vector<int> v: perms) {
-      cout << endl;
-      for (int i: v) cout << i << ",";
-      cout << endl;
-      cout << " has " << count_inverse_pairs(v) << " items"<<endl;
+    //  cout << endl;
+     // for (int i: v) cout << i << ",";
+    //  cout << endl;
+      int cnt =  count_inverse_pairs(v);
+      pairs[cnt]++;
     }
+    for (auto [k,v]: pairs) cout << "k: "<<k<<" v: "<<v<< endl;
     return 0;
   }
 };
