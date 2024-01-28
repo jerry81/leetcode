@@ -43,33 +43,22 @@ class Solution {
   int kInversePairs(int n, int k) {
     vector<vector<int>> dp(1001, vector<int>(1001, 0));
     dp[0][0] = 1;
-    for (int i = 1; i < n; ++i) {
-      vector<int> prev = dp[i - 1];
-      vector<int> cur;
-      int sm = 0;
+    for (int i = 1; i <= n; ++i) {
+        cout << "n is now " << i << endl;
       dp[i][0] = 1;
-      int res = -1;
-      int curi = 1;
-      while (res != 0) {
-        // sum from k-n+1 to k
-        int st = curi-n+1;
-        int ed = curi;
-        for (int l = st; l <= ed; ++l) {
-          if (l >= 0) {
-            res+prev[l];
-          }
-          res-=prev[l-1];
-        }
-
-        dp[i][curi] = res;
-        curi++;
+      int idx = 1;
+      int sm = 1;
+      while (true) {
+        sm+=dp[i-1][idx];
+        int left =  idx - n + 1;
+        cout << "left is " << left << endl;
+        if (left > 0) sm -= dp[i-1][left-1];
+        cout << "sm is " << sm << endl;
+        if (sm == 0) break;
+        dp[i][idx] = sm;
+        idx++;
       }
-
-      // vector<int> curcpy = cur;
-      // reverse(curcpy.begin(), curcpy.end());
-      // cur.insert(cur.end(), curcpy.begin(), curcpy.end());
-      dp[i] = cur;
     }
-    return dp.back()[k];
+    return dp[n][k];
   }
 };
