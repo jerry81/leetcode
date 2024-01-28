@@ -57,17 +57,22 @@ Acceptance Rate
 using namespace std;
 class Solution {
   map<tuple<int, int, int, int>, int> sums;
+  int res = 0;
 
-  void r(int sy, int sx, int &h, int &w, int &target,
-         vector<vector<int>> &matrix) {
-    sums[{sy, sx, sy, sx}] = matrix[sy][sx];
-    for (int y = sy - 1; y >= 0; --y) {
-      sums[{sy, sx, y, sx}] = sums[{sy, sx, y + 1, sx}] + matrix[y][sx];
-    }
-    for (int x = sx - 1; x >= 0; --x) {
-      sums[{sy, sx, sy, x}] = sums[{sy, sx, sy, x + 1}] + matrix[sy][x];
-    }
-  }
+  // void r(int y, int x, int &sy, int &sx, int &h, int &w, int &target,
+  //        vector<vector<int>> &matrix) {
+  //   if (y >= h) return;
+
+  //   if (x >= w) return;
+
+  //   if (y == sy && x == sx) {
+  //     sums[{sy, sx, y, x}] = matrix[y][x];
+  //     if (matrix[y][x] == target) res += 1;
+  //   }
+  //   // recurse down and to the right
+
+  //   sums[{sy,sx,y+1,x}] = sums[{sy,sx,y,x}]
+  // }
 
  public:
   int numSubmatrixSumTarget(vector<vector<int>> &matrix, int target) {
@@ -75,9 +80,11 @@ class Solution {
     int h = matrix.size();
     int w = matrix[0].size();
     int sum = 0;
-    for (int i = h - 1; i >= 0; --i) {
-      for (int j = w - 1; j >= 0; --j) {
-        r(i, j, w, target, matrix);
+    for (int i = 0; i < h; ++i) {
+      int cur_sum = 0;
+      for (int j = 0; j < w; ++j) {
+        cur_sum += matrix[i][j];
+        if (target == cur_sum) sum++;
       }
     }
     return sum;
