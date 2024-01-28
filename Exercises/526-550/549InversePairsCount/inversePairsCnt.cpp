@@ -39,34 +39,29 @@ Constraints:
 using namespace std;
 
 class Solution {
+  const int MOD = 1e9 + 7;
+
  public:
   int kInversePairs(int n, int k) {
-    vector<vector<int>> dp(1001, vector<int>(1001, 0));
+    vector<vector<long long int>> dp(1001, vector<long long int>(1001, 0));
     dp[0][0] = 1;
     for (int i = 1; i <= n; ++i) {
-        cout << "n is now " << i << endl;
-        cout << "printing prev" << endl;
-        int j = 0;
-        while (dp[i-1][j] != 0) {
-            cout << dp[i-1][j] << endl;
-            j++;
-        }
       dp[i][0] = 1;
       int idx = 1;
-      int sm = 1;
-      while (true) {
-        sm+=dp[i-1][idx];
-        int left =  idx - i + 1;
+      long long int sm = 1;
+      while (idx <= 1000) {
+        sm += dp[i - 1][idx];
+        int left = idx - i;
 
-        if (left > 0) {
-          sm -= dp[i-1][left-1];
+        if (left >= 0) {
+          sm -= dp[i - 1][left];
         }
-        if (sm == 0) break;
+        if (sm <= 0) break;
 
-        dp[i][idx] = sm;
+        dp[i][idx] = sm % MOD;
         idx++;
       }
     }
-    return dp[n][k];
+    return dp[n][k] % MOD;
   }
 };
