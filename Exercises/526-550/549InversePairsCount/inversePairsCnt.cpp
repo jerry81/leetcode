@@ -45,16 +45,24 @@ class Solution {
     dp[0][0] = 1;
     for (int i = 1; i <= n; ++i) {
         cout << "n is now " << i << endl;
+        cout << "printing prev" << endl;
+        int j = 0;
+        while (dp[i-1][j] != 0) {
+            cout << dp[i-1][j] << endl;
+            j++;
+        }
       dp[i][0] = 1;
       int idx = 1;
       int sm = 1;
       while (true) {
         sm+=dp[i-1][idx];
-        int left =  idx - n + 1;
-        cout << "left is " << left << endl;
-        if (left > 0) sm -= dp[i-1][left-1];
-        cout << "sm is " << sm << endl;
+        int left =  idx - i + 1;
+
+        if (left > 0) {
+          sm -= dp[i-1][left-1];
+        }
         if (sm == 0) break;
+
         dp[i][idx] = sm;
         idx++;
       }
