@@ -29,7 +29,6 @@ Constraints:
 
 1 <= n <= 1000
 0 <= k <= 1000
-
 */
 
 #include <iostream>
@@ -39,23 +38,48 @@ Constraints:
 using namespace std;
 
 class Solution {
+  vector<vector<int>> perms;
+
+  void dfs(vector<int> cur, vector<int> remain) {
+    if (remain.empty()) perms.push_back(cur);
+
+    for (int i = 0; i < remain.size(); ++i) {
+      vector<int> rm_cpy = remain;
+      vector<int> cur_cpy = cur;
+      cur_cpy.push_back(rm_cpy[i]);
+      rm_cpy.erase(rm_cpy.begin() + i);
+      dfs(cur_cpy, rm_cpy);
+    }
+  }
+
+  int count_inverse_pairs(vector<int> v) {
+    int res = 0;
+    for (int i = 0; i < v.size() - 1; ++i) {
+      for (int j = i + 1; j < v.size(); ++j) {
+        if (v[i] > v[j]) res++;
+      }
+    }
+    return res;
+  }
+
  public:
   int kInversePairs(int n, int k) {
-    vector<vector<int>> dp(1001, vector<int>(1001, -1));
-    dp[0] = {1};
-    for (int i = 1; i < n; ++i) {
-      vector<int> prev = dp[i - 1];
-      vector<int> cur;
-      int sm = 0;
-      for (int j : prev) {
-        sm += j;
-        cur.push_back(j);
-      }
-      vector<int> curcpy = cur;
-      reverse(curcpy.begin(), curcpy.end());
-      cur.insert(cur.end(), curcpy.begin(), curcpy.end());
-      dp[i] = cur;
+    // print stuff out, look for a pattern
+    vector<int> nums;
+    for (int i = 1; i <= n; ++i) {
+      nums.push_back(i);
     }
-    return dp.back()[k];
+
+    dfs({}, nums);
+    map<int, int> pairs;
+    for (vector<int> v : perms) {
+      //  cout << endl;
+      // for (int i: v) cout << i << ",";
+      //  cout << endl;
+      int cnt = count_inverse_pairs(v);
+      pairs[cnt]++;
+    }
+    for (auto [k, v] : pairs) cout << "k: " << k << " v: " << v << endl;
+    return 0;
   }
 };
