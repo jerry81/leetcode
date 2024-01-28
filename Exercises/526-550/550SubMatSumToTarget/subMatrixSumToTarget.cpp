@@ -51,65 +51,36 @@ Acceptance Rate
 70.5%
 
 */
+#include <iostream>
 #include <map>
 #include <vector>
 
 using namespace std;
+
 class Solution {
-  map<tuple<int, int, int, int>, int> sums;
-  int res = 0;
-
-  // void r(int y, int x, int &sy, int &sx, int &h, int &w, int &target,
-  //        vector<vector<int>> &matrix) {
-  //   if (y >= h) return;
-
-  //   if (x >= w) return;
-
-  //   if (y == sy && x == sx) {
-  //     sums[{sy, sx, y, x}] = matrix[y][x];
-  //     if (matrix[y][x] == target) res += 1;
-  //   }
-  //   // recurse down and to the right
-
-  //   sums[{sy,sx,y+1,x}] = sums[{sy,sx,y,x}]
-  // }
-
  public:
   int numSubmatrixSumTarget(vector<vector<int>> &matrix, int target) {
     // for each item
-    int h = matrix.size();
-    int w = matrix[0].size();
-    int sum = 0;
-    for (int i = 0; i < h; ++i) {
-      int cur_sum = 0;
-      for (int j = 0; j < w; ++j) {
-        cur_sum += matrix[i][j];
-        if (target == cur_sum) sum++;
+    vector<vector<int>> prefix_forward;
+    // vector<vector<int>> prefix_backward;
+    for (int idx = 0; idx < matrix.size(); ++idx) {
+      vector<int> v = matrix[idx];
+      vector<int> cur;
+      int sm = 0;
+      for (int i = 0; i < v.size(); ++i) {
+        sm += v[i];
+
+        int mod= (idx > 0)? prefix_forward[idx-1][i] : 0;
+        cur.push_back(sm+mod);
+      }
+      prefix_forward.push_back(cur);
+    }
+    for (auto a : prefix_forward) {
+      cout << endl;
+      for (auto b : a) {
+        cout << b << ",";
       }
     }
-    return sum;
+    return 1;
   }
 };
-
-// vector<vector<int>> prefix_forward;
-// vector<vector<int>> prefix_backward;
-// for (vector<int> v : matrix) {
-//   vector<int> cur;
-//   int sm = 0;
-//   for (int i : v) {
-//     sm += i;
-//     cur.push_back(sm);
-//   }
-//   prefix_forward.push_back(cur);
-// }
-// for (vector<int> v : matrix) {
-//   int sm = 0;
-//   vector<int> vc = v;
-//   vector<int> cur;
-//   reverse(vc.begin(), vc.end());
-//   for (int i : vc) {
-//     sm += i;
-//     cur.push_back(sm);
-//     prefix_backward.push_back(cur);
-//   }
-// }
