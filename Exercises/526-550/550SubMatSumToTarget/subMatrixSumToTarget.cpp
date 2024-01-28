@@ -57,27 +57,43 @@ using namespace std;
 class Solution {
  public:
   int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
-    vector<vector<int>> prefix_forward;
-    vector<vector<int>> prefix_backward;
-    for (vector<int> v : matrix) {
-      vector<int> cur;
-      int sm = 0;
-      for (int i : v) {
-        sm += i;
-        cur.push_back(sm);
-      }
-      prefix_forward.push_back(cur);
-    }
-    for (vector<int> v : matrix) {
-      int sm = 0;
-      vector<int> vc = v;
-      vector<int> cur;
-      reverse(vc.begin(), vc.end());
-      for (int i : vc) {
-        sm += i;
-        cur.push_back(sm);
-        prefix_backward.push_back(cur);
+    // for each item
+    int h = matrix.size();
+    int w = matrix[0].size();
+    int sum = 0;
+    for (int i = 0; i < h; ++i) {
+      for (int j = 0; j < w; ++j) {
+        if (matrix[i][j] == target) {
+          sum++;
+        }
       }
     }
+    return sum;
   }
 };
+
+
+
+
+    // vector<vector<int>> prefix_forward;
+    // vector<vector<int>> prefix_backward;
+    // for (vector<int> v : matrix) {
+    //   vector<int> cur;
+    //   int sm = 0;
+    //   for (int i : v) {
+    //     sm += i;
+    //     cur.push_back(sm);
+    //   }
+    //   prefix_forward.push_back(cur);
+    // }
+    // for (vector<int> v : matrix) {
+    //   int sm = 0;
+    //   vector<int> vc = v;
+    //   vector<int> cur;
+    //   reverse(vc.begin(), vc.end());
+    //   for (int i : vc) {
+    //     sm += i;
+    //     cur.push_back(sm);
+    //     prefix_backward.push_back(cur);
+    //   }
+    // }
