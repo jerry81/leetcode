@@ -81,30 +81,33 @@ class Solution {
 
       prefix_forward.push_back(cur);
     }
-    for (auto v: prefix_forward) {
-    cout << endl;
-      for (auto w: v) {
-        cout << w << ",";
-      }
-    }
+    // for (auto v : prefix_forward) {
+    //   cout << endl;
+    //   for (auto w : v) {
+    //     cout << w << ",";
+    //   }
+    // }
     for (int ys = 0; ys < h; ++ys) {
       for (int xs = 0; xs < w; ++xs) {
         if (ys == 0 && xs == 0) continue;
 
         for (int ye = ys; ye < h; ++ye) {
           for (int xe = xs; xe < w; ++xe) {
+
             // submatrix from ys, xs to ye, xe
-            int sub1 = xe > 0 ? prefix_forward[ye][xe-1] : 0;
-            int sub2 = ye > 0 ? prefix_forward[ye-1][xe] : 0;
-            int add = xe >0 && ye > 0 ? prefix_forward[ye-1][xe-1] : 0;
+            int sub1 = xs > 0 ? prefix_forward[ys][xs - 1] : 0;
+            int sub2 = ys > 0 ? prefix_forward[ys - 1][xs] : 0;
+            int add = (xs > 0 && ys > 0) ? prefix_forward[ys - 1][xs - 1] : 0;
             int cur = prefix_forward[ye][xe] - sub1 - sub2 + add;
+             cout << "from " << ys << ","<<xs<< " to " << ye << ","<<xe<< " is " << cur << endl;
+             cout << "pf is " << prefix_forward[ye][xe] << endl;
             if (cur == target) res++;
           }
         }
       }
     }
 
-    return 1;
+    return res;
   }
 };
 
