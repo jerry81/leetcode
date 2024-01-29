@@ -60,56 +60,36 @@ using namespace std;
 class Solution {
  public:
   int numSubmatrixSumTarget(vector<vector<int>> &matrix, int target) {
-    int mn = INT_MAX;
-
-    for (vector v : matrix) {
-      for (int i : v) {
-        mn = min(mn, i);
-      }
-    }
-    int offset = (mn >= 0) ? 0 : mn * -1;
-    // for each item
     int h = matrix.size();
     int w = matrix[0].size();
     int res = 0;
 
     vector<vector<int>> prefix_forward;
-    // vector<vector<int>> prefix_backward;
     for (int idx = 0; idx < matrix.size(); ++idx) {
       vector<int> v = matrix[idx];
       vector<int> cur;
-      int sm = offset;
+      int sm = 0;
       for (int i = 0; i < v.size(); ++i) {
         sm += v[i];
 
         int mod = (idx > 0) ? prefix_forward[idx - 1][i] : 0;
-        if (sm + mod == (target+offset)) res++;
+        if (sm + mod == target) res++;
         cur.push_back(sm + mod);
       }
 
       prefix_forward.push_back(cur);
     }
-    // for (auto v : prefix_forward) {
-    //   cout << endl;
-    //   for (auto w : v) {
-    //     cout << w << ",";
-    //   }
-    // }
     for (int ys = 0; ys < h; ++ys) {
       for (int xs = 0; xs < w; ++xs) {
         if (ys == 0 && xs == 0) continue;
 
         for (int ye = ys; ye < h; ++ye) {
           for (int xe = xs; xe < w; ++xe) {
-            // submatrix from ys, xs to ye, xe
-            int sub1 = xs > 0 ? prefix_forward[ys][xs - 1] : 0;
-            int sub2 = ys > 0 ? prefix_forward[ys - 1][xs] : 0;
+            int sub1 = xs > 0 ? prefix_forward[ye][xs - 1] : 0;
+            int sub2 = ys > 0 ? prefix_forward[ys - 1][xe] : 0;
             int add = (xs > 0 && ys > 0) ? prefix_forward[ys - 1][xs - 1] : 0;
             int cur = prefix_forward[ye][xe] - sub1 - sub2 + add;
-            cout << "from " << ys << "," << xs << " to " << ye << "," << xe
-                 << " is " << cur << endl;
-            cout << "pf is " << prefix_forward[ye][xe] << endl;
-            if ((cur-offset) == target) res++;
+            if (cur == target) res++;
           }
         }
       }
@@ -118,47 +98,3 @@ class Solution {
     return res;
   }
 };
-
-/*
-
-0,1,1,
-1,3,4,
-1,4,5,
-
-*/
-
-/*
-  this covers 9 matrixes all submatrixes with 0,0
-  for 0,1
-  we have 0,1 by itself (0,1) - (0,0)
-  0,1 to 0,2 (0,2) - (0,0)
-  0,1 to 1,1 (1,1) - (1,0)
-  0,1 to 1,2 (1,2) - (1,0)
-  0,1 to 2,1 (2,1) - (2,0)
-  0,1 to 2,2 (2,2) - (2,0)
-
-0,1,1,
-1,3,4,
-1,4,5,
-
-  starting from 1,1
-  1,1 -> 1,1 - 1,0 - 0,1 + 0,0
-  1,1 to 1,2 -> 1,2 - 0,2 - 1,0 + 0,0
-  1,1 to 2,1 -> 2,1 - 2,0 - 0,1 + 0,0
-  1,1 to 2,2 -> 2,2 - 2,0 - 0,2 + 0,0
-
-0,1,1,
-1,3,4,
-1,4,5,
-
-starting from 1,0
-1,0 by itself 1,0 - 0,0
-1,0 to 1,1 -> 1,1 - 0,1
-1,0 to 2,0 -> 2,0 - 0,0
-1,0 to 1,2 -> 1,2 - 0,2
-
-starting from 2,0
-2,0 by itself is 2,0 - 1,0
-2,0 to 2,1 -> 2,1 - 1,1
-2,0 to 2,2 -> 2,2 - 1,2
-*/
