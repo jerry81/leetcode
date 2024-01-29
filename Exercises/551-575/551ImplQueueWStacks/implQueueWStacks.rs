@@ -58,12 +58,31 @@ Acceptance Rate
 
 */
 use std::cell::RefCell;
+/*
+q.  what's up with cells?
+a.  stdlib, for "interior mutability"
+allow mutate data even when immutably borrowed
+Cell is for types that implement Copy() like integers and characters
+- has methods to get and set value
+Cell gives getters and setters
+RefCell is for more complex like Vec
+provides borrow_mut
+overtime is runtime checks for borrowing rules
+*/
 
 struct MyQueue {
   stk1: RefCell<Vec<i32>>,
   stk2: RefCell<Vec<i32>>
 }
-
+/*
+  Q.  why are struct and impl seperated?
+  A.  definition (struct) and implementation of methods are separated by design
+  - struct focuses on fields
+  - impl concentrates on methods
+  - traits implemented yet elsewhere (another topic for another day)
+  Q.  common to seperate to different files?
+  A.  doesn't seem like it
+*/
 
 /**
  * `&self` means the method takes an immutable reference.
@@ -72,8 +91,8 @@ struct MyQueue {
 impl MyQueue {
 
     fn new() -> Self {
-      MyQueue {
-        stk1: RefCell::new(Vec::new()),
+      MyQueue { // also constructor
+        stk1: RefCell::new(Vec::new()),  // refcell decl
         stk2: RefCell::new(Vec::new())
       }
     }
@@ -82,6 +101,11 @@ impl MyQueue {
       let mut stk1_borrow = self.stk1.borrow_mut();
       stk1_borrow.push(x);
     }
+
+    /*
+      Q. whats up with passing self in on each method?
+      A.  make explicit that its working on struct of type defined by self
+    */
 
     fn pop(&self) -> i32 {
         let mut stk1_borrow = self.stk1.borrow_mut();
@@ -105,7 +129,7 @@ impl MyQueue {
         stk2_borrow.push(stk1_borrow.pop().unwrap());
       }
 
-      let res = stk2_borrow.last().cloned().unwrap();
+      let res = stk2_borrow.last().cloned().unwrap(); // cloned, not clone - avoids borrowing from stk2_borrow - clone involves full ownership transfer
 
       // Drop mutable borrow on stk2_borrow
       drop(stk2_borrow);

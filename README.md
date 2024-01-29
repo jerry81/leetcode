@@ -286,6 +286,24 @@ select distinct on (player_id) player_id, event_date as first_login from Activit
 
 ```
 
+
+- see 513 for notes on numeric
+col_name::numeric to fix float division
+round(num,2) to format decimals to 2 digits
+avg(case when {condition} then a else b end )
+conditional aggregate
+count(*) to get the # items in the group
+
+- see 517 for usage on full join and coalesce for default values
+- also join on date between two dates
+
+- see 521 for usage on cross join and left join magic
+- cross join
+  - no "on" clause
+  - combines all possible combinations of each row of a and b
+
+- see 532 for usage on having clause together with where clause
+
 ## RUST TILs
 
 - String is for mutable
@@ -345,8 +363,7 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - nice syntax sugar to destructure a vector
 
-````rs
-
+```rs
     for path in paths.iter() {
       match path.as_slice() {
           [item0, item1] => {
@@ -358,26 +375,13 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
               println!("Invalid nested vector: {:?}", path);
           }
       }
+
 ```
 
 - see 482 dest city for example of using hashmap (handling nonexistent keys, accessing k,v)
 
-- see 513 for notes on numeric
-col_name::numeric to fix float division
-round(num,2) to format decimals to 2 digits
-avg(case when {condition} then a else b end )
-conditional aggregate
-count(*) to get the # items in the group
+- cell and refcell usage, see 551
 
-- see 517 for usage on full join and coalesce for default values
-- also join on date between two dates
-
-- see 521 for usage on cross join and left join magic
-- cross join
-  - no "on" clause
-  - combines all possible combinations of each row of a and b
-
-- see 532 for usage on having clause together with where clause
 
 ## todo
 
