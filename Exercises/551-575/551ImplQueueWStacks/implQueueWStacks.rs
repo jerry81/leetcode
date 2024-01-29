@@ -57,10 +57,11 @@ Acceptance Rate
 64.6%
 
 */
+use std::cell::RefCell;
 
 struct MyQueue {
-  stk1: Vec<i32>,
-  stk2: Vec<i32>
+  stk1: RefCell<Vec<i32>>,
+  stk2: RefCell<Vec<i32>>
 }
 
 
@@ -71,38 +72,45 @@ struct MyQueue {
 impl MyQueue {
 
     fn new() -> Self {
-      stk1=Vec::new();
-      stk2=Vec::new();
+      MyQueue {
+        stk1: RefCell::new(Vec::new()),
+        stk2: RefCell::new(Vec::new())
+      }
     }
 
     fn push(&self, x: i32) {
-      stk1.push(x);
+      let mut stk1_borrow = self.stk1.borrow_mut();
+      stk1_borrow.push(x);
     }
 
     fn pop(&self) -> i32 {
-      while !stk1.empty() {
-        stk2.push(stk1.pop().unwrap());
+        let mut stk1_borrow = self.stk1.borrow_mut();
+        let mut stk2_borrow = self.stk2.borrow_mut();
+      while !stk1_borrow.is_empty() {
+        stk2_borrow.push(stk1_borrow.pop().unwrap());
       }
-      let res = stk2.pop();
-      while !reserve_stack.empty() {
-        stk1.push(stk2.pop().unwrap());
+      let res = stk2_borrow.pop().unwrap();
+      while !stk2_borrow.is_empty() {
+        stk1_borrow.push(stk2_borrow.pop().unwrap());
       }
       res
     }
 
     fn peek(&self) -> i32 {
-      while !stk1.empty() {
-        stk2.push(stk1.pop().unwrap());
+      let mut stk1_borrow = self.stk1.borrow_mut();
+      let mut stk2_borrow = self.stk2.borrow_mut();
+      while !stk1_borrow.is_empty() {
+        stk2_borrow.push(stk1_borrow.pop().unwrap());
       }
-      let res = stk2.last();
-      while !reserve_stack.empty() {
-        stk1.push(stk2.pop().unwrap());
+      let res = stk2_borrow.last();
+      while !stk2_borrow.is_empty() {
+        stk1_borrow.push(stk2_borrow.pop().unwrap());
       }
       res
     }
 
     fn empty(&self) -> bool {
-      stk1.empty() && stk2.empty();
+      self.stk1.is_empty() && self.stk2.is_empty();
     }
 }
 
