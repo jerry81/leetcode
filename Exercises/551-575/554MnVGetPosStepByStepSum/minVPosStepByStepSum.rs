@@ -56,6 +56,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_start_value(nums: Vec<i32>) -> i32 {
-
+    let mut cur = 0;
+    let mut mn = i32::MAX;
+    for i in nums {
+      cur+=i;
+      mn = mn.min(cur);
+    }
+    mn * -1 + 1
   }
 }
