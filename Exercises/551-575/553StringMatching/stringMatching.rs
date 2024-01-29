@@ -54,15 +54,21 @@ impl Solution {
     /*
       q.  yo, so why does cmp want a &
     */
+    let mut res = Vec::new();
     for i in 0..cpy.len()-1 {
       for j in i..cpy.len() {
         let a = &cpy[i];
         /*
-          when wanting to access with index i found we need to use &
+          q.  when wanting to access with index i found we need to use & - why?
+          a.  part of the whole borrowing rules.  memory safety
+          & indicates borrowing - ref to original data, ownership still with original owner
         */
         let b = &cpy[j];
+        if b.contains(&a) {
+          res.push(a);
+        }
       }
     }
-    vec![]
+    res
   }
 }
