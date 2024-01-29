@@ -46,9 +46,16 @@ Acceptance Rate
 53.2%
 
 */
-
 impl Solution {
   pub fn reformat(s: String) -> String {
-
+      let mut dig: Vec<char> = Vec::new();
+      let mut alphas: Vec<char> = Vec::new();
+      for c in s.chars() {
+        if c.is_digit() {
+          dig.push(c);
+        } else {
+          alphas.push(c);
+        }
+      }
   }
 }
