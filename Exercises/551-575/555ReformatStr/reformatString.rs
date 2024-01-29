@@ -63,6 +63,45 @@ impl Solution {
           alphas.push(c);
         }
       }
-      "".to_string()
+      let mut ret :Vec<char> = Vec::new();
+      if (dig.len() as i32 - alphas.len() as i32).abs() > 2 {
+        "".to_string()
+      } else {
+        let mut i1 = 0;
+        let mut i2 = 0;
+        let mut alpha = false;
+        if dig.len() > alphas.len() {
+          loop {
+              if (i1 >= dig.len() && i2 >= alphas.len()) {
+                break;
+              }
+              if alpha {
+                ret.push(dig[i2]);
+                i2+=1;
+              } else {
+                ret.push(alphas[i1]);
+                i1+=1;
+              }
+              alpha = !alpha;
+          }
+        } else {
+          alpha = true;
+          loop {
+            if (i1 >= dig.len() && i2 >= alphas.len()) {
+              break;
+            }
+            if alpha {
+              ret.push(dig[i2]);
+              i2+=1;
+            } else {
+              ret.push(alphas[i1]);
+              i1+=1;
+            }
+            alpha = !alpha;
+          }
+        }
+        ret.iter().collect()
+      }
+
   }
 }
