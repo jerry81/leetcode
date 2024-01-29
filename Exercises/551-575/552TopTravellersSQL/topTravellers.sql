@@ -96,10 +96,14 @@ Acceptance Rate
 58.2%
 
 */
-
-select u.name, sum(r.distance) as travelled_distance
-from Users u
-join Rides r
-on r.user_id = u.id
-group by u.name
-order by sum(r.distance) desc;
+select g.name, g.travelled_distance
+from (
+  select u.id, u.name, coalesce(sum(r.distance),0) as travelled_distance
+  from Users u
+  full join Rides r on u.id = r.user_id
+  where u.id is not null
+  group by u.id,u.name
+) as g /* debug from the inside out
+  subqueries are flexible!
+*/
+order by g.travelled_distance desc, g.name;
