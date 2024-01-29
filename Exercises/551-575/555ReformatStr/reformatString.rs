@@ -50,12 +50,19 @@ impl Solution {
   pub fn reformat(s: String) -> String {
       let mut dig: Vec<char> = Vec::new();
       let mut alphas: Vec<char> = Vec::new();
+
       for c in s.chars() {
-        if c.is_digit() {
+        if c.is_digit(10) {
+          /*
+            what is char.is_digit(i32)'s usage?
+            c you are checking
+            arg is base, (0 for any)
+          */
           dig.push(c);
         } else {
           alphas.push(c);
         }
       }
+      "".to_string()
   }
 }
