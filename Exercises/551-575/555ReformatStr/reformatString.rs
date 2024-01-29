@@ -72,30 +72,30 @@ impl Solution {
         let mut alpha = false;
         if dig.len() > alphas.len() {
           loop {
-              if (i1 >= dig.len() && i2 >= alphas.len()) {
+              if (i1 >= alphas.len() && i2 >= dig.len()) {
                 break;
               }
               if alpha {
-                ret.push(dig[i2]);
-                i2+=1;
-              } else {
                 ret.push(alphas[i1]);
                 i1+=1;
+              } else {
+                ret.push(dig[i2]);
+                i2+=1;
               }
               alpha = !alpha;
           }
         } else {
           alpha = true;
           loop {
-            if (i1 >= dig.len() && i2 >= alphas.len()) {
+            if (i1 >= alphas.len() && i2 >= dig.len()) {
               break;
             }
             if alpha {
-              ret.push(dig[i2]);
-              i2+=1;
-            } else {
               ret.push(alphas[i1]);
               i1+=1;
+            } else {
+              ret.push(dig[i2]);
+              i2+=1;
             }
             alpha = !alpha;
           }
