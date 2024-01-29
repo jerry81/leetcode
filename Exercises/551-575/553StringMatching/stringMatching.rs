@@ -49,6 +49,20 @@ Acceptance Rate
 */
 impl Solution {
   pub fn string_matching(words: Vec<String>) -> Vec<String> {
-
+    let mut cpy = words.clone();
+    cpy.sort_by(|a,b| { a.len().cmp(&b.len()) });
+    /*
+      q.  yo, so why does cmp want a &
+    */
+    for i in 0..cpy.len()-1 {
+      for j in i..cpy.len() {
+        let a = &cpy[i];
+        /*
+          when wanting to access with index i found we need to use &
+        */
+        let b = &cpy[j];
+      }
+    }
+    vec![]
   }
 }
