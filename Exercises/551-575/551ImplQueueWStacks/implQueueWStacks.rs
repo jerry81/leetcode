@@ -99,18 +99,27 @@ impl MyQueue {
     fn peek(&self) -> i32 {
       let mut stk1_borrow = self.stk1.borrow_mut();
       let mut stk2_borrow = self.stk2.borrow_mut();
+
+      // Transfer elements from stk1 to stk2
       while !stk1_borrow.is_empty() {
         stk2_borrow.push(stk1_borrow.pop().unwrap());
       }
-      let res = stk2_borrow.last();
-      while !stk2_borrow.is_empty() {
-        stk1_borrow.push(stk2_borrow.pop().unwrap());
+
+      let res = stk2_borrow.last().cloned().unwrap();
+
+      // Drop mutable borrow on stk2_borrow
+      drop(stk2_borrow);
+
+      // Transfer elements back from stk2 to stk1
+      while !self.stk2.borrow().is_empty() {
+        stk1_borrow.push(self.stk2.borrow_mut().pop().unwrap());
       }
+
       res
     }
 
     fn empty(&self) -> bool {
-      self.stk1.is_empty() && self.stk2.is_empty();
+      self.stk1.borrow().is_empty() && self.stk2.borrow().is_empty()
     }
 }
 
