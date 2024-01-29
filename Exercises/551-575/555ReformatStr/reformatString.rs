@@ -46,6 +46,7 @@ Acceptance Rate
 53.2%
 
 */
+
 impl Solution {
   pub fn reformat(s: String) -> String {
       let mut dig: Vec<char> = Vec::new();
@@ -64,7 +65,7 @@ impl Solution {
         }
       }
       let mut ret :Vec<char> = Vec::new();
-      if (dig.len() as i32 - alphas.len() as i32).abs() > 2 {
+      if (dig.len() as i32 - alphas.len() as i32).abs() >= 2 {
         "".to_string()
       } else if (dig.len() == 0 && alphas.len() > 1) {
         "".to_string()
