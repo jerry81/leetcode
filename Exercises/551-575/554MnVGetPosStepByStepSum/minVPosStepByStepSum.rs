@@ -62,6 +62,6 @@ impl Solution {
       cur+=i;
       mn = mn.min(cur);
     }
-    mn * -1 + 1
+    (1 - mn).max(1)
   }
 }
