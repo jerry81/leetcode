@@ -60,8 +60,7 @@ Acceptance Rate
 
 struct MyQueue {
   stk1: Vec<i32>,
-  stk2: Vec<i32>,
-  active_1: bool
+  stk2: Vec<i32>
 }
 
 
@@ -74,38 +73,30 @@ impl MyQueue {
     fn new() -> Self {
       stk1=Vec::new();
       stk2=Vec::new();
-      active_1 = true;
     }
 
     fn push(&self, x: i32) {
-      let mut pushed = if active_1 { stk1 } else { stk2 };
-      pushed.push(x);
+      stk1.push(x);
     }
 
     fn pop(&self) -> i32 {
-
-      let mut active_stack = if active_1 {  stk1 } else { stk2 }
-      let mut reserve_stack = if active_1 { stk2 } else { stk1 }
-      while !active_stack.empty() {
-        reserve_stack.push(active_stack.pop().unwrap());
+      while !stk1.empty() {
+        stk2.push(stk1.pop().unwrap());
       }
-      let res = reserve_stack.pop();
+      let res = stk2.pop();
       while !reserve_stack.empty() {
-        active_stack.push(reserve_stack.pop().unwrap());
+        stk1.push(stk2.pop().unwrap());
       }
       res
     }
 
     fn peek(&self) -> i32 {
-
-      let mut active_stack = if active_1 {  stk1 } else { stk2 }
-      let mut reserve_stack = if active_1 { stk2 } else { stk1 }
-      while !active_stack.empty() {
-        reserve_stack.push(active_stack.pop().unwrap());
+      while !stk1.empty() {
+        stk2.push(stk1.pop().unwrap());
       }
-      let res = reserve_stack.last();
+      let res = stk2.last();
       while !reserve_stack.empty() {
-        active_stack.push(reserve_stack.pop().unwrap());
+        stk1.push(stk2.pop().unwrap());
       }
       res
     }
