@@ -66,6 +66,11 @@ impl Solution {
       let mut ret :Vec<char> = Vec::new();
       if (dig.len() as i32 - alphas.len() as i32).abs() > 2 {
         "".to_string()
+      } else if (dig.len() == 0 && alphas.len() > 1) {
+        "".to_string()
+      } else if (alphas.len() == 0 && dig.len() > 1) {
+        "".to_string()
+
       } else {
         let mut i1 = 0;
         let mut i2 = 0;
