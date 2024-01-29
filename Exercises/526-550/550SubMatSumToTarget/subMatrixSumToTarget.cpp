@@ -60,6 +60,14 @@ using namespace std;
 class Solution {
  public:
   int numSubmatrixSumTarget(vector<vector<int>> &matrix, int target) {
+    int mn = INT_MAX;
+
+    for (vector v : matrix) {
+      for (int i : v) {
+        mn = min(mn, i);
+      }
+    }
+    int offset = (mn >= 0) ? 0 : mn * -1;
     // for each item
     int h = matrix.size();
     int w = matrix[0].size();
@@ -70,12 +78,12 @@ class Solution {
     for (int idx = 0; idx < matrix.size(); ++idx) {
       vector<int> v = matrix[idx];
       vector<int> cur;
-      int sm = 0;
+      int sm = offset;
       for (int i = 0; i < v.size(); ++i) {
         sm += v[i];
 
         int mod = (idx > 0) ? prefix_forward[idx - 1][i] : 0;
-        if (sm + mod == target) res++;
+        if (sm + mod == (target+offset)) res++;
         cur.push_back(sm + mod);
       }
 
@@ -93,15 +101,15 @@ class Solution {
 
         for (int ye = ys; ye < h; ++ye) {
           for (int xe = xs; xe < w; ++xe) {
-
             // submatrix from ys, xs to ye, xe
             int sub1 = xs > 0 ? prefix_forward[ys][xs - 1] : 0;
             int sub2 = ys > 0 ? prefix_forward[ys - 1][xs] : 0;
             int add = (xs > 0 && ys > 0) ? prefix_forward[ys - 1][xs - 1] : 0;
             int cur = prefix_forward[ye][xe] - sub1 - sub2 + add;
-             cout << "from " << ys << ","<<xs<< " to " << ye << ","<<xe<< " is " << cur << endl;
-             cout << "pf is " << prefix_forward[ye][xe] << endl;
-            if (cur == target) res++;
+            cout << "from " << ys << "," << xs << " to " << ye << "," << xe
+                 << " is " << cur << endl;
+            cout << "pf is " << prefix_forward[ye][xe] << endl;
+            if ((cur-offset) == target) res++;
           }
         }
       }
