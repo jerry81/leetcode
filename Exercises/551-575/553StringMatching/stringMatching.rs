@@ -54,9 +54,9 @@ impl Solution {
     /*
       q.  yo, so why does cmp want a &
     */
-    let mut res = Vec::new();
+    let mut res: Vec<String> = Vec::new();
     for i in 0..cpy.len()-1 {
-      for j in i..cpy.len() {
+      for j in i+1..cpy.len() {
         let a = &cpy[i];
         /*
           q.  when wanting to access with index i found we need to use & - why?
@@ -64,8 +64,9 @@ impl Solution {
           & indicates borrowing - ref to original data, ownership still with original owner
         */
         let b = &cpy[j];
-        if b.contains(&a) {
-          res.push(a);
+        if b.contains(a) { // string within string?
+          res.push(a.to_string());
+          break;
         }
       }
     }
