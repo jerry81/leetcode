@@ -56,9 +56,9 @@ impl Solution {
     for i in 0..prices.len() {
       let cur = prices[i];
       let mut added = cur;
-      for j in i..prices.len() {
+      for j in i+1..prices.len() {
         let cmp = prices[j];
-        if cmp < cur {
+        if cmp <= cur {
           added-=cmp;
           break;
         }
