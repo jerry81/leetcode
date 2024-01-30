@@ -43,15 +43,18 @@ Acceptance Rate
 impl Solution {
   pub fn max_power(s: String) -> i32 {
     let mut cur = '?';
-    let mut cnt = 0;
+    let mut cnt = 1;
+    let mut mx = 0;
     for c in s.chars() {
+
       if c == cur {
         cnt+=1;
+        mx = mx.max(cnt);
       } else {
-        cnt = 0;
+        cnt = 1;
         cur = c;
       }
     }
-    cnt
+    mx
   }
 }
