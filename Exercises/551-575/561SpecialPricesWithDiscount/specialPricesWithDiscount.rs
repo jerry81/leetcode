@@ -52,6 +52,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn final_prices(prices: Vec<i32>) -> Vec<i32> {
-
+    let mut res:Vec<i32> = Vec::new();
+    for i in 0..prices.len() {
+      let cur = prices[i];
+      let mut added = cur;
+      for j in i..prices.len() {
+        let cmp = prices[j];
+        if cmp < cur {
+          added-=cmp;
+          break;
+        }
+      }
+      res.push(added);
+    }
+    res
   }
 }
