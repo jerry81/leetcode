@@ -70,30 +70,30 @@ class Solution {
     vector<string> stk;
     for (string s : tokens) {
       if (s == "+") {
-        int operand1 = stoi(stk.back());
-        stk.pop_back();
         int operand2 = stoi(stk.back());
+        stk.pop_back();
+        int operand1 = stoi(stk.back());
         stk.pop_back();
         int sm = operand1 + operand2;
         stk.push_back(to_string(sm));
       } else if (s == "-") {
-        int operand1 = stoi(stk.back());
-        stk.pop_back();
         int operand2 = stoi(stk.back());
+        stk.pop_back();
+        int operand1 = stoi(stk.back());
         stk.pop_back();
         int diff = operand1 - operand2;
         stk.push_back(to_string(diff));
       } else if (s == "*") {
-        int operand1 = stoi(stk.back());
-        stk.pop_back();
         int operand2 = stoi(stk.back());
+        stk.pop_back();
+        int operand1 = stoi(stk.back());
         stk.pop_back();
         int prod = operand1 * operand2;
         stk.push_back(to_string(prod));
       } else if (s == "/") {
+        int operand2 = stoi(stk.back());
         stk.pop_back();
         int operand1 = stoi(stk.back());
-        int operand2 = stoi(stk.back());
         stk.pop_back();
         int quo = operand1 / operand2;
         stk.push_back(to_string(quo));
@@ -102,8 +102,6 @@ class Solution {
         stk.push_back(s);
       }
     }
-    return stk.back();
+    return stoi(stk.back());
   }
-}
-}
-;
+};
