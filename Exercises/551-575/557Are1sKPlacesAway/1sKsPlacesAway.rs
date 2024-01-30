@@ -40,19 +40,20 @@ Acceptance Rate
 58.1%
 
 */
+
 impl Solution {
   pub fn k_length_apart(nums: Vec<i32>, k: i32) -> bool {
-    let mut last_idx = -1;
-    let mut res = 0;
-    for let i in 0..nums.size() {
+    let mut last_idx: i32 = -1;
+    for i in 0..nums.len() {
       if nums[i] == 1 {
+        let as_i32 = i as i32;
         if last_idx >= 0 {
-          if (i - last_idx) > k { res+=1; }
+          if (as_i32 - last_idx) <= k { return false; }
         }
 
-        last_idx = i;
+        last_idx = as_i32;
       }
     }
-    res
+    true
   }
 }
