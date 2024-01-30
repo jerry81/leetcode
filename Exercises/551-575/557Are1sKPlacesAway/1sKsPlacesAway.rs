@@ -40,10 +40,8 @@ Acceptance Rate
 58.1%
 
 */
-
-class Solution {
-  public:
-      bool kLengthApart(vector<int>& nums, int k) {
-
-      }
-  };
+impl Solution {
+  pub fn k_length_apart(nums: Vec<i32>, k: i32) -> bool {
+    let mut idxs: Vec<i32> = Vec::new();
+  }
+}
