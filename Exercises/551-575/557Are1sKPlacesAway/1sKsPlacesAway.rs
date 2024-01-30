@@ -42,6 +42,17 @@ Acceptance Rate
 */
 impl Solution {
   pub fn k_length_apart(nums: Vec<i32>, k: i32) -> bool {
-    let mut idxs: Vec<i32> = Vec::new();
+    let mut last_idx = -1;
+    let mut res = 0;
+    for let i in 0..nums.size() {
+      if nums[i] == 1 {
+        if last_idx >= 0 {
+          if (i - last_idx) > k { res+=1; }
+        }
+
+        last_idx = i;
+      }
+    }
+    res
   }
 }
