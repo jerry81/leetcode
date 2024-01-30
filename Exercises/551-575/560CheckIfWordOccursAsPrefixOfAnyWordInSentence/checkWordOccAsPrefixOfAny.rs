@@ -51,6 +51,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_prefix_of_word(sentence: String, search_word: String) -> i32 {
-
+    let spl = sentence.split(' ');
+    for i in 0..spl.len() {
+      if s.starts_with(search_word) {
+        i+1
+      }
+    }
+    -1
   }
 }
