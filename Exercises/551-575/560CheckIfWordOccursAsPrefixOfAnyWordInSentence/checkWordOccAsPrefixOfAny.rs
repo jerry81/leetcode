@@ -54,9 +54,9 @@ impl Solution {
     let spl:Vec<String> = sentence.split(' ').map(|s| s.to_string()).collect();
     let mut i = 0;
     for s in spl {
-        i+=1;
+      i+=1;
       if s.starts_with(&search_word) {
-         return i
+        return i
       }
     }
     -1
