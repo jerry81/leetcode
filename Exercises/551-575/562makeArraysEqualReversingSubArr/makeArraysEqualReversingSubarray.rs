@@ -51,6 +51,7 @@ Acceptance Rate
 
 */
 
+
 use std::collections::HashMap;
 
 impl Solution {
@@ -59,13 +60,18 @@ impl Solution {
     let mut freq1:HashMap<i32,i32> = HashMap::new();
     let mut freq2:HashMap<i32,i32> = HashMap::new();
     for i in target {
-      freq1.entry(i).or_insert(0) += 1;
+      *freq1.entry(i).or_insert(0) += 1;
     }
     for i in arr {
-      freq2.entry(i).or_insert(0) += 1;
+      *freq2.entry(i).or_insert(0) += 1;
     }
     for (k,v) in &freq1 {
-      if freq2[k] != v { return false; }
+      match freq2.get(k) { // get into this habit!
+        Some(v2) => {
+          if v2 != v { return false; }
+        },
+        None => { return false; }
+    }
     }
     true
   }
