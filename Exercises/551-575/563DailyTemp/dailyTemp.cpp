@@ -6,7 +6,10 @@ Medium
 Topics
 Companies
 Hint
-Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+Given an array of integers temperatures represents the daily temperatures,
+return an array answer such that answer[i] is the number of days you have to
+wait after the ith day to get a warmer temperature. If there is no future day
+for which this is possible, keep answer[i] == 0 instead.
 
 
 
@@ -41,18 +44,29 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<int> dailyTemperatures(vector<int>& temperatures) {
-      map<int,int> temps;
-      for (int i = 0; i < temperatures.size(); ++i) {
-        temps[temperatures[i]] = i;
-
-      }
+ static bool cc(pair<int,int> a, pair<int,int> b) {
+   return a.first < b.first;
+ }
+ public:
+  vector<int> dailyTemperatures(vector<int>& temperatures) {
+    vector<pair<int, int>> temps;
+    int sz = temperatures.size();
+    for (int i = 0; i < sz; ++i) {
+      temps.push_back({temperatures[i], i});
     }
+    sort(temps.begin(), temps.end(), Solution::cc);
+
+    for (auto [f,s]: temps) cout << "f: " << f << " s: " << s << endl;
+
+    vector<int> ret(sz, 0);
+    int curidx = 0;
+
+    return ret;
+  }
 };
