@@ -49,10 +49,11 @@ Acceptance Rate
 
 using namespace std;
 
+
 class Solution {
  struct cc {
    bool operator()(const pair<int,int>& a, const pair<int,int>& b) {
-     return a.first < b.first;
+     return a.first > b.first;
    }
  };
 
@@ -64,8 +65,9 @@ class Solution {
     priority_queue<pair<int,int>, vector<pair<int,int>>, cc> hp;
     for (int i = 0; i < sz; ++i) {
       int cur = temperatures[i];
-      while (hp.top().first < cur) {
+      while (!hp.empty() && hp.top().first < cur) {
         ret[hp.top().second] = i - hp.top().second;
+        hp.pop();
       }
       hp.push({cur, i});
     }
