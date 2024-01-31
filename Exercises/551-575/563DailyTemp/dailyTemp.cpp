@@ -53,6 +53,20 @@ class Solution {
  static bool cc(pair<int,int> a, pair<int,int> b) {
    return a.first < b.first;
  }
+ int bsearch(int tgt, vector<pair<int,int>> sub) {
+   int low = 0;
+   int high = sub.size();
+   int mid = (low+high)/2;
+   while (low < high) {
+     int v = sub[mid];
+     if (v <= tgt) {
+       low = mid+1;
+     } else {
+         low = mid-1;
+     }
+   }
+   return low;
+ })
  public:
   vector<int> dailyTemperatures(vector<int>& temperatures) {
     vector<pair<int, int>> temps;
@@ -62,7 +76,7 @@ class Solution {
     }
     sort(temps.begin(), temps.end(), Solution::cc);
 
-    for (auto [f,s]: temps) cout << "f: " << f << " s: " << s << endl;
+    bsearch(5, temps);
 
     vector<int> ret(sz, 0);
     int curidx = 0;
