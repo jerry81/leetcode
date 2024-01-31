@@ -71,3 +71,9 @@
 SELECT *
 FROM Users
 WHERE mail ~ '^[A-Za-z]([A-Za-z0-9_\-\.])*@leetcode\.com$';
+
+-- ^ starts with
+-- () group
+-- ()* 0 or more
+-- ranges [] not separated
+-- $ end of string
