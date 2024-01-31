@@ -43,10 +43,14 @@ Acceptance Rate
 85.5%
 
 */
-
-class Solution {
-  public:
-      int xorOperation(int n, int start) {
-
-      }
-  };
+impl Solution {
+  pub fn xor_operation(n: i32, start: i32) -> i32 {
+    let mut cur = start;
+    let mut res = start;
+    for i in 0..n {
+      cur+=2;
+      res^=cur;
+    }
+    res
+  }
+}
