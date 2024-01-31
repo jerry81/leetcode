@@ -44,42 +44,31 @@ Acceptance Rate
 
 */
 
-#include <map>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
- static bool cc(pair<int,int> a, pair<int,int> b) {
-   return a.first < b.first;
- }
- int bsearch(int tgt, vector<pair<int,int>> sub) {
-   int low = 0;
-   int high = sub.size();
-   int mid = (low+high)/2;
-   while (low < high) {
-     int v = sub[mid];
-     if (v <= tgt) {
-       low = mid+1;
-     } else {
-         low = mid-1;
-     }
+ struct cc {
+   bool operator()(const pair<int,int>& a, const pair<int,int>& b) {
+     return a.first < b.first;
    }
-   return low;
- })
+ };
+
  public:
   vector<int> dailyTemperatures(vector<int>& temperatures) {
     vector<pair<int, int>> temps;
     int sz = temperatures.size();
-    for (int i = 0; i < sz; ++i) {
-      temps.push_back({temperatures[i], i});
-    }
-    sort(temps.begin(), temps.end(), Solution::cc);
-
-    bsearch(5, temps);
-
     vector<int> ret(sz, 0);
-    int curidx = 0;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, cc> hp;
+    for (int i = 0; i < sz; ++i) {
+      int cur = temperatures[i];
+      while (hp.top().first < cur) {
+        ret[hp.top().second] = i - hp.top().second;
+      }
+      hp.push({cur, i});
+    }
 
     return ret;
   }
