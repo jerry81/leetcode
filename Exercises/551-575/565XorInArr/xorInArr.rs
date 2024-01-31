@@ -43,11 +43,12 @@ Acceptance Rate
 85.5%
 
 */
+
 impl Solution {
   pub fn xor_operation(n: i32, start: i32) -> i32 {
     let mut cur = start;
     let mut res = start;
-    for i in 0..n {
+    for i in 1..n {
       cur+=2;
       res^=cur;
     }
