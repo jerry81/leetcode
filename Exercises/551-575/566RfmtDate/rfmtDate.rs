@@ -47,19 +47,44 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn reformat_date(date: String) -> String {
-    let mut spl: Vec<String> = date.split(' ').map(|s| s.to_string()).collect();
+    let mut hm: HashMap<&str, &str> = HashMap::new();
+    hm.insert("Jan", "01");
+    hm.insert("Feb", "02");
+    hm.insert("Mar", "03");
+    hm.insert("Apr", "04");
+    hm.insert("May", "05");
+    hm.insert("Jun", "06");
+    hm.insert("Jul", "07");
+    hm.insert("Aug", "08");
+    hm.insert("Sep", "09");
+    hm.insert("Oct", "10");
+    hm.insert("Nov", "11");
+    hm.insert("Dec", "12");
+
+    let mut spl: Vec<&str> = date.split(' ').collect();
     let mut cnt = 0;
     let mut res = String::new();
     for s in spl.iter().rev() {
         if cnt == 0 {
           res+=s;
           res+="-";
+        } else if cnt == 1 {
+          match hm.get(s) {
+            Some(v) => {
+                res+=v;
+                res+="-";
+            },
+            None => { println!("that's fucked"); }
+          }
+        } else {
+
         }
         cnt +=1;
     }
-
     res
   }
 }
