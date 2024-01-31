@@ -51,8 +51,22 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn can_be_equal(target: Vec<i32>, arr: Vec<i32>) -> bool {
+use std::collections::HashMap;
 
+impl Solution {
+
+  pub fn can_be_equal(target: Vec<i32>, arr: Vec<i32>) -> bool {
+    let mut freq1:HashMap<i32,i32> = HashMap::new();
+    let mut freq2:HashMap<i32,i32> = HashMap::new();
+    for i in target {
+      freq1.entry(i).or_insert(0) += 1;
+    }
+    for i in arr {
+      freq2.entry(i).or_insert(0) += 1;
+    }
+    for (k,v) in &freq1 {
+      if freq2[k] != v { return false; }
+    }
+    true
   }
 }
