@@ -42,12 +42,17 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
+      map<int,int> temps;
+      for (int i = 0; i < temperatures.size(); ++i) {
+        temps[temperatures[i]] = i;
 
+      }
     }
 };
