@@ -63,3 +63,13 @@
 -- 229.3K
 -- Acceptance Rate
 -- 76.6%
+SELECT
+  sell_date,
+  COUNT(DISTINCT NULLIF(product, '')) AS num_sold,
+  STRING_AGG(DISTINCT NULLIF(product, ''), ',') AS products
+FROM
+  Activities
+GROUP BY
+  sell_date
+ORDER BY
+  sell_date;
