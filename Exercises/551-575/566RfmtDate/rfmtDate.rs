@@ -81,7 +81,17 @@ impl Solution {
             None => { println!("that's fucked"); }
           }
         } else {
-
+          match s.chars().nth(1) {
+            Some(c) => {
+              if !c.is_digit(10) { res.push('0'); }
+            },
+            None => {}
+          }
+          for c in s.chars() {
+            if c.is_digit(10) {
+              res.push(c);
+            } else { break }
+          }
         }
         cnt +=1;
     }
