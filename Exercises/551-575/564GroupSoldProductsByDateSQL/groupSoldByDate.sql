@@ -65,8 +65,8 @@
 -- 76.6%
 SELECT
   sell_date,
-  COUNT(DISTINCT NULLIF(product, '')) AS num_sold,
-  STRING_AGG(DISTINCT NULLIF(product, ''), ',') AS products
+  COUNT(DISTINCT NULLIF(product, '')) AS num_sold, -- NULLIF returns null if two expressions equal, otherwise first expression
+  STRING_AGG(DISTINCT NULLIF(product, ''), ',') AS products -- note distinct used right in the aggregate function
 FROM
   Activities
 GROUP BY

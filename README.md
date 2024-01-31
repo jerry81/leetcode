@@ -304,6 +304,8 @@ count(*) to get the # items in the group
 
 - see 532 for usage on having clause together with where clause
 
+- see 564 for count, distinct, nullif
+
 ## RUST TILs
 
 - String is for mutable
@@ -381,6 +383,7 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 - see 482 dest city for example of using hashmap (handling nonexistent keys, accessing k,v)
 
 - cell and refcell usage, see 551
+
 
 
 ## todo
