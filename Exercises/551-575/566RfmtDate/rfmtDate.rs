@@ -49,6 +49,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn reformat_date(date: String) -> String {
+    let mut spl: Vec<String> = date.split(' ').map(|s| s.to_string()).collect();
+    let mut cnt = 0;
+    let mut res = String::new();
+    for s in spl.iter().rev() {
+        if cnt == 0 {
+          res+=s;
+          res+="-";
+        }
+        cnt +=1;
+    }
 
+    res
   }
 }
