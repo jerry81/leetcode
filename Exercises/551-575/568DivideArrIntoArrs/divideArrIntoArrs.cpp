@@ -56,6 +56,16 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {
-
+      vector<vector<int>> res;
+      sort(nums.begin(), nums.end());
+      vector<int> cur;
+      for (int i: nums) {
+        cur.push_back(i);
+        if (cur.size() == 3) {
+          res.push_back(cur);
+          cur = {};
+        }
+      }
+      return res;
     }
 };
