@@ -62,6 +62,7 @@ public:
       for (int i: nums) {
         cur.push_back(i);
         if (cur.size() == 3) {
+          if (cur[2] - cur[0] > k) return {};
           res.push_back(cur);
           cur = {};
         }
