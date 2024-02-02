@@ -44,6 +44,8 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
+
+
 class Solution {
   int make_seq(int sz, int start_dig) {
     int res = 0;
@@ -66,7 +68,9 @@ class Solution {
     int high_size = high_str.size();
     int cur_sz = low_size;
     int start = 0;
-    while (cur_sz <= high) {
+    while (cur_sz <= high_size) {
+        cout << cur_sz << endl;
+      if (cur_sz > 10) return res;
       int cur_item = 1;
       while (cur_item + cur_sz <= 10) {
         int test = make_seq(cur_sz, cur_item);
