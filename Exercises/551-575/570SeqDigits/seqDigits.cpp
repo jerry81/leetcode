@@ -68,7 +68,7 @@ class Solution {
     int start = 0;
     while (cur_sz <= high) {
       int cur_item = 1;
-      while (cur_item + cur_sz <= 9) {
+      while (cur_item + cur_sz <= 10) {
         int test = make_seq(cur_sz, cur_item);
         if (test >= low && test <= high) {
           res.push_back(test);
