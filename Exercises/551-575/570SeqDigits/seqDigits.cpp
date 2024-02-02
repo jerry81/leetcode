@@ -38,11 +38,16 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
 
 using namespace std;
 class Solution {
 public:
     vector<int> sequentialDigits(int low, int high) {
-
+      // irritating
+      string low_str = to_string(low);
+      string high_str = to_string(high);
+      vector<int> res;
+      return res;
     }
 };
