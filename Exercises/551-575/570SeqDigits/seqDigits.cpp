@@ -5,9 +5,11 @@ Medium
 Topics
 Companies
 Hint
-An integer has sequential digits if and only if each digit in the number is one more than the previous digit.
+An integer has sequential digits if and only if each digit in the number is one
+more than the previous digit.
 
-Return a sorted list of all the integers in the range [low, high] inclusive that have sequential digits.
+Return a sorted list of all the integers in the range [low, high] inclusive that
+have sequential digits.
 
 
 
@@ -37,17 +39,35 @@ Acceptance Rate
 
 */
 
-#include <vector>
+#include <cmath>
 #include <string>
+#include <vector>
 
 using namespace std;
 class Solution {
-public:
-    vector<int> sequentialDigits(int low, int high) {
-      // irritating
-      string low_str = to_string(low);
-      string high_str = to_string(high);
-      vector<int> res;
-      return res;
+  int make_seq(int sz, int start_dig) {
+    int res = 0;
+    while (sz >= 0) {
+      int mult = pow(10, sz - 1);
+      sz--;
+      res += start_dig * mult;
+      start_dig += 1;
     }
+    return res;
+  }
+
+ public:
+  vector<int> sequentialDigits(int low, int high) {
+    // irritating
+    string low_str = to_string(low);
+    string high_str = to_string(high);
+    int low_size = low_str.size();
+    int high_size = high_str.size();
+    int cur_sz = low_size;
+    int start = 0;
+    int test = make_seq(cur_sz,1);
+    cout << "test result is " << test << endl;
+    vector<int> res;
+    return res;
+  }
 };
