@@ -56,18 +56,6 @@ class Solution {
     return res;
   }
 
-  vector<int> intToVector(int num) {
-    vector<int> result;
-
-    // Extract digits and push them into the vector
-    while (num > 0) {
-      result.insert(result.begin(), num % 10);
-      num /= 10;
-    }
-
-    return result;
-  }
-
  public:
   vector<int> sequentialDigits(int low, int high) {
     // irritating
@@ -83,12 +71,12 @@ class Solution {
       while (cur_item + cur_sz <= 9) {
         int test = make_seq(cur_sz, cur_item);
         if (test >= low && test <= high) {
-          res.push_back(intToVector(test));
+          res.push_back(test);
         }
-        cur_item += 1;
+        cur_item++;
       }
+      cur_sz+=1;
     }
-    vector<int> res;
     return res;
   }
 };
