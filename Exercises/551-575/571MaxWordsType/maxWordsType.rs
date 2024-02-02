@@ -50,6 +50,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_be_typed_words(text: String, broken_letters: String) -> i32 {
-
+    let spl_iter: Vec<&str> = text.split(' ').collect();
+    let mut res = spl_iter.len();
+    for s in spl_iter {
+      for c in s.chars() {
+          if broken_letters.contains(c) {
+              res-=1;
+              break;
+          }
+      }
+    }
+    res as i32
   }
 }
