@@ -56,17 +56,38 @@ class Solution {
     return res;
   }
 
+  vector<int> intToVector(int num) {
+    vector<int> result;
+
+    // Extract digits and push them into the vector
+    while (num > 0) {
+      result.insert(result.begin(), num % 10);
+      num /= 10;
+    }
+
+    return result;
+  }
+
  public:
   vector<int> sequentialDigits(int low, int high) {
     // irritating
     string low_str = to_string(low);
     string high_str = to_string(high);
+    vector<int> res;
     int low_size = low_str.size();
     int high_size = high_str.size();
     int cur_sz = low_size;
     int start = 0;
-    int test = make_seq(cur_sz,1);
-    cout << "test result is " << test << endl;
+    while (cur_sz <= high) {
+      int cur_item = 1;
+      while (cur_item + cur_sz <= 9) {
+        int test = make_seq(cur_sz, cur_item);
+        if (test >= low && test <= high) {
+          res.push_back(intToVector(test));
+        }
+        cur_item += 1;
+      }
+    }
     vector<int> res;
     return res;
   }
