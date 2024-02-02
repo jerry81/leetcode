@@ -69,7 +69,6 @@ class Solution {
     int cur_sz = low_size;
     int start = 0;
     while (cur_sz <= high_size) {
-        cout << cur_sz << endl;
       if (cur_sz > 10) return res;
       int cur_item = 1;
       while (cur_item + cur_sz <= 10) {
