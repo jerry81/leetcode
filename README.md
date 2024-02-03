@@ -306,6 +306,9 @@ count(*) to get the # items in the group
 
 - see 564 for count, distinct, nullif
 
+- see 567 for using regex
+- see 572 for regex /y
+
 ## RUST TILs
 
 - String is for mutable

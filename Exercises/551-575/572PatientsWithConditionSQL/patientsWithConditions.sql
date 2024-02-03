@@ -63,4 +63,11 @@ Acceptance Rate
 */
 SELECT *
 FROM Patients p
-WHERE p.conditions ~ '\y\s*DIAB1(\S*|$)';
+WHERE p.conditions ~ '\y\s?DIAB1(\S*|$)';
+
+/*
+\y is a word boundary
+S* is non-space
+$ is end of string
+s? means optional space
+*/
