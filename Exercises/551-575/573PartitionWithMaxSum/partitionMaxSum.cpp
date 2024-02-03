@@ -45,12 +45,33 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+vector<int> dp;
+int r(int idx, vector<int>& arr, int &k, int &sz) {
+  if (idx >= sz) return 0;
+
+  if (dp[idx] >= 0) return dp[idx];
+
+  int mx = arr[idx];
+  int cur_sum = arr[idx];
+  int cur_mx = arr[idx] + r(idx+1, arr, k, sz);
+  for (int i = 1; i <= k; ++i) {
+    if (i+idx >= sz) break;
+
+    int curmx = max(mx,arr[idx+i]);
+    cur_sum = sz*curmx;
+    cur_mx = max(cur_mx,cur_sum+r(idx+i,arr,k,sz));
+  }
+  return dp[idx] = cur_mx;
+}
 public:
     int maxSumAfterPartitioning(vector<int>& arr, int k) {
-
+      dp.resize(501,-1);
+      int sz = arr.size();
+      return r(0,arr,k,sz);
     }
 };
