@@ -59,12 +59,12 @@ int r(int idx, vector<int>& arr, int &k, int &sz) {
   int mx = arr[idx];
   int cur_sum = arr[idx];
   int cur_mx = arr[idx] + r(idx+1, arr, k, sz);
-  for (int i = 1; i <= k; ++i) {
+  for (int i = 1; i < k; ++i) {
     if (i+idx >= sz) break;
 
-    int curmx = max(mx,arr[idx+i]);
-    cur_sum = sz*curmx;
-    cur_mx = max(cur_mx,cur_sum+r(idx+i,arr,k,sz));
+    mx = max(mx,arr[idx+i]);
+    cur_sum = (i+1)*mx;
+    cur_mx = max(cur_mx,cur_sum+r(idx+i+1,arr,k,sz));
   }
   return dp[idx] = cur_mx;
 }
