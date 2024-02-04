@@ -62,13 +62,11 @@ using namespace std;
 class Solution {
  public:
   string minWindow(string s, string t) {
-    cout << "working on " << s << endl;
     if (t.size() > s.size()) return "";
     unordered_map<char, int> t_freq;
     for (char c : t) {
       t_freq[c]++;
     }
-    for (auto [k,v]: t_freq) cout << "k is " << k << " v is " << v << endl;
     int mx = 0;
 
     unordered_map<char, int> under_flow;
@@ -79,30 +77,24 @@ class Solution {
       if (t_freq.find(c) != t_freq.end()) {
         t_freq[c]--;
         if (t_freq[c] == 0) {
-            cout << "erasing " << c << endl;
           t_freq.erase(c);
         }
       } else {
-          cout << "added " << c << " to underflow " << endl;
         under_flow[c]++;
       }
       if (t_freq.empty()) {
-        cout << "empty case! " << endl;
         int startLeft = left;
         while (true) {
-
           char lc = s[left];
           if (under_flow.find(lc) == under_flow.end()) {
-            cout << "underflow empty " << endl;
             if (res.empty() || res.size() > (right - left + 1)) {
               res = s.substr(left, right - left + 1);
-              cout << "res is now " << res << endl;
             }
 
             break;
           } else {
-              under_flow[lc]--;
-              if (under_flow[lc] == 0) under_flow.erase(lc);
+            under_flow[lc]--;
+            if (under_flow[lc] == 0) under_flow.erase(lc);
           }
           left += 1;
         }
