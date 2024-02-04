@@ -5,9 +5,10 @@ Hard
 Topics
 Companies
 Hint
-Given two strings s and t of lengths m and n respectively, return the minimum window
-substring
- of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+Given two strings s and t of lengths m and n respectively, return the minimum
+window substring of s such that every character in t (including duplicates) is
+included in the window. If there is no such substring, return the empty string
+"".
 
 The testcases will be generated such that the answer is unique.
 
@@ -17,8 +18,8 @@ Example 1:
 
 Input: s = "ADOBECODEBANC", t = "ABC"
 Output: "BANC"
-Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
-Example 2:
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from
+string t. Example 2:
 
 Input: s = "a", t = "a"
 Output: "a"
@@ -59,44 +60,58 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-
-public:
-    string minWindow(string s, string t) {
-      unordered_map<char, int> t_freq;
-      for (char c: t) {
-        t_freq[c]++;
-      }
-      int mx = 0;
-
-      unordered_map<char,int> under_flow;
-      int left = 0;
-      string res = "";
-      for (int right = 0; right < s.size(); ++right) {
-        char c = s[right];
-        if (t_freq.empty()) {
-          while (true) {
-            char lc = s[left];
-            if (under_flow.find(lc) == under_flow.end()) {
-              left--;
-              break;
-            }
-            left+=1;
-          }
-          if (res.size() < (right - left + 1)) {
-            res = res.substr(left, right - left + 1);
-          }
-          left+=1;
-        }
-        if (t_freq.find(c) != t_freq.end()) {
-          t_freq[c]--;
-          if (t_freq[c] == 0) {
-            t_freq.erase(c);
-          }
-        } else {
-          under_flow[c]+=1;
-        }
-
-      }
-      return res;
+ public:
+  string minWindow(string s, string t) {
+    cout << "working on " << s << endl;
+    if (t.size() > s.size()) return "";
+    unordered_map<char, int> t_freq;
+    for (char c : t) {
+      t_freq[c]++;
     }
+    for (auto [k,v]: t_freq) cout << "k is " << k << " v is " << v << endl;
+    int mx = 0;
+
+    unordered_map<char, int> under_flow;
+    int left = 0;
+    string res = "";
+    for (int right = 0; right < s.size(); ++right) {
+      char c = s[right];
+      if (t_freq.find(c) != t_freq.end()) {
+        t_freq[c]--;
+        if (t_freq[c] == 0) {
+            cout << "erasing " << c << endl;
+          t_freq.erase(c);
+        }
+      } else {
+          cout << "added " << c << " to underflow " << endl;
+        under_flow[c]++;
+      }
+      if (t_freq.empty()) {
+        cout << "empty case! " << endl;
+        int startLeft = left;
+        while (true) {
+
+          char lc = s[left];
+          if (under_flow.find(lc) == under_flow.end()) {
+            cout << "underflow empty " << endl;
+            if (res.empty() || res.size() > (right - left + 1)) {
+              res = s.substr(left, right - left + 1);
+              cout << "res is now " << res << endl;
+            }
+
+            break;
+          } else {
+              under_flow[lc]--;
+              if (under_flow[lc] == 0) under_flow.erase(lc);
+          }
+          left += 1;
+        }
+
+        char lc = s[left];
+        t_freq[lc]++;
+        left += 1;
+      }
+    }
+    return res;
+  }
 };
