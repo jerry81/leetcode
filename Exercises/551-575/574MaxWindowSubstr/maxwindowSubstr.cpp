@@ -56,21 +56,29 @@ Acceptance Rate
 
 #include <string>
 #include <unordered_map>
-
 using namespace std;
 
 class Solution {
 
 public:
     string minWindow(string s, string t) {
-      // 26 * 2 = 52 values
-      long int bm = 0;
+      unordered_map<char, int> t_freq;
       for (char c: t) {
-        int code = c-65;
-        if (code > 31) code-=6;
-        bm |= (1 << code);
+        t_freq[c]++;
       }
-      cout << "bm is " << bm << endl;
-      return "ass";
+      int mx = 0;
+
+      unordered_map<char,int> under_flow;
+      int left = 0;
+      string res = "";
+      for (int right = 0; right < s.size(); ++right) {
+        char c = s[right];
+        if (t_freq.empty()) {
+          if (res.size() < (right - left + 1)) {
+            res = res.substr(left, right - left + 1);
+          }
+        }
+      }
+      return res;
     }
 };
