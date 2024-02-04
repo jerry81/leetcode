@@ -74,10 +74,28 @@ public:
       for (int right = 0; right < s.size(); ++right) {
         char c = s[right];
         if (t_freq.empty()) {
+          while (true) {
+            char lc = s[left];
+            if (under_flow.find(lc) == under_flow.end()) {
+              left--;
+              break;
+            }
+            left+=1;
+          }
           if (res.size() < (right - left + 1)) {
             res = res.substr(left, right - left + 1);
           }
+          left+=1;
         }
+        if (t_freq.find(c) != t_freq.end()) {
+          t_freq[c]--;
+          if (t_freq[c] == 0) {
+            t_freq.erase(c);
+          }
+        } else {
+          under_flow[c]+=1;
+        }
+
       }
       return res;
     }
