@@ -43,22 +43,16 @@ Acceptance Rate
 84.6%
 
 */
-
-use std::collections::HashMap;
+use std::collections::BTreeMap; // This is the sorted map
 
 impl Solution {
-  pub fn restore_string(s: String, indices: Vec<i32>) -> String {
-    let mut hm: HashMap<i32,char> = HashMap::new();
-    for (i, &idx) in indices.iter().enumerate() {
-      println!("i is {} idx is {}", i, &idx);
-      hm.insert(idx, s.chars().nth(i).unwrap());
-    }
-    let sorted_entries: Vec<(i32, char)> = hm.into_iter().collect(); // convert to vec of tuples
-    for (key, value) in sorted_entries.into_iter().sorted_by_key(|&(k, _)| k) { // iter has sorted_by_key on it
-      sorted_char_map.insert(key, value);
-  }
+    pub fn restore_string(s: String, indices: Vec<i32>) -> String {
+        let mut char_map: BTreeMap<i32, char> = indices.into_iter()
+            .enumerate()
+            .map(|(i, idx)| (idx, s.chars().nth(i).unwrap()))
+            .collect();
 
-  let ret: String = (0..s.len() as i32).map(|i| sorted_char_map[&i]).collect();
-    "".to_string();
-  }
+        let ret: String = (0..s.len() as i32).map(|i| char_map[&i]).collect();
+        ret
+    }
 }
