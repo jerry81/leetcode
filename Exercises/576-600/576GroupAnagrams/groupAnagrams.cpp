@@ -4,9 +4,11 @@
 Medium
 Topics
 Companies
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+Given an array of strings strs, group the anagrams together. You can return the
+answer in any order.
 
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+An Anagram is a word or phrase formed by rearranging the letters of a different
+word or phrase, typically using all the original letters exactly once.
 
 
 
@@ -42,20 +44,43 @@ Acceptance Rate
 
 */
 
-#include <vector>
+#include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-      vector<vector<string>> res;
-
-      if (strs.empty()) return {};
-
-      if (strs.size() == 1) return { {strs[0]} };
-
-      return res;
+  string to_h(map<char, int> freq) {
+    string ret = "";
+    for (auto [k, v] : freq) {
+      ret += "k:";
+      ret += k;
+      ret += ",";
+      ret += "v:";
+      ret += v;
+      ret += ",";
     }
+    return ret;
+  }
+
+ public:
+  vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    vector<vector<string>> res;
+
+    if (strs.empty()) return {};
+
+    if (strs.size() == 1) return {{strs[0]}};
+
+    for (string s: strs) {
+      map<char, int> freq;
+      for (char c: s) {
+        freq[c]+=1;
+      }
+      string as_s = to_h(freq);
+      cout << "string is " << as_s << endl;
+    }
+
+    return res;
+  }
 };
