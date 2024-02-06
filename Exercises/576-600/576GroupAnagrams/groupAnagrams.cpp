@@ -50,7 +50,11 @@ using namespace std;
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-      vector<vector<stirng>> res;
+      vector<vector<string>> res;
+
+      if (strs.empty()) return {};
+
+      if (strs.size() == 1) return { {strs[0]} };
 
       return res;
     }
