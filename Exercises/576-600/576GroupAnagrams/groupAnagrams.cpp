@@ -58,7 +58,7 @@ class Solution {
       ret += k;
       ret += ",";
       ret += "v:";
-      ret += v;
+      ret += to_string(v);
       ret += ",";
     }
     return ret;
@@ -72,15 +72,24 @@ class Solution {
 
     if (strs.size() == 1) return {{strs[0]}};
 
-    for (string s: strs) {
+    map<string, vector<string>> grouped;
+
+    for (string s : strs) {
       map<char, int> freq;
-      for (char c: s) {
-        freq[c]+=1;
+      for (char c : s) {
+        if (freq.find(c) != freq.end()) {
+          freq[c]++;
+        } else {
+          freq[c] = 1;
+        }
       }
       string as_s = to_h(freq);
-      cout << "string is " << as_s << endl;
+      grouped[as_s].push_back(s);
     }
 
+    for (auto [_, v] : grouped) {
+      res.push_back(v);
+    }
     return res;
   }
 };
