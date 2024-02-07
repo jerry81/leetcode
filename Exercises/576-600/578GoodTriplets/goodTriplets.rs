@@ -59,6 +59,10 @@ impl Solution {
         let jv = arr[j];
         for k in j+1..sz {
           let kv = arr[k];
+          if (iv-jv).abs() > a { continue }
+          if (jv-kv).abs() > b { continue }
+          if (iv-kv).abs() > c { continue }
+          res+=1;
         }
       }
     }
