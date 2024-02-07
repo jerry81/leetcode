@@ -76,8 +76,11 @@ class Solution {
     }
     sort(pairs.begin(),pairs.end(),Solution::cmp);
     string res = "";
-    for (auto [k,_]: pairs) {
-      res+=k;
+    for (auto [k,v]: pairs) {
+      while (v > 0) {
+        res+=k;
+        v--;
+      }
     }
     return res;
   }
