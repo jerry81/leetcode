@@ -48,12 +48,25 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
     string frequencySort(string s) {
-
+      unordered_map<char, int> freq;
+      for (char c: s) {
+        if (freq.find(c) != freq.end()) {
+          freq[c]++;
+        } else {
+          freq[c] = 1;
+        }
+      }
+      vector<pair<char, int>> pairs;
+      for (auto [k,v]: freq) {
+        pairs.push_back({k,v});
+      }
     }
 };
