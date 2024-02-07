@@ -51,6 +51,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_good_triplets(arr: Vec<i32>, a: i32, b: i32, c: i32) -> i32 {
-
+    let mut res = 0;
+    let sz = arr.len();
+    for i in 0..sz-2 {
+      let iv = arr[i];
+      for j in i+1..sz-1 {
+        let jv = arr[j];
+        for k in j+1..sz {
+          let kv = arr[k];
+        }
+      }
+    }
+    res
   }
 }
