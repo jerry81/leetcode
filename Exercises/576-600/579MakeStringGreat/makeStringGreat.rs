@@ -56,6 +56,9 @@ Acceptance Rate
 
 impl Solution {
   pub fn make_good(s: String) -> String {
+    for c in s.chars() {
+      println!("{} val is {}", c, c as u32);
+    }
     "".to_string()
   }
 }
