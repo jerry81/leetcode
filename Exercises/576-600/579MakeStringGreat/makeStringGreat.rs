@@ -55,7 +55,7 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn make_good(s: String) -> String {
+  fn r(s:&String) -> String {
     let mut buf = ' ';
     let mut ret = String::new();
     for c in s.chars() {
@@ -72,5 +72,13 @@ impl Solution {
     }
     if buf != ' ' { ret.push(buf); }
     ret
+  }
+  pub fn make_good(s: String) -> String {
+    let cur = Solution::r(&s);
+    if cur.len() == s.len() {
+        cur
+    } else {
+        Solution::make_good(cur)
+    }
   }
 }
