@@ -4,7 +4,9 @@
 Medium
 Topics
 Companies
-Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+Given a string s, sort it in decreasing order based on the frequency of the
+characters. The frequency of a character is the number of times it appears in
+the string.
 
 Return the sorted string. If there are multiple answers, return any of them.
 
@@ -15,14 +17,14 @@ Example 1:
 Input: s = "tree"
 Output: "eert"
 Explanation: 'e' appears twice while 'r' and 't' both appear once.
-So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
-Example 2:
+So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid
+answer. Example 2:
 
 Input: s = "cccaaa"
 Output: "aaaccc"
-Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
-Note that "cacaca" is incorrect, as the same characters must be together.
-Example 3:
+Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc"
+are valid answers. Note that "cacaca" is incorrect, as the same characters must
+be together. Example 3:
 
 Input: s = "Aabb"
 Output: "bbAa"
@@ -54,19 +56,29 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    string frequencySort(string s) {
-      unordered_map<char, int> freq;
-      for (char c: s) {
-        if (freq.find(c) != freq.end()) {
-          freq[c]++;
-        } else {
-          freq[c] = 1;
-        }
-      }
-      vector<pair<char, int>> pairs;
-      for (auto [k,v]: freq) {
-        pairs.push_back({k,v});
+  static bool cmp(pair<char, int> a, pair<char, int> b) {
+    return a.second > b.second;
+  };
+
+ public:
+  string frequencySort(string s) {
+    unordered_map<char, int> freq;
+    for (char c : s) {
+      if (freq.find(c) != freq.end()) {
+        freq[c]++;
+      } else {
+        freq[c] = 1;
       }
     }
+    vector<pair<char, int>> pairs;
+    for (auto [k, v] : freq) {
+      pairs.push_back({k, v});
+    }
+    sort(pairs.begin(),pairs.end(),Solution::cmp);
+    string res = "";
+    for (auto [k,_]: pairs) {
+      res+=k;
+    }
+    return res;
+  }
 };
