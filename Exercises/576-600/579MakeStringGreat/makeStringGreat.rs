@@ -56,9 +56,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn make_good(s: String) -> String {
+    let mut buf = ' ';
+    let mut ret = String::new();
     for c in s.chars() {
-      println!("{} val is {}", c, c as u32);
+      if buf == ' ' {
+        buf = c;
+        continue
+      }
+      if (c as i32 - buf as i32).abs() == 32 {
+        buf = ' ';
+      } else {
+        ret.push(buf);
+        buf = c;
+      }
     }
-    "".to_string()
+    if buf != ' ' { ret.push(buf); }
+    ret
   }
 }
