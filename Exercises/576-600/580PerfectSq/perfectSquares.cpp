@@ -5,9 +5,12 @@ Solved
 Medium
 Topics
 Companies
-Given an integer n, return the least number of perfect square numbers that sum to n.
+Given an integer n, return the least number of perfect square numbers that sum
+to n.
 
-A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+A perfect square is an integer that is the square of an integer; in other words,
+it is the product of some integer with itself. For example, 1, 4, 9, and 16 are
+perfect squares while 3 and 11 are not.
 
 
 
@@ -39,21 +42,38 @@ Acceptance Rate
 
 */
 
-class Solution {
-public:
-    int numSquares(int n) {
+#include <cmath>
 
-    }
+using namespace std;
+class Solution {
+  void r() {}
+
+ public:
+  int numSquares(int n) {
+    int sr = sqrt(n);
+    cout << "sr is " << sr << endl;
+    return 0;
+  }
 };
 
 /*
+          1
+   4              5
+9     13     5        14
 
 1 - 1
 4 - 1
 5 - 2
 9 - 1
 10 - 1
-16
+13 - 2
+14 - 3
+16 - 1
+17 - 2
+20 - 2
+21 - 3
 25
+
+maybe greedy?
 
 */
