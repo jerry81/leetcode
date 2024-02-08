@@ -54,9 +54,12 @@ class Solution {
     int sr = sqrt(cur);
     int res = INT_MAX;
     for (int i = sr; i >= 1; --i) {
-      int nsq = sr * sr;
-      if (nsq == cur) return 1;
-      res = min(res, r(cur-nsq));
+      int nsq = i * i;
+      if (nsq == cur) {
+        res = 1;
+        break;
+      }
+      res = min(res, 1+r(cur-nsq));
     }
 
     return dp[cur] = res;
@@ -68,6 +71,7 @@ class Solution {
     return r(n);
   }
 };
+
 
 /*
               1
