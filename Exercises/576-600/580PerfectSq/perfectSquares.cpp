@@ -46,13 +46,14 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
-  void r() {}
 
  public:
   int numSquares(int n) {
     int sr = sqrt(n);
-    cout << "sr is " << sr << endl;
-    return 0;
+    int nsq = sr*sr;
+    if (nsq == n) return 1;
+
+    return numSquares(n-nsq);
   }
 };
 
@@ -72,8 +73,15 @@ class Solution {
 17 - 2
 20 - 2
 21 - 3
-25
+25 - 1 (16+9, 5+5+5+5+5), etc
 
-maybe greedy?
+maybe greedy?s
+from sqrt to 0
+
+55 ->
+6 ->
+2 ->
+1
+
 
 */
