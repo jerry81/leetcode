@@ -43,25 +43,38 @@ Acceptance Rate
 */
 
 #include <cmath>
+#include <vector>
 
 using namespace std;
 class Solution {
+  vector<int> dp;
+  int r(int cur) {
+    if (cur <= 0) return 0;
+    if (dp[cur] >= 0) return dp[cur];
+    int sr = sqrt(cur);
+    int res = INT_MAX;
+    for (int i = sr; i >= 1; --i) {
+      int nsq = sr * sr;
+      if (nsq == cur) return 1;
+      res = min(res, r(cur-nsq));
+    }
+
+    return dp[cur] = res;
+  }
 
  public:
   int numSquares(int n) {
-    int sr = sqrt(n);
-    int nsq = sr*sr;
-    if (nsq == n) return 1;
-
-    return numSquares(n-nsq);
+    dp.resize(10001, -1);
+    return r(n);
   }
 };
 
 /*
-          1
-   4              5
-9     13     5        14
-
+              1
+         4              5
+    9       13      5          14
+  16  25  13   29 5
+25
 1 - 1
 4 - 1
 5 - 2
@@ -74,6 +87,13 @@ class Solution {
 20 - 2
 21 - 3
 25 - 1 (16+9, 5+5+5+5+5), etc
+problem: not counting dups
+- 4 4 4 = 12
+- 9 1 1 1 = 12
+- for extreme case 10000
+- 9999
+- 99 * 99
+
 
 maybe greedy?s
 from sqrt to 0
