@@ -39,6 +39,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn three_consecutive_odds(arr: Vec<i32>) -> bool {
-
+    let mut cur = 0;
+    for i in arr {
+      if i%2 == 1 {
+        cur+=1;
+        if cur == 3 { return true }
+      } else {
+        cur = 0;
+      }
+    }
+    false
   }
 }
