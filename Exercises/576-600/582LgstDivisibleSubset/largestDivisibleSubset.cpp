@@ -48,7 +48,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  const int UPPERBOUND = 2 * pow(10, 9);
+  const long long int UPPERBOUND = 2 * pow(10, 9);
 
  public:
   vector<int> largestDivisibleSubset(vector<int>& nums) {
@@ -60,7 +60,7 @@ class Solution {
     for (int i : nums) {
       vector<int> cur = {};
       if (i == 1) continue;
-      int curm = i;
+      long long int curm = i;
       cur.push_back(i);
       while (curm <= UPPERBOUND) {
         curm*=2;
@@ -72,6 +72,8 @@ class Solution {
         res = cur;
       }
     }
+    if (lookup.find(1) != lookup.end()) res.push_back(1);
+
     return res;
   }
 };
