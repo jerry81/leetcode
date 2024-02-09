@@ -1,10 +1,10 @@
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 class Solution {
   unordered_map<int, vector<int>> dp;
-  vector<int> get_chain(int idx, vector<int>& nums, int &sz) {
+  vector<int> get_chain(int idx, vector<int>& nums, int& sz) {
     vector<int> res;
     for (int i = idx; i < sz; ++i) {
       int cur = nums[i];
@@ -24,7 +24,7 @@ class Solution {
     sort(nums.begin(), nums.end());
     int sz = nums.size();
     for (int idx = 0; idx < sz; ++idx) {
-      vector<int> brute = get_chain(idx,nums,sz);
+      vector<int> brute = get_chain(idx, nums, sz);
       if (brute.size() > res.size()) res = brute;
     }
     return res;

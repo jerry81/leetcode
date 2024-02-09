@@ -8,7 +8,7 @@ class Solution {
   vector<int> get_chain(int idx, int back, vector<int>& nums, int& sz) {
     if (idx >= sz) return {};
 
-    // if (dp.find({idx,back}) != dp.end()) return dp[{idx,back}];
+    if (dp.find({idx,back}) != dp.end()) return dp[{idx,back}];
     int cur = nums[idx];
     vector<int> curv = {cur};
     // leave case
@@ -17,7 +17,8 @@ class Solution {
       vector<int> cmp = get_chain(idx + 1, cur, nums, sz);
       curv.insert(curv.end(), cmp.begin(), cmp.end());
     }
-    return dp[{idx, back}] = (curv.size() >= orig.size()) ? curv : orig;
+    dp[{idx, back}] = (curv.size() >= orig.size()) ? curv : orig;
+    return dp[{idx, back}];
   }
 
  public:
