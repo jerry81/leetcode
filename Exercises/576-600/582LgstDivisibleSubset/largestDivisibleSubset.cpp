@@ -1,32 +1,28 @@
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 class Solution {
-  unordered_map<int, vector<int>> dp;
-  vector<int> get_chain(int idx, vector<int>& nums, int &sz) {
-    vector<int> res;
-    for (int i = idx; i < sz; ++i) {
-      int cur = nums[i];
-      if (res.empty()) {
-        res.push_back(cur);
-      } else {
-        int curb = res.back();
-        if (cur % curb == 0 || curb % cur == 0) res.push_back(nums[i]);
-      }
+  map<pair<int,int>, vector<int>> dp;
+  vector<int> get_chain(int idx, int back, vector<int>& nums, int &sz) {
+    if (idx >= sz) return {};
+
+    if (dp.find({idx,back}) != dp.end()) return dp[{idx,back}];
+    int cur = nums[idx];
+    vector<int> curv = {cur};
+    // leave case
+    vector<int> tmp = get_chain(idx+1, back, nums, sz);
+    if (cur % back == 0 || back % cur == 0) {
+      vector<int> cmp = get_chain(idx+1, cur, nums, sz);
+      curv.insert(curv.end(), cmp.begin(),cmp.end());
     }
-    return res;
+    return dp[{idx,back}] = (curv.size() >=tmp.size()) ? curv : tmp;
   }
 
  public:
   vector<int> largestDivisibleSubset(vector<int>& nums) {
-    vector<int> res;
     sort(nums.begin(), nums.end());
     int sz = nums.size();
-    for (int idx = 0; idx < sz; ++idx) {
-      vector<int> brute = get_chain(idx,nums,sz);
-      if (brute.size() > res.size()) res = brute;
-    }
-    return res;
+    return get_chain(0,-1,nums,sz);
   }
 };
