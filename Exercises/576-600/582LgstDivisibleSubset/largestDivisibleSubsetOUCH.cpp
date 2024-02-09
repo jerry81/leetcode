@@ -13,7 +13,7 @@ class Solution {
     vector<int> curv = {cur};
     // leave case
     vector<int> orig = get_chain(idx + 1, back, nums, sz);
-    if (cur % back == 0 || back % cur == 0) {
+    if (cur % back == 0) {
       vector<int> cmp = get_chain(idx + 1, cur, nums, sz);
       curv.insert(curv.end(), cmp.begin(), cmp.end());
     }
