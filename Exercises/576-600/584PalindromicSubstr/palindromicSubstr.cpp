@@ -58,8 +58,8 @@ class Solution {
         string subs = s.substr(i, j);
         int halflen = j / 2;
         int is_odd = (j % 2 == 1);
-        string fh = subs.substr(i, halflen);
-        string sh = subs.substr(i + halflen + is_odd, halflen);
+        string fh = subs.substr(0, halflen);
+        string sh = subs.substr(halflen + is_odd, halflen);
         reverse(sh.begin(), sh.end());
         if (fh == sh) count += 1;
       }
