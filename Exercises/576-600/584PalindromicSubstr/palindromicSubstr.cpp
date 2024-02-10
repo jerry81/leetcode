@@ -58,13 +58,15 @@ public:
           string subs = s.substr(i,j);
           if (j % 2 == 0) {
             string fh = subs.substr(i,j/2);
-            string sh = subs.substr(i+(j/2)+1, j/2);
+            cout << "about to get second (evens)" << endl;
+            string sh = subs.substr(i+(j/2), j/2);
             reverse(sh.begin(), sh.end());
             if (fh == sh) count+=1;
           } else {
             string fh = subs.substr(i,j/2);
             cout << "fh odd " << fh << endl;
-            string sh = subs.substr(i+(j/2)+1, j/2);
+            cout << "about to get second (odds)" << endl;
+            string sh = subs.substr(i+(j/2), j/2);
             cout << "sh odd " << sh << endl;
             reverse(sh.begin(), sh.end());
             if (fh == sh) count+=1;
