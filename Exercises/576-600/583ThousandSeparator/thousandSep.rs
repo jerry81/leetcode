@@ -38,11 +38,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn thousand_separator(n: i32) -> String {
-    let mut res:String = String::new();
+    let mut res:Vec<char> = {};
     let as_s = n.to_string();
+    let mut cnt = 0;
     for c in as_s.chars().rev() {
-      println!("c is {}", c);
+      res.insert(0,c);
+      cnt += 1;
+      if cnt % 3 == 0 { res.insert(0,'.'); }
     }
-    res
+
+    res.iter().collect()
   }
 }
