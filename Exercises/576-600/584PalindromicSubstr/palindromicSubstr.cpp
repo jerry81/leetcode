@@ -47,40 +47,31 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int countSubstrings(string s) {
-      int sz = s.size();
-      if (sz==1) return 1;
-      // try brute force
-      int count = s.size();
-      for (int i = 0; i < sz; ++i) {
-        for (int j = 2; j <= sz-i; ++j) {
-          string subs = s.substr(i,j);
-          if (j % 2 == 0) {
-            string fh = subs.substr(i,j/2);
-            cout << "about to get second (evens)" << endl;
-            string sh = subs.substr(i+(j/2), j/2);
-            reverse(sh.begin(), sh.end());
-            if (fh == sh) count+=1;
-          } else {
-            string fh = subs.substr(i,j/2);
-            cout << "fh odd " << fh << endl;
-            cout << "about to get second (odds)" << endl;
-            string sh = subs.substr(i+(j/2), j/2);
-            cout << "sh odd " << sh << endl;
-            reverse(sh.begin(), sh.end());
-            if (fh == sh) count+=1;
-          }
-        }
+ public:
+  int countSubstrings(string s) {
+    int sz = s.size();
+    if (sz == 1) return 1;
+    // try brute force
+    int count = s.size();
+    for (int i = 0; i < sz; ++i) {
+      for (int j = 2; j <= sz - i; ++j) {
+        string subs = s.substr(i, j);
+        int halflen = j / 2;
+        int is_odd = (j % 2 == 1);
+        string fh = subs.substr(i, halflen);
+        string sh = subs.substr(i + halflen + is_odd, halflen);
+        reverse(sh.begin(), sh.end());
+        if (fh == sh) count += 1;
       }
-      return count;
     }
+    return count;
+  }
 };
 
 /*
 abc
-0, 01, 012  len 1 auto yes, len 2 - characters are equal, len 3 char 1 and 3 are equal
-1, 12 - any relation to previous substrings?
+0, 01, 012  len 1 auto yes, len 2 - characters are equal, len 3 char 1 and 3 are
+equal 1, 12 - any relation to previous substrings?
 2
 */
 /*
