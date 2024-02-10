@@ -52,11 +52,23 @@ public:
       int sz = s.size();
       if (sz==1) return 1;
       // try brute force
-      int count = 0;
+      int count = s.size();
       for (int i = 0; i < sz; ++i) {
-        for (int j = 2; j < sz-i; ++j) {
-          cout << "substr from " << i << " of len " << j << endl;
-          cout << s.substr(i, j) << endl;
+        for (int j = 2; j <= sz-i; ++j) {
+          string subs = s.substr(i,j);
+          if (j % 2 == 0) {
+            string fh = subs.substr(i,j/2);
+            string sh = subs.substr(i+(j/2)+1, j/2);
+            reverse(sh.begin(), sh.end());
+            if (fh == sh) count+=1;
+          } else {
+            string fh = subs.substr(i,j/2);
+            cout << "fh odd " << fh << endl;
+            string sh = subs.substr(i+(j/2)+1, j/2);
+            cout << "sh odd " << sh << endl;
+            reverse(sh.begin(), sh.end());
+            if (fh == sh) count+=1;
+          }
         }
       }
       return count;
