@@ -67,7 +67,30 @@ using namespace std;
 class Solution {
   const vector<int> DIR = {1, 0, -1};
   vector<vector<vector<int>>> dp;
-  int r(int y, int x1, int x2, vector<vector<int>>& grid, int& h, int& w) {}
+  int r(int y, int x1, int x2, vector<vector<int>>& grid, int& h, int& w) {
+    if (x1 < 0 || x2 < 0) return 0;
+
+    if (y >= h || x1 >= w || x2 >= w) return 0;
+
+    if (dp[y][x1][x2] >= 0) return dp[y][x1][x2];
+
+
+    int ny = y+1;
+    int cur = grid[y][x1] + grid[y][x2];
+    int mx = 0;
+    for (auto d: DIR) {
+      int nx1 = x1+d;
+      for (auto d2: DIR) {
+        int nx2 = x2+d2;
+        if (nx1 == nx2) {
+          continue;
+        }
+
+        mx = max(mx, r(ny, nx1, nx2, grid, h, w));
+      }
+    }
+    return dp[y][x1][x2] = cur + mx;
+  }
 
  public:
   int cherryPickup(vector<vector<int>>& grid) {
