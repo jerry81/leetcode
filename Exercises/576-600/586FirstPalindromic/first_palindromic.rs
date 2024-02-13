@@ -50,6 +50,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn first_palindrome(words: Vec<String>) -> String {
-
+    for s in words {
+      let mut cl = s.chars().rev().collect();
+      if cl == s {
+        s
+      }
+    }
+    "".to_string()
   }
 }
