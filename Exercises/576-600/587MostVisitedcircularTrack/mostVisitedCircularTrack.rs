@@ -57,27 +57,35 @@ impl Solution {
     let mut freq = vec![0; n as usize];
     let rsz = rounds.len();
     for i in 0..rsz-1 {
+      if i == 0 {
+          freq[0]+=1;
+      }
       let mut rs = rounds.get(i as usize).unwrap()-1;
       rs += 1;
       rs %= n;
-      let re = rounds.get((i+1) as usize).unwrap()-1;
+      let re = *rounds.get((i+1) as usize).unwrap();
+      println!("will calc from {} to {}", rs, re);
       if re > rs {
-        for j in rs+1..re {
-          freq[j]+=1;
+        for j in rs..re {
+          freq[j as usize]+=1;
         }
       } else {
-        for j in rs+1..n {
-          freq[j]+=1;
+        for j in rs..n {
+          freq[j as usize]+=1;
         }
         for k in 0..re {
-          freq[k]+=1;
+          freq[k as usize]+=1;
         }
       }
     }
+    let mx = freq.iter().max().unwrap();
+
+    let mut res = Vec::new();
     for i in 0..n {
-      println!("i is {}, and freq is {}", i, freq[i]);
+      if freq.get(i as usize).unwrap() == mx {
+        res.push(i+1);
+      }
     }
-    let mut res = Vec::new()
     res
   }
 }
