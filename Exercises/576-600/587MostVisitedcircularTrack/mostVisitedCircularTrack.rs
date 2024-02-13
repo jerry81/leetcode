@@ -58,13 +58,10 @@ impl Solution {
     let rsz = rounds.len();
     for i in 0..rsz-1 {
       if i == 0 {
-          freq[0]+=1;
+          freq[(rounds[0]-1) as usize]+=1;
       }
-      let mut rs = rounds.get(i as usize).unwrap()-1;
-      rs += 1;
-      rs %= n;
+      let mut rs = *rounds.get(i as usize).unwrap();
       let re = *rounds.get((i+1) as usize).unwrap();
-      println!("will calc from {} to {}", rs, re);
       if re > rs {
         for j in rs..re {
           freq[j as usize]+=1;
