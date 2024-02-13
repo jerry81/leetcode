@@ -54,10 +54,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn most_visited(n: i32, rounds: Vec<i32>) -> Vec<i32> {
-    let mut freq = [0; n];
-    for i in 0..n-1 {
-      let rs = rounds.get(i-1).unwrap();
-      let re = rounds.get(i).unwrap();
+    let mut freq = vec![0; n as usize];
+    let rsz = rounds.len();
+    println!("rsz is {}", rsz);
+    for i in 0..rsz-1 {
+      let rs = rounds.get(i as usize).unwrap();
+      println!("round start {}", rs);
+      let re = rounds.get((i+1) as usize).unwrap();
+       println!("round end {}", re);
     }
     Vec::new()
   }
