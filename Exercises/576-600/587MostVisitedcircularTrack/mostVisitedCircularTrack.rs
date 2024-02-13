@@ -56,13 +56,28 @@ impl Solution {
   pub fn most_visited(n: i32, rounds: Vec<i32>) -> Vec<i32> {
     let mut freq = vec![0; n as usize];
     let rsz = rounds.len();
-    println!("rsz is {}", rsz);
     for i in 0..rsz-1 {
-      let rs = rounds.get(i as usize).unwrap();
-      println!("round start {}", rs);
-      let re = rounds.get((i+1) as usize).unwrap();
-       println!("round end {}", re);
+      let mut rs = rounds.get(i as usize).unwrap()-1;
+      rs += 1;
+      rs %= n;
+      let re = rounds.get((i+1) as usize).unwrap()-1;
+      if re > rs {
+        for j in rs+1..re {
+          freq[j]+=1;
+        }
+      } else {
+        for j in rs+1..n {
+          freq[j]+=1;
+        }
+        for k in 0..re {
+          freq[k]+=1;
+        }
+      }
     }
-    Vec::new()
+    for i in 0..n {
+      println!("i is {}, and freq is {}", i, freq[i]);
+    }
+    let mut res = Vec::new()
+    res
   }
 }
