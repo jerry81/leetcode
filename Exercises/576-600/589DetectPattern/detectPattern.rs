@@ -52,10 +52,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn contains_pattern(arr: Vec<i32>, m: i32, k: i32) -> bool {
-    Solution::r(0,vec![], arr, m, k)
+    let sz = arr.len();
+    let pattern_sz = (m*k) as usize;
+    let early_stop = sz-pattern_sz;
+    for i in 0..=early_stop {
+      let res = Solution::r(i+m as usize,&arr[i..i+m as usize], &arr, m, k-1);
+      if res { return res }
+    }
+    false
   }
 
-  fn r(idx: usize, pat: Vec<i32>, arr: Vec<i32>, m: i32, k: i32) -> bool {
-    true
+  fn r(idx: usize, pat: &[i32], arr: &Vec<i32>, m: i32, k: i32) -> bool {
+    let cursl = &arr[idx..idx+m as usize];
+    if k == 0 { return true }
+    if cursl != pat { return false };
+    Solution::r(idx+m as usize, pat, arr, m, k-1)
   }
 }
