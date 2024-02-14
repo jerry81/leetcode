@@ -59,6 +59,22 @@ using namespace std;
 class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) {
-
+      vector<int> pos;
+      vector<int> neg;
+      for (int n: nums) {
+        if (n < 0) {
+          pos.push_back(n);
+        } else {
+          neg.push_back(n);
+        }
+      }
+      vector<int> res;
+      int ptr = 0;
+      while (res.size() < nums.size()) {
+        if (ptr < pos.size()) res.push_back(pos[ptr]);
+        if (ptr < neg.size()) res.push_back(neg[ptr]);
+        ptr++;
+      }
+      return res;
     }
 };
