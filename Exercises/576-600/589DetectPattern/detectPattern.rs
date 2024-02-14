@@ -65,9 +65,12 @@ impl Solution {
 
   fn r(idx: usize, pat: &[i32], arr: &Vec<i32>, m: i32, k: i32) -> bool {
 
-    if idx+m as usize > arr.len() { return false }
-    let cursl = &arr[idx..idx+m as usize];
     if k == 0 { return true }
+    if idx+m as usize > arr.len() {
+        return false
+    }
+    let cursl = &arr[idx..idx+m as usize];
+
     if cursl != pat { return false };
     Solution::r(idx+m as usize, pat, arr, m, k-1)
   }
