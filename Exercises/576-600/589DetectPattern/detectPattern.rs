@@ -55,6 +55,7 @@ impl Solution {
     let sz = arr.len();
     let pattern_sz = (m*k) as usize;
     let early_stop = sz-pattern_sz;
+    if pattern_sz > sz { return false }
     for i in 0..=early_stop {
       let res = Solution::r(i+m as usize,&arr[i..i+m as usize], &arr, m, k-1);
       if res { return res }
@@ -63,6 +64,8 @@ impl Solution {
   }
 
   fn r(idx: usize, pat: &[i32], arr: &Vec<i32>, m: i32, k: i32) -> bool {
+
+    if idx+m as usize > arr.len() { return false }
     let cursl = &arr[idx..idx+m as usize];
     if k == 0 { return true }
     if cursl != pat { return false };
