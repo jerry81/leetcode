@@ -63,9 +63,9 @@ public:
       vector<int> neg;
       for (int n: nums) {
         if (n < 0) {
-          pos.push_back(n);
-        } else {
           neg.push_back(n);
+        } else {
+          pos.push_back(n);
         }
       }
       vector<int> res;
