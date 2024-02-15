@@ -55,7 +55,7 @@ impl Solution {
       let mut prevSet = '?';
       if idx > 0 {
         prev = s.chars().nth(idx-1).unwrap();
-        prevSet = cv[idx];
+        prevSet = cv[idx-1];
       }
       let mut nxt = '?';
       if idx < (sz-1) {
