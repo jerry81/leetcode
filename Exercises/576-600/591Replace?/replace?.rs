@@ -47,15 +47,19 @@ impl Solution {
     let sz = s.len();
     for idx in 0..sz {
       let mut cur = s.chars().nth(idx).unwrap();
-      if cur != '?' { continue }
-      let prev = '?';
+      if cur != '?' {
+          cv.push(cur);
+          continue
+      }
+      let mut prev = '?';
       if idx > 0 {
         prev = s.chars().nth(idx-1).unwrap();
       }
-      let nxt = '?';
+      let mut nxt = '?';
       if idx < (sz-1) {
         nxt = s.chars().nth(idx+1).unwrap();
       }
+      cur = 'a';
       while cur == prev || cur == nxt {
         cur = (cur as u8 + 1) as char;
       }
