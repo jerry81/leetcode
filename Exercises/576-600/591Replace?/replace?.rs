@@ -46,7 +46,7 @@ impl Solution {
 
     let sz = s.len();
     for idx in 0..sz {
-      let cur = s.chars().nth(idx).unwrap();
+      let mut cur = s.chars().nth(idx).unwrap();
       if cur != '?' { continue }
       let prev = '?';
       if idx > 0 {
@@ -56,8 +56,12 @@ impl Solution {
       if idx < (sz-1) {
         nxt = s.chars().nth(idx+1).unwrap();
       }
+      while cur == prev || cur == nxt {
+        cur = (cur as u8 + 1) as char;
+      }
+      cv.push(cur);
     }
 
-    "".to_string()
+    cv.iter().collect()
   }
 }
