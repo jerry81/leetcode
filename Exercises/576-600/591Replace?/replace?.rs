@@ -52,15 +52,18 @@ impl Solution {
           continue
       }
       let mut prev = '?';
+      let mut prevSet = '?';
       if idx > 0 {
         prev = s.chars().nth(idx-1).unwrap();
+        prevSet = cv[idx];
       }
       let mut nxt = '?';
       if idx < (sz-1) {
         nxt = s.chars().nth(idx+1).unwrap();
       }
       cur = 'a';
-      while cur == prev || cur == nxt {
+
+      while cur == prev || cur == nxt || prevSet == cur {
         cur = (cur as u8 + 1) as char;
       }
       cv.push(cur);
