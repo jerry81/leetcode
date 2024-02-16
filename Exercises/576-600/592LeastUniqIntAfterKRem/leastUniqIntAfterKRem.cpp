@@ -6,7 +6,8 @@ Medium
 Topics
 Companies
 Hint
-Given an array of integers arr and an integer k. Find the least number of unique integers after removing exactly k elements.
+Given an array of integers arr and an integer k. Find the least number of unique
+integers after removing exactly k elements.
 
 
 
@@ -18,7 +19,8 @@ Explanation: Remove the single 4, only 5 is left.
 Example 2:
 Input: arr = [4,3,1,1,3,3,2], k = 3
 Output: 2
-Explanation: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will be left.
+Explanation: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will
+be left.
 
 
 Constraints:
@@ -39,37 +41,37 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
-      // to freq map
-      // back to vector of pairs
-      // sort
-      unordered_map<int, int> freq;
-      for (int i: arr) {
-        if (freq.find(i) != freq.end()) {
-          freq[i]++;
-        } else {
-          freq[i] = 1;
-        }
+ public:
+  int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+    // to freq map
+    // back to vector of pairs
+    // sort
+    unordered_map<int, int> freq;
+    for (int i : arr) {
+      if (freq.find(i) != freq.end()) {
+        freq[i]++;
+      } else {
+        freq[i] = 1;
       }
-      vector<int> as_v;
-      for (auto [_,v]: freq) {
-        as_v.push_back(v);
-      }
-      sort(as_v.begin(), as_v.end());
-      int res = as_v.size();
-      for (auto v: as_v) {
-        if (k >= v) {
-          k-=v;
-          res--;
-        }
-      }
-      return res;
     }
+    vector<int> as_v;
+    for (auto [_, v] : freq) {
+      as_v.push_back(v);
+    }
+    sort(as_v.begin(), as_v.end());
+    int res = as_v.size();
+    for (auto v : as_v) {
+      if (k >= v) {
+        k -= v;
+        res--;
+      }
+    }
+    return res;
+  }
 };
