@@ -89,8 +89,12 @@
 -- Acceptance Rate
 -- 69.8%
 
-SELECT c.customer_id, count(*) as count_no_trans
-FROM Customer c
-JOIN Transactions t
-ON t.visit_id = c.visit_id
-GROUP BY customer_id;
+SELECT subquery.customer_id, count(*) as count_no_trans
+FROM (
+  SELECT v.customer_id, t.transaction_id
+  FROM Visits v
+  LEFT JOIN Transactions t
+  ON t.visit_id = v.visit_id
+) as subquery
+WHERE subquery.transaction_id IS NULL
+GROUP BY subquery.customer_id;
