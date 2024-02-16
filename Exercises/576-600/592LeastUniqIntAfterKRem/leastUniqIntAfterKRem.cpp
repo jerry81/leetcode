@@ -45,9 +45,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-static bool cmp(pair<int,int> a, pair<int,int> b) {
-  return a.second < b.second;
-}
 public:
     int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
       // to freq map
@@ -61,13 +58,18 @@ public:
           freq[i] = 1;
         }
       }
-      vector<pair<int,int>> as_v;
-      for (auto [k,v]: freq) {
-        as_v.push_back({k,v});
+      vector<int> as_v;
+      for (auto [_,v]: freq) {
+        as_v.push_back(v);
       }
-      sort(as_v.begin(), as_v.end(), cmp);
-      for (auto [k,v]: as_v) {
-        cout << "k: " << k << " v: " << v << endl;
+      sort(as_v.begin(), as_v.end());
+      int res = as_v.size();
+      for (auto v: as_v) {
+        if (k >= v) {
+          k-=v;
+          res--;
+        }
       }
+      return res;
     }
 };
