@@ -40,12 +40,34 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+static bool cmp(pair<int,int> a, pair<int,int> b) {
+  return a.second < b.second;
+}
 public:
     int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
-
+      // to freq map
+      // back to vector of pairs
+      // sort
+      unordered_map<int, int> freq;
+      for (int i: arr) {
+        if (freq.find(i) != freq.end()) {
+          freq[i]++;
+        } else {
+          freq[i] = 1;
+        }
+      }
+      vector<pair<int,int>> as_v;
+      for (auto [k,v]: freq) {
+        as_v.push_back({k,v});
+      }
+      sort(as_v.begin(), as_v.end(), cmp);
+      for (auto [k,v]: as_v) {
+        cout << "k: " << k << " v: " << v << endl;
+      }
     }
 };
