@@ -62,14 +62,14 @@ Acceptance Rate
 
 */
 
-#include <unordered_map>
+#include <map>
 #include <vector>
 #include <string>
 
 using namespace std;
 
 class Solution {
-  unordered_map<tuple<int,int,int>, int> memo;
+  map<tuple<int,int,int>, int> memo;
   int r(vector<int>& heights, int& sz, int idx, int bricks, int ladders) {
     if (idx >= sz - 1) return sz - 1;
     tuple<int,int,int> key = make_tuple(idx, bricks,ladders);
