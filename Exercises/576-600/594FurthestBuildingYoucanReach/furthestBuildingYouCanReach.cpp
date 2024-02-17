@@ -79,14 +79,17 @@ class Solution {
       if (diff > bricks) {
         if (ladders == 0) return idx;
 
-        return r(heights, sz, idx+1, bricks, ladders-1);
+        int res = r(heights, sz, idx+1, bricks, ladders-1);
+        return res;
       } else {
         int using_bricks = r(heights, sz, idx+1, bricks-diff, ladders);
 
         if (ladders > 0) return max(using_bricks, r(heights, sz, idx+1, bricks, ladders-1));
+
+        return using_bricks;
       }
-      return 0;
     }
+    return 0;
   }
 
  public:
