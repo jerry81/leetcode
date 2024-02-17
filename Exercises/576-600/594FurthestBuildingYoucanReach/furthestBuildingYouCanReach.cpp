@@ -62,31 +62,39 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class Solution {
+  unordered_map<tuple<int,int,int>, int> memo;
   int r(vector<int>& heights, int& sz, int idx, int bricks, int ladders) {
-    if (idx >= sz - 1) return sz-1;
+    if (idx >= sz - 1) return sz - 1;
+    tuple<int,int,int> key = make_tuple(idx, bricks,ladders);
+    if (memo.find(key) != memo.end()) return memo[key];
+
     int cur = heights[idx];
     int nxt = heights[idx + 1];
 
     if (cur > nxt) {
-      return r(heights, sz, idx + 1, bricks, ladders);
+      return memo[key] = r(heights, sz, idx + 1, bricks, ladders);
     } else {
       int diff = nxt - cur;
       if (diff > bricks) {
-        if (ladders == 0) return idx;
+        if (ladders == 0) return memo[key] = idx;
 
-        int res = r(heights, sz, idx+1, bricks, ladders-1);
-        return res;
+        int res = r(heights, sz, idx + 1, bricks, ladders - 1);
+        return memo[key] = res;
       } else {
-        int using_bricks = r(heights, sz, idx+1, bricks-diff, ladders);
+        int using_bricks = r(heights, sz, idx + 1, bricks - diff, ladders);
 
-        if (ladders > 0) return max(using_bricks, r(heights, sz, idx+1, bricks, ladders-1));
+        if (ladders > 0)
+          return memo[key] = max(using_bricks,
+                     r(heights, sz, idx + 1, bricks, ladders - 1));
 
-        return using_bricks;
+        return memo[key] = using_bricks;
       }
     }
     return 0;
