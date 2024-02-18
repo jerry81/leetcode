@@ -85,25 +85,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  static bool custom_compare(vector<int> a, vector<int> b) {
-    return a[0] < b[0];
-  }
 
  public:
   int mostBooked(int n, vector<vector<int>>& meetings) {
     vector<vector<int>> sorted = meetings;
-    sort(sorted.begin(), sorted.end(), custom_compare);
+    sort(sorted.begin(), sorted.end());
     vector<long long> meeting_availability(n, 0);
-    vector<long long> meeting_count(n, 0);
-    long long mx = 0;
+    vector<int> meeting_count(n, 0);
+    int mx = 0;
     for (auto v : sorted) {
-      long long s = v[0];
-      long long e = v[1];
+      int s = v[0];
+      int e = v[1];
       bool found = false;
       int mnidx = 0;
       long long minval = LLONG_MAX;
       for (int i = 0; i < n; ++i) {
-        int cur = meeting_availability[i];
+        long long cur = meeting_availability[i];
         if (cur < minval) {
           minval = cur;
           mnidx = i;
