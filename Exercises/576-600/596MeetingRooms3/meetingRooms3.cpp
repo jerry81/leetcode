@@ -69,12 +69,22 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
+static bool custom_compare(vector<int> a, vector<int> b) {
+  return a[0] < b[0];
+}
 public:
     int mostBooked(int n, vector<vector<int>>& meetings) {
-
+      vector<vector<int>> sorted = meetings;
+      sort(sorted.begin(), sorted.end(), custom_compare);
+      for (auto v: sorted) {
+        cout << "item" << endl;
+        cout << "start: " << v[0] << " end: " << v[1] << endl;
+      }
+      return 0;
     }
 };
