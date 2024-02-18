@@ -60,11 +60,13 @@ impl Solution {
     for c in s.chars() {
       if c == cur {
         cnt+=1;
-        if cnt < 3 {
+        if cnt >= 3 {
           continue
         }
+      } else {
+        cur = c;
+        cnt = 1;
       }
-      cur = c;
       res.push(c);
     }
     res.iter().collect()
