@@ -93,15 +93,15 @@ class Solution {
   int mostBooked(int n, vector<vector<int>>& meetings) {
     vector<vector<int>> sorted = meetings;
     sort(sorted.begin(), sorted.end(), custom_compare);
-    vector<int> meeting_availability(n, 0);
-    vector<int> meeting_count(n, 0);
-    int mx = 0;
+    vector<long long> meeting_availability(n, 0);
+    vector<long long> meeting_count(n, 0);
+    long long mx = 0;
     for (auto v : sorted) {
-      int s = v[0];
-      int e = v[1];
+      long long s = v[0];
+      long long e = v[1];
       bool found = false;
       int mnidx = 0;
-      int minval = INT_MAX;
+      long long minval = LLONG_MAX;
       for (int i = 0; i < n; ++i) {
         int cur = meeting_availability[i];
         if (cur < minval) {
