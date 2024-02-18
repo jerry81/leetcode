@@ -81,9 +81,23 @@ public:
     int mostBooked(int n, vector<vector<int>>& meetings) {
       vector<vector<int>> sorted = meetings;
       sort(sorted.begin(), sorted.end(), custom_compare);
+      vector<int> meeting_availability(n,0);
+      vector<int> meeting_count(n,0);
+      int mx = 0;
       for (auto v: sorted) {
-        cout << "item" << endl;
-        cout << "start: " << v[0] << " end: " << v[1] << endl;
+        int s = v[0];
+        int e = v[1];
+        for (int i = 0; i < n; ++i) {
+          if (meeting_availability[i] <= s) {
+            meeting_availability[i] = e;
+            meeting_count[i]++;
+            mx = max(mx, meeting_count[i]);
+            break;
+          }
+        }
+      }
+      for (int i = 0; i < n; ++i) {
+        if (meeting_count[i] == mx) return i;
       }
       return 0;
     }
