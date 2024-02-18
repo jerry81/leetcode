@@ -54,6 +54,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn make_fancy_string(s: String) -> String {
-
+    let mut res:Vec<char> = Vec::new();
+    let mut cur = '?';
+    let mut cnt = 0;
+    for c in s.chars() {
+      if c == cur {
+        cnt+=1;
+        if cnt < 3 {
+          continue
+        }
+      }
+      cur = c;
+      res.push(c);
+    }
+    res.iter().collect()
   }
 }
