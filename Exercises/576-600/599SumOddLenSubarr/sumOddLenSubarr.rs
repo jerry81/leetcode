@@ -63,7 +63,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn sum_odd_length_subarrays(arr: Vec<i32>) -> i32 {
-      let mut res = 0;
+      let mut res:i32 = 0;
+      let mut curlen = 1;
+      let sz = arr.len();
+      while curlen <= sz {
+        for i in 0..=(sz-curlen) {
+          res+=arr[i..i+curlen].iter().sum::<i32>();
+        }
+        curlen+=2;
+      }
+
       res
   }
 }
