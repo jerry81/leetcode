@@ -50,12 +50,22 @@ impl Solution {
     for c in text.chars() {
       if c == ' ' { space_cnt += 1; }
     }
+    if space_cnt == 0 { return text }
     let mut words: Vec<&str> = text.split(' ').filter(|&x| !x.is_empty()).collect();
     let wordcnt = words.len();
-    let spaces_per = space_cnt / (wordcnt - 1);
-    let rem = space_cnt % (wordcnt - 1);
     let mut res: String = String::new();
+    if wordcnt == 1 {
+      res += words[0];
+      res += &" ".repeat(space_cnt);
+      return res;
+    }
+    let spaces_per = space_cnt / (wordcnt - 1);
+
+    let rem = space_cnt % (wordcnt - 1);
+
+
     let tmpl = " ".repeat(spaces_per);
+
     for s in words {
       res+=&s;
       res+=&tmpl;
