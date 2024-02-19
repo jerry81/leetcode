@@ -48,7 +48,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_power_of_two(n: i32) -> bool {
-    let two = 2;
+    let two: i32 = 2;
     for i in 0..32 {
       let mut x = two.pow(i);
       if x > n { return false; }
