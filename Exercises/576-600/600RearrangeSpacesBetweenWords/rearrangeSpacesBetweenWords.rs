@@ -53,15 +53,15 @@ impl Solution {
     let mut words: Vec<&str> = text.split(' ').filter(|&x| !x.is_empty()).collect();
     let wordcnt = words.len();
     let spaces_per = space_cnt / (wordcnt - 1);
-    let rem = space_cnt % wordcnt;
+    let rem = space_cnt % (wordcnt - 1);
     let mut res: String = String::new();
     let tmpl = " ".repeat(spaces_per);
-    println!("spaces is {}", space_cnt);
     for s in words {
       res+=&s;
       res+=&tmpl;
     }
     res = res[0..res.len()-spaces_per].to_string();
+    res+=&" ".repeat(rem);
     res
   }
 }
