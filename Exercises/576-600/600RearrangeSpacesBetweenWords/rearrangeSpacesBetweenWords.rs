@@ -50,6 +50,11 @@ impl Solution {
     for c in text.chars() {
       if c == ' ' { space_cnt += 1; }
     }
+    let mut words = text.split(' ').filter(|&x| !x.is_empty());
+    for s in words {
+      println!("word: {}", s);
+    }
+    println!("spaces is {}", space_cnt);
     "".to_string()
   }
 }
