@@ -46,6 +46,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn reorder_spaces(text: String) -> String {
-
+    let mut space_cnt = 0;
+    for c in text.chars() {
+      if c == ' ' { space_cnt += 1; }
+    }
+    "".to_string()
   }
 }
