@@ -61,15 +61,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_operations(logs: Vec<String>) -> i32 {
-    let mut backs: i32 = 0;
-    let mut forwards: i32 = 0;
+    let mut depth: i32 = 0;
     for s in logs {
       if s == "../" {
-        backs+=1;
+        if depth > 0 { depth-=1; }
       } else if s != "./" {
-        forwards+=1;
+        depth+=1;
       }
     }
-    0.max(forwards-backs)
+    depth
   }
 }
