@@ -52,13 +52,13 @@ Acceptance Rate
 impl Solution {
   pub fn missing_number(nums: Vec<i32>) -> i32 {
     let mut sorted = nums;
-    let sz = nums.len();
+    let sz = sorted.len();
     sorted.sort();
     for i in 0..sz {
-      if i != sorted[i] {
-        return i;
+      if i as i32 != sorted[i] {
+        return i as i32;
       }
     }
-    sz
+    sz as i32
   }
 }
