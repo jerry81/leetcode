@@ -51,8 +51,16 @@ Acceptance Rate
 60.1%
 
 */
+
 impl Solution {
   pub fn special_array(nums: Vec<i32>) -> i32 {
-
+    let mut sorted = nums.sort();
+    let sz = nums.len();
+    for i in 0..sz {
+      if sorted[i] == (sz - i + 1) {
+        return i;
+      }
+    }
+    -1
   }
 }
