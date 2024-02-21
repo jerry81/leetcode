@@ -53,8 +53,11 @@ class Solution {
   int rangeBitwiseAnd(int left, int right) {
     string binaryStringL = std::bitset<sizeof(int) * 8>(left).to_string();
     string binaryStringR = std::bitset<sizeof(int) * 8>(right).to_string();
+
+    if (left == right) return left;
     int idx = 0;
-    int first_one_l, first_one_r = -1;
+    int first_one_l = -2;
+    int first_one_r = -1;
     while (idx < 32 && (first_one_r < 0 || first_one_r < 0)) {
       if (binaryStringL[idx] == '1') first_one_l = idx;
       if (binaryStringR[idx] == '1') first_one_r = idx;
@@ -64,8 +67,9 @@ class Solution {
 
     int res = pow(2,31-first_one_l);
     for (int i = 30-first_one_l; i >= 0; --i) {
-      if (binaryStringL[(31-i)] == '1' && binaryStringR[(31-i)] =='1') {
-        res += pow(2,i);
+      if (binaryStringL[(31-i)] == binaryStringR[(31-i)]) {
+        if (binaryStringL[(31-i)] == '1') res += pow(2,i);
+
         continue;
       }
       break;
