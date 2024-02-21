@@ -54,11 +54,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn special_array(nums: Vec<i32>) -> i32 {
-    let mut sorted = nums.sort();
-    let sz = nums.len();
+    let mut sorted: Vec<i32> = nums;
+    sorted.sort();
+    let sz = sorted.len();
     for i in 0..sz {
-      if sorted[i] == (sz - i + 1) {
-        return i;
+      let gr_ele:i32 = sz as i32 - i as i32;
+      if sorted[i] >= gr_ele {
+        if i <= 0 || sorted[i-1] < gr_ele {
+          return gr_ele
+        }
       }
     }
     -1
