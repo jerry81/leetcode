@@ -47,6 +47,7 @@ Acceptance Rate
 #include <cmath>
 
 using namespace std;
+
 class Solution {
  public:
   int rangeBitwiseAnd(int left, int right) {
@@ -57,17 +58,17 @@ class Solution {
     while (idx < 32 && (first_one_r < 0 || first_one_r < 0)) {
       if (binaryStringL[idx] == '1') first_one_l = idx;
       if (binaryStringR[idx] == '1') first_one_r = idx;
-
       idx++;
     }
-
     if (first_one_l != first_one_r) return 0;
 
-    int res = 0;
-    for (int i = 31-first_one_l; i >= 0; --i) {
-      if (binaryStringL[idx] == '1' && binaryStringR[idx] =='1') {
+    int res = pow(2,31-first_one_l);
+    for (int i = 30-first_one_l; i >= 0; --i) {
+      if (binaryStringL[(31-i)] == '1' && binaryStringR[(31-i)] =='1') {
         res += pow(2,i);
+        continue;
       }
+      break;
     }
 
     return res;
