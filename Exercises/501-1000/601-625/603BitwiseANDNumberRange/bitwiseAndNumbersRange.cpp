@@ -5,7 +5,8 @@
 Medium
 Topics
 Companies
-Given two integers left and right that represent the range [left, right], return the bitwise AND of all numbers in this range, inclusive.
+Given two integers left and right that represent the range [left, right], return
+the bitwise AND of all numbers in this range, inclusive.
 
 
 
@@ -40,13 +41,35 @@ Acceptance Rate
 
 */
 
+#include <bitset>
+#include <string>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
 class Solution {
-public:
-    int rangeBitwiseAnd(int left, int right) {
-      int res = left;
-      for (int i = left+1; i <=right; ++i) {
-        res&=i;
-      }
-      return res;
+ public:
+  int rangeBitwiseAnd(int left, int right) {
+    string binaryStringL = std::bitset<sizeof(int) * 8>(left).to_string();
+    string binaryStringR = std::bitset<sizeof(int) * 8>(right).to_string();
+    int idx = 0;
+    int first_one_l, first_one_r = -1;
+    while (idx < 32 && (first_one_r < 0 || first_one_r < 0)) {
+      if (binaryStringL[idx] == '1') first_one_l = idx;
+      if (binaryStringR[idx] == '1') first_one_r = idx;
+
+      idx++;
     }
+
+    if (first_one_l != first_one_r) return 0;
+
+    int res = 0;
+    for (int i = 31-first_one_l; i >= 0; --i) {
+      if (binaryStringL[idx] == '1' && binaryStringR[idx] =='1') {
+        res += pow(2,i);
+      }
+    }
+
+    return res;
+  }
 };
