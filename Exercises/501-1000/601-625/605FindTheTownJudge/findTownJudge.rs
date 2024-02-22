@@ -52,9 +52,13 @@ Acceptance Rate
 49.2%
 
 */
+use std::collections::HashMap;
 
 impl Solution {
   pub fn find_judge(n: i32, trust: Vec<Vec<i32>>) -> i32 {
-
+    let mut indegrees: HashMap<i32,i32> = HashMap::new();
+    let mut outdegrees: HashMap<i32,i32> = HashMap::new();
+    for v in trust {
+    }
   }
 }
