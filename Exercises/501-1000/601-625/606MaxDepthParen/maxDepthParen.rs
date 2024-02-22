@@ -54,6 +54,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_depth(s: String) -> i32 {
-
+    let mut cur = 0;
+    let mut mx = 0;
+    for c in s.chars() {
+      if c == '(' {
+        cur+=1;
+        mx = mx.max(cur);
+      }
+      if c == ')' {
+        cur-=1;
+      }
+    }
+    mx
   }
 }
