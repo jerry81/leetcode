@@ -59,6 +59,27 @@ impl Solution {
     let mut indegrees: HashMap<i32,i32> = HashMap::new();
     let mut outdegrees: HashMap<i32,i32> = HashMap::new();
     for v in trust {
+      *indegrees.entry(v[1]).or_insert(1) += 1;
+      *outdegrees.entry(v[0]).or_insert(1) += 1;
     }
+    let mut cnt = 0;
+    let mut cnt2 = 0;
+    for (k,v) in &indegrees {
+      if v == n-1 {
+       cnt+=1;
+      }
+    }
+    let mut cnt2 = 0;
+    let mut idx = -1;
+    for (k,v) in &outdegrees {
+      if v == 0 {
+       cnt2+=1;
+       idx = k;
+      }
+    }
+    if cnt == n-1 && cnt2 == 1 {
+      return idx;
+    }
+    -1
   }
 }
