@@ -69,6 +69,19 @@ using namespace std;
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-
+      // djikstra but new constraint, limit numbe of steps
+      // so dp + brute force dfs
+      vector<vector<pair<int,int>>> neighbors(n, vector<pair<int,int>>(0));
+      for (auto v: flights) {
+        neighbors[v[0]].push_back({v[1], v[2]});
+      }
+      for (int i = 0; i < n; ++i) {
+        cout << "neighbors of " << i << endl;
+        auto cur = neighbors[i];
+        for (auto item: cur) {
+          cout << item.first << "," << item.second << endl;
+        }
+      }
+      return 0;
     }
 };
