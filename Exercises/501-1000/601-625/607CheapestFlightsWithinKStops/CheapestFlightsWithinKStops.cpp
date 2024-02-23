@@ -92,6 +92,7 @@ public:
         neighbors[v[0]].push_back({v[1], v[2]});
       }
 
-      return r(neighbors, visited, src, dst, k, -1);
+      int res = r(neighbors, visited, src, dst, k, -1);
+      return (res == INT_MAX) ? -1 : res;
     }
 };
