@@ -67,7 +67,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int r(vector<vector<pair<int,int>>>& neighbors, vector<bool> visited, int cur, int dest, int k, int used) {
+long long r(vector<vector<pair<int,int>>>& neighbors, vector<bool> visited, int cur, int dest, int k, int used) {
   if (used > k) return INT_MAX;
 
   if (visited[cur]) return INT_MAX;
@@ -75,9 +75,9 @@ int r(vector<vector<pair<int,int>>>& neighbors, vector<bool> visited, int cur, i
   if (dest == cur) return 0;
 
   auto neighs = neighbors[cur];
-  int mn = INT_MAX;
+  long long mn = INT_MAX;
   for (auto [node,dist]: neighs) {
-    mn = min(mn,dist + r(neighbors, dists, visited, node, dest, k, used+1));
+    mn = min(mn,dist + r(neighbors, visited, node, dest, k, used+1));
   }
   return mn;
 }
@@ -92,6 +92,6 @@ public:
         neighbors[v[0]].push_back({v[1], v[2]});
       }
 
-      return r(neighbors, visited, src, dst, k, 0);
+      return r(neighbors, visited, src, dst, k, -1);
     }
 };
