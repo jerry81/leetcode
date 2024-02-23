@@ -67,21 +67,31 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int r(vector<vector<pair<int,int>>>& neighbors, vector<bool> visited, int cur, int dest, int k, int used) {
+  if (used > k) return INT_MAX;
+
+  if (visited[cur]) return INT_MAX;
+  visited[cur] = true;
+  if (dest == cur) return 0;
+
+  auto neighs = neighbors[cur];
+  int mn = INT_MAX;
+  for (auto [node,dist]: neighs) {
+    mn = min(mn,dist + r(neighbors, dists, visited, node, dest, k, used+1));
+  }
+  return mn;
+}
+
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
       // djikstra but new constraint, limit numbe of steps
-      // so dp + brute force dfs
+      // so brute force dfs
+      vector<bool> visited(n, false);
       vector<vector<pair<int,int>>> neighbors(n, vector<pair<int,int>>(0));
       for (auto v: flights) {
         neighbors[v[0]].push_back({v[1], v[2]});
       }
-      for (int i = 0; i < n; ++i) {
-        cout << "neighbors of " << i << endl;
-        auto cur = neighbors[i];
-        for (auto item: cur) {
-          cout << item.first << "," << item.second << endl;
-        }
-      }
-      return 0;
+
+      return r(neighbors, visited, src, dst, k, 0);
     }
 };
