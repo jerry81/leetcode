@@ -64,6 +64,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn slowest_key(release_times: Vec<i32>, keys_pressed: String) -> char {
-
+    let mut mx = 0;
+    let mut mxkey = keys_pressed.chars().nth(0).unwrap();
+    let sz = release_times.len();
+    let mut curtime = 0;
+    for i in 0..sz {
+      let key = keys_pressed.chars().nth(i).unwrap();
+      let rel = release_times[i];
+      let dur = rel - curtime;
+      if dur > mx)
+        mx = dur;
+        mxkey = key;
+      } else if dur == mx && key as u8 > mxkey as u8 {
+        mxkey = key;
+      }
+    }
+    mxkey
   }
 }
