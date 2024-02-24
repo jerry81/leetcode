@@ -111,9 +111,14 @@ class Solution {
     q.push({0,0});
     q.push({firstPerson,0});
     while (!q.empty()) {
-      pair<int,int> t = q.front();
+      auto [idx,time] = q.front();
       q.pop();
-
+      vector<pair<int,int>> neigh = neighbors[idx];
+      for (auto [nidx,ntime]: neigh) {
+        if (earliest[nidx] > time && ntime >= time) {
+          q.push({nidx,ntime});
+        }
+      }
     }
     vector<int> ret;
     for (int i = 0; i < n; ++i) {
