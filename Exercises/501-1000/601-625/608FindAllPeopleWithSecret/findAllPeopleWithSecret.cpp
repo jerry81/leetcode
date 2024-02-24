@@ -80,6 +80,7 @@ Acceptance Rate
 
 #include <unordered_map>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -103,6 +104,21 @@ class Solution {
         cout << f << " at time " << s << endl;
       }
     }
-    return {0};
+    vector<int> earliest(n, INT_MAX);
+    earliest[0] = 0;
+    earliest[firstPerson] = 0;
+    queue<pair<int,int>> q;
+    q.push({0,0});
+    q.push({firstPerson,0});
+    while (!q.empty()) {
+      pair<int,int> t = q.front();
+      q.pop();
+
+    }
+    vector<int> ret;
+    for (int i = 0; i < n; ++i) {
+      if (earliest[i] < INT_MAX) ret.push_back(i);
+    }
+    return ret;
   }
 };
