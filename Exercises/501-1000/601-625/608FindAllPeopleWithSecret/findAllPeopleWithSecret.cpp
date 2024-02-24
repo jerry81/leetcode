@@ -98,12 +98,6 @@ class Solution {
       neighbors[p1].push_back(pair2);
       neighbors[p2].push_back(pair1);
     }
-    for (auto [k, v] : neighbors) {
-      cout << "neighbors of " << k << endl;
-      for (auto [f, s] : v) {
-        cout << f << " at time " << s << endl;
-      }
-    }
     vector<int> earliest(n, INT_MAX);
     earliest[0] = 0;
     earliest[firstPerson] = 0;
@@ -117,6 +111,7 @@ class Solution {
       for (auto [nidx,ntime]: neigh) {
         if (earliest[nidx] > time && ntime >= time) {
           q.push({nidx,ntime});
+          earliest[nidx] = ntime;
         }
       }
     }
