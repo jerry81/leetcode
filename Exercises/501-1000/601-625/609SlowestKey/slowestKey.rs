@@ -72,7 +72,8 @@ impl Solution {
       let key = keys_pressed.chars().nth(i).unwrap();
       let rel = release_times[i];
       let dur = rel - curtime;
-      if dur > mx)
+      curtime = rel;
+      if dur > mx {
         mx = dur;
         mxkey = key;
       } else if dur == mx && key as u8 > mxkey as u8 {
