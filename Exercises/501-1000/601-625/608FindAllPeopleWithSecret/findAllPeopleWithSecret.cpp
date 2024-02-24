@@ -69,12 +69,22 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> findAllPeople(int n, vector<vector<int>>& meetings, int firstPerson) {
-
+      unordered_map<int, vector<pair<int,int>>> neighbors;
+      for (vector<int> v: meetings) {
+        int p1 = v[0];
+        int p2 = v[1];
+        int t = v[2];
+        pair<int,int> pair1 = {p1,t};
+        pair<int,int> pair2 = {p2,t};
+        neighbors[p1].push_back(pair2);
+        neighbors[p2].push_back(pair1);
+      }
     }
 };
