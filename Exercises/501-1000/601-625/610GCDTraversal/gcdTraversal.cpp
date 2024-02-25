@@ -123,13 +123,24 @@ vector<int> eratosthenes(int MAX) {
   return sieve;
 }
 
+unordered_set<int> getPrimeFactorsUsingSieve(int n, vector<int>& sieve) {
+  unordered_set<int> ret;
+  while (n > 1) {
+    int factor = sieve[n];
+    ret.insert(factor);
+    n/=factor;
+  }
+  return ret;
+}
+
 class Solution {
   unordered_set<int> processed;
 
  public:
   bool canTraverseAllPairs(vector<int>& nums) {
     int MAX_NUM = 100000;
-    vector<int> sieve = eratosthenes(MAX_NUM);
+    unordered_set<int> as_s(nums.begin(), nums.end());
+    vector<int> sieve = eratosthenes(MAX_NUM); // items are prime if idx+1 is equal to sieve[idx]
     int sz = nums.size();
     if (sz == 1) return true;
     UnionFind uf = UnionFind(sz);
@@ -139,16 +150,12 @@ class Solution {
       if (processed.find(x) != processed.end()) continue;
 
       processed.insert(x);
-      for (int j = i + 1; j < sz; ++j) {
-        int y = nums[j];
-        if (y == 1) return false;
-        bool ok = gcd(x, y) != 1;
-        if (!ok) continue;
-        uf.unionSet(i, j);
+      for (int pf: getPrimeFactorsUsingSieve(x, sieve)) {
+        uf.unionSet(pf, x);
       }
     }
     int rootCount = 0;
-    for (int i = 0; i < sz; ++i) {
+    for (int i: as_s) {
       if (uf.find(i) == i) rootCount += 1;
       if (rootCount > 1) return false;
     }
