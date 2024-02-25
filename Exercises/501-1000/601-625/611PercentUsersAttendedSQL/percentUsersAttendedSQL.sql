@@ -99,4 +99,4 @@ SELECT r.contest_id,
 FROM Register r
 JOIN UserCounts uc ON 1=1
 GROUP BY r.contest_id, uc.total_users
-ORDER BY percentage DESC;
+ORDER BY percentage DESC, contest_id;
