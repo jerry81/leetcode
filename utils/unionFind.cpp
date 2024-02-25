@@ -3,9 +3,9 @@
 using namespace std;
 
 
-class UnionFind {
+class UnionFindWithRank {
 public:
-    UnionFind(int n) {
+    UnionFindWithRank(int n) {
         parent.resize(n);
         rank.assign(n, 0);
 
@@ -48,4 +48,35 @@ public:
 private:
     vector<int> parent; // Parent array for each element
     vector<int> rank;   // Rank of each element for rank optimization
+};
+
+class UnionFind {
+public:
+    UnionFind(int sz) : root(sz) {
+        for (int i = 0; i < sz; i++) {
+            root[i] = i;
+        }
+    }
+
+    int find(int x) {
+        while (x != root[x]) {
+            x = root[x];
+        }
+        return x;
+    }
+
+    void unionSet(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            root[rootY] = rootX;
+        }
+    }
+
+    bool connected(int x, int y) {
+        return find(x) == find(y);
+    }
+
+private:
+    vector<int> root;
 };
