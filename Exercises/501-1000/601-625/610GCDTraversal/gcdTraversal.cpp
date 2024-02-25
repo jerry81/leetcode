@@ -66,22 +66,6 @@ Acceptance Rate
 
 using namespace std;
 
-map<pair<int, int>, int> gcdCache;
-
-int gcd(int a, int b) {
-  // Check if the result is already memoized
-  if (gcdCache.count({a, b})) {
-    return gcdCache[{a, b}];
-  }
-
-  // Calculate the GCD
-  int result = b == 0 ? a : gcd(b, a % b);
-
-  // Memoize the result
-  gcdCache[{a, b}] = result;
-  return result;
-}
-
 class UnionFind {
  public:
   UnionFind(int sz) : root(sz) {
@@ -128,7 +112,7 @@ unordered_set<int> getPrimeFactorsUsingSieve(int n, vector<int>& sieve) {
   while (n > 1) {
     int factor = sieve[n];
     ret.insert(factor);
-    n/=factor;
+    n /= factor;
   }
   return ret;
 }
@@ -140,22 +124,23 @@ class Solution {
   bool canTraverseAllPairs(vector<int>& nums) {
     int MAX_NUM = 100000;
     unordered_set<int> as_s(nums.begin(), nums.end());
-    vector<int> sieve = eratosthenes(MAX_NUM); // items are prime if idx+1 is equal to sieve[idx]
+    vector<int> sieve = eratosthenes(
+        MAX_NUM);  // items are prime if idx+1 is equal to sieve[idx]
     int sz = nums.size();
     if (sz == 1) return true;
-    UnionFind uf = UnionFind(sz);
+    UnionFind uf = UnionFind(MAX_NUM + 1);
     for (int i = 0; i < sz - 1; ++i) {
       int x = nums[i];
       if (x == 1) return false;
       if (processed.find(x) != processed.end()) continue;
 
       processed.insert(x);
-      for (int pf: getPrimeFactorsUsingSieve(x, sieve)) {
-        uf.unionSet(pf, x);
+      for (int pf : getPrimeFactorsUsingSieve(x, sieve)) {
+        uf.unionSet(x, pf);
       }
     }
     int rootCount = 0;
-    for (int i: as_s) {
+    for (int i : as_s) {
       if (uf.find(i) == i) rootCount += 1;
       if (rootCount > 1) return false;
     }
