@@ -60,9 +60,27 @@ Acceptance Rate
 
 */
 
+#include <map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
+
+map<pair<int, int>, int> gcdCache;
+
+int gcd(int a, int b) {
+  // Check if the result is already memoized
+  if (gcdCache.count({a, b})) {
+    return gcdCache[{a, b}];
+  }
+
+  // Calculate the GCD
+  int result = b == 0 ? a : gcd(b, a % b);
+
+  // Memoize the result
+  gcdCache[{a, b}] = result;
+  return result;
+}
 
 class UnionFind {
  public:
@@ -80,7 +98,6 @@ class UnionFind {
   }
 
   void unionSet(int x, int y) {
-      cout << "here " << endl;
     int rootX = find(x);
     int rootY = find(y);
     if (rootX != rootY) {
@@ -94,23 +111,37 @@ class UnionFind {
   vector<int> root;
 };
 
-int gcd(int a, int b) {
-  while (b != 0) {
-    int temp = a;
-    a = b;
-    b = temp % b;
+vector<int> eratosthenes(int MAX) {
+  vector<int> sieve(MAX + 1, 0);
+  for (int d = 2; d <= MAX; d++) {
+    if (sieve[d] == 0) {
+      for (int v = d; v <= MAX; v += d) {
+        sieve[v] = d;
+      }
+    }
   }
-  return a;
+  return sieve;
 }
+
 class Solution {
+  unordered_set<int> processed;
+
  public:
   bool canTraverseAllPairs(vector<int>& nums) {
+    int MAX_NUM = 100000;
+    vector<int> sieve = eratosthenes(MAX_NUM);
     int sz = nums.size();
+    if (sz == 1) return true;
     UnionFind uf = UnionFind(sz);
     for (int i = 0; i < sz - 1; ++i) {
+      int x = nums[i];
+      if (x == 1) return false;
+      if (processed.find(x) != processed.end()) continue;
+
+      processed.insert(x);
       for (int j = i + 1; j < sz; ++j) {
-        int x = nums[i];
         int y = nums[j];
+        if (y == 1) return false;
         bool ok = gcd(x, y) != 1;
         if (!ok) continue;
         uf.unionSet(i, j);
