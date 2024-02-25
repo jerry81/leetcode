@@ -121,14 +121,20 @@ class Solution {
   bool canTraverseAllPairs(vector<int>& nums) {
     int sz = nums.size();
     UnionFind uf = UnionFind(sz);
-    for (int i = 0; i < sz-1; ++i) {
-      for (int j = i+1; j < sz; ++j) {
+    for (int i = 0; i < sz - 1; ++i) {
+      for (int j = i + 1; j < sz; ++j) {
         int x = nums[i];
         int y = nums[j];
-        bool ok = gcd(x,y) != 1;
+        bool ok = gcd(x, y) != 1;
         if (!ok) continue;
-        uf.unite(x,y);
+        uf.unite(x, y);
       }
     }
+    int rootCount = 0;
+    for (int i = 0; i < sz; ++i) {
+      if (uf.find(i) == i) rootCount += 1;
+      if (rootCount > 1) return false;
+    }
+    return rootCount == 1;
   }
 };
