@@ -60,7 +60,6 @@ Acceptance Rate
 
 */
 
-#include <map>
 #include <unordered_set>
 #include <vector>
 
@@ -84,9 +83,7 @@ class UnionFind {
   void unionSet(int x, int y) {
     int rootX = find(x);
     int rootY = find(y);
-    if (rootX != rootY) {
-      root[rootY] = rootX;
-    }
+    root[rootX] = rootY;
   }
 
   bool connected(int x, int y) { return find(x) == find(y); }
@@ -107,11 +104,11 @@ vector<int> eratosthenes(int MAX) {
   return sieve;
 }
 
-unordered_set<int> getPrimeFactorsUsingSieve(int n, vector<int>& sieve) {
-  unordered_set<int> ret;
+vector<int> getPrimeFactorsUsingSieve(int n, vector<int>& sieve) {
+  vector<int> ret;
   while (n > 1) {
     int factor = sieve[n];
-    ret.insert(factor);
+    ret.push_back(factor);
     n /= factor;
   }
   return ret;
@@ -123,27 +120,30 @@ class Solution {
  public:
   bool canTraverseAllPairs(vector<int>& nums) {
     int MAX_NUM = 100000;
-    unordered_set<int> as_s(nums.begin(), nums.end());
+
     vector<int> sieve = eratosthenes(
         MAX_NUM);  // items are prime if idx+1 is equal to sieve[idx]
     int sz = nums.size();
     if (sz == 1) return true;
     UnionFind uf = UnionFind(MAX_NUM + 1);
-    for (int i = 0; i < sz - 1; ++i) {
+    for (int i = 0; i < sz; ++i) {
       int x = nums[i];
       if (x == 1) return false;
       if (processed.find(x) != processed.end()) continue;
 
       processed.insert(x);
+
       for (int pf : getPrimeFactorsUsingSieve(x, sieve)) {
         uf.unionSet(x, pf);
       }
     }
     int rootCount = 0;
-    for (int i : as_s) {
-      if (uf.find(i) == i) rootCount += 1;
-      if (rootCount > 1) return false;
+    int root = uf.find(nums[0]);
+    for (int i : nums) {
+      if (uf.find(i) != root) {
+        return false;
+      }
     }
-    return rootCount == 1;
+    return true;
   }
 };
