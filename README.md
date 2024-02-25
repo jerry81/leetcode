@@ -313,7 +313,8 @@ count(*) to get the # items in the group
 
 - see 567 for using regex
 - see 572 for regex /y
-
+- see 611 for WHEN
+  - and multiple orderby
 ## RUST TILs
 
 - String is for mutable
