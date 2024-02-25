@@ -4,6 +4,11 @@ leetcode solutions
 
 # Algorithms
 
+## euclidean algorithm for gcd
+
+- gcd(a,b)is equal to gcd(b, a%b)
+until a%b becomes zero.  in case of a%b, b is the gcd.
+
 ## Djikstra's
 
 1.  Setup priority Queue table that will store weighted edges
