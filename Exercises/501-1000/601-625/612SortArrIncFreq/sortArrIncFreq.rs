@@ -43,8 +43,27 @@ Acceptance Rate
 71.2%
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn frequency_sort(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut hm: HashMap<i32, i32> = HashMap::new();
+    for n in nums {
+      *hm.entry(n).or_insert(0) += 1;
+    }
+    let mut as_v: Vec<_> = hm.iter().collect();
+    as_v.sort_by(|a,b| {
+      if a.1 == b.1 {
+        return b.0.cmp(a.0)
+      }
+      a.1.cmp(b.1)
+    });
+    let mut res: Vec<i32> = Vec::new();
+    for (k,v) in as_v {
+      for i in 0..*v {
+        res.push(*k);
+      }
+    }
+    res
   }
 }
