@@ -52,6 +52,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_form_array(arr: Vec<i32>, pieces: Vec<Vec<i32>>) -> bool {
-
+    let sz = arr.len();
+    for v in pieces {
+      let first = v[0];
+      let vsz = v.len();
+      for i in 0..sz {
+        if first == arr[i] {
+          for j in 1..vsz {
+            if arr[i+j] != v[j] {
+              return false;
+            }
+          }
+        }
+      }
+    }
+    true
   }
 }
