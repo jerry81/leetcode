@@ -393,7 +393,17 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - cell and refcell usage, see 551
 
-
+- sort a hashmap by key based (complex lambda) see 612
+  - also convert hm to vec (typed as _ - leaves to compiler to figure out) use iter().collect()
+  - also reminder accessing pairs from hm, items come as references and need to use * to dereference sometimes
+  - finally, the pairs are accessed using p.0, p.1, and built in cmp method
+```rs
+    match x.cmp(&y) {
+        Ordering::Less => println!("x is less than y"),
+        Ordering::Equal => println!("x is equal to y"),
+        Ordering::Greater => println!("x is greater than y"),
+    }
+```
 
 ## todo
 
