@@ -56,8 +56,10 @@ impl Solution {
     for v in pieces {
       let first = v[0];
       let vsz = v.len();
+      let mut found = false;
       for i in 0..sz {
         if first == arr[i] {
+          found = true;
           for j in 1..vsz {
             if i+j >= sz { return false; }
             if arr[i+j] != v[j] {
@@ -66,6 +68,7 @@ impl Solution {
           }
         }
       }
+      if !found { return false; }
     }
     true
   }
