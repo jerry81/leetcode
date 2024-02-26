@@ -59,6 +59,7 @@ impl Solution {
       for i in 0..sz {
         if first == arr[i] {
           for j in 1..vsz {
+            if i+j >= sz { return false; }
             if arr[i+j] != v[j] {
               return false;
             }
