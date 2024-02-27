@@ -69,7 +69,10 @@ impl Solution {
         dp.push(nxt);
         mx = mx.max(nxt);
       } else {
-        let nxt = dp[i]
+        let tmp = (i-1)/2;
+        let nxt = dp[tmp]+dp[tmp+1];
+        dp.push(nxt);
+          mx = mx.max(nxt);
       }
     }
     mx
