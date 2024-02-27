@@ -59,6 +59,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn get_maximum_generated(n: i32) -> i32 {
-
+    let mut dp:Vec<i32> = Vec::new();
+    let mut mx = 0;
+    dp.push(0);
+    dp.push(1);
+    for i in 2..n {
+      if i % 2 == 0 {
+        let nxt = dp[i/2];
+        dp.push(nxt);
+        mx = mx.max(nxt);
+      } else {
+        let nxt = dp[i]
+      }
+    }
+    mx
   }
 }
