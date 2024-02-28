@@ -69,6 +69,15 @@ impl Solution {
       res.extend(std::iter::repeat(0).take(sz)); // take # of items, repeat what value
     } else {
       // case negative k
+      for i in 0..sz {
+        let mut sm = 0;
+        for j in (k..=-1).rev() {
+          let mut idx = i as i32 + j;
+          idx = (idx % sz as i32 + sz as i32) % sz as i32; // more complicated than i thought
+          sm+=code[idx as usize];
+        }
+        res.push(sm);
+      }
     }
     res
   }
