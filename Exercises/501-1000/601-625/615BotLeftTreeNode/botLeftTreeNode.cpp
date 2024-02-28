@@ -4,7 +4,8 @@
 Medium
 Topics
 Companies
-Given the root of a binary tree, return the leftmost value in the last row of the tree.
+Given the root of a binary tree, return the leftmost value in the last row of
+the tree.
 
 
 
@@ -45,29 +46,45 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
+
+#include <algorithm>
+using namespace std;
 
 class Solution {
-int res = -1;
-int depth(TreeNode* root) {
-}
-int preorder(TreeNode* root, int depth) {
-}
-public:
-    int findBottomLeftValue(TreeNode* root) {
-      /// depth then max
-      int mxd = depth(root);
-      return preorder(root, mxd);
-    }
+  int res = -1;
+  int depth(TreeNode *root) {
+    if (root == nullptr) return 0;
+
+    return max(1 + depth(root->left), 1 + depth(root->right));
+  }
+  int preorder(TreeNode *root, int curdepth, int tgtdepth) {
+    if (root == nullptr) return -1;
+
+    if (curdepth == tgtdepth) return root->val;
+
+    int resl = preorder(root->left, 1+curdepth, tgtdepth);
+    if (resl >= 0) return resl;
+    return preorder(root->right, 1+curdepth, tgtdepth);
+  }
+
+ public:
+  int findBottomLeftValue(TreeNode *root) {
+    /// depth then max
+    int mxd = depth(root);
+    return preorder(root, 1, mxd);
+  }
 };
