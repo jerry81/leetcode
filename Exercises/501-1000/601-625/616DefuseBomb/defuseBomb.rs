@@ -56,6 +56,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn decrypt(code: Vec<i32>, k: i32) -> Vec<i32> {
+    let mut res: Vec<i32> = Vec::new();
+    if k > 0 {
+      // case positive k - sum and remove code[i]
 
+    } else if k == 0 {
+      // case 0 k
+    } else {
+      // case negative k
+    }
   }
 }
