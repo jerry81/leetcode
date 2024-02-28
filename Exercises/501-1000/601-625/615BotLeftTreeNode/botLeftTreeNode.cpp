@@ -71,13 +71,13 @@ class Solution {
 
     return max(1 + depth(root->left), 1 + depth(root->right));
   }
-  int preorder(TreeNode *root, int curdepth, int tgtdepth) {
-    if (root == nullptr) return -1;
+  long long preorder(TreeNode *root, int curdepth, int tgtdepth) {
+    if (root == nullptr) return LLONG_MIN;
 
     if (curdepth == tgtdepth) return root->val;
 
-    int resl = preorder(root->left, 1+curdepth, tgtdepth);
-    if (resl >= 0) return resl;
+    long long resl = preorder(root->left, 1+curdepth, tgtdepth);
+    if ((long long)resl > LLONG_MIN) return resl;
     return preorder(root->right, 1+curdepth, tgtdepth);
   }
 
