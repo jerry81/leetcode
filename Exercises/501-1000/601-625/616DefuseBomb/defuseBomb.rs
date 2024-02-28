@@ -58,11 +58,18 @@ impl Solution {
   pub fn decrypt(code: Vec<i32>, k: i32) -> Vec<i32> {
     let mut res: Vec<i32> = Vec::new();
     let sz = code.len();
+    let cclone = code.clone();
     if k > 0 {
       // case positive k - sum and remove code[i]
-      let mut sm:i32 = code.iter().sum(); // needs explicit type
-      for i in code {
-        res.push(sm-i);
+      for i in 0..sz {
+        let mut sm = 0;
+        for j in (1..=k) {
+
+          let mut idx = i + j as usize;
+          idx = (idx % sz + sz) % sz; // more complicated than i thought
+          sm+=cclone[idx];
+        }
+        res.push(sm);
       }
     } else if k == 0 {
       // case 0 k
@@ -72,9 +79,9 @@ impl Solution {
       for i in 0..sz {
         let mut sm = 0;
         for j in (k..=-1).rev() {
-          let mut idx = i as i32 + j;
-          idx = (idx % sz as i32 + sz as i32) % sz as i32; // more complicated than i thought
-          sm+=code[idx as usize];
+          let mut idx = i + j as usize;
+          idx = (idx % sz+ sz) % sz; // more complicated than i thought
+          sm+=code[idx];
         }
         res.push(sm);
       }
