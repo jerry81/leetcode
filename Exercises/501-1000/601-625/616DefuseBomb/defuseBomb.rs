@@ -59,11 +59,15 @@ impl Solution {
     let mut res: Vec<i32> = Vec::new();
     if k > 0 {
       // case positive k - sum and remove code[i]
-
+      let mut sm:i32 = code.iter().sum(); // needs explicit type
+      for i in code {
+        res.push(sm-i);
+      }
     } else if k == 0 {
       // case 0 k
     } else {
       // case negative k
     }
+    res
   }
 }
