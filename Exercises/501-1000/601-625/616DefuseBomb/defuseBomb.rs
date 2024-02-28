@@ -57,6 +57,7 @@ Acceptance Rate
 impl Solution {
   pub fn decrypt(code: Vec<i32>, k: i32) -> Vec<i32> {
     let mut res: Vec<i32> = Vec::new();
+    let sz = code.len();
     if k > 0 {
       // case positive k - sum and remove code[i]
       let mut sm:i32 = code.iter().sum(); // needs explicit type
@@ -65,6 +66,7 @@ impl Solution {
       }
     } else if k == 0 {
       // case 0 k
+      res.extend(std::iter::repeat(0).take(sz)); // take # of items, repeat what value
     } else {
       // case negative k
     }
