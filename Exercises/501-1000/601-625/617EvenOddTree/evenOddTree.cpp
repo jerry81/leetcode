@@ -93,6 +93,6 @@ bool r(bool isOdd, TreeNode* root) {
 }
 public:
     bool isEvenOddTree(TreeNode* root) {
-      return r(true, root);
+      return r(false, root);
     }
 };
