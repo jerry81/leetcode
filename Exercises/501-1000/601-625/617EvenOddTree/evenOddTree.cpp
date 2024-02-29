@@ -95,19 +95,18 @@ class Solution {
     q.push(root);
     bool odd = false;
     while (!q.empty()) {
-      queue<TreeNode*> nq;
+      queue<TreeNode *> nq;
       bool hasprev = false;
       int prev;
       while (!q.empty()) {
-
-        TreeNode* cur = q.front();
+        TreeNode *cur = q.front();
         q.pop();
-        if (odd) { // decreasing
-          if (cur->val % 2 != 0) return false;
+        if (odd) {  // decreasing
+          if (cur->val % 2 == 1) return false;
 
           if (hasprev && cur->val >= prev) return false;
         } else {
-          if (cur->val % 2 == 1) return false;
+          if (cur->val % 2 == 0) return false;
 
           if (hasprev && cur->val <= prev) return false;
         }
@@ -121,7 +120,8 @@ class Solution {
         }
       }
       q = nq;
-      odd=!odd;
+      odd = !odd;
     }
+    return true;
   }
 };
