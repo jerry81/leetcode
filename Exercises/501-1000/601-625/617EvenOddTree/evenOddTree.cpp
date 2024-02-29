@@ -82,8 +82,17 @@ Acceptance Rate
  };
 
 class Solution {
+bool r(bool isOdd, TreeNode* root) {
+  if (!root) return true;
+  if (isOdd) {
+    if (root->val % 2 != 0) return false;
+  } else {
+    if (root->val % 2 == 0) return false;
+  }
+  return r(!isOdd,root->left) && r(!isOdd,root->right);
+}
 public:
     bool isEvenOddTree(TreeNode* root) {
-
+      return r(true, root);
     }
 };
