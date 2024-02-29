@@ -48,8 +48,11 @@ Each call to insert will have a unique id.
 Exactly n calls will be made to insert.
 
 */
-struct OrderedStream {
+use std::collections::HashMap;
 
+struct OrderedStream {
+  hm: HashMap<i32, String>,
+  mx: i32
 }
 
 
@@ -60,11 +63,14 @@ struct OrderedStream {
 impl OrderedStream {
 
     fn new(n: i32) -> Self {
-
+      self.mx = -1;
+      self.hm = HashMap::new();
     }
 
     fn insert(&self, id_key: i32, value: String) -> Vec<String> {
-
+      *self.hm.entry(id_key).or_insert(value) = value;
+      self.mx = self.mx.max(id_key);
+      hm[self.mx]
     }
 }
 
