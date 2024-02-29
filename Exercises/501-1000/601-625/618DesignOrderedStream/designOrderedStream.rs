@@ -48,20 +48,28 @@ Each call to insert will have a unique id.
 Exactly n calls will be made to insert.
 
 */
+struct OrderedStream {
 
-class OrderedStream {
-  public:
-      OrderedStream(int n) {
+}
 
-      }
 
-      vector<string> insert(int idKey, string value) {
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl OrderedStream {
 
-      }
-  };
+    fn new(n: i32) -> Self {
 
-  /**
-   * Your OrderedStream object will be instantiated and called as such:
-   * OrderedStream* obj = new OrderedStream(n);
-   * vector<string> param_1 = obj->insert(idKey,value);
-   */
+    }
+
+    fn insert(&self, id_key: i32, value: String) -> Vec<String> {
+
+    }
+}
+
+/**
+ * Your OrderedStream object will be instantiated and called as such:
+ * let obj = OrderedStream::new(n);
+ * let ret_1: Vec<String> = obj.insert(idKey, value);
+ */
