@@ -96,15 +96,31 @@ class Solution {
     bool odd = false;
     while (!q.empty()) {
       queue<TreeNode*> nq;
+      bool hasprev = false;
+      int prev;
       while (!q.empty()) {
+
         TreeNode* cur = q.front();
         q.pop();
-        if (odd) {
+        if (odd) { // decreasing
           if (cur->val % 2 != 0) return false;
+
+          if (hasprev && cur->val >= prev) return false;
         } else {
           if (cur->val % 2 == 1) return false;
+
+          if (hasprev && cur->val <= prev) return false;
+        }
+        hasprev = true;
+        prev = cur->val;
+        if (cur->left) {
+          nq.push(cur->left);
+        }
+        if (cur->right) {
+          nq.push(cur->right);
         }
       }
+      q = nq;
       odd=!odd;
     }
   }
