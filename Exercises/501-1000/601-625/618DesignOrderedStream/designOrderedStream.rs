@@ -48,31 +48,32 @@ Each call to insert will have a unique id.
 Exactly n calls will be made to insert.
 
 */
-use std::collections::HashMap;
+use std::collections::BTreeMap; // BTreeMap: sorted map
 
 struct OrderedStream {
-  hm: HashMap<i32, String>,
-  mx: i32
+    stream: BTreeMap<i32, String>,
+    next_id: i32,
 }
 
-
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
 impl OrderedStream {
-
-    fn new(n: i32) -> Self {
-      self.mx = -1;
-      self.hm = HashMap::new();
+    fn new(n:i32) -> Self {
+        OrderedStream {
+            stream: BTreeMap::new(),
+            next_id: 1,
+        }
     }
 
-    fn insert(&self, id_key: i32, value: String) -> Vec<String> {
-      *self.hm.entry(id_key).or_insert(value) = value;
-      self.mx = self.mx.max(id_key);
-      hm[self.mx]
+    fn insert(&mut self, id: i32, value: String) -> Vec<String> {
+        self.stream.insert(id, value);
+        let mut result = Vec::new();
+        while let Some(val) = self.stream.remove(&self.next_id) {
+            result.push(val);
+            self.next_id += 1;
+        }
+        result
     }
 }
+
 
 /**
  * Your OrderedStream object will be instantiated and called as such:
