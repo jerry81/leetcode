@@ -48,6 +48,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_odd_binary_number(s: String) -> String {
-
+    let mut z_count = 0;
+    let mut o_count = 0;
+    for c in s.chars() {
+      if c == '0' { z_count+=1; }
+      if c == '1' { o_count+=1; }
+    }
+    println!("zeroes {}, ones {}", z_count, o_count);
+    let mut ret = String::new();
+    ret
   }
 }
