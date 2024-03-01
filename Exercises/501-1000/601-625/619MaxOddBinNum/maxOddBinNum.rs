@@ -54,8 +54,17 @@ impl Solution {
       if c == '0' { z_count+=1; }
       if c == '1' { o_count+=1; }
     }
-    println!("zeroes {}, ones {}", z_count, o_count);
+
     let mut ret = String::new();
+    while o_count > 1 {
+      ret.push('1');
+      o_count-=1;
+    }
+    while z_count > 0 {
+      ret.push('0');
+      z_count-=1;
+    }
+    ret.push('1');
     ret
   }
 }
