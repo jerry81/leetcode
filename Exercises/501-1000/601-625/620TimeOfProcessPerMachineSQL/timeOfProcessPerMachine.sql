@@ -82,10 +82,10 @@
 
 -- Write your PostgreSQL query statement below
 
-select sq.machine_id, AVG((sq.end_time-sq.start_time)) as processing_time
-from
-(select machine_id, machine_id || '_' || process_id, MIN(timestamp) as start_time, MAX(timestamp) as end_time
-from Activity
-group by machine_id || '_' || process_id, machine_id
-) as sq
-group by sq.machine_id;
+SELECT sq.machine_id, ROUND(AVG(sq.end_time - sq.start_time)::numeric, 3) AS processing_time
+FROM (
+    SELECT machine_id, MIN(timestamp) AS start_time, MAX(timestamp) AS end_time
+    FROM Activity
+    GROUP BY machine_id, process_id
+) AS sq
+GROUP BY sq.machine_id;
