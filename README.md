@@ -313,8 +313,11 @@ count(*) to get the # items in the group
 
 - see 567 for using regex
 - see 572 for regex /y
-- see 611 for WHEN
+- see 611 for WITH
   - and multiple orderby
+- 620 for postgres || (concatenation)
+  - concatenate two columns for use in a groupby
+
 ## RUST TILs
 
 - String is for mutable

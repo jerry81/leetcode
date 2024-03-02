@@ -80,3 +80,12 @@
 -- Acceptance Rate
 -- 66.7%
 
+-- Write your PostgreSQL query statement below
+
+select sq.machine_id, AVG((sq.end_time-sq.start_time)) as processing_time
+from
+(select machine_id, machine_id || '_' || process_id, MIN(timestamp) as start_time, MAX(timestamp) as end_time
+from Activity
+group by machine_id || '_' || process_id, machine_id
+) as sq
+group by sq.machine_id;
