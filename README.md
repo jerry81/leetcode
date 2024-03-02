@@ -317,6 +317,8 @@ count(*) to get the # items in the group
   - and multiple orderby
 - 620 for postgres || (concatenation)
   - concatenate two columns for use in a groupby
+  - round in postgres takes numeric, not double
+  - cast with variable::type
 
 ## RUST TILs
 
