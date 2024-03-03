@@ -45,17 +45,18 @@ Submissions
 Acceptance Rate
 38.7%
 
-*/impl Solution {
+*/
+impl Solution {
   pub fn max_repeating(sequence: String, word: String) -> i32 {
     let mut max_repeats = 0;
     let word_len = word.len();
-    if word_len > sequence.len() { return 0 }
+    if word_len > sequence.len() { return 0 } // edge case
 
-    for i in 0..=(sequence.len() - word_len) {
-        let substring = &sequence[i..i + word_len];
-        let mut repeats = 0;
+    for i in 0..=(sequence.len() - word_len) { // for each index
+        let substring = &sequence[i..i + word_len]; // string slice
+        let mut repeats = 0; // reset
         let mut j = i;
-        while j + word_len <= sequence.len() && &sequence[j..j + word_len] == word {
+        while j + word_len <= sequence.len() && &sequence[j..j + word_len] == word { // while with increment
             repeats += 1;
             j += word_len;
         }
