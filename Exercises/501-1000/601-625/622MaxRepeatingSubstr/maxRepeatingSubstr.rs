@@ -49,6 +49,28 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_repeating(sequence: String, word: String) -> i32 {
+      let mut max_repeats = 0;
+      let mut current_index = 0;
+      let word_len = word.len();
 
+      while current_index + word_len <= sequence.len() {
+          let substring = &sequence[current_index..current_index + word_len];
+          if substring == word {
+              let mut repeats = 1;
+              let mut next_index = current_index + word_len;
+              // Count consecutive occurrences of the word
+              while next_index + word_len <= sequence.len() && &sequence[next_index..next_index + word_len] == word {
+                  repeats += 1;
+                  next_index += word_len;
+              }
+              max_repeats = max_repeats.max(repeats);
+              // Skip to the end of the current occurrence
+              current_index = next_index;
+          } else {
+              current_index += 1;
+          }
+      }
+
+      max_repeats
   }
 }
