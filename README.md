@@ -324,6 +324,11 @@ count(*) to get the # items in the group
 ## RUST TILs
 
 - String is for mutable
+  - to truncate from start of string
+    - create a new string
+    - convert the old string into chars()
+    - chain it into a skip(n) where n is the number of characters to truncate
+    - finally collect()
 - &str are slices and immutable
 - unwrap unsafely converts from option to target type
 - cannot access indexes of string slice using a[0] notation
@@ -410,6 +415,8 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
         Ordering::Greater => println!("x is greater than y"),
     }
 ```
+
+- empty check is str.is_empty(), not str.empty()
 
 ## todo
 
