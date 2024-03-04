@@ -93,6 +93,7 @@ class Solution {
         power-=smallest;
         score+=1;
         tokens.erase(tokens.begin());
+        continue;
       }
 
       int largest = tokens.back();
@@ -101,6 +102,8 @@ class Solution {
         tokens.pop_back();
         power+=largest;
         score-=1;
+      } else {
+        return score;
       }
     }
     return score;
