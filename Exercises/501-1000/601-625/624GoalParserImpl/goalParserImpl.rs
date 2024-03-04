@@ -50,6 +50,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn interpret(command: String) -> String {
-
+    let mut res: Vec<char> = Vec::new();
+    let mut nxtCommand= command;
+    while !nxtCommand.is_empty() {
+      let mut nxtnxt:String = String::new();
+      if nxtCommand.starts_with("G") {
+        res.push('G');
+        nxtnxt = nxtCommand.chars().skip(1).collect();
+      } else if nxtCommand.starts_with("()") {
+        res.push('o');
+        nxtnxt = nxtCommand.chars().skip(2).collect();
+      } else {
+        res.push('a');
+        res.push('l');
+        nxtnxt = nxtCommand.chars().skip(4).collect();
+      }
+      nxtCommand = nxtnxt;
+    }
+    res.iter().collect()
   }
 }
