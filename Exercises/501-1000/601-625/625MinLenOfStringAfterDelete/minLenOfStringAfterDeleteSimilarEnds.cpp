@@ -66,15 +66,24 @@ class Solution {
   int minimumLength(string s) {
 
     while (true) {
-      char cur = s.front();
       int curl = s.size();
+      if (curl == 1) break;
+      char cur = s.front();
+
+      char curb = s.back();
+      if (cur != curb) break;
+
+
       while (s.front() == cur) {
         s.erase(s.begin());
+        if (s.empty()) break;
       }
+      if (s.empty()) break;
       while (s.back() == cur) {
         s.pop_back();
+        if (s.empty()) break;
       }
-      if (s.size() != curl) break;
+      if (s.size() == curl) break;
     }
     return s.size();
   }
