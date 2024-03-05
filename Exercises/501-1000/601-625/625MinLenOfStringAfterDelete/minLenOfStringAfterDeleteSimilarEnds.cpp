@@ -64,9 +64,10 @@ using namespace std;
 class Solution {
  public:
   int minimumLength(string s) {
-    char cur = s.front();
-    int curl = s.size();
+
     while (true) {
+      char cur = s.front();
+      int curl = s.size();
       while (s.front() == cur) {
         s.erase(s.begin());
       }
