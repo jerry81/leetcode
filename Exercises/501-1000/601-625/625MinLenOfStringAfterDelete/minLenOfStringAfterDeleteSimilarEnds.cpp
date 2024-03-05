@@ -5,14 +5,15 @@ Medium
 Topics
 Companies
 Hint
-Given a string s consisting only of characters 'a', 'b', and 'c'. You are asked to apply the following algorithm on the string any number of times:
+Given a string s consisting only of characters 'a', 'b', and 'c'. You are asked
+to apply the following algorithm on the string any number of times:
 
-Pick a non-empty prefix from the string s where all the characters in the prefix are equal.
-Pick a non-empty suffix from the string s where all the characters in this suffix are equal.
-The prefix and the suffix should not intersect at any index.
-The characters from the prefix and suffix must be the same.
-Delete both the prefix and the suffix.
-Return the minimum length of s after performing the above operation any number of times (possibly zero times).
+Pick a non-empty prefix from the string s where all the characters in the prefix
+are equal. Pick a non-empty suffix from the string s where all the characters in
+this suffix are equal. The prefix and the suffix should not intersect at any
+index. The characters from the prefix and suffix must be the same. Delete both
+the prefix and the suffix. Return the minimum length of s after performing the
+above operation any number of times (possibly zero times).
 
 
 
@@ -61,8 +62,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int minimumLength(string s) {
-
+ public:
+  int minimumLength(string s) {
+    char cur = s.front();
+    int curl = s.size();
+    while (true) {
+      while (s.front() == cur) {
+        s.erase(s.begin());
+      }
+      while (s.back() == cur) {
+        s.pop_back();
+      }
+      if (s.size() != curl) break;
     }
+    return s.size();
+  }
 };
