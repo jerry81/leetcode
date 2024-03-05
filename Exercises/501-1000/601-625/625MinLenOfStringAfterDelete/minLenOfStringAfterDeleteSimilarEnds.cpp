@@ -64,26 +64,17 @@ using namespace std;
 class Solution {
  public:
   int minimumLength(string s) {
-
-    while (true) {
-      int curl = s.size();
-      if (curl == 1) break;
-      char cur = s.front();
-
-      char curb = s.back();
+    while (s.size() > 1) { // combine the inf loop and the last break, remove the len check.
+      const char& cur = s.front(); // use constant ref
+      const char& curb = s.back();
       if (cur != curb) break;
 
-
-      while (s.front() == cur) {
+      while (!s.empty() && s.front() == cur) { // move the break into the conditional
         s.erase(s.begin());
-        if (s.empty()) break;
       }
-      if (s.empty()) break;
-      while (s.back() == cur) {
+      while (!s.empty() && s.back() == cur) {
         s.pop_back();
-        if (s.empty()) break;
       }
-      if (s.size() == curl) break;
     }
     return s.size();
   }
