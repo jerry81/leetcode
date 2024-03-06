@@ -46,7 +46,7 @@ Acceptance Rate
 82.9%
 */
 
-use std::collections::HashSet;
+use std::collections::HashSet; // TIL rust hash set
 
 impl Solution {
   pub fn count_consistent_strings(allowed: String, words: Vec<String>) -> i32 {
