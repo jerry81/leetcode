@@ -57,13 +57,14 @@ impl Solution {
     let mut res = 0;
     for word in words {
       let mut found = true;
-      for c in word {
-        if !hs.contains(c) {
+      for c in word.chars() {
+        if !&hs.contains(&c) {
           found = false;
           break;
         }
-        if found { res+=1 }
+
       }
+      if found { res+=1 }
     }
     res
   }
