@@ -45,8 +45,26 @@ Submissions
 Acceptance Rate
 82.9%
 */
+
+use std::collections::HashSet;
+
 impl Solution {
   pub fn count_consistent_strings(allowed: String, words: Vec<String>) -> i32 {
-
+    let mut hs:HashSet<char> = HashSet::new();
+    for c in allowed.chars() {
+      hs.insert(c);
+    }
+    let mut res = 0;
+    for word in words {
+      let mut found = true;
+      for c in word {
+        if !hs.contains(c) {
+          found = false;
+          break;
+        }
+        if found { res+=1 }
+      }
+    }
+    res
   }
 }
