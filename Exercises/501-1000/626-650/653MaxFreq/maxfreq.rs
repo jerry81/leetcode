@@ -44,8 +44,22 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn max_frequency_elements(nums: Vec<i32>) -> i32 {
-
+    let mut freq:HashMap<i32, i32> = HashMap::new();
+    for i in nums {
+      *freq.entry(i).or_insert(0)+=1;
+    }
+    let mut mx = 0;
+    for (_,v) in &freq {
+      mx = mx.max(v);
+    }
+    let multiplier = 0;
+    for (_k,v) in &freq {
+      if v == mx { multiplier += 1; }
+    }
+    multiplier*mx
   }
 }
