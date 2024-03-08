@@ -70,9 +70,35 @@ impl Solution {
     for c in number.chars() {
       if c != '-' && c != ' ' {
         chrs.push(c);
-        println!("pushed {}", c);
       }
     }
-    "".to_string()
+    let mut res = String::new();
+    let mut idx = 0;
+    let l = chrs.len();
+    let mut rem = l - idx;
+    while rem > 4 {
+      res.push(chrs[idx]);
+      res.push(chrs[idx+1]);
+      res.push(chrs[idx+2]);
+      idx+=3;
+
+      rem = l - idx;
+      if rem > 0 { res.push('-'); }
+    }
+    if rem == 2 {
+      res.push(chrs[idx]);
+      res.push(chrs[idx+1]);
+    } else if rem == 3 {
+      res.push(chrs[idx]);
+      res.push(chrs[idx+1]);
+      res.push(chrs[idx+2]);
+    } else {
+      res.push(chrs[idx]);
+      res.push(chrs[idx+1]);
+      res.push('-');
+      res.push(chrs[idx+2]);
+      res.push(chrs[idx+3]);
+    }
+    res
   }
 }
