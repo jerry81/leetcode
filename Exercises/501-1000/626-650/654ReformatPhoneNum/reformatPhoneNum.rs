@@ -66,6 +66,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn reformat_number(number: String) -> String {
-
+    let mut chrs:Vec<char> = Vec::new();
+    for c in number.chars() {
+      if c != '-' && c != ' ' {
+        chrs.push(c);
+        println!("pushed {}", c);
+      }
+    }
+    "".to_string()
   }
 }
