@@ -54,11 +54,11 @@ impl Solution {
     }
     let mut mx = 0;
     for (_,v) in &freq {
-      mx = mx.max(v);
+      mx = mx.max(*v);
     }
-    let multiplier = 0;
+    let mut multiplier = 0;
     for (_k,v) in &freq {
-      if v == mx { multiplier += 1; }
+      if *v == mx { multiplier += 1; }
     }
     multiplier*mx
   }
