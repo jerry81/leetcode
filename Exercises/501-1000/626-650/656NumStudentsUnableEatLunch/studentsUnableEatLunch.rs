@@ -71,18 +71,19 @@ impl Solution {
       for s in sandwiches {
         if s == 0 {
           if cnt1 <= 0 {
-            return ret
+            return ret as i32
           } else {
             cnt1-=1;
           }
         } else {
           if cnt2 <= 0 {
-            return ret
+            return ret as i32
           } else {
             cnt2-=1;
           }
         }
         ret-=1;
       }
+      0
   }
 }
