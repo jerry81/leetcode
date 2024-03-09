@@ -57,7 +57,19 @@ Acceptance Rate
 */
 impl Solution {
   pub fn count_students(students: Vec<i32>, sandwiches: Vec<i32>) -> i32 {
-      let mut student_idx = 0;
-      let s_l = students.len();
+      // shouldn't have to actually simulate
+      let mut cnt1 = 0;
+      let mut cnt2 = 0;
+      for s in students {
+        if s == 0 {
+          cnt1+=1;
+        }
+      }
+      for sn in sandwiches {
+        if sn == 0 {
+          cnt2+=1;
+        }
+      }
+      (cnt2 - cnt1).abs()
   }
 }
