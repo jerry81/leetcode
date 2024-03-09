@@ -56,6 +56,6 @@ impl Solution {
       ptr2+=1;
       continue;
     }
-    0
+    -1
   }
 }
