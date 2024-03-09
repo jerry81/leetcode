@@ -48,6 +48,13 @@ impl Solution {
     while (ptr1 < l1 && ptr2 < l2) {
       let n1 = nums1[ptr1];
       let n2 = nums2[ptr2];
+      if n1 == n2 { return n1 }
+      if n1 < n2 {
+        ptr1+=1;
+        continue;
+      }
+      ptr2+=1;
+      continue;
     }
     0
   }
