@@ -55,9 +55,9 @@ Acceptance Rate
 70.9%
 
 */
-
 impl Solution {
   pub fn count_students(students: Vec<i32>, sandwiches: Vec<i32>) -> i32 {
-
+      let mut student_idx = 0;
+      let s_l = students.len();
   }
 }
