@@ -41,6 +41,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn get_common(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
-
+    let mut ptr1 = 0;
+    let mut ptr2 = 0;
+    let l1 = nums1.len();
+    let l2 = nums2.len();
+    while (ptr1 < l1 && ptr2 < l2) {
+      let n1 = nums1[ptr1];
+      let n2 = nums2[ptr2];
+    }
+    0
   }
 }
