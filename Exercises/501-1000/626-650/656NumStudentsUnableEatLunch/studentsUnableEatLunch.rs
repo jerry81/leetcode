@@ -63,13 +63,26 @@ impl Solution {
       for s in students {
         if s == 0 {
           cnt1+=1;
-        }
-      }
-      for sn in sandwiches {
-        if sn == 0 {
+        } else {
           cnt2+=1;
         }
       }
-      (cnt2 - cnt1).abs()
+      let mut ret = sandwiches.len();
+      for s in sandwiches {
+        if s == 0 {
+          if cnt1 <= 0 {
+            return ret
+          } else {
+            cnt1-=1;
+          }
+        } else {
+          if cnt2 <= 0 {
+            return ret
+          } else {
+            cnt2-=1;
+          }
+        }
+        ret-=1;
+      }
   }
 }
