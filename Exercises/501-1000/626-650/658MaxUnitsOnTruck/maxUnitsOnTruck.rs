@@ -58,14 +58,15 @@ impl Solution {
     let mut sorted = box_types.clone();
     sorted.sort_by(|a,b| { b[1].cmp(&a[1]) } );
     for v in sorted {
-      if space_left = 0 {
+      if space_left <= 0 {
         break
       }
-      if v[0] >= space_left {
+      if v[0] <= space_left {
         res+=(v[1]*v[0]);
         space_left-=v[0];
       } else {
         res+=(v[1]*space_left);
+        space_left=0;
       }
     }
     res
