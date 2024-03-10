@@ -36,9 +36,14 @@ Acceptance Rate
 72.7%
 
 */
-
+use std::collections::HashSet;
 impl Solution {
   pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+    let mut hm1:HashSet<i32> = HashSet::new();
+    let mut hm2:HashSet<i32> = HashSet::new();
+    for i in nums1 { hm1.insert(i); }
+    for i in nums2 { hm2.insert(i); }
+    Vec::new()
 
   }
 }
