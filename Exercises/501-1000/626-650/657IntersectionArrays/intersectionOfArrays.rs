@@ -43,7 +43,8 @@ impl Solution {
     let mut hm2:HashSet<i32> = HashSet::new();
     for i in nums1 { hm1.insert(i); }
     for i in nums2 { hm2.insert(i); }
-    Vec::new()
-
+    let mut res = Vec::new();
+    for i in hm1 { if hm2.contains(&i) { res.push(i); }}
+    res
   }
 }
