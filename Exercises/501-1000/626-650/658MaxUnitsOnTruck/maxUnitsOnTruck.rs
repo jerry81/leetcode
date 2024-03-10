@@ -53,11 +53,21 @@ impl Solution {
   pub fn maximum_units(box_types: Vec<Vec<i32>>, truck_size: i32) -> i32 {
     // sort by box_type[1]
     // greedily take until truck_size 0
+    let mut space_left = truck_size;
+    let mut res = 0;
     let mut sorted = box_types.clone();
     sorted.sort_by(|a,b| { b[1].cmp(&a[1]) } );
     for v in sorted {
-      println!("{}, {}", v[0], v[1]);
+      if space_left = 0 {
+        break
+      }
+      if v[0] >= space_left {
+        res+=(v[1]*v[0]);
+        space_left-=v[0];
+      } else {
+        res+=(v[1]*space_left);
+      }
     }
-    0
+    res
   }
 }
