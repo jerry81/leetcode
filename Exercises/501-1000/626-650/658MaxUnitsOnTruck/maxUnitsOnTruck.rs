@@ -54,7 +54,7 @@ impl Solution {
     // sort by box_type[1]
     // greedily take until truck_size 0
     let mut sorted = box_types.clone();
-    sorted.sort_by(|a,b| { a[1] > b[1] } )
+    sorted.sort_by(|a,b| { b[1].cmp(&a[1]) } );
     for v in sorted {
       println!("{}, {}", v[0], v[1]);
     }
