@@ -50,7 +50,7 @@ impl Solution {
     let mut res:Vec<i32> = Vec::new();
     res.push(first);
     for i in encoded {
-      res.push(res.back() ^ i);
+      res.push(res.last().unwrap() ^ i); // TIL: Vec.last
     }
     res
   }
