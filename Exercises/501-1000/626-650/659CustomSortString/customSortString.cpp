@@ -75,5 +75,20 @@ public:
           s_counts[c] = 1;
         }
       }
+      string res = "";
+      for (char c: order) {
+        if (s_counts.find(c) == s_counts.end()) continue;
+
+        for (int i = 0; i < s_counts[c]; ++i) {
+          res.push_back(c);
+        }
+      }
+
+      for (char c: s) {
+        if (o_set.find(c) != o_set.end()) continue;
+
+        res.push_back(c);
+      }
+      return res;
     }
 };
