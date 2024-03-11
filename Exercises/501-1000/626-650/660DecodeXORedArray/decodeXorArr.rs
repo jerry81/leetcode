@@ -47,6 +47,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn decode(encoded: Vec<i32>, first: i32) -> Vec<i32> {
-
+    let mut res:Vec<i32> = Vec::new();
+    res.push(first);
+    for i in encoded {
+      res.push(res.back() ^ i);
+    }
+    res
   }
 }
