@@ -55,12 +55,25 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     string customSortString(string order, string s) {
-
+      unordered_set<char> o_set;
+      unordered_map<char, int> s_counts;
+      for (char c: order) {
+        o_set.insert(c);
+      }
+      for (char c: s) {
+        if (s_counts.find(c) != s_counts.end()) {
+          s_counts[c]+=1;
+        } else {
+          s_counts[c] = 1;
+        }
+      }
     }
 };
