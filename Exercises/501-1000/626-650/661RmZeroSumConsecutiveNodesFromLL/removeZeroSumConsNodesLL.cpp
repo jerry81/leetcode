@@ -98,8 +98,12 @@ class Solution {
       }
       if (!found) resv.push_back(cur);
     }
+    if (resv.empty()) return nullptr;
     ListNode* res = new ListNode(resv[0]);
     ListNode* cur = res;
+
+    if (resv.size() == 1) return res;
+
     for (int i = 1; i < resv.size(); ++i) {
       ListNode* nxt = new ListNode(resv[i]);
       cur->next = nxt;
