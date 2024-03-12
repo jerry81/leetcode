@@ -50,8 +50,14 @@ impl Solution {
       let mut mx = 0;
       let mut vals: Vec<i32> = Vec::new();
       for v in rectangles {
+        let mn = v[0].min(v[1]);
         mx = mx.max(v[0].min(v[1]));
+        vals.push(mn);
       }
-      for
+      let mut res = 0;
+      for i in vals {
+        if i == mx { res+=1; }
+      }
+      res
   }
 }
