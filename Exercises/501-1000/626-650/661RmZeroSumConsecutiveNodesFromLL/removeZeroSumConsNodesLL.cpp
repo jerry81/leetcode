@@ -91,14 +91,20 @@ class Solution {
         sum+= resv[j];
         if (sum == 0) {
           // delete from j to end
-          resv = vector<int>(resv.begin(), resv.begin()+j+1);
+          resv = vector<int>(resv.begin(), resv.begin()+j);
           found = true;
         }
         if (found) break;
       }
       if (!found) resv.push_back(cur);
     }
-    for (int i: resv) cout << i << endl;
-    return head;
+    ListNode* res = new ListNode(resv[0]);
+    ListNode* cur = res;
+    for (int i = 1; i < resv.size(); ++i) {
+      ListNode* nxt = new ListNode(resv[i]);
+      cur->next = nxt;
+      cur = nxt;
+    }
+    return res;
   }
 };
