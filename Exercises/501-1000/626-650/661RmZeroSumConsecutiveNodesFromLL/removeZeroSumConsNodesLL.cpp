@@ -59,6 +59,11 @@ Acceptance Rate
  * };
  */
 
+#include <vector>
+
+// try brute force first
+
+using namespace std;
 struct ListNode {
   int val;
   ListNode* next;
@@ -68,5 +73,32 @@ struct ListNode {
 };
 class Solution {
  public:
-  ListNode* removeZeroSumSublists(ListNode* head) {}
+  ListNode* removeZeroSumSublists(ListNode* head) {
+    // simplicity, let's make an array?
+    vector<int> vals;
+    ListNode* clone = head;
+    while (clone) {
+      vals.push_back(clone->val);
+      clone = clone->next;
+    }
+
+    vector<int> resv;
+    for (int i=0; i < vals.size(); ++i) {
+      int cur = vals[i];
+      int sum = cur;
+      bool found = false;
+      for (int j = resv.size()-1; j >=0; --j) {
+        sum+= resv[j];
+        if (sum == 0) {
+          // delete from j to end
+          resv = vector<int>(resv.begin(), resv.begin()+j+1);
+          found = true;
+        }
+        if (found) break;
+      }
+      if (!found) resv.push_back(cur);
+    }
+    for (int i: resv) cout << i << endl;
+    return head;
+  }
 };
