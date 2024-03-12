@@ -87,7 +87,7 @@ class Solution {
       int cur = vals[i];
       int sum = cur;
       bool found = false;
-      for (int j = resv.size()-1; j >=0; --j) {
+      for (int j = resv.size()-1; j>=0; --j) {
         sum+= resv[j];
         if (sum == 0) {
           // delete from j to end
@@ -96,7 +96,7 @@ class Solution {
         }
         if (found) break;
       }
-      if (!found) resv.push_back(cur);
+      if (!found && cur != 0) resv.push_back(cur);
     }
     if (resv.empty()) return nullptr;
     ListNode* res = new ListNode(resv[0]);
