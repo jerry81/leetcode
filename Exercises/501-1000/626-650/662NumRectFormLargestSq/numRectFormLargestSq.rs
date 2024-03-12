@@ -45,9 +45,13 @@ Acceptance Rate
 78.6%
 
 */
-
 impl Solution {
   pub fn count_good_rectangles(rectangles: Vec<Vec<i32>>) -> i32 {
-
+      let mut mx = 0;
+      let mut vals: Vec<i32> = Vec::new();
+      for v in rectangles {
+        mx = mx.max(v[0].min(v[1]));
+      }
+      for
   }
 }
