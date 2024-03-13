@@ -48,6 +48,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn pivot_integer(n: i32) -> i32 {
-
+    let mut sum = 0;
+    for i in (1..=n).rev() {
+      if sum == (i * (i+1)) / 2 {
+        return i
+      }
+      sum+=i;
+    }
+    -1
   }
 }
