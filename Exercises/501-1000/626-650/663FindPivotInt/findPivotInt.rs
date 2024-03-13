@@ -50,9 +50,11 @@ impl Solution {
   pub fn pivot_integer(n: i32) -> i32 {
     let mut sum = 0;
     for i in (1..=n).rev() {
-      if sum == (i * (i+1)) / 2 {
+      let series = (i * (i-1)) / 2;
+      if sum == series {
         return i
       }
+
       sum+=i;
     }
     -1
