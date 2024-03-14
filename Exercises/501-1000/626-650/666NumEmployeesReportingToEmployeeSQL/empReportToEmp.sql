@@ -58,3 +58,7 @@
 -- Acceptance Rate
 -- 45.3%
 
+select *
+from Employees e
+join Employees f
+on f.reports_to = e.employee_id;
