@@ -61,9 +61,9 @@ public:
         if (i == goal) res++;
       }
       int sz = nums.size();
-      for (int len = 2; len <= sz;++ len) {
-        for (int j = 0; (j+len) < sz; ++j) { // 0-3, 0-2
-          int cur = cpy[j] +cpy[len-1+j];
+      for (int len = 2; len <= sz;++len) {
+        for (int j = 0; (j+len) <= sz; ++j) { // 0-3, 0-2
+          int cur = cpy[j] +nums[len-1+j];
           if (cur == goal) res+=1;
 
           cpy[j] = cur;
