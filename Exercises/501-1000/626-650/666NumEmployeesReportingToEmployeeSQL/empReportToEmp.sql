@@ -62,4 +62,5 @@ select e.employee_id, e.name, count(*) as reports_count, ROUND(AVG(f.age),0) as 
 from Employees e
 join Employees f
 on f.reports_to = e.employee_id
-group by e.employee_id, e.name;
+group by e.employee_id, e.name
+order by e.employee_id;
