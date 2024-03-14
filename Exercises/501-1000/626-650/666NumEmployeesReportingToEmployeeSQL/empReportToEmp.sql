@@ -58,7 +58,7 @@
 -- Acceptance Rate
 -- 45.3%
 
-select e.employee_id, e.name, count(*) as reports_count
+select e.employee_id, e.name, count(*) as reports_count, ROUND(AVG(f.age),0) as average_age
 from Employees e
 join Employees f
 on f.reports_to = e.employee_id
