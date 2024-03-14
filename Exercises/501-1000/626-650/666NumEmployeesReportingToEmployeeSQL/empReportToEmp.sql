@@ -58,7 +58,8 @@
 -- Acceptance Rate
 -- 45.3%
 
-select *
+select e.employee_id, e.name
 from Employees e
 join Employees f
-on f.reports_to = e.employee_id;
+on f.reports_to = e.employee_id
+group by e.employee_id, e.name;
