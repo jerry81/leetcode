@@ -55,6 +55,20 @@ using namespace std;
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
+      vector<int> cpy(nums.begin(), nums.end());
+      int res = 0;
+      for (int i: cpy) {
+        if (i == goal) res++;
+      }
+      int sz = nums.size();
+      for (int len = 2; len <= sz;++ len) {
+        for (int j = 0; (j+len) < sz; ++j) { // 0-3, 0-2
+          int cur = cpy[j] +cpy[len-1+j];
+          if (cur == goal) res+=1;
 
+          cpy[j] = cur;
+        }
+      }
+      return res;
     }
 };
