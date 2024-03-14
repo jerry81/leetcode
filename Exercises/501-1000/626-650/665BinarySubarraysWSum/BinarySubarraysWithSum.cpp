@@ -55,14 +55,15 @@ using namespace std;
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
+
         int n = nums.size();
         int count = 0;
-        int left1 = 0, left2 = 0;
-        int sum1 = 0, sum2 = 0;
+        int left1 = 0, left2 = 0; // three pointers?
+        int sum1 = 0, sum2 = 0; // two sums?
 
-        for (int right = 0; right < n; ++right) {
+        for (int right = 0; right < n; ++right) { // right pointer - from 0 to n
             sum1 += nums[right];
-            while (left1 <= right && sum1 > goal)
+            while (left1 <= right && sum1 > goal) // left pointer from 0 to right
                 sum1 -= nums[left1++];
             sum2 += nums[right];
             while (left2 <= right && (sum2 >= goal || (sum2 == goal && nums[left2] == 0)))
@@ -73,3 +74,5 @@ public:
         return count;
     }
 };
+
+// walked through an iteration but doesn't quite make sense
