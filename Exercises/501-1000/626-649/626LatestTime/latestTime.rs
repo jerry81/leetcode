@@ -52,11 +52,46 @@ impl Solution {
     if time == "??:??" {
       return "23:59".to_string()
     }
-    let h1 = time.chars().nth(0).unwrap();
+    let mut h1 = time.chars().nth(0).unwrap();
     let h2 = time.chars().nth(1).unwrap();
     let m1 = time.chars().nth(3).unwrap();
     let m2 = time.chars().nth(4).unwrap();
-    println!(" extracted values are {},{},{},{}", h1, h2, m1,m2);
-    "".to_string()
+    // only one tricky case - h2 is set
+
+    let valid_20th_hr = vec!['0','1','2','3','4'];
+    if h1 == '?' {
+      if valid_20th_hr.contains(&h2) {
+        res.push('2');
+        h1 = '2';
+      } else {
+        res.push('1');
+      }
+    } else {
+      res.push(h1);
+    }
+
+    if h2 == '?' {
+      if h1 == '2' {
+        res.push('3');
+      } else {
+        res.push('9');
+      }
+    } else {
+      res.push(h2);
+    }
+    res.push(':');
+    if m1 == '?' {
+      res.push('5');
+    } else {
+      res.push(m1);
+    }
+
+    if m2 == '?' {
+      res.push('9');
+    } else {
+      res.push(m2);
+    }
+
+    res
   }
 }
