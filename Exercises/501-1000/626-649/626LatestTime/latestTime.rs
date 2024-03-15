@@ -47,6 +47,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_time(time: String) -> String {
-
+    // hh:mm
+    let mut res: String = "";
+    if time == "??:??" {
+      return "23:59".to_string()
+    }
+    let h1 = time.chars().nth(0);
+    let h2 = time.chars().nth(1);
+    let m1 = time.chars().nth(3);
+    let m2 = time.chars().nth(4);
+    println!(" extracted values are {},{},{},{}", h1, h2, m1,m2);
+    "".to_string()
   }
 }
