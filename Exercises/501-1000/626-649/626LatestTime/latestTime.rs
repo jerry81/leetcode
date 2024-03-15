@@ -49,9 +49,7 @@ impl Solution {
   pub fn maximum_time(time: String) -> String {
     // hh:mm
     let mut res: String = String::new();
-    if time == "??:??" {
-      return "23:59".to_string()
-    }
+
     let mut h1 = time.chars().nth(0).unwrap();
     let h2 = time.chars().nth(1).unwrap();
     let m1 = time.chars().nth(3).unwrap();
