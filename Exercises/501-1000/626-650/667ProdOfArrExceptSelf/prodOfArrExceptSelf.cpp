@@ -64,7 +64,7 @@ public:
         totalProd *= i;
       }
       vector<int> res;
-      bool multiplez = zeroidx.size() > 0;
+      bool multiplez = zeroidx.size() > 1;
       for (int i: nums) {
         if (i == 0) {
           if (multiplez) {
