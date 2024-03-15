@@ -49,8 +49,34 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<int> zeroidx;
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
+      long long int totalProd = 1;
+      long long int nonZeroProd = 1;
+      for (int i: nums) {
+
+        if (i == 0) {
+          zeroidx.push_back(i);
+        } else {
+          nonZeroProd*=i;
+        }
+        totalProd *= i;
+      }
+      vector<int> res;
+      bool multiplez = zeroidx.size() > 0;
+      for (int i: nums) {
+        if (i == 0) {
+          if (multiplez) {
+            res.push_back(0);
+          } else {
+            res.push_back(nonZeroProd);
+          }
+        } else {
+          res.push_back( totalProd/i);
+        }
+      }
+      return res;
 
     }
 };
