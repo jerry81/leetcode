@@ -58,7 +58,7 @@ impl Solution {
     let m2 = time.chars().nth(4).unwrap();
     // only one tricky case - h2 is set
 
-    let valid_20th_hr = vec!['0','1','2','3','4'];
+    let valid_20th_hr = vec!['0','1','2','3','?'];
     if h1 == '?' {
       if valid_20th_hr.contains(&h2) {
         res.push('2');
