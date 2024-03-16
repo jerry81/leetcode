@@ -45,9 +45,21 @@ class Solution {
 public:
     int findMaxLength(vector<int>& nums) {
       // two pointer
-      if (nums.size() == 0) return 0;
+      if (nums.size() <= 1) return 0;
 
-      int ptr1 = 0; int ptr2 = 1;
       int net = 0;
+      int res = 0;
+      vector<vector<int>> dp;
+      int sz = nums.size();
+      for (int ptr1 = 0; ptr1 < sz - 1; ++ptr1) {
+        int tally = nums[ptr1] == 0 ? -1 : 1;
+        for (int ptr2 = ptr1+1; ptr2 < sz; ++ptr2) {
+          tally += nums[ptr2] == 0 ? -1 : 1;
+          dp[ptr1][ptr2] = tally;
+          int rng = ptr2 - ptr1;
+          res = max(rng, res);
+        }
+      }
+      return res;
     }
 };
