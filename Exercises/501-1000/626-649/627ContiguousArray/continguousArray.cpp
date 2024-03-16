@@ -50,16 +50,24 @@ class Solution {
     // two pointer
     int sz = nums.size();
     if (sz <= 1) return 0;
-
     unordered_map<int, int> score;
+    score[0] = -1;
+
     int res = 0;
     int cur = 0;
     for (int i = 0; i < sz; ++i) {
       if (nums[i] == 0) {
         cur -= 1;
-        if (score.find(cur) != score.end()) res = max(res, i - score[cur]);
-        score[cur] = i;
+
+      } else {
+        cur += 1;
       }
+      if (score.find(cur) != score.end()) {
+        res = max(res, i - score[cur]);
+      } else {
+          score[cur] = i;
+      }
+
     }
     return res;
   }
