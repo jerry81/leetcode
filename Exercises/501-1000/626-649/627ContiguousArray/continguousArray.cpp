@@ -44,6 +44,10 @@ using namespace std;
 class Solution {
 public:
     int findMaxLength(vector<int>& nums) {
+      // two pointer
+      if (nums.size() == 0) return 0;
 
+      int ptr1 = 0; int ptr2 = 1;
+      int net = 0;
     }
 };
