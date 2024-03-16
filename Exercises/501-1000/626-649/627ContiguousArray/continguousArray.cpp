@@ -5,7 +5,8 @@
 Medium
 Topics
 Companies
-Given a binary array nums, return the maximum length of a contiguous subarray with an equal number of 0 and 1.
+Given a binary array nums, return the maximum length of a contiguous subarray
+with an equal number of 0 and 1.
 
 
 
@@ -13,12 +14,13 @@ Example 1:
 
 Input: nums = [0,1]
 Output: 2
-Explanation: [0, 1] is the longest contiguous subarray with an equal number of 0 and 1.
-Example 2:
+Explanation: [0, 1] is the longest contiguous subarray with an equal number of 0
+and 1. Example 2:
 
 Input: nums = [0,1,0]
 Output: 2
-Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1.
+Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal
+number of 0 and 1.
 
 
 Constraints:
@@ -38,28 +40,27 @@ Acceptance Rate
 
 */
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 class Solution {
-public:
-    int findMaxLength(vector<int>& nums) {
-      // two pointer
-      if (nums.size() <= 1) return 0;
+ public:
+  int findMaxLength(vector<int>& nums) {
+    // two pointer
+    int sz = nums.size();
+    if (sz <= 1) return 0;
 
-      int net = 0;
-      int res = 0;
-      vector<vector<int>> dp;
-      int sz = nums.size();
-      for (int ptr1 = 0; ptr1 < sz - 1; ++ptr1) {
-        int tally = nums[ptr1] == 0 ? -1 : 1;
-        for (int ptr2 = ptr1+1; ptr2 < sz; ++ptr2) {
-          tally += nums[ptr2] == 0 ? -1 : 1;
-          dp[ptr1][ptr2] = tally;
-          int rng = ptr2 - ptr1;
-          res = max(rng, res);
-        }
+    unordered_map<int, int> score;
+    int res = 0;
+    int cur = 0;
+    for (int i = 0; i < sz; ++i) {
+      if (nums[i] == 0) {
+        cur -= 1;
+        if (score.find(cur) != score.end()) res = max(res, i - score[cur]);
+        score[cur] = i;
       }
-      return res;
     }
+    return res;
+  }
 };
