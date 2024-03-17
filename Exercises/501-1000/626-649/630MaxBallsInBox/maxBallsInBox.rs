@@ -67,17 +67,20 @@ impl Solution {
   fn get_bucket(num: i32) -> i32 {
     let mut res = 0;
     for c in num.to_string().chars() {
-      let dig = (c - '0') as i32;
+      let dig = c as i32 - '0' as i32;
       res+=dig;
     }
     res
   }
   pub fn count_balls(low_limit: i32, high_limit: i32) -> i32 {
-    let mut hm: HashMap<i32, i32> counts = HashMap::new();
+    let mut counts: HashMap<i32, i32> = HashMap::new();
+    let mut res = 0;
     for cur in low_limit..=high_limit {
-      let bk = get_bucket(cur);
-      println!("cur input {}, cur bucket is {}", cur, bk);
+      let bk = Solution::get_bucket(cur);
+      let count = hm.entry(bk).or_insert(0); // nice.  it allows us to use a compact var to update hm
+      *count += 1;
+      res = (*count).max(res);
     }
-    0
+    res
   }
 }
