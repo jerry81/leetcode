@@ -73,8 +73,8 @@ class Solution {
     for (auto v : sorted) {
       int l = v[0];
       int h = v[1];
-      if (l < 0) cur_low = l;
-      if (h < 0) cur_high = h;
+      if (cur_low < 0) cur_low = l;
+      if (cur_high < 0) cur_high = h;
       if (l > cur_high) {
         res.push_back({cur_low, cur_high});
         cur_low = l;
@@ -83,6 +83,7 @@ class Solution {
         cur_high = max(cur_high, h);
       }
     }
+    res.push_back({cur_low, cur_high});
     return res;
   }
 };
