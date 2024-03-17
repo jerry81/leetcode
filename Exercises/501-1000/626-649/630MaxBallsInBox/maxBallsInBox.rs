@@ -77,7 +77,7 @@ impl Solution {
     let mut res = 0;
     for cur in low_limit..=high_limit {
       let bk = Solution::get_bucket(cur);
-      let count = hm.entry(bk).or_insert(0); // nice.  it allows us to use a compact var to update hm
+      let count = counts.entry(bk).or_insert(0); // nice.  it allows us to use a compact var to update hm
       *count += 1;
       res = (*count).max(res);
     }
