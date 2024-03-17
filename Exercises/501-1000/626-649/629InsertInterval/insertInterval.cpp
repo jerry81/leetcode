@@ -75,6 +75,13 @@ class Solution {
       int h = v[1];
       if (l < 0) cur_low = l;
       if (h < 0) cur_high = h;
+      if (l > cur_high) {
+        res.push_back({cur_low, cur_high});
+        cur_low = l;
+        cur_high = h;
+      } else {
+        cur_high = max(cur_high, h);
+      }
     }
     return res;
   }
