@@ -55,8 +55,29 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn count_balls(low_limit: i32, high_limit: i32) -> i32 {
+/*
+  2 skills:
+  i32 to string +
+  simulation
+*/
 
+use std::collections::HashMap;
+
+impl Solution {
+  fn get_bucket(num: i32) -> i32 {
+    let mut res = 0;
+    for c in num.to_string().chars() {
+      let dig = (c - '0') as i32;
+      res+=dig;
+    }
+    res
+  }
+  pub fn count_balls(low_limit: i32, high_limit: i32) -> i32 {
+    let mut hm: HashMap<i32, i32> counts = HashMap::new();
+    for cur in low_limit..=high_limit {
+      let bk = get_bucket(cur);
+      println!("cur input {}, cur bucket is {}", cur, bk);
+    }
+    0
   }
 }
