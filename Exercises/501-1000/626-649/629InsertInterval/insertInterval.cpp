@@ -4,13 +4,20 @@
 Medium
 Topics
 Companies
-You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
+You are given an array of non-overlapping intervals intervals where intervals[i]
+= [starti, endi] represent the start and the end of the ith interval and
+intervals is sorted in ascending order by starti. You are also given an interval
+newInterval = [start, end] that represents the start and end of another
+interval.
 
-Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
+Insert newInterval into intervals such that intervals is still sorted in
+ascending order by starti and intervals still does not have any overlapping
+intervals (merge overlapping intervals if necessary).
 
 Return intervals after the insertion.
 
-Note that you don't need to modify intervals in-place. You can make a new array and return it.
+Note that you don't need to modify intervals in-place. You can make a new array
+and return it.
 
 
 
@@ -51,8 +58,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+  static cmp(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
+ public:
+  vector<vector<int>> insert(vector<vector<int>>& intervals,
+                             vector<int>& newInterval) {
+    // brute force first
+    vector<vector<int>> sorted = intervals;
+    sorted.push_back(newInterval);
+    sort(sorted.begin(), sorted.end());
+    cout << "printing sorted" << endl;
+    for (auto v : sorted) {
+      cout << v[0] << "," << v[1] << endl;
     }
+    return {};
+  }
 };
