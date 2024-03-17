@@ -58,7 +58,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  static cmp(vector<int> a, vector<int> b) { return a[0] < b[0]; }
+  static bool cmp(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
  public:
   vector<vector<int>> insert(vector<vector<int>>& intervals,
@@ -66,11 +66,16 @@ class Solution {
     // brute force first
     vector<vector<int>> sorted = intervals;
     sorted.push_back(newInterval);
-    sort(sorted.begin(), sorted.end());
-    cout << "printing sorted" << endl;
+    sort(sorted.begin(), sorted.end(), cmp);
+    int cur_low = -1;
+    int cur_high = -1;
+    vector<vector<int>> res;
     for (auto v : sorted) {
-      cout << v[0] << "," << v[1] << endl;
+      int l = v[0];
+      int h = v[1];
+      if (l < 0) cur_low = l;
+      if (h < 0) cur_high = h;
     }
-    return {};
+    return res;
   }
 };
