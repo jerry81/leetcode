@@ -45,17 +45,18 @@ Acceptance Rate
 
 */
 
-using std::collections::HashMap;
+use std::collections::HashMap;
 
 impl Solution {
   pub fn sum_of_unique(nums: Vec<i32>) -> i32 {
-    let set: HashMap<i32, i32> = HashMap::new();
+    let mut hm: HashMap<i32, i32> = HashMap::new();
     let mut sm = 0;
+    let cl = nums.clone();
     for n in nums {
       *hm.entry(n).or_insert(0) +=1;
     }
-    for n in nums {
-      if *hm.entry(n).unwrap() == 1 {
+    for n in cl {
+      if *hm.get(&n).unwrap() == 1 {
         sm+=n;
       }
     }
