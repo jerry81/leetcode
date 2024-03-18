@@ -45,8 +45,11 @@ Acceptance Rate
 
 */
 
+using std::collections::HashSet;
+
 impl Solution {
   pub fn sum_of_unique(nums: Vec<i32>) -> i32 {
-
+    let set: HashSet<i32> = nums.into_iter().collect();
+    set.iter().sum()
   }
 }
