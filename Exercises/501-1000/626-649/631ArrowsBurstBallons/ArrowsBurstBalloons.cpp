@@ -5,11 +5,20 @@
 Medium
 Topics
 Companies
-There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.
+There are some spherical balloons taped onto a flat wall that represents the
+XY-plane. The balloons are represented as a 2D integer array points where
+points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches
+between xstart and xend. You do not know the exact y-coordinates of the
+balloons.
 
-Arrows can be shot up directly vertically (in the positive y-direction) from different points along the x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
+Arrows can be shot up directly vertically (in the positive y-direction) from
+different points along the x-axis. A balloon with xstart and xend is burst by an
+arrow shot at x if xstart <= x <= xend. There is no limit to the number of
+arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting
+any balloons in its path.
 
-Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
+Given the array points, return the minimum number of arrows that must be shot to
+burst all balloons.
 
 
 
@@ -24,8 +33,8 @@ Example 2:
 
 Input: points = [[1,2],[3,4],[5,6],[7,8]]
 Output: 4
-Explanation: One arrow needs to be shot for each balloon for a total of 4 arrows.
-Example 3:
+Explanation: One arrow needs to be shot for each balloon for a total of 4
+arrows. Example 3:
 
 Input: points = [[1,2],[2,3],[3,4],[4,5]]
 Output: 2
@@ -57,8 +66,16 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int findMinArrowShots(vector<vector<int>>& points) {
+  static bool cmp(vector<int> a, vector<int> b) { return a[0] < b[0]; }
 
-    }
+ public:
+  int findMinArrowShots(vector<vector<int>>& points) {
+    // sort then merge?
+    vector<vector<int>> sorted = points;
+    sort(sorted.begin(), sorted.end(), cmp);
+    int res = 0;
+    int low = sorted[0][0];
+    int high = sorted[0][1];
+    return res;
+  }
 };
