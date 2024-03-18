@@ -71,9 +71,10 @@ class Solution {
  public:
   int findMinArrowShots(vector<vector<int>>& points) {
     // sort then merge?
+    // merges should shrink the bounds
     vector<vector<int>> sorted = points;
     sort(sorted.begin(), sorted.end(), cmp);
-    int res = 0;
+    int res = 1;
     int low = sorted[0][0];
     int high = sorted[0][1];
     for (vector<int> v: sorted) {
@@ -82,9 +83,11 @@ class Solution {
       if (curl > high) {
         res+=1;
         low = curl;
-      } else {
-        high = max(high, curh);
+        high = curh;
+        continue;
       }
+      low = max(curl, low);
+      high = min(curh, high);
     }
     return res;
   }
