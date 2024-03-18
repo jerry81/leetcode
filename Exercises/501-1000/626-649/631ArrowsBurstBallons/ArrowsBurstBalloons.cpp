@@ -76,6 +76,16 @@ class Solution {
     int res = 0;
     int low = sorted[0][0];
     int high = sorted[0][1];
+    for (vector<int> v: sorted) {
+      int curl = v[0];
+      int curh = v[1];
+      if (curl > high) {
+        res+=1;
+        low = curl;
+      } else {
+        high = max(high, curh);
+      }
+    }
     return res;
   }
 };
