@@ -110,13 +110,19 @@ class Solution {
     while (!pq.empty()) {
       int cycle = n + 1;
       vector<int> reinsert;
+      int cnt = 0;
       while (--cycle && !pq.empty()) {
         int cur = pq.top();
+        ++cnt;
         pq.pop();
         if (--cur >0) {
           reinsert.push_back(cur);
         }
       }
+      for (int i: reinsert) {
+        pq.push(i);
+      }
+      res+=pq.empty() ? cnt : cycle;
     }
     return res;
   }
