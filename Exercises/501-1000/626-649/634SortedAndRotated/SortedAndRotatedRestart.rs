@@ -51,35 +51,44 @@ Acceptance Rate
 
 impl Solution {
   pub fn check(nums: Vec<i32>) -> bool {
-    // check all numbers same
-    let mut prev = nums[0];
-    let mut early_true = true;
-    for i in nums {
-      if i != prev {
-        early_true = false;
-        break;
+      // check all numbers same
+      let mut prev = nums[0];
+      let mut early_true = true;
+      let cloned = nums.clone();
+      for i in nums {
+          if i != prev {
+              early_true = false;
+              break;
+          }
       }
-    }
-    if early_true { return true; }
+      if early_true {
+          return true;
+      }
 
-    let mut pivot = -1;
-    prev = nums[0];
-    let l = nums.len();
-    for i in 1..l {
-      if (nums[i] <= prev) {
-        pivot = i;
-        break;
+      let mut pivot = -1 as i32;
+
+      prev = cloned[0];
+      let l = cloned.len();
+      for i in 1..l {
+          if (cloned[i] < prev) {
+              pivot = i as i32;
+              break;
+          }
+          prev = cloned[i];
       }
-      prev = i;
-    }
-    prev = -1;
-    for i in pivot..pivot+l {
-      let actual_i = i % l;
-      if nums[actual_i] < prev {
-        return false;
+      if (pivot < 0) {
+          return true;
       }
-    }
-    true
+      prev = -1;
+      for i in pivot as i32..(pivot as i32 + l as i32) as i32 {
+
+          let actual_i = i % l as i32;
+          let cur = cloned[actual_i as usize];
+          if cur < prev {
+              return false;
+          }
+          prev = cur;
+      }
+      true
   }
 }
-// edge case... { 1,1,1 } - rotate after one item
