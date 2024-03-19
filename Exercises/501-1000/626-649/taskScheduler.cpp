@@ -59,12 +59,32 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <tuple>
+#include <unordered_map>
+#include <queue>
 
 using namespace std;
 
 class Solution {
+unordered_map<char, int> freq;
+unordered_map<char, int> lastIdx;
+bool customSort(char a, char b) {
+  if (lastIdx[a] < lastIdx[b]) return true;
+
+  return freq[a] > freq[b];
+}
 public:
     int leastInterval(vector<char>& tasks, int n) {
+      for (char c: tasks) {
+        if (freq.find(c) != freq.end()) {
+          freq[c]++;
+        } else {
+          freq[c] = 1;
+        }
+        lastIdx[c] = -1;
+      }
+      std::priority_queue<int, std::vector<int>, decltype(&customSort)> pq(customSort); // new way to do custom sort, interesting
+
 
     }
 };
