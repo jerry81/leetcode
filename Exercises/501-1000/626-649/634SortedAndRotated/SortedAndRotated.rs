@@ -53,18 +53,20 @@ impl Solution {
   pub fn check(nums: Vec<i32>) -> bool {
     let mut rotations = 0;
     let mut prev = 0;
+    let mut mn = i32::MAX;
     let mut curmn = i32::MAX;
     for i in nums {
-      if (i > curmn) {
+      if (i > mn) {
         return false;
       }
       if (prev != 0 && i < prev) {
         curmn = i;
+        mn = curmn;
       }
 
       prev = i;
 
-      curmn = min(curmin, i);
+      curmn = curmn.min(i);
     }
     true
   }
