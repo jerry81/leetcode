@@ -111,7 +111,7 @@ class Solution {
       int cycle = n + 1;
       vector<int> reinsert;
       int cnt = 0;
-      while (--cycle && !pq.empty()) {
+      while (cycle-- && !pq.empty()) {
         int cur = pq.top();
         ++cnt;
         pq.pop();
@@ -119,10 +119,10 @@ class Solution {
           reinsert.push_back(cur);
         }
       }
-      for (int i: reinsert) {
+      for (int &i: reinsert) { // why the ref?  b/c here, it is working with the elements themselves.
         pq.push(i);
       }
-      res+=pq.empty() ? cnt : cycle;
+      res+=(pq.empty() ? cnt : n+1);
     }
     return res;
   }
