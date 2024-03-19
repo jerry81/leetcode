@@ -74,26 +74,50 @@ using namespace std;
 
 class Solution {
   unordered_map<char, int> freq;
-  unordered_map<char, int> lastIdx;
-  bool customSort(char a, char b) {
-    if (lastIdx[a] < lastIdx[b]) return true;
-
-    return freq[a] > freq[b];
-  }
 
  public:
   int leastInterval(vector<char>& tasks, int n) {
-    std::priority_queue<int, std::vector<int>, decltype(&customSort)> pq(
-        customSort);  // new way to do custom sort, interesting
+    std::priority_queue<int> pq;  // new way to do custom sort, interesting
+
+    //  so apparently last index doesn't matter
+    /*
+      nested while
+      while pq has more elements
+        while pq has more elements (cycle-wise)
+        and the cycle is not finished
+
+        use the top item
+        increment a counter
+        reinsert into pq if there is a remainder
+
+        add the full cycle if the cycle is idle before completing
+
+      end while
+    */
 
     for (char c : tasks) {
       if (freq.find(c) != freq.end()) {
         freq[c]++;
       } else {
         freq[c] = 1;
-        pq.push(c);
-        lastIdx[c] = -1;
       }
     }
+    for (auto [_, v] : freq) {
+      pq.push(v);
+    }
+    int res = 0;
+
+    while (!pq.empty()) {
+      int cycle = n + 1;
+      vector<int> reinsert;
+      while (--cycle && !pq.empty()) {
+        int cur = pq.top();
+        pq.pop();
+        if (--cur >0) {
+          reinsert.push_back(cur);
+        }
+      }
+    }
+    return res;
   }
 };
