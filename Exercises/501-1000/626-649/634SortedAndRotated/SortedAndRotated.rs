@@ -55,13 +55,17 @@ impl Solution {
     let mut prev = 0;
     let mut mn = i32::MAX;
     let mut curmn = i32::MAX;
+    let mut decrease_cnt = 0;
     for i in nums {
       if (i > mn) {
+        println!("{} is > {}", i, mn);
         return false;
       }
       if (prev != 0 && i < prev) {
+        decrease_cnt += 1;
+        if decrease_cnt > 1 { return false }
+        mn = mn.min(curmn);
         curmn = i;
-        mn = curmn;
       }
 
       prev = i;
@@ -71,5 +75,4 @@ impl Solution {
     true
   }
 }
-
 // edge case... { 1,1,1 } - rotate after one item
