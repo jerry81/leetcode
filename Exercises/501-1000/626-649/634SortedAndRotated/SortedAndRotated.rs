@@ -51,10 +51,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn check(nums: Vec<i32>) -> bool {
-    int rule_breaks = 0;
+    let mut rule_breaks = 0;
     let mut prev = 0;
     for i in nums {
-      if prev != 0 && nums != prev+1 {
+      if prev != 0 && i != prev+1 {
         rule_breaks+=1;
         if rule_breaks > 1 { return false; }
 
