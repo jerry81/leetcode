@@ -51,7 +51,6 @@ Acceptance Rate
 
 impl Solution {
   pub fn check(nums: Vec<i32>) -> bool {
-    let mut pivot = -1;
     // check all numbers same
     let mut prev = nums[0];
     let mut early_true = true;
@@ -63,9 +62,24 @@ impl Solution {
     }
     if early_true { return true; }
 
-    for i in nums {
-      if (i <= )
+    let mut pivot = -1;
+    prev = nums[0];
+    let l = nums.len();
+    for i in 1..l {
+      if (nums[i] <= prev) {
+        pivot = i;
+        break;
+      }
+      prev = i;
     }
+    prev = -1;
+    for i in pivot..pivot+l {
+      let actual_i = i % l;
+      if nums[actual_i] < prev {
+        return false;
+      }
+    }
+    true
   }
 }
 // edge case... { 1,1,1 } - rotate after one item
