@@ -51,16 +51,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn check(nums: Vec<i32>) -> bool {
-    let mut rule_breaks = 0;
+    let mut rotations = 0;
     let mut prev = 0;
+    let mut curmn = i32::MAX;
     for i in nums {
-      if prev != 0 && i != prev+1 {
-        rule_breaks+=1;
-        if rule_breaks > 1 { return false; }
-
+      if (i > curmn) {
+        return false;
       }
+      if (prev != 0 && i < prev) {
+        curmn = i;
+      }
+
       prev = i;
+
+      curmn = min(curmin, i);
     }
     true
   }
 }
+
+// edge case... { 1,1,1 } - rotate after one item
