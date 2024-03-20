@@ -73,21 +73,32 @@ public:
       int cnt = 0;
       ListNode *cur = list1;
       ListNode *ret = cur;
-      ListNode *shadow = list1;
+      ListNode *cpyhead = new ListNode(list1->val);
+      ListNode *cpy = cpyhead;
+      ListNode *cpyptr = list1;
+      while (cpyptr!=nullptr) {
+        ListNode *next = new ListNode(cpyptr->val);
+        cpy->next = next;
+        cpy=cpy->next;
+        cpyptr = cpyptr->next;
+      }
       while (cnt != a) {
         cnt++;
         cur = cur->next;
-        shadow = shadow->next;
-        cur->next = list2;
-        while (cur != nullptr) {
+
+
+      }
+      cur->next = list2;
+      cur = cur->next;
+      while (cur->next != nullptr) {
          cur = cur->next;
-        }
       }
       while (cnt != b) {
         cnt++;
         shadow = shadow->next;
       }
-      cur->next = shadow;
+      cout << "shadow is now " << shadow->val << endl;
+      cur->next = shadow->next;
       return ret;
     }
 };
