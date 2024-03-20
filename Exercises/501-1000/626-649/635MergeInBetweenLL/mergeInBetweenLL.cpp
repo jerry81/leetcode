@@ -72,12 +72,22 @@ public:
     ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
       int cnt = 0;
       ListNode *cur = list1;
+      ListNode *ret = cur;
       ListNode *shadow = list1;
       while (cnt != a) {
         cnt++;
         cur = cur->next;
         shadow = shadow->next;
+        cur->next = list2;
+        while (cur != nullptr) {
+         cur = cur->next;
+        }
       }
-
+      while (cnt != b) {
+        cnt++;
+        shadow = shadow->next;
+      }
+      cur->next = shadow;
+      return ret;
     }
 };
