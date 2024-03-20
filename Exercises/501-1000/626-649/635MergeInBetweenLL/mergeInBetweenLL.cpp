@@ -70,6 +70,14 @@ Acceptance Rate
 class Solution {
 public:
     ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+      int cnt = 0;
+      ListNode *cur = list1;
+      ListNode *shadow = list1;
+      while (cnt != a) {
+        cnt++;
+        cur = cur->next;
+        shadow = shadow->next;
+      }
 
     }
 };
