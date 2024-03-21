@@ -48,15 +48,35 @@ Acceptance Rate
 */
 use std::collections::HashSet;
 impl Solution {
-  pub fn longest_nice_substring(s: String) -> String {
-    let mut hs:HashSet<char> = HashSet::new();
-    for c in s.chars() {
-      hs.insert(c);
+    pub fn longest_nice_substring(s: String) -> String {
+        let l = s.len();
+        let mut ret = String::new();
+        let mut curL = 0;
+        for i in 0..(l - 1) {
+            for j in i..l {
+                let mut valid = true;
+                let s2 = &s[i..j];
+                let mut hs: HashSet<char> = HashSet::new();
+                for c in s2.chars() {
+                    hs.insert(c);
+                }
+                for c in hs.iter() {
+                    if !hs.contains(&c.to_ascii_uppercase()) {
+                        valid = false;
+                        break;
+                    }
+                    if !hs.contains(&c.to_ascii_lowercase()) {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                curL = j - i;
+                if valid && curL > ret.len() {
+                    ret = (&s[i..j]).to_string();
+                }
+            }
+        }
+        ret
     }
-    for &c in hs {
-      if !hs.contains(c.to_ascii_uppercase()) { return false; }
-      if !hs.contains(c.to_ascii_lowercase()) { return false; }
-    }
-    true
-  }
 }
