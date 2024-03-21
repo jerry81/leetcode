@@ -53,8 +53,6 @@ impl Solution {
         let mut ret = String::new();
         let mut curL = 0;
         for i in 0..(l - 1) {
-
-
             for j in i..=l {
                 let mut valid = true;
                 let s2 = &s[i..j];
@@ -65,24 +63,19 @@ impl Solution {
                 for c in hs.iter() {
                     if !hs.contains(&c.to_ascii_uppercase()) {
                         valid = false;
-                        break
+                        break;
                     }
                     if !hs.contains(&c.to_ascii_lowercase()) {
                         valid = false;
-                        break
+                        break;
                     }
                 }
-
-
-                curL = j-i;
+                curL = j - i;
                 if valid && curL > ret.len() {
-                  ret = (&s[i..j]).to_string();
+                    ret = (&s[i..j]).to_string();
                 }
             }
-
         }
         ret
-
-
     }
 }
