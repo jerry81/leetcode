@@ -49,6 +49,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_matches(items: Vec<Vec<String>>, rule_key: String, rule_value: String) -> i32 {
-
+    let mut k = 0;
+    if rule_key == "color" {
+      k = 1;
+    } else if rule_key == "name" {
+      k = 2;
+    }
+    let mut res = 0;
+    for v in items {
+      if v[k] == rule_value {
+        res+=1;
+      }
+    }
+    res
   }
 }
