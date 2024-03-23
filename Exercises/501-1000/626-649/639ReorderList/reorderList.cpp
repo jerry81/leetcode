@@ -92,6 +92,8 @@ public:
         if (ptr1 == ptr2) {
           cur->next = nodes[ptr1];
         }
+        ptr1++;
+        ptr2--;
       }
     }
 };
