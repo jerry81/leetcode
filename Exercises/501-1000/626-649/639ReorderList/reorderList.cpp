@@ -65,7 +65,6 @@ using namespace std;
      ListNode(int x) : val(x), next(nullptr) {}
      ListNode(int x, ListNode *next) : val(x), next(next) {}
  };
-
 class Solution {
 public:
     void reorderList(ListNode* head) {
@@ -84,9 +83,8 @@ public:
       int ptr2 = sz-1;
       ListNode* cur = nodes[0];
       while (ptr1 <= ptr2) {
-        if (ptr1 != 0) {
-          cur->next = nodes[ptr1];
-        }
+        cur->next = nodes[ptr1];
+        cur = cur->next;
         if (ptr1 == ptr2) break;
         cur->next = nodes[ptr2];
         cur = cur->next;
