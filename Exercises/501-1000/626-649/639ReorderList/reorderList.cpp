@@ -87,11 +87,10 @@ public:
         if (ptr1 != 0) {
           cur->next = nodes[ptr1];
         }
+        if (ptr1 == ptr2) break;
         cur->next = nodes[ptr2];
         cur = cur->next;
-        if (ptr1 == ptr2) {
-          cur->next = nodes[ptr1];
-        }
+
         ptr1++;
         ptr2--;
       }
