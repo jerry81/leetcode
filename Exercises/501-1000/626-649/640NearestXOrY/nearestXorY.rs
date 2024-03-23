@@ -52,12 +52,18 @@ Acceptance Rate
 impl Solution {
   pub fn nearest_valid_point(x: i32, y: i32, points: Vec<Vec<i32>>) -> i32 {
     let mut mn = i32::MAX;
+    let mut idx = -1;
+    let mut cur = 0;
     for v in points {
       if v[0] == x || y == v[1] {
-        let mnhattan = ((v[0]-x).abs() + (v[1]-x).abs());
-        mn = mn.max(mnhattan);
+        let mnhattan = ((v[0]-x).abs() + (v[1]-y).abs());
+        if mnhattan < mn {
+          idx = cur;
+          mn = mnhattan;
+        }
       }
+      cur+=1;
     }
-    mn
+    idx
   }
 }
