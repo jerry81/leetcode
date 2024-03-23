@@ -80,8 +80,18 @@ public:
         head = nxt;
         sz+=1;
       }
-      for (int i = 0; i < sz; ++i) {
-        cout << "item is " << nodes[i]->val << endl;
+      int ptr1 = 0;
+      int ptr2 = sz-1;
+      ListNode* cur = nodes[0];
+      while (ptr1 <= ptr2) {
+        if (ptr1 != 0) {
+          cur->next = nodes[ptr1];
+        }
+        cur->next = nodes[ptr2];
+        cur = cur->next;
+        if (ptr1 == ptr2) {
+          cur->next = nodes[ptr1];
+        }
       }
     }
 };
