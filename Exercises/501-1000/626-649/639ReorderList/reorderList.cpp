@@ -54,6 +54,10 @@ Acceptance Rate
  * };
  */
 
+#include <unordered_map>
+
+using namespace std;
+
  struct ListNode {
      int val;
      ListNode *next;
@@ -61,9 +65,23 @@ Acceptance Rate
      ListNode(int x) : val(x), next(nullptr) {}
      ListNode(int x, ListNode *next) : val(x), next(next) {}
  };
+
 class Solution {
 public:
     void reorderList(ListNode* head) {
-
+      // map the nodes to index
+      // then splice and merge
+      unordered_map<int, ListNode*> nodes;
+      int sz = 0;
+      while (head) {
+        nodes[sz] = head;
+        auto nxt = head->next;
+        head->next = nullptr;
+        head = nxt;
+        sz+=1;
+      }
+      for (int i = 0; i < sz; ++i) {
+        cout << "item is " << nodes[i]->val << endl;
+      }
     }
 };
