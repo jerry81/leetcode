@@ -41,6 +41,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn check_ones_segment(s: String) -> bool {
-
+    let mut endseg = true;
+    let mut cnt = 0;
+    for c in s.chars() {
+      if c == '1' && endseg {
+        endseg = false;
+        cnt += 1;
+        if cnt > 1 {
+          return false;
+        }
+      }
+      if c == '0' {
+        endseg = true;
+      }
+    }
+    true
   }
 }
