@@ -69,8 +69,12 @@
 -- Acceptance Rate
 -- 64.0%
 
-select e.employee_id, e.department_id
-from
-  (select *
-  from Employee nest
-  where nest.primary_flag='Y')
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+   OR employee_id IN (  -- TIL: IN with a subquery
+       SELECT employee_id
+       FROM Employee
+       GROUP BY employee_id
+       HAVING COUNT(*) = 1
+   );
