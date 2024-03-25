@@ -45,12 +45,20 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> findDuplicates(vector<int>& nums) {
+      vector<int> ret;
+      unordered_set<int> items;
+      for (const int &i: nums) {
+        if (items.find(i) != items.end()) ret.push_back(i);
 
+        items.insert(i);
+      }
+      return ret;
     }
 };
