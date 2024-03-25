@@ -69,3 +69,8 @@
 -- Acceptance Rate
 -- 64.0%
 
+select e.employee_id, e.department_id
+from
+  (select *
+  from Employee nest
+  where nest.primary_flag='Y')
