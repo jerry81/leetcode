@@ -59,25 +59,27 @@ class Solution {
   int firstMissingPositive(vector<int>& nums) {
     // cycle sort is swapping items to the index of it's value
     int sz = nums.size();
-    for (int i = 0; i < sz; ++i) {
+    int i = 0;
+    while (i < sz) {
       int cur = nums[i];
-      if (cur < 1) continue;
-      if (cur > sz) continue;
-
+      if (cur < 0 || cur >= sz) { i++; continue; }
       int correct = nums[i]-1;
 
 
+      if (correct < 0 || nums[correct] == cur) {
+        i++;
+        continue;
+      }
+
       int tmp = nums[correct];
-      if (cur == tmp) continue;
 
       nums[correct] = cur;
       nums[i] = tmp;
     }
 
     for (int i = 0; i < sz; ++i) {
-      if (nums[i] <1) continue;
-      if (nums[i]-1 != i) return i+1;
+      if (nums[i] < 0 || nums[i]-1 != i) return i+1;
     }
-    return sz;
+    return sz+1;
   }
 };
