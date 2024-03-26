@@ -75,8 +75,9 @@ class Solution {
     }
 
     for (int i = 0; i < sz; ++i) {
-      if (nums[i]-1 != i) return nums[i];
+      if (nums[i] <1) continue;
+      if (nums[i]-1 != i) return i+1;
     }
-    return 0;
+    return sz;
   }
 };
