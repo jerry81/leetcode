@@ -46,6 +46,15 @@ Submissions
 
 impl Solution {
   pub fn are_almost_equal(s1: String, s2: String) -> bool {
+    // try every possibility
+    // rust swap:
+    // convert to vec<char>
+    // vec<char>.swap(idx1, idx2)
+    // into_iter().collect()
+    if (s1 == s2) { return true }
 
+    let l1 = s1.len();
+    let l2 = s2.len();
+    if (l1 != l2) { return false }
   }
 }
