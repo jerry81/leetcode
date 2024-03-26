@@ -61,7 +61,7 @@ impl Solution {
       for j in i+1..l2 {
         let mut chrs: Vec<char> = s1.chars().collect();
         chrs.swap(i,j);
-        let cmp = chrs.into_iter().collect();
+        let cmp: String = chrs.into_iter().collect();
         if (cmp == s2) { return true;}
       }
     }
