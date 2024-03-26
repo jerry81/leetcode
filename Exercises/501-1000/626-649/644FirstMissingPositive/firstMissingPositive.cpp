@@ -51,7 +51,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-
 unordered_set<int> lookup;
 public:
     int firstMissingPositive(vector<int>& nums) {
@@ -63,9 +62,11 @@ public:
 
       int cur = 1;
       while (true) {
-      if (lookup.find(cur) != lookup.end()) return cur;
-        cur++;
+      if (lookup.find(cur) == lookup.end()) {
+        return cur;
       }
-      return 1;
+      cur++;
     }
+          return 1;
+}
 };
