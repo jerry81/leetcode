@@ -46,12 +46,26 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+
+unordered_set<int> lookup;
 public:
     int firstMissingPositive(vector<int>& nums) {
 
+      int mnPos = 1;
+      for (int i: nums) {
+        if (i > 0) lookup.insert(i);
+      }
+
+      int cur = 1;
+      while (true) {
+      if (lookup.find(cur) != lookup.end()) return cur;
+        cur++;
+      }
+      return 1;
     }
 };
