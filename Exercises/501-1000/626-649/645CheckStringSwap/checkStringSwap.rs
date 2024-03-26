@@ -56,5 +56,15 @@ impl Solution {
     let l1 = s1.len();
     let l2 = s2.len();
     if (l1 != l2) { return false }
+
+    for i in 0..l1 {
+      for j in i+1..l2 {
+        let mut chrs: Vec<char> = s1.chars().collect();
+        chrs.swap(i,j);
+        let cmp = chrs.into_iter().collect();
+        if (cmp == s2) { return true;}
+      }
+    }
+    false
   }
 }
