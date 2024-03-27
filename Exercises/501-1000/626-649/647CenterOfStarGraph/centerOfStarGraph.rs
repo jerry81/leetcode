@@ -47,11 +47,15 @@ Acceptance Rate
 use std::collections::HashMap;
 impl Solution {
   pub fn find_center(edges: Vec<Vec<i32>>) -> i32 {
-    let mut indegrees: HashMap<i32,i32> = HashMap::new();
+    let mut degrees: HashMap<i32,i32> = HashMap::new();
     for v in edges {
-      *indegrees.entry(v[1]).or_insert(1) +=1;
-      if indegrees[v[1]] > 1 {
+      *indegrees.entry(v[1]).or_insert(0) +=1;
+      if indegrees[&v[1]] > 1 { // rust syntax: borrow
         return v[1]
+      }
+      *indegrees.entry(v[0]).or_insert(0) +=1;
+      if indegrees[&v[0]] > 1 { // rust syntax: borrow
+        return v[0]
       }
     }
     0
