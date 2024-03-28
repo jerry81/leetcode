@@ -84,7 +84,7 @@ class Solution {
           freq[nums[ptr1]]--;
           ptr1++;
         }
-        nums[ptr1]--;
+        freq[nums[ptr1]]--;
         ptr1++;
       }
       ptr2++;
