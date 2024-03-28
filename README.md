@@ -320,6 +320,7 @@ count(*) to get the # items in the group
   - round in postgres takes numeric, not double
   - cast with variable::type
 - 621 for UPPER, LOWER, SUBSTRING usage
+- 648 for UNION, constant string, "merging" columns into a single column
 
 ## RUST TILs
 
