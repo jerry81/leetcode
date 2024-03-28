@@ -57,12 +57,23 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int maxSubarrayLength(vector<int>& nums, int k) {
+      // contiguous, therefore, don't need dp?
+      int sz = nums.size();
+      if (k == 1) return 1;
+      if (sz == 1) return 1;
+      unordered_map<int,int> freq;
+      int ptr1 = 0;
+      int ptr2 = 0;
 
+      int res = 0;
+
+      return res;
     }
 };
