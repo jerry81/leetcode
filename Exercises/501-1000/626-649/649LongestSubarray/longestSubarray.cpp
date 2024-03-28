@@ -70,8 +70,6 @@ class Solution {
   int maxSubarrayLength(vector<int>& nums, int k) {
     // contiguous, therefore, don't need dp?
     int sz = nums.size();
-    if (k == 1) return 1;
-    if (sz == 1) return 1;
     unordered_map<int, int> freq;
     int ptr1 = 0;
     int ptr2 = 0;
@@ -79,7 +77,7 @@ class Solution {
     while (ptr2 < sz && ptr1 < sz) {
       int cur = nums[ptr2];
       freq[cur] += 1;
-      if (freq[cur] < k) {
+      if (freq[cur] <= k) {
         res = max(res, (ptr2-ptr1)+1);
       } else {
         while (nums[ptr1]!=cur) {
@@ -87,6 +85,7 @@ class Solution {
           ptr1++;
         }
         nums[ptr1]--;
+        ptr1++;
       }
       ptr2++;
     }
