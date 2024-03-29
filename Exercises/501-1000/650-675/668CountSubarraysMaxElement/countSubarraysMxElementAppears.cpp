@@ -81,10 +81,13 @@ class Solution {
     int secondidx = k-1;
 
     for (int i = 0; i < sz; ++i) {
+      if (secondidx >= indexes.size()) break;
+
       if (i > indexes[firstidx]) {
         firstidx++;
         secondidx++;
-        if (secondidx >= sz) break;
+        if (secondidx >= indexes.size()) break;
+
       }
 
       int range = sz - indexes[secondidx];
