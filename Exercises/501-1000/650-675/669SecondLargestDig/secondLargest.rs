@@ -46,12 +46,12 @@ impl Solution {
     // maintain list of digits
     let mut digs: Vec<i32> = Vec::new();
     for c in s.chars() {
-      if c.is_digit() {
-        digs.push(c as i32);
+      if c.is_digit(10) { // TIL (review) must include the base
+        digs.push(c as i32 - '0' as i32);
       }
     }
     if digs.len() < 2 { return -1 }
-    digs.sort_by(|a, b| b.cmp(a));
+    digs.sort_by(|a, b| b.cmp(a)); // sort in reverse order
     let mut mx = digs[0];
     for i in digs {
       if i != mx {
