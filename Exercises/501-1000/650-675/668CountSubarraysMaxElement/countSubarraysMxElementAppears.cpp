@@ -50,20 +50,10 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  unordered_map<int, int> freq;
-
  public:
   long long countSubarrays(vector<int>& nums, int k) {
     // map to get max.
-    int mx = -1;
-    int mxCnt = 0;
-    for (int i : nums) {
-      freq[i]++;
-      if (freq[i] > mxCnt) {
-        mxCnt = freq[i];
-        mx = i;
-      }
-    }
+    int mx = *max_element(nums.begin(), nums.end());
     // get indexes where max appears
     vector<int> indexes;
     int sz = nums.size();
@@ -76,10 +66,9 @@ class Solution {
 
     long long res = 0;
     int firstidx = 0;
-    if (indexes.size() < k-1) return 0;
+    if (indexes.size() < k - 1) return 0;
 
-    int secondidx = k-1;
-
+    int secondidx = k - 1;
     for (int i = 0; i < sz; ++i) {
       if (secondidx >= indexes.size()) break;
 
@@ -87,11 +76,10 @@ class Solution {
         firstidx++;
         secondidx++;
         if (secondidx >= indexes.size()) break;
-
       }
 
       int range = sz - indexes[secondidx];
-      res+=range;
+      res += range;
     }
 
     return res;
