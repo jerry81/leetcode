@@ -71,10 +71,14 @@ class Solution {
       if (nums[i] == mx) indexes.push_back(i);
     }
 
-    long long res = 0;
-    int ptr1 = 0;
-    int ptr2 = 0;
+    // for each subarray where enough indexes are included
+    // add the possible prefixes
 
+    long long res = 0;
+    int firstidx = indexes[0];
+    if (indexes.size() < k-1) return 0;
+
+    int secondidx = indexes[k-1];
 
     return res;
   }
