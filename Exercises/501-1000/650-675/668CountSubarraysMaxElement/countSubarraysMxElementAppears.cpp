@@ -75,10 +75,21 @@ class Solution {
     // add the possible prefixes
 
     long long res = 0;
-    int firstidx = indexes[0];
+    int firstidx = 0;
     if (indexes.size() < k-1) return 0;
 
-    int secondidx = indexes[k-1];
+    int secondidx = k-1;
+
+    for (int i = 0; i < sz; ++i) {
+      if (i > indexes[firstidx]) {
+        firstidx++;
+        secondidx++;
+        if (secondidx >= sz) break;
+      }
+
+      int range = sz - indexes[secondidx];
+      res+=range;
+    }
 
     return res;
   }
