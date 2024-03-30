@@ -63,7 +63,10 @@ class Solution {
     while (starti < sz && endi < sz) {
       while (cur.size() <= k) {
         cur[nums[endi]]++;
-        uptok += (endi - starti + 1);
+        if (cur.size() <= k) {
+          uptok += (endi - starti + 1);
+          endi++;
+        }
       }
       while (cur.size() > k) {
         cur[nums[starti]]--;
@@ -71,7 +74,8 @@ class Solution {
         starti++;
       }
     }
-    cout << "count is " << uptok << endl;
+
+
     return uptok;
   }
 };
