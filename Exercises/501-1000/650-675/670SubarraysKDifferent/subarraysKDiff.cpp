@@ -61,21 +61,34 @@ class Solution {
     int endi = 0;
 
     while (starti < sz && endi < sz) {
-      while (cur.size() <= k) {
-        cur[nums[endi]]++;
-        if (cur.size() <= k) {
-          uptok += (endi - starti + 1);
-          endi++;
-        }
-      }
+      cur[nums[endi]]++;
+
       while (cur.size() > k) {
         cur[nums[starti]]--;
         if (cur[nums[starti]] == 0) cur.erase(nums[starti]);
         starti++;
       }
+      uptok += (endi - starti + 1);
+      endi++;
+    }
+
+    int notinclk = 0;
+    starti = 0;
+    endi = 0;
+    int k2 = k-1;
+    cur.clear();
+    while (starti < sz && endi < sz) {
+      cur[nums[endi]]++;
+      while (cur.size() > k2) {
+        cur[nums[starti]]--;
+        if (cur[nums[starti]] == 0) cur.erase(nums[starti]);
+        starti++;
+      }
+      notinclk += (endi - starti + 1);
+      endi++;
     }
 
 
-    return uptok;
+    return uptok - notinclk;
   }
 };
