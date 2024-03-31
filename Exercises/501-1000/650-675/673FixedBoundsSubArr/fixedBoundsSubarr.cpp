@@ -6,7 +6,8 @@ Companies
 Hint
 You are given an integer array nums and two integers minK and maxK.
 
-A fixed-bound subarray of nums is a subarray that satisfies the following conditions:
+A fixed-bound subarray of nums is a subarray that satisfies the following
+conditions:
 
 The minimum value in the subarray is equal to minK.
 The maximum value in the subarray is equal to maxK.
@@ -25,7 +26,8 @@ Example 2:
 
 Input: nums = [1,1,1,1], minK = 1, maxK = 1
 Output: 10
-Explanation: Every subarray of nums is a fixed-bound subarray. There are 10 possible subarrays.
+Explanation: Every subarray of nums is a fixed-bound subarray. There are 10
+possible subarrays.
 
 
 Constraints:
@@ -55,11 +57,17 @@ class Solution {
       // find first index where conditions are satisfied
       int startR = -1;
       int endR = -1;
+      cout << "minK " << minK << endl;
+      cout << "maxK " << maxK << endl;
       for (int r = l; r < sz; ++r) {
         curMin = min(curMin, nums[r]);
         curMax = max(curMax, nums[r]);
+        cout << "curMin now " << curMin << endl;
+        cout << "curMax now " << curMax << endl;
         if (curMin == minK && curMax == maxK) {
-          startR = startR < 0 ? r : startR;
+          cout << "bounds met , startR is " << startR << endl;
+          if (startR < 0) startR = r;
+          cout << "now startR is " << startR << endl;
         } else {
           if (startR >= l) {
             endR = r;
@@ -67,11 +75,13 @@ class Solution {
           }
         }
       }
-      if (endR >= 0) {
+      cout << "endR " << endR << " startR " << startR << endl;
+      if (startR >= 0) {
+        endR = endR < 0 ? sz - 1 : endR;
         res += (endR - startR + 1);
       }
     }
     return res;
     // 2 ptr
   }
-}
+};
