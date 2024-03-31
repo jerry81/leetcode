@@ -57,26 +57,19 @@ class Solution {
       // find first index where conditions are satisfied
       int startR = -1;
       int endR = -1;
-      cout << "minK " << minK << endl;
-      cout << "maxK " << maxK << endl;
       for (int r = l; r < sz; ++r) {
         curMin = min(curMin, nums[r]);
         curMax = max(curMax, nums[r]);
-        cout << "curMin now " << curMin << endl;
-        cout << "curMax now " << curMax << endl;
         if (curMin == minK && curMax == maxK) {
-          cout << "bounds met , startR is " << startR << endl;
           if (startR < 0) startR = r;
-          cout << "now startR is " << startR << endl;
         } else {
           if (startR >= l) {
-            endR = r;
+            endR = r - 1;
             break;
           }
         }
       }
-      cout << "endR " << endR << " startR " << startR << endl;
-      if (startR >= 0) {
+      if (startR >= l) {
         endR = endR < 0 ? sz - 1 : endR;
         res += (endR - startR + 1);
       }
