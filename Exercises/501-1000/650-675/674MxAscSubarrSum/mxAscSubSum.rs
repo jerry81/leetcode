@@ -50,6 +50,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_ascending_sum(nums: Vec<i32>) -> i32 {
-
+    let mut cursum = 0;
+    let mut res = 0;
+    let mut prev = -1;
+    for num in nums {
+      if num > prev {
+        cursum+=num;
+        res = res.max(cursum);
+      } else {
+        cursum = num;
+      }
+    }
+    res
   }
 }
