@@ -60,6 +60,7 @@ impl Solution {
       } else {
         cursum = num;
       }
+      prev = num;
     }
     res
   }
