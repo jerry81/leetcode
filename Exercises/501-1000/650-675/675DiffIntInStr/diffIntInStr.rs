@@ -59,9 +59,7 @@ impl Solution {
 
     for c in word.chars() {
       if c.is_digit(10) {
-        if !cur.is_empty() || c != '0' {
-          cur.push(c);
-        }
+        cur.push(c);
       } else {
         if !cur.is_empty() {
           hs.insert(cur);
@@ -72,6 +70,23 @@ impl Solution {
     if !cur.is_empty() {
         hs.insert(cur);
     }
-    hs.len() as i32
+    let mut final_hs: HashSet<String> = HashSet::new();
+    // TIL: new method i32::from_str_radix
+    for item in hs {
+      let mut to_add = String::new();
+      let mut leading = true;
+      if item.len() > 1 {
+        for c in item.chars() {
+          if leading && c == '0' {
+            continue;
+          } else {
+            leading = false;
+            to_add.push(c);
+          }
+        }
+        final_hs.insert(to_add);
+      }
+    }
+    final_hs.len() as i32
   }
 }
