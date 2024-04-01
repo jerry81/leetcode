@@ -47,8 +47,26 @@ Acceptance Rate
 37.7%
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn num_different_integers(word: String) -> i32 {
+    // string manipulation
+    // split
+    // set
+    let mut hs: HashSet<String> = HashSet::new();
+    let mut cur: Stringr = String::new();
 
+    for c in word.chars() {
+      if c.is_digit(10) {
+        cur+=c;
+      } else {
+        if !cur.empty() {
+          hs.insert(cur);
+        }
+        cur = String::new();
+      }
+    }
+    hs.len()
   }
 }
