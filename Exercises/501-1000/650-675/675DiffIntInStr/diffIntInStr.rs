@@ -75,17 +75,18 @@ impl Solution {
     for item in hs {
       let mut to_add = String::new();
       let mut leading = true;
-      if item.len() > 1 {
-        for c in item.chars() {
-          if leading && c == '0' {
-            continue;
-          } else {
-            leading = false;
-            to_add.push(c);
-          }
+      for c in item.chars() {
+        if leading && c == '0' {
+          continue;
+        } else {
+          leading = false;
+          to_add.push(c);
         }
-        final_hs.insert(to_add);
       }
+      if to_add.is_empty() {
+        to_add.push(item.chars().last().unwrap())
+      }
+      final_hs.insert(to_add);
     }
     final_hs.len() as i32
   }
