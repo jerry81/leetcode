@@ -57,6 +57,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn truncate_sentence(s: String, k: i32) -> String {
+    // count 3 spaces
+    // no trailing
+    // guaranteed to have one space between words
+    let tgt = k - 1;
+    let mut res: String = String::new();
+    let mut space_count = 0;
+    for c in s.chars() {
+      if c == ' ' {
+        space_count+=1;
+        if space_count == k { return res }
+      }
 
+      res.push(c);
+    }
+    res
   }
 }
