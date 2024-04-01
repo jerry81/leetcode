@@ -46,6 +46,17 @@ Acceptance Rate
 
 using namespace std;
 
+/*
+  Essence:
+    like the other 2 pointer subarray problems, we can optimize by assuming in a range there are
+    range number of items we can add to the result.
+    we then check for ranges starting at each node.
+    the key here is we are looking exact values but also care about items that go out of bounds
+    - going out of bounds invalidates all arrays include that item.
+    - the solution is generalized by the min/max stuff like handling a case where we have just found an out of bounds item
+    and when the minK and maxK swap relative positions
+*/
+
 class Solution {
  public:
   long long countSubarrays(vector<int>& nums, int minK, int maxK) {

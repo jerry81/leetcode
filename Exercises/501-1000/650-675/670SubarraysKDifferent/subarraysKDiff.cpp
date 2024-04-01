@@ -51,6 +51,8 @@ Acceptance Rate
 
 using namespace std;
 
+// Essence: Figuring out The venn diagramm stuff (that items with exactly K distinct
+// are the set of items with less than k minus minus the items with less than k-1);
 class Solution {
  public:
   int subarraysWithKDistinct(vector<int>& nums, int k) {
