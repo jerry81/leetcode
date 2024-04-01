@@ -55,18 +55,21 @@ impl Solution {
     // split
     // set
     let mut hs: HashSet<String> = HashSet::new();
-    let mut cur: Stringr = String::new();
+    let mut cur: String = String::new();
 
     for c in word.chars() {
       if c.is_digit(10) {
-        cur+=c;
+        cur.push(c);
       } else {
-        if !cur.empty() {
+        if !cur.is_empty() {
           hs.insert(cur);
         }
         cur = String::new();
       }
     }
-    hs.len()
+    if !cur.is_empty() {
+        hs.insert(cur);
+    }
+    hs.len() as i32
   }
 }
