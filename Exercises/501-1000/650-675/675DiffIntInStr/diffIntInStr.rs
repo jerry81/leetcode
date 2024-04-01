@@ -59,7 +59,9 @@ impl Solution {
 
     for c in word.chars() {
       if c.is_digit(10) {
-        cur.push(c);
+        if !cur.is_empty() || c != '0' {
+          cur.push(c);
+        }
       } else {
         if !cur.is_empty() {
           hs.insert(cur);
