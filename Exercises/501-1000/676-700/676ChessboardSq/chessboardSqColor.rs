@@ -49,6 +49,9 @@ Acceptance Rate
 
 impl Solution {
   pub fn square_is_white(coordinates: String) -> bool {
-
+    let col = coordinates.chars().nth(0).unwrap();
+    let row = coordinates.chars().nth(1).unwrap();
+    println("c {} r {}", col, row);
+    true
   }
 }
