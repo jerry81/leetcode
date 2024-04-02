@@ -46,7 +46,6 @@ impl Solution {
     let mut mut_n = n;
     let digs: Vec<i32> = vec![];
     while mut_n > 0 {
-
       let mut exponent = 0;
 
       for i in 0..10 {
@@ -55,10 +54,9 @@ impl Solution {
           break
         }
       }
-        let curfact = k.pow(exponent);
-        res+=mut_n/curfact;
-        mut_n = mut_n%curfact;
-
+      let curfact = k.pow(exponent);
+      res+=mut_n/curfact;
+      mut_n = mut_n%curfact;
 
     }
     res
