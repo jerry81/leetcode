@@ -53,6 +53,16 @@ Acceptance Rate
 impl Solution {
   pub fn min_operations(nums: Vec<i32>) -> i32 {
     let mut res = 0;
+    let mut cur = 0;
+    for i in nums {
+      if i > cur {
+        cur = i;
+      } else {
+        cur = cur+1;
+        res+=cur;
+        res-=i;
+      }
+    }
     res
   }
 }
