@@ -60,19 +60,23 @@ impl Solution {
       *hm2.entry(c).or_insert(0)+=1;
     }
     for (_,v) in &hm {
-      *freq_of_freqs.entry(v).or_insert(0)+=1;
+      *freq_of_freq.entry(*v).or_insert(0)+=1;
     }
-    for (_,v) in &hm2 {
-      let mut freq = *freq_of_freqs.entry(v).or_insert(-1);
-      if freq <= 0 {
-        return false;
-      } else {
-        freq-=1;
-        if freq == 0 {
-          freq_of_freqs.remove(v);
+    for (_, v) in &hm2 {
+        if let Some(freq) = freq_of_freq.get_mut(v) {
+            if *freq <= 0 {
+                return false;
+            } else {
+                *freq -= 1;
+                if *freq == 0 {
+                    freq_of_freq.remove(v);
+                }
+            }
+        } else {
+            return false; // Frequency not found in freq_of_freq
         }
-      }
     }
-    freq_of_freqs.is_empty()
+
+    freq_of_freq.is_empty()
   }
 }
