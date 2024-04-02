@@ -39,9 +39,14 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
 
 impl Solution {
   pub fn check_if_pangram(sentence: String) -> bool {
-
+    let mut hs:HashSet<char> = HashSet::new();
+    for c in sentence.chars() {
+      hs.insert(c);
+    }
+    hs.len() == 26
   }
 }
