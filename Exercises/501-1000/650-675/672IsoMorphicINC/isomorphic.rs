@@ -50,33 +50,27 @@ impl Solution {
 
   pub fn is_isomorphic(s: String, t: String) -> bool {
     // one of those freq problems.
-    let mut hm: HashMap<char,i32> = HashMap::new();
-    let mut freq_of_freq: HashMap<i32,i32> = HashMap::new();
-    let mut hm2: HashMap<char,i32> = HashMap::new();
-    for c in s.chars() {
-      *hm.entry(c).or_insert(0)+=1;
-    }
-    for c in t.chars() {
-      *hm2.entry(c).or_insert(0)+=1;
-    }
-    for (_,v) in &hm {
-      *freq_of_freq.entry(*v).or_insert(0)+=1;
-    }
-    for (_, v) in &hm2 {
-        if let Some(freq) = freq_of_freq.get_mut(v) {
-            if *freq <= 0 {
+    let mut hm: HashMap<char,char> = HashMap::new();
+    let mut hm2: HashMap<char,char> = HashMap::new();
+    let sz = s.len();
+    for i in 0..sz {
+      let sc = s.chars().nth(i).unwrap();
+      let tc = t.chars().nth(i).unwrap();
+      if hm.contains_key(&sc) {
+        if hm[&sc] != tc {
+          return false;
+        }
+      } else {
+        if hm2.contains_key(&tc) {
+            if hm[&tc] != sc {
                 return false;
-            } else {
-                *freq -= 1;
-                if *freq == 0 {
-                    freq_of_freq.remove(v);
-                }
             }
         } else {
-            return false; // Frequency not found in freq_of_freq
+            hm2.insert(tc,sc);
         }
+        hm.insert(sc,tc);
+      }
     }
-
-    freq_of_freq.is_empty()
+    true
   }
 }
