@@ -78,17 +78,21 @@ class Solution {
           queue<pair<int, int>> q;
           q.push({cur_r, cur_c});
           visited.insert({cur_r, cur_c});
+          int temp1 = cur_r;
+          int temp2 = cur_c;
           while (!q.empty()) {
             queue<pair<int, int>> nq;
+            int next_idx = cur_idx+1;
             while (!q.empty()) {
+
               pair<int, int> popped = q.front();
 
               auto [y, x] = popped;
 
               q.pop();
+
               if (board[y][x] == word[cur_idx]) {
                 visited.insert({y,x});
-                cur_idx += 1;
               } else {
                 continue;
               }
@@ -111,12 +115,13 @@ class Solution {
 
                 if (visited.find(key) != visited.end()) continue;
 
-                if (board[ny][nx] != word[cur_idx]) continue;
+                if (board[ny][nx] != word[next_idx]) continue;
 
                 nq.push(key);
               }
             }
             q = nq;
+            cur_idx++;
           }
         }
         if (cur_idx == word_size) return true;
