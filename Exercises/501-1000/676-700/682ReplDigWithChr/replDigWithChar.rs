@@ -67,7 +67,7 @@ impl Solution {
       if (idx+1) >= ln { break; }
       let num = s.chars().nth(idx+1).unwrap();
 
-      res.push(((chr as u8) + (num as u8 - '0' as u8)) as char); // TIL: chars become u8s.
+      res.push((chr as u8 + num as u8 - '0' as u8) as char); // TIL: chars become u8s.
     }
     res
   }
