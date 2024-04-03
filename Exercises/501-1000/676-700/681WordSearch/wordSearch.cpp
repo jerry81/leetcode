@@ -54,7 +54,7 @@ Acceptance Rate
 
 */
 #include <queue>
-#include <set>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -64,14 +64,29 @@ class Solution {
   bool exist(vector<vector<char>>& board, string word) {
     // bfs
     // edge case (perf)
-    set<char> chrs;
-    for (vector<char> v: board) {
-      for (char c: v) {
-        chrs.insert(c);
+    unordered_map<char, int> freq;
+    for (vector<char> v : board) {
+      for (char c : v) {
+        if (freq.find(c) == freq.end()) {
+          freq[c] = 1;
+        } else {
+          freq[c] += 1;
+        }
       }
     }
-    for (char c: word) {
-        if (chrs.find(c) == chrs.end()) return false;
+    unordered_map<char, int> freq2;
+    for (char c : word) {
+      if (freq2.find(c) == freq.end()) {
+        freq2[c] = 1;
+      } else {
+        freq2[c] += 1;
+      }
+    }
+
+    for (auto [k,v]: freq2) {
+      if (freq.find(k) == freq.end()) return false;
+
+      if (freq[k] < v) return false;
     }
     vector<vector<int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
     int r = board.size();
@@ -79,26 +94,25 @@ class Solution {
     int word_size = word.size();
     char start_letter = word[0];
 
-
     for (int cur_r = 0; cur_r < r; ++cur_r) {
       for (int cur_c = 0; cur_c < c; ++cur_c) {
         int cur_idx = 0;
         if (board[cur_r][cur_c] == start_letter) {
           queue<pair<pair<int, int>, vector<vector<bool>>>> q;
-          vector<vector<bool>> path(r,vector<bool>(c));
-          path[cur_r][cur_c] = true;;
-          q.push({{cur_r, cur_c},path});
-          //int temp1 = cur_r;
-         // int temp2 = cur_c;
+          vector<vector<bool>> path(r, vector<bool>(c));
+          path[cur_r][cur_c] = true;
+          ;
+          q.push({{cur_r, cur_c}, path});
+          // int temp1 = cur_r;
+          // int temp2 = cur_c;
           while (!q.empty()) {
             queue<pair<pair<int, int>, vector<vector<bool>>>> nq;
-            int next_idx = cur_idx+1;
+            int next_idx = cur_idx + 1;
             while (!q.empty()) {
-
               pair<pair<int, int>, vector<vector<bool>>> popped = q.front();
 
               auto [loc, vis] = popped;
-              auto [y,x] = loc;
+              auto [y, x] = loc;
               q.pop();
 
               if (board[y][x] == word[cur_idx]) {
@@ -107,11 +121,8 @@ class Solution {
                 continue;
               }
               for (vector<int> neigh : NEIGHBORS) {
-
                 int ny = neigh[0] + y;
                 int nx = neigh[1] + x;
-
-
 
                 if (ny < 0) continue;
 
@@ -121,7 +132,7 @@ class Solution {
 
                 if (nx >= c) continue;
 
-                pair<int,int> key = {ny,nx};
+                pair<int, int> key = {ny, nx};
 
                 if (vis[ny][nx]) continue;
 
