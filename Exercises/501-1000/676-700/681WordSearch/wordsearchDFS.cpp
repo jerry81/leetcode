@@ -1,3 +1,7 @@
+#include <vector>
+
+using namespace std;
+
 
 class Solution {
   const vector<pair<int, int>> N = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
@@ -20,9 +24,11 @@ class Solution {
 
       if (vis[ny][nx]) continue;
 
-      vis[ny][nx] = true;
+      vector<vector<bool>> cpy = vis;
 
-      if (r(ny,nx,vis,word, board,h,w)) return true;
+      cpy[ny][nx] = true;
+
+      if (r(ny,nx,cpy,word, board,h,w)) return true;
     }
     return false;
   }
