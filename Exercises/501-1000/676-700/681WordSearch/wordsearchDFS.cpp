@@ -7,9 +7,8 @@ class Solution {
 
   bool r(int y, int x, vector<vector<bool>> vis, string word,
          vector<vector<char>>& board, int& h, int& w) {
+    cout << "working on " << y << ","<< x<<endl;
     if (word.empty()) return true;
-
-    if (y < 0 || x < 0 || y >= h || x >= w) return false;
 
     if (word.front() != board[y][x]) return false;
 
@@ -19,9 +18,11 @@ class Solution {
       int ny = y+dy;
       int nx = x+dx;
 
+      if (ny < 0 || nx < 0 || ny >= h || nx >= w) continue;
+
       if (vis[ny][nx]) continue;
 
-      vis[y][x] = true;
+      vis[ny][nx] = true;
 
       if (r(ny,nx,vis,word, board,h,w)) return true;
     }
