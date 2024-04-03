@@ -111,6 +111,8 @@ class Solution {
 
                 if (visited.find(key) != visited.end()) continue;
 
+                if (board[ny][nx] != word[cur_idx]) continue;
+
                 nq.push(key);
               }
             }
