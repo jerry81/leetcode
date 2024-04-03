@@ -3,6 +3,10 @@
 
 using namespace std;
 
+/*
+  Gist:  to improve performance, instead of copying a visited array or the board, modify the board inline and then
+  if the path fails backtrack by undoing the modification to the board.
+*/
 
 class Solution {
   const vector<pair<int, int>> N = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
@@ -18,7 +22,7 @@ class Solution {
     if (word.empty()) return true;
 
     char tmp = board[y][x];
-    board[y][x] = '0';
+    board[y][x] = '0';  // This is a backtracking technique.
     for (auto [dy,dx]:N) {
       int ny = y+dy;
       int nx = x+dx;
@@ -31,7 +35,7 @@ class Solution {
 
       if (r(ny,nx,word, board,h,w)) return true;
     }
-    board[y][x] = tmp;
+    board[y][x] = tmp; // TIL: not even having to use a "visited" map
     return false;
   }
 
