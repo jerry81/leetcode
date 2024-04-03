@@ -66,27 +66,45 @@ class Solution {
     vector<vector<int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
     int r = board.size();
     int c = board[0].size();
+    int word_size = word.size();
     char start_letter = word[0];
     for (int cur_r = 0; cur_r < r; ++cur_r) {
       for (int cur_c = 0; cur_c < c; ++cur_c) {
+        int cur_idx = 0;
         if (board[r][c] == start_letter) {
           set<pair<int, int>> visited;
           queue<pair<int, int>> q;
           q.push({cur_r, cur_c});
+          visited.insert({cur_r, cur_c});
           while (!q.empty()) {
-            queue<pair<int,int>> nq;
+            queue<pair<int, int>> nq;
             while (!q.empty()) {
-             pair<int,int> popped = q.front();
-             visited.insert(popped);
-             auto [y,x] = popped;
+              pair<int, int> popped = q.front();
+
+              auto [y, x] = popped;
+
               q.pop();
+              if (board[y][x] == word[cur_idx]) {
+                cur_idx += 1;
+              } else {
+                continue;
+              }
+              for (vector<int> neigh : NEIGHBORS) {
+                int ny = neigh[0] + y;
+                int nx = neigh[1] + x;
+                if (ny < 0) continue;
+                if (nx < 0) continue;
+                if (ny >= r) continue;
+                if (nx >= c) continue;
+                nq.push({ny,nx});
+              }
             }
-            for (vector<int> neigh: NEIGHBORS) {
-            }
+            q = nq;
           }
         }
+        cout << "cur_idx is " << cur_idx << endl;
       }
     }
-    return true;
+    return false;
   }
 };
