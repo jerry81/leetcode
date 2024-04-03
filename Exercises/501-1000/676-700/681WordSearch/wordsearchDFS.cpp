@@ -1,4 +1,5 @@
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -35,6 +36,33 @@ class Solution {
 
  public:
   bool exist(vector<vector<char>>& board, string word) {
+    // perf edge cases
+    unordered_map<char, int> freq;
+    for (vector<char> v : board) {
+      for (char c : v) {
+        if (freq.find(c) == freq.end()) {
+          freq[c] = 1;
+        } else {
+          freq[c] += 1;
+        }
+      }
+    }
+    unordered_map<char, int> freq2;
+    for (char c : word) {
+      if (freq2.find(c) == freq.end()) {
+        freq2[c] = 1;
+      } else {
+        freq2[c] += 1;
+      }
+    }
+
+    for (auto [k,v]: freq2) {
+      if (freq.find(k) == freq.end()) return false;
+
+      if (freq[k] < v) return false;
+    }
+
+
     int h = board.size();
     int w = board[0].size();
     vector<vector<bool>> empty_vis(h, vector<bool>(w));
