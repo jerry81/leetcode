@@ -60,6 +60,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+class Solution {
  public:
   bool exist(vector<vector<char>>& board, string word) {
     // bfs
@@ -68,10 +69,12 @@ class Solution {
     int c = board[0].size();
     int word_size = word.size();
     char start_letter = word[0];
+
+
     for (int cur_r = 0; cur_r < r; ++cur_r) {
       for (int cur_c = 0; cur_c < c; ++cur_c) {
         int cur_idx = 0;
-        if (board[r][c] == start_letter) {
+        if (board[cur_r][cur_c] == start_letter) {
           set<pair<int, int>> visited;
           queue<pair<int, int>> q;
           q.push({cur_r, cur_c});
@@ -90,19 +93,29 @@ class Solution {
                 continue;
               }
               for (vector<int> neigh : NEIGHBORS) {
+
                 int ny = neigh[0] + y;
                 int nx = neigh[1] + x;
+
                 if (ny < 0) continue;
+
                 if (nx < 0) continue;
+
                 if (ny >= r) continue;
+
                 if (nx >= c) continue;
-                nq.push({ny,nx});
+
+                pair<int,int> key = {ny,nx};
+                if (visited.find(key) != visited.end()) continue;
+
+                visited.insert(key);
+                nq.push(key);
               }
             }
             q = nq;
           }
         }
-        cout << "cur_idx is " << cur_idx << endl;
+        if (cur_idx == word_size) return true;
       }
     }
     return false;
