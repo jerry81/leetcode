@@ -1,18 +1,16 @@
-#include <vector>
-
-using namespace std;
 
 class Solution {
   const vector<pair<int, int>> N = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
   bool r(int y, int x, vector<vector<bool>> vis, string word,
          vector<vector<char>>& board, int& h, int& w) {
-    cout << "working on " << y << ","<< x<<endl;
     if (word.empty()) return true;
 
     if (word.front() != board[y][x]) return false;
 
     word.erase(0,1);
+
+    if (word.empty()) return true;
 
     for (auto [dy,dx]:N) {
       int ny = y+dy;
