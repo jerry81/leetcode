@@ -63,6 +63,16 @@ class Solution {
  public:
   bool exist(vector<vector<char>>& board, string word) {
     // bfs
+    // edge case (perf)
+    set<char> chrs;
+    for (vector<char> v: board) {
+      for (char c: v) {
+        chrs.insert(c);
+      }
+    }
+    for (char c: word) {
+        if (chrs.find(c) == chrs.end()) return false;
+    }
     vector<vector<int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
     int r = board.size();
     int c = board[0].size();
@@ -74,25 +84,25 @@ class Solution {
       for (int cur_c = 0; cur_c < c; ++cur_c) {
         int cur_idx = 0;
         if (board[cur_r][cur_c] == start_letter) {
-          queue<pair<pair<int, int>, set<pair<int,int>>>> q;
-          set<pair<int,int>> path;
-          path.insert({cur_r, cur_c});
+          queue<pair<pair<int, int>, vector<vector<bool>>>> q;
+          vector<vector<bool>> path(r,vector<bool>(c));
+          path[cur_r][cur_c] = true;;
           q.push({{cur_r, cur_c},path});
-          int temp1 = cur_r;
-          int temp2 = cur_c;
+          //int temp1 = cur_r;
+         // int temp2 = cur_c;
           while (!q.empty()) {
-            queue<pair<pair<int, int>, set<pair<int,int>>>> nq;
+            queue<pair<pair<int, int>, vector<vector<bool>>>> nq;
             int next_idx = cur_idx+1;
             while (!q.empty()) {
 
-              pair<pair<int, int>, set<pair<int,int>>> popped = q.front();
+              pair<pair<int, int>, vector<vector<bool>>> popped = q.front();
 
               auto [loc, vis] = popped;
               auto [y,x] = loc;
               q.pop();
 
               if (board[y][x] == word[cur_idx]) {
-                vis.insert({y,x});
+                vis[y][x] = true;
               } else {
                 continue;
               }
@@ -113,7 +123,7 @@ class Solution {
 
                 pair<int,int> key = {ny,nx};
 
-                if (vis.find(key) != vis.end()) continue;
+                if (vis[ny][nx]) continue;
 
                 if (board[ny][nx] != word[next_idx]) continue;
 
