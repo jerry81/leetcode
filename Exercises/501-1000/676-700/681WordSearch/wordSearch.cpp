@@ -60,7 +60,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-class Solution {
  public:
   bool exist(vector<vector<char>>& board, string word) {
     // bfs
@@ -88,6 +87,7 @@ class Solution {
 
               q.pop();
               if (board[y][x] == word[cur_idx]) {
+                visited.insert({y,x});
                 cur_idx += 1;
               } else {
                 continue;
@@ -96,6 +96,8 @@ class Solution {
 
                 int ny = neigh[0] + y;
                 int nx = neigh[1] + x;
+
+
 
                 if (ny < 0) continue;
 
@@ -106,9 +108,9 @@ class Solution {
                 if (nx >= c) continue;
 
                 pair<int,int> key = {ny,nx};
+
                 if (visited.find(key) != visited.end()) continue;
 
-                visited.insert(key);
                 nq.push(key);
               }
             }
