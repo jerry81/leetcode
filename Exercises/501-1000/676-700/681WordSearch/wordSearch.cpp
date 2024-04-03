@@ -74,25 +74,25 @@ class Solution {
       for (int cur_c = 0; cur_c < c; ++cur_c) {
         int cur_idx = 0;
         if (board[cur_r][cur_c] == start_letter) {
-          set<pair<int, int>> visited;
-          queue<pair<int, int>> q;
-          q.push({cur_r, cur_c});
-          visited.insert({cur_r, cur_c});
+          queue<pair<pair<int, int>, set<pair<int,int>>>> q;
+          set<pair<int,int>> path;
+          path.insert({cur_r, cur_c});
+          q.push({{cur_r, cur_c},path});
           int temp1 = cur_r;
           int temp2 = cur_c;
           while (!q.empty()) {
-            queue<pair<int, int>> nq;
+            queue<pair<pair<int, int>, set<pair<int,int>>>> nq;
             int next_idx = cur_idx+1;
             while (!q.empty()) {
 
-              pair<int, int> popped = q.front();
+              pair<pair<int, int>, set<pair<int,int>>> popped = q.front();
 
-              auto [y, x] = popped;
-
+              auto [loc, vis] = popped;
+              auto [y,x] = loc;
               q.pop();
 
               if (board[y][x] == word[cur_idx]) {
-                visited.insert({y,x});
+                vis.insert({y,x});
               } else {
                 continue;
               }
@@ -113,11 +113,11 @@ class Solution {
 
                 pair<int,int> key = {ny,nx};
 
-                if (visited.find(key) != visited.end()) continue;
+                if (vis.find(key) != vis.end()) continue;
 
                 if (board[ny][nx] != word[next_idx]) continue;
 
-                nq.push(key);
+                nq.push({key, vis});
               }
             }
             q = nq;
