@@ -57,12 +57,17 @@ Acceptance Rate
 impl Solution {
   pub fn replace_digits(s: String) -> String {
     let mut res: String = String::new();
-    let l = s.len() / 2;
-    for i in 0..l {
+    let ln = s.len();
+    let l = ln / 2;
+    for i in 0..=l {
       let idx = i*2;
+      if idx >= ln { break; }
       let chr = s.chars().nth(idx).unwrap(); // Review: nth gives option
+      res.push(chr);
+      if (idx+1) >= ln { break; }
       let num = s.chars().nth(idx+1).unwrap();
-      res.push((chr as i32) + (num as i32 - '0' as i32) as char);
+
+      res.push(((chr as u8) + (num as u8 - '0' as u8)) as char); // TIL: chars become u8s.
     }
     res
   }
