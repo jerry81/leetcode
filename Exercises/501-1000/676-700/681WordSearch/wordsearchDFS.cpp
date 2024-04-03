@@ -5,9 +5,27 @@ using namespace std;
 class Solution {
   const vector<pair<int, int>> N = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-  bool r(int idx, int y, int x, vector<vector<bool>> vis,
-         vector<vector<char>>& board, string& word, int& h, int& w) {
-    if (y < 0 || x < 0 || y >= h, || x >= w) return false;
+  bool r(int y, int x, vector<vector<bool>> vis, string word,
+         vector<vector<char>>& board, int& h, int& w) {
+    if (word.empty()) return true;
+
+    if (y < 0 || x < 0 || y >= h || x >= w) return false;
+
+    if (word.front() != board[y][x]) return false;
+
+    word.erase(0,1);
+
+    for (auto [dy,dx]:N) {
+      int ny = y+dy;
+      int nx = x+dx;
+
+      if (vis[ny][nx]) continue;
+
+      vis[y][x] = true;
+
+      if (r(ny,nx,vis,word, board,h,w)) return true;
+    }
+    return false;
   }
 
  public:
@@ -19,7 +37,9 @@ class Solution {
       for (int j = 0; j < w; ++j) {
         if (board[i][j] != word[0]) continue;
 
-        if (r(0, i, j, empty_vis, board, word, h, w)) return true;
+        vector<vector<bool>> cpy = empty_vis;
+        cpy[i][j] = true;
+        if (r(i, j, cpy, word, board, h, w)) return true;
       }
     }
     return false;
