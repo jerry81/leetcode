@@ -56,7 +56,8 @@ impl Solution {
       let mut dist = i32::MAX;
       for i in 0..sz {
         if nums[i] == target {
-
+          let curd = abs(i-start);
+          res = res.min(curd);
         }
       }
       res
