@@ -45,9 +45,15 @@ Acceptance Rate
 83.0%
 
 */
-
 impl Solution {
   pub fn sort_sentence(s: String) -> String {
-
+      let spl = s.split(' ');
+      let mut substrings: Vec<&str> = spl.collect();
+      substrings.sort_by(
+        |a,b| a.chars().last().cmp(&b.chars().last()) // review - cmp wants &
+      ); // Review: lambda
+      // drop the last char
+      let mut as_strings: Vec<String> = substrings.iter().map(|&s| s[..s.len() - 1].to_string()).collect();
+      as_strings.join(" ") // TIL: JOIN
   }
 }
