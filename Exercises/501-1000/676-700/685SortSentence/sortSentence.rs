@@ -59,3 +59,5 @@ impl Solution {
       as_strings.join(" ") // TIL: JOIN
   }
 }
+
+// TIL: str len not known at compile time.
