@@ -47,7 +47,8 @@ impl Solution {
   pub fn maximum_population(logs: Vec<Vec<i32>>) -> i32 {
       let mut births: Vec<i32> = vec![];
       let mut deaths: Vec<i32> = vec![];
-      for v in logs {
+      let cl = logs.clone(); // to fix "move occurs" issue.
+      for v in cl {
         births.push(v[0]);
         deaths.push(v[1]);
       }
