@@ -53,7 +53,9 @@ impl Solution {
         |a,b| a.chars().last().cmp(&b.chars().last()) // review - cmp wants &
       ); // Review: lambda
       // drop the last char
-      let mut as_strings: Vec<String> = substrings.iter().map(|&s| s[..s.len() - 1].to_string()).collect();
+      let mut as_strings: Vec<String> = substrings.iter().map(
+        |&s| s[..s.len() - 1].to_string() // slice and back to String
+      ).collect(); // Review: Map
       as_strings.join(" ") // TIL: JOIN
   }
 }
