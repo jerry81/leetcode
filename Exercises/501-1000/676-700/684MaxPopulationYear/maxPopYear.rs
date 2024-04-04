@@ -47,6 +47,12 @@ impl Solution {
   pub fn maximum_population(logs: Vec<Vec<i32>>) -> i32 {
       let mut births: Vec<i32> = vec![];
       let mut deaths: Vec<i32> = vec![];
+      for v in logs {
+        births.push(v[0]);
+        deaths.push(v[1]);
+      }
+      births.sort();
+      deaths.sort();
       let mut maxyr = 0;
       let mut maxpop = 0;
       let mut curpop = 0;
