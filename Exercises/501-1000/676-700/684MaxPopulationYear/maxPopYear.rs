@@ -43,9 +43,34 @@ Acceptance Rate
 60.3%
 
 */
-
 impl Solution {
   pub fn maximum_population(logs: Vec<Vec<i32>>) -> i32 {
-
+      let mut births: Vec<i32> = vec![];
+      let mut deaths: Vec<i32> = vec![];
+      let mut maxyr = 0;
+      let mut maxpop = 0;
+      let mut curpop = 0;
+      let mut birth_i = 0;
+      let mut death_i = 0;
+      let sz = logs.len();
+      while birth_i < sz {
+          let curbirth = births[birth_i];
+          let curdeath = deaths[death_i];
+          if curbirth < curdeath {
+              birth_i+=1;
+              curpop+=1;
+              if curpop > maxpop {
+                  maxpop = curpop;
+                  maxyr = curbirth;
+              }
+          } else if curbirth > curdeath {
+            death_i+=1;
+            curpop-=1;
+          } else {
+            death_i+=1;
+            birth_i+=1;
+          }
+      }
+      maxyr
   }
 }
