@@ -57,7 +57,10 @@ impl Solution {
       for i in 0..sz {
         if nums[i] == target {
           let curd = (i as i32-start).abs();
-          res = res.min(curd);
+          if curd < dist {
+            dist = curd;
+            res = (i as i32 - start).abs() as i32;
+          }
         }
       }
       res
