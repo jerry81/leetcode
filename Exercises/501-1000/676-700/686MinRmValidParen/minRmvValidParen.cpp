@@ -56,6 +56,23 @@ using namespace std;
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-
+      int cnt = 0;
+      string pre_res = "";
+      for (char c: s) {
+        if (c == ')') {
+          if (cnt > 0) {
+            cnt--;
+          } else {
+            continue;
+          }
+        }
+        if (c == '(') {
+          cnt+=1;
+        }
+        pre_res.push_back(c);
+      }
+      string res = "";
+      cout << "presres is " << pres_res << endl;
+      return res;
     }
 };
