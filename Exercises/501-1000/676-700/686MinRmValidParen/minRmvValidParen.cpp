@@ -72,7 +72,22 @@ public:
         pre_res.push_back(c);
       }
       string res = "";
-      cout << "presres is " << pres_res << endl;
+      int cnt2 = 0;
+      reverse(pre_res.begin(), pre_res.end());
+      for (char c: pre_res) {
+        if (c == '(') {
+          if (cnt2> 0) {
+            cnt2--;
+          } else {
+            continue;
+          }
+        }
+        if (c == ')') {
+          cnt2+=1;
+        }
+        res.push_back(c);
+      }
+      reverse(res.begin(),res.end());
       return res;
     }
 };
