@@ -66,6 +66,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn subset_xor_sum(nums: Vec<i32>) -> i32 {
+    let sz = nums.len();
+    let mut res = 0;
+    for i in 0.. sz-1 {
+      let mut cur = 0;
 
+      for j in i..sz {
+        cur = cur^nums[j];
+        res += cur;
+      }
+    }
+    res
   }
 }
