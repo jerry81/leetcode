@@ -75,12 +75,10 @@ class Solution {
         wildcount += 1;
       }
     }
-    cout << "lcount " << lcount << endl;
     if (lcount > wildcount) return false;
 
     string rev = s;
     reverse(rev.begin(), rev.end());
-    cout << "rev is " << rev << endl;
     lcount = 0;
     wildcount = 0;
     for (char c : rev) {
@@ -100,8 +98,6 @@ class Solution {
         wildcount += 1;
       }
     }
-    cout << "lcount " << lcount << endl;
-    cout << "wildcount is " << wildcount << endl;
     return lcount <= wildcount;
   }
 };
