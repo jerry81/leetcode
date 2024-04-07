@@ -49,10 +49,30 @@ Acceptance Rate
 #include <string>
 
 using namespace std;
-
 class Solution {
 public:
     bool checkValidString(string s) {
-
+        // iterate forwards
+        // iterate backwards
+        int wildcount = 0;
+        int lcount = 0;
+        for (char c: s) {
+            if (c == '(') {
+              lcount+=1;
+            } else if (c == ')') {
+              if (lcount < 1) {
+                if (wildcount < 1) {
+                    return false;
+                } else {
+                    wildcount-=1;
+                }
+              } else {
+                lcount-=1;
+              }
+            } else {
+                wildcount+=1;
+            }
+        }
+        return true;
     }
 };
