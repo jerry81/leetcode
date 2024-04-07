@@ -73,6 +73,29 @@ public:
                 wildcount+=1;
             }
         }
-        return true;
+        if (lcount != 0) return false;
+
+        string rev = s;
+        reverse(s.begin(), s.end());
+        lcount = 0;
+        wildcount = 0;
+        for (char c: rev) {
+            if (c == ')') {
+              lcount+=1;
+            } else if (c == '(') {
+              if (lcount < 1) {
+                if (wildcount < 1) {
+                    return false;
+                } else {
+                    wildcount-=1;
+                }
+              } else {
+                lcount-=1;
+              }
+            } else {
+                wildcount+=1;
+            }
+        }
+        return lcount == 0;
     }
 };
