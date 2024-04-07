@@ -49,6 +49,7 @@ Acceptance Rate
 #include <string>
 
 using namespace std;
+
 class Solution {
 public:
     bool checkValidString(string s) {
@@ -66,17 +67,18 @@ public:
                 } else {
                     wildcount-=1;
                 }
-              } else {
-                lcount-=1;
               }
+              lcount-=1;
             } else {
                 wildcount+=1;
             }
         }
+        cout << "lcount " << lcount<< endl;
         if (lcount != 0) return false;
 
         string rev = s;
-        reverse(s.begin(), s.end());
+        reverse(rev.begin(), rev.end());
+        cout << "rev is " << rev << endl;
         lcount = 0;
         wildcount = 0;
         for (char c: rev) {
@@ -89,13 +91,13 @@ public:
                 } else {
                     wildcount-=1;
                 }
-              } else {
-                lcount-=1;
               }
+              lcount-=1;
             } else {
                 wildcount+=1;
             }
         }
+        cout << "lcount " << lcount << endl;
         return lcount == 0;
     }
 };
