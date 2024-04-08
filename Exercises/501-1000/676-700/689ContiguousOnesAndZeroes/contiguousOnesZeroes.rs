@@ -57,6 +57,22 @@ Acceptance Rate
 
 impl Solution {
   pub fn check_zero_ones(s: String) -> bool {
+    let mut zero_len = 0;
+    let mut curzero = 0;
+    let mut one_len = 0;
+    let mut curone = 0;
 
+    for c in s.chars() {
+      if c == '0' {
+        curzero +=1;
+        zero_len = zero_len.max(curzero);
+        curone = 0;
+      } else {
+        curzero = 0;
+        curone +=1;
+        one_len = one_len.max(curone);
+      }
+      one_len > zero_len
+    }
   }
 }
