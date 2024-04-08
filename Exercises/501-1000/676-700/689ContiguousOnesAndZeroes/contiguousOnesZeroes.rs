@@ -72,7 +72,7 @@ impl Solution {
         curone +=1;
         one_len = one_len.max(curone);
       }
-      one_len > zero_len
     }
+    one_len > zero_len
   }
 }
