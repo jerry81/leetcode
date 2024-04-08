@@ -68,6 +68,7 @@ SELECT
     CASE
         WHEN employee_id%2=1 AND name not like 'M%' THEN salary
         ELSE 0
-    END AS bonus;
+    END AS bonus
 FROM
-    Employees;
+    Employees
+ORDER BY employee_id;

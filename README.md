@@ -321,6 +321,7 @@ count(*) to get the # items in the group
   - cast with variable::type
 - 621 for UPPER, LOWER, SUBSTRING usage
 - 648 for UNION, constant string, "merging" columns into a single column
+- see 690 for LIKE (reg expD), CASE WHEN ELSE END
 
 ## RUST TILs
 
