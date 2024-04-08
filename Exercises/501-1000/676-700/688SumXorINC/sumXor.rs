@@ -66,16 +66,26 @@ Acceptance Rate
 
 impl Solution {
   pub fn subset_xor_sum(nums: Vec<i32>) -> i32 {
-    let sz = nums.len();
-    let mut res = 0;
-    for i in 0.. sz-1 {
-      let mut cur = 0;
 
-      for j in i..sz {
-        cur = cur^nums[j];
-        res += cur;
-      }
+    let n = nums.len();
+
+    for kk in 1..=n {
+        Solution::generate_combinations(&nums, 0, kk, Vec::new());
     }
-    res
+    0
+  }
+
+  fn generate_combinations(arr: &[i32], start: usize, k: usize, prefix: Vec<i32>) {
+    if k == 0 {
+        println!("{}", prefix.iter().map(|&x| x.to_string()).collect::<String>());
+        return;
+    }
+
+    for i in start..arr.len() {
+        let mut new_prefix = prefix.clone();
+        new_prefix.push(arr[i]);
+        Solution::generate_combinations(arr, i + 1, k - 1, new_prefix);
+
+    }
   }
 }
