@@ -69,14 +69,14 @@ impl Solution {
     let mut sum = 0;
     let n = nums.len();
 
-    for kk in 1..=n {
-       sum+=Solution::generate_combinations(&nums, 0, kk, Vec::new());
+    for kk in 1..=n { // 1 through len
+       sum+=Solution::generate_combinations(&nums, 0, kk, Vec::new()); // 3rd param
     }
     sum
   }
 
   fn generate_combinations(arr: &[i32], start: usize, k: usize, prefix: Vec<i32>) -> i32 {
-    if k == 0 {
+    if k == 0 { // stop condition
         let sz = prefix.len();
         let mut sm = prefix[0];
         for j in 1..sz {
@@ -85,10 +85,11 @@ impl Solution {
         return sm;
     }
     let mut totalsum = 0;
-    for i in start..arr.len() {
-        let mut new_prefix = prefix.clone();
-        new_prefix.push(arr[i]);
-        totalsum+=Solution::generate_combinations(arr, i + 1, k - 1, new_prefix);
+    for i in start..arr.len() { // len k, increase start 0 up to len
+        // the "skips" happen because of this loop
+        let mut new_prefix = prefix.clone(); // accumulator
+        new_prefix.push(arr[i]); // add item at index i
+        totalsum+=Solution::generate_combinations(arr, i + 1, k - 1, new_prefix); // decrease k because we have taken up a "spot"
     }
     totalsum
   }
