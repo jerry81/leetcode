@@ -50,9 +50,23 @@ Acceptance Rate
 
 */
 
-
 impl Solution {
   pub fn find_rotation(mat: Vec<Vec<i32>>, target: Vec<Vec<i32>>) -> bool {
+    // ez, so simluation
+    // not trivial
+    //
+    // stop condition: reached original state
+    println!("{}, {}", Solution::serialize(mat), Solution::serialize(target));
+    false
+  }
 
+  fn serialize(mat: Vec<Vec<i32>>) -> String {
+    let mut res = String::new();
+    for v in mat {
+      for r in v {
+        res.push((r as u8 +'0' as u8) as char);
+      }
+    }
+    res
   }
 }
