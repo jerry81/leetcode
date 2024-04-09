@@ -56,17 +56,23 @@ impl Solution {
   pub fn time_required_to_buy(tickets: Vec<i32>, k: i32) -> i32 {
     // since it is an easy, can do simulation
     let mut time = 0;
-    let sz = tickets.len();
+    let mut tix = tickets.clone();
+    let sz = tix.len();
     loop {
+      let mut found = false;
       for i in 0..sz {
-        let cur = tickets[i];
+        let cur = tix[i];
         if cur > 0 {
-          tickets[i] = cur-1;
+          tix[i] = cur-1;
           time+=1;
         }
 
-        if i == k && cur == 0 { break; }
+        if (i as i32) == k && tix[i] <= 0 {
+          found = true;
+          break;
+        }
       }
+      if found { break }
     }
     time
   }
