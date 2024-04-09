@@ -56,15 +56,31 @@ impl Solution {
     // not trivial
     //
     // stop condition: reached original state
-    println!("{}, {}", Solution::serialize(mat), Solution::serialize(target));
+    let sz = mat.len();
+    let mut rotated = mat.clone();
+    let tgt_s = Solution::serialize(&target);
+    for i in 0..4 {
+      rotated = Solution::rotate(&rotated, sz); // changed to &
+      if Solution::serialize(&rotated) == tgt_s { return true }
+    }
     false
   }
 
-  fn serialize(mat: Vec<Vec<i32>>) -> String {
+  fn rotate(mat: &Vec<Vec<i32>>, sz: usize) -> Vec<Vec<i32>> { // added &
+    let mut ret = vec![vec![0; sz]; sz]; // changed from .clone()
+    for i in 0..sz {
+      for j in 0..sz {
+        ret[i][j] = ret[j][sz-i-1];
+      }
+    }
+    ret
+  }
+
+  fn serialize(mat: &Vec<Vec<i32>>) -> String {
     let mut res = String::new();
     for v in mat {
       for r in v {
-        res.push((r as u8 +'0' as u8) as char);
+        res.push((*r as u8 +'0' as u8) as char);
       }
     }
     res
