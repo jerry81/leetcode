@@ -70,11 +70,21 @@ impl Solution {
     v1+v2 == vt
   }
 
-  fn summation(word:String) -> u8 {
-    let mut sm = 0;
+  fn summation(word:String) -> i32 {
+    let mut as_str = String::new();
+    let mut non_zero_found = false;
+
     for c in word.chars() {
-      sm += c as u8 - 97;
+      if c == 'a' && !non_zero_found {
+        continue;
+      }
+      non_zero_found = true;
+      as_str.push((c as u8 - 97 + '0' as u8) as char);
     }
-    sm
+    if as_str.is_empty() && !word.is_empty() {
+        as_str = "0".to_string();
+    }
+
+    as_str.parse().unwrap_or(0)
   }
 }
