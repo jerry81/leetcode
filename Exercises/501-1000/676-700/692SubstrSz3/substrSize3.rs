@@ -50,8 +50,9 @@ impl Solution {
   pub fn count_good_substrings(s: String) -> i32 {
     // from 0 to len-3
     let sz = s.len();
+    if sz < 3 { return 0 }
     let mut res = 0;
-    for i in 0..sz-3 {
+    for i in 0..sz-2 {
       if Solution::is_good(s[i..i+3].to_string()) { res+=1; }
     }
     res
