@@ -70,7 +70,7 @@ impl Solution {
     let mut ret = vec![vec![0; sz]; sz]; // changed from .clone()
     for i in 0..sz {
       for j in 0..sz {
-        ret[i][j] = ret[j][sz-i-1];
+        ret[i][j] = mat[j][sz-i-1];
       }
     }
     ret
