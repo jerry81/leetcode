@@ -65,13 +65,16 @@ Acceptance Rate
 impl Solution {
   pub fn is_sum_equal(first_word: String, second_word: String, target_word: String) -> bool {
     let v1 = Solution::summation(first_word);
-    false
+    let v2 = Solution::summation(second_word);
+    let vt = Solution::summation(target_word);
+    v1+v2 == vt
   }
+
   fn summation(word:String) -> i32 {
     let mut sm = 0;
     for c in word.chars() {
-      println!("c is {}, asi is {}", c, c as u8);
+      sm += c as u8 - 97;
     }
-    sm;
+    sm
   }
 }
