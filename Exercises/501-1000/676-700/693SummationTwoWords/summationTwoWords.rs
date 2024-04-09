@@ -70,7 +70,7 @@ impl Solution {
     v1+v2 == vt
   }
 
-  fn summation(word:String) -> i32 {
+  fn summation(word:String) -> u8 {
     let mut sm = 0;
     for c in word.chars() {
       sm += c as u8 - 97;
