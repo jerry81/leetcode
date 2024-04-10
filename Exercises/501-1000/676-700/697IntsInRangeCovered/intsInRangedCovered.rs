@@ -75,6 +75,10 @@ impl Solution {
         curright = curright.max(nr);
       }
     }
+    if curleft == -1 || curright == -1 {
+        curleft = sorted_ranges[sorted_ranges.len()-1][0];
+        curright = sorted_ranges[sorted_ranges.len()-1][1];
+    }
     merged_ranges.push(vec![curleft, curright]);
     for v in merged_ranges {
       if v[0] <= left && v[1] >= right {
