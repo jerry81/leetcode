@@ -50,6 +50,10 @@ impl Solution {
   pub fn is_covered(ranges: Vec<Vec<i32>>, left: i32, right: i32) -> bool {
     // merge ranges then compare
     let mut sorted_ranges = ranges.clone();
+    sorted_ranges.sort_by { |a,b| a[0].cmp(b.[0]) };
+    for v in sorted_ranges {
+      println!("{}, {}", v[0], v[1]);
+    }
     false
   }
 }
