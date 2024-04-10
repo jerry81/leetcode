@@ -85,6 +85,7 @@ public:
       // for (int i: half2) {
       //   cout << i << endl;
       // }
+      // nope this pattern is wrong!
       vector<int> res;
       int idx = 0;
       for (int i = 0; i < halflen; ++i) {
