@@ -47,7 +47,6 @@ Acceptance Rate
 
 */
 
-
 impl Solution {
   pub fn is_covered(ranges: Vec<Vec<i32>>, left: i32, right: i32) -> bool {
     // merge ranges then compare
@@ -73,7 +72,7 @@ impl Solution {
          curleft = -1;
          curright = -1;
       } else {
-        curright = nr;
+        curright = curright.max(nr);
       }
     }
     merged_ranges.push(vec![curleft, curright]);
