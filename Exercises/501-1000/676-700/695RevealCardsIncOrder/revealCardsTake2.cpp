@@ -12,7 +12,7 @@ public:
         int bk = sorted.back();
         sorted.pop_back();
 
-        if (!deck.empty()) {
+        if (!res.empty()) {
           int resbk = res.back();
           res.pop_back();
           res.insert(res.begin(), resbk);
