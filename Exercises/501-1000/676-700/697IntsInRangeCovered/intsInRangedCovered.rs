@@ -78,7 +78,9 @@ impl Solution {
     }
     merged_ranges.push(vec![curleft, curright]);
     for v in merged_ranges {
-      println!("merged range {} to {}", v[0], v[1]);
+      if v[0] <= left && v[1] >= right {
+        return true
+      }
     }
     false
   }
