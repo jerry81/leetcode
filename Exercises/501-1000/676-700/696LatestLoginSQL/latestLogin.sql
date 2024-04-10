@@ -66,12 +66,12 @@
 -- Acceptance Rate
 -- 77.1%
 
-select l1.user_id, max(l1.time_stamp) as last_stamp
-from Logins l
+select l1.user_id, max(l2.time_stamp) as last_stamp
+from Logins l1
 join (
   select user_id, time_stamp
   from Logins
-  where time_stamp like '2020%'
+  where extract(year from time_stamp) = 2020
 ) as l2
 on l1.user_id = l2.user_id
 group by l1.user_id;

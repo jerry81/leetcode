@@ -323,6 +323,9 @@ count(*) to get the # items in the group
 - 648 for UNION, constant string, "merging" columns into a single column
 - see 690 for LIKE (reg expD), CASE WHEN ELSE END
 
+- see 696 for timestamp extract year
+  - also joining a subquery
+
 ## RUST TILs
 
 - String is for mutable
