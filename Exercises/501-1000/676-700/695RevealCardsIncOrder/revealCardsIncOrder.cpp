@@ -65,6 +65,32 @@ using namespace std;
 class Solution {
 public:
     vector<int> deckRevealedIncreasing(vector<int>& deck) {
-
+      // study example 1
+      // sort first
+      // then split into two subarrays
+      // alternate pick from both sorted
+      vector<int> sorted = deck;
+      sort(sorted.begin(), sorted.end());
+      int len = sorted.size();
+      bool oddlen = len%2 == 1;
+      int halflen = len/2;
+      if (oddlen) halflen+=1;
+      vector<int> half1(sorted.begin(), sorted.begin()+halflen);
+      vector<int> half2(sorted.begin()+halflen, sorted.end());
+      // cout << "first half " << endl;
+      // for (int i: half1) {
+      //   cout << i << endl;
+      // }
+      // cout << "second half " << endl;
+      // for (int i: half2) {
+      //   cout << i << endl;
+      // }
+      vector<int> res;
+      int idx = 0;
+      for (int i = 0; i < halflen; ++i) {
+        res.push_back(half1[i]);
+        if (half2.size() > i) res.push_back(half2[i]);
+      }
+      return res;
     }
 };
