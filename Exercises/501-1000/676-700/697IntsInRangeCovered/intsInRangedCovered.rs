@@ -1,5 +1,6 @@
 /*
 
+
 1893. Check if All the Integers in a Range Are Covered
 Easy
 Topics
@@ -46,6 +47,7 @@ Acceptance Rate
 
 */
 
+
 impl Solution {
   pub fn is_covered(ranges: Vec<Vec<i32>>, left: i32, right: i32) -> bool {
     // merge ranges then compare
@@ -55,31 +57,29 @@ impl Solution {
     let mut curleft = -1;
     let mut curright = -1;
     let sz = sorted_ranges.len();
-    for i in 1..sz {
-      let cur_range = sorted_ranges[i];
+    for i in 0..sz {
+      let cur_range = &sorted_ranges[i]; // Review, the reference fixes moved issue
       let nl = cur_range[0];
       let nr = cur_range[1];
-      if cur_left < 0 {
-        cur_left = nl;
+      if curleft < 0 {
+        curleft = nl;
       }
-      if cur_right < 0 {
-        cur_right = nr;
+      if curright < 0 {
+        curright = nr;
       }
       if nl > (curright + 1) {
         // reset
-         merged_ranges.push(vec![cur_left, cur_right]);
-         cur_left = -1;
-         cur_right = -1;
+         merged_ranges.push(vec![curleft, curright]);
+         curleft = -1;
+         curright = -1;
       } else {
         curright = nr;
       }
     }
-    merged_ranges.push(vec![cur_left, cur_right]);
+    merged_ranges.push(vec![curleft, curright]);
     for v in merged_ranges {
       println!("merged range {} to {}", v[0], v[1]);
     }
     false
   }
 }
-
-
