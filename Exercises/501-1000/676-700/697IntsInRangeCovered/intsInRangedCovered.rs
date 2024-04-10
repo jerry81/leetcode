@@ -50,10 +50,18 @@ impl Solution {
   pub fn is_covered(ranges: Vec<Vec<i32>>, left: i32, right: i32) -> bool {
     // merge ranges then compare
     let mut sorted_ranges = ranges.clone();
-    sorted_ranges.sort_by { |a,b| a[0].cmp(b.[0]) };
-    for v in sorted_ranges {
-      println!("{}, {}", v[0], v[1]);
+    sorted_ranges.sort_by(|a,b| { a[0].cmp(&b[0]) }); // Review: cmp takes the ref, cmp expects ref
+    let mut merged_ranges: Vec<Vec<i32>> = vec![];
+    let mut curleft = sorted_ranges[0][0];
+    let mut curright = sorted_ranges[0][1];
+    let sz = sorted_ranges.len();
+    for i in 1..sz {
+      let cur_range = sorted_ranges[i];
+      let nl = cur_range[0];
+      let nr = cur_range[1];
     }
     false
   }
 }
+
+
