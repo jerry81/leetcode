@@ -14,21 +14,18 @@ class Solution {
     if (remain.size() < 2) return remain;
 
     // take it or leave it
-    char first = remain[0];
-    int second_idx = 1;
+    int idx = 0;
     int sz = remain.size();
-    while (second_idx < sz) {
-      char second = remain[second_idx];
+    while (idx < sz-1) {
+      char first = remain[idx];
+      char second = remain[idx+1];
       if (first > second) {
-        remain.erase(0, 1);
-        return r(remain, k - 1);
-      } else if (first < second) {
-        remain.erase(second_idx, 1);
+        remain.erase(idx,1);
         return r(remain, k - 1);
       }
-      second_idx++;
+      idx++;
     }
-    remain.erase(0,1);
+    remain.pop_back();
     return r(remain, k-1);  // never will reach here, right?
   }
 
@@ -53,3 +50,15 @@ class Solution {
     return ret;
   }
 };
+
+/*
+
+fundamental mistake
+
+"12345"
+k = 2
+fails in case of greedy
+
+we greedy remove 2 then 3 according to our algo
+
+*/
