@@ -69,26 +69,15 @@ impl Solution {
         break
       }
     }
-    if !invalid { return true }
-    prev = 0;
-    invalid = false;
-    for i in 0..sz-1 {
-      if prev < second_run[i] {
-        prev = nums[i];
-      } else {
-        invalid = true;
-        break
-      }
-    }
-    if !invalid { return true }
-    prev = 0;
-    for i in 0..sz-1 {
-      if prev < third_run[i] {
-        prev = nums[i];
-      } else {
-        return false;
-        break
-      }
+    Solution::is_increasing(&second_run) || Solution::is_increasing(&third_run)
+  }
+
+  fn is_increasing(nums: &Vec<i32>) -> bool {
+    let mut prev = 0;
+    for &num in nums {
+      if num <= prev { return false; }
+
+      prev = num;
     }
     true
   }
