@@ -1,36 +1,55 @@
+#include <string>
+#include <vector>
+using namespace std;
 
 class Solution {
-/* greedy */
-// returns the indexes of digits to remove
-vector<int> r(string remain, int k, int cur_idx) {
-  // stop when k is 0
-  cout << "remain " << remain << " k " << k << endl;
-  if (k == 0) return {};
-  if (remain.size() <= k) {
-    vector<int> res = {};
-    for (int i = cur_idx; i < remain.size(); ++i) {
-      res.push_back(i);
-      return res;
+  /* greedy */
+  // returns the indexes of digits to remove
+  string r(string remain, int k) {
+    // stop when k is 0
+    if (k == 0) return "";
+
+    if (remain.size() <= k) return "";
+
+    if (remain.size() < 2) return remain;
+
+    // take it or leave it
+    char first = remain[0];
+    int second_idx = 1;
+    int sz = remain.size();
+    while (second_idx < sz) {
+      char second = remain[second_idx];
+      second_idx++;
+      if (first > second) {
+        remain.erase(0, 1);
+        return r(remain, k - 1);
+      } else if (first < second) {
+        remain.erase(second_idx, 1);
+        return r(remain, k - 1);
+      }
     }
+
+    return remain;  // never will reach here, right?
   }
 
-  // take it or leave it
-  char first = remain[0];
-  char second = remain[1];
-  cout << "foist " << first << "second " << second << endl;
-  if (first < second) {
-    return r(remain.substr(1), k, cur_idx+1);
-  } else if (first > second) {
-    vector<int> res = {cur_idx};
-    vector<int> use = r(remain.substr(1), k-1, cur_idx+1);
-    res.insert(res.end(), use.begin(), use.end());
-    return res;
-  } else {
-    // equal case, trying both would be slow.
-    // look ahead to first non-repeat
-    // this takes care of case where the next non-repeat is lessthan (then greedy remove first item)
-    // but if non-repeat greater then must check how many ks remain.
-    //  if ks remain
+ public:
+  string removeKdigits(string num, int k) {
+    // edge cases
+    if (k >= num.size()) return "0";
+
+    string ret = r(num, k);
+
+    if (ret.empty()) return "0";
+
+    // trim 0's.
+    while (ret.size() > 1) {
+      if (ret[0] == '0') {
+        ret.erase(0, 1);
+      } else {
+        break;
+      }
+    }
+
+    return ret;
   }
-  return {}; // never will reach here, right?
-}
+};
