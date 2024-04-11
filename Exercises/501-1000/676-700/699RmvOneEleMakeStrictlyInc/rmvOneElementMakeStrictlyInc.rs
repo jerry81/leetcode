@@ -69,6 +69,7 @@ impl Solution {
         break
       }
     }
+    if !invalid { return true; }
     Solution::is_increasing(&second_run) || Solution::is_increasing(&third_run)
   }
 
