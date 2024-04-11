@@ -54,18 +54,40 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_be_increasing(nums: Vec<i32>) -> bool {
-    let mut try_used = false;
     let mut prev = 0;
-    let mut prevprev = 0;
-    for n in nums {
-      if prev < n {
-        prevprev = prev;
-        prev = n;
-        if prevprev == 0 { prevprev = prev; }
+    let sz = nums.len();
+    let mut second_run: Vec<i32> = nums.clone();
+    let mut third_run: Vec<i32> = nums.clone();
+    let mut invalid = false;
+    for i in 0..sz {
+      if prev < nums[i] {
+        prev = nums[i];
       } else {
-        if try_used {return false;}
-        try_used=true;
-        prev = prevprev;
+        invalid = true;
+        second_run.remove(i);
+        third_run.remove(i-1);
+        break
+      }
+    }
+    if !invalid { return true }
+    prev = 0;
+    invalid = false;
+    for i in 0..sz-1 {
+      if prev < second_run[i] {
+        prev = nums[i];
+      } else {
+        invalid = true;
+        break
+      }
+    }
+    if !invalid { return true }
+    prev = 0;
+    for i in 0..sz-1 {
+      if prev < third_run[i] {
+        prev = nums[i];
+      } else {
+        return false;
+        break
       }
     }
     true
