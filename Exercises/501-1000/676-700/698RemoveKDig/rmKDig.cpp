@@ -44,12 +44,23 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+// returns the indexes of digits to remove
+vector<int> r(string num, int k) {
+}
 public:
     string removeKdigits(string num, int k) {
+      // edge cases
+      if (k == num.size()) return "0";
 
+      // binary choice
+      // take or leave current item.
+
+      string res = num;
+      return res;
     }
 };
