@@ -53,7 +53,6 @@ class Solution {
 vector<int> r(string remain, int k, int cur_idx) {
   // stop when k is 0
   if (k == 0) return {};
-
   if (remain.size() <= k) {
     vector<int> res = {};
     for (int i = cur_idx; i < remain.size(); ++i) {
@@ -69,7 +68,7 @@ vector<int> r(string remain, int k, int cur_idx) {
     return r(remain.substr(1), k, cur_idx+1);
   } else {
     vector<int> res = {cur_idx};
-    vector<int> use = r(remain.substr(2), k-1, cur_idx+2);
+    vector<int> use = r(remain.substr(1), k-1, cur_idx+1);
     res.insert(res.end(), use.begin(), use.end());
     return res;
   }
