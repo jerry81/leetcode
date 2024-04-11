@@ -6,7 +6,6 @@ class Solution {
   /* greedy */
   // returns the indexes of digits to remove
   string r(string remain, int k) {\
-    cout << "remain is " << remain << endl;
     // stop when k is 0
     if (k == 0) return remain;
 
@@ -20,7 +19,6 @@ class Solution {
     int sz = remain.size();
     while (second_idx < sz) {
       char second = remain[second_idx];
-      second_idx++;
       if (first > second) {
         remain.erase(0, 1);
         return r(remain, k - 1);
@@ -28,6 +26,7 @@ class Solution {
         remain.erase(second_idx, 1);
         return r(remain, k - 1);
       }
+      second_idx++;
     }
     remain.erase(0,1);
     return r(remain, k-1);  // never will reach here, right?
