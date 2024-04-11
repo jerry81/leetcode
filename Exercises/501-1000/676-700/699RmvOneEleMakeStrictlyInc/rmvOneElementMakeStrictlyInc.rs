@@ -54,14 +54,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_be_increasing(nums: Vec<i32>) -> bool {
-    bool try_used = false;
+    let mut try_used = false;
     let mut prev = 0;
+    let mut prevprev = 0;
     for n in nums {
       if prev < n {
+        prevprev = prev;
         prev = n;
+        if prevprev == 0 { prevprev = prev; }
       } else {
         if try_used {return false;}
         try_used=true;
+        prev = prevprev;
       }
     }
     true
