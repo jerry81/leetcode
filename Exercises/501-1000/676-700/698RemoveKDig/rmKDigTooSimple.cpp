@@ -87,13 +87,14 @@ public:
       }
       if (num.empty()) return "0";
       // trim 0's.
-      while (num.size() > 1) {
+      while (num.size() > 0) {
         if (num[0] == '0') {
           num.erase(0,1);
         } else {
           break;
         }
       }
+
       return num;
     }
 };
