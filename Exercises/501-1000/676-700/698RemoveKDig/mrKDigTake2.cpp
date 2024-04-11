@@ -5,9 +5,10 @@ using namespace std;
 class Solution {
   /* greedy */
   // returns the indexes of digits to remove
-  string r(string remain, int k) {
+  string r(string remain, int k) {\
+    cout << "remain is " << remain << endl;
     // stop when k is 0
-    if (k == 0) return "";
+    if (k == 0) return remain;
 
     if (remain.size() <= k) return "";
 
@@ -28,8 +29,8 @@ class Solution {
         return r(remain, k - 1);
       }
     }
-
-    return remain;  // never will reach here, right?
+    remain.erase(0,1);
+    return r(remain, k-1);  // never will reach here, right?
   }
 
  public:
