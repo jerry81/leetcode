@@ -49,6 +49,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+/* greedy */
 // returns the indexes of digits to remove
 vector<int> r(string remain, int k, int cur_idx) {
   // stop when k is 0
@@ -78,14 +79,22 @@ vector<int> r(string remain, int k, int cur_idx) {
 public:
     string removeKdigits(string num, int k) {
       // edge cases
-      if (k == num.size()) return "0";
+      if (k >= num.size()) return "0";
 
-      // binary choice
-      // take or leave current item.
       vector<int> to_rmv = r(num, k, 0);
       for (int i = k-1; i >= 0; --i) { // TIL: cool trick to remove indexes from a list
         num.erase(to_rmv[i],1);
       }
+      if (num.empty()) return "0";
+      // trim 0's.
+      while (num.size() > 0) {
+        if (num[0] == '0') {
+          num.erase(0,1);
+        } else {
+          break;
+        }
+      }
+
       return num;
     }
 };
