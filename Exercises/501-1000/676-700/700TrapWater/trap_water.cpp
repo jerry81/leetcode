@@ -57,5 +57,13 @@ public:
         rtl.push_back(cur_max);
       }
       reverse(rtl.begin(),rtl.end());
+      int res = 0;
+      for (int idx = 0; idx < sz; ++idx) {
+        int curl = ltr[idx];
+        int curr = rtl[idx];
+        int bounds = min(curl,curr);
+        res+=max(bounds-height[idx], 0);
+      }
+      return res;
     }
 };
