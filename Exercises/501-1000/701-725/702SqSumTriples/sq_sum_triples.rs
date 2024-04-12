@@ -38,10 +38,24 @@ Acceptance Rate
 67.7%
 
 */
-
 impl Solution {
   pub fn count_triples(n: i32) -> i32 {
+    let mut res = 0;
+    // total brute force
+    for i in 1..n {
+      let is = i*i;
+      for j in i+1..=n {
+        let js = j*j;
+        let sm = is+js;
 
+        if Solution::is_perfect_square(sm) {
+          if (sm as f64).sqrt() as i32 <= n { // today i learned the as f64 for sqrt
+              res+=2; // commutative property
+          }
+        }
+      }
+    }
+    res
   }
   fn is_perfect_square(num: i32) -> bool {
     let root = (num as f64).sqrt() as i32; // Compute square root
