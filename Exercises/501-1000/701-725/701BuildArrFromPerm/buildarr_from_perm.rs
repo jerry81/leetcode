@@ -54,8 +54,8 @@ Acceptance Rate
 impl Solution {
   pub fn build_array(nums: Vec<i32>) -> Vec<i32> {
       let mut res = vec![];
-      for i in nums.clone() {
-        res.push(nums[i as usize]);
+      for i in nums.clone() { // had to .clone()
+        res.push(nums[i as usize]); // and as usize to make compiler happy.
       }
       res
   }
