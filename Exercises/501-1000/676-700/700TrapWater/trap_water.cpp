@@ -43,6 +43,19 @@ using namespace std;
 class Solution {
 public:
     int trap(vector<int>& height) {
-
+      vector<int> ltr;
+      int cur_max = -1;
+      for (int i: height) {
+        cur_max = max(i,cur_max);
+        ltr.push_back(cur_max);
+      }
+      cur_max = -1;
+      int sz = height.size();
+      vector<int> rtl;
+      for (int i = sz-1; i >=0; --i) {
+        cur_max = max(cur_max, height[i]);
+        rtl.push_back(cur_max);
+      }
+      reverse(rtl.begin(),rtl.end());
     }
 };
