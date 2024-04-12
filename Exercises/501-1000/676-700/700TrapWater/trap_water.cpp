@@ -40,6 +40,15 @@ Acceptance Rate
 
 using namespace std;
 
+/*
+TIL: this is called the two pass approach
+first examine maximums from left to right
+then from right to left.
+
+can also be considered a kind of memoization where we break down to 3 subproblems.
+we know otherwise the brute force method would repeatedly step left and right from each index until it reached a max height.
+those calcs should be stored and reused for every idx.
+*/
 class Solution {
 public:
     int trap(vector<int>& height) {
