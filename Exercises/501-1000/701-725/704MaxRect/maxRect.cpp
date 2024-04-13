@@ -44,9 +44,37 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int maximalRectangle(vector<vector<char>>& matrix) {
-
+      // 2 pass method
+      // left to right
+      // top to bottom
+      int h = matrix.size();
+      int w = matrix[0].size();
+      vector<vector<int>> ltr(h, vector<int>(w,0));
+      vector<vector<int>> areas = ltr;
+      for (int i = 0; i < h; ++i) {
+        vector<char> cur_row = matrix[i];
+        for (int j = 0; j < w; ++j) {
+          char val = cur_row[j];
+          int left = (i > 0) ? ltr[i][j-1]:0;
+          if (val == 0) {
+            ltr[i][j] = 0;
+          } else {
+            ltr[i]j[] = left+1;
+          }
+        }
+      }
+      int res = 0;
+      for (int j = 0; j < w; ++j) {
+        for (int i = 0; i < h; ++i) {
+        }
+      }
+      return res;
     }
 };
