@@ -57,22 +57,29 @@ public:
       int h = matrix.size();
       int w = matrix[0].size();
       vector<vector<int>> ltr(h, vector<int>(w,0));
-      vector<vector<int>> areas = ltr;
+      vector<vector<int>> ttb = ltr;
       for (int i = 0; i < h; ++i) {
         vector<char> cur_row = matrix[i];
         for (int j = 0; j < w; ++j) {
           char val = cur_row[j];
-          int left = (i > 0) ? ltr[i][j-1]:0;
-          if (val == 0) {
+          int left = (j > 0) ? ltr[i][j-1]:0;
+          if (val == '0') {
             ltr[i][j] = 0;
           } else {
-            ltr[i]j[] = left+1;
+            ltr[i][j] = left+1;
           }
         }
       }
       int res = 0;
       for (int j = 0; j < w; ++j) {
         for (int i = 0; i < h; ++i) {
+          int up = i > 0 ? ttb[i][j]:0;
+          if (matrix[i][j] == '0') {
+            ttb[i][j] = 0;
+          } else {
+            ttb[i][j] = up+1;
+            res = max(res, ttb[i][j]*ltr[i][j]);
+          }
         }
       }
       return res;
