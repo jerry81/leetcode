@@ -59,7 +59,7 @@ class Solution {
     int h = matrix.size();
     int w = matrix[0].size();
     vector<vector<int>> ltr(h, vector<int>(w, 0));
-    vector<vector<int>> ttb = ltr;
+    vector<vector<int>> ttb(h, vector<int>(w, 0));
     for (int i = 0; i < h; ++i) {
       vector<char> cur_row = matrix[i];
       for (int j = 0; j < w; ++j) {
@@ -75,7 +75,7 @@ class Solution {
     int res = 0;
     for (int j = 0; j < w; ++j) {
       for (int i = 0; i < h; ++i) {
-        int up = i > 0 ? ttb[i][j] : 0;
+        int up = i > 0 ? ttb[i-1][j] : 0;
         if (matrix[i][j] == '0') {
           ttb[i][j] = 0;
         } else {
