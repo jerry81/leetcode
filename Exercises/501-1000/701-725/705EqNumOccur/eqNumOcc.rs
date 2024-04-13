@@ -42,8 +42,19 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn are_occurrences_equal(s: String) -> bool {
-
+    let mut hm:HashMap<char,i32> = HashMap::new();
+    for c in s.chars() {
+      *hm.entry(c).or_insert(0) +=1;
+    }
+    let mut num = -1;
+    for (_,v) in hm {
+      if num < 0 { num = v }
+      if num != v { return false; }
+    }
+    true
   }
 }
