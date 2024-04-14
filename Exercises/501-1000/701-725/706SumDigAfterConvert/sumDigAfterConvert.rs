@@ -65,17 +65,21 @@ impl Solution {
           v.push((c as u8 - 96) as i32);
       }
       let mut sm = 0;
-      for i in v {
-        sm+=i;
+      let mut as_str: String = v.iter().map(|item| { item.to_string() }).collect();
+      for c in as_str.chars() {
+        sm+=(c as u8 - '0' as u8) as i32;
       }
-      while k > 1 {
+      let mut kcp = k;
+      while kcp > 1 {
         let mut sm2 = 0;
         let as_s = sm.to_string();
         for c in as_s.chars() {
             sm2 += (c as u8 - '0' as u8) as i32;
         }
         sm = sm2;
+        kcp-=1;
       }
+
       sm
   }
 }
