@@ -64,9 +64,18 @@ impl Solution {
       for c in s.chars() {
           v.push((c as u8 - 96) as i32);
       }
+      let mut sm = 0;
       for i in v {
-        println!("{}", i);
+        sm+=i;
       }
-      0
+      while k > 1 {
+        let mut sm2 = 0;
+        let as_s = sm.to_string();
+        for c in as_s.chars() {
+            sm2 += (c as u8 - '0' as u8) as i32;
+        }
+        sm = sm2;
+      }
+      sm
   }
 }
