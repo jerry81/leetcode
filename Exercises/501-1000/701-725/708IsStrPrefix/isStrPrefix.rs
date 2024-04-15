@@ -48,6 +48,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_prefix_string(s: String, words: Vec<String>) -> bool {
+    while !s.empty() {
+      if words.empty() { return true }
 
+      let f = words.first().unwrap();
+      if s.starts_with(f) {
+        s = s[f.len()..]
+        words.remove(0);
+      } else {
+        return false;
+      }
+    }
+    false
   }
 }
