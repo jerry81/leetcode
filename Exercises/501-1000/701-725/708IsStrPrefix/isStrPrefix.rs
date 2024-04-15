@@ -48,13 +48,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_prefix_string(s: String, words: Vec<String>) -> bool {
-    while !s.empty() {
-      if words.empty() { return true }
+    let mut s_c = s.clone();
+    let mut words_c = words.clone();
+    while !s_c.is_empty() {
+      if words_c.is_empty() { return true }
 
-      let f = words.first().unwrap();
-      if s.starts_with(f) {
-        s = s[f.len()..]
-        words.remove(0);
+      let f = words_c.first().unwrap();
+      println!("f is now {}", f);
+      if s_c.starts_with(f) {
+        s_c = s_c[f.len()..].to_string();
+        println!("sc is now {}", s_c);
+        words_c.remove(0);
       } else {
         return false;
       }
