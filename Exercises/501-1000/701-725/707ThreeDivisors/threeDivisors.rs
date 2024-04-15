@@ -43,9 +43,11 @@ impl Solution {
     let uplim = (n as f64).sqrt() as i32;
     let mut found = false;
     for i in 2..=uplim {
-        if n%i == 0 {
-          if found { return false; }
-          found = true;
+        if i * i == n {
+            found = true;
+        }
+        if n%i == 0 && i*i != n {
+            return false
         }
     }
     found
