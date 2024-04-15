@@ -53,10 +53,10 @@ impl Solution {
     while !s_c.is_empty() {
       if words_c.is_empty() { return false }
 
-      let f = words_c.first().unwrap();
-      if s_c.starts_with(f) {
-        s_c = s_c[f.len()..].to_string();
-        words_c.remove(0);
+      let f = words_c.first().unwrap(); // review: returns option
+      if s_c.starts_with(f) { // Review: s.starts_with
+        s_c = s_c[f.len()..].to_string(); // Review: substring
+        words_c.remove(0); // review, dequeue
       } else {
         return false;
       }
