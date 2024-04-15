@@ -40,6 +40,14 @@ Acceptance Rate
 */
 impl Solution {
   pub fn is_three(n: i32) -> bool {
-
+    let uplim = (n as f64).sqrt() as i32;
+    let mut found = false;
+    for i in 2..=uplim {
+        if n%i == 0 {
+          if found { return false; }
+          found = true;
+        }
+    }
+    found
   }
 }
