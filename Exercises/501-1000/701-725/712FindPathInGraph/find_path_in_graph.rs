@@ -73,7 +73,18 @@ impl Solution {
         parents[eaten_root as usize] = eater_root;
       }
     }
+     // parents[source] == parents[destination] is WRONG
+    // TIL: one more find is needed
 
-    parents[source as usize] == parents[destination as usize]
+    let mut source_root = source;
+    while parents[source_root as usize] != source_root {
+      source_root = parents[source_root as usize];
+    }
+    let mut destination_root = destination;
+    while parents[destination_root as usize] != destination_root {
+      destination_root = parents[destination_root as usize];
+    }
+    source_root == destination_root
+
   }
 }
