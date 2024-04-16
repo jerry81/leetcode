@@ -53,6 +53,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn valid_path(n: i32, edges: Vec<Vec<i32>>, source: i32, destination: i32) -> bool {
+    // union find
+    // union find produces a vector of parents
+    let mut parents: Vec<i32> = (0..n).collect();
+    for e in edges {
+      // union set them all
+      let eater = e[0];
+      let eaten = e[1];
+      // get root of eater first
+      let mut eater_root = eater;
+      while parents[eater_root as usize] != eater_root {
+        eater_root = parents[eater_root as usize];
+      }
+      let mut eaten_root = eaten;
+      while parents[eaten_root as usize] != eaten_root {
+        eaten_root = parents[eaten_root as usize];
+      }
+      if eaten_root != eater_root {
+        parents[eaten_root as usize] = eater_root;
+      }
+    }
 
+    parents[source as usize] == parents[destination as usize]
   }
 }
