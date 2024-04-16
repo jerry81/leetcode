@@ -75,6 +75,10 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <queue>
+
+using namespace std;
+
 class Solution {
  public:
   TreeNode *addOneRow(TreeNode *root, int val, int depth) {
@@ -82,6 +86,26 @@ class Solution {
       TreeNode *ret = new TreeNode(val);
       ret->left = root;
       return ret;
+    }
+
+    queue<TreeNode*> q;
+    // level order
+    // step one: iterate level order
+    q.push(root);
+    int c_level = 1;
+    while (!q.empty()) {
+      queue<TreeNode*> nq;
+      cout << "level " << c_level << endl;
+      while (!q.empty()) {
+        TreeNode *cur = q.front();
+        if (!cur) continue;
+        q.pop();
+        cout << cur->val << endl;
+        nq.push(cur->left);
+        nq.push(cur->right);
+      }
+      q = nq;
+      c_level++;
     }
     return nullptr;
   }
