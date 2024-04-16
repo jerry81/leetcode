@@ -92,7 +92,6 @@ class Solution {
     // level order
     // step one: iterate level order
     // step 2: create new roots
-    // step 3: deal with nulls
     q.push(root);
     int c_level = 1;
     while (!q.empty()) {
