@@ -78,6 +78,11 @@ struct TreeNode {
 class Solution {
  public:
   TreeNode *addOneRow(TreeNode *root, int val, int depth) {
-
+    if (depth == 1) {
+      TreeNode *ret = new TreeNode(val);
+      ret->left = root;
+      return ret;
+    }
+    return nullptr;
   }
 };
