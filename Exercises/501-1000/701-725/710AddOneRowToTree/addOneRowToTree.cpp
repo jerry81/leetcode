@@ -91,22 +91,36 @@ class Solution {
     queue<TreeNode*> q;
     // level order
     // step one: iterate level order
+    // step 2: create new roots
+    // step 3: deal with nulls
     q.push(root);
     int c_level = 1;
     while (!q.empty()) {
       queue<TreeNode*> nq;
-      cout << "level " << c_level << endl;
       while (!q.empty()) {
         TreeNode *cur = q.front();
-        if (!cur) continue;
         q.pop();
-        cout << cur->val << endl;
-        nq.push(cur->left);
-        nq.push(cur->right);
+        if (!cur) continue;
+
+
+        if (c_level == depth-1) {
+          TreeNode* inserted = new TreeNode(val);
+          TreeNode* inserted2 = new TreeNode(val);
+          inserted->left = cur->left;
+          inserted2->right = cur->right;
+          cur->left = inserted;
+          cur->right = inserted2;
+          nq.push(inserted->left);
+          nq.push(inserted->right);
+        } else {
+          nq.push(cur->left);
+          nq.push(cur->right);
+        }
+
       }
       q = nq;
       c_level++;
     }
-    return nullptr;
+    return root;
   }
 };
