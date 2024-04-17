@@ -326,6 +326,8 @@ count(*) to get the # items in the group
 - see 696 for timestamp extract year
   - also joining a subquery
 
+- see 715 for review on "IN" keyword
+
 ## RUST TILs
 
 - String is for mutable
