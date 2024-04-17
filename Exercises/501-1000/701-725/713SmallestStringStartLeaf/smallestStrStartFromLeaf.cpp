@@ -74,8 +74,18 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
+// attempt 1: dfs traverse all paths
+string res = "";
+void r(string accum, TreeNode* cur) {
+  if (!cur) {
+    if (res > accum) res = accum;
+    return;
+  }
+  accum.push_back(cur->val + 'a');
+}
 public:
     string smallestFromLeaf(TreeNode* root) {
-
+      r("", root);
+      return res;
     }
 };
