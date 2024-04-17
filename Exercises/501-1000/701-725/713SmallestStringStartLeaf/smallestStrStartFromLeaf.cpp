@@ -4,9 +4,11 @@
 Medium
 Topics
 Companies
-You are given the root of a binary tree where each node has a value in the range [0, 25] representing the letters 'a' to 'z'.
+You are given the root of a binary tree where each node has a value in the range
+[0, 25] representing the letters 'a' to 'z'.
 
-Return the lexicographically smallest string that starts at a leaf of this tree and ends at the root.
+Return the lexicographically smallest string that starts at a leaf of this tree
+and ends at the root.
 
 As a reminder, any shorter prefix of a string is lexicographically smaller.
 
@@ -57,45 +59,50 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
 #include <string>
 
 using namespace std;
 class Solution {
-// attempt 1: dfs traverse all paths
-// attempt 2: we need to identify leaves before updating res.
+  // attempt 1: dfs traverse all paths
+  // attempt 2: we need to identify leaves before updating res.
   // new param, isLeaf, must add a lookahead logic
-string res = "";
-void r(string accum, TreeNode* cur) {
-  if (!cur) {
-    reverse(accum.begin(), accum.end());
-    if (res.empty() || res > accum) res = accum;
-    return;
-  }
-  accum.push_back(cur->val + 'a');
-  r(accum, cur->left);
-  r(accum, cur->right);
-}
-
-bool isLeaf(TreeNode* n) {
-  return !n->left && !n->right;
-}
-public:
-    string smallestFromLeaf(TreeNode* root) {
-      if (isLeaf(root)) return ""+(root->val + 'a');
-      r("", root);
-      return res;
+  string res = "";
+  void r(string accum, TreeNode *cur) {
+    accum.push_back(cur->val + 'a');
+    if (isLeaf(cur)) {
+      reverse(accum.begin(), accum.end());
+      if (res.empty() || res > accum) res = accum;
+      return;
     }
+    if (cur->left) r(accum, cur->left);
+    if (cur->right) r(accum, cur->right);
+  }
+
+  bool isLeaf(TreeNode *n) { return !n->left && !n->right; }
+
+ public:
+  string smallestFromLeaf(TreeNode *root) {
+    if (isLeaf(root)) {
+        char c = root->val + 'a';
+        string str(1, c); // review: string from char
+        return str;
+    }
+    r("", root);
+    return res;
+  }
 };
