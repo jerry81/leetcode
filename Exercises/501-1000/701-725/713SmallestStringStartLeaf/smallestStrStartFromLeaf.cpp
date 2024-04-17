@@ -78,10 +78,13 @@ class Solution {
 string res = "";
 void r(string accum, TreeNode* cur) {
   if (!cur) {
-    if (res > accum) res = accum;
+    reverse(accum.begin(), accum.end());
+    if (res.empty() || res > accum) res = accum;
     return;
   }
   accum.push_back(cur->val + 'a');
+  r(accum, cur->left);
+  r(accum, cur->right);
 }
 public:
     string smallestFromLeaf(TreeNode* root) {
