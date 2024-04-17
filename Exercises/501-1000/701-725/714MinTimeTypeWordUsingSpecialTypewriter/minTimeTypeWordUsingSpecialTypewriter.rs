@@ -77,7 +77,7 @@ impl Solution {
     let mut cur = 'a';
     let mut res = 0;
     for c in word.chars() {
-      res += dist(cur, c);
+      res += Solution::dist(cur, c);
       cur = c;
     }
     res
@@ -93,6 +93,6 @@ impl Solution {
     let normallarger = 'z' as u8 - larger as u8;
     let nsi2 = normallarger as i32;
     let diff2 = nsi1 + nsi2;
-    diff1.min(diff2);
+    di1.min(diff2)
   }
 }
