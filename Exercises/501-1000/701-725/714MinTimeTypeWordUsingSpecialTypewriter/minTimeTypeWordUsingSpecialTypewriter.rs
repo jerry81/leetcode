@@ -74,6 +74,25 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_time_to_type(word: String) -> i32 {
+    let mut cur = 'a';
+    let mut res = 0;
+    for c in word.chars() {
+      res += dist(cur, c);
+      cur = c;
+    }
+    res
+  }
 
+  fn dist(a: char, b: char) -> i32 {
+    let larger = a.max(b);
+    let smaller = a.min(b);
+    let diff1 = larger as u8 - smaller as u8;
+    let di1 = diff1 as i32;
+    let normalsmaller = smaller as u8 - 'a' as u8;
+    let nsi1 = normalsmaller as i32;
+    let normallarger = 'z' as u8 - larger as u8;
+    let nsi2 = normallarger as i32;
+    let diff2 = nsi1 + nsi2;
+    diff1.min(diff2);
   }
 }
