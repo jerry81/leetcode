@@ -75,6 +75,8 @@ Acceptance Rate
 using namespace std;
 class Solution {
 // attempt 1: dfs traverse all paths
+// attempt 2: we need to identify leaves before updating res.
+  // new param, isLeaf, must add a lookahead logic
 string res = "";
 void r(string accum, TreeNode* cur) {
   if (!cur) {
@@ -86,8 +88,13 @@ void r(string accum, TreeNode* cur) {
   r(accum, cur->left);
   r(accum, cur->right);
 }
+
+bool isLeaf(TreeNode* n) {
+  return !n->left && !n->right;
+}
 public:
     string smallestFromLeaf(TreeNode* root) {
+      if (isLeaf(root)) return ""+(root->val + 'a');
       r("", root);
       return res;
     }
