@@ -62,3 +62,10 @@
 -- 186.4K
 -- Acceptance Rate
 -- 47.6%
+
+-- postgres in?
+select employee_id
+from Employees
+where salary < 30000 and manager_id not in
+  (select employee_id from Employees)
+order by employee_id;
