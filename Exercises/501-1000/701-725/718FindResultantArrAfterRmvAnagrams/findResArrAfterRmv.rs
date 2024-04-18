@@ -55,6 +55,8 @@ Acceptance Rate
 
 */
 
+// TIL: next time to find anagram, sort then compare equality
+
 use std::collections::HashMap;
 
 impl Solution {
