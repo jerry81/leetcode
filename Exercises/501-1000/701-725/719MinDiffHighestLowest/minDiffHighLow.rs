@@ -55,6 +55,8 @@ Acceptance Rate
 impl Solution {
   pub fn minimum_difference(nums: Vec<i32>, k: i32) -> i32 {
     // sort to turn into contiguous problem.  brute force min and max on each subarray
+    if k == 1 { return 0 }
+
     let mut sorted = nums.clone();
     sorted.sort();
     let mut res = i32::MAX;
