@@ -62,13 +62,18 @@ impl Solution {
     let mut cw = words.clone();
     let mut changed = true;
     while !cw.len() > 1 && changed {
+
       changed = false;
-      let f = &cw[0];
-      let s = &cw[1];
-      if Solution::are_ana(f,s) {
-        cw.remove(1);
-        changed = true;
+      for st in 0..(cw.len()-1) {
+        let f = &cw[st];
+        let s = &cw[st+1];
+        if Solution::are_ana(f,s) {
+          cw.remove(st+1);
+          changed = true;
+          break;
+        }
       }
+
     }
     cw
   }
