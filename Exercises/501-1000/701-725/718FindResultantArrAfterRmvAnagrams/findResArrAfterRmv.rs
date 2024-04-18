@@ -55,8 +55,36 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn remove_anagrams(words: Vec<String>) -> Vec<String> {
+    let mut cw = words.clone();
+    let mut changed = false;
+    while !cw.len() > 1 {
+      let f = cw[0];
+      let s = cw[1];
+    }
+    {}
+  }
 
+  fn are_ana(w1: String, w2: String) -> bool {
+    let mut hm1:HashMap<char,i32> = HashMap::new();
+    let mut hm2:HashMap<char,i32> = HashMap::new();
+    for c in w1.chars() {
+      *hm1.entry(c).or_insert(0) +=1;
+    }
+    for c in w2.chars() {
+      *hm2.entry(c).or_insert(0) +=1;
+    }
+
+    for (k,v) in &hm1 {
+      if hm2[k] != v { return false; }
+    }
+    for (k,v) in &hm2 {
+      if hm1[k] != v { return false; }
+    }
+
+    true
   }
 }
