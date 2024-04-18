@@ -60,10 +60,16 @@ impl Solution {
     sorted.sort();
     let lgst = sorted.last().unwrap();
     let smll = sorted.first().unwrap();
-
-    0
+    let g = Solution::gcd(*smll, *lgst);
+    g
   }
 
-  fn gcd() {
+  fn gcd(s: i32, l: i32) -> i32 {
+    for i in (1..=s).rev() {
+      if l%i == 0 && s%i == 0 {
+        return i;
+      }
+    }
+    1
   }
 }
