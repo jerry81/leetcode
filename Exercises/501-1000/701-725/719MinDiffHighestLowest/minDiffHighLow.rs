@@ -61,10 +61,8 @@ impl Solution {
     let mx_start = nums.len() - k as usize;
     for i in 0..=mx_start {
       let sub:Vec<i32> = sorted[i..i+k as usize].to_vec();
-      println!("printing sub");
-      for s in sub {
-        println!("{}", s);
-      }
+      let dif = sub.last().unwrap() - sub.first().unwrap();
+      res = res.min(dif);
     }
     res
   }
