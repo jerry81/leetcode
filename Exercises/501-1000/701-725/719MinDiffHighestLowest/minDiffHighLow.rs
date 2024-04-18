@@ -58,12 +58,12 @@ impl Solution {
     let mut sorted = nums.clone();
     sorted.sort();
     let mut res = i32::MAX;
-    let mx_start = nums.len() - k;
+    let mx_start = nums.len() - k as usize;
     for i in 0..=mx_start {
-      let sub = sorted[i..i+k];
+      let sub:Vec<i32> = sorted[i..i+k as usize].to_vec();
       println!("printing sub");
       for s in sub {
-        println!("{}", sub);
+        println!("{}", s);
       }
     }
     res
