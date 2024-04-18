@@ -52,6 +52,8 @@ Acceptance Rate
 
 */
 
+// TIL: sort to turn exponential problem to contiguous problem (linear)
+
 impl Solution {
   pub fn minimum_difference(nums: Vec<i32>, k: i32) -> i32 {
     // sort to turn into contiguous problem.  brute force min and max on each subarray
