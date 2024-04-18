@@ -84,10 +84,10 @@ impl Solution {
     }
 
     for (k,v) in &hm1 {
-      if hm2[k] != *v { return false; }
+      if *hm2.get(k).unwrap_or(&0) != *v { return false; } // TIL: unwrap_or
     }
     for (k,v) in &hm2 {
-      if hm1[k] != *v { return false; }
+      if *hm1.get(k).unwrap_or(&0) != *v { return false; }
     }
 
     true
