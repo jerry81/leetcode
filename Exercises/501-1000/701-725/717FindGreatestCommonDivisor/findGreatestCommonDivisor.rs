@@ -56,6 +56,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_gcd(nums: Vec<i32>) -> i32 {
+    let mut sorted = nums.clone();
+    sorted.sort();
+    let lgst = sorted.last().unwrap();
+    let smll = sorted.first().unwrap();
 
+    0
+  }
+
+  fn gcd() {
   }
 }
