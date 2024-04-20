@@ -64,6 +64,29 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> findFarmland(vector<vector<int>>& land) {
-
+      vector<vector<int>> res;
+      // row by row
+      for (int i = 0; i < land.size(); ++i) {
+        vector<int> r = land[i];
+        for (int j = 0; j < r.size(); ++j) {
+          if (r[j] == 1) {
+            int land_start_r = i;
+            int land_start_c = j;
+            // land start
+            int k = j+1;
+            while (r[k] == 1) {
+              k++;
+            }
+            int land_end_r = k;
+            int l = i+1;
+            while (land[l][j] == 1) {
+              l++;
+            }
+            int land_end_c = l;
+            res.push_back({land_start_r, land_start_c, land_end_r, land_end_c});
+          }
+          return res;
+        }
+      }
     }
 };
