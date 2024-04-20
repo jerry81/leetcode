@@ -79,19 +79,33 @@ class Solution {
     int i = 0;
     int h = land.size();
     int w = land[0].size();
-    for (int i = 0; i < h; ++i) {
+    while (i < h) {
       vector<int> r = land[i];
-      for (int j = 0; j < w; ++j) {
-        if (land[i][j]) {
-          int x, y;
-          for (y = i; y < h && land[y][j]; ++y) {
-            for (x = j; x < w && land[y][x]; ++x) {
-              land[y][x] = 0;  // the eureka - acts as visited
-            }
+      int j = 0;
+      while (j < w) {
+        if (r[j] == 1) {
+          int land_start_r = i;
+          int land_start_c = j;
+          // land start
+          int k = j + 1;
+          while (k < w && r[k] == 1) {
+            k++;
           }
-          res.push_back({i, j, y - 1, x - 1});
+          int land_end_r = k;
+          int l = i + 1;
+          while (l < h && land[l][j] == 1) {
+            l++;
+          }
+          int land_end_c = l;
+          i = land_end_r;
+          j = land_end_c;
+          res.push_back({land_start_r, land_start_c, land_end_r-1, land_end_c-1});
+
+        } else {
+          ++j;
         }
       }
+      ++i;
     }
     return res;
   }
