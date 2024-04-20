@@ -77,23 +77,23 @@ class Solution {
     vector<vector<int>> res;
     // row by row
     int i = 0;
-    while (i < land.size()) {
-      cout << "i is now " << i << endl;
+    int h = land.size();
+    int w = land[0].size();
+    while (i < h) {
       vector<int> r = land[i];
       int j = 0;
-      while (j < r.size()) {
-        cout << "j is now " << j << endl;
+      while (j < w) {
         if (r[j] == 1) {
           int land_start_r = i;
           int land_start_c = j;
           // land start
           int k = j + 1;
-          while (k < r.size() && r[k] == 1) {
+          while (k < w && r[k] == 1) {
             k++;
           }
           int land_end_r = k;
           int l = i + 1;
-          while (l < land.size() && land[l][j] == 1) {
+          while (l < h && land[l][j] == 1) {
             l++;
           }
           int land_end_c = l;
