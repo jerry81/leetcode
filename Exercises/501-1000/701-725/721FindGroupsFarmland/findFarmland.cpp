@@ -99,7 +99,7 @@ class Solution {
           int land_end_c = l;
           i = land_end_r;
           j = land_end_c;
-          res.push_back({land_start_r, land_start_c, land_end_r, land_end_c});
+          res.push_back({land_start_r, land_start_c, land_end_r-1, land_end_c-1});
 
         } else {
           ++j;
