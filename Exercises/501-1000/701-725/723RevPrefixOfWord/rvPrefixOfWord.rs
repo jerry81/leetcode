@@ -52,6 +52,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn reverse_prefix(word: String, ch: char) -> String {
-
+    let mut found = false;
+    for c in word.chars() {
+      if c == ch {
+        found = true;
+      }
+    }
+    if !found { return word; }
+    word
   }
 }
