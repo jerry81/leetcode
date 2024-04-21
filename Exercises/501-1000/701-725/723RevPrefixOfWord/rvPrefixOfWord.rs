@@ -52,13 +52,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn reverse_prefix(word: String, ch: char) -> String {
-    let mut found = false;
+    let mut idx: i32 = -1;
+    let mut cidx = 0;
     for c in word.chars() {
       if c == ch {
-        found = true;
+        idx = cidx as i32;
+        break
       }
+      cidx+=1;
     }
-    if !found { return word; }
-    word
+
+    if idx < 0 { return word; }
+    let mut slice = &word[0..=idx as usize];
+    let mut pref: String = slice.chars().rev().collect();
+    pref += &word[(idx+1) as usize..].to_string();
+    pref
   }
 }
