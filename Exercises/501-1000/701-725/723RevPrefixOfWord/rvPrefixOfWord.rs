@@ -63,8 +63,8 @@ impl Solution {
     }
 
     if idx < 0 { return word; }
-    let mut slice = &word[0..=idx as usize];
-    let mut pref: String = slice.chars().rev().collect();
+    let mut slice = &word[0..=idx as usize]; // slice it
+    let mut pref: String = slice.chars().rev().collect(); // reverse and convert
     pref += &word[(idx+1) as usize..].to_string();
     pref
   }
