@@ -66,15 +66,24 @@ impl Solution {
       pf.push(smf);
     }
     let mut smb = 0;
-    let rev = nums.clone();
+    let mut rev = nums.clone();
     rev.reverse();
-    let sz = nums.size();
-    for i in 0..sz {
-      let f = pf[i];
-      let b = pb[sz-i-1];
-      println!("comparing {} and {}", f, b);
-
+    for i in &rev {
+        smb +=i;
+        pb.push(smb);
     }
-    0
+    let sz = nums.len();
+
+    for i in 0..sz {
+      let mut f = 0;
+      if i > 0 { f = pf[i-1]; }
+      let mut bidx:i32 = sz as i32-i as i32-2;
+      let mut b = 0;
+      if bidx >= 0 { b = pb[bidx as usize] };
+      if f == b {
+        return i as i32;
+      }
+    }
+    -1
   }
 }
