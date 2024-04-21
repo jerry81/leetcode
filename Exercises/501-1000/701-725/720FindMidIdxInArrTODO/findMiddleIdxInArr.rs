@@ -58,6 +58,23 @@ Acceptance Rate
 impl Solution {
   pub fn find_middle_index(nums: Vec<i32>) -> i32 {
     // 2 prefix sums forward and back
+    let mut pf: Vec<i32> = Vec::new();
+    let mut pb: Vec<i32> = Vec::new();
+    let mut smf = 0;
+    for i in &nums {
+      smf += i;
+      pf.push(smf);
+    }
+    let mut smb = 0;
+    let rev = nums.clone();
+    rev.reverse();
+    let sz = nums.size();
+    for i in 0..sz {
+      let f = pf[i];
+      let b = pb[sz-i-1];
+      println!("comparing {} and {}", f, b);
 
+    }
+    0
   }
 }
