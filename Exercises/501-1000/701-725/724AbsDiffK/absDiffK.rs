@@ -57,6 +57,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_k_difference(nums: Vec<i32>, k: i32) -> i32 {
-
+    let mut res = 0;
+    let sz = nums.len();
+    for i in 0..sz-1 {
+      let item1 = nums[i];
+      for j in i+1..sz {
+        let item2 = nums[j];
+        let diff = item2 - item1;
+        let absd = diff.abs();
+        if absd == k { res+=1; }
+      }
+    }
+    res
   }
 }
