@@ -64,6 +64,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn final_value_after_operations(operations: Vec<String>) -> i32 {
-
+    let mut res = 0;
+    for s in operations {
+      for c in s.chars() {
+        if c == '-' {
+          res-=1;
+          break;
+        }
+        if c == '+' {
+          res+=1;
+          break;
+        }
+      }
+    }
+    res
   }
 }
