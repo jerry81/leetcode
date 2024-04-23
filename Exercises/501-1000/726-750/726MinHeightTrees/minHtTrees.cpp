@@ -81,9 +81,9 @@ class Solution {
       degrees[e[1]]++;
     }
 
-    for (auto [a, b] : degrees) {
-      cout << "item " << a << "," << b << endl;
-    }
+    // for (auto [a, b] : degrees) {
+    //   cout << "item " << a << "," << b << endl;
+    // }
 
     vector<int> res;
     while (degrees.size() > 2) {
@@ -96,6 +96,7 @@ class Solution {
         }
         if (b == 1) to_remove.push_back(a);
       }
+      cout << "remove sz is " << to_remove.size() << endl;
 
       for (int i : to_remove) {
         degrees.erase(i);
@@ -104,12 +105,13 @@ class Solution {
             nxt_edges.push_back(e);
           }
         }
-        edges = nxt_edges;
       }
-      for (auto [a, b] : degrees) {
-        res.push_back(a);
-      }
+      edges = nxt_edges;
     }
+    for (auto [a, b] : degrees) {
+      res.push_back(a);
+    }
+
     return res;
   }
 };
