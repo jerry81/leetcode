@@ -57,7 +57,6 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <unordered_map>
 
 using namespace std;
 
@@ -75,33 +74,37 @@ class Solution {
     TIL: topological sort
       - delete leaves & corresponding edges.  loop.
     */
-    unordered_map<int,int> degrees;
+    vector<int> degrees(n, 0);
     for (vector<int> e : edges) {
       degrees[e[0]]++;
       degrees[e[1]]++;
     }
 
+    vector<pair<int, int>> pairs;
+    for (int i = 0; i < n; ++i) {
+      pair<int, int> p = {i, degrees[i]};
+      pairs.push_back(p);
+    }
     vector<int> res;
-    while (degrees.size() > 2) {
+    while (pairs.size() > 2) {
+      vector<pair<int, int>> nxt;
       vector<vector<int>> nxt_edges;
-      for (auto [a, b] : degrees) {
-        if (b <= 0) { degrees.erase(a); continue; }
+      for (auto [a, b] : pairs) {
+        if (b == 0) continue;
         if (b == 1) {
           for (vector<int> e : edges) {
             if (e[0] != a && e[1] != a) {
               nxt_edges.push_back(e);
-            } else {
-              degrees[e[0]]--;
-              degrees[e[1]]--;
             }
           }
         } else {
-          degrees[a]--;
+          nxt.push_back({a,b});
         }
       }
+      pairs = nxt;
       edges=nxt_edges;
     }
-    for (auto [a, b] : degrees) {
+    for (auto [a, b] : pairs) {
       res.push_back(a);
     }
     return res;
