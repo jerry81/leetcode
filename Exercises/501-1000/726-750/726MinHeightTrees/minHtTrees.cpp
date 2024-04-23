@@ -77,6 +77,7 @@ class Solution {
     vector<int> degrees(n, 0);
     for (vector<int> e : edges) {
       degrees[e[0]]++;
+      degrees[e[1]]++;
     }
 
     vector<pair<int, int>> pairs;
