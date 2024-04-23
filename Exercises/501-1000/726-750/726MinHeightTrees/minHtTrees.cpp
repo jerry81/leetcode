@@ -61,10 +61,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  static bool cust_cmp(pair<int, int> a, pair<int, int> b) {
-    return a.second < b.second;
-  };
-
  public:
   vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
     // ideas indegree/outdegree - dones't take into account node dependencies
@@ -88,15 +84,15 @@ class Solution {
       pair<int, int> p = {i, degrees[i]};
       pairs.push_back(p);
     }
-    sort(pairs.begin(), pairs.end(), Solution::cust_cmp);
     vector<int> res;
     while (pairs.size() > 2) {
       vector<pair<int, int>> nxt;
       vector<vector<int>> nxt_edges;
       for (auto [a, b] : pairs) {
+        if (b == 0) continue;
         if (b == 1) {
           for (vector<int> e : edges) {
-            if (e[0] != a && e[1] != b) {
+            if (e[0] != a && e[1] != a) {
               nxt_edges.push_back(e);
             }
           }
