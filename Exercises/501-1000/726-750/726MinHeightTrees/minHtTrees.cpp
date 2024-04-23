@@ -61,9 +61,10 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
- static bool cust_cmp(pair<int,int> a, pair<int,int> b) {
-   return a.second < b.second;
- };
+  static bool cust_cmp(pair<int, int> a, pair<int, int> b) {
+    return a.second < b.second;
+  };
+
  public:
   vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
     // ideas indegree/outdegree - dones't take into account node dependencies
@@ -82,28 +83,31 @@ class Solution {
       degrees[e[0]]++;
     }
 
-    vector<pair<int,int>> pairs;
+    vector<pair<int, int>> pairs;
     for (int i = 0; i < n; ++i) {
-      pair<int,int> p = {i, degrees[i]};
+      pair<int, int> p = {i, degrees[i]};
       pairs.push_back(p);
     }
-    sort(pairs.begin(),pairs.end(),Solution::cust_cmp);
+    sort(pairs.begin(), pairs.end(), Solution::cust_cmp);
     vector<int> res;
-    vector<vector<int>> nxt_edges;
     while (pairs.size() > 2) {
-      vector<pair<int,int>> nxt;
+      vector<pair<int, int>> nxt;
       vector<vector<int>> nxt_edges;
-      for (auto [a,b]: pairs) {
+      for (auto [a, b] : pairs) {
         if (b == 1) {
-        }
-        for (vector<int> e: edges) {
-          if (e[0] == a || e[1] == b) {
-
+          for (vector<int> e : edges) {
+            if (e[0] != a && e[1] != b) {
+              nxt_edges.push_back(e);
+            }
           }
+        } else {
+          nxt.push_back({a,b});
         }
       }
+      pairs = nxt;
+      edges=nxt_edges;
     }
-    for (auto [a,b]: pairs) {
+    for (auto [a, b] : pairs) {
       res.push_back(a);
     }
     return res;
