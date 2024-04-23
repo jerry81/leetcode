@@ -96,15 +96,18 @@ class Solution {
         }
         if (b == 1) to_remove.push_back(a);
       }
-      cout << "remove sz is " << to_remove.size() << endl;
 
       for (int i : to_remove) {
         degrees.erase(i);
-        for (vector<int> e : nxt_edges) {
+        for (vector<int> e : edges) {
           if (e[0] != i && e[1] != i) {
             nxt_edges.push_back(e);
+          } else {
+            if (e[0] != i && degrees.find(e[0]) != degrees.end()) degrees[e[0]]--;
+            if (e[1] != i && degrees.find(e[1]) != degrees.end()) degrees[e[1]]--;
           }
         }
+
       }
       edges = nxt_edges;
     }
