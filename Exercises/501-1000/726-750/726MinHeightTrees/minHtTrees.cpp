@@ -64,6 +64,7 @@ using namespace std;
 class Solution {
  public:
   vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+    if (n == 1) return {0};
     // ideas indegree/outdegree - dones't take into account node dependencies
     /*
       brute force would be try building all possible trees
