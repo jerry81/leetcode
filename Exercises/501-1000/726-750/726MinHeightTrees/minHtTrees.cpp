@@ -82,10 +82,6 @@ class Solution {
       degrees[e[1]]++;
     }
 
-    // for (auto [a, b] : degrees) {
-    //   cout << "item " << a << "," << b << endl;
-    // }
-
     vector<int> res;
     while (degrees.size() > 2) {
       vector<vector<int>> nxt_edges;
