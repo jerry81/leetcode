@@ -60,21 +60,24 @@ Discussion (8)
 
 impl Solution {
   pub fn maximum_difference(nums: Vec<i32>) -> i32 {
-    let mut curm = i32::MAX;
+    let mut mn = -1;
     let mut res = -1;
     for i in nums {
-      if i <= curm {
-        curm = i;
-        let diff = i - curm;
-        if curm > 0 {
-          res = res.max(diff);
-        }
+      if mn == -1 {
+        mn = i;
+        continue
+      }
+
+      if i < mn {
+        // decreasing
+        mn = i;
+      } else {
+        res = res.max(i - mn);
       }
     }
     res
   }
 }
-
 // prefix mins
 /*
  nums = [7,1,5,4]
