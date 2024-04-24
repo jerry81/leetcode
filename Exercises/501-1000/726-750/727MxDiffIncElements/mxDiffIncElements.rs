@@ -68,7 +68,7 @@ impl Solution {
         continue
       }
 
-      if i < mn {
+      if i <= mn {
         // decreasing
         mn = i;
       } else {
@@ -78,8 +78,3 @@ impl Solution {
     res
   }
 }
-// prefix mins
-/*
- nums = [7,1,5,4]
- ps - [7,1,1,1]
-*/
