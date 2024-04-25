@@ -52,9 +52,25 @@ Acceptance Rate
 61.2%
 
 */
-
 impl Solution {
   pub fn construct2_d_array(original: Vec<i32>, m: i32, n: i32) -> Vec<Vec<i32>> {
+      if original.len() != (m*n) as usize { return vec![] }
 
+      let mut counter1 = 0;
+      let mut counter2 = 0;
+      let mut res: Vec<Vec<i32>> = Vec::new();
+      let mut cur: Vec<i32> = Vec::new();
+      for i in original {
+
+        if (counter2 == n) {
+          counter2 = 0;
+          res.push(cur);
+          cur = vec![i];
+        } else {
+          counter2+=1;
+          cur.push(i);
+        }
+      }
+      res
   }
 }
