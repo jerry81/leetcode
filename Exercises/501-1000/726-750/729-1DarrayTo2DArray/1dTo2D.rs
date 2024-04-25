@@ -63,7 +63,7 @@ impl Solution {
       for i in original {
 
         if (counter2 == n) {
-          counter2 = 0;
+          counter2 = 1;
           res.push(cur);
           cur = vec![i];
         } else {
@@ -71,6 +71,7 @@ impl Solution {
           cur.push(i);
         }
       }
+      res.push(cur);
       res
   }
 }
