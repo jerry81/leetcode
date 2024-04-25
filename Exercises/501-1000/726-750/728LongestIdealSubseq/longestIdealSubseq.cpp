@@ -53,40 +53,36 @@ Acceptance Rate
 */
 
 #include <string>
-#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-  unordered_map<string, int> memo;
-  string hsh(int idx, char last, bool hasLast) {
-    string lastStr(last, 1);
-    return to_string(idx) + lastStr + to_string(hasLast);
-  };
+  vector<vector<int>> memo;
+
   int c_diff(char a, char b) { return abs((int)a - (int)b); }
-  int r(string &s, int &k, int &sz, int idx, char last, bool hasLast) {
+  int r(string &s, int &k, int &sz, int idx, char last) {
     if (idx >= sz) return 0;
 
-    string hash = hsh(idx, last, hasLast);
-
-    if (memo.find(hash) != memo.end()) return memo[hash];
+    int res = memo[idx][last-96];
+    if (res >= 0) return res;
 
     char cur = s[idx];
-    if (!hasLast) {
-      int take = 1 + r(s, k, sz, idx + 1, cur, true);
-      int leave = r(s, k, sz, idx + 1, last, false);
-      memo[hash] = max(take, leave);
-      return memo[hash];
+    if (last == '`') {
+      int take = 1 + r(s, k, sz, idx + 1, cur);
+      int leave = r(s, k, sz, idx + 1, last);
+      memo[idx][last-96] = max(take,leave);
+      return memo[idx][last-96];
     } else {
       char cur = s[idx];
       if (c_diff(cur, last) > k) {
-        memo[hash] = r(s, k, sz, idx + 1, last, true);
-        return memo[hash];
+        memo[idx][last-96] = r(s,k,sz,idx+1,last);
+        return memo[idx][last-96];
       } else {
-        int take = 1 + r(s, k, sz, idx + 1, cur, true);
-        int leave = r(s, k, sz, idx + 1, last, true);
-        memo[hash] = max(take, leave);
-        return memo[hash];
+        int take = 1 + r(s, k, sz, idx + 1, cur);
+        int leave = r(s, k, sz, idx + 1, last);
+        memo[idx][last-96] = max(take,leave);
+        return memo[idx][last-96];
       }
     }
   };
@@ -94,6 +90,7 @@ class Solution {
  public:
   int longestIdealString(string s, int k) {
     int sz = s.size();
-    return r(s, k, sz, 0, 'a', false);
+    memo.resize(sz, vector<int>(27,-1));
+    return r(s, k, sz, 0, '`');
   }
 };
