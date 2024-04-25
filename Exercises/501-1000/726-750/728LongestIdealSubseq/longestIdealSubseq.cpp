@@ -64,25 +64,25 @@ class Solution {
   int r(string &s, int &k, int &sz, int idx, char last) {
     if (idx >= sz) return 0;
 
-    int res = memo[idx][last-96];
+    int res = memo[idx][last - 96];
     if (res >= 0) return res;
 
     char cur = s[idx];
     if (last == '`') {
       int take = 1 + r(s, k, sz, idx + 1, cur);
       int leave = r(s, k, sz, idx + 1, last);
-      memo[idx][last-96] = max(take,leave);
-      return memo[idx][last-96];
+      memo[idx][last - 96] = max(take, leave);
+      return memo[idx][last - 96];
     } else {
       char cur = s[idx];
       if (c_diff(cur, last) > k) {
-        memo[idx][last-96] = r(s,k,sz,idx+1,last);
-        return memo[idx][last-96];
+        memo[idx][last - 96] = r(s, k, sz, idx + 1, last);
+        return memo[idx][last - 96];
       } else {
         int take = 1 + r(s, k, sz, idx + 1, cur);
         int leave = r(s, k, sz, idx + 1, last);
-        memo[idx][last-96] = max(take,leave);
-        return memo[idx][last-96];
+        memo[idx][last - 96] = max(take, leave);
+        return memo[idx][last - 96];
       }
     }
   };
@@ -90,7 +90,7 @@ class Solution {
  public:
   int longestIdealString(string s, int k) {
     int sz = s.size();
-    memo.resize(sz, vector<int>(27,-1));
+    memo.resize(sz, vector<int>(27, -1));
     return r(s, k, sz, 0, '`');
   }
 };
