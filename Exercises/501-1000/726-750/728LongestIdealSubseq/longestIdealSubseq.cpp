@@ -56,11 +56,18 @@ class Solution {
 int c_diff(char a, char b) {
   return abs((int)a - (int)b);
 }
+int r(string &s, int &k, int &sz, int idx, char last, bool hasLast) {
+  if (idx >= sz) return 0;
+
+  if (!hasLast) {
+    int take = r(s,k,sz,idx+1,s[idx],true);
+    int leave = r(s,k,sz,idx+1,'a',false);
+    return max(take, leave);
+  }
+};
 public:
     int longestIdealString(string s, int k) {
-      for (int i = 0; i < s.size()-1; ++i) {
-        cout << "diff between " << s[0] << " and " << s[1] << " is " << c_diff(s[0],s[1]);
-      }
-      return 0;
+      int sz = s.size();
+      return r(s,k,sz,0,'a', false);
     }
 };
