@@ -49,29 +49,44 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
+
+unordered_map<string, int> memo;
+string hsh(int idx, char last, bool hasLast) {
+  string lastStr(last,1);
+  return to_string(idx) + lastStr + to_string(hasLast);
+};
 int c_diff(char a, char b) {
   return abs((int)a - (int)b);
 }
 int r(string &s, int &k, int &sz, int idx, char last, bool hasLast) {
   if (idx >= sz) return 0;
 
+  string hash= hsh(idx, last,hasLast);
+
+  if (memo.find(hash) != memo.end()) return memo[hash];
+
+
   char cur = s[idx];
   if (!hasLast) {
     int take = 1+r(s,k,sz,idx+1,cur,true);
     int leave = r(s,k,sz,idx+1,'a',false);
-    return max(take, leave);
+    memo[hash] = max(take, leave);
+    return memo[hash];
   } else {
     char cur = s[idx];
     if (c_diff(cur, last) > k) {
-      return r(s,k,sz,idx+1,last,true);
+      memo[hash]= r(s,k,sz,idx+1,last,true);
+      return memo[hash];
     } else {
       int take = 1+r(s,k,sz,idx+1,cur,true);
       int leave = r(s,k,sz,idx+1,'a',false);
-      return max(take,leave);
+      memo[hash]= max(take,leave);
+      return memo[hash];
     }
   }
 
