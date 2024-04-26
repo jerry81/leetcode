@@ -49,17 +49,25 @@ Acceptance Rate
 54.4%
 
 */
+
 impl Solution {
   pub fn minimum_moves(s: String) -> i32 {
       let mut res = 0;
-      let mut need_convert: Vec<usize> = Vec::new();
+      let mut need_convert: Vec<i32> = Vec::new();
       for i in 0..s.len() {
-        if s.chars().nth(i).unwrap() != 'O' {
-          need_convert.push(i);
+        if s.chars().nth(i as usize).unwrap() != 'O' {
+          need_convert.push(i as i32);
         }
       }
       if need_convert.is_empty() {
           return 0
+      }
+      let mut limit: i32 = -1;
+      for i in need_convert {
+       if i > limit {
+         res+=1;
+         limit = i+2;
+       }
       }
       res
   }
