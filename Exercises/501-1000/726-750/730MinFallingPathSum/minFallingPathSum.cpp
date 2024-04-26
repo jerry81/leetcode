@@ -68,7 +68,7 @@ class Solution {
         for (int i = 0; i < sz; ++i) {
             if (i == col) continue;
             int nr = row + 1;
-            int added = grid[row][col]; // this is where i went wrong?
+            int added = row == 0 ? 0 : grid[row][col]; // this is where i went wrong?
             if (nr < sz) { // Ensure we are not accessing out of bounds
                 added += r(i, nr, grid, sz);
             }
@@ -84,12 +84,12 @@ public:
         int h = grid.size();
         int w = grid[0].size();
 
+        if (h == 1) return *min_element(grid[0].begin(), grid[0].end());
+
         memo.resize(h, vector<int>(w, INT_MIN));
 
         for (int i = 0; i < w; ++i) {
-            // Iterate through each column in the first row
-            // and find the minimum falling path sum starting from each column
-            res = min(res, r(i, 0, grid, h));
+            res = min(res, grid[0][i] + r(i, 0, grid, h));
         }
         return res;
     }
