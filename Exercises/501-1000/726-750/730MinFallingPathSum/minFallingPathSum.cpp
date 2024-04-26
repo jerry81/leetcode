@@ -52,8 +52,31 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> memo;
+int r(int col, int row, vector<vector<int>>& grid, int& sz) {
+  if (row == sz-1) return grid[row][col];
+  if (memo[row][col] != INT_MIN) return memo[row][col];
+  int mn = INT_MAX;
+  for (int i = 0; i < sz; ++i) {
+    if (i == col) continue;
+    int nr = row+1;
+    int added = row == 0 ? 0 : grid[row][i];
+    mn = min(mn, added + r(i, nr, grid, sz));
+  }
+  memo[row][col] = mn;
+  return mn;
+}
 public:
     int minFallingPathSum(vector<vector<int>>& grid) {
+      // brute force, sort rows times
+      int res = INT_MAX;
+      int h = grid.size();
+      int w = grid[0].size();
 
+      memo.resize(h, vector<int>(w,INT_MIN));
+      for (int i = 0; i < w; ++i) {
+        res = min(res, r(i, 0, grid, h));
+      }
+      return res;
     }
 };
