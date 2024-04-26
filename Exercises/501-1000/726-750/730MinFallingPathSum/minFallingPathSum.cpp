@@ -55,42 +55,42 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  vector<vector<int>> memo;
+    vector<vector<int>> memo;
 
-  int r(int col, int row, vector<vector<int>>& grid, int sz) {
-    if (row == sz - 1) {
-      // If we reach the bottom row, return the value at that position
-      return grid[row][col];
+    int r(int col, int row, vector<vector<int>>& grid, int sz) {
+        if (row == sz - 1) {
+            // If we reach the bottom row, return the value at that position
+            return grid[row][col];
+        }
+        if (memo[row][col] != INT_MIN) return memo[row][col];
+
+        int mn = INT_MAX;
+        for (int i = 0; i < sz; ++i) {
+            if (i == col) continue;
+            int nr = row + 1;
+            int added = grid[row][col]; // this is where i went wrong?
+            if (nr < sz) { // Ensure we are not accessing out of bounds
+                added += r(i, nr, grid, sz);
+            }
+            mn = min(mn, added);
+        }
+        memo[row][col] = mn;
+        return mn;
     }
-    if (memo[row][col] != INT_MIN) return memo[row][col];
 
-    int mn = INT_MAX;
-    for (int i = 0; i < sz; ++i) {
-      if (i == col) continue;
-      int nr = row + 1;
-      int added = grid[row][i];
-      if (nr < sz) {  // Ensure we are not accessing out of bounds
-        added += r(i, nr, grid, sz);
-      }
-      mn = min(mn, added);
+public:
+    int minFallingPathSum(vector<vector<int>>& grid) {
+        int res = INT_MAX;
+        int h = grid.size();
+        int w = grid[0].size();
+
+        memo.resize(h, vector<int>(w, INT_MIN));
+
+        for (int i = 0; i < w; ++i) {
+            // Iterate through each column in the first row
+            // and find the minimum falling path sum starting from each column
+            res = min(res, r(i, 0, grid, h));
+        }
+        return res;
     }
-    memo[row][col] = mn;
-    return mn;
-  }
-
- public:
-  int minFallingPathSum(vector<vector<int>>& grid) {
-    int res = INT_MAX;
-    int h = grid.size();
-    int w = grid[0].size();
-
-    memo.resize(h, vector<int>(w, INT_MIN));
-
-    for (int i = 0; i < w; ++i) {
-      // Iterate through each column in the first row
-      // and find the minimum falling path sum starting from each column
-      res = min(res, r(i, 0, grid, h));
-    }
-    return res;
-  }
 };
