@@ -6,9 +6,12 @@ Hard
 Topics
 Companies
 Hint
-Given an n x n integer matrix grid, return the minimum sum of a falling path with non-zero shifts.
+Given an n x n integer matrix grid, return the minimum sum of a falling path
+with non-zero shifts.
 
-A falling path with non-zero shifts is a choice of exactly one element from each row of grid such that no two elements chosen in adjacent rows are in the same column.
+A falling path with non-zero shifts is a choice of exactly one element from each
+row of grid such that no two elements chosen in adjacent rows are in the same
+column.
 
 
 
@@ -52,31 +55,42 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<vector<int>> memo;
-int r(int col, int row, vector<vector<int>>& grid, int& sz) {
-  if (row == sz-1) return grid[row][col];
-  if (memo[row][col] != INT_MIN) return memo[row][col];
-  int mn = INT_MAX;
-  for (int i = 0; i < sz; ++i) {
-    if (i == col) continue;
-    int nr = row+1;
-    int added = row == 0 ? 0 : grid[row][i];
-    mn = min(mn, added + r(i, nr, grid, sz));
-  }
-  memo[row][col] = mn;
-  return mn;
-}
-public:
-    int minFallingPathSum(vector<vector<int>>& grid) {
-      // brute force, sort rows times
-      int res = INT_MAX;
-      int h = grid.size();
-      int w = grid[0].size();
+  vector<vector<int>> memo;
 
-      memo.resize(h, vector<int>(w,INT_MIN));
-      for (int i = 0; i < w; ++i) {
-        res = min(res, r(i, 0, grid, h));
-      }
-      return res;
+  int r(int col, int row, vector<vector<int>>& grid, int sz) {
+    if (row == sz - 1) {
+      // If we reach the bottom row, return the value at that position
+      return grid[row][col];
     }
+    if (memo[row][col] != INT_MIN) return memo[row][col];
+
+    int mn = INT_MAX;
+    for (int i = 0; i < sz; ++i) {
+      if (i == col) continue;
+      int nr = row + 1;
+      int added = grid[row][i];
+      if (nr < sz) {  // Ensure we are not accessing out of bounds
+        added += r(i, nr, grid, sz);
+      }
+      mn = min(mn, added);
+    }
+    memo[row][col] = mn;
+    return mn;
+  }
+
+ public:
+  int minFallingPathSum(vector<vector<int>>& grid) {
+    int res = INT_MAX;
+    int h = grid.size();
+    int w = grid[0].size();
+
+    memo.resize(h, vector<int>(w, INT_MIN));
+
+    for (int i = 0; i < w; ++i) {
+      // Iterate through each column in the first row
+      // and find the minimum falling path sum starting from each column
+      res = min(res, r(i, 0, grid, h));
+    }
+    return res;
+  }
 };
