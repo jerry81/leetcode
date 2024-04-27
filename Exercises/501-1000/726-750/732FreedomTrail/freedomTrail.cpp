@@ -68,6 +68,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  // memo on kidx,ringpos?
+  vector<unordered_map<char, vector<pair<int, int>>>> lookup;
+  vector<vector<int>> memo;
+  int r(string& ring, string& key, int& sz, int kidx, int ringpos) {
+    if (kidx >= sz) return 0;  // end.  no more characters to spell
+    if (memo[kidx][ringpos] > -1) return memo[kidx][ringpos];
+    char nxt = key[kidx];
+    // try all the possibilities
+    int mn = INT_MAX;
+    auto mp = lookup[ringpos][nxt];
+    for (auto [dist, nxtRP] : mp) {
+      mn = min(mn, dist + r(ring, key, sz, kidx + 1, nxtRP));
+    }
+    memo[kidx][ringpos] = mn;
+    return mn;
+  }
+
  public:
   int findRotateSteps(string ring, string key) {
     /*
@@ -76,7 +93,10 @@ class Solution {
     */
 
     int sz = ring.size();
-    vector<unordered_map<char, vector<pair<int, int>>>> lookup(sz);
+    lookup.resize(sz);
+    int sz2 = key.size();
+    memo.resize(sz, vector<int>(sz2, -1));
+    (sz);
     // precalc distances
     for (int i = 0; i < sz; ++i) {
       char cur = ring[i];
@@ -113,6 +133,7 @@ class Solution {
     //     }
     //   }
     // }
+    // we now spell the fucker with recursion/dp
     return 0;
   }
 };
