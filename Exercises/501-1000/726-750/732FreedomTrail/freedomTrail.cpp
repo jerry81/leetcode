@@ -50,12 +50,43 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int findRotateSteps(string ring, string key) {
+      /*
+      godding
+      (0)g: { g: 0, 1,  o: 1, d: 2, 3 i: 3, n: 2}
+      */
 
+     int sz = ring.size();
+     vector<unordered_map<char, vector<pair<int,int>>>> lookup(sz);
+     // precalc distances
+     for (int i = 0; i < sz; ++i) {
+       char cur = ring[i];
+       int dist = 0;
+       pair<int,int> pr = {dist,i};
+       lookup[i][cur].push_back(pr);
+       int addend = 1;
+       int lower=0;
+       int upper=0;
+       while (true) {
+         lower = i - addend;
+         if (lower < 0) lower += sz;
+         cout << "lower " << lower << endl;
+         // process lower
+         if (lower == upper) break;
+         upper = i + addend;
+         if (upper >= sz) upper %= sz;
+         addend+=1;
+         // process upper
+         cout << "upper " << upper << endl;
+         if (lower == upper) break;
+       }
+     }
     }
 };
