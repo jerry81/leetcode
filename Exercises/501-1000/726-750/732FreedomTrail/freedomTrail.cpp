@@ -104,16 +104,13 @@ using namespace std;class Solution {
       int lower = -1;
       int upper = -1;
       while (true) {
-        lower = i - addend;
-
-        if (lower < 0) lower += sz;
+        lower = (i - addend + sz) % sz;
         char lc = ring[lower];
         if (lower == upper) break;
         lookup[i][lc].push_back({addend, lower});
         // process lower
-        upper = i + addend;
+        upper = (i + addend) % sz;
         char uc = ring[upper];
-        if (upper >= sz) upper %= sz;
         if (lower == upper) break;
         // process upper
         lookup[i][uc].push_back({addend, upper});
