@@ -96,10 +96,10 @@ class Solution {
         upper = i + addend;
         char uc = ring[upper];
         if (upper >= sz) upper %= sz;
-        addend += 1;
+        if (lower == upper) break;
         // process upper
         lookup[i][uc].push_back({addend, upper});
-        if (lower == upper) break;
+        addend += 1;
       }
     }
     for (int i = 0; i < sz; ++i) {
