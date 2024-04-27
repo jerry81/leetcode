@@ -66,7 +66,6 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
   // memo on kidx,ringpos?
   vector<unordered_map<char, vector<pair<int, int>>>> lookup;
@@ -134,6 +133,6 @@ class Solution {
     //   }
     // }
     // we now spell the fucker with recursion/dp
-    return 0;
+    return r(ring, key, sz2, 0, 0);
   }
 };
