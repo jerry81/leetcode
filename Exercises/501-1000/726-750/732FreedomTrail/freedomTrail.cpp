@@ -89,27 +89,28 @@ class Solution {
       while (true) {
         lower = i - addend;
         if (lower < 0) lower += sz;
-        lookup[i][cur].push_back( {addend, lower} );
+        char lc = ring[lower];
+        lookup[i][lc].push_back({addend, lower});
         // process lower
         if (lower == upper) break;
         upper = i + addend;
+        char uc = ring[upper];
         if (upper >= sz) upper %= sz;
         addend += 1;
         // process upper
-        lookup[i][cur].push_back( {addend, upper} );
+        lookup[i][uc].push_back({addend, upper});
         if (lower == upper) break;
       }
     }
     for (int i = 0; i < sz; ++i) {
       auto mp = lookup[i];
       cout << "from idx " << i << endl;
-      for (auto [c,v]: mp) {
+      for (auto [c, v] : mp) {
         cout << "dist to " << c << endl;
-        for (auto [a,b]: v) {
+        for (auto [a, b] : v) {
           cout << a << " with idx " << b << endl;
         }
       }
-
     }
     return 0;
   }
