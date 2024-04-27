@@ -89,14 +89,14 @@ class Solution {
       while (true) {
         lower = i - addend;
         if (lower < 0) lower += sz;
-        cout << "lower " << lower << endl;
+        lookup[i][cur].push_back( {addend, lower} );
         // process lower
         if (lower == upper) break;
         upper = i + addend;
         if (upper >= sz) upper %= sz;
         addend += 1;
         // process upper
-        cout << "upper " << upper << endl;
+        lookup[i][cur].push_back( {addend, upper} );
         if (lower == upper) break;
       }
     }
