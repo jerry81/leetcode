@@ -84,15 +84,16 @@ class Solution {
       pair<int, int> pr = {dist, i};
       lookup[i][cur].push_back(pr);
       int addend = 1;
-      int lower = 0;
-      int upper = 0;
+      int lower = -1;
+      int upper = -1;
       while (true) {
         lower = i - addend;
+
         if (lower < 0) lower += sz;
         char lc = ring[lower];
+        if (lower == upper) break;
         lookup[i][lc].push_back({addend, lower});
         // process lower
-        if (lower == upper) break;
         upper = i + addend;
         char uc = ring[upper];
         if (upper >= sz) upper %= sz;
@@ -102,16 +103,16 @@ class Solution {
         addend += 1;
       }
     }
-    for (int i = 0; i < sz; ++i) {
-      auto mp = lookup[i];
-      cout << "from idx " << i << endl;
-      for (auto [c, v] : mp) {
-        cout << "dist to " << c << endl;
-        for (auto [a, b] : v) {
-          cout << a << " with idx " << b << endl;
-        }
-      }
-    }
+    // for (int i = 0; i < sz; ++i) {
+    //   auto mp = lookup[i];
+    //   cout << "from idx " << i << endl;
+    //   for (auto [c, v] : mp) {
+    //     cout << "dist to " << c << endl;
+    //     for (auto [a, b] : v) {
+    //       cout << a << " with idx " << b << endl;
+    //     }
+    //   }
+    // }
     return 0;
   }
 };
