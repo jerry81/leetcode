@@ -100,6 +100,17 @@ class Solution {
         if (lower == upper) break;
       }
     }
+    for (int i = 0; i < sz; ++i) {
+      auto mp = lookup[i];
+      cout << "from idx " << i << endl;
+      for (auto [c,v]: mp) {
+        cout << "dist to " << c << endl;
+        for (auto [a,b]: v) {
+          cout << a << " with idx " << b << endl;
+        }
+      }
+
+    }
     return 0;
   }
 };
