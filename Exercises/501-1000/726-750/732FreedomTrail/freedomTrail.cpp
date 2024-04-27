@@ -65,22 +65,21 @@ Acceptance Rate
 #include <unordered_map>
 #include <vector>
 
-using namespace std;
-class Solution {
+using namespace std;class Solution {
   // memo on kidx,ringpos?
   vector<unordered_map<char, vector<pair<int, int>>>> lookup;
   vector<vector<int>> memo;
   int r(string& ring, string& key, int& sz, int kidx, int ringpos) {
     if (kidx >= sz) return 0;  // end.  no more characters to spell
-    if (memo[kidx][ringpos] > -1) return memo[kidx][ringpos];
+    if (memo[ringpos][kidx] > -1) return memo[ringpos][kidx];
     char nxt = key[kidx];
     // try all the possibilities
-    int mn = INT_MAX;
+    int mn = 999999999;
     auto mp = lookup[ringpos][nxt];
     for (auto [dist, nxtRP] : mp) {
-      mn = min(mn, dist + r(ring, key, sz, kidx + 1, nxtRP));
+      mn = min(mn, dist + 1 + r(ring, key, sz, kidx + 1, nxtRP));
     }
-    memo[kidx][ringpos] = mn;
+    memo[ringpos][kidx] = mn;
     return mn;
   }
 
@@ -95,7 +94,6 @@ class Solution {
     lookup.resize(sz);
     int sz2 = key.size();
     memo.resize(sz, vector<int>(sz2, -1));
-    (sz);
     // precalc distances
     for (int i = 0; i < sz; ++i) {
       char cur = ring[i];
