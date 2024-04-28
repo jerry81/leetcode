@@ -4,11 +4,14 @@
 Hard
 Topics
 Companies
-There is an undirected connected tree with n nodes labeled from 0 to n - 1 and n - 1 edges.
+There is an undirected connected tree with n nodes labeled from 0 to n - 1 and n
+- 1 edges.
 
-You are given the integer n and the array edges where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree.
+You are given the integer n and the array edges where edges[i] = [ai, bi]
+indicates that there is an edge between nodes ai and bi in the tree.
 
-Return an array answer of length n where answer[i] is the sum of the distances between the ith node in the tree and all other nodes.
+Return an array answer of length n where answer[i] is the sum of the distances
+between the ith node in the tree and all other nodes.
 
 
 
@@ -59,14 +62,19 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  vector<int> degrees;
-public:
-    vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-      // edges are undirected
-      // bfs
-      /*
-       so it turns out, bfs from any node will wor
-      */
+  vector<vector<int>> neighbors;
 
+ public:
+  vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
+    // edges are undirected
+    // bfs
+    /*
+     so it turns out, bfs from any node will wor
+    */
+    neighbors.resize(n);
+    for (vector<int> v : edges) {
+      neighbors[v[0]].push_back(v[1]);
+      neighbors[v[1]].push_back(v[0]);
     }
+  }
 };
