@@ -58,11 +58,18 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+};
 class Solution {
   vector<vector<int>> neighbors;
+  vector<vector<pair<int,int>>> dists;
 
  public:
   vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
@@ -76,5 +83,10 @@ class Solution {
       neighbors[v[0]].push_back(v[1]);
       neighbors[v[1]].push_back(v[0]);
     }
+    queue<int> q;
+    // bfs build tree
+    // dfs make map
+    // finally, dfs, gather sums
+    // when bfs, must copy the tree at each parent for each child, may lead to TLE/MLE
   }
 };
