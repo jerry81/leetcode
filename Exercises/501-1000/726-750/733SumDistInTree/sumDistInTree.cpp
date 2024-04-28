@@ -64,14 +64,9 @@ public:
     vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
       // edges are undirected
       // bfs
-      degrees.resize(n);
-      for (vector<int> v: edges) {
-        degrees[v[0]]++;
-        degrees[v[1]]++;
-      }
-      for (auto a: degrees) {
-        cout << a << endl;
-      }
-      return {};
+      /*
+       so it turns out, bfs from any node will wor
+      */
+
     }
 };
