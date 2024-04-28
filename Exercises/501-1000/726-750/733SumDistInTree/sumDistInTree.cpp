@@ -58,18 +58,35 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <queue>
 
 using namespace std;
 
-struct TreeNode {
-  int val;
-  TreeNode* left;
-  TreeNode* right;
-};
 class Solution {
   vector<vector<int>> neighbors;
-  vector<vector<pair<int,int>>> dists;
+  vector<int> res;
+  vector<int> counts;
+
+  void build_dists(int node, int parent) {
+    vector<int> neighs = neighbors[node];
+    for (int n: neighs) {
+      if (n == parent) continue;
+
+      build_dists(n, node);
+
+      counts[node] += counts[n];
+      res[node] += res[n]+counts[n];
+    }
+  }
+
+  void reroot(int prev, int from, int &n) {
+    vector<int> neighs = neighbors[from];
+    for (int to: neighs) {
+      if (to == prev) continue;
+
+      res[to] = res[from] + n - counts[to] - counts[to];
+      reroot(from, to, n);
+    }
+  }
 
  public:
   vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
@@ -78,15 +95,39 @@ class Solution {
     /*
      so it turns out, bfs from any node will wor
     */
+    /* this was right!*/
     neighbors.resize(n);
     for (vector<int> v : edges) {
       neighbors[v[0]].push_back(v[1]);
       neighbors[v[1]].push_back(v[0]);
     }
-    queue<int> q;
+
+    counts.resize(n, 1);
+    res.resize(n, 0);
+    build_dists(0,-1);
+    reroot(-1,0,n);
+    // need another vec of dists
+    // and counts, or just pairs
+    // starting from 0, just make a dfs function that includes parent
+    // skip parent and you will make your undirected graph directed
+    // tree built, sum built to root.
+    // this builds the initial tree
+    // then the magic
+    // dfs again,
+    // at each
+    // void reroot(int i, int parent, int n){
+    // for (int j: adj[i]){
+    //     if (j==parent) continue;
+    //     sum[j]=sum[i]+n-2*cnt[j];
+    //     reroot(j, i, n);
+    // }
+    //
+
     // bfs build tree
     // dfs make map
     // finally, dfs, gather sums
-    // when bfs, must copy the tree at each parent for each child, may lead to TLE/MLE
+    // when bfs, must copy the tree at each parent for each child, may lead to
+    // TLE/MLE
+    return res;
   }
 };
