@@ -61,10 +61,10 @@ impl Solution {
     let mut counts: HashMap<i32,i32> = HashMap::new();
     for d in [d1,d2,d3] {
       for i in d {
-        counts[i]+=1;
+        *counts.entry(i).or_insert(0)+=1;
       }
     }
-    let mut res = 0;
+    let mut res: Vec<i32> = Vec::new();
     for (k,v) in counts {
       if v > 1 {
         res.push(k);
