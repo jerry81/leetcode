@@ -73,7 +73,7 @@ impl Solution {
     let mut sts = students.clone();
     sts.sort();
     let mut res = 0;
-    for i in 0..&seats.len() {
+    for i in 0..seats.len() {
       res+=(ss[i]-sts[i]).abs();
     }
     res
