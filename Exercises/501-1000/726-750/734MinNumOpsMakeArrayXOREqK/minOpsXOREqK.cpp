@@ -63,7 +63,6 @@ public:
       // convert to binstring
       vector<string> bitstrs;
       bitset<32> tgt_bits(k);
-      cout << "tgt_bits " << tgt_bits << endl;
       int product = -1;
       for (int i: nums) {
         if (product < 0) {
@@ -73,7 +72,11 @@ public:
           product^=i;
         }
       }
-      cout << product << endl;
-      return 0;
+      bitset<32> prd_bits(product);
+      int res = 0;
+      for (int i = 0; i < 32; ++i) {
+        if (prd_bits[i] != tgt_bits[i]) res++;
+      }
+      return res;
     }
 };
