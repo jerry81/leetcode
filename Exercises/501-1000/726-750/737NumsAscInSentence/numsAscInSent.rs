@@ -58,6 +58,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn are_numbers_ascending(s: String) -> bool {
-
+    Vec<&str> tk = s.split();
+    for s in &str {
+      println!("token {}", s);
+    }
+    false
   }
 }
