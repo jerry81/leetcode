@@ -65,21 +65,22 @@ Acceptance Rate
 #include <unordered_map>
 #include <vector>
 
-using namespace std;class Solution {
+using namespace std;
+class Solution {
   // memo on kidx,ringpos?
   vector<unordered_map<char, vector<pair<int, int>>>> lookup;
   vector<vector<int>> memo;
   int r(string& ring, string& key, int& sz, int kidx, int ringpos) {
     if (kidx >= sz) return 0;  // end.  no more characters to spell
-    if (memo[ringpos][kidx] > -1) return memo[ringpos][kidx];
+    if (memo[kidx][ringpos] > -1) return memo[kidx][ringpos];
     char nxt = key[kidx];
     // try all the possibilities
-    int mn = 999999999;
+    int mn = INT_MAX;
     auto mp = lookup[ringpos][nxt];
     for (auto [dist, nxtRP] : mp) {
-      mn = min(mn, dist + 1 + r(ring, key, sz, kidx + 1, nxtRP));
+      mn = min(mn, dist + r(ring, key, sz, kidx + 1, nxtRP));
     }
-    memo[ringpos][kidx] = mn;
+    memo[kidx][ringpos] = mn;
     return mn;
   }
 
@@ -104,13 +105,16 @@ using namespace std;class Solution {
       int lower = -1;
       int upper = -1;
       while (true) {
-        lower = (i - addend + sz) % sz;
+        lower = i - addend;
+
+        if (lower < 0) lower += sz;
         char lc = ring[lower];
         if (lower == upper) break;
         lookup[i][lc].push_back({addend, lower});
         // process lower
-        upper = (i + addend) % sz;
+        upper = i + addend;
         char uc = ring[upper];
+        if (upper >= sz) upper %= sz;
         if (lower == upper) break;
         // process upper
         lookup[i][uc].push_back({addend, upper});
