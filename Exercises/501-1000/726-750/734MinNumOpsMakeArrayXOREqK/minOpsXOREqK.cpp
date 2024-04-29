@@ -57,12 +57,16 @@ Acceptance Rate
 
 using namespace std;
 
+// gist: do not do DP, do not dfs.  take a shortcut and understand bit manipulation.
+
 class Solution {
 public:
     int minOperations(vector<int>& nums, int k) {
       // convert to binstring
       vector<string> bitstrs;
       bitset<32> tgt_bits(k);
+      // review bitset
+      // import bitset, generic is size
       int product = -1;
       for (int i: nums) {
         if (product < 0) {
@@ -75,7 +79,7 @@ public:
       bitset<32> prd_bits(product);
       int res = 0;
       for (int i = 0; i < 32; ++i) {
-        if (prd_bits[i] != tgt_bits[i]) res++;
+        if (prd_bits[i] != tgt_bits[i]) res++; // TIL you can access indexes of the bitset
       }
       return res;
     }
