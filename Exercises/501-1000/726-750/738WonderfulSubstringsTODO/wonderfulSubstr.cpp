@@ -64,14 +64,18 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
+
 public:
     long long wonderfulSubstrings(string word) {
       long long res = 0;
       int n = word.size();
+      vector<int> freq(10, 0);
+      int mask = 0;
       return res;
     }
 };
