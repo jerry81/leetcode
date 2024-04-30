@@ -70,6 +70,28 @@ using namespace std;
 class Solution {
 public:
     long long wonderfulSubstrings(string word) {
-
+      long long res = 0;
+      int n = word.size();
+      return res;
     }
 };
+
+/*
+  contiguous
+  c
+  co
+  con
+  ...
+  contiguous
+  n
+  o
+  on
+  ...
+  ontiguous
+  n-1
+  ...
+  1
+  1+2+..n
+
+  total substrings
+*/
