@@ -81,21 +81,7 @@ public:
 };
 
 /*
-  contiguous
-  c
-  co
-  con
-  ...
-  contiguous
-  n
-  o
-  on
-  ...
-  ontiguous
-  n-1
-  ...
-  1
-  1+2+..n
-
-  total substrings
+  watch video from Happy Coding
+  brute force: try every substring
+  count so dp
 */
