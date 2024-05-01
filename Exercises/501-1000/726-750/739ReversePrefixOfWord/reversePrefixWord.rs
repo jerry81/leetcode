@@ -48,6 +48,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn reverse_prefix(word: String, ch: char) -> String {
-
+    let mut res = "".to_string();
+    let sz = word.len();
+    if let Some(index) = word.find(ch) { // TIL: string.find
+      let mut substr = word[..=index].to_string();
+      substr = substr.chars().rev().collect();
+      res = substr;
+      if sz > index+1 {
+        let tail = word[index+1..].to_string();
+        res+=&tail; // review concat uses &str
+      }
+    } else {
+      return word
+    }
+    res
   }
 }
