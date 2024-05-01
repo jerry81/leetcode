@@ -55,9 +55,15 @@ Acceptance Rate
 29.0%
 
 */
-
 impl Solution {
   pub fn count_valid_words(sentence: String) -> i32 {
+      let mut tk = sentence.split(" ");
+      let mut res = 0;
+      for t in tk {
+          for c in t.chars() {
 
+          }
+      }
+      res
   }
 }
