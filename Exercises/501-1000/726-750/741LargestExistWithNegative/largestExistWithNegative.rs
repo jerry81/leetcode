@@ -56,14 +56,13 @@ impl Solution {
         hs.insert(n*-1);
       }
     }
-    let mut curmin = 1;
-    for k in hs {
-      if k < curmin {
-        curmin = k;
+    let mut res = -1;
+    for n in nums {
+      if hs.contains(-1*n) {
+        res = res.max(n);
       }
     }
-    if curmin > 0 { return -1 }
-    -1*curmin
+    res
   }
 }
 
