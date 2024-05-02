@@ -51,15 +51,16 @@ use std::collections::HashSet;
 impl Solution {
   pub fn find_max_k(nums: Vec<i32>) -> i32 {
     let mut hs: HashSet<i32> = HashSet::new();
-    for n in nums {
-      if n > 0 {
-        hs.insert(n*-1);
+    for n in &nums {
+      if *n < 0 {
+        hs.insert(*n);
       }
     }
     let mut res = -1;
-    for n in nums {
-      if hs.contains(-1*n) {
-        res = res.max(n);
+    for n in &nums {
+      let k = &(-1*n);
+      if hs.contains(k) {
+        res = res.max(*n);
       }
     }
     res
