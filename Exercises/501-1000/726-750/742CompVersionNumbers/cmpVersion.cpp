@@ -80,14 +80,50 @@ vector<string> split(string str, string delimiter) {
 }
 
 class Solution {
+  string trim_zeroes(string input) {
+    if (input.size() < 2) return input;
+    while (true) {
+      if (input.size() < 2) break;
+      if (input.front() != '0') break;
+
+      input.erase(input.begin());
+    }
+    return input;
+  };
+
  public:
   int compareVersion(string version1, string version2) {
     vector<string> tk1 = split(version1, ".");
     vector<string> tk2 = split(version2, ".");
-    while (true) {
+    while (!tk1.empty() || !tk2.empty()) {
       if (!tk1.empty() && !tk2.empty()) {
-        string cmp1 = tk1.front();
-        string cmp2 = tk2.front();
+        string cmp1 = trim_zeroes(tk1.front());
+        string cmp2 = trim_zeroes(tk2.front());
+        // trim leading zeroes
+
+        if (cmp1 < cmp2) return 1;
+        if (cmp1 > cmp2) return 0;
+        tk1.erase(tk1.begin());
+        tk2.erase(tk2.begin());
+        continue;
+      }
+
+      if (!tk1.empty()) {
+        if (trim_zeroes(tk1.front()) != "0") {
+          return 1;
+        } else {
+          tk1.erase(tk1.begin());
+        }
+        continue;
+      }
+
+      if (!tk2.empty()) {
+        if (trim_zeroes(tk2.front()) != "0") {
+          return 1;
+        } else {
+          tk2.erase(tk2.begin());
+        }
+        continue;
       }
     }
     return 0;
