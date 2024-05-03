@@ -101,8 +101,8 @@ class Solution {
         string cmp2 = trim_zeroes(tk2.front());
         // trim leading zeroes
 
-        if (cmp1 < cmp2) return 1;
-        if (cmp1 > cmp2) return 0;
+        if (cmp1 < cmp2) return -1;
+        if (cmp1 > cmp2) return 1;
         tk1.erase(tk1.begin());
         tk2.erase(tk2.begin());
         continue;
@@ -119,7 +119,7 @@ class Solution {
 
       if (!tk2.empty()) {
         if (trim_zeroes(tk2.front()) != "0") {
-          return 1;
+          return -1;
         } else {
           tk2.erase(tk2.begin());
         }
