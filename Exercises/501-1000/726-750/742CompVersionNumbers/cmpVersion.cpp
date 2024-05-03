@@ -99,10 +99,11 @@ class Solution {
       if (!tk1.empty() && !tk2.empty()) {
         string cmp1 = trim_zeroes(tk1.front());
         string cmp2 = trim_zeroes(tk2.front());
-        // trim leading zeroes
-
-        if (cmp1 < cmp2) return -1;
-        if (cmp1 > cmp2) return 1;
+        // trim leading zeroesc2
+        int c1 = stoi(cmp1);
+        int c2 = stoi(cmp2);
+        if (c1 < c2) return -1;
+        if (c1 > c2) return 1;
         tk1.erase(tk1.begin());
         tk2.erase(tk2.begin());
         continue;
