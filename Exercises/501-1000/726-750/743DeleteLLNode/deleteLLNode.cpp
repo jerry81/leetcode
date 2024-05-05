@@ -74,10 +74,16 @@ Acceptance Rate
 struct ListNode {
   int val;
   ListNode* next;
-  ListNode(int x) : val(x), next(NULL) {}
+  ListNode(int x) : val(x), next(nullptr) {}
 };
 
 class Solution {
  public:
-  void deleteNode(ListNode* node) {}
+  void deleteNode(ListNode* node) {
+    // delete successor
+    // reassign node to successor
+    ListNode* nxt = node->next;
+    node->val = nxt->val;
+    node->next = nxt->next;
+  }
 };
