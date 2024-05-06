@@ -79,6 +79,24 @@ class Solution {
       arr.push_back(cpy->val);
       cpy = cpy->next;
     }
+    // max prefixes]
+    int sz = arr.size();
+    vector<int> maxes(sz, 0);
+    int cur_max = -1;
+    for (int i = sz - 1; i >= 0; --i) {
+      cur_max = max(cur_max, arr[i]);
+      maxes[i] = cur_max;
+    }
+    // reconstruct
+    ListNode* newhead = new ListNode();
+    cpy = newhead;
+    for (int i = 0; i < sz; ++i) {
+      if (arr[i] >= maxes[i]) {
+        cpy->val = arr[i];
+        cpy->next = new ListNode();
+        cpy = cpy->next;
+      }
+    }
     return head;
   }
 };
