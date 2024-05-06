@@ -68,6 +68,7 @@ struct ListNode {
 #include <vector>
 
 using namespace std;
+
 class Solution {
  public:
   ListNode* removeNodes(ListNode* head) {
@@ -88,15 +89,20 @@ class Solution {
       maxes[i] = cur_max;
     }
     // reconstruct
-    ListNode* newhead = new ListNode();
+    ListNode* newhead = nullptr;
     cpy = newhead;
     for (int i = 0; i < sz; ++i) {
       if (arr[i] >= maxes[i]) {
-        cpy->val = arr[i];
-        cpy->next = new ListNode();
-        cpy = cpy->next;
+        ListNode* toadd = new ListNode(arr[i]);
+        if (!cpy) {
+          cpy = toadd;
+          if (!newhead) newhead = cpy;
+        } else {
+          cpy->next = toadd;
+          cpy = cpy->next;
+        }
       }
     }
-    return head;
+    return newhead;
   }
 };
