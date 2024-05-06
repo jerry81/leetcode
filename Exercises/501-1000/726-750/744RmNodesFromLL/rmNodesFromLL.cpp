@@ -67,5 +67,15 @@ struct ListNode {
 
 class Solution {
  public:
-  ListNode* removeNodes(ListNode* head) {}
+  ListNode* removeNodes(ListNode* head) {
+    ListNode* cpy = head;
+    int baseline = head->val;
+    while (cpy != nullptr) {
+      if (cpy->next->val > baseline) {
+        cpy->next = cpy->next->next;
+        cpy = cpy->next->next;
+      }
+    }
+    return head;
+  }
 };
