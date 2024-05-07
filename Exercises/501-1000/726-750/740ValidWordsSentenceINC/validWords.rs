@@ -61,10 +61,16 @@ impl Solution {
       let mut res = 0;
       for t in tk {
           if t.is_empty() { continue }
+          let mut valid = true;
           for c in t.chars() {
             let code = c as u8;
-            if code >= '0' as u8 && code <= '9' { continue }
+            if code >= 'a' as u8 && code <= 'z' { continue }
+            if code == '-' as u8 { continue }
+            if code == '!' as u8 || code == '.' as u8 || code == ',' as u8 { continue }
+            valid = false;
+            break;
           }
+          if valid { res+=1; }
       }
       res
   }
