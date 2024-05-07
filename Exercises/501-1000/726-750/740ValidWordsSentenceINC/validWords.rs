@@ -69,8 +69,22 @@ impl Solution {
           let mut punct_preceeding = false;
           for c in t.chars() {
             let code = c as u8;
-            if code >= 'a' as u8 && code <= 'z' { continue }
+            if code >= 'a' as u8 && code <= 'z' as u8 {
+              if punct_preceeding { valid = false; break }
+              letter_preceeding = true;
+              hyphen_preceeding = false;
+              continue
+            }
             if code == '-' as u8 {
+              if punct_preceeding {
+                valid = false;
+                break
+              }
+              if !letter_preceeding {
+                valid = false;
+                break
+              }
+              hyphen_preceeding = true;
               hyphen_count += 1;
               if hyphen_count > 1 {
                 valid = false;
@@ -79,6 +93,13 @@ impl Solution {
               continue
             }
             if code == '!' as u8 || code == '.' as u8 || code == ',' as u8 {
+              if !letter_preceeding {
+                valid = false;
+                break
+              }
+              punct_preceeding = true;
+              letter_preceeding = false;
+              hyphen_preceeding = false;
               punct_count += 1;
               if punct_count > 1 {
                 valid = false;
