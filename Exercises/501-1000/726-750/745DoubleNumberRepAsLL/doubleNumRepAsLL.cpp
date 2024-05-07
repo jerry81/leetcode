@@ -58,7 +58,23 @@ struct ListNode {
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
+
+#include <string>
+
+using namespace std;
+
 class Solution {
  public:
-  ListNode* doubleIt(ListNode* head) {}
+  ListNode* doubleIt(ListNode* head) {
+    string as_s = "";
+    ListNode* cpy = head;
+    while (cpy != nullptr) {
+      as_s.push_back(cpy->val);
+      cpy = cpy->next;
+    }
+
+    cout << as_s << endl;
+
+    return nullptr;
+  }
 };
