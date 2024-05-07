@@ -114,7 +114,9 @@ impl Solution {
             valid = false;
             break;
           }
-          if valid { res+=1; }
+          if valid && !hyphen_preceeding {
+            res+=1;
+          }
       }
       res
   }
