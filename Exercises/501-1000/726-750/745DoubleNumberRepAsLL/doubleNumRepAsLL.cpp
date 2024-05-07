@@ -64,6 +64,24 @@ struct ListNode {
 using namespace std;
 
 class Solution {
+  string doubleNumber(const string& numStr) {
+    int carry = 0;
+    string result;
+
+    for (int i = numStr.size() - 1; i >= 0; i--) {
+      int digit = numStr[i] - '0';
+      int doubledDigit = (digit * 2 + carry) % 10;
+      carry = (digit * 2 + carry) / 10;
+      result = std::to_string(doubledDigit) + result;
+    }
+
+    if (carry > 0) {
+      result = std::to_string(carry) + result;
+    }
+
+    return result;
+  }
+
  public:
   ListNode* doubleIt(ListNode* head) {
     string as_s = "";
@@ -73,8 +91,7 @@ class Solution {
       cpy = cpy->next;
     }
 
-    long long dbl = stoll(as_s)*2;
-    as_s = to_string(dbl);
+    as_s = doubleNumber(as_s);
 
     ListNode* new_head = nullptr;
     ListNode* cur = nullptr;
