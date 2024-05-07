@@ -54,13 +54,25 @@ Acceptance Rate
 
 */
 
-use std::collections::HashSet;
+use std::collections::HashMap;
 
 impl Solution {
   pub fn kth_distinct(arr: Vec<String>, k: i32) -> String {
-    let mut hs: HashSet<String> = arr.into_iter().collect(); // review, set from vec
-    arr = arr.map(|item| { hs.contains(item) });
-    println!("deduped size is {}", arr.len());
-    arr[0]
+    let cloned = arr.clone();
+    let mut hm: HashMap<String, i32> = HashMap::new();
+
+    for s in arr {
+      *hm.entry(s).or_insert(0) += 1;
+    }
+
+    let mut filtered: Vec<String> = cloned
+      .into_iter()
+      .filter(|item| hm[item.as_str()] == 1)
+      .collect();
+    if let Some(result) = filtered.get((k-1) as usize) {
+      return result.clone();
+    } else {
+      return "".to_string();
+    }
   }
 }
