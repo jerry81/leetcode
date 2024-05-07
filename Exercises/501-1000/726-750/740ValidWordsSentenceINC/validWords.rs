@@ -62,11 +62,27 @@ impl Solution {
       for t in tk {
           if t.is_empty() { continue }
           let mut valid = true;
+          let mut hyphen_count = 0;
+          let mut punct_count = 0;
           for c in t.chars() {
             let code = c as u8;
             if code >= 'a' as u8 && code <= 'z' { continue }
-            if code == '-' as u8 { continue }
-            if code == '!' as u8 || code == '.' as u8 || code == ',' as u8 { continue }
+            if code == '-' as u8 {
+              hyphen_count += 1;
+              if hyphen_count > 1 {
+                valid = false;
+                break
+              }
+              continue
+            }
+            if code == '!' as u8 || code == '.' as u8 || code == ',' as u8 {
+              punct_count += 1;
+              if punct_count > 1 {
+                valid = false;
+                break
+              }
+              continue
+            }
             valid = false;
             break;
           }
