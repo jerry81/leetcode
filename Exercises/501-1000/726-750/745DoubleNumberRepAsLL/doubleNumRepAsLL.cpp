@@ -93,7 +93,7 @@ class Solution {
 
     as_s = doubleNumber(as_s);
 
-    ListNode* new_head = nullptr;
+    ListNode* new_head = nullptr; // if uninitialized they can contain garbage values yo.
     ListNode* cur = nullptr;
     for (char c : as_s) {
       int cur_i = c - '0';
