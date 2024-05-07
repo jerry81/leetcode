@@ -64,6 +64,9 @@ impl Solution {
           let mut valid = true;
           let mut hyphen_count = 0;
           let mut punct_count = 0;
+          let mut hyphen_preceeding = false;
+          let mut letter_preceeding = false;
+          let mut punct_preceeding = false;
           for c in t.chars() {
             let code = c as u8;
             if code >= 'a' as u8 && code <= 'z' { continue }
