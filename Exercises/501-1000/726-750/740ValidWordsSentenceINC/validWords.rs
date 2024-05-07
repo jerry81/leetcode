@@ -60,8 +60,10 @@ impl Solution {
       let mut tk = sentence.split(" ");
       let mut res = 0;
       for t in tk {
+          if t.is_empty() { continue }
           for c in t.chars() {
-
+            let code = c as u8;
+            if code >= '0' as u8 && code <= '9' { continue }
           }
       }
       res
