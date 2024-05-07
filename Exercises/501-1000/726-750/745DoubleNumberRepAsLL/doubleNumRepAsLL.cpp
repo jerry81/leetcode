@@ -69,12 +69,28 @@ class Solution {
     string as_s = "";
     ListNode* cpy = head;
     while (cpy != nullptr) {
-      as_s.push_back(cpy->val);
+      as_s += to_string(cpy->val);
       cpy = cpy->next;
     }
 
-    cout << as_s << endl;
+    int dbl = stoi(as_s) * 2;
+    cout << "double " << dbl << endl;
+    as_s = to_string(dbl);
+    cout << "as_s " << as_s << endl;
 
-    return nullptr;
+    ListNode* new_head;
+    ListNode* cur;
+    for (char c : as_s) {
+      ListNode* tmp = new ListNode((int)(c - '0'));
+      if (!cur) {
+        cur = tmp;
+        new_head = cur;
+      } else {
+        cur->next = tmp;
+        cur = tmp;
+      }
+    }
+
+    return new_head;
   }
 };
