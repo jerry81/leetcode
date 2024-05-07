@@ -54,8 +54,13 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn kth_distinct(arr: Vec<String>, k: i32) -> String {
-
+    let mut hs: HashSet<String> = arr.into_iter().collect(); // review, set from vec
+    arr = arr.map(|item| { hs.contains(item) });
+    println!("deduped size is {}", arr.len());
+    arr[0]
   }
 }
