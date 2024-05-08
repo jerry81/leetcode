@@ -56,13 +56,24 @@ Acceptance Rate
 
 use std::collections::HashSet;
 
+ lazy_static! {
+    static ref VOWELS: HashSet<char> = {
+        let mut set = HashSet::new();
+        set.insert('a');
+        set.insert('e');
+        set.insert('i');
+        set.insert('o');
+        set.insert('u');
+        set
+    };
+}
 impl Solution {
-  const VOWELS: HashSet<char> = ['a','e','i','o','u'].iter().cloned().collect(); // TIL: init hashset, member const
+
   fn check(word: String) -> bool {
     if word.len() < 5 { return false }
     let mut hs: HashSet<char> = HashSet::new();
     for c in word.chars() {
-      if Self::VOWELS.contains(&c) {
+      if VOWELS.contains(&c) {
         hs.insert(c);
       }
     }
