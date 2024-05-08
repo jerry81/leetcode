@@ -59,6 +59,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_distance(colors: Vec<i32>) -> i32 {
-
+    // more brute force
+    let mut res = 0;
+    let sz = colors.len();
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        if (j - i) <= res { continue }
+      }
+    }
+    res
   }
 }
