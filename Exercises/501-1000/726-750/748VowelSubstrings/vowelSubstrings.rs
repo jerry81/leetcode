@@ -56,7 +56,7 @@ Acceptance Rate
 
 use std::collections::HashSet;
 
- lazy_static! {
+lazy_static! {
     static ref VOWELS: HashSet<char> = {
         let mut set = HashSet::new();
         set.insert('a');
@@ -66,7 +66,8 @@ use std::collections::HashSet;
         set.insert('u');
         set
     };
-}
+} // putting it as member const in solution did not work
+
 impl Solution {
 
   fn check(word: String) -> bool {
@@ -75,6 +76,8 @@ impl Solution {
     for c in word.chars() {
       if VOWELS.contains(&c) {
         hs.insert(c);
+      } else {
+        return false;
       }
     }
     hs.len() == 5
@@ -85,8 +88,10 @@ impl Solution {
     let mut res = 0;
     for i in 0..sz-1 {
       for j in i+1..sz {
-        let substr: String = word[i..j].to_string();
-        if Self::check(substr) { res+=1; }
+        let substr: String = word[i..=j].to_string();
+        if Self::check(substr.clone()) {
+          res+=1;
+        }
       }
     }
     res
