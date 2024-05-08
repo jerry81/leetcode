@@ -73,5 +73,34 @@ impl Solution {
     for c in word2.chars() {
       *freq2.entry(c).or_insert(0) +=1;
     }
+    for (k,v) in freq1 {
+      match freq2.get(&k) {
+        Some(v2) => {
+          if (v2-v1).abs() > 3 {
+            return false
+          }
+        }
+        None =>  {
+          if v1 > 3 {
+            return false
+          }
+        }
+      }
+    }
+    for (k,v) in freq2 {
+      match freq1.get(&k) {
+        Some(v2) => {
+          if (v2-v1).abs() > 3 {
+            return false
+          }
+        }
+        None =>  {
+          if v1 > 3 {
+            return false
+          }
+        }
+      }
+    }
+    true
   }
 }
