@@ -57,8 +57,21 @@ Acceptance Rate
 63.7%
 */
 
-impl Solution {
-  pub fn check_almost_equivalent(word1: String, word2: String) -> bool {
+use std::collections::HashMap;
 
+impl Solution {
+
+  pub fn check_almost_equivalent(word1: String, word2: String) -> bool {
+    // hashmap for freq
+    // compare freqs
+
+    let mut freq1: HashMap<char, i32> = HashMap::new();
+    let mut freq2: HashMap<char, i32> = HashMap::new();
+    for c in word1.chars() {
+      *freq1.entry(c).or_insert(0) +=1;
+    }
+    for c in word2.chars() {
+      *freq2.entry(c).or_insert(0) +=1;
+    }
   }
 }
