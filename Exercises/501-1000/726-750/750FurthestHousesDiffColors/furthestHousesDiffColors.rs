@@ -70,6 +70,6 @@ impl Solution {
         res = res.max(j-i);
       }
     }
-    res
+    res as i32
   }
 }
