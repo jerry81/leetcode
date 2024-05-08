@@ -73,7 +73,7 @@ impl Solution {
     for c in word2.chars() {
       *freq2.entry(c).or_insert(0) +=1;
     }
-    for (k,v) in freq1 {
+    for (k,v1) in freq1.clone() {
       match freq2.get(&k) {
         Some(v2) => {
           if (v2-v1).abs() > 3 {
@@ -87,7 +87,7 @@ impl Solution {
         }
       }
     }
-    for (k,v) in freq2 {
+    for (k,v1) in freq2 {
       match freq1.get(&k) {
         Some(v2) => {
           if (v2-v1).abs() > 3 {
