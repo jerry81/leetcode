@@ -56,6 +56,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_vowel_substrings(word: String) -> i32 {
-
+    // brute force it
+    let sz = word.len();
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        let substr = word[i..j];
+        println!("examine {}", substr);
+      }
+    }
+    0
   }
 }
