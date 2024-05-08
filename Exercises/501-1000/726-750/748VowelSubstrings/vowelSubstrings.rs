@@ -54,16 +54,30 @@ Acceptance Rate
 67.5%
 */
 
+use std::collections::HashSet;
+
 impl Solution {
+  const VOWELS: HashSet<char> = ['a','e','i','o','u'].iter().cloned().collect(); // TIL: init hashset, member const
+  fn check(word: String) -> bool {
+    if word.len() < 5 { return false }
+    let mut hs: HashSet<char> = HashSet::new();
+    for c in word.chars() {
+      if Self::VOWELS.contains(&c) {
+        hs.insert(c);
+      }
+    }
+    hs.len() == 5
+  }
   pub fn count_vowel_substrings(word: String) -> i32 {
     // brute force it
     let sz = word.len();
+    let mut res = 0;
     for i in 0..sz-1 {
       for j in i+1..sz {
-        let substr = word[i..j];
-        println!("examine {}", substr);
+        let substr: String = word[i..j].to_string();
+        if Self::check(substr) { res+=1; }
       }
     }
-    0
+    res
   }
 }
