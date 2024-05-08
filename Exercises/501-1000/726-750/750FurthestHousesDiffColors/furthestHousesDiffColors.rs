@@ -65,6 +65,9 @@ impl Solution {
     for i in 0..sz-1 {
       for j in i+1..sz {
         if (j - i) <= res { continue }
+        if colors[i] == colors[j] { continue }
+
+        res = res.max(j-i);
       }
     }
     res
