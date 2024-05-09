@@ -58,7 +58,15 @@ impl Solution {
   pub fn find_even_numbers(digits: Vec<i32>) -> Vec<i32> {
     let sz = digits.len();
 
-    let mut Vec<i32> res = vec![];
+    let mut res:Vec<i32>  = vec![];
+
+    let mut firstIdxs: Vec<usize> = (0..sz).filter( |&item| { digits[item] != 0 }).collect();
+    println!("first poss");
+    for i in firstIdxs { println!("{}", i)};
+    let mut lastIdxs: Vec<usize> = (0..sz).filter( |&item| { digits[item] % 2 == 0 }).collect();
+    println!("last poss");
+    for i in lastIdxs { println!("{}", i)};
+
 
     for i in 0..sz {
       let d1 = digits[i];
@@ -75,9 +83,9 @@ impl Solution {
           let u83 = d3 as u8 + '0' as u8;
           let c3 = u83 as char;
           let mut s: String = String::new();
-          s.push(c1);
-          s.push(c2);
           s.push(c3);
+          s.push(c2);
+          s.push(c1);
           let as_i: i32 = s.parse().unwrap();
           res.push(as_i);
         }
