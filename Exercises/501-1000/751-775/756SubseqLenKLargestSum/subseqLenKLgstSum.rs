@@ -7,10 +7,10 @@ impl Solution {
         sorted.push((nums[i],i));
       }
 
-      sorted.sort_by(|a,b| { a.0.cmp(&b.0) });
+      sorted.sort_by(|a,b| { b.0.cmp(&a.0) });
       let mut pre_res: Vec<(i32,usize)> = Vec::new();
       for i in 0..k {
-        pre_res.push(sorted[sz-i-1]);
+        pre_res.push(sorted[i as usize]);
       }
 
       let mut res = vec![];
