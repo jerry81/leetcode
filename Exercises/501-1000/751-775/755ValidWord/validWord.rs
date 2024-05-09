@@ -70,6 +70,28 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_valid(word: String) -> bool {
+    // len
+    let mut sz = word.len();
+    if sz < 3 { return false }
+    let mut has_vowel = false;
+    let mut has_consonant = false;
+    let VOWELS: Vec<char> = vec!['a','A','e','E','i','I','o','O','u','U'];
+    // letters or digits
+    for c in word.chars() {
+      if c >= 'a' && c <= 'z' || c >= 'A' && c < 'Z' {
+        if VOWELS.contains(c) {
+          has_vowel = true;
+        } else {
+          has_consonant = true;
+        }
+        continue
+      }
 
+      if c >= '0' && c <= '9' { continue }
+
+      return false
+    }
+
+    has_vowel && has_consonant
   }
 }
