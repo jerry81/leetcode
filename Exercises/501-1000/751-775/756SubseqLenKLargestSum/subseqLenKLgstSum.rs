@@ -56,27 +56,28 @@ Acceptance Rate
 
 impl Solution {
 
-  fn r(idx: usize, nums: &Vec<i32>, left: i32, lookup: &Vec<Vec<i32>>, sz: i32) -> i32 {
+  fn r(idx: usize, nums: &Vec<i32>, left: i32, lookup: &Vec<Vec<i32>>, sz: &usize) -> i32 {
     if left <= 0 { return 0 }
 
-    if idx >= sz { return 0 }
+    if idx >= *sz { return 0 }
 
-    if lookup[left][idx] >= 0 { return lookup[left][idx] }
+    if lookup[left as usize][idx] >= 0 { return lookup[left as usize][idx] }
     let nxt = idx+1;
-    let res = max(r(nxt, nums, left, lookup, sz), nums[idx] + res(nxt, nums, left-1, lookup, sz));
-    lookup[left][idx] = res;
+    let mut res = Solution::r(nxt, nums, left, lookup, sz);
+    res = res.max(nums[idx] + Solution::r(nxt, nums, left-1, lookup, sz));
+    lookup[left as usize][idx] = res;
     res
   }
 
   pub fn max_subsequence(nums: Vec<i32>, k: i32) -> Vec<i32> {
-    let mut lookup = Vec::with_capacity(&k);
+    let mut lookup = Vec::with_capacity(k as usize);
     let sz = nums.len();
 
     for i in 0..sz {
-      let mut vc :Vec<i32> = vec![-1: sz];
+      let mut vc :Vec<i32> = vec![-1; sz]; // note it is a semicolon, not a colon
       lookup.push(vc);
     }
 
-    r(0,&nums, k, &lookup, sz)
+    Solution::r(0,&nums, k, &lookup, &sz)
   }
 }
