@@ -55,17 +55,28 @@ Acceptance Rate
 
 
 impl Solution {
+  static mut res: Vec<i32> = vec![];
+  static mut ressz: i32 = 0;
 
-  fn r(idx: usize, nums: &Vec<i32>, left: i32, lookup: &Vec<Vec<i32>>, sz: &usize) -> i32 {
+  fn r(idx: usize, nums: &Vec<i32>, left: i32, cur: Vec<i32> lookup: &Vec<Vec<i32>>, sz: &usize) -> i32 {
     if left <= 0 { return 0 }
 
     if idx >= *sz { return 0 }
 
     if lookup[left as usize][idx] >= 0 { return lookup[left as usize][idx] }
     let nxt = idx+1;
-    let mut res = Solution::r(nxt, nums, left, lookup, sz);
-    res = res.max(nums[idx] + Solution::r(nxt, nums, left-1, lookup, sz));
+
+    let mut nxtArr = cur.clone();
+    let mut nxtArr2 = cur.clone();
+    let mut res = Solution::r(nxt, nums, left, nxtArr lookup, sz);
+    let curV = nums[idx];
+    nxtArr2.push(curV);
+    res = res.max(curV + Solution::r(nxt, nums, left-1,, nxtArr2 lookup, sz));
     lookup[left as usize][idx] = res;
+    if res > ressz {
+      ressz = res;
+      res = cur;
+    }
     res
   }
 
@@ -79,5 +90,6 @@ impl Solution {
     }
 
     Solution::r(0,&nums, k, &lookup, &sz)
+    res
   }
 }
