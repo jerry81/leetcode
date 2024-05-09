@@ -78,8 +78,8 @@ impl Solution {
     let VOWELS: Vec<char> = vec!['a','A','e','E','i','I','o','O','u','U'];
     // letters or digits
     for c in word.chars() {
-      if c >= 'a' && c <= 'z' || c >= 'A' && c < 'Z' {
-        if VOWELS.contains(c) {
+      if c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' {
+        if VOWELS.contains(&c) {
           has_vowel = true;
         } else {
           has_consonant = true;
