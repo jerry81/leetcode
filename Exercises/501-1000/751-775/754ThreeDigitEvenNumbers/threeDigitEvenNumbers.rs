@@ -62,15 +62,29 @@ impl Solution {
 
     for i in 0..sz {
       let d1 = digits[i];
+      let u81 = d1 as u8 + '0' as u8;
+      let c1 = u81 as char;
       for j in 0..sz {
         if j == i { continue }
         let d2 = digits[j];
+        let u82 = d2 as u8 + '0' as u8;
+        let c2 = u82 as char;
         for k in 0..sz {
           if k == j || k == i { continue }
           let d3 = digits[k];
+          let u83 = d3 as u8 + '0' as u8;
+          let c3 = u83 as char;
           let mut s: String = String::new();
+          s.push(c1);
+          s.push(c2);
+          s.push(c3);
+          let as_i: i32 = s.parse().unwrap();
+          res.push(as_i);
         }
       }
     }
+
+    res.sort();
+    res
   }
 }
