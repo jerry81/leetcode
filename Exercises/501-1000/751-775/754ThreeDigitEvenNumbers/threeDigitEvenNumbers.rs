@@ -54,6 +54,8 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn find_even_numbers(digits: Vec<i32>) -> Vec<i32> {
     let sz = digits.len();
@@ -61,12 +63,13 @@ impl Solution {
     let mut res:Vec<i32>  = vec![];
 
     let mut firstIdxs: Vec<usize> = (0..sz).filter( |&item| { digits[item] != 0 }).collect();
-    println!("first poss");
-    for i in firstIdxs { println!("{}", i)};
+    // println!("first poss");
+    // for i in firstIdxs { println!("{}", i)};
     let mut lastIdxs: Vec<usize> = (0..sz).filter( |&item| { digits[item] % 2 == 0 }).collect();
-    println!("last poss");
-    for i in lastIdxs { println!("{}", i)};
+    // println!("last poss");
+    // for i in lastIdxs { println!("{}", i)};
 
+    let mut hsRes: HashSet<i32> = HashSet::new();
 
     for i in firstIdxs {
       let d1 = digits[i];
@@ -77,7 +80,7 @@ impl Solution {
         let d2 = digits[j];
         let u82 = d2 as u8 + '0' as u8;
         let c2 = u82 as char;
-        for k in lastIdxs {
+        for k in lastIdxs.clone() {
           if k == j || k == i { continue }
           let d3 = digits[k];
           let u83 = d3 as u8 + '0' as u8;
@@ -87,11 +90,11 @@ impl Solution {
           s.push(c2);
           s.push(c3);
           let as_i: i32 = s.parse().unwrap();
-          res.push(as_i);
+          hsRes.insert(as_i);
         }
       }
     }
-
+    res = hsRes.into_iter().collect();
     res.sort();
     res
   }
