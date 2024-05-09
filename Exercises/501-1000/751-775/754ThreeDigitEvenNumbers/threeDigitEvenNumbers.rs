@@ -56,6 +56,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_even_numbers(digits: Vec<i32>) -> Vec<i32> {
+    let sz = digits.len();
 
+    let mut Vec<i32> res = vec![];
+
+    for i in 0..sz {
+      let d1 = digits[i];
+      for j in 0..sz {
+        if j == i { continue }
+        let d2 = digits[j];
+        for k in 0..sz {
+          if k == j || k == i { continue }
+          let d3 = digits[k];
+          let mut s: String = String::new();
+        }
+      }
+    }
   }
 }
