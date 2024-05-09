@@ -53,8 +53,20 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn max_subsequence(nums: Vec<i32>, k: i32) -> Vec<i32> {
 
+impl Solution {
+
+  fn r(idx: usize, nums: &Vec<i32>, left: i32, lookup: &Vec<Vec<i32>>) -> i32 {
+  }
+  pub fn max_subsequence(nums: Vec<i32>, k: i32) -> Vec<i32> {
+    let mut lookup = Vec::with_capacity(&k);
+    let sz = nums.len();
+
+    for i in 0..sz {
+      let mut vc :Vec<i32> = vec![-1: sz];
+      lookup.push(vc);
+    }
+
+    r(0,&nums, k, &lookup)
   }
 }
