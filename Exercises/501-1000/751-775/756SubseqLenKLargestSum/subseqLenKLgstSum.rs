@@ -5,23 +5,29 @@ lazy_static! {
 }
 
 impl Solution {
-  fn r(cur: Vec<i32>, idx: usize, remain: i32, sz: usize, nums: &Vec<i32>) {
+  fn r(cur: Vec<i32>, idx: usize, remain: i32, sz: usize, nums: &Vec<i32>, req: usize) {
     if idx >= sz || remain <= 0 {
+      if cur.len() < req { return }
       let mut all = ALL.lock().unwrap(); // so it's a threading thing
       all.push(cur.clone());
       drop(all);
       return
     }
 
-    Self::r(cur, idx+1, remain, sz, nums);
+    Self::r(cur.clone(), idx+1, remain, sz, nums, req);
 
     let mut nxt = cur.clone();
     nxt.push(nums[idx]);
-    Self::r(nxt, idx+1, remain-1, sz, nums);
+    Self::r(nxt, idx+1, remain-1, sz, nums, req);
   }
   pub fn max_subsequence(nums: Vec<i32>, k: i32) -> Vec<i32> {
     let sz = nums.len();
-    Solution::r(vec![], 0, k, sz, &nums);
+    Self::r(vec![], 0, k, sz, &nums, k as usize);
+    println!("printing all");
+    let all = ALL.lock().unwrap();
+    for i in all.iter() {
+      println!("{:?}", i);
+    }
     vec![]
   }
 }
