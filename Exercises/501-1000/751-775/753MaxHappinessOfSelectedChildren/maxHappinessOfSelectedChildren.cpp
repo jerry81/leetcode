@@ -65,6 +65,16 @@ using namespace std;
 class Solution {
 public:
     long long maximumHappinessSum(vector<int>& happiness, int k) {
-
+      // um.. sort then greedy
+      vector<int> sorted = happiness;
+      sort(sorted.begin(), sorted.end());
+      reverse(sorted.begin(), sorted.end());
+      long long res = 0;
+      for (int penalty = 0; penalty < k; ++penalty) {
+        int potential = sorted[penalty] - penalty;
+        if (potential < 0) continue;
+        res+= potential;
+      }
+      return res;
     }
 };
