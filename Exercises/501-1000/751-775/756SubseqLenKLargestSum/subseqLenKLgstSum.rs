@@ -23,11 +23,18 @@ impl Solution {
   pub fn max_subsequence(nums: Vec<i32>, k: i32) -> Vec<i32> {
     let sz = nums.len();
     Self::r(vec![], 0, k, sz, &nums, k as usize);
-    println!("printing all");
+    // println!("printing all");
+
+    let mut mx = 0;
+    let mut res = vec![];
     let all = ALL.lock().unwrap();
-    for i in all.iter() {
-      println!("{:?}", i);
+    for v in all.iter() {
+      let sm = v.iter().sum();
+      if sm > mx {
+        res = v.clone();
+        mx = sm;
+      }
     }
-    vec![]
+    res
   }
 }
