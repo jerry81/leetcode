@@ -51,7 +51,7 @@ Acceptance Rate
 
 #include <vector>
 
-using nmaespace std;
+using namespace std;
 
 class Solution {
 public:
