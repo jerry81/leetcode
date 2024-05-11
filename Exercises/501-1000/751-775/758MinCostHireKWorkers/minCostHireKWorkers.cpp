@@ -51,9 +51,9 @@ Acceptance Rate
 
 */
 
+#include <limits>
 #include <queue>
 #include <vector>
-#include <limits>
 
 using namespace std;
 
@@ -68,8 +68,22 @@ class Solution {
       wage_quality.push_back({ratio, q});
     }
 
+    sort(wage_quality.begin(), wage_quality.end());
     priority_queue<int> pq;
     double res = numeric_limits<double>::max();
+    int current_total_q = 0;
+    for (auto [f, s] : wage_quality) {
+      pq.push(s);
+      current_total_q += s;
+      if (pq.size() > k) {
+        current_total_q -= pq.top();
+        pq.pop();
+      }
+      if (pq.size() == k) {
+        double cur_total_wage = current_total_q * f;
+        res = max(res, cur_total_wage);
+      }
+    }
     return res;
   }
 };
