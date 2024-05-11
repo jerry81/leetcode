@@ -45,12 +45,20 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
 public:
     double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int k) {
+      vector<pair<double, int>> wage_quality;
 
+      for (int i = 0; i < quality.size(); ++i) {
+        int q = quality[i];
+        double ratio = (double)wage[i] / (double)q;
+        wage_quality.push_back({ratio, q});
+      }
+      return 0.0;
     }
 };
