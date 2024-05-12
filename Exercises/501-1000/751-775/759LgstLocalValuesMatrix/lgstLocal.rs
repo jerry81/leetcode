@@ -51,6 +51,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn largest_local(grid: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let mut ret: Vec<Vec<i32>> = Vec::new();
 
+    let mut sz = grid.len();
+    for i in 0..sz-3 {
+      for j in 0..sz-3 {
+        let mut localMx = 0;
+        for y in i..i+3 {
+          for x in j..j+3 {
+            localMx = localMx.max(grid[y][x]);
+          }
+        }
+      }
+    }
   }
 }
