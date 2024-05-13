@@ -107,6 +107,13 @@ class Solution {
       }
     }
 
-    return 0;
+    // tally
+
+    int res = 0;
+    for (vector<int> v: cpy) {
+      res+=vecToInt(v);
+    }
+
+    return res;
   }
 };
