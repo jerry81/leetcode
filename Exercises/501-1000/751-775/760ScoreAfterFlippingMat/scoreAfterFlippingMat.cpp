@@ -5,11 +5,14 @@ Topics
 Companies
 You are given an m x n binary matrix grid.
 
-A move consists of choosing any row or column and toggling each value in that row or column (i.e., changing all 0's to 1's, and all 1's to 0's).
+A move consists of choosing any row or column and toggling each value in that
+row or column (i.e., changing all 0's to 1's, and all 1's to 0's).
 
-Every row of the matrix is interpreted as a binary number, and the score of the matrix is the sum of these numbers.
+Every row of the matrix is interpreted as a binary number, and the score of the
+matrix is the sum of these numbers.
 
-Return the highest possible score after making any number of moves (including zero moves).
+Return the highest possible score after making any number of moves (including
+zero moves).
 
 
 
@@ -48,22 +51,40 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int vecToInt(vector<int> v) {
-  int p = 0;
-  int sm = 0;
-  for (int i = v.size()-1; i >= 0; --i) {
-    if (v[i]) sm += pow(2, p);
-    p++;
-  }
-  return sm;
-}
-public:
-    int matrixScore(vector<vector<int>>& grid) {
-      // greedy - max left to right
-      vector<int> test = {1,0,1};
-      int h = grid.size();
-      int w = grid[0].size();
-      cout << "expect 5" << vecToInt(test);
-      return 0;
+  int vecToInt(vector<int> v) {
+    int p = 0;
+    int sm = 0;
+    for (int i = v.size() - 1; i >= 0; --i) {
+      if (v[i]) sm += pow(2, p);
+      p++;
     }
+    return sm;
+  }
+
+  vector<vector<int>> flipc(vector<vector<int>> v, int c) {
+    vector<vector<int>> res = v;
+    for (int i = 0; i < v.size(); ++i) {
+      res[i][c] = v[i][c] == 0 ? 1 : 0;
+    }
+    return res;
+  }
+
+  vector<int> flipr(vector<int> v, int r) {
+    vector<int> res;
+    for (int i: v) {
+      int pushed = i == 0 ? 1 : 0;
+      res.push_back(pushed);
+    }
+    return res;
+  }
+
+ public:
+  int matrixScore(vector<vector<int>>& grid) {
+    // greedy - max left to right
+    int h = grid.size();
+    int w = grid[0].size();
+    bool improved = true;
+
+    return 0;
+  }
 };
