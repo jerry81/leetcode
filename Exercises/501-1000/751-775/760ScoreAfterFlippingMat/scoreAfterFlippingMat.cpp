@@ -48,8 +48,20 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int vecToInt(vector<int> v) {
+  int p = 0;
+  int sm = 0;
+  for (int i = v.size()-1; i >= 0; --i) {
+    if (v[i]) sm += pow(2, p);
+    p++;
+  }
+  return sm;
+}
 public:
     int matrixScore(vector<vector<int>>& grid) {
-
+      // greedy - max left to right
+      vector<int> test = {1,0,1};
+      cout << "expect 5" << vecToInt(test);
+      return 0;
     }
 };
