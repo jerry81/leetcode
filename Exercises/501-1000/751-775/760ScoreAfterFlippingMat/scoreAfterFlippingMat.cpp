@@ -69,9 +69,17 @@ class Solution {
     return res;
   }
 
+  int count_c(vector<vector<int>> v, int c) {
+    int res = 0;
+    for (int i = 0; i < v.size(); ++i) {
+      if (v[i][c] == 1) res++;
+    }
+    return res;
+  }
+
   vector<int> flipr(vector<int> v, int r) {
     vector<int> res;
-    for (int i: v) {
+    for (int i : v) {
       int pushed = i == 0 ? 1 : 0;
       res.push_back(pushed);
     }
@@ -83,7 +91,6 @@ class Solution {
     // greedy - max left to right
     int h = grid.size();
     int w = grid[0].size();
-    bool improved = true;
 
     return 0;
   }
