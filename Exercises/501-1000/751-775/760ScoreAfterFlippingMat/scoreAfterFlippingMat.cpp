@@ -61,6 +61,8 @@ public:
     int matrixScore(vector<vector<int>>& grid) {
       // greedy - max left to right
       vector<int> test = {1,0,1};
+      int h = grid.size();
+      int w = grid[0].size();
       cout << "expect 5" << vecToInt(test);
       return 0;
     }
