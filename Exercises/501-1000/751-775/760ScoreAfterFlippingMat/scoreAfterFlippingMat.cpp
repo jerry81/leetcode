@@ -100,6 +100,13 @@ class Solution {
         cpy.push_back(grid[i]);
       }
     }
+    int halfsz = h/2;
+    for (int i = 0; i < w; ++i) {
+      if (count_c(cpy, i) < halfsz) {
+        cpy = flipc(cpy, i);
+      }
+    }
+
     return 0;
   }
 };
