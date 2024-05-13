@@ -91,7 +91,15 @@ class Solution {
     // greedy - max left to right
     int h = grid.size();
     int w = grid[0].size();
-
+    vector<vector<int>> cpy;
+    for (int i = 0; i < h; ++i) {
+      if (grid[i][0] == 0) {
+        vector<int> flipped = flipr(grid[i],i);
+        cpy.push_back(flipped);
+      } else {
+        cpy.push_back(grid[i]);
+      }
+    }
     return 0;
   }
 };
