@@ -65,7 +65,21 @@ using namespace std;
 
 class Solution {
 
+const vector<pair<int,int>> NEIGHBORS={{0,1}, {0,-1}, {1,0}, {-1,0}};
 int bfs(int r, int c, vector<vector<int>>& grid, vector<vector<bool>> &visited, int &h, int &w) {
+  queue<pair<int,int>> q;
+  q.push({r,c});
+  visited[r][c] = true;
+  int res = 0;
+  while (!q.empty()) {
+    auto [cr,cc] = q.front();
+    q.pop();
+    int val = grid[cr][cc];
+    res+=val;
+
+    for (auto [dy,dx]: NEIGHBORS) {
+    }
+  }
 }
 public:
     int getMaximumGold(vector<vector<int>>& grid) {
