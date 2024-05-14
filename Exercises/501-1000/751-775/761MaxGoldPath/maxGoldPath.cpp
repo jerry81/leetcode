@@ -68,7 +68,7 @@ class Solution {
   const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
   int dfs(int r, int c, vector<vector<int>> &grid,
-          vector<vector<bool>> visited, int &h, int &w) {
+          vector<vector<bool>> &visited, int &h, int &w) {
 
     if (visited[r][c]) return 0;
 
@@ -90,6 +90,7 @@ class Solution {
 
       res = max(cur,res);
     }
+    visited[r][c] = false; // today i reviewed: BACKTRACK
     return res;
   };
 
