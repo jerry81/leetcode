@@ -78,8 +78,20 @@ int bfs(int r, int c, vector<vector<int>>& grid, vector<vector<bool>> &visited, 
     res+=val;
 
     for (auto [dy,dx]: NEIGHBORS) {
+      int ny = dy + cr;
+      int nx = dx + cr;
+
+      if (ny < 0 || nx < 0) continue;
+
+      if (ny >= h || nx >= h) continue;
+
+      if (visited[ny][nx]) continue;
+
+      q.push({ny,nx});
+      visited[ny][nx] = true;
     }
   }
+  return res;
 }
 public:
     int getMaximumGold(vector<vector<int>>& grid) {
