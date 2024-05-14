@@ -70,17 +70,20 @@ impl Solution {
     let mut rings_status:Vec<HashSet<char>> = Vec::new();
     rings_status.resize(10, HashSet::new()); // TIL: resize vec
     let sz = rings.len();
+    let mut color: char = 'R';
     for i in 0..sz {
-      let mut ring: usize = 0;
-      if i % 2 == 0 {
-        ring = rings[i] as u8 - '0' as u8;
+
+      if i % 2 == 1 {
+        let ring = (rings.chars().nth(i).unwrap() as u8 - '0' as u8) as usize;
+        rings_status[ring].insert(color);
       } else {
-        rings_status[ring].insert(rings[i]);
+        color = rings.chars().nth(i).unwrap();
       }
     }
     let mut res = 0;
     for hs in rings_status {
       if hs.len() == 3 {
+
         res+=1;
       }
     }
