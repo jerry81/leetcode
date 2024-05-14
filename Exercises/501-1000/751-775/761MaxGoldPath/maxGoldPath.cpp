@@ -84,7 +84,7 @@ class Solution {
 
       int cur = curval;
 
-      bool ignore = ny < 0 || nx < 0 || ny >= h || nx >= w || visited[ny][nx];
+      bool ignore = ny < 0 || nx < 0 || ny >= h || nx >= w || visited[ny][nx] || grid[ny][nx] == 0;
 
       if (!ignore) cur += dfs(ny,nx,grid,visited,h,w);
 
