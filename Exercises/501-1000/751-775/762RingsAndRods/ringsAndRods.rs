@@ -63,8 +63,27 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn count_points(rings: String) -> i32 {
-
+    let mut rings_status:Vec<HashSet<char>> = Vec::new();
+    rings_status.resize(10, HashSet::new()); // TIL: resize vec
+    let sz = rings.len();
+    for i in 0..sz {
+      let mut ring: usize = 0;
+      if i % 2 == 0 {
+        ring = rings[i] as u8 - '0' as u8;
+      } else {
+        rings_status[ring].insert(rings[i]);
+      }
+    }
+    let mut res = 0;
+    for hs in rings_status {
+      if hs.len() == 3 {
+        res+=1;
+      }
+    }
+    res
   }
 }
