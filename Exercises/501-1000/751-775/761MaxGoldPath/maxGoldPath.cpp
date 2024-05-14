@@ -59,12 +59,28 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
+
+int bfs(int r, int c, vector<vector<int>>& grid, vector<vector<bool>> &visited, int &h, int &w) {
+}
 public:
     int getMaximumGold(vector<vector<int>>& grid) {
+      int h = grid.size();
+      int w = grid[0].size();
+      int res = 0;
+      for (int i = 0; i < h; ++i) {
+        for (int j = 0; j < w; ++j) {
+          if (grid[i][j] == 0) continue;
 
+          vector<vector<bool>> visited(h, vector<bool>(w, false));
+          int cur = bfs(i,j,grid,visited, h,w);
+          res = max(res,cur);
+        }
+      }
+      return res;
     }
 };
