@@ -60,6 +60,7 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <vector>
 
 using namespace std;
@@ -67,28 +68,33 @@ using namespace std;
 class Solution {
   const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-  int dfs(int r, int c, vector<vector<int>> &grid,
-          vector<vector<bool>> visited, int &h, int &w) {
-
-    if (visited[r][c]) return 0;
-
+  int bfs(int r, int c, vector<vector<int>> &grid,
+          vector<vector<bool>> &visited, int &h, int &w) {
+    queue<pair<int, int>> q;
+    q.push({r, c});
     visited[r][c] = true;
-
-    int curval = grid[r][c];
-
     int res = 0;
+    while (!q.empty()) {
+      auto [cr, cc] = q.front();
+      q.pop();
+      int val = grid[cr][cc];
+      if (val == 0) continue;
 
-    for (auto [dy,dx]: NEIGHBORS) {
-      int ny = dy + r;
-      int nx = dx + c;
+      res += val;
 
-      int cur = curval;
+      for (auto [dy, dx] : NEIGHBORS) {
+        int ny = dy + cr;
+        int nx = dx + cc;
 
-      bool ignore = ny < 0 || nx < 0 || ny >= h || nx >= w || visited[ny][nx];
+        if (ny < 0 || nx < 0) continue;
 
-      if (!ignore) cur += dfs(ny,nx,grid,visited,h,w);
+        if (ny >= h || nx >= w) continue;
 
-      res = max(cur,res);
+        if (visited[ny][nx]) continue;
+
+        q.push({ny, nx});
+        visited[ny][nx] = true;
+      }
     }
     return res;
   };
@@ -103,9 +109,8 @@ class Solution {
         if (grid[i][j] == 0) continue;
 
         vector<vector<bool>> visited(h, vector<bool>(w, false));
-
-        int cur = dfs(i,j,grid,visited,h,w);
-        res = max(cur,res);
+        int cur = bfs(i, j, grid, visited, h, w);
+        res = max(res, cur);
       }
     }
     return res;
