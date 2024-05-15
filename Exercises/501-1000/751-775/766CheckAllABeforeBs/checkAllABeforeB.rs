@@ -50,6 +50,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn check_string(s: String) -> bool {
-
+    let mut bfound = false;
+    for c in s.chars() {
+      if c == 'b' {
+        bfound = true;
+      } else {
+        if bfound {
+          return false}
+        }
+    }
+    true
   }
 }
