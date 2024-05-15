@@ -45,6 +45,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_same_after_reversals(num: i32) -> bool {
+    if num < 10 { return true }
 
+    let n_str = num.to_string();
+
+    //let lst = n_str.chars().nth(n_str.len()-1).unwrap();
+
+    // lst != '0'
+
+    n_str.chars().last() != Some('0') // better
   }
 }
