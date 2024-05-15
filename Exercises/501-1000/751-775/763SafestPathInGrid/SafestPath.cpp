@@ -91,8 +91,8 @@ class Solution {
       auto [ay, ax] = a;
       auto [by, bx] = b;
       int sa = safeness[ay][ax];
-      int sb = safeness[by][by];
-      return sa > sb;
+      int sb = safeness[by][bx];
+      return sa < sb;
     }  // this is idiomatic...
   };
 
@@ -158,7 +158,7 @@ class Solution {
     vector<vector<bool>> processed(h, vector<bool>(w, false));
     while (true) {
       auto [y,x] = pq.top();
-      res = max(res, safeness[y][x]);
+      res = min(res, safeness[y][x]);
       if (y == h-1 && x == w-1) {
         break;
       }
