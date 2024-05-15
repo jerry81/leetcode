@@ -66,12 +66,20 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
 public:
     int maximumSafenessFactor(vector<vector<int>>& grid) {
+      // brute force?
+      // bfs from each theif to find safeness of grid
+      // with caveat.  bfs and start from all theives
+      // WRONG -> dfs or bfs to find all paths from 0,0 to sz,sz
 
+
+      // CORRECT: dijkstra
+      // DIJKSTRA REVIEW
     }
 };
