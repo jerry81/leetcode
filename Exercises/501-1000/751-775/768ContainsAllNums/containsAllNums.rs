@@ -46,8 +46,29 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn check_valid(matrix: Vec<Vec<i32>>) -> bool {
+    let n = matrix.len();
 
+    // brute
+    for i in 0..n {
+      let mut hs:HashSet<i32> = HashSet::new();
+      for j in 0..n {
+        hs.insert(matrix[i][j]);
+      }
+      if hs.len() != n { return false; }
+    }
+
+    for i in 0..n {
+      let mut hs:HashSet<i32> = HashSet::new();
+      for j in 0..n {
+        hs.insert(matrix[j][i]);
+      }
+      if hs.len() != n { return false; }
+    }
+
+    true
   }
 }
