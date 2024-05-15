@@ -90,6 +90,14 @@ class Solution {
     int h = grid.size();
     int w = grid[0].size();
 
+    queue<pair<int,int>> q;
+    for (int i = 0; i < h; ++i) {
+      for (int j = 0; j < w; ++j) {
+        if (grid[i][j]) q.push({i,j});
+      }
+    }
+
+    vector<vector<int>> safeness(h, vector<int>(w, INT_MAX));
     // CORRECT: dijkstra
     // DIJKSTRA REVIEW
   }
