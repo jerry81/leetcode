@@ -80,6 +80,21 @@ using namespace std;
 
 class Solution {
   const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+  int h, w;
+  vector<vector<int>> safeness;
+
+  struct ComparePQ {
+    vector<vector<int>>& safeness;
+    ComparePQ(vector<vector<int>>& s)
+        : safeness(s) {}  // use constructor to pass in the struct member
+    bool operator()(pair<int, int> a, pair<int, int> b) {
+      auto [ay, ax] = a;
+      auto [by, bx] = b;
+      int sa = safeness[ay][ax];
+      int sb = safeness[by][by];
+      return sa > sb;
+    }  // this is idiomatic...
+  };
 
  public:
   int maximumSafenessFactor(vector<vector<int>>& grid) {
@@ -87,8 +102,10 @@ class Solution {
     // bfs from each theif to find safeness of grid
     // with caveat.  bfs and start from all theives
     // WRONG -> dfs or bfs to find all paths from 0,0 to sz,sz
-    int h = grid.size();
-    int w = grid[0].size();
+    h = grid.size();
+    w = grid[0].size();
+
+    safeness = vector<vector<int>>(h, vector<int>(w, INT_MAX));
 
     queue<pair<int, int>> q;
     vector<vector<bool>> visited(h, vector<bool>(w, false));
@@ -100,8 +117,6 @@ class Solution {
         }
       }
     }
-
-    vector<vector<int>> safeness(h, vector<int>(w, INT_MAX));
 
     int level = 0;
 
@@ -129,18 +144,40 @@ class Solution {
       ++level;
     }
 
-    // test
-    cout << "printing safeness" << endl;
-    for (auto v : safeness) {
-      for (auto i : v) {
-        cout << i << ",";
-      }
-      cout << endl;
-    }
-
     // CORRECT: dijkstra
     // DIJKSTRA REVIEW
+    /*
+      1.  djikstra is greedy
+      2.  priority queue because we want to pick min/max weight
+      3.  stop when you reach the destination
+    */
+    auto cmp = ComparePQ(safeness); // wow fixes the compile issue
+    priority_queue<pair<int, int>, vector<pair<int, int>>, ComparePQ> pq(cmp);
+    int res = safeness[0][0];
+    pq.push({0,0});
+    vector<vector<bool>> processed(h, vector<bool>(w, false));
+    while (true) {
+      auto [y,x] = pq.top();
+      res = max(res, safeness[y][x]);
+      if (y == h-1 && x == w-1) {
+        break;
+      }
 
-    return 0;
+      pq.pop();
+
+      if (processed[y][x]) continue;
+      processed[y][x] = true;
+
+      for (auto [dy,dx]:NEIGHBORS) {
+        int ny = dy + y;
+        int nx = dx + x;
+        if (ny < 0 || nx < 0) continue;
+        if (ny >=h || nx >=w) continue;
+        if (processed[ny][nx]) continue;
+        pq.push({ny,nx});
+      }
+    }
+
+    return res;
   }
 };
