@@ -79,7 +79,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  const vector<vector<int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+  const vector<pair<int,int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
  public:
   int maximumSafenessFactor(vector<vector<int>>& grid) {
@@ -90,15 +90,51 @@ class Solution {
     int h = grid.size();
     int w = grid[0].size();
 
-    queue<pair<int,int>> q;
+    queue<pair<int, int>> q;
+    vector<vector<bool>> visited(h, vector<bool>(w, false));
     for (int i = 0; i < h; ++i) {
       for (int j = 0; j < w; ++j) {
-        if (grid[i][j]) q.push({i,j});
+        if (grid[i][j]) q.push({i, j});
+
+        visited[i][j] = true;
       }
     }
 
     vector<vector<int>> safeness(h, vector<int>(w, INT_MAX));
+
+
+    int level = 0;
+    while (!q.empty()) {
+      auto [y,x] = q.front();
+      q.pop();
+      int cur = safeness[y][x];
+      safeness[y][x] = min(level, cur);
+      for (auto [dy,dx]: NEIGHBORS) {
+        int ny = dy + y;
+        int nx = dx + x;
+        if (ny < 0 || nx < 0 || ny >= h || nx >= w) continue;
+
+        if (!visited[ny][nx]) {
+          visited[ny][nx] = true;
+
+          q.push({ny,nx});
+        }
+      }
+      ++level;
+    }
+
+    // test
+    cout << "printing safeness" << endl;
+    for (auto v: safeness) {
+      for (auto i: v) {
+        cout << i << ","<<endl;
+      }
+      cout << endl;
+    }
+
     // CORRECT: dijkstra
     // DIJKSTRA REVIEW
+
+    return 0;
   }
 };
