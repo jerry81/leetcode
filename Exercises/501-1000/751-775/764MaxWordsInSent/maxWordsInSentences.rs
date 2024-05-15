@@ -54,9 +54,9 @@ impl Solution {
   pub fn most_words_found(sentences: Vec<String>) -> i32 {
     let mut res = 0;
     for s in sentences {
-      let mut cur = s.split(" ");
-      res=res.max(cur.len() as i32);
+      let mut cur = s.split(" ").count(); // count the result of split (# of tok)
+      res=res.max(cur);
     }
-    res
+    res as i32
   }
 }
