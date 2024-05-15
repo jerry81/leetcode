@@ -79,7 +79,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  const vector<pair<int,int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+  const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
  public:
   int maximumSafenessFactor(vector<vector<int>>& grid) {
@@ -103,32 +103,37 @@ class Solution {
 
     vector<vector<int>> safeness(h, vector<int>(w, INT_MAX));
 
-
     int level = 0;
+
+    // shit, need level order here
     while (!q.empty()) {
-      auto [y,x] = q.front();
-      q.pop();
-      int cur = safeness[y][x];
-      safeness[y][x] = min(level, cur);
-      for (auto [dy,dx]: NEIGHBORS) {
-        int ny = dy + y;
-        int nx = dx + x;
-        if (ny < 0 || nx < 0 || ny >= h || nx >= w) continue;
+      queue<pair<int, int>> nq;
+      while (!q.empty()) {
+        auto [y, x] = q.front();
+        q.pop();
+        int cur = safeness[y][x];
+        safeness[y][x] = min(level, cur);
+        for (auto [dy, dx] : NEIGHBORS) {
+          int ny = dy + y;
+          int nx = dx + x;
+          if (ny < 0 || nx < 0 || ny >= h || nx >= w) continue;
 
-        if (!visited[ny][nx]) {
-          visited[ny][nx] = true;
+          if (!visited[ny][nx]) {
+            visited[ny][nx] = true;
 
-          q.push({ny,nx});
+            nq.push({ny, nx});
+          }
         }
       }
+      q = nq;
       ++level;
     }
 
     // test
     cout << "printing safeness" << endl;
-    for (auto v: safeness) {
-      for (auto i: v) {
-        cout << i << ","<<endl;
+    for (auto v : safeness) {
+      for (auto i : v) {
+        cout << i << ",";
       }
       cout << endl;
     }
