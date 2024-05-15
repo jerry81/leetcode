@@ -94,9 +94,10 @@ class Solution {
     vector<vector<bool>> visited(h, vector<bool>(w, false));
     for (int i = 0; i < h; ++i) {
       for (int j = 0; j < w; ++j) {
-        if (grid[i][j]) q.push({i, j});
-
-        visited[i][j] = true;
+        if (grid[i][j]) {
+          q.push({i, j});
+          visited[i][j] = true;
+        }
       }
     }
 
