@@ -74,6 +74,7 @@ impl TreeNode {
     }
   }
 }
+
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -82,20 +83,20 @@ impl Solution {
       match root {
         Some(node) => {
             let node = node.borrow();
-            if node.value == 0 {
+            if node.val == 0 {
                 return false
             }
-            if node.value == 1 {
+            if node.val == 1 {
                 return true
             }
-            let left_valid = evaluate_tree(node.left.clone());
-            let right_valid = evaluate_tree(node.right.clone());
-            if node.value == 2 {
+            let left_valid = Solution::evaluate_tree(node.left.clone());
+            let right_valid = Solution::evaluate_tree(node.right.clone());
+            if node.val == 2 {
               return left_valid || right_valid
             }
             return left_valid && right_valid
         },
-        None => true,
+        None => return true,
       }
       true
     }
