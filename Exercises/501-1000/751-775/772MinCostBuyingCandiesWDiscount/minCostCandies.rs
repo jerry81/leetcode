@@ -59,6 +59,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_cost(cost: Vec<i32>) -> i32 {
+      let mut sorted = cost.clone();
+      let sz = cost.clone().len();
+      sorted.sort();
+      let mut res = 0;
+      for i in 0..sz {
+        let idx = sz-i-1;
+        if i % 3 == 2 { continue }
 
+        res+=sorted[idx];
+      }
+      res
   }
 }
