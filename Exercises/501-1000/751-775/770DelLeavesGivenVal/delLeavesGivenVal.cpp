@@ -78,29 +78,42 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <unordered_map>
+
+using namespace std;
+
 class Solution {
- void r(TreeNode *cur, int tgt) {
-   if (!cur) return;
+  unordered_map<TreeNode *, TreeNode *> parents;
+  void r(TreeNode *cur, int tgt) {
+    if (!cur) return;
 
-   bool leaf = true;
-   if (cur->left != nullptr) {
-     r(cur->left, tgt);
-     leaf = false;
-   }
+    TreeNode *parent = parents[cur];
 
-   if (cur->right != nullptr) {
-     r(cur->right, tgt);
-     leaf = false;
-   }
-
-    if (leaf && cur->val == tgt) {
-      cur->left = nullptr;
-      cur->right = nullptr;
+    bool leaf = true;
+    if (cur->left != nullptr) {
+      parents[cur->left] = cur;
+      r(cur->left, tgt);
+      leaf = false;
     }
- }
+
+    if (cur->right != nullptr) {
+      parents[cur->right] = cur;
+      r(cur->right, tgt);
+      leaf = false;
+    }
+
+    if (parent && leaf && cur->val == tgt) {
+
+      if (parent->left && parent->left->val == tgt) parent->left = nullptr;
+      if (parent->right && parent->right->val == tgt) parent->right = nullptr;
+      r(parent, tgt);
+    }
+  }
+
  public:
   TreeNode *removeLeafNodes(TreeNode *root, int target) {
-    r(root,target);
+    r(root, target);
+    parents[root] = nullptr;
     return root;
   }
 };
