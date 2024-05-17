@@ -53,9 +53,21 @@ Acceptance Rate
 66.5%
 
 */
-
 impl Solution {
   pub fn divide_string(s: String, k: i32, fill: char) -> Vec<String> {
-
+      let mut res: Vec<String> = vec![];
+      let mut counter = 0;
+      let mut cur: String = String::new();
+      for c in s.chars() {
+        if (counter == k) {
+          counter = 0;
+          res.push(cur);
+          cur = String::new();
+        } else {
+          cur.push(c);
+          counter+=1;
+        }
+      }
+      res
   }
 }
