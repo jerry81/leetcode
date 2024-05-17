@@ -79,6 +79,28 @@ struct TreeNode {
 };
 
 class Solution {
+ void r(TreeNode *cur, int tgt) {
+   if (!cur) return;
+
+   bool leaf = true;
+   if (cur->left != nullptr) {
+     r(cur->left, tgt);
+     leaf = false;
+   }
+
+   if (cur->right != nullptr) {
+     r(cur->right, tgt);
+     leaf = false;
+   }
+
+    if (leaf && cur->val == tgt) {
+      cur->left = nullptr;
+      cur->right = nullptr;
+    }
+ }
  public:
-  TreeNode *removeLeafNodes(TreeNode *root, int target) {}
+  TreeNode *removeLeafNodes(TreeNode *root, int target) {
+    r(root,target);
+    return root;
+  }
 };
