@@ -77,21 +77,28 @@ struct TreeNode {
 #include <vector>
 
 using namespace std;
-class Solution {
-int r(TreeNode *root) {
-  if (root == nullptr) return 0;
 
-  TreeNode* lt = root->left;
-  TreeNode* rt = root->right;
-  int lDiff = r(lt);
-  int rDiff = r(rt);
-  return lDiff+rDiff+(root->val-1);
-}
+class Solution {
+  int mv = 0;
+  int r(TreeNode *root) {
+    if (root == nullptr) return 0;
+
+    cout << "traversing " << root->val << endl;
+    TreeNode *lt = root->left;
+    TreeNode *rt = root->right;
+    int lDiff = r(lt);
+    int rDiff = r(rt);
+    mv += abs(lDiff);  // this updates the tally of the operations made.
+    mv += abs(rDiff);
+    return (root->val - 1) + lDiff +
+           rDiff;  // this keeps track of how many coins are at each node
+  }
+
  public:
   int distributeCoins(TreeNode *root) {
-    // get a map of levels and values
-    return r(root);
-
+    mv = 0;
+    r(root);
+    return mv;
   }
 };
 
