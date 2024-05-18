@@ -73,7 +73,16 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
+#include <vector>
+#include <queue>
+
+using namespace std;
 class Solution {
  public:
-  int distributeCoins(TreeNode *root) {}
+  int distributeCoins(TreeNode *root) {
+    vector<int> levels;
+    // get a map of levels and values
+
+  }
 };
