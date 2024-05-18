@@ -74,28 +74,27 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
-#include <queue>
 #include <vector>
 
 using namespace std;
 class Solution {
+int r(TreeNode *root) {
+  if (root == nullptr) return 0;
+
+  TreeNode* lt = root->left;
+  TreeNode* rt = root->right;
+  int lDiff = r(lt);
+  int rDiff = r(rt);
+  return lDiff+rDiff+(root->val-1);
+}
  public:
   int distributeCoins(TreeNode *root) {
-    vector<vector<int>> levels;
     // get a map of levels and values
-    queue<TreeNode *> q;
-    q.push(root);
-    while (!q.empty()) {
-      queue<TreeNode *> nq;
-      vector<int> level;
-      while (!q.empty()) {
-        TreeNode *f = q.front();
+    return r(root);
 
-        level.push_back(f->val);
-        q.pop();
-      }
-      q = nq;
-      levels.push_back(level);
-    }
   }
 };
+
+/*
+1 + 3 + 3 + 3 + 5 + 5 + 4 + 3 + 2 + 1 + 1
+*/
