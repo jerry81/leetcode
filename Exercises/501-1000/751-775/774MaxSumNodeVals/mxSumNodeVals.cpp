@@ -75,11 +75,11 @@ class Solution {
 
     if (memo[idx][even] >= 0) return memo[idx][even];
 
-    int nxtEven = even ? 0: 1;
+    int nxtEven = even==1 ? 0: 1;
     // leave
     long long res = nums[idx] + r(idx+1, even, nums, k);
     // take
-    res = max(res, nums[idx] ^ k + r(idx+1, nxtEven, nums, k));
+    res = max(res, (nums[idx] ^ k) + r(idx+1, nxtEven, nums, k));
     memo[idx][even] = res;
     return res;
   }
