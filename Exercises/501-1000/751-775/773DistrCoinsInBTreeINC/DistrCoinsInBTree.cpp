@@ -83,7 +83,6 @@ class Solution {
   int r(TreeNode *root) {
     if (root == nullptr) return 0;
 
-    cout << "traversing " << root->val << endl;
     TreeNode *lt = root->left;
     TreeNode *rt = root->right;
     int lDiff = r(lt);
