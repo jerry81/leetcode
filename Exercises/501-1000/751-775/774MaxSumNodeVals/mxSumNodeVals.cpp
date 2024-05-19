@@ -69,8 +69,42 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  vector<vector<long long>> memo;
+  long long r(int idx, int even, vector<int> nums, int k) {
+    if (idx >= nums.size()) return even ? 0:INT_MIN;
+
+    if (memo[idx][even] >= 0) return memo[idx][even];
+
+    int nxtEven = even ? 0: 1;
+    // leave
+    long long res = nums[idx] + r(idx+1, even, nums, k);
+    // take
+    res = max(res, nums[idx] ^ k + r(idx+1, nxtEven, nums, k));
+    memo[idx][even] = res;
+    return res;
+  }
 public:
     long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
-
+      int sz = nums.size();
+      memo.resize(sz, vector<long long>(2, -1));
+      return r(0, 1, nums, k);
+      // iterate each edge
+      // but in larger trees, nodes may be updated and affect the results of new edges
+      // need to know some properties of xor ?
+        /*
+          yes, commutativity and associativity
+          - a xor b xor b = a
+          - a xor b = b xor a
+          - in this setup, any two nodes are "connected" and xorable independently
+          - you can make a "path" to any node
+            - a xor b xor (b xor c) -> a xor c
+        */
+      // 3 approaches
+      /*
+        TLE: knapsack
+        1.  top down
+        2.  bottom up
+        3.  greedy sort
+      */
     }
 };
