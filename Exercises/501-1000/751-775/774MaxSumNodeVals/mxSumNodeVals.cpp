@@ -70,7 +70,7 @@ using namespace std;
 
 class Solution {
   vector<vector<long long>> memo;
-  long long r(int idx, int even, vector<int> nums, int k) {
+  long long r(int idx, int even, vector<int>& nums, int k) {
     if (idx >= nums.size()) return even ? 0:INT_MIN;
 
     if (memo[idx][even] >= 0) return memo[idx][even];
