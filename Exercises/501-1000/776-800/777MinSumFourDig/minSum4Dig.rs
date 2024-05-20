@@ -41,41 +41,35 @@ Acceptance Rate
 86.1%
 
 */
+
 impl Solution {
   pub fn minimum_sum(num: i32) -> i32 {
-      // brute
-      let mut s: String = num.to_string();
-      let c1 = s.chars().nth(0).unwrap();
-      let c2 = s.chars().nth(1).unwrap();
-      let c3 = s.chars().nth(2).unwrap();
-      let c4 = s.chars().nth(3).unwrap();
+      let s = num.to_string();
+      let mut chars: Vec<char> = s.chars().collect();
+      chars.sort();
+
       let mut res = i32::MAX;
-      let mut chrs: Vec<char> = vec![c1,c2,c3,c4];
+      let len = chars.len();
 
-      for i in 0..4 {
-          let mut str1: String = String::new();
-          let mut str2: String = String::new();
-          str1.push(chrs[i]);
-          for j in 0..4 {
-              if j == i { continue }
+      for i in 0..len {
+          for j in 0..len {
+              if i == j { continue; }
 
-              str1.push(chrs[j]);
-              for k in 0..4 {
-                  str2 = String::new();
-                  if k == i || k == j { continue }
+              for k in 0..len {
+                  if k == i || k == j { continue; }
 
-                  str2.push(chrs[k]);
-                  for l in 0..4 {
-                      if l == k || j == l || l == i { continue }
+                  for l in 0..len {
+                      if l == i || l == j || l == k { continue; }
 
-                      str2.push(chrs[l]);
-                      let cur = str1.parse::<i32>().unwrap() + str2.parse::<i32>().unwrap();
-                      res = res.min(cur);
+                      // Form two numbers using the selected characters
+                      let num1 = format!("{}{}", chars[i], chars[j]).parse::<i32>().unwrap(); // TIL: format!
+                      let num2 = format!("{}{}", chars[k], chars[l]).parse::<i32>().unwrap();
+
+                      let cur_sum = num1 + num2;
+                      res = res.min(cur_sum);
                   }
               }
           }
-
-
       }
 
       res
