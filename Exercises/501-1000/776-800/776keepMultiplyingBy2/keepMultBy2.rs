@@ -53,6 +53,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_final_value(nums: Vec<i32>, original: i32) -> i32 {
-
+    let mut cur = original;
+    while true {
+      if let Some(&item) = nums.iter().find(|&&x| x == cur) {
+        cur *= 2;
+      } else {
+        break;
+      }
+    }
+    cur
   }
 }
