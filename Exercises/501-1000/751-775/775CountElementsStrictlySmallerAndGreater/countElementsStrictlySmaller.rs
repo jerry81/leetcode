@@ -50,13 +50,15 @@ impl Solution {
     sorted.sort();
     let mut bottomCount = 0;
     let mut topCount = 0;
-    let bot = nums[0];
-    let top = nums[tot-1];
+
+    let bot = sorted[0];
+    let top = sorted[tot-1];
+
     for i in sorted {
       if i == bot { bottomCount+=1; }
       if i == top { topCount+=1; }
     }
     if bottomCount == tot { return 0 }
-    tot - bottomCount - topCount
+    tot as i32 - bottomCount as i32 - topCount as i32
   }
 }
