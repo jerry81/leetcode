@@ -41,9 +41,16 @@ Acceptance Rate
 86.1%
 
 */
-
 impl Solution {
   pub fn minimum_sum(num: i32) -> i32 {
+      // brute
+      let mut s: String = num.to_string();
+      let c1 = s.chars().nth(0).unwrap();
+      let c2 = s.chars().nth(1).unwrap();
+      let c3 = s.chars().nth(2).unwrap();
+      let c4 = s.chars().nth(3).unwrap();
+      let mut res = i32::MAX;
 
+      res
   }
 }
