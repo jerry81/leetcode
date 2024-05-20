@@ -50,6 +50,30 @@ impl Solution {
       let c3 = s.chars().nth(2).unwrap();
       let c4 = s.chars().nth(3).unwrap();
       let mut res = i32::MAX;
+      let mut chrs: Vec<char> = vec![c1,c2,c3,c4];
+      let mut str1: String = String::new();
+      let mut str2: String = String::new();
+      for i in 0..4 {
+          str1.push(chrs[i]);
+          for j in 0..4 {
+              if j == i { continue }
+
+              str1.push(chrs[j]);
+              for k in 0..4 {
+                  if k == i || k == j { continue }
+
+                  str2.push(chrs[k]);
+                  for l in 0..4 {
+                      if l == k || j == l || l == i { continue }
+
+                      str2.push(chrs[l]);
+                  }
+              }
+          }
+          println!("{}, {}", str1, str2);
+          let cur = str1.parse::<i32>().unwrap() + str2.parse::<i32>().unwrap();
+          res = res.max(cur);
+      }
 
       res
   }
