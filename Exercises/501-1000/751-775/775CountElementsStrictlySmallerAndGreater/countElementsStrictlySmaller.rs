@@ -43,6 +43,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_elements(nums: Vec<i32>) -> i32 {
-
+    // total
+    let tot = nums.clone().len();
+    // sort
+    let mut sorted = nums.clone();
+    sorted.sort();
+    let mut bottomCount = 0;
+    let mut topCount = 0;
+    let bot = nums[0];
+    let top = nums[tot-1];
+    for i in sorted {
+      if i == bot { bottomCount+=1; }
+      if i == top { topCount+=1; }
+    }
+    if bottomCount == tot { return 0 }
+    tot - bottomCount - topCount
   }
 }
