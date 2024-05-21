@@ -57,6 +57,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_operations(num1: i32, num2: i32) -> i32 {
-
+    // recursion
+    if num1 > num2 { return 1+count_operations(num1-num2, num2) }
+    if num2 > num1 { return 1+count_operations(num1,num2-num1) }
+    if num1 == num2 { return 1 }
+    0
   }
 }
