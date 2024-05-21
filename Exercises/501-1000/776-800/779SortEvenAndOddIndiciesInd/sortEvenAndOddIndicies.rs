@@ -41,6 +41,17 @@ Constraints:
 
 impl Solution {
   pub fn sort_even_odd(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut odds: Vec<i32> = Vec::new();
+    let mut evens: Vec<i32> = Vec::new();
+    let sz = nums.clone().len();
+    for i in 0..sz {
+      let item = nums[i];
+      if i % 2 == 0 {
+        evens.push(item);
+      } else {
+        odds.push(item);
+      }
+    }
+    let mut res: Vec<i32> = Vec::new();
   }
 }
