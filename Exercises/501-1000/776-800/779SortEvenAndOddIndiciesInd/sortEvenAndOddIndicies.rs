@@ -43,7 +43,7 @@ impl Solution {
   pub fn sort_even_odd(nums: Vec<i32>) -> Vec<i32> {
     let mut odds: Vec<i32> = Vec::new();
     let mut evens: Vec<i32> = Vec::new();
-    let sz = nums.clone().len();
+    let mut sz = nums.clone().len();
     for i in 0..sz {
       let item = nums[i];
       if i % 2 == 0 {
@@ -53,5 +53,14 @@ impl Solution {
       }
     }
     let mut res: Vec<i32> = Vec::new();
+    evens.sort();
+    odds.sort_by(|a,b| { b.cmp(a) });
+    sz = evens.clone().len();
+    let oddsz = odds.clone().len();
+    for i in 0..sz {
+      res.push(evens[i]);
+      if oddsz == sz { res.push(odds[i]); }
+    }
+    res
   }
 }
