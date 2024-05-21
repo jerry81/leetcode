@@ -7,7 +7,8 @@ Given an integer array nums of unique elements, return all possible
 subsets
  (the power set).
 
-The solution set must not contain duplicate subsets. Return the solution in any order.
+The solution set must not contain duplicate subsets. Return the solution in any
+order.
 
 
 
@@ -43,16 +44,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<vector<int>> res;
- void r(int idx, vector<int> cur, vector<int>& nums, int sz) {
-  if (idx == sz) {
-    res.push_back(cur); return;
-  };
-}
-public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-      int sz = nums.size();
-      r(0, {}, nums, sz);
-      return res;
-    }
+  vector<vector<int>> res;
+  void r(int idx, vector<int> cur, vector<int>& nums, int sz) {
+    if (idx == sz) {
+      res.push_back(cur);
+      return;
+    };
+
+    vector<int> cl = cur;
+    cl.push_back(nums[idx]);
+    r(idx + 1, cur, nums, sz);
+    r(idx + 1, cl, nums, sz);
+  }
+
+ public:
+  vector<vector<int>> subsets(vector<int>& nums) {
+    int sz = nums.size();
+    r(0, {}, nums, sz);
+    return res;
+  }
 };
