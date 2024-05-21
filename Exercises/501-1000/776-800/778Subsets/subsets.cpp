@@ -43,8 +43,16 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> res;
+ void r(int idx, vector<int> cur, vector<int>& nums, int sz) {
+  if (idx == sz) {
+    res.push_back(cur); return;
+  };
+}
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-
+      int sz = nums.size();
+      r(0, {}, nums, sz);
+      return res;
     }
 };
