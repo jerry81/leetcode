@@ -59,7 +59,7 @@ impl Solution {
     let oddsz = odds.clone().len();
     for i in 0..sz {
       res.push(evens[i]);
-      if oddsz == sz { res.push(odds[i]); }
+      if i < oddsz { res.push(odds[i]); }
     }
     res
   }
