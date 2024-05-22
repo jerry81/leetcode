@@ -50,7 +50,7 @@ class Solution {
     if (sz == 1) return true;
 
     int l = 0;
-    int r = sz-1;
+    int r = sz - 1;
     while (l < r) {
       if (s[l] != s[r]) return false;
 
@@ -60,6 +60,30 @@ class Solution {
     return true;
   }
 
+  vector<vector<string>> res;
+
+  void r(vector<string> cur, int idx, string &s, int sz) {
+    if (idx >= sz) {
+      res.push_back(cur);
+      return;
+    }
+
+    // try substrings starting from idx
+    int rem = sz - idx;
+    for (int i = 1; i <= rem; ++i) {
+      string subs = s.substr(idx, i);
+      if (!is_p(subs)) return;
+
+      vector<string> cpy = cur;
+      cur.push_back(subs);
+      r(cpy, idx+i+1, s, sz);
+    }
+  }
+
  public:
-  vector<vector<string>> partition(string s) {}
+  vector<vector<string>> partition(string s) {
+    int sz = s.size();
+    r({}, 0, s, sz);
+    return res;
+  }
 };
