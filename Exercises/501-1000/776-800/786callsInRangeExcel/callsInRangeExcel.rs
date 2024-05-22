@@ -50,9 +50,13 @@ Submissions
 Acceptance Rate
 83.9%
 */
-
 impl Solution {
   pub fn cells_in_range(s: String) -> Vec<String> {
-
+      let start_c = s.chars().nth(0).unwrap();
+      let end_c = s.chars().nth(3).unwrap();
+      let start_r = s.chars().nth(1).unwrap();
+      let end_r = s.chars().nth(4).unwrap();
+      println!("{} {} {} {}", start_c, end_c, start_r, end_r);
+      "".to_string();
   }
 }
