@@ -53,7 +53,7 @@ impl Solution {
     let sz = nums.clone().len();
     for i in 0..sz-1 {
       for j in i+1..sz {
-        if (nums[i] == nums[j] && is_div(i*j, k)) {
+        if (nums[i] == nums[j] && Solution::is_div((i*j) as i32, k)) {
           res+=1;
         }
       }
