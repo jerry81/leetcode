@@ -56,7 +56,14 @@ impl Solution {
       let end_c = s.chars().nth(3).unwrap();
       let start_r = s.chars().nth(1).unwrap();
       let end_r = s.chars().nth(4).unwrap();
-      println!("{} {} {} {}", start_c, end_c, start_r, end_r);
-      "".to_string();
+      // col outside
+      let mut cur_c = start_c;
+      while cur_c <= end_c {
+        let mut cur_r = start_r;
+        while cur_r <= end_r {
+        }
+      }
+      // row inside
+      vec![]
   }
 }
