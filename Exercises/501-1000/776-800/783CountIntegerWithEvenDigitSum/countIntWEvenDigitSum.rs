@@ -41,7 +41,19 @@ Acceptance Rate
 */
 
 impl Solution {
+  fun sm_even(num: i32) -> bool {
+    let as_s = num.to_string();
+    let mut sm = 0;
+    for c in as_s.chars() {
+      sm += c as i32 - '0' as i32;
+    }
+    sm % 2 == 0
+  }
   pub fn count_even(num: i32) -> i32 {
-
+    let res = 0;
+    for i in 1..=num {
+      if Solution::sm_even(i) { res+=1 }
+    }
+    res
   }
 }
