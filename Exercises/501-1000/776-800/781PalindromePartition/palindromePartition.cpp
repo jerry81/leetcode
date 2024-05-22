@@ -39,15 +39,27 @@ Acceptance Rate
 
 */
 
-#include <vector>
-
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<string>> partition(string s) {
+  bool is_p(string s) {
+    int sz = s.size();
+    if (sz == 1) return true;
 
+    int l = 0;
+    int r = sz-1;
+    while (l < r) {
+      if (s[l] != s[r]) return false;
+
+      l++;
+      r--;
     }
+    return true;
+  }
+
+ public:
+  vector<vector<string>> partition(string s) {}
 };
