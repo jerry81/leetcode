@@ -44,6 +44,7 @@ Acceptance Rate
 
 using namespace std;
 
+
 class Solution {
   bool is_p(string s) {
     int sz = s.size();
@@ -64,7 +65,9 @@ class Solution {
 
   void r(vector<string> cur, int idx, string &s, int sz) {
     if (idx >= sz) {
-      res.push_back(cur);
+
+      if (!cur.empty()) res.push_back(cur);
+
       return;
     }
 
@@ -72,11 +75,11 @@ class Solution {
     int rem = sz - idx;
     for (int i = 1; i <= rem; ++i) {
       string subs = s.substr(idx, i);
-      if (!is_p(subs)) return;
+      if (!is_p(subs)) continue;
 
       vector<string> cpy = cur;
-      cur.push_back(subs);
-      r(cpy, idx+i+1, s, sz);
+      cpy.push_back(subs);
+      r(cpy, idx+i, s, sz);
     }
   }
 
