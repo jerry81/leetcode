@@ -43,7 +43,21 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn count_pairs(nums: Vec<i32>, k: i32) -> i32 {
+  fn is_div(num: i32, k:i32) -> bool {
+    if num == 0 { return true }
 
+    num % k == 0
+  }
+  pub fn count_pairs(nums: Vec<i32>, k: i32) -> i32 {
+    let mut res = 0;
+    let sz = nums.clone().len();
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        if (nums[i] == nums[j] && is_div(i*j, k)) {
+          res+=1;
+        }
+      }
+    }
+    res
   }
 }
