@@ -49,8 +49,33 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn most_frequent(nums: Vec<i32>, key: i32) -> i32 {
+    let mut should_count: bool = false;
 
+    let mut hm: HashMap<i32,i32> = HashMap::new();
+
+    let mut rev: Vec<i32> = nums.clone();
+    rev.reverse();
+    for i in rev {
+      if should_count {
+        *hm.entry(i).or_insert(0) +=1;
+      }
+      should_count = false;
+      if i == key {
+        should_count = true;
+      }
+    }
+    let mut res = 0;
+    let mut mx_count = 0;
+    for (k,v) in hm {
+      if v > mx_count {
+        mx_count = v;
+        res = k;
+      }
+    }
+    res
   }
 }
