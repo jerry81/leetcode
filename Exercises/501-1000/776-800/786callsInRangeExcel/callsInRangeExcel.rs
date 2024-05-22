@@ -57,13 +57,19 @@ impl Solution {
       let start_r = s.chars().nth(1).unwrap();
       let end_r = s.chars().nth(4).unwrap();
       // col outside
+      let mut res = vec![]
       let mut cur_c = start_c;
+
       while cur_c <= end_c {
         let mut cur_r = start_r;
         while cur_r <= end_r {
+          let s:String = String::new();
+          res.push(format!("{}{}", cur_c, cur_r));
+          cur_r=(1 as u8 + cur_r as u8) as char;
         }
+        cur_c=(1 as u8 + cur_c as u8) as char;
       }
       // row inside
-      vec![]
+
   }
 }
