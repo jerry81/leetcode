@@ -58,7 +58,7 @@ impl Solution {
     let mut hm: HashMap<i32,i32> = HashMap::new();
 
     let mut rev: Vec<i32> = nums.clone();
-    rev.reverse();
+    // rev.reverse();
     for i in rev {
       if should_count {
         *hm.entry(i).or_insert(0) +=1;
