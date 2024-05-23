@@ -61,16 +61,17 @@ impl Solution {
       keys.push(i as i32);
     }
     for i in 0..=2000 {
-      let mut valid = true;
-      for k in keys {
-        if (i as i32 - k) .abs()  > k) {
-          valid = false;
+      let mut valid = false;
+      for j in keys.clone() {
+        if (i as i32 - j).abs() <= k {
+          valid = true;
           break
         }
       }
-      if valid { res.push(i as i32) }
 
+      if valid { res.push(i as i32) }
     }
+
     res
   }
 }
