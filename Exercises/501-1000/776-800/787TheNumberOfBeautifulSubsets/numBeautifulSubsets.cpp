@@ -68,7 +68,7 @@ public:
     int beautifulSubsets(vector<int>& nums, int k) {
       // subset = knapsack
       // knapsack with early term
-      unordered_set<int> start = {}
+      unordered_set<int> start = {};
       int sz = nums.size();
       r(0,start,nums,k,sz);
       return res;
