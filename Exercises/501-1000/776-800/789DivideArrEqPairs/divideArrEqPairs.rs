@@ -48,8 +48,9 @@ Acceptance Rate
 use std::collections::HashMap;
 
 impl Solution {
-  let mut hm: HashMap<i32,i32> = HashMap::new();
   pub fn divide_array(nums: Vec<i32>) -> bool {
+      let mut hm: HashMap<i32,i32> = HashMap::new();
+
       for i in nums {
         *hm.entry(i).or_insert(0) +=1;
       }
