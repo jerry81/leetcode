@@ -51,7 +51,7 @@ using namespace std;
 
 class Solution {
 int res = 0;
-void r(int idx, unordered_set<int> lookup, vector<int>& nums, int k, int sz) {
+void r(int idx, unordered_set<int> &lookup, vector<int>& nums, int k, int sz) {
   if (idx >= sz) return;
 
   int nxt = idx+1;
@@ -59,9 +59,9 @@ void r(int idx, unordered_set<int> lookup, vector<int>& nums, int k, int sz) {
   int cur = nums[idx];
   if (lookup.find(cur+k) == lookup.end() && lookup.find(cur-k) == lookup.end()) {
     res+=1;
-    unordered_set<int> nxt_lookup = lookup;
-    nxt_lookup.insert(cur);
-    r(nxt, nxt_lookup, nums,k,sz);
+    lookup.insert(cur);
+    r(nxt, lookup, nums,k,sz);
+    lookup.erase(cur);
   }
 }
 public:
