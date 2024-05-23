@@ -45,9 +45,17 @@ Submissions
 Acceptance Rate
 73.4%
 */
+use std::collections::HashMap;
 
 impl Solution {
+  let mut hm: HashMap<i32,i32> = HashMap::new();
   pub fn divide_array(nums: Vec<i32>) -> bool {
-
+      for i in nums {
+        *hm.entry(i).or_insert(0) +=1;
+      }
+      for (_,v) in &hm {
+        if v%2 != 0 { return false }
+      }
+      true
   }
 }
