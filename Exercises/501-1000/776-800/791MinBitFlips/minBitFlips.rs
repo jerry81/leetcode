@@ -51,6 +51,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_bit_flips(start: i32, goal: i32) -> i32 {
-
+    // convert both to strings
+    // count 0s
+    // diff is the answer
+    let start_bs = format!("{:b}", start);
+    let goal_bs = format!("{:b}", goal);
+    let mut res = 0;
+    let l = start_bs.len();
+    for i in 0..l {
+      if start_bs.chars().nth(i).unwrap() != goal_bs.chars().nth(i).unwrap() {
+        res+=1;
+      }
+    }
+    res
   }
 }
