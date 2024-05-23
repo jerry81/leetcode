@@ -54,8 +54,8 @@ impl Solution {
     // convert both to strings
     // count 0s
     // diff is the answer
-    let start_bs = format!("{:b}", start);
-    let goal_bs = format!("{:b}", goal);
+    let start_bs = format!("{:032b}", start); // force 32 bits
+    let goal_bs = format!("{:032b}", goal);
     let mut res = 0;
     let l = start_bs.len();
     for i in 0..l {
