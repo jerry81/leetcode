@@ -12,10 +12,10 @@ class Solution {
         res += 1;
         lookup.[cur]++;
         r(nxt, nums, k, sz);
-        lookup[cur]--;
+        lookup[cur]--; // the map is to keep track of duplicate indexes
         if (lookup[cur] == 0) lookup.erase(cur);
     }
-    r(nxt, nums, k, sz);
+    r(nxt, nums, k, sz); // this goes after (actually order didn't matter)
   }
 
  public:
