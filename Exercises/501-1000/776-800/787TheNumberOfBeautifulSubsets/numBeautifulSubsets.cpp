@@ -45,12 +45,32 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
+int res = 0;
+void r(int idx, unordered_set<int> lookup, vector<int>& nums, int k, int sz) {
+  if (idx >= sz) return;
+
+  int nxt = idx+1;
+  r(nxt, lookup, nums,k, sz);
+  int cur = nums[idx];
+  if (lookup.find(cur+2) == lookup.end() && lookup.find(cur-2) == lookup.end()) {
+    res+=1;
+    unordered_set<int> nxt_lookup = lookup;
+    nxt_lookup.insert(cur);
+    r(nxt, nxt_lookup, nums,k,sz);
+  }
+}
 public:
     int beautifulSubsets(vector<int>& nums, int k) {
-
+      // subset = knapsack
+      // knapsack with early term
+      unordered_set<int> start = {}
+      int sz = nums.size();
+      r(0,start,nums,k,sz);
+      return res;
     }
 };
