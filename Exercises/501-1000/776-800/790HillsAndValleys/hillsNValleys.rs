@@ -56,6 +56,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_hill_valley(nums: Vec<i32>) -> i32 {
-
+    let mut res = 0;
+    let mut sz = nums.clone().len();
+    for i in 1..sz-1 {
+      let prev = nums[i-1];
+      let nxt = nums[i+1];
+      let cur = nums[i];
+      if prev < cur && nxt < cur { res+=1; }
+      if prev > cur && nxt > cur { res+=1; }
+    }
+    res
   }
 }
