@@ -51,6 +51,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_k_distant_indices(nums: Vec<i32>, key: i32, k: i32) -> Vec<i32> {
+    let sz = nums.clone().len();
+    let mut res:Vec<i32> = Vec::new();
+    let mut keys:Vec<i32> = Vec::new();
+    for i in 0..sz {
+      let cur = nums[i];
+      if cur != key { continue }
 
+      keys.push(i);
+    }
+    keys.sort();
+    let left = keys.last().unwrap() - k;
+    let right = keys.first().unwrap() + k;
+    left..=right.collect()
   }
 }
