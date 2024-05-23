@@ -61,16 +61,18 @@ impl Solution {
     for i in 1..sz-1 {
       let cur = nums[i];
       let mut prev = cur;
+      if cur == nums[i-1] { continue }
       for j in 1..=i {
         if nums[i-j] != cur {
-          left = nums[i-j];
+          prev = nums[i-j];
           break
         }
       }
+
       let mut nxt = cur;
       for j in (i+1)..sz {
         if nums[j] != cur {
-          right = nums[j];
+          nxt = nums[j];
           break
         }
       }
