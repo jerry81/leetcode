@@ -6,11 +6,14 @@ Companies
 Hint
 You are given an array nums of positive integers and a positive integer k.
 
-A subset of nums is beautiful if it does not contain two integers with an absolute difference equal to k.
+A subset of nums is beautiful if it does not contain two integers with an
+absolute difference equal to k.
 
 Return the number of non-empty beautiful subsets of the array nums.
 
-A subset of nums is an array that can be obtained by deleting some (possibly none) elements from nums. Two subsets are different if and only if the chosen indices to delete are different.
+A subset of nums is an array that can be obtained by deleting some (possibly
+none) elements from nums. Two subsets are different if and only if the chosen
+indices to delete are different.
 
 
 
@@ -44,33 +47,43 @@ Acceptance Rate
 37.0%
 */
 
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-int res = 0;
-void r(int idx, unordered_set<int> &lookup, vector<int>& nums, int k, int sz) {
-  if (idx >= sz) return;
+  int res = 0;
+  unordered_set<string> all_indexes = {};
+  void r(int idx, unordered_set<int>& lookup, string& indexes,
+         vector<int>& nums, int k, int sz) {
+    if (idx >= sz) return;
 
-  int nxt = idx+1;
-  r(nxt, lookup, nums,k, sz);
-  int cur = nums[idx];
-  if (lookup.find(cur+k) == lookup.end() && lookup.find(cur-k) == lookup.end()) {
-    res+=1;
-    lookup.insert(cur);
-    r(nxt, lookup, nums,k,sz);
-    lookup.erase(cur);
-  }
-}
-public:
-    int beautifulSubsets(vector<int>& nums, int k) {
-      // subset = knapsack
-      // knapsack with early term
-      unordered_set<int> start = {};
-      int sz = nums.size();
-      r(0,start,nums,k,sz);
-      return res;
+    int nxt = idx + 1;
+    r(nxt, lookup, indexes, nums, k, sz);
+    int cur = nums[idx];
+    if (lookup.find(cur + k) == lookup.end() &&
+        lookup.find(cur - k) == lookup.end()) {
+      indexes[idx] = '1';
+      if (all_indexes.find(indexes) == all_indexes.end()) {
+        all_indexes.insert(indexes);
+        res += 1;
+      }
+      lookup.insert(cur);
+      r(nxt, lookup, indexes, nums, k, sz);
+      lookup.erase(cur);
+      indexes[idx] = '0';
     }
+  }
+
+ public:
+  int beautifulSubsets(vector<int>& nums, int k) {
+    // subset = knapsack
+    // knapsack with early term
+    unordered_set<int> start = {};
+    int sz = nums.size();
+    string indexes(sz, '0');
+    r(0, start, indexes, nums, k, sz);
+    return res;
+  }
 };
