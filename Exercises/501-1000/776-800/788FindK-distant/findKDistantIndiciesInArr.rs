@@ -58,11 +58,19 @@ impl Solution {
       let cur = nums[i];
       if cur != key { continue }
 
-      keys.push(i);
+      keys.push(i as i32);
     }
-    keys.sort();
-    let left = keys.last().unwrap() - k;
-    let right = keys.first().unwrap() + k;
-    left..=right.collect()
+    for i in 0..=2000 {
+      let mut valid = true;
+      for k in keys {
+        if (i as i32 - k) .abs()  > k) {
+          valid = false;
+          break
+        }
+      }
+      if valid { res.push(i as i32) }
+
+    }
+    res
   }
 }
