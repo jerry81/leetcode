@@ -57,7 +57,7 @@ void r(int idx, unordered_set<int> lookup, vector<int>& nums, int k, int sz) {
   int nxt = idx+1;
   r(nxt, lookup, nums,k, sz);
   int cur = nums[idx];
-  if (lookup.find(cur+2) == lookup.end() && lookup.find(cur-2) == lookup.end()) {
+  if (lookup.find(cur+k) == lookup.end() && lookup.find(cur-k) == lookup.end()) {
     res+=1;
     unordered_set<int> nxt_lookup = lookup;
     nxt_lookup.insert(cur);
