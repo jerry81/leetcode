@@ -59,9 +59,22 @@ impl Solution {
     let mut res = 0;
     let mut sz = nums.clone().len();
     for i in 1..sz-1 {
-      let prev = nums[i-1];
-      let nxt = nums[i+1];
       let cur = nums[i];
+      let mut prev = cur;
+      for j in 1..=i {
+        if nums[i-j] != cur {
+          left = nums[i-j];
+          break
+        }
+      }
+      let mut nxt = cur;
+      for j in (i+1)..sz {
+        if nums[j] != cur {
+          right = nums[j];
+          break
+        }
+      }
+
       if prev < cur && nxt < cur { res+=1; }
       if prev > cur && nxt > cur { res+=1; }
     }
