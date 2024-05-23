@@ -60,7 +60,7 @@ impl Solution {
 
       keys.push(i as i32);
     }
-    for i in 0..=2000 {
+    for i in 0..sz {
       let mut valid = false;
       for j in keys.clone() {
         if (i as i32 - j).abs() <= k {
