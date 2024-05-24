@@ -76,7 +76,20 @@ class Solution {
   // take the word
   vector<int> cur_freq = word_freqs[idx];
   int cur_score = word_scores[idx];
-    // backtrack
+  int take = leave;
+  vector<int> prev_freq = freq;
+  for (int i = 0; i < 26; ++i) {
+    int new_freq = freq[i] - cur_freq[i];
+    if (new_freq < 0) {
+      freq = prev_freq; // abort + rollback
+      return leave;
+    }
+
+    freq[i] = new_freq;
+    take = cur_score + r(nxt, freq, word_freqs, word_scores, sz);
+    freq = prev_freq;
+  }
+  // backtrack
   return max(take, leave);
  }
  public:
