@@ -61,7 +61,6 @@ Acceptance Rate
 */
 
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -72,25 +71,16 @@ class Solution {
                     vector<int>& score) {
     // score is score[char - 'a']
     // unordered_map for chars remaining
-    unordered_map<char, int> freq;
+    vector<int> freq(26,0);
     for (char c : letters) {
-      if (freq.find(c) != freq.end()) {
-        freq[c] += 1;
-      } else {
-        freq[c] = 1;
-      }
+      freq[c-'a']++;
     }
     // map for each word?
     int word_sz = words.size();
-    vector<unordered_map<char, int>> word_freq(word_sz);
+    vector<vector<int>> word_freq(word_sz);
     for (int i = 0; i < word_sz; ++i) {
       for (char c : words[i]) {
-        auto wfreq = word_freq[i];
-        if (wfreq.find(c) != wfreq.end()) {
-          wfreq[c] += 1;
-        } else {
-          wfreq[c] = 1;
-        }
+        word_freq[i][c-'a']++;
       }
     }
     // order words by value and greedy?
