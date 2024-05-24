@@ -94,6 +94,9 @@ class Solution {
       }
     }
     // order words by value and greedy?
+    // no, long words more costly
+
+    // stick recursion with backtracking theme
     return 0;
   }
 };
