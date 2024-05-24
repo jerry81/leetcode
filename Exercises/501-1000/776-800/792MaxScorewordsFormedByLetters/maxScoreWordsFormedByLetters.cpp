@@ -66,7 +66,12 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
- int r(int idx, vector<int> &freq, vector<vector<int>> &word_freqs, vector<int> &word_scores) {
+ int r(int idx, vector<int> &freq, vector<vector<int>> &word_freqs, vector<int> &word_scores, int sz) {
+  // base case
+  if (idx >= sz) return 0;
+  // leave the word
+  // take the word
+    // backtrack
  }
  public:
   int maxScoreWords(vector<string>& words, vector<char>& letters,
@@ -91,6 +96,7 @@ class Solution {
     // no, long words more costly
 
     // stick recursion with backtracking theme
-    return 0;
+
+    return r(0, freq, word_freq,word_scores,word_sz);
   }
 };
