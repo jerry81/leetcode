@@ -66,21 +66,25 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+ int r(int idx, vector<int> &freq, vector<vector<int>> &word_freqs, vector<int> &word_scores) {
+ }
  public:
   int maxScoreWords(vector<string>& words, vector<char>& letters,
                     vector<int>& score) {
     // score is score[char - 'a']
     // unordered_map for chars remaining
-    vector<int> freq(26,0);
+    vector<int> freq(26, 0);
     for (char c : letters) {
-      freq[c-'a']++;
+      freq[c - 'a']++;
     }
     // map for each word?
     int word_sz = words.size();
-    vector<vector<int>> word_freq(word_sz);
+    vector<vector<int>> word_freq(word_sz, vector<int>(26,0));
+    vector<int> word_scores(word_sz,0);
     for (int i = 0; i < word_sz; ++i) {
       for (char c : words[i]) {
-        word_freq[i][c-'a']++;
+        word_freq[i][c - 'a']++;
+        word_scores[i]+=score[c-'a'];
       }
     }
     // order words by value and greedy?
