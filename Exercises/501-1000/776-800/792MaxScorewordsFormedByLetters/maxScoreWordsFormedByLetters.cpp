@@ -70,8 +70,14 @@ class Solution {
   // base case
   if (idx >= sz) return 0;
   // leave the word
+
+  int nxt = idx+1;
+  int leave = r(nxt, freq, word_freqs, word_scores, sz);
   // take the word
+  vector<int> cur_freq = word_freqs[idx];
+  int cur_score = word_scores[idx];
     // backtrack
+  return max(take, leave);
  }
  public:
   int maxScoreWords(vector<string>& words, vector<char>& letters,
