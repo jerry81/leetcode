@@ -77,18 +77,24 @@ class Solution {
   vector<int> cur_freq = word_freqs[idx];
   int cur_score = word_scores[idx];
   int take = leave;
-  vector<int> prev_freq = freq;
+  bool can_include = true;
   for (int i = 0; i < 26; ++i) {
     int new_freq = freq[i] - cur_freq[i];
-    if (new_freq < 0) {
-      freq = prev_freq; // abort + rollback
-      return leave;
+    if (cur_freq[i] > freq[i]) {
+      can_include = false; // abort + rollback
+      break;
     }
-
-    freq[i] = new_freq;
-    take = cur_score + r(nxt, freq, word_freqs, word_scores, sz);
-    freq = prev_freq;
   }
+  if (can_include) {
+    for (int i = 0; i < 26; ++i) {
+      freq[i] -= cur_freq[i];
+    }
+    take = cur_score + r(nxt, freq, word_freqs, word_scores, sz);
+    for (int i = 0; i < 26; ++i) {
+      freq[i] += cur_freq[i];
+    }
+  }
+
   // backtrack
   return max(take, leave);
  }
