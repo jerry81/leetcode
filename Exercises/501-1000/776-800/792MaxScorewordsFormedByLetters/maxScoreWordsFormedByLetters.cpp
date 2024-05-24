@@ -61,12 +61,23 @@ Acceptance Rate
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
-
+      // score is score[char - 'a']
+      // unordered_map for chars remaining
+      unordered_map<char, int> freq;
+      for (char c: letters) {
+        if (freq.find(c) != freq.end()) {
+          freq[c] += 1;
+        } else {
+          freq[c] = 1;
+        }
+      }
+      // map for each word?
     }
 };
