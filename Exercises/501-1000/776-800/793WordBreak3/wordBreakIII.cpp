@@ -48,12 +48,27 @@ Acceptance Rate
 
 #include <vector>
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
+vector<string> res;
+void r(int idx, vector<string> &accum, string &s, unordered_set<string> &words, int sz) {
+}
 public:
     vector<string> wordBreak(string s, vector<string>& wordDict) {
+      // should still keep in theme: backtracking
 
+      unordered_set<string> words;
+      int sz = s.size();
+      for (string s: wordDict) {
+        words.insert(s);
+      }
+
+      vector<string> accum;
+      r(0, accum, s, words, sz);
+
+      return res;
     }
 };
