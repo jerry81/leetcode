@@ -54,40 +54,46 @@ Acceptance Rate
 42.9%
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
+  vector<vector<vector<int>>> memo;
   const int MOD = 1e9 + 7;
   int r(int remain, int a, int l) {
-    if (remain <= 0) return 0;
-
+    // invalid goes first
     if (a > 1) return 0;
 
     if (l > 2) return 0;
 
-    if (remain == 1) {
-      int early_ret = 3;
-      if (a >= 1) early_ret--;
-      if (l >= 2) early_ret--;
-      return early_ret;
-    }
+    // then base
+    if (remain <= 0) return 1;
+
+    // then memo
+
+    if (memo[remain][a][l] > -1) return memo[remain][a][l];
+
     int nxt = remain-1;
     // P
-    int p = 1 + r(nxt, a, 0);
+    int tp = r(nxt, a, 0);
     // A
-    int a = 1 + r(nxt, a+1, 0);
+    int ta = r(nxt, a+1, 0);
     // L
-    int l = 1 + r(nxt, a, l+1);
-    long long sum = p;
-    sum+=a;
+    int tl = r(nxt, a, l+1);
+    long long sum = tp;
+    sum+=ta;
     sum %= MOD;
-    sum +=l;
+    sum +=tl;
     sum%=MOD;
-    return (int)sum;
+    return memo[remain][a][l] = (int)sum % MOD;
   }
 
  public:
   int checkRecord(int n) {
     // some kind of knapsack backtracking with math
     // two must not be A
+    memo.resize(n+1, vector<vector<int>>(2, vector<int>(3,-1)));
     if (n == 1) return 3;
     return r(n, 0, 0);
   }
