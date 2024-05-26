@@ -52,6 +52,10 @@ Acceptance Rate
 class Solution {
 public:
     int checkRecord(int n) {
-
+      // some kind of knapsack backtracking with math
+      // two must not be A
+      if (n == 1) return 3;
+      int res = 0;
+      return res;
     }
 };
