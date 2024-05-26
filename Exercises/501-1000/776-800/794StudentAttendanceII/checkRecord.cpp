@@ -57,9 +57,31 @@ Acceptance Rate
 class Solution {
   const int MOD = 1e9 + 7;
   int r(int remain, int a, int l) {
-    long long sum = 0;
-    sum %=  MOD;
-    return (int)sum;;
+    if (remain <= 0) return 0;
+
+    if (a > 1) return 0;
+
+    if (l > 2) return 0;
+
+    if (remain == 1) {
+      int early_ret = 3;
+      if (a >= 1) early_ret--;
+      if (l >= 2) early_ret--;
+      return early_ret;
+    }
+    int nxt = remain-1;
+    // P
+    int p = 1 + r(nxt, a, 0);
+    // A
+    int a = 1 + r(nxt, a+1, 0);
+    // L
+    int l = 1 + r(nxt, a, l+1);
+    long long sum = p;
+    sum+=a;
+    sum %= MOD;
+    sum +=l;
+    sum%=MOD;
+    return (int)sum;
   }
 
  public:
