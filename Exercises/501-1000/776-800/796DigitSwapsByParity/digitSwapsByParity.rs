@@ -52,12 +52,12 @@ impl Solution {
     // chars to i32
     let mut iv :Vec<i32> = as_cv.iter().map(|&item| { (item as u8 - '0' as u8) as i32 }).collect();
     let mut op_made = true;
-    let sz = num.len();
+    let sz = iv.len();
     while op_made {
       op_made = false;
       for i in 0..sz-1 {
-        j in i+1..sz {
-          if iv[i] > iv[j] { continue }
+        for j in i+1..sz {
+          if iv[i] > iv[j] && iv[i]%2 == iv[j]%2 { continue }
 
           iv.swap(i,j);
           op_made = true;
@@ -69,8 +69,8 @@ impl Solution {
     let mut res = 0;
     let multiplier = 1;
     for i in 0..sz {
-      let idx = (sz-1) - i;
-      res+=iv[idx] * 10.pow(i);
+      let idx: i32 = (sz-1) as i32 - i as i32;
+      res+=iv[idx as usize] * 10_i32.pow(i as u32);
     }
     res
   }
