@@ -57,10 +57,18 @@ impl Solution {
     let cor_hr = correct_spl[0];
     let cor_min = correct_spl[1];
     let mut cur_h = 0;
+    let mut cur_m = 0;
     let mut cor_h = 0;
+    let mut cor_m = 0;
     cur_h += ((cur_hr.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
     cur_h += (cur_hr.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
-    println!("cur h {}", cur_h);
+    cur_m += ((cur_min.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
+    cur_m += (cur_min.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
+    cor_h += ((cor_hr.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
+    cor_h += (cor_hr.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
+    cor_m += ((cor_min.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
+    cor_m += (cor_min.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
+    println!("cur {}:{}, cor {}:{}", cur_h, cur_m, cor_h, cor_m);
     0
   }
 }
