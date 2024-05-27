@@ -68,7 +68,21 @@ impl Solution {
     cor_h += (cor_hr.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
     cor_m += ((cor_min.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
     cor_m += (cor_min.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
-    println!("cur {}:{}, cor {}:{}", cur_h, cur_m, cor_h, cor_m);
-    0
+    let mut min_diff = cur_m - cor_m + (cur_h - cor_h) * 60;
+    min_diff = min_diff.abs();
+    let mut res = 0;
+    while (min_diff > 0) {
+      res+=1;
+      if min_diff >= 60 {
+        min_diff-=60;
+      } else if min_diff >= 15 {
+        min_diff-=15;
+      } else if min_diff >= 5 {
+        min_diff-=5;
+      } else {
+        min_diff-=1;
+      }
+    }
+    res
   }
 }
