@@ -66,6 +66,12 @@ impl Solution {
         if op_made { break }
       }
     }
-    0
+    let mut res = 0;
+    let multiplier = 1;
+    for i in 0..sz {
+      let idx = (sz-1) - i;
+      res+=iv[idx] * 10.pow(i);
+    }
+    res
   }
 }
