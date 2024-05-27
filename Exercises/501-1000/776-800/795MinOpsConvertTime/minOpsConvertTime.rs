@@ -52,12 +52,15 @@ impl Solution {
   pub fn convert_time(current: String, correct: String) -> i32 {
     let current_spl: Vec<&str> = current.split(":").collect();
     let correct_spl: Vec<&str> = correct.split(":").collect();
-    let mut cur_hr = current_spl[0];
-    let mut cur_min = current_spl[1];
-    let mut cor_hr = correct_spl[0];
-    let mut cor_min = correct_spl[1];
-    println!("{} {} {} {}", cur_hr, cur_min, cor_hr, cor_min);
+    let cur_hr = current_spl[0];
+    let cur_min = current_spl[1];
+    let cor_hr = correct_spl[0];
+    let cor_min = correct_spl[1];
+    let mut cur_h = 0;
+    let mut cor_h = 0;
+    cur_h += ((cur_hr.chars().nth(0).unwrap() as u8 - '0' as u8) * 10) as i32;
+    cur_h += (cur_hr.chars().nth(1).unwrap() as u8 - '0' as u8) as i32;
+    println!("cur h {}", cur_h);
     0
   }
 }
-
