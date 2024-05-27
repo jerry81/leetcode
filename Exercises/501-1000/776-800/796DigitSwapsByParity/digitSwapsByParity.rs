@@ -52,8 +52,19 @@ impl Solution {
     // chars to i32
     let mut iv :Vec<i32> = as_cv.iter().map(|&item| { (item as u8 - '0' as u8) as i32 }).collect();
     let mut op_made = true;
+    let sz = num.len();
     while op_made {
       op_made = false;
+      for i in 0..sz-1 {
+        j in i+1..sz {
+          if iv[i] > iv[j] { continue }
+
+          iv.swap(i,j);
+          op_made = true;
+          break
+        }
+        if op_made { break }
+      }
     }
     0
   }
