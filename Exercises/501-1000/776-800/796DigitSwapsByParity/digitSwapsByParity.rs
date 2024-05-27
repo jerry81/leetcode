@@ -72,7 +72,7 @@ impl Solution {
     let multiplier = 1;
     for i in 0..sz {
       let idx: i32 = (sz-1) as i32 - i as i32;
-      res+=iv[idx as usize] * 10_i32.pow(i as u32);
+      res+=iv[idx as usize] * 10_i32.pow(i as u32); // TIL: crazy _i32 syntax
     }
     res
   }
