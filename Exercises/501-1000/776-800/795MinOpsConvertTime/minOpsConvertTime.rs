@@ -50,6 +50,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn convert_time(current: String, correct: String) -> i32 {
-
+    let current_spl = current.split(":");
+    let correct_spl = correct.split(":");
+    0
   }
 }
