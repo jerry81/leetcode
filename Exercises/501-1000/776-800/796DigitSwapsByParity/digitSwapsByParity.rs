@@ -50,16 +50,18 @@ impl Solution {
     // i32 to string to chars
     let mut as_cv: Vec<char> = num.to_string().chars().collect();
     // chars to i32
-    let mut iv :Vec<i32> = as_cv.iter().map(|&item| { (item as u8 - '0' as u8) as i32 }).collect();
+    let mut iv :Vec<i32> = as_cv.iter().map(|&item| { (item as u8 - '0' as u8) as i32 }).collect(); // TIR: map
     let mut op_made = true;
     let sz = iv.len();
     while op_made {
       op_made = false;
       for i in 0..sz-1 {
         for j in i+1..sz {
-          if iv[i] > iv[j] && iv[i]%2 == iv[j]%2 { continue }
+          if iv[i] >= iv[j] || iv[i]%2 != iv[j]%2 {
+            continue
+          }
 
-          iv.swap(i,j);
+          iv.swap(i,j); // TIL: vec.swap
           op_made = true;
           break
         }
