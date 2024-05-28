@@ -71,9 +71,10 @@ public:
       int curtotal = 0;
       for (int l = 0; l < sz-1; ++l) {
         curtotal+=costs[l];
-        while (costs[r] + curtotal < maxCost) {
+        while ((costs[r] + curtotal) <= maxCost) {
           curtotal = costs[r] + curtotal;
-          mx = max(mx, r-l);
+
+          mx = max(mx, (r-l)+1);
           r++;
         }
         curtotal-=costs[l];
