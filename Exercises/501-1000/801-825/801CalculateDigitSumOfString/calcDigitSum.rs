@@ -57,6 +57,13 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn sm(s:&str) -> i32 {
+    let mut res = 0;
+    for c in s.chars() {
+        res+=(c as u8 - '0' as u8) as i32;
+    }
+    res
+  }
   pub fn digit_sum(s: String, k: i32) -> String {
     let sz = s.len();
     let ku = k as usize;
@@ -71,9 +78,13 @@ impl Solution {
     if extra_handling {
         slices.push(&s[ku*floor..]);
     }
-        for sl in slices {
-        println!("sl {}", sl);
+
+    // make the new string
+    let mut nxt_str = "".to_string();
+    for s in slices {
+      nxt_str += &Solution::sm(s).to_string();
     }
-    "".to_string()
+
+    Solution::digit_sum(nxt_str, k)
   }
 }
