@@ -48,6 +48,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_prefixes(words: Vec<String>, s: String) -> i32 {
-
+    let mut res = 0;
+    for w in words {
+      if s.starts_with(&w) { res+=1; }
+    }
+    res
   }
 }
