@@ -69,9 +69,9 @@ public:
       int mx = 0;
       int left = 0;
       int curtotal = 0;
-      for (int r = 0; r < sz; ++r) {
+      for (int r = 0; r < sz; ++r) { // for on the right ptr
         curtotal+=costs[r];
-        while (curtotal > maxCost) {
+        while (curtotal > maxCost) { // while on the left ptr.
           curtotal-=costs[left];
           left++;
         }
