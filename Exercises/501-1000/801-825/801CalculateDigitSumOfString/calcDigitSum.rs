@@ -62,13 +62,14 @@ impl Solution {
     let ku = k as usize;
     if sz <= ku { return s }
     let floor = sz/ku;
+    let extra_handling = sz%ku != 0;
     let mut slices: Vec<&str> = Vec::new();
     for i in 0..floor {
         slices.push(&s[i*ku..i*ku+ku]);
     }
 
-    if ku*(floor-1) < sz {
-        slices.push(&s[ku*floor-1..]);
+    if extra_handling {
+        slices.push(&s[ku*floor..]);
     }
         for sl in slices {
         println!("sl {}", sl);
