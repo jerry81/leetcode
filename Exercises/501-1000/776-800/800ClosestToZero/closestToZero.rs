@@ -43,9 +43,19 @@ Acceptance Rate
 44.9%
 
 */
-
 impl Solution {
   pub fn find_closest_number(nums: Vec<i32>) -> i32 {
-
+    let mut res = i32::MAX;
+    let mut dist = i32::MAX;
+    for n in nums {
+      let cur = n.abs();
+      if cur < dist {
+        dist = cur;
+        res = n;
+      } else if cur == dist {
+        res = res.max(n)
+      }
+    }
+    res
   }
 }
