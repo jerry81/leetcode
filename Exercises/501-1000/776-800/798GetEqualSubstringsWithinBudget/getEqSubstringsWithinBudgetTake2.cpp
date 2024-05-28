@@ -59,7 +59,7 @@ int r(int idx, vector<int> &costs, int budget) {
 
   if (costs[idx] > budget) return 0;
 
-  return costs[idx] + r(idx+1, costs, budget-costs[idx]);
+  return 1 + r(idx+1, costs, budget-costs[idx]);
 }
 public:
     int equalSubstring(string s, string t, int maxCost) {
