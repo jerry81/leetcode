@@ -67,9 +67,18 @@ public:
       // dp doesn't work b/c MLE
       // sliding window is the way
       int mx = 0;
-      for (int l < 0; l < sz-1; ++l) {
-        for (int r = l; r < sz; ++r) {
+      int r = 1;
+      int curtotal = 0;
+      for (int l = 0; l < sz-1; ++l) {
+        curtotal+=costs[l];
+        while (costs[r] + curtotal < maxCost) {
+          curtotal = costs[r] + curtotal;
+          mx = max(mx, r-l);
+          r++;
         }
+        curtotal-=costs[l];
+
       }
+      return mx;
     }
 };
