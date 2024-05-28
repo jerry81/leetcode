@@ -54,18 +54,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<vector<int>> memo;
 int r(int idx, vector<int> &costs, int budget) {
+
   if (idx>=costs.size()) return 0;
 
   if (costs[idx] > budget) return 0;
 
-  return 1 + r(idx+1, costs, budget-costs[idx]);
+  if (memo[idx][budget] > -1) return memo[idx][budget];
+
+  return memo[idx][budget] = 1 + r(idx+1, costs, budget-costs[idx]);
 }
 public:
     int equalSubstring(string s, string t, int maxCost) {
       // lengths equal
       // get all costs
       int sz = s.size();
+      memo.resize(sz, vector<int>(maxCost+1, -1));
       vector<int> costs(sz,0);
       for (int i = 0; i < sz; ++i) {
         costs[i] = abs((int)s[i]-(int)t[i]);
