@@ -65,6 +65,15 @@ public:
       for (int i = 0; i < sz; ++i) {
         costs[i] = abs((int)s[i]-(int)t[i]);
       }
-      return 0;
+      sort(costs.begin(),costs.end());
+      int res = 0;
+      int cur_cost = 0;
+      for (int i = 0; i < sz; ++i) {
+        cur_cost += costs[i];
+        if (cur_cost > maxCost) break;
+
+        res+=1;
+      }
+      return res;
     }
 };
