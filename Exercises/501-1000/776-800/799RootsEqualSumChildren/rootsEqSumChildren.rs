@@ -66,6 +66,12 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn check_tree(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-
+      let borrowed = root.borrow(); // unwrap for refcell/rc or option? borrow provided by RefCell
+      let value = borrowed.val;
+      let l = borrowed.left.borrow();
+      let r = borrowed.right.borrow();
+      let lv = l.val;
+      let rv = r.val;
+      lv+rv == value
     }
 }
