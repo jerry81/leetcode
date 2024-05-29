@@ -63,8 +63,8 @@ impl Solution {
     let as_s = num.to_string();
     let mut res = 0;
     let sz = as_s.len();
-    for i in 0..sz-1 {
-      for j in i+1..sz {
+    for i in 0..sz {
+      for j in i..sz {
         if j-i+1 != k as usize { continue }
 
         let parseRes = &as_s[i..=j].parse::<i32>().unwrap();
