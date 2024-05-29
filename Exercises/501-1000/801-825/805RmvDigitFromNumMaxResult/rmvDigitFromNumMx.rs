@@ -53,23 +53,31 @@ impl Solution {
   pub fn remove_digit(number: String, digit: char) -> String {
     // nope, we must find a trick and stick to string
     let sz = number.len();
-    let mut to_drop = -1;
+    let mut to_drop:i32 = -1;
     for i in 0..sz {
       let mut nxt = i+1;
       let cur = number.chars().nth(i).unwrap();
       if cur != digit { continue }
 
       if nxt < sz {
-        let nxtv = number.chars().nth(i).unwrap();
+        let nxtv = number.chars().nth(nxt).unwrap();
         if nxtv > cur {
           // drop this one
-          to_drop = i;
+          to_drop = i as i32;
+        } else {
+            if to_drop < 0 { to_drop = i as i32; }
         }
       } else {
-        if to_drop < 0 { to_drop = i; }
+        if to_drop < 0 { to_drop = i as i32; }
       }
     }
-    println!("drop {}", to_drop);
-    number
+    // remove char from string,
+    // convert to vec<char>
+    let tmp : Vec<char> = number.clone().chars().collect();
+    // rmv
+    tmp.remove(to_drop);
+    // back to string
+
+    tmp.iter().collect()
   }
 }
