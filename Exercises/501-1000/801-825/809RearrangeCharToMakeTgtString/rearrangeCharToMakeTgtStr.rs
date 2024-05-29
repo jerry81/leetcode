@@ -55,8 +55,32 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
 impl Solution {
   pub fn rearrange_characters(s: String, target: String) -> i32 {
-
+    // yet another freq map problem
+    let mut freq:HashMap<char, i32> = HashMap::new();
+    for c in s.chars() {
+      *freq.entry(c).or_insert(0) += 1;
+    }
+    let mut tgtf:HashMap<char, i32> = HashMap::new();
+    for c in target.chars() {
+      *tgtf.entry(c).or_insert(0) += 1;
+    }
+    let mut res = 0;
+    loop {
+      let mut not_enough = false;
+      for (k,v) in &tgtf {
+        let mut remain = *freq.entry(k).or_insert(0);
+        if remain < 1 {
+          not_enough = true;
+          break
+        }
+        *freq.entry(k).or_insert(0) -= v;
+      }
+      res+=1;
+      if not_enough { break }
+    }
+    res
   }
 }
