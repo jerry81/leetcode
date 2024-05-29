@@ -5,7 +5,8 @@ Medium
 Topics
 Companies
 Hint
-Given the binary representation of an integer as a string s, return the number of steps to reduce it to 1 under the following rules:
+Given the binary representation of an integer as a string s, return the number
+of steps to reduce it to 1 under the following rules:
 
 If the current number is even, you have to divide it by 2.
 
@@ -61,8 +62,21 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    int numSteps(string s) {
+  int r(int i) {
+    if (i == 1) return 0;
 
+    if (i % 2 == 2) {
+      return 1 + r(i >> 1);
+    } else {
+      return 1 + r(i - 1);
     }
+    return 0;
+  }
+
+ public:
+  int numSteps(string s) {
+    // bstring to int
+    int as_i = stoi(s, nullptr, 2);
+    return r(as_i);
+  }
 };
