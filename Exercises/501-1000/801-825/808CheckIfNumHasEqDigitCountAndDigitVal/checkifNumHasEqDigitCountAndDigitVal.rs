@@ -64,7 +64,7 @@ impl Solution {
 
       let c = num.chars().nth(i).unwrap();
       let ci = (c as u8 - '0' as u8) as i32;
-      if hm.get(i).unwrap() != ci {
+      if *hm.entry(i as i32).or_insert(0) != ci {
         return false
       }
     }
