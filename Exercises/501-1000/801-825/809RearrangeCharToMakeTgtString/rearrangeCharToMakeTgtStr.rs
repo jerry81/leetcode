@@ -69,17 +69,18 @@ impl Solution {
     }
     let mut res = 0;
     loop {
-      let mut not_enough = false;
+      let mut enough = true;
       for (k,v) in &tgtf {
-        let mut remain = *freq.entry(k).or_insert(0);
-        if remain < 1 {
-          not_enough = true;
+        let mut remain = freq.get(k).unwrap_or(&0);
+        if remain < v {
+          enough = false;
           break
         }
-        *freq.entry(k).or_insert(0) -= v;
+        *freq.entry(*k).or_insert(0) -= v;
       }
+      if !enough { break }
       res+=1;
-      if not_enough { break }
+
     }
     res
   }
