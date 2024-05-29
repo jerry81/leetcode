@@ -75,14 +75,18 @@ class Solution {
       return 1+numSteps(s);
     } else {
       // carry (the meat)
-      while (!s.back() == '1') {
+      while (!s.empty() && s.back() == '1') {
         s.pop_back();
         new_s.insert(0,1,'0');
 
       }
-      s.pop_back();
+
       new_s.insert(0,1,'1');
-      new_s = s+new_s;
+      if (!s.empty()) {
+        s.pop_back();
+        new_s = s+new_s;
+      }
+
       return 1+numSteps(new_s);
     }
   return 0;
