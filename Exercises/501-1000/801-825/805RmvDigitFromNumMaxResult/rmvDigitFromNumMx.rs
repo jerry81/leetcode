@@ -51,6 +51,25 @@ Acceptance Rate
 
 impl Solution {
   pub fn remove_digit(number: String, digit: char) -> String {
+    // nope, we must find a trick and stick to string
+    let sz = number.len();
+    let mut to_drop = -1;
+    for i in 0..sz {
+      let mut nxt = i+1;
+      let cur = number.chars().nth(i).unwrap();
+      if cur != digit { continue }
 
+      if nxt < sz {
+        let nxtv = number.chars().nth(i).unwrap();
+        if nxtv > cur {
+          // drop this one
+          to_drop = i;
+        }
+      } else {
+        if to_drop < 0 { to_drop = i; }
+      }
+    }
+    println!("drop {}", to_drop);
+    number
   }
 }
