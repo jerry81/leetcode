@@ -50,8 +50,24 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn digit_count(num: String) -> bool {
+    let mut hm: HashMap<i32,i32> = HashMap::new();
+    for c in num.chars() {
+      let as_i = (c as u8 - '0' as u8) as i32;
+      *hm.entry(as_i).or_insert(0) += 1;
+    }
+    let sz = num.len();
+    for i in 0..sz {
 
+      let c = num.chars().nth(i).unwrap();
+      let ci = (c as u8 - '0' as u8) as i32;
+      if hm.get(i).unwrap() != ci {
+        return false
+      }
+    }
+    true
   }
 }
