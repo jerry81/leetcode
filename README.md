@@ -431,3 +431,5 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - refactor 476DayOfWeek
 ````
+
+- study 810
