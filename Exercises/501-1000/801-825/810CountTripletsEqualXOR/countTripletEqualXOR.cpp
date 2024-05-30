@@ -57,7 +57,7 @@ public:
       int count = 0;
       // experiment
       int sz = arr.size();
-      for (int i = 0; i < sz-2;++i) {
+      for (int i = 0; i < sz-1;++i) {
         for (int j = i+1; j < sz; ++j) {
           for (int k = j; k < sz; ++k) {
             int first = arr[i];
