@@ -54,6 +54,7 @@ using namespace std;
 class Solution {
 public:
     int countTriplets(vector<int>& arr) {
+      int count = 0;
       // experiment
       int sz = arr.size();
       for (int i = 0; i < sz-2;++i) {
@@ -67,11 +68,10 @@ public:
             for (int cur2 = j+1; cur2 <= k; ++cur2) {
               second ^= arr[cur2];
             }
-            cout << "given i j k " << i << "," <<j << "," << k << endl;
-            cout << "first is " << first << " second is "<< second << endl;
+            if (first == second) count++;
           }
         }
       }
-      return 0;
+      return count;
     }
 };
