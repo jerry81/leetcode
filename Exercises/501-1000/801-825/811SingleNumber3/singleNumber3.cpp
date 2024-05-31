@@ -60,7 +60,7 @@ public:
       }
       vector<int> res;
       for (int n: nums) {
-        if (dups.find(n) != dups.end()) res.push_back(n);
+        if (dups.find(n) == dups.end()) res.push_back(n);
       }
       return res;
     }
