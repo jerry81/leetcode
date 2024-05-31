@@ -55,6 +55,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_max_game(nums: Vec<i32>) -> i32 {
-
+    if nums.len() == 1 { return nums[0] }
+    0
   }
 }
