@@ -55,7 +55,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_max_game(nums: Vec<i32>) -> i32 {
-    if nums.len() == 1 { return nums[0] }
-    0
+    let sz = nums.len();
+    if sz == 1 { return nums[0] }
+    let mut nxt:Vec<i32> = Vec::new();
+    for i in 0..sz {
+      if i % 2 == 0 {
+        nxt.push(nums[2*i].min(nums[2*i+1]));
+      } else {
+        nxt.push(nums[2*i].max(nums[2*i+1]));
+      }
+    }
+    Solution::min_max_game(nxt);
   }
 }
