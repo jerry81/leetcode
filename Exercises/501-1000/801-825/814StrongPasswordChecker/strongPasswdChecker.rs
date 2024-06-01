@@ -63,7 +63,7 @@ impl Solution {
     let specials = "!@#$%^&*()-+";
     let ss: HashSet<char> = specials.chars().collect();
     let mut has_special = false;
-    let mut prev = '';
+    let mut prev = ' ';
     for c in password.chars() {
       if c == prev { return false; }
       prev = c;
@@ -73,6 +73,6 @@ impl Solution {
       if cv >= 'A' as u8 && cv <= 'Z' as u8 { has_uppercase = true; }
       if cv >= '0' as u8 && cv <= '9' as u8 { has_digit = true; }
     }
-    has_lowercase && has_uppercase && has_digit && has_special;
+    has_lowercase && has_uppercase && has_digit && has_special
   }
 }
