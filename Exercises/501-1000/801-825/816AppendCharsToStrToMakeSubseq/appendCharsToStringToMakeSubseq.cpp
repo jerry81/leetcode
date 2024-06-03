@@ -58,6 +58,19 @@ using namespace std;
 class Solution {
 public:
     int appendCharacters(string s, string t) {
-
+      // two pointer?
+      int p1 = 0;
+      int p2 = 0;
+      int sz = t.size();
+      int sz2 = s.size();
+      while (p1 < sz && p2 < sz2) {
+        char c1 = t[p1];
+        char c2 = s[p2];
+        if (c2 == c1) {
+          p1+=1;
+        }
+        p2+=1;
+      }
+      return sz - p1;
     }
 };
