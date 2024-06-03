@@ -66,16 +66,22 @@ Acceptance Rate
 impl Solution {
   pub fn calculate_tax(brackets: Vec<Vec<i32>>, income: i32) -> f64 {
     let mut inc = income;
-    let mut totaltax = 0;
+    let mut totaltax = 0.0;
     let mut intermediate: Vec<Vec<i32>> = Vec::new();
     let mut bidx = 0;
-    while inc > 0 {
-      let curB = brackets[bidx][0];
+    let sz = brackets.len();
+    let mut prevB = 0;
+    for bidx in 0..sz {
+      let mut curB = brackets[bidx][0];
       let newinc = inc - curB;
-      let pushed:Vec<i32> = Vec::new();
+      let mut pushed:Vec<i32> = Vec::new();
+      if bidx != 0 {
+        curB -= prevB;
+      }
       pushed.push(inc.min(curB));
       pushed.push(brackets[bidx][1]);
       intermediate.push(pushed);
+      prevB = curB;
       inc = newinc.max(0);
     }
     for v in intermediate.clone() {
