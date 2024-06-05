@@ -51,6 +51,24 @@ Acceptance Rate
 
 impl Solution {
   pub fn check_x_matrix(grid: Vec<Vec<i32>>) -> bool {
-
+    let sz = grid.len();
+    for i in 0..sz {
+      for j in 0..sz {
+        if i == j {
+          if grid[i][j] == 0 {
+            return false
+          }
+        } else if i + j == sz-1 {
+          if grid[i][j] == 0 {
+            return false
+          }
+        } else if grid[i][j] != 0 {
+          return false
+        }
+      }
+    }
+    true
   }
 }
+
+// 3,0 2,1, 1,2, 0,3
