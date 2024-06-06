@@ -47,12 +47,26 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
 class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
+      // char counts
+      map<int, int> ccounts;
+      for (int i: hand) {
+        if (ccounts.find(i) == ccounts.end()) {
+          ccounts[i] = 1;
+        } else {
+          ccounts[i]++;
+        }
+      }
+      while (!ccounts.empty()) {
+        for (int i = 0; i < groupSize; ++i) {
 
+        }
+      }
     }
 };
