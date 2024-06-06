@@ -54,19 +54,22 @@ using namespace std;
 class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
-      // char counts
-      map<int, int> ccounts;
-      for (int i: hand) {
-        if (ccounts.find(i) == ccounts.end()) {
-          ccounts[i] = 1;
-        } else {
-          ccounts[i]++;
-        }
-      }
-      while (!ccounts.empty()) {
-        for (int i = 0; i < groupSize; ++i) {
+        if (hand.size() % groupSize != 0) return false; // Check if total cards can be divided into groups of groupSize
 
+        map<int, int> cardCounts;
+        for (int i : hand) {
+            cardCounts[i]++;
         }
-      }
+
+        while (!cardCounts.empty()) {
+            int first = cardCounts.begin()->first; // do not keep an iterator
+            for (int i = 0; i < groupSize; ++i) {
+                if (cardCounts[first + i] == 0) return false; // check the count
+                if (--cardCounts[first + i] == 0) {
+                    cardCounts.erase(first + i);// don't keep iterator because erase invalidates iterators.
+                }
+            }
+        }
+        return true;
     }
 };
