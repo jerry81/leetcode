@@ -59,13 +59,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn fill_cups(amount: Vec<i32>) -> i32 {
-      if amount.is_empty() { return 0 }
-      if amount.len() == 1 { return amount[0]; }
       let mut sorted = amount.clone();
+      sorted.retain(|&x| x > 0); // TIL: amazing
+      if sorted.is_empty() { return 0 }
+
+      if sorted.len() == 1 { return sorted[0]; }
+
       sorted.sort_unstable_by(|a,b| b.cmp(a));
       sorted[0]-=1;
       sorted[1]-=1;
-      sorted.retain(|&x| x > 0); // TIL: amazing
+      sorted.retain(|&x| x > 0);
       return 1+Solution::fill_cups(sorted)
   }
 }
+
