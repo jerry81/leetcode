@@ -54,6 +54,23 @@ using namespace std;
 bool compareByLength(const std::string &a, const std::string &b) {
     return a.size() < b.size();
 }
+
+
+vector<string> split(string str, string delimiter) {
+  // Returns first token
+  vector<string> ret;
+  const char *del = delimiter.c_str();
+  char *token = strtok(str.data(), del);
+
+  // Keep printing tokens while one of the
+  // delimiters present in str[].
+  while (token != nullptr) {
+    ret.push_back(token);
+    token = strtok(nullptr,del);
+  }
+
+  return ret;
+}
 class Solution {
 public:
     string replaceWords(vector<string>& dictionary, string sentence) {
@@ -61,6 +78,23 @@ public:
         // try starts_with on roots
         vector<string> sorted = dictionary;
         sort(sorted.begin(), sorted.end(), compareByLength);
-        return "";
+        vector<string> spl = split(sentence, " ");
+        string res = "";
+
+        for (string s: spl) {
+          bool found = false;
+          string appended = s;
+          for (string s2: sorted) {
+            if (s.find(s2)==0) {
+              found = true;
+              appended = s2;
+              break;
+            }
+          }
+          res+=appended;
+          res+=" ";
+        }
+        res.pop_back();
+        return res;
     }
 };
