@@ -46,9 +46,21 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <vector>
+
+using namespace std;
+
+bool compareByLength(const std::string &a, const std::string &b) {
+    return a.size() < b.size();
+}
 class Solution {
 public:
     string replaceWords(vector<string>& dictionary, string sentence) {
-
+        // sort the roots by len
+        // try starts_with on roots
+        vector<string> sorted = dictionary;
+        sort(sorted.begin(), sorted.end(), compareByLength);
+        return "";
     }
 };
