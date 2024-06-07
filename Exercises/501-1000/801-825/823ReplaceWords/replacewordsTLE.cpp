@@ -48,7 +48,6 @@ Acceptance Rate
 
 #include <string>
 #include <vector>
-#include <unordered_set>
 
 using namespace std;
 
@@ -77,16 +76,16 @@ public:
     string replaceWords(vector<string>& dictionary, string sentence) {
         // sort the roots by len
         // try starts_with on roots
-        unordered_set<string> hs(dictionary.begin(), dictionary.end());
+        vector<string> sorted = dictionary;
+        sort(sorted.begin(), sorted.end(), compareByLength);
         vector<string> spl = split(sentence, " ");
         string res = "";
 
         for (string s: spl) {
           bool found = false;
           string appended = s;
-          for (int i = 0; i < s.size(); ++i) {
-            string s2 = s.substr(0,i);
-            if (hs.find(s2) != hs.end()) {
+          for (string s2: sorted) {
+            if (s.find(s2)==0) {
               found = true;
               appended = s2;
               break;
