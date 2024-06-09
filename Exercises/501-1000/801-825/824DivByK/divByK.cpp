@@ -55,10 +55,13 @@ public:
         sum+=i;
         prefix_sums.push_back(sum);
       }
-
-      for (int cur: prefix_sums) {
-        cout << "cur is " << cur << endl;
+      int res = 0;
+      for (int i = -1; i < sz-1; ++i) {
+        for (int j = i+1; j < sz; ++j) {
+          int left = i < 0?0: prefix_sums[i];
+          if ((left-prefix_sums[j])%k == 0) res+=1;
+        }
       }
-      return 0;
+      return res;
     }
 };
