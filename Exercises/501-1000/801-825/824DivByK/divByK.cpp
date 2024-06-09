@@ -47,6 +47,11 @@ using namespace std;
 class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
-
+      // contiguous
+      int sz = nums.size();
+      for (int i = 0; i < sz-1; ++i) {
+        for (int j = i; j < sz; ++i) {
+        }
+      }
     }
 };
