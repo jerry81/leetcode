@@ -47,11 +47,18 @@ using namespace std;
 class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
-      // contiguous
+      // contiguous, 2 ptr
       int sz = nums.size();
-      for (int i = 0; i < sz-1; ++i) {
-        for (int j = i; j < sz; ++i) {
-        }
+      vector<int> prefix_sums;
+      int sum = 0;
+      for (int i: nums) {
+        sum+=i;
+        prefix_sums.push_back(sum);
       }
+
+      for (int cur: prefix_sums) {
+        cout << "cur is " << cur << endl;
+      }
+      return 0;
     }
 };
