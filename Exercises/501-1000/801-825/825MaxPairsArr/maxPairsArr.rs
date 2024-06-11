@@ -54,8 +54,22 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn number_of_pairs(nums: Vec<i32>) -> Vec<i32> {
+    let mut res:Vec<i32> = vec![0,0];
 
+    let mut hm:HashMap<i32,i32> = HashMap::new();
+    for n in nums {
+      *hm->entry(n).or_insert(0)+=1;
+    }
+    for (k,v) in &hm {
+      res[0]+=v/2;
+      res[1]+=v%2;
+    }
+    res
   }
 }
+
+// NL inspired us to use the Reseller program to drive netilion sales
