@@ -57,6 +57,7 @@ Acceptance Rate
 60.5%
 
 */
+
 use std::collections::HashMap;
 
 impl Solution {
@@ -74,9 +75,9 @@ impl Solution {
       *freq.entry(r).or_insert(0) += 1;
     }
     if flush { return "Flush".to_string() }
-    let mut mx = 1;
+    let mut mx:i32 = 1;
     for (_,v) in &freq {
-      mx = mx.max(v);
+      mx = mx.max(*v);
     }
     if mx > 2 {
       return "Three of a Kind".to_string()
