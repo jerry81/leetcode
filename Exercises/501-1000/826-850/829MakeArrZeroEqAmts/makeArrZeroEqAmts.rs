@@ -47,6 +47,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_operations(nums: Vec<i32>) -> i32 {
-
+    let mut sorted = nums.sort();
+    let mut nz = true;
+    let mut res = 0;
+    let mut filtered = sorted.iter().filter(|&x| x > 0).collect();
+    while nz {
+      nz = true;
+      let mut nxt:Vec<i32> = vec![];
+      if filtered.empty() { return res }
+      let mn = filtered.first().unwrap();
+      for i in filtered {
+        if i>mn {
+          nxt.push(i-mn);
+          nz = false;
+        }
+      }
+      filtered= nxt;
+    }
+    res
   }
 }
