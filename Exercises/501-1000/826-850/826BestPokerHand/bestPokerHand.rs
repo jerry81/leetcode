@@ -63,14 +63,27 @@ impl Solution {
   pub fn best_hand(ranks: Vec<i32>, suits: Vec<char>) -> String {
     let mut freq:HashMap<i32,i32> = HashMap::new();
     let mut flush:bool = true;
-    let mut suit = suits.last();
-    for s in suits {
-      if s != suit {
+    let mut suit = suits.last().unwrap();
+    for s in suits.clone() {
+      if &s != suit {
         flush = false;
         break
       }
     }
+    for r in ranks.clone() {
+      *freq.entry(r).or_insert(0) += 1;
+    }
     if flush { return "Flush".to_string() }
+    let mut mx = 1;
+    for (_,v) in &freq {
+      mx = mx.max(v);
+    }
+    if mx > 2 {
+      return "Three of a Kind".to_string()
+    }
+    if mx > 1 {
+      return "Pair".to_string()
+    }
     "High Card".to_string()
   }
 }
