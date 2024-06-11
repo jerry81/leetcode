@@ -53,7 +53,6 @@ Acceptance Rate
 75.2%
 
 */
-
 use std::collections::HashMap;
 
 impl Solution {
@@ -62,7 +61,7 @@ impl Solution {
 
     let mut hm:HashMap<i32,i32> = HashMap::new();
     for n in nums {
-      *hm->entry(n).or_insert(0)+=1;
+      *hm.entry(n).or_insert(0)+=1;
     }
     for (k,v) in &hm {
       res[0]+=v/2;
