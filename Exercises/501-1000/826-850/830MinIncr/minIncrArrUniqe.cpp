@@ -52,7 +52,18 @@ public:
         vector<int> sorted = nums;
         sort(sorted.begin(),sorted.end());
         int res = 0;
-        for (int i: sorted) { cout << i << endl; }
+        int prev = -1;
+        for (int i: sorted) {
+          if (i <= prev) {
+            prev = prev+1;
+            res+=(prev-i);
+          } else {
+            prev = i;
+          }
+        }
         return res;
     }
 };
+/*
+1,1,2,2,3,7
+*/
