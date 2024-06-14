@@ -45,10 +45,14 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     int minIncrementForUnique(vector<int>& nums) {
-
+        // sort
+        vector<int> sorted = nums;
+        sort(sorted.begin(),sorted.end());
+        int res = 0;
+        for (int i: sorted) { cout << i << endl; }
+        return res;
     }
 };
