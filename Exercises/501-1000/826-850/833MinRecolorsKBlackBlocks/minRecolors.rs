@@ -53,14 +53,28 @@ Acceptance Rate
 */
 
 impl Solution {
-  fn countBlacks(blocks: String) -> i32 {
+  fn countBlacks(blocks: &str) -> i32 {
     let mut res = 0;
     for c in blocks.chars() {
       if c == 'B' { res+=1; }
     }
     res
   }
+  fn getWhites(blocks: &str) -> Vec<usize> {
+    let mut res = vec![];
+    for i in 0..blocks.len() {
+      if blocks.chars().nth(i).unwrap() == 'W' { res.push(i); }
+
+    }
+    res
+  }
   pub fn minimum_recolors(blocks: String, k: i32) -> i32 {
     // brute - find all white blocks, recound every time
+    println!("blacks {}", Solution::countBlacks(&blocks));
+    let widx = Solution::getWhites(&blocks);
+    for i in widx {
+      println!("{}", i);
+    }
+    0
   }
 }
