@@ -51,6 +51,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn arithmetic_triplets(nums: Vec<i32>, diff: i32) -> i32 {
+    let mut sz = nums.len();
+    let mut sorted = nums.clone();
+    sorted.sort();
+    let mut res = 0;
+    for i in 0..sz-2 {
+      for j in i+1..sz-1 {
+        for k in j+1..sz {
 
+        }
+      }
+    }
+    res
   }
 }
