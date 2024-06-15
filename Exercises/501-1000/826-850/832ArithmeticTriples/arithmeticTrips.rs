@@ -56,9 +56,17 @@ impl Solution {
     sorted.sort();
     let mut res = 0;
     for i in 0..sz-2 {
-      for j in i+1..sz-1 {
-        for k in j+1..sz {
+      let mut n1 = nums[i];
 
+      for j in i+1..sz-1 {
+        let mut n2 = nums[j];
+
+        if n2 - n1 != diff { continue }
+
+        for k in j+1..sz {
+          let mut n3 = nums[k];
+
+          if n3 - n2 == diff { res += 1; }
         }
       }
     }
