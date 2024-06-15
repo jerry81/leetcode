@@ -69,11 +69,11 @@ impl Solution {
   pub fn merge_similar_items(items1: Vec<Vec<i32>>, items2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     let mut hm:HashMap<i32,i32> = HashMap::new();
     for i in items1 {
-      *hm.entry(i[0]).or_insert(i[1])=i[1];
+      *hm.entry(i[0]).or_insert(0)+=i[1];
 
     }
     for i in items2 {
-      *hm.entry(i[0]).or_insert(i[1])+=i[1];
+      *hm.entry(i[0]).or_insert(0)+=i[1];
     }
     let mut v: Vec<(&i32, &i32)> = hm.iter().collect();
 
@@ -81,7 +81,7 @@ impl Solution {
     v.sort_by(|a, b| a.0.cmp(b.0));
     let mut res: Vec<Vec<i32>> = vec![];
     for (k,v) in &v {
-      res.push(vec![k,v]);
+      res.push(vec![**k,**v]);
     }
     res
   }
