@@ -79,6 +79,10 @@ impl Solution {
 
     // Sort the Vec by key
     v.sort_by(|a, b| a.0.cmp(b.0));
-    v
+    let mut res: Vec<Vec<i32>> = vec![];
+    for (k,v) in &v {
+      res.push(vec![k,v]);
+    }
+    res
   }
 }
