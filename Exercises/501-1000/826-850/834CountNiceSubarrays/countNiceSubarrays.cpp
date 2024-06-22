@@ -54,7 +54,7 @@ public:
     int numberOfSubarrays(vector<int>& nums, int k) {
       // dp
       int sz = nums.size();
-      vector<vector<int>> memo(sz, vector<int>(sz, -1));
+     //  vector<vector<int>> memo(sz, vector<int>(sz, -1));
       int res = 0;
       int cnt = 0;
       for (int i = 0; i < sz; ++i) {
