@@ -45,9 +45,27 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
-
+      // dp
+      int sz = nums.size();
+      vector<vector<int>> memo(sz, vector<int>(sz, -1));
+      int res = 0;
+      int cnt = 0;
+      for (int i = 0; i < sz; ++i) {
+        int left = nums[i];
+        for (int j = i; j < sz; ++j) {
+          int right = nums[j];
+          if (right % 2 == 1) cnt+=1;
+          if (cnt == k) res+=1;
+        }
+        if (left % 2 == 1) cnt-=1;
+      }
+      return res;
     }
 };
