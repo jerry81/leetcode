@@ -55,13 +55,16 @@ public:
       // dp
       int sz = nums.size();
      //  vector<vector<int>> memo(sz, vector<int>(sz, -1));
+     vector<bool> lookup;
+     for (int i:nums) {
+       lookup.push_back(i%2==1);
+     }
       int res = 0;
       int cnt = 0;
       for (int i = 0; i < sz; ++i) {
         cnt = 0;
         for (int j = i; j < sz; ++j) {
-          int right = nums[j];
-          if (right % 2 == 1) cnt+=1;
+          if (lookup[j]) cnt+=1;
           if (cnt == k) res+=1;
         }
       }
