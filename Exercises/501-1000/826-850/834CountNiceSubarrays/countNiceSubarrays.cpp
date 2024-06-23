@@ -60,7 +60,7 @@ class Solution {
       prefix.push_back(curcount);
     }
     int left = -1;
-    right = 0;
+    int right = 0;
     int res = 0;
     while (right < sz) {
       int leftcnt = 0;
@@ -69,9 +69,11 @@ class Solution {
       }
       int cur = prefix[right] - leftcnt;
       if (cur == k) res++;
-
-      right+=1;
-      if (cur > k) { left+=1; }
+      if (cur > k) {
+        left+=1;
+      } else {
+        right+=1;
+      }
     }
 
     return res;
