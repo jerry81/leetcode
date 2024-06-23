@@ -5,7 +5,8 @@ Medium
 Topics
 Companies
 Hint
-Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it.
+Given an array of integers nums and an integer k. A continuous subarray is
+called nice if there are k odd numbers on it.
 
 Return the number of nice sub-arrays.
 
@@ -45,29 +46,34 @@ Acceptance Rate
 
 */
 
-#include <vector>
-
-using namespace std;
-
 class Solution {
-public:
-    int numberOfSubarrays(vector<int>& nums, int k) {
-      // dp
-      int sz = nums.size();
-     //  vector<vector<int>> memo(sz, vector<int>(sz, -1));
-     vector<bool> lookup;
-     for (int i:nums) {
-       lookup.push_back(i%2==1);
-     }
-      int res = 0;
-      int cnt = 0;
-      for (int i = 0; i < sz; ++i) {
-        cnt = 0;
-        for (int j = i; j < sz; ++j) {
-          if (lookup[j]) cnt+=1;
-          if (cnt == k) res+=1;
-        }
-      }
-      return res;
+ public:
+  int numberOfSubarrays(vector<int>& nums, int k) {
+    // dp
+    int sz = nums.size();
+    vector<int> prefix;
+
+    int curcount = 0;
+    //  vector<vector<int>> memo(sz, vector<int>(sz, -1));
+    for (int i = 0; i < sz; ++i) {
+      if (nums[i] % 2 == 1) ++curcount;
+      prefix.push_back(curcount);
     }
+    int left = -1;
+    right = 0;
+    int res = 0;
+    while (right < sz) {
+      int leftcnt = 0;
+      if (left >= 0) {
+        leftcnt = prefix[left];
+      }
+      int cur = prefix[right] - leftcnt;
+      if (cur == k) res++;
+
+      right+=1;
+      if (cur > k) { left+=1; }
+    }
+
+    return res;
+  }
 };
