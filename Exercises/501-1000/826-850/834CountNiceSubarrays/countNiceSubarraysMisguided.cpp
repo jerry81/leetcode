@@ -71,7 +71,7 @@ class Solution {
       if (cur == k) res++;
       if (cur > k) {
         left+=1;
-      } else {
+      } else  {
         right+=1;
       }
     }
