@@ -4,12 +4,12 @@ using namespace std;
 
 
 class Solution {
-    int r(std::vector<int>& nums, int k) {
+    int r(std::vector<int>& nums, int k, int idx, int sz) {
         // Base case 1
-        if (nums.empty()) return 0;
+        if (idx >= sz) return 0;
 
         // Find the first non-1 bit
-        int new_start = 0;
+        int new_start = idx;
         while (new_start < nums.size() && nums[new_start] == 1) {
             new_start++;
         }
@@ -25,12 +25,8 @@ class Solution {
             nums[new_start + i] = nums[new_start + i] == 1 ? 0 : 1;
         }
 
-
-        // Create a new vector excluding the first flipped part
-        std::vector<int> new_nums(nums.begin() + new_start + 1, nums.end());
-
         // Recursively process the remaining part
-        int res = r(new_nums, k);
+        int res = r(nums, k, new_start, sz);
 
         if (res == -1) return -1;
 
@@ -39,6 +35,7 @@ class Solution {
 
 public:
     int minKBitFlips(std::vector<int>& nums, int k) {
-        return r(nums, k);
+        int sz = nums.size();
+        return r(nums, k, 0, sz);
     }
 };
