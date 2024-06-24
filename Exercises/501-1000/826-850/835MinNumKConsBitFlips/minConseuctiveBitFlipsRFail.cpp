@@ -56,46 +56,45 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int r(vector<int>& nums, int k) {
-    cout << "processing " << endl;
-    for (int i: nums) {
-        cout << i << endl;
+  int r(vector<int>& nums, int k) {
+    for (int i : nums) {
+      cout << i << endl;
     }
-  if (nums.empty()) return 0; // end case 1
+    if (nums.empty()) return 0;  // end case 1
 
-  // end case 2 - k exceeds size
-  if (k > nums.size()) return -1;
+    // end case 2 - k exceeds size
+    if (k > nums.size()) return -1;
 
-  // get first index that is 1 and flip
+    // get first index that is 1 and flip
 
-  int new_start = 0;
-  while (new_start < k) {
-    if (nums[new_start] == 1) break;
+    int new_start = 0;
+    while (new_start < k) {
+      if (nums[new_start] == 1) break;
 
-    new_start++;
+      new_start++;
+    }
+    for (int i = new_start; i < k; ++i) {
+      nums[i] = nums[i] == 1 ? 0 : 1;
+      if (nums[i] == 1) new_start+=1;
+    }
+
+    cout << "post" << endl;
+    for (int i : nums) {
+      cout << i << endl;
+    }
+    nums = vector<int>(nums.begin() + new_start, nums.end());
+    int res = r(nums, k);
+    if (res < 0) return res;
+    return 1 + r(nums, k);
+  };
+
+ public:
+  int minKBitFlips(vector<int>& nums, int k) {
+    int cnt = 0;
+    for (int i : nums) {
+      if (i == 1) cnt++;
+    }
+    return r(nums, k);
   }
-  cout << "new_start is " << new_start << endl;
-  ;
-  while (new_start < nums.size()) {
-    nums[new_start] = nums[new_start]==1 ? 0:1;
-    cout << "setting nums " << new_start << " to " << nums[new_start] << endl;
-    ++new_start;
-  }
-  cout << "post" << endl;
-    for (int i: nums) {
-        cout << i << endl;
-    }
-  nums = vector<int>(nums.begin()+new_start, nums.end());
-  int res = r(nums, k);
-  if (res < 0) return res;
-  return 1+r(nums, k);
 };
-public:
-    int minKBitFlips(vector<int>& nums, int k) {
-      int cnt = 0;
-      for (int i: nums) {
-        if (i == 1) cnt++;
-      }
-      return r(nums, k);
-    }
-};
+// recursive greedy?
