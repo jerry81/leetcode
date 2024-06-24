@@ -54,8 +54,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int r(vector<int>& nums, int k, int cnt) {
+  if (nums.empty()) return 0; // end case 1
+
+  // end case 2 - k exceeds size
+  if (k > nums.size()) return -1;
+
+  // get first index that is not 1 and flip
+};
 public:
     int minKBitFlips(vector<int>& nums, int k) {
-
+      int cnt = 0;
+      for (int i: nums) {
+        if (i == 1) cnt++;
+      }
+      return r(nums, k, cnt);
     }
 };
+
+// recursive greedy?
