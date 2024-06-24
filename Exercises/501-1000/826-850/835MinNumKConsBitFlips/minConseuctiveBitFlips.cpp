@@ -54,13 +54,25 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-int r(vector<int>& nums, int k, int cnt) {
+int r(vector<int>& nums, int k) {
   if (nums.empty()) return 0; // end case 1
 
   // end case 2 - k exceeds size
   if (k > nums.size()) return -1;
 
-  // get first index that is not 1 and flip
+  // get first index that is 1 and flip
+
+  int new_start = 0;
+  while (new_start < k) {
+    if (nums[new_start] == 1) break;
+
+    new_start++;
+  }
+  for (int i = new_start; new_start < k; ++new_start) {
+    nums[i] = nums[i] ? 0:1;
+  }
+  nums = vector<int>(nums.begin()+new_start, nums.end());
+  return 1+r(nums, k);
 };
 public:
     int minKBitFlips(vector<int>& nums, int k) {
