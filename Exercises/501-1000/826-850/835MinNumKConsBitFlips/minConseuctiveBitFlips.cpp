@@ -72,6 +72,8 @@ int r(vector<int>& nums, int k) {
     nums[i] = nums[i] ? 0:1;
   }
   nums = vector<int>(nums.begin()+new_start, nums.end());
+  int res = r(nums, k);
+  if (res < 0) return res;
   return 1+r(nums, k);
 };
 public:
@@ -80,7 +82,7 @@ public:
       for (int i: nums) {
         if (i == 1) cnt++;
       }
-      return r(nums, k, cnt);
+      return r(nums, k);
     }
 };
 
