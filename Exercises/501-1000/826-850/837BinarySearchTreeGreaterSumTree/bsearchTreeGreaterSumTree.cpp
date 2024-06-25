@@ -63,11 +63,12 @@ class Solution {
    if (!root) return;
 
    if (!root->right) {
-     accum+=root->val;
-     root->val = accum;
+     cout << "adding " << accum << endl;
+     root->val+= accum;
      r(root->left, accum);
    } else {
      r(root->right, accum);
+     accum+=root->val;
    }
  }
  public:
