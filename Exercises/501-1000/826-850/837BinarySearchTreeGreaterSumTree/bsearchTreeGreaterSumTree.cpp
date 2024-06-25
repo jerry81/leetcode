@@ -60,36 +60,19 @@ struct TreeNode {
 
 class Solution {
  int r(TreeNode *root, int accum) {
-    cout << "processing " << root->val << endl;
    if (!root) return 0;
 
-   int newaccum = root->val;
-   if (!root->right) {
-     if (!root->left) {
-       cout << "node " << root->val << endl;
-       root->val += accum;
-       cout << " is now " << root->val << endl;
-     } else {
-       r(root->left, accum);
-     }
+   // cout << "processing " << root->val << endl;
 
-   } else {
-     newaccum = r(root->right, accum);
-
-     newaccum+=root->val;
-     cout << "setting " << root->val << endl;
-     root->val = newaccum;
-     cout << "to " << newaccum << endl;
-
-     if (root->left) newaccum+=r(root->left, newaccum);
-   }
-   return newaccum;
+   int rightres = r(root->right, accum);
+   cout << "dealing with " << root->val << endl;
+   int leftres = r(root->left, accum);
+   return accum;
  }
  public:
   TreeNode *bstToGst(TreeNode *root) {
     // right tree first
-    int rootval = r(root, 0);
-    root->val = rootval;
+    int res = r(root, 0);
     return root;
   }
 };
