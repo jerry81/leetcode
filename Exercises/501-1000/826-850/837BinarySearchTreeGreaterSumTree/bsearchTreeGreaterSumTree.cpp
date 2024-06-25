@@ -60,16 +60,24 @@ struct TreeNode {
 
 class Solution {
  void r(TreeNode *root, int accum) {
+    cout << "processing " << root->val << endl;
    if (!root) return;
 
    if (!root->right) {
-     cout << "adding " << accum << endl;
-     root->val+= accum;
-     r(root->left, accum);
+     if (!root->left) {
+       root->val += accum;
+       accum = root->val;
+       cout << "accum is now " << accum << endl;
+     } else {
+       r(root->left, accum);
+     }
+
    } else {
      r(root->right, accum);
      accum+=root->val;
+     if (root->left) r(root->left, accum);
    }
+   root->val = accum;
  }
  public:
   TreeNode *bstToGst(TreeNode *root) {
@@ -78,7 +86,6 @@ class Solution {
     return root;
   }
 };
-
 /*
 patterns:
 largest from right tree gets added
