@@ -58,21 +58,29 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
- int r(TreeNode *root, int accum) {
-   if (!root) return 0;
+ vector<*TreeNode> tree_map;
+ void r(TreeNode *root) {
+   if (!root) return;
 
-   // cout << "processing " << root->val << endl;
 
-   int rightres = r(root->right, accum);
-   cout << "dealing with " << root->val << endl;
-   int leftres = r(root->left, accum);
-   return accum;
+   r(root->right);
+   tree_map.push_back(root);
+   r(root->left);
  }
  public:
   TreeNode *bstToGst(TreeNode *root) {
     // right tree first
-    int res = r(root, 0);
+    r(root);
+    int sm = 0;
+    for (TreeNode* tn: tree_map) {
+      sm+= tn->val;
+      tn->val = sm;
+    }
     return root;
   }
 };
