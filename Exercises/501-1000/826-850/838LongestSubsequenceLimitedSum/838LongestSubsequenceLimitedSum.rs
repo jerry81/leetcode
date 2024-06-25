@@ -71,17 +71,18 @@ impl Solution {
     }
     let mut res: Vec<i32> = vec![];
     let sz = nums.len();
+
     for q in queries {
       // linear, if tle, then bsearch
       let mut found = false;
       for i in 0..sz {
-        if q <= ps[i] {
-          res.push_back(i+1);
+        if q < ps[i] {
+          res.push(i as i32);
           found = true;
           break
         }
       }
-      if !found { res.push_back(0); }
+      if !found { res.push(sz as i32); }
     }
     res
   }
