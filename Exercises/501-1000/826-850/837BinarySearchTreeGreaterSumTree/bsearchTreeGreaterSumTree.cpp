@@ -63,7 +63,7 @@ struct TreeNode {
 using namespace std;
 
 class Solution {
- vector<*TreeNode> tree_map;
+ vector<TreeNode*> tree_map;
  void r(TreeNode *root) {
    if (!root) return;
 
