@@ -57,18 +57,23 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
-class Solution {
- int r(TreeNode *root) {
-   if (!root) return 0;
 
-   root->val+=r(root->right);
-   r(root->left);
-   return root->val;
+class Solution {
+ void r(TreeNode *root, int accum) {
+   if (!root) return;
+
+   if (!root->right) {
+     accum+=root->val;
+     root->val = accum;
+     r(root->left, accum);
+   } else {
+     r(root->right, accum);
+   }
  }
  public:
   TreeNode *bstToGst(TreeNode *root) {
     // right tree first
-    r(root);
+    r(root, 0);
     return root;
   }
 };
