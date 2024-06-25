@@ -58,6 +58,22 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 class Solution {
+ int r(TreeNode *root) {
+   if (!root) return 0;
+
+   root->val+=r(root->right);
+   r(root->left);
+   return root->val;
+ }
  public:
-  TreeNode *bstToGst(TreeNode *root) {}
+  TreeNode *bstToGst(TreeNode *root) {
+    // right tree first
+    r(root);
+    return root;
+  }
 };
+
+/*
+patterns:
+largest from right tree gets added
+*/
