@@ -66,9 +66,9 @@ class Solution {
    int newaccum = root->val;
    if (!root->right) {
      if (!root->left) {
+       cout << "node " << root->val << endl;
        root->val += accum;
-       accum += root->val;
-       cout << "accum is now " << accum << endl;
+       cout << " is now " << root->val << endl;
      } else {
        r(root->left, accum);
      }
