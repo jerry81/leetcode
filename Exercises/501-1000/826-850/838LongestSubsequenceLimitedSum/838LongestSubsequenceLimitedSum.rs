@@ -65,9 +65,24 @@ impl Solution {
     // prefix sums
     let mut ps: Vec<i32> = vec![];
     let mut sm = 0;
-    for n in nums {
+    for n in sorted {
       sm+=n;
       ps.push(sm);
     }
+    let mut res: Vec<i32> = vec![];
+    let sz = nums.len();
+    for q in queries {
+      // linear, if tle, then bsearch
+      let mut found = false;
+      for i in 0..sz {
+        if q <= ps[i] {
+          res.push_back(i+1);
+          found = true;
+          break
+        }
+      }
+      if !found { res.push_back(0); }
+    }
+    res
   }
 }
