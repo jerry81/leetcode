@@ -58,25 +58,12 @@ Acceptance Rate
 impl Solution {
   pub fn check_distances(s: String, distance: Vec<i32>) -> bool {
     // brute force: iterate distance
-    let dsz = distance.len();
-    let ssz = s.len();
-    for i in 0..dsz {
-      if let Some(c) = s.chars().nth(i) { // think of it as "try to set c".  if c is something, then continue.
-        // check left and right
-        let l = i - distance[i] as usize - 1;
-        if l >= 0 {
-          if let Some(cmp) = s.chars().nth(l) {
-            if cmp != c { return false }
-          }
-        }
-        let r = i + distance[i] as usize + 1;
-        if r < ssz {
-          if let Some(cmp) = s.chars().nth(r) {
-            if cmp != c { return false }
-          }
-        }
-      } else {
-        break
+    // map 0...25 to a...z
+    // just add a
+    for i in 0..25 {
+      let mut chr = ('a' as u8 + i as u8) as char;
+      if let Some(c) in s.find(chr) {
+        println!("{} found", c);
       }
     }
     true
