@@ -60,11 +60,22 @@ impl Solution {
     // brute force: iterate distance
     // map 0...25 to a...z
     // just add a
+    let sz = s.len();
     for i in 0..25 {
       let mut chr = ('a' as u8 + i as u8) as char;
-      if let Some(c) in s.find(chr) {
-        println!("{} found", c);
+      if let Some(idx) = s.find(chr) {
+        println!("{} found", idx);
       }
+      let d = distance[i];
+      let l = idx - d - 1;
+      let r = idx + d + 1;
+      if l >= 0 {
+        if chr == s.chars().nth(l).unwrap() { continue }
+      }
+      if r < sz {
+        if chr == s.chars().nth(r).unwrap() { continue }
+      }
+      return false
     }
     true
   }
