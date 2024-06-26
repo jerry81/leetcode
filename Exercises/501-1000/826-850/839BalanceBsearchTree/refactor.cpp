@@ -67,7 +67,7 @@ class Solution {
     r(root->right);
   }
 
-  void build(TreeNode *parent, bool left,vector<int> remain) {
+  void build(TreeNode *parent, bool left,vector<int> &remain) {
     if (remain.empty()) return;
 
 
