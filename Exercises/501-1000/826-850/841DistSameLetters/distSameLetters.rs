@@ -65,16 +65,17 @@ impl Solution {
       let mut chr = ('a' as u8 + i as u8) as char;
       if let Some(idx) = s.find(chr) {
         println!("{} found", idx);
+        let d = distance[i];
+        let l = idx as i32 - d - 1;
+        let r = idx as i32 + d + 1;
+        if l >= 0 {
+          if chr == s.chars().nth(l as usize).unwrap() { continue }
+        }
+        if r < sz as i32 {
+          if chr == s.chars().nth(r as usize).unwrap() { continue }
+        }
       }
-      let d = distance[i];
-      let l = idx - d - 1;
-      let r = idx + d + 1;
-      if l >= 0 {
-        if chr == s.chars().nth(l).unwrap() { continue }
-      }
-      if r < sz {
-        if chr == s.chars().nth(r).unwrap() { continue }
-      }
+
       return false
     }
     true
