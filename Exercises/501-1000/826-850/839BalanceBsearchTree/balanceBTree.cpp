@@ -43,6 +43,8 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
 using namespace std;
 struct TreeNode {
   int val;
@@ -53,7 +55,28 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right)
       : val(x), left(left), right(right) {}
 };
+
 class Solution {
+  vector<int> items;
+  TreeNode* res = nullptr;
+  void r(TreeNode *root) {
+    if (!root) return;
+
+    items.push_back(root->val);
+    r(root->left);
+    r(root->right);
+  }
+
+  void build(TreeNode* cur, vector<int> remain) {
+  }
+
  public:
-  TreeNode *balanceBST(TreeNode *root) {}
+  TreeNode *balanceBST(TreeNode *root) {
+    // same technique as previously - extract the elements first
+    r(root);
+    sort(items.begin(),items.end());
+    // recursively build new tree
+    build(res, items);
+    return res;
+  }
 };
