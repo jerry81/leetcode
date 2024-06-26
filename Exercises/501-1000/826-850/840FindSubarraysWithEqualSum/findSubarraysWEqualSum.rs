@@ -46,14 +46,20 @@ Acceptance Rate
 65.1%
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn find_subarrays(nums: Vec<i32>) -> bool {
-    // checking if there is a "aba" pattern
-    if n < 3 { return false }
-
+    // brute: keep all sums in hashset
+    let mut hs:HashSet<i32> = HashSet::new();
     let sz = nums.len();
-    for i in 0..sz-2 {
-      if nums[i] == nums[i+2] { return true }
+    for i in 0..sz-1 {
+      let sm = nums[i]+nums[i+1];
+      if hs.contains(&sm) {
+        return true
+      } else {
+        hs.insert(sm);
+      }
     }
     false
   }
