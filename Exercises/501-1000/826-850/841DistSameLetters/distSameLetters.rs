@@ -64,7 +64,6 @@ impl Solution {
     for i in 0..25 {
       let mut chr = ('a' as u8 + i as u8) as char;
       if let Some(idx) = s.find(chr) {
-        println!("{} found", idx);
         let d = distance[i];
         let l = idx as i32 - d - 1;
         let r = idx as i32 + d + 1;
@@ -74,9 +73,9 @@ impl Solution {
         if r < sz as i32 {
           if chr == s.chars().nth(r as usize).unwrap() { continue }
         }
+        return false
       }
 
-      return false
     }
     true
   }
