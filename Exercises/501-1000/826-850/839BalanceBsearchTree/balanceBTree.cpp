@@ -67,19 +67,31 @@ class Solution {
     r(root->right);
   }
 
-  void build(TreeNode *cur, vector<int> remain) {
+  void build(TreeNode *parent, bool left,vector<int> remain) {
     if (remain.empty()) return;
+
 
     int sz = remain.size();
     // mid idx
     int mididx = sz / 2;
     int nwval = remain[mididx];
+    TreeNode *cur = new TreeNode(nwval);
+
+    if (!parent) {
+      res = cur;
+    } else {
+      if (left) {
+        parent->left = cur;
+      } else {
+        parent->right = cur;
+      }
+    }
     // subseq left
     vector<int> l(remain.begin(), remain.begin() + mididx);
-    build(cur->left, l);
+    build(cur, true, l);
     // subseq right
     vector<int> r(remain.begin() + mididx, remain.end());
-    build(cur->right, r);
+    build(cur, false, r);
   }
 
  public:
@@ -93,15 +105,7 @@ class Solution {
     int half = items.size() / 2;
     vector<int> left(items.begin(), items.begin() + half);
     vector<int> right(items.begin() + half, items.end());
-    // build(res, items);
-    cout << "left" << endl;
-    for (int i : left) {
-      cout << i << endl;
-    }
-    cout << "right" << endl;
-    for (int i : right) {
-      cout << i << endl;
-    }
+    build(nullptr, false, items);
     return res;
   }
 };
