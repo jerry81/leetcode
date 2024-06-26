@@ -62,15 +62,14 @@ impl Solution {
     let ssz = s.len();
     for i in 0..dsz {
       if let Some(c) = s.chars().nth(i) { // think of it as "try to set c".  if c is something, then continue.
-        println!("work on {}", c);
         // check left and right
-        let l = i - distance[i] - 1;
+        let l = i - distance[i] as usize - 1;
         if l >= 0 {
           if let Some(cmp) = s.chars().nth(l) {
             if cmp != c { return false }
           }
         }
-        let r = i + distance[i] + 1;
+        let r = i + distance[i] as usize + 1;
         if r < ssz {
           if let Some(cmp) = s.chars().nth(r) {
             if cmp != c { return false }
