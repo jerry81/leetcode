@@ -61,7 +61,7 @@ impl Solution {
     // map 0...25 to a...z
     // just add a
     let sz = s.len();
-    for i in 0..25 {
+    for i in 0..26 {
       let mut chr = ('a' as u8 + i as u8) as char;
       if let Some(idx) = s.find(chr) {
         let d = distance[i];
