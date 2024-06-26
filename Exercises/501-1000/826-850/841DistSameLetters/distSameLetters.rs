@@ -54,22 +54,30 @@ Acceptance Rate
 70.5%
 
 */
-use std::collections::HashMap;
 
 impl Solution {
   pub fn check_distances(s: String, distance: Vec<i32>) -> bool {
-    let mut lastIndexes: HashMap<char, usize> = HashMap::new();
-    let mut dists: HashMap<char, usize> = HashMap::new();
-    let sz = s.len();
-    for i in 0..sz {
-      let c = s.chars().nth(i).unwrap();
-      if lastIndexes.contains_key(&c) {
-        if dists.contains_key(&c) {
-        } else {
-          lastIndexes.insert(c, i-lastIndexes.get(&c).unwrap()-1);
+    // brute force: iterate distance
+    let dsz = distance.len();
+    let ssz = s.len();
+    for i in 0..dsz {
+      if let Some(c) = s.chars().nth(i) { // think of it as "try to set c".  if c is something, then continue.
+        println!("work on {}", c);
+        // check left and right
+        let l = i - distance[i] - 1;
+        if l >= 0 {
+          if let Some(cmp) = s.chars().nth(l) {
+            if cmp != c { return false }
+          }
+        }
+        let r = i + distance[i] + 1;
+        if r < ssz {
+          if let Some(cmp) = s.chars().nth(r) {
+            if cmp != c { return false }
+          }
         }
       } else {
-        lastIndexes.insert(c, i);
+        break
       }
     }
     true
