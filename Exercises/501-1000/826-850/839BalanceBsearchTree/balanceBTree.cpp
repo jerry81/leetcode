@@ -68,10 +68,6 @@ class Solution {
   }
 
   void build(TreeNode *parent, bool left,vector<int> remain) {
-    if (parent) cout << "parent is " << parent->val << endl;
-
-    cout << "remain " << endl;
-    for (int i: remain) cout << i << endl;
     if (remain.empty()) return;
 
 
@@ -79,12 +75,10 @@ class Solution {
     // mid idx
     int mididx = sz / 2;
     int nwval = remain[mididx];
-    cout << "nwval is " << nwval << endl;
     TreeNode *cur = new TreeNode(nwval);
 
 
     if (parent == nullptr && res == nullptr) {
-      cout << "settting res " << cur->val << endl;
       res = cur;
     } else {
       if (left) {
@@ -98,7 +92,7 @@ class Solution {
     vector<int> l(remain.begin(), remain.begin() + mididx);
     build(cur, true, l);
     // subseq right
-    vector<int> r(remain.begin() + mididx, remain.end());
+    vector<int> r(remain.begin() + mididx+1, remain.end());
     build(cur, false, r);
   }
 
@@ -108,11 +102,6 @@ class Solution {
     r(root);
     sort(items.begin(), items.end());
     // recursively build new tree
-
-    // test splitting
-    // int half = items.size() / 2;
-    // vector<int> left(items.begin(), items.begin() + half);
-    // vector<int> right(items.begin() + half, items.end());
     build(nullptr, false, items);
     return res;
   }
