@@ -58,7 +58,7 @@ struct TreeNode {
 
 class Solution {
   vector<int> items;
-  TreeNode* res = nullptr;
+  TreeNode *res = nullptr;
   void r(TreeNode *root) {
     if (!root) return;
 
@@ -67,16 +67,41 @@ class Solution {
     r(root->right);
   }
 
-  void build(TreeNode* cur, vector<int> remain) {
+  void build(TreeNode *cur, vector<int> remain) {
+    if (remain.empty()) return;
+
+    int sz = remain.size();
+    // mid idx
+    int mididx = sz / 2;
+    int nwval = remain[mididx];
+    // subseq left
+    vector<int> l(remain.begin(), remain.begin() + mididx);
+    build(cur->left, l);
+    // subseq right
+    vector<int> r(remain.begin() + mididx, remain.end());
+    build(cur->right, r);
   }
 
  public:
   TreeNode *balanceBST(TreeNode *root) {
     // same technique as previously - extract the elements first
     r(root);
-    sort(items.begin(),items.end());
+    sort(items.begin(), items.end());
     // recursively build new tree
-    build(res, items);
+
+    // test splitting
+    int half = items.size() / 2;
+    vector<int> left(items.begin(), items.begin() + half);
+    vector<int> right(items.begin() + half, items.end());
+    // build(res, items);
+    cout << "left" << endl;
+    for (int i : left) {
+      cout << i << endl;
+    }
+    cout << "right" << endl;
+    for (int i : right) {
+      cout << i << endl;
+    }
     return res;
   }
 };
