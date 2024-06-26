@@ -54,7 +54,6 @@ Acceptance Rate
 70.5%
 
 */
-
 use std::collections::HashMap;
 
 impl Solution {
@@ -63,9 +62,9 @@ impl Solution {
     let mut dists: HashMap<char, usize> = HashMap::new();
     let sz = s.len();
     for i in 0..sz {
-      let c = s.chars().nth(i);
-      if lastIndexes.contains(&c) {
-        if dists.contains(&c) {
+      let c = s.chars().nth(i).unwrap();
+      if lastIndexes.contains_key(&c) {
+        if dists.contains_key(&c) {
         } else {
           lastIndexes.insert(c, i-lastIndexes.get(&c).unwrap()-1);
         }
