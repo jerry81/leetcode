@@ -58,7 +58,6 @@ struct TreeNode {
 
 class Solution {
   vector<int> items;
-  TreeNode *res = nullptr;
   void r(TreeNode *root) {
     if (!root) return;
 
@@ -67,33 +66,17 @@ class Solution {
     r(root->right);
   }
 
-  void build(TreeNode *parent, bool left,vector<int> &remain) {
-    if (remain.empty()) return;
+  TreeNode* build(int l, int r) {
+    if (l > r) return nullptr;
 
-
-    int sz = remain.size();
     // mid idx
-    int mididx = sz / 2;
-    int nwval = remain[mididx];
+    int m = (l+r) / 2;
+    int nwval = items[m];
     TreeNode *cur = new TreeNode(nwval);
 
-
-    if (parent == nullptr && res == nullptr) {
-      res = cur;
-    } else {
-      if (left) {
-        parent->left = cur;
-      } else {
-        parent->right = cur;
-      }
-    }
-    if (remain.size() == 1) return;
-    // subseq left
-    vector<int> l(remain.begin(), remain.begin() + mididx);
-    build(cur, true, l);
-    // subseq right
-    vector<int> r(remain.begin() + mididx+1, remain.end());
-    build(cur, false, r);
+    cur->left = build(l, m-1);
+    cur->right = build(m+1, r);
+    return cur;
   }
 
  public:
@@ -101,7 +84,6 @@ class Solution {
     // same technique as previously - extract the elements first
     r(root);
     // recursively build new tree
-    build(nullptr, false, items);
-    return res;
+    return build(0, items.size()-1);
   }
 };
