@@ -48,6 +48,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_subarrays(nums: Vec<i32>) -> bool {
+    // checking if there is a "aba" pattern
+    if n < 3 { return false }
 
+    let sz = nums.len();
+    for i in 0..sz-2 {
+      if nums[i] == nums[i+2] { return true }
+    }
+    false
   }
 }
