@@ -53,16 +53,16 @@ impl Solution {
   pub fn most_frequent_even(nums: Vec<i32>) -> i32 {
     let mut hm: HashMap<i32,i32> = HashMap::new();
     let mut res = -1;
-    let mut resV = 0
+    let mut resV = 0;
     for n in nums {
       if n%2 != 0 { continue }
 
       *hm.entry(n).or_insert(0) += 1;
       if let Some(curV) = hm.get(&n) {
-        if curV > resV {
-          resV = curV;
+        if *curV > resV {
+          resV = *curV;
           res = n;
-        } else if curV == resV && n < res {
+        } else if *curV == resV && n < res {
           res = n;
         }
       }
