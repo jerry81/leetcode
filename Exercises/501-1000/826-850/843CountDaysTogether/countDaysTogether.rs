@@ -58,8 +58,8 @@ impl Solution {
     let bob_leave_day = Solution::month_to_day_of_year(lbm) + lbd;
     alice_arrive_day = alice_arrive_day.max(bob_arrive_day);
     alice_leave_day = alice_leave_day.min(bob_leave_day);
-    let mut res = alice_leave_day - alice_arrive_day;
-    res.max(0);
+    let mut res = alice_leave_day - alice_arrive_day + 1;
+    res.max(0)
   }
 
   fn month_to_day_of_year(m: i32) -> i32 {
