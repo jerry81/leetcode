@@ -52,13 +52,19 @@ impl Solution {
     let (lam, lad) = Solution::parse_date(&leave_alice);
     let (abm, abd) = Solution::parse_date(&arrive_bob);
     let (lbm, lbd) = Solution::parse_date(&leave_bob);
-    println!("{} is the {}th day ", aam, Solution::month_to_day_of_year(aam));
-    0
+    let mut alice_arrive_day = Solution::month_to_day_of_year(aam) + aad;
+    let mut alice_leave_day = Solution::month_to_day_of_year(lam) + lad;
+    let bob_arrive_day = Solution::month_to_day_of_year(abm) + abd;
+    let bob_leave_day = Solution::month_to_day_of_year(lbm) + lbd;
+    alice_arrive_day = alice_arrive_day.max(bob_arrive_day);
+    alice_leave_day = alice_leave_day.min(bob_leave_day);
+    let mut res = alice_leave_day - alice_arrive_day;
+    res.max(0);
   }
 
   fn month_to_day_of_year(m: i32) -> i32 {
     let months:Vec<i32> = vec![31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    months[0..m].iter().sum()
+    months[0..(m-1) as usize].iter().sum()
   }
 
   fn parse_date(date: &str) -> (i32, i32) { // TIL tuple
