@@ -48,9 +48,17 @@ Acceptance Rate
 impl Solution {
   pub fn count_days_together(arrive_alice: String, leave_alice: String, arrive_bob: String, leave_bob: String) -> i32 {
     let months:Vec<i32> = vec![31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let splAA: Vec<&str> = arrive_alice.split('-').collect();
-    let aamonth: i32 = splAA[0].parse().expect("Not a valid number"); // TIL: string.parse.expect();
-    println!("aamonth {}", aamonth);
+    let (aam, aad) = Solution::parse_date(arrive_alice);
+    let (lam, lad) = Solution::parse_date(leave_alice);
+    let (abm, abd) = Solution::parse_date(arrive_bob);
+    let (lbm, lbd) = Solution::parse_date(leave_bob);
     0
+  }
+
+  fn parse_date(date: &str) -> (i32, i32) { // TIL tuple
+    let parts: Vec<&str> = date.split('-').collect();
+    let month: i32 = parts[0].parse().expect("Invalid month");
+    let day: i32 = parts[1].parse().expect("Invalid day");
+    (month, day)
   }
 }
