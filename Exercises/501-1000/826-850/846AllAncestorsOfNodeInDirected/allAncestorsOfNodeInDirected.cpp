@@ -86,14 +86,17 @@ class Solution {
       ancestors[to].insert(from);
       graph[from].push_back(to);
     }
-    function<void(int,int)> dfs = [&](int cur, int orig) {
+    function<void(int,int, set<int>&)> dfs = [&](int cur, int orig, set<int> &visited) {
+      visited.insert(cur);
       for (int i: graph[cur]) {
+
         ancestors[i].insert(orig);
-        dfs(i, orig);
+        if (visited.find(i) == visited.end()) dfs(i, orig, visited);
       }
     }; // TIR: lambda in c++
     for (int i = 0; i < n; ++i) {
-      dfs(i,i);
+      set<int> v;
+      dfs(i,i,v);
     }
 
     vector<vector<int>> res;
