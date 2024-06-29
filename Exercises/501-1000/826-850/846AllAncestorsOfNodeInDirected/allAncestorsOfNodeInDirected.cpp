@@ -74,8 +74,6 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  void dfs(int cur, int orig) {}
-
  public:
   vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
     // disjoint set?
@@ -88,8 +86,14 @@ class Solution {
       ancestors[to].insert(from);
       graph[from].push_back(to);
     }
+    function<void(int,int)> dfs = [&](int cur, int orig) {
+      for (int i: graph[cur]) {
+        ancestors[i].insert(orig);
+        dfs(i, orig);
+      }
+    }; // TIR: lambda in c++
     for (int i = 0; i < n; ++i) {
-      dfs(ancestors, ancestors[i], i);
+      dfs(i,i);
     }
 
     vector<vector<int>> res;
