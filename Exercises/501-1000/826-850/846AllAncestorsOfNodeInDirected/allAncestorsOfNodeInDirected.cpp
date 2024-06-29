@@ -71,6 +71,19 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
-
+      // disjoint set?
+      vector<vector<int>> ancestors(n, vector<int>());
+      // set immediate ancestors
+      for (vector<int> v: edges) {
+        ancestors[v[1]].push_back(v[0]);
+      }
+      cout << "print immediate ancestors" << endl;
+      for (int i = 0; i < n; ++i) {
+        cout << "ancestor of " << i << endl;
+        for (int i: ancestors[i]) {
+          cout << i << endl;
+        }
+      }
+      return ancestors;
     }
 };
