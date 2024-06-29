@@ -5,11 +5,15 @@ Medium
 Topics
 Companies
 Hint
-You are given a positive integer n representing the number of nodes of a Directed Acyclic Graph (DAG). The nodes are numbered from 0 to n - 1 (inclusive).
+You are given a positive integer n representing the number of nodes of a
+Directed Acyclic Graph (DAG). The nodes are numbered from 0 to n - 1
+(inclusive).
 
-You are also given a 2D integer array edges, where edges[i] = [fromi, toi] denotes that there is a unidirectional edge from fromi to toi in the graph.
+You are also given a 2D integer array edges, where edges[i] = [fromi, toi]
+denotes that there is a unidirectional edge from fromi to toi in the graph.
 
-Return a list answer, where answer[i] is the list of ancestors of the ith node, sorted in ascending order.
+Return a list answer, where answer[i] is the list of ancestors of the ith node,
+sorted in ascending order.
 
 A node u is an ancestor of another node v if u can reach v via a set of edges.
 
@@ -31,10 +35,10 @@ The above diagram represents the input graph.
 Example 2:
 
 
-Input: n = 5, edgeList = [[0,1],[0,2],[0,3],[0,4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
-Output: [[],[0],[0,1],[0,1,2],[0,1,2,3]]
-Explanation:
-The above diagram represents the input graph.
+Input: n = 5, edgeList =
+[[0,1],[0,2],[0,3],[0,4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]] Output:
+[[],[0],[0,1],[0,1,2],[0,1,2,3]] Explanation: The above diagram represents the
+input graph.
 - Node 0 does not have any ancestor.
 - Node 1 has one ancestor 0.
 - Node 2 has two ancestors 0 and 1.
@@ -64,26 +68,36 @@ Acceptance Rate
 
 */
 
+#include <set>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
-      // disjoint set?
-      vector<vector<int>> ancestors(n, vector<int>());
-      // set immediate ancestors
-      for (vector<int> v: edges) {
-        ancestors[v[1]].push_back(v[0]);
-      }
-      cout << "print immediate ancestors" << endl;
-      for (int i = 0; i < n; ++i) {
-        cout << "ancestor of " << i << endl;
-        for (int i: ancestors[i]) {
-          cout << i << endl;
-        }
-      }
-      return ancestors;
+  void dfs(int cur, int orig) {}
+
+ public:
+  vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+    // disjoint set?
+    vector<set<int>> ancestors(n);
+    vector<vector<int>> graph(n);
+    // set immediate ancestors
+    for (vector<int> v : edges) {
+      int from = v[0];
+      int to = v[1];
+      ancestors[to].insert(from);
+      graph[from].push_back(to);
     }
+    for (int i = 0; i < n; ++i) {
+      dfs(ancestors, ancestors[i], i);
+    }
+
+    vector<vector<int>> res;
+    for (auto a : ancestors) {
+      vector<int> item(a.begin(), a.end());
+      res.push_back(item);
+    }
+
+    return res;
+  }
 };
