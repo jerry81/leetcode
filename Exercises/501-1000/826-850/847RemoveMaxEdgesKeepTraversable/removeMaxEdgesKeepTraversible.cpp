@@ -78,7 +78,7 @@ struct UnionFind {
   vector<int> parent;
 
  public:
-  *UnionFind(int n) {
+  UnionFind(int n) {
     parent.resize(n);
     for (int i = 0; i < n; ++i) {
       parent[i] = i;
@@ -97,6 +97,11 @@ struct UnionFind {
     if (pa != pb) {
       parent[b] = pa;
     }
+  }
+
+  void print() {
+    cout << "enumerating parents " << endl;
+    for (int p: parent) cout << p << endl;
   }
 };
 
@@ -118,6 +123,9 @@ class Solution {
         bob->u(n1,n2);
       }
     }
+    alice->print();
+    bob->print();
+    return -1;
   }
 };
 
