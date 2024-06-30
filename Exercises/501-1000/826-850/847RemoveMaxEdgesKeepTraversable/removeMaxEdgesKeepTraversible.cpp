@@ -99,6 +99,14 @@ struct UnionFind {
     }
   }
 
+  bool traversable() {
+    int root = parent[0];
+    for (int i: parent) {
+      if (i != root) return false;
+    }
+    return true;
+  }
+
   void print() {
     cout << "enumerating parents " << endl;
     for (int p: parent) cout << p << endl;
@@ -110,22 +118,28 @@ class Solution {
   int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
     UnionFind *alice = new UnionFind(n);
     UnionFind *bob = new UnionFind(n);
+    int aliceEdgeCount = 0;
+    int bobEdgeCount = 0;
     for (vector<int> edge: edges) {
       int type = edge[0];
-      int n1 = edge[1];
-      int n2 = edge[2];
+      int n1 = edge[1]-1;
+      int n2 = edge[2]-1;
       if (type == 3) {
+        aliceEdgeCount+=1;
+        bobEdgeCount++;
         alice->u(n1,n2);
         bob->u(n1,n2);
       } else if (type == 1) {
+        aliceEdgeCount++;
         alice->u(n1,n2);
       } else {
+        bobEdgeCount++;
         bob->u(n1,n2);
       }
     }
-    alice->print();
-    bob->print();
-    return -1;
+
+    if (!alice->traversable() || !bob->traversable()) return -1;
+    return aliceEdgeCount - 2*(n-1) + bobEdgeCount;
   }
 };
 
