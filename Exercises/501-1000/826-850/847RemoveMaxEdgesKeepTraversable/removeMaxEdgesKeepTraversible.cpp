@@ -71,6 +71,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
@@ -86,23 +87,28 @@ struct UnionFind {
   }
 
   int f(int i) {
-    if (parent[i] == i) return i;
+    if (parent[i] != i) parent[i] = f(parent[i]);
 
-    return f(parent[i]);
+    return parent[i];
   };
 
   void u(int a, int b) {
     int pa = f(a);
     int pb = f(b);
     if (pa != pb) {
-      parent[b] = pa;
+      if (pa < pb) {
+        parent[b] = pa;
+      } else {
+        parent[a] = pb;
+      }
     }
   }
 
   bool traversable() {
-    int root = parent[0];
-    for (int i: parent) {
-      if (i != root) return false;
+    unordered_set<int> parents;
+    for (int i=0; i < parent.size();++i) {
+      if (parent[i] != i) parents.insert(parent[i]);
+      if (parents.size() > 1) return false;
     }
     return true;
   }
