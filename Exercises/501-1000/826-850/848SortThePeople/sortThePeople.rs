@@ -56,7 +56,7 @@ impl Solution {
      heightPairs.push((&names[idx],heights[idx]));
    }
 
-   heightPairs.sort_by(|a,b| { b.1.cmp(&a.1) });
-   res
+   heightPairs.sort_by(|a,b| { b.1.cmp(&a.1) }).map(|item| {item.0}).collect()
+
   }
 }
