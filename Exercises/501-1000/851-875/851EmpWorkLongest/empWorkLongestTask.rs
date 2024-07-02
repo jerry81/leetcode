@@ -71,6 +71,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn hardest_worker(n: i32, logs: Vec<Vec<i32>>) -> i32 {
-
+    let mut interval = 0;
+    let mut prev = 0;
+    let mut res = 0;
+    for log in logs {
+      let mut cur = log[1]-prev;
+      if cur > interval {
+        interval = cur;
+        res = log[0];
+      }
+    }
+    res
   }
 }
