@@ -54,11 +54,13 @@ impl Solution {
       *freq.entry(c).or_insert(0) +=1;
     }
     for (_,f) in &freq {
-      *fof.entry(f).or_insert(0)+=1;
+      *fof.entry(*f).or_insert(0)+=1;
     }
-    for (a,b) in &fof {
-      println!("{}, {}", a,b);
-    }
-    true
+    // we are looking for
+    // # of keys - 2 and the key with one greater key has a freq of 1
+    if fof.len() != 2 { return false }
+    let mut sorted:Vec<(&i32,&i32)>=fof.iter().collect();
+    sorted.sort_by(|a,b| { b.0.cmp(&a.0)});
+    *(sorted.clone().get(1).unwrap()).0 == 1
   }
 }
