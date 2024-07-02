@@ -46,8 +46,14 @@ Acceptance Rate
 
 */
 
+
 impl Solution {
   pub fn sort_people(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {
-
+   let mut heightPairs :  Vec<(String,int)>  = Vec::new();
+   let mut res: Vec<String> = Vec::new();
+   let sz = heights.len();
+   for idx in 0..sz {
+     res.push((heights[idx], idx)
+   }
   }
 }
