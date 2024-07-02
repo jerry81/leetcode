@@ -44,7 +44,7 @@ impl Solution {
   pub fn common_factors(a: i32, b: i32) -> i32 {
     let mn = a.min(b);
     let mut res = 0;
-    for i in 0..=mn {
+    for i in 1..=mn {
       if a % i == 0 && b % i == 0 { res+=1; }
     }
     res
