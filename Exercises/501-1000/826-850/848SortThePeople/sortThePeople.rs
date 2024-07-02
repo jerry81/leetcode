@@ -55,9 +55,8 @@ impl Solution {
    for idx in 0..sz {
      heightPairs.push((&names[idx],heights[idx]));
    }
-   for (a,b) in heightPairs {
-     println!("tuple {}, {},", a, b);
-   }
+
+   heightPairs.sort_by(|a,b| { b.1.cmp(&a.1) });
    res
   }
 }
