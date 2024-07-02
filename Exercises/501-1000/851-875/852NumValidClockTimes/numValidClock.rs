@@ -56,10 +56,7 @@ impl Solution {
     let c2 = time.chars().nth(1).unwrap();
     let c3 = time.chars().nth(3).unwrap();
     let c4 = time.chars().nth(4).unwrap();
-    let u1 = c1 as u8 + '0' as u8;
-    let u2 = c2 as u8 + '0' as u8;
-    let u3 = c3 as u8 + '0' as u8;
-    let u4 = c4 as u8 + '0' as u8;
+    let u2 = c2 as u8 - '0' as u8;
     let mut h = 1;
     let mut m = 1;
     if c1 == '?' {
@@ -73,10 +70,12 @@ impl Solution {
         }
       }
     } else {
-      if u1 == 2 {
-        h = 4;
-      } else {
-        h = 10;
+      if c2 == '?' {
+        if c1 == '2' {
+          h = 4;
+        } else {
+          h = 10;
+        }
       }
     }
 
@@ -92,7 +91,6 @@ impl Solution {
       }
 
     }
-
     h*m
   }
 }
