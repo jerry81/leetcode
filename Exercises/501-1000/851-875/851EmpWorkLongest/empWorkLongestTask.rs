@@ -79,7 +79,10 @@ impl Solution {
       if cur > interval {
         interval = cur;
         res = log[0];
+      } else if cur == interval && log[0] < res {
+        res = log[0];
       }
+      prev = log[1];
     }
     res
   }
