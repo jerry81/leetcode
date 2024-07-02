@@ -52,6 +52,26 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_time(time: String) -> i32 {
-
+    let c1 = time.chars().nth(0).unwrap();
+    let c2 = time.chars().nth(1).unwrap();
+    let c3 = time.chars().nth(3).unwrap();
+    let c4 = time.chars().nth(4).unwrap();
+    let mut h = 1;
+    let mut m = 1;
+    if c1 == '?' {
+      if c2 == '?' {
+        h = 24;
+      }
+    }
+    if c2 == '?' {
+    }
+    if c3 == '?' {
+      if c4 == '?' {
+        m = 60;
+      }
+    }
+    if c4 == '?' {
+    }
+    h*m
   }
 }
