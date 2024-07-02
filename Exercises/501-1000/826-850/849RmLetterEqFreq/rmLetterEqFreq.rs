@@ -43,9 +43,22 @@ Acceptance Rate
 17.4%
 
 */
+// double freq map?
+use std::collections::HashMap;
 
 impl Solution {
   pub fn equal_frequency(word: String) -> bool {
-
+    let mut freq: HashMap<char, i32> = HashMap::new();
+    let mut fof: HashMap<i32, i32> = HashMap::new();
+    for c in word.chars() {
+      *freq.entry(c).or_insert(0) +=1;
+    }
+    for (_,f) in &freq {
+      *fof.entry(f).or_insert(0)+=1;
+    }
+    for (a,b) in &fof {
+      println!("{}, {}", a,b);
+    }
+    true
   }
 }
