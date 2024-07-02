@@ -60,11 +60,13 @@ impl Solution {
     // edge 1: when all 1s, removing doesn't change freq
     // case "abc"
     if fof.len() == 1 && fof.contains_key(&1) {
+
       return true
     }
 
     // we are looking for
     // # of keys - 2 and the key with one greater key has a freq of 1
+    if fof.len() == 1 &&  *(fof.iter().next().unwrap().1) == 1 { return true }
     if fof.len() != 2 { return false }
 
     let mut sorted:Vec<(&i32,&i32)>=fof.iter().collect();
@@ -77,11 +79,18 @@ impl Solution {
 
 
     let lesserFreqCount = *(sorted.clone().get(1).unwrap()).1;
+    let greaterFreqCount = *(sorted.clone().get(0).unwrap()).1;
     let lesserFreqKey = *(sorted.clone().get(1).unwrap()).0;
     let greaterFreqKey = *(sorted.clone().get(0).unwrap()).0;
     // this is just one case
+    // println!("lfreq, lk, gk, {},{},{}", lesserFreqCount, lesserFreqKey, greaterFreqKey);
+    if lesserFreqCount == 1 && lesserFreqKey == 1 {
+        println!("here");
+        return true }
     if lesserFreqCount != 1 { return false }
     // another case - removing one from the larger makes it equal to the other
     greaterFreqKey+1 == lesserFreqKey
+    // yet another edge case
+    // "abbcc"
   }
 }
