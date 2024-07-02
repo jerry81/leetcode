@@ -68,7 +68,20 @@ impl Solution {
     if fof.len() != 2 { return false }
 
     let mut sorted:Vec<(&i32,&i32)>=fof.iter().collect();
-    sorted.sort_by(|a,b| { b.0.cmp(&a.0)});
-    *(sorted.clone().get(1).unwrap()).0 == 1
+    sorted.sort_by(|a, b| {
+      match b.1.cmp(&a.1) {
+        std::cmp::Ordering::Equal => a.0.cmp(b.0),
+        other => other,
+      }
+    });
+
+
+    let lesserFreqCount = *(sorted.clone().get(1).unwrap()).1;
+    let lesserFreqKey = *(sorted.clone().get(1).unwrap()).0;
+    let greaterFreqKey = *(sorted.clone().get(0).unwrap()).0;
+    // this is just one case
+    if lesserFreqCount != 1 { return false }
+    // another case - removing one from the larger makes it equal to the other
+    greaterFreqKey+1 == lesserFreqKey
   }
 }
