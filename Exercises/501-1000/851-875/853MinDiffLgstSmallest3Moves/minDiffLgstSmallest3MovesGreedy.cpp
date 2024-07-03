@@ -62,29 +62,35 @@ Acceptance Rate
 
 using namespace std;
 
-// greedy is not it, so just try all possibilities
 class Solution {
+void r(vector<int>& sorted, int moves) {
+  if (moves == 0) return;
+  if (sorted.empty()) return;
+
+  if (sorted.size() > 2) {
+    // frontdiff, backdiff
+    int frontdiff = sorted[1] - sorted[0];
+    int backdiff = sorted.back() - sorted[sorted.size()-2];
+    if (frontdiff >= backdiff) {
+      sorted.erase(sorted.begin());
+    } else {
+      sorted.pop_back();
+    }
+  } else {
+    sorted.pop_back();
+  }
+  --moves;
+  r(sorted, moves);
+}
 public:
     int minDifference(vector<int>& nums) {
       vector<int> sorted = nums;
       sort(sorted.begin(), sorted.end());
-      int res = INT_MAX;
-
-      if (sorted.size() < 4) return 0;
 
 
-      for (int frontcount = 0; frontcount < 3; ++frontcount) {
-        vector<int> cloned = sorted;
-        for (int i = 0; i < frontcount; ++i) {
-          cloned.erase(cloned.begin());
-        }
-        for (int i = 0; i < 3 - frontcount; ++i) {
-          cloned.pop_back();
-        }
-        int diff = cloned.back() - cloned.front();
-        res = min(diff, res);
-      }
+      r(sorted, 3);
+      if (sorted.size() < 2) return 0;
 
-      return res;
+      return sorted.back() - sorted.front();
     }
 };
