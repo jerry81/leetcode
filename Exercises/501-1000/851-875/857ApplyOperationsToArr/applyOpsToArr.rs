@@ -62,8 +62,9 @@ impl Solution {
         clone[i] *= 2;
       }
     }
-    let zeroes = clone.filter(|&&x| { x == 0 });
-    let nonz = clone.filter(|&&x| { x != 0});
-    nonz.extend(zeroes)
+    let zeroes:Vec<i32> = clone.clone().into_iter().filter(|&x| { x == 0 }).collect();
+    let mut nonz:Vec<i32> = clone.clone().into_iter().filter(|&x| { x != 0}).collect();
+    nonz.extend(zeroes);
+    nonz
   }
 }
