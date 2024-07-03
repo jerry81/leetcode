@@ -53,16 +53,35 @@ Acceptance Rate
 
 impl Solution {
   pub fn odd_string(words: Vec<String>) -> String {
+    let mut baseline: Vec<i32> = vec![];
+    let mut init = false;
+    let mut conflict = false;
+    let mut res: String = "".to_string();
+    let mut orig: String = "".to_string();
     for word in words {
       let cur = Solution::make_diff_arr(&word);
-      println!("---");
-      let mut baseline: Vec<i32> = vec![];
-      let mut init = false;
-      for i in cur {
-        println!("{}", i);
+      if init {
+
+        for i in 0..baseline.len() {
+
+          if baseline[i] != cur[i] {
+            // base and cur are not equal
+            if conflict {
+              return orig
+            } else {
+              conflict = true;
+              res = (&word).to_string();
+              break
+            }
+          }
+        }
+      } else {
+        init = true;
+        baseline = cur;
+        orig = (&word).to_string();
       }
     }
-    "abc".to_string()
+    res
   }
   fn make_diff_arr(word: &str) -> Vec<i32> {
     let mut res: Vec<i32> = vec![];
