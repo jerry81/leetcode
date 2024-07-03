@@ -434,6 +434,13 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
   - Iterator.zip(2nd iterator) - combines two iterators
   - iterator.skip(1) - returns an iterator without the first 1 elements
 
+- see 856 for
+  - iter.fold((0, 0), |(sum, count), &x| (sum + x, count + 1));
+  - like js accum
+  - note the first arg is arbitrary type def
+
+
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
