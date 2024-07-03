@@ -439,7 +439,9 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
   - like js accum
   - note the first arg is arbitrary type def
 
-
+- see 857 for
+  - extend (appending arrays!)
+  - partition (filtering array into two)
 
 ## todo
 
