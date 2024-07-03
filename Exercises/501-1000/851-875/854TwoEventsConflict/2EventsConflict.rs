@@ -54,6 +54,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn have_conflict(event1: Vec<String>, event2: Vec<String>) -> bool {
+    let start1 = Solution::convert_to_seconds(&event1[0]);
+    let end1 = Solution::convert_to_seconds(&event1[1]);
+    let start2 = Solution::convert_to_seconds(&event2[0]);
+    let end2 = Solution::convert_to_seconds(&event2[1]);
+    true
+  }
 
+  fn convert_to_minutes(time: &str) -> i32 {
+    let h1 = time.chars().nth(0).unwrap();
+    let h2 = time.chars().nth(1).unwrap();
+    let m1 = time.chars().nth(3).unwrap();
+    let m2 = time.chars().nth(4).unwrap();
+    let c1 = h1 as u8 -'0' as u8;
+    let c2 = h2 as u8 -'0' as u8;
+    let c3 = m1 as u8 -'0' as u8;
+    let c4 = m2 as u8 -'0' as u8;
+    let mut res = 0;
+    res+= c1 * 10*60;
+    res+= c2 * 60;
+    res+= m1*10;
+    res+= m2;
+    res
   }
 }
