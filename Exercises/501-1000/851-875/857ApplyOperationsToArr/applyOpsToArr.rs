@@ -54,6 +54,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn apply_operations(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut clone = nums.clone();
+    for (i, j) in (0..len-1).zip(1..len) {
+      if clone[i] == nums[j] {
+        clone[j] = 0;
+        clone[i] *= 2;
+      }
+    }
+    let zeroes = clone.filter(|&&x| { x == 0 });
+    let nonz = clone.filter(|&&x| { x != 0});
+    nonz.extend(zeroes)
   }
 }
