@@ -54,10 +54,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn have_conflict(event1: Vec<String>, event2: Vec<String>) -> bool {
-    let start1 = Solution::convert_to_seconds(&event1[0]);
-    let end1 = Solution::convert_to_seconds(&event1[1]);
-    let start2 = Solution::convert_to_seconds(&event2[0]);
-    let end2 = Solution::convert_to_seconds(&event2[1]);
+    let start1 = Solution::convert_to_minutes(&event1[0]);
+    let end1 = Solution::convert_to_minutes(&event1[1]);
+    let start2 = Solution::convert_to_minutes(&event2[0]);
+    let end2 = Solution::convert_to_minutes(&event2[1]);
     start2 > start1 && start2 < end1 || start1 > start2 && start1 < end2
   }
 
@@ -70,11 +70,11 @@ impl Solution {
     let c2 = h2 as u8 -'0' as u8;
     let c3 = m1 as u8 -'0' as u8;
     let c4 = m2 as u8 -'0' as u8;
-    let mut res = 0;
-    res+= c1 * 10*60;
-    res+= c2 * 60;
-    res+= m1*10;
-    res+= m2;
+    let mut res:i32 = 0;
+    res+= c1 as i32 * 10*60;
+    res+= c2 as i32 * 60;
+    res+= c3 as i32*10;
+    res+= c4 as i32;
     res
   }
 }
