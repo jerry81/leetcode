@@ -63,6 +63,7 @@ Acceptance Rate
 using namespace std;
 
 // greedy is not it, so just try all possibilities
+
 class Solution {
 public:
     int minDifference(vector<int>& nums) {
@@ -73,12 +74,12 @@ public:
       if (sorted.size() < 4) return 0;
 
 
-      for (int frontcount = 0; frontcount < 3; ++frontcount) {
+      for (int frontcount = 0; frontcount <= 3; ++frontcount) {
         vector<int> cloned = sorted;
         for (int i = 0; i < frontcount; ++i) {
           cloned.erase(cloned.begin());
         }
-        for (int i = 0; i < 3 - frontcount; ++i) {
+        for (int i = 0; i < (3 - frontcount); ++i) {
           cloned.pop_back();
         }
         int diff = cloned.back() - cloned.front();
