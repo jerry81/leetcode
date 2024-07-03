@@ -58,7 +58,7 @@ impl Solution {
     let end1 = Solution::convert_to_seconds(&event1[1]);
     let start2 = Solution::convert_to_seconds(&event2[0]);
     let end2 = Solution::convert_to_seconds(&event2[1]);
-    true
+    start2 > start1 && start2 < end1 || start1 > start2 && start1 < end2
   }
 
   fn convert_to_minutes(time: &str) -> i32 {
