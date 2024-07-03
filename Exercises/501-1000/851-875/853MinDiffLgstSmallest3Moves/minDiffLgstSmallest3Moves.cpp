@@ -66,6 +66,21 @@ class Solution {
 void r(vector<int>& sorted, int moves) {
   if (moves == 0) return;
   if (sorted.empty()) return;
+
+  if (sorted.size() > 2) {
+    // frontdiff, backdiff
+    int frontdiff = sorted[1] - sorted[0];
+    int backdiff = sorted.back() - sorted[sorted.size()-2];
+    if (frontdiff >= backdiff) {
+      sorted.erase(sorted.begin());
+    } else {
+      sorted.pop_back();
+    }
+  } else {
+    sorted.pop_back();
+  }
+  --moves;
+  r(sorted, moves);
 }
 public:
     int minDifference(vector<int>& nums) {
@@ -83,6 +98,6 @@ public:
       r(sorted, 3);
       if (sorted.size() < 2) return 0;
 
-
+      return sorted.back() - sorted.front();
     }
 };
