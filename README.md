@@ -425,6 +425,15 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - empty check is str.is_empty(), not str.empty()
 
+- see 840 for
+  - vec.windows(2) - chops the vec into subarrays size 2
+  - e.g. [1,2,3,4] -> [1,2], [2,3], [3,4]
+
+- see 855 for
+  - comparing two Vec directly with == or !=
+  - Iterator.zip(2nd iterator) - combines two iterators
+  - iterator.skip(1) - returns an iterator without the first 1 elements
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
