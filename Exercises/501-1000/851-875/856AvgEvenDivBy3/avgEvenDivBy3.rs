@@ -47,6 +47,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn average_value(nums: Vec<i32>) -> i32 {
-
+    let mut sm = 0;
+    let mut cnt = 0;
+    for i in nums {
+      if i % 3 == 0 {
+        sm+=i;
+        cnt+=1;
+      }
+    }
+    (sm as f64 / cnt as f64) as i32
   }
 }
