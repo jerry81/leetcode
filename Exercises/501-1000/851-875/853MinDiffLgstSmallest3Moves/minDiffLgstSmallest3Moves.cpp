@@ -84,16 +84,9 @@ void r(vector<int>& sorted, int moves) {
 }
 public:
     int minDifference(vector<int>& nums) {
-      // sort
-      // 0,1,5,10,14
-      //0,1,5,10
-      // 0,1,5
-      // 0,1
-
-      // 3,10,20
-      // []
       vector<int> sorted = nums;
-      sort(nums.begin(), nums.end());
+      sort(sorted.begin(), sorted.end());
+
 
       r(sorted, 3);
       if (sorted.size() < 2) return 0;
