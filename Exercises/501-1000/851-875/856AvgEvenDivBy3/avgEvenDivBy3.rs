@@ -50,7 +50,7 @@ impl Solution {
     let mut sm = 0;
     let mut cnt = 0;
     for i in nums {
-      if i % 3 == 0 {
+      if i%2 == 0 && i % 3 == 0 {
         sm+=i;
         cnt+=1;
       }
