@@ -108,8 +108,9 @@ class Solution {
         curhead = newhead;
       } else {
         curhead->next = newNode;
+        curhead=curhead->next;
       }
-      curhead=curhead->next;
+
     }
     return newhead;
   }
