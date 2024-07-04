@@ -47,32 +47,21 @@ Acceptance Rate
 71.4%
 
 */
-
 impl Solution {
   pub fn unequal_triplets(nums: Vec<i32>) -> i32 {
-    // brute force it
-    let sz = nums.len();
-    let mut res = 0;
-    for i in 0..sz {
-      let iv = nums[i];
-      for j in i+1..sz {
-        if j == i { continue }
+      let sz = nums.len();
+      let mut res = 0;
+      for i in 0..sz {
+          for j in i+1..sz {
+              if nums[j] == nums[i] { continue }
 
-        let jv = nums[j];
-        if jv == iv { continue }
-        for k in j+1..sz {
-          if k == j || k == i { continue }
-
-          let kv = nums[k];
-
-          if kv != jv && kv != iv {
-
-            res+=1;
+              for k in j+1..sz {
+                  if nums[k] != nums[j] && nums[k] != nums[i] {
+                      res += 1;
+                  }
+              }
           }
-
-        }
       }
-    }
-    res
+      res
   }
 }
