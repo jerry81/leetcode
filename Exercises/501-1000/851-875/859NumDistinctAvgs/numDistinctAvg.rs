@@ -62,10 +62,10 @@ impl Solution {
     sorted.sort();
     let mut res = 0;
     let mut hs:HashSet<i32> = HashSet::new();
-    while (!nums.is_empty()) {
-      let fr = nums.remove(0);
+    while (!sorted.is_empty()) {
+      let fr = sorted.remove(0);
 
-      let bk = nums.pop().unwrap();
+      let bk = sorted.pop().unwrap();
 
       let sm = fr + bk;
       if hs.insert(sm) {
