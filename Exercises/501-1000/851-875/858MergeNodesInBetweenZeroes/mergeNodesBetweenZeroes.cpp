@@ -92,15 +92,18 @@ class Solution {
         if (cursum > 0) {
           as_arr.push_back(cursum);
           cursum = 0;
-        } else {
-          cursum += cval;
         }
+      } else {
+        cursum += cval;
       }
       cur = cur->next;
     }
+    ListNode* newhead;
+    ListNode* curhead = newhead;
     for (int i: as_arr) {
-      cout << i << endl;
+      curhead->val = i;
+      curhead=curhead->next;
     }
-    return head;
+    return newhead;
   }
 };
