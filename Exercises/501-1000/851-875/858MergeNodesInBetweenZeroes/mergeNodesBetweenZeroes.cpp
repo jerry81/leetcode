@@ -98,10 +98,17 @@ class Solution {
       }
       cur = cur->next;
     }
-    ListNode* newhead;
-    ListNode* curhead = newhead;
+    ListNode* newhead = nullptr;
+    ListNode* curhead = nullptr;
+
     for (int i: as_arr) {
-      curhead->val = i;
+      ListNode* newNode = new ListNode(i);
+      if (newhead == nullptr) {
+        newhead = newNode;
+        curhead = newhead;
+      } else {
+        curhead->next = newNode;
+      }
       curhead=curhead->next;
     }
     return newhead;
