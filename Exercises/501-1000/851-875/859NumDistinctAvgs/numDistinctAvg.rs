@@ -54,8 +54,24 @@ Acceptance Rate
 57.9%
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn distinct_averages(nums: Vec<i32>) -> i32 {
+    let mut sorted = nums.clone();
+    sorted.sort();
+    let mut res = 0;
+    let mut hs:HashSet<i32> = HashSet::new();
+    while (!nums.is_empty()) {
+      let fr = nums.remove(0);
 
+      let bk = nums.pop().unwrap();
+
+      let sm = fr + bk;
+      if hs.insert(sm) {
+        res+=1;
+      }
+    }
+    res
   }
 }
