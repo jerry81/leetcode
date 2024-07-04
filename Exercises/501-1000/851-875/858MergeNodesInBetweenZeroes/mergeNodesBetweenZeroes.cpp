@@ -75,7 +75,32 @@ struct ListNode {
   ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
  public:
-  ListNode* mergeNodes(ListNode* head) {}
+  ListNode* mergeNodes(ListNode* head) {
+    // easier to convert to array and back?
+    vector<int> as_arr;
+    ListNode* cur = head;
+    int cursum = 0;
+    while (cur != nullptr) {
+      int cval = cur->val;
+      if (cval == 0) {
+        if (cursum > 0) {
+          as_arr.push_back(cursum);
+          cursum = 0;
+        } else {
+          cursum += cval;
+        }
+      }
+      cur = cur->next;
+    }
+    for (int i: as_arr) {
+      cout << i << endl;
+    }
+    return head;
+  }
 };
