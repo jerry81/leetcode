@@ -55,17 +55,20 @@ impl Solution {
     let mut res = 0;
     for i in 0..sz {
       let iv = nums[i];
-      for j in 0..sz {
+      for j in i+1..sz {
         if j == i { continue }
 
         let jv = nums[j];
         if jv == iv { continue }
-        for k in 0..sz {
+        for k in j+1..sz {
           if k == j || k == i { continue }
 
           let kv = nums[k];
 
-          if kv != jv && kv != iv { res+=1; }
+          if kv != jv && kv != iv {
+
+            res+=1;
+          }
 
         }
       }
