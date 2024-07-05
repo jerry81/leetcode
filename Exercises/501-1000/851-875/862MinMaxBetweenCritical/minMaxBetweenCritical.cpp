@@ -117,8 +117,15 @@ class Solution {
        cidxs.push_back(i);
       }
     }
-    for (int i: cidxs) cout << i << endl;
-    if (cidxs.empty()) return {-1,-1};
-    return as_v;
+    int mnDist = INT_MAX;
+    vector<int> res = {-1,-1};
+    if (cidxs.size() < 2) return {-1,-1};
+    res[1] = as_v.back() - as_v.front();
+    for (int i = 0; i < sz-1; ++i) {
+      int cur = as_v[i];
+      int nxt = as_v[i+1];
+      mnDist = min(mnDist, nxt-cur);
+    }
+    return res;
   }
 };
