@@ -126,6 +126,7 @@ class Solution {
       int nxt = cidxs[i+1];
       mnDist = min(mnDist, nxt-cur);
     }
+    res[0] = mnDist;
     return res;
   }
 };
