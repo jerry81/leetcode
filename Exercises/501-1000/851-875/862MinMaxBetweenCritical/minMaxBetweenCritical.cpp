@@ -106,6 +106,19 @@ class Solution {
       as_v.push_back(head->val);
       head = head->next;
     }
+    // find critical idxes
+    int sz = as_v.size();
+    vector<int> cidxs;
+    for (int i = 1; i < sz - 1; ++i) {
+      int prev = as_v[i - 1];
+      int nxt = as_v[i + 1];
+      int cur = as_v[i];
+      if ((prev < cur && nxt < cur) || (prev > cur && nxt > cur)) {
+       cidxs.push_back(i);
+      }
+    }
+    for (int i: cidxs) cout << i << endl;
+    if (cidxs.empty()) return {-1,-1};
     return as_v;
   }
 };
