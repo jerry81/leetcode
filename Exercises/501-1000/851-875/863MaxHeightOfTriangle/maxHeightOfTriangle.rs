@@ -73,6 +73,55 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_height_of_triangle(red: i32, blue: i32) -> i32 {
-
+    // try start red and start blue
+    let mut rc = red;
+    let mut bc = blue;
+    let mut ht1 = 0;
+    let mut cursz = 1;
+    let mut curred = true;
+    loop {
+      if curred {
+        if rc < cursz {
+          break
+        } else {
+          ht+=1;
+          rc-=cursz;
+        }
+      } else {
+        if bc < cursz {
+          break
+        } else {
+          ht+=1;
+          bc-=cursz;
+        }
+      }
+      cursz+=1;
+      curred = !curred;
+    }
+    rc = red;
+    bc = blue;
+    let mut ht2 = 0;
+    cursz = 1;
+    curred = false;
+    loop {
+      if curred {
+        if rc < cursz {
+          break
+        } else {
+          ht+=1;
+          rc-=cursz;
+        }
+      } else {
+        if bc < cursz {
+          break
+        } else {
+          ht+=1;
+          bc-=cursz;
+        }
+      }
+      cursz+=1;
+      curred = !curred;
+    }
+    ht1.max(ht2)
   }
 }
