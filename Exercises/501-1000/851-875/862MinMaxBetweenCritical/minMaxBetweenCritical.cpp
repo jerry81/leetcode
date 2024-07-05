@@ -120,10 +120,10 @@ class Solution {
     int mnDist = INT_MAX;
     vector<int> res = {-1,-1};
     if (cidxs.size() < 2) return {-1,-1};
-    res[1] = as_v.back() - as_v.front();
-    for (int i = 0; i < sz-1; ++i) {
-      int cur = as_v[i];
-      int nxt = as_v[i+1];
+    res[1] = cidxs.back() - cidxs.front();
+    for (int i = 0; i < cidxs.size()-1; ++i) {
+      int cur = cidxs[i];
+      int nxt = cidxs[i+1];
       mnDist = min(mnDist, nxt-cur);
     }
     return res;
