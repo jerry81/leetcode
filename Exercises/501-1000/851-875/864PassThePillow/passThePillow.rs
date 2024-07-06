@@ -45,6 +45,24 @@ Acceptance Rate
 
 impl Solution {
   pub fn pass_the_pillow(n: i32, time: i32) -> i32 {
+    Solution::ptp(n, time, 1);
+  }
 
+  fn ptp(n: i32, time: i32, cur: usize, forwards: bool) -> i32 {
+    if time == 0 {
+      cur
+    } else {
+      let mut nxt = cur+1;
+      let mut dir = forwards;
+      if cur == n && forwards {
+        dir = backwards;
+      } else if cur == 1 && backwards {
+        dir = forwards;
+      }
+      if dir == backwards {
+        nxt = cur-1;
+      }
+      Solution::ptp(n, time-1, nxt, dir)
+    }
   }
 }
