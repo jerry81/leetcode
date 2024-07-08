@@ -67,13 +67,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_circular_sentence(sentence: String) -> bool {
-    let mut Vec<&str> words = sentence.split().collect();
+    let mut words: Vec<&str> = sentence.split(' ').collect();
     if words.len() == 1 {
-      words[0].chars().next().unwrap() == words[0].last().unwrap()
+      words[0].chars().next().unwrap() == words[0].chars().last().unwrap()
     } else {
       let finalmatch = words[0].chars().next().unwrap();
       let mut curmatch = words[0].chars().last().unwrap();
-      for w in words.skip(1) {
+      println!("final {} cur {}", finalmatch, curmatch);
+      for w in words.iter().skip(1) {
         let nxtchar = w.chars().next().unwrap();
         if nxtchar != curmatch { return false }
         curmatch = nxtchar;
