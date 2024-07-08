@@ -56,10 +56,25 @@ Acceptance Rate
 79.0%
 */
 
+#include <vector>
 
+using namespace std;
 class Solution {
+int r(vector<int> &items, int k, int curidx) {
+  if (items.size() == 1) return items[0];
+
+  int nxtIdx = (curidx+k-1)%items.size();
+  items.erase(items.begin() + nxtIdx);
+  return r(items, k, nxtIdx);
+
+}
 public:
     int findTheWinner(int n, int k) {
-
+      vector<int> items;
+      for (int i = 0; i < n; ++i) {
+        items.push_back(i+1);
+      }
+      // simulation
+      return r(items, k, 0);
     }
 };
