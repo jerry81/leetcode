@@ -52,10 +52,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_value(strs: Vec<String>) -> i32 {
-
+    let mut res = 0;
+    for s in strs {
+      if Solution::is_n(&s) {
+        res = res.max(s.parse::<i32>().unwrap());
+      } else {
+        res = res.max(s.len() as i32)
+      }
+    }
+    res
   }
 
-  fn is_alphan(s: &str) -> bool {
-
+  fn is_n(s: &str) -> bool {
+    for c in s.chars() {
+      if !c.is_digit(10) { return false } // Review: need base
+    }
+    true
   }
 }
