@@ -73,11 +73,11 @@ impl Solution {
     } else {
       let finalmatch = words[0].chars().next().unwrap();
       let mut curmatch = words[0].chars().last().unwrap();
-      println!("final {} cur {}", finalmatch, curmatch);
       for w in words.iter().skip(1) {
         let nxtchar = w.chars().next().unwrap();
+        let nxttail = w.chars().last().unwrap();
         if nxtchar != curmatch { return false }
-        curmatch = nxtchar;
+        curmatch = nxttail;
       }
       curmatch == finalmatch
     }
