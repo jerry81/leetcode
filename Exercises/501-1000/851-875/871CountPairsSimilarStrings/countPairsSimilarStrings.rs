@@ -60,6 +60,7 @@ impl Solution {
   pub fn similar_pairs(words: Vec<String>) -> i32 {
     // Vec<HashSet>
     let mut vhs: Vec<HashSet<char>> = Vec::new();
+    let sz = words.len();
     for w in words {
       let mut hs:HashSet<char> = HashSet::new();
       for c in w.chars() {
