@@ -58,6 +58,25 @@ Acceptance Rate
 
 impl Solution {
   pub fn delete_greatest_value(grid: Vec<Vec<i32>>) -> i32 {
-
+    let mut mgrid = grid.clone();
+    let h = grid.len();
+    let mut res = 0;
+    loop {
+      for i in 0..h {
+        let w = mgrid[i].len();
+        if w.is_empty { return res }
+        let mut mx_i = 0;
+        let mut mx = 0;
+        for j in 0..w {
+          if mgrid[i][j] > mx {
+            mx = mgrid[i][j];
+            mx_i = j;
+          }
+        }
+        res+=mgrid[i][j];
+        mgrid[i].remove(j);
+      }
+    }
+    0
   }
 }
