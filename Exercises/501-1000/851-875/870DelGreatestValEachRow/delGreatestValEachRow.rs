@@ -62,9 +62,10 @@ impl Solution {
     let h = grid.len();
     let mut res = 0;
     loop {
+      let mut mx_of_mx = 0;
       for i in 0..h {
         let w = mgrid[i].len();
-        if w.is_empty { return res }
+        if w==0 { return res }
         let mut mx_i = 0;
         let mut mx = 0;
         for j in 0..w {
@@ -73,9 +74,10 @@ impl Solution {
             mx_i = j;
           }
         }
-        res+=mgrid[i][j];
-        mgrid[i].remove(j);
+        mx_of_mx = mx_of_mx.max(mgrid[i][mx_i]);
+        mgrid[i].remove(mx_i);
       }
+      res+=mx_of_mx;
     }
     0
   }
