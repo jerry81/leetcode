@@ -443,6 +443,8 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
   - extend (appending arrays!)
   - partition (filtering array into two)
 
+- see 871, directly convert strings into HashSet<char> with collect
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
