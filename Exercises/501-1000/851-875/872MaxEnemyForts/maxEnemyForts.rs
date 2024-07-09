@@ -68,8 +68,10 @@ impl Solution {
       while idx >= 0 {
         if forts[idx as usize] == 0 {
           curcount += 1;
-        } else {
+        } else if forts[idx as usize] == -1 {
           found = true;
+          break;
+        } else {
           break;
         }
         idx-=1;
@@ -84,8 +86,10 @@ impl Solution {
       while idx2 < forts.len() {
         if forts[idx2] == 0 {
           curcount += 1;
-        } else {
+        } else if forts[idx2] == -1 {
           found = true;
+          break;
+        } else {
           break;
         }
         idx2+=1;
