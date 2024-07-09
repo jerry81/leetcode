@@ -62,11 +62,11 @@ impl Solution {
     // for each starting position look left and look right
     for sp in starting_positions {
       // go left
-      let mut idx = sp;
+      let mut idx = (sp as i32-1);
       let mut curcount = 0;
       let mut found = false;
       while idx >= 0 {
-        if forts[idx] == 0 {
+        if forts[idx as usize] == 0 {
           curcount += 1;
         } else {
           found = true;
@@ -78,17 +78,17 @@ impl Solution {
         res = curcount;
       }
       // go right
-      idx = sp;
+      let mut idx2 = sp+1;
       curcount = 0;
       found = false;
-      while idx >= 0 {
-        if forts[idx] == 0 {
+      while idx2 < forts.len() {
+        if forts[idx2] == 0 {
           curcount += 1;
         } else {
           found = true;
           break;
         }
-        idx+=1;
+        idx2+=1;
       }
       if found && curcount > res {
         res = curcount;
