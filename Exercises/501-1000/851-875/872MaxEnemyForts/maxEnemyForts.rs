@@ -54,6 +54,46 @@ Acceptance Rate
 
 impl Solution {
   pub fn capture_forts(forts: Vec<i32>) -> i32 {
-
+    let mut starting_positions: Vec<usize> = Vec::new();
+    for i in 0..forts.len() {
+      if forts[i] == 1 { starting_positions.push(i); }
+    }
+    let mut res = 0 ;
+    // for each starting position look left and look right
+    for sp in starting_positions {
+      // go left
+      let mut idx = sp;
+      let mut curcount = 0;
+      let mut found = false;
+      while idx >= 0 {
+        if forts[idx] == 0 {
+          curcount += 1;
+        } else {
+          found = true;
+          break;
+        }
+        idx-=1;
+      }
+      if found && curcount > res {
+        res = curcount;
+      }
+      // go right
+      idx = sp;
+      curcount = 0;
+      found = false;
+      while idx >= 0 {
+        if forts[idx] == 0 {
+          curcount += 1;
+        } else {
+          found = true;
+          break;
+        }
+        idx+=1;
+      }
+      if found && curcount > res {
+        res = curcount;
+      }
+    }
+    res
   }
 }
