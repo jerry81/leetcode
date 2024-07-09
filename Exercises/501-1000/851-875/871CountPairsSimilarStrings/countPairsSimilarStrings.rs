@@ -67,5 +67,12 @@ impl Solution {
       }
       vhs.push(hs);
     }
+    let mut res = 0;
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        if vhs[i] == vhs[j] { res+=1 }
+      }
+    }
+    res
   }
 }
