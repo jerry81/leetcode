@@ -67,12 +67,15 @@ impl Solution {
       }
     }
     let sz = words.len();
-    let mut res = 0;
+    let mut res = i32::MAX;
     for idx in tgtidxs.clone() {
-        if start_index == idx { return 0 }
+        if start_index == idx {
+            return 0
+        }
         if start_index > idx  {
             res = res.min(start_index-idx);
             // wrap back
+
             res = res.min(start_index + sz as i32 - idx);
         }
         else if start_index < idx {
