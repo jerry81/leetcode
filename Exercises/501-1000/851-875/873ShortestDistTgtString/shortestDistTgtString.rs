@@ -63,10 +63,23 @@ impl Solution {
     let mut tgtidxs:Vec<i32> = Vec::new();
     for idx in 0..words.len() {
       if target == words[idx] {
-        tgtidxs.push(idx);
+        tgtidxs.push(idx as i32);
       }
     }
-    println!("indexes {?:}", tgtidxs);
-    0
+    let sz = words.len();
+    let mut res = 0;
+    for idx in tgtidxs.clone() {
+        if start_index == idx { return 0 }
+        if start_index > idx  {
+            res = res.min(start_index-idx);
+            // wrap back
+            res = res.min(start_index + sz as i32 - idx);
+        }
+        else if start_index < idx {
+            res = res.min(idx-start_index);
+            res = res.min(sz as i32 - idx as i32 + start_index);
+        }
+    }
+    if tgtidxs.clone().is_empty() { return -1 } else { res  }
   }
 }
