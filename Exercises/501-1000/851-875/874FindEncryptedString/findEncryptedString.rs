@@ -56,6 +56,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn get_encrypted_string(s: String, k: i32) -> String {
-
+    let sz = s.len();
+    let chrs = s.chars();
+    let res: String = (0..sz)
+    .zip()
+    .map(|i| chrs.nth(i+k % sz).unwrap())
+    .collect();
+    res
   }
 }
