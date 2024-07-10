@@ -47,6 +47,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_digits(num: i32) -> i32 {
-
+    // num to string
+    let s = num.to_string();
+    s.chars()
+    .fold(0,
+      |sm, c| if num % ((c as u8 - '0' as u8) as i32) == 0 { sm+1 } else { sm }
+    )
   }
 }
