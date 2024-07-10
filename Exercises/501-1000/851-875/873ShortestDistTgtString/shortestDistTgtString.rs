@@ -74,9 +74,7 @@ impl Solution {
         }
         if start_index > idx  {
             res = res.min(start_index-idx);
-            // wrap back
-
-            res = res.min(start_index + sz as i32 - idx);
+            res = res.min(sz as i32 - start_index + idx);
         }
         else if start_index < idx {
             res = res.min(idx-start_index);
