@@ -445,6 +445,9 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - see 871, directly convert strings into HashSet<char> with collect
 
+- see 873, filter_map and enumerate
+  - filtermap returns option (Some -> take it and map it, None -> filter it out )
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
