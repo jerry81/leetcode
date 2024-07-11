@@ -66,10 +66,11 @@ class Solution {
         stk.push_back(cur_top);
         cur_top = "(";
       } else if (c == ')') {
-        string top = stk.pop_back();
+        string t = stk.back();
+        stk.pop_back();
         reverse(cur_top.begin(), cur_top.end());
-        top += cur_top;
-        cur_top = top;
+        t += cur_top;
+        cur_top = t;
         if (stk.empty()) return "";
       } else {
         cur_top.push_back(c);
