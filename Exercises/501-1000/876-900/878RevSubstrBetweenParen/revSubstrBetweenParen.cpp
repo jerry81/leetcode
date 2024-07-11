@@ -5,9 +5,11 @@ Medium
 Topics
 Companies
 Hint
-You are given a string s that consists of lower case English letters and brackets.
+You are given a string s that consists of lower case English letters and
+brackets.
 
-Reverse the strings in each pair of matching parentheses, starting from the innermost one.
+Reverse the strings in each pair of matching parentheses, starting from the
+innermost one.
 
 Your result should not contain any brackets.
 
@@ -21,12 +23,13 @@ Example 2:
 
 Input: s = "(u(love)i)"
 Output: "iloveu"
-Explanation: The substring "love" is reversed first, then the whole string is reversed.
-Example 3:
+Explanation: The substring "love" is reversed first, then the whole string is
+reversed. Example 3:
 
 Input: s = "(ed(et(oc))el)"
 Output: "leetcode"
-Explanation: First, we reverse the substring "oc", then "etco", and finally, the whole string.
+Explanation: First, we reverse the substring "oc", then "etco", and finally, the
+whole string.
 
 
 Constraints:
@@ -52,8 +55,31 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-public:
-    string reverseParentheses(string s) {
-
-    }
+ public:
+  string reverseParentheses(string s) {
+    // stack
+  }
 };
+
+/* Input: s = "(ed(et(oc))el)"
+Output: "leetcode"
+Explanation: First, we reverse the substring "oc", then "etco", and finally, the
+whole string.
+
+stack:
+start new string with each (
+oc
+et
+ed
+pop on ) , reverse
+oc -> co - append to remaining top
+
+etco
+ed
+) etoc -> octe
+edocte
+letters go to top
+edocteel
+final )
+leetcode
+*/
