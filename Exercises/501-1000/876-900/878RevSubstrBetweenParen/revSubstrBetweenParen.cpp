@@ -64,14 +64,15 @@ class Solution {
     for (char c: s) {
       if (c == '(') {
         stk.push_back(cur_top);
-        cur_top = "(";
+        cur_top = "";
       } else if (c == ')') {
+        if (stk.empty()) return "";
         string t = stk.back();
         stk.pop_back();
         reverse(cur_top.begin(), cur_top.end());
         t += cur_top;
         cur_top = t;
-        if (stk.empty()) return "";
+
       } else {
         cur_top.push_back(c);
       }
@@ -79,6 +80,7 @@ class Solution {
     return cur_top;
   }
 };
+
 
 /* Input: s = "(ed(et(oc))el)"
 Output: "leetcode"
