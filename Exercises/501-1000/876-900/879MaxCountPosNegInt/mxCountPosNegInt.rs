@@ -53,6 +53,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_count(nums: Vec<i32>) -> i32 {
-
+    let (pos,neg) = nums.fold((0,0), |(p,n), n| if n < 0 { n+=1 } else { p+=1 });
+    pos.max(neg)
   }
 }
