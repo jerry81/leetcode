@@ -94,13 +94,41 @@ class Solution {
     // map
     int sz = positions.size();
     unordered_map<int, tuple<int,int, char>> robots;
+    vector<int> stk;
     for (int i = 0; i < sz; ++i) {
       robots[i] = {positions[i],healths[i], directions[i]};
     }
-    for (auto [a,b]: robots) {
-      auto [p,h,d] = b;
-      cout << "rbot idx " << a << endl;
-      cout << p << ","<<h<<","<<"d"<<endl;
+    for (auto [idx,r]: robots) {
+      auto [p,h,d] = r;
+      if (d == 'R') {
+        stk.push_back(idx);
+      } else {
+        if (!stk.empty()) {
+          int bk_idx = stk.back();
+          auto [tp,th,td] = robots[bk_idx];
+          if (td == 'L') continue;
+
+          stk.pop_back();
+          if (th == h) {
+            robots.erase(bk_idx);
+            robots.erase(idx);
+            continue;
+          }
+          int sm = tp+p;
+          int intersection_point =sm / 2;
+          int new_health;
+          char new_direction;
+          if (th > h) { // left survives
+            new_health = th - h;
+            new_direction = 'L';
+          } else {
+            new_health = h - th;
+            new_direction = 'R';
+            intersection_point++;
+          }
+          robots[bk_idx] = {intersection_point, new_health, new_direction};
+        }
+      }
     }
     return {};
   }
