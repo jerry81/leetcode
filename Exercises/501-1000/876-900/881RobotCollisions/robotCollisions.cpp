@@ -93,9 +93,15 @@ class Solution {
                                     vector<int>& healths, string directions) {
     // map
     int sz = positions.size();
-    unordered_map<int, pair<int, char>> robots;
+    unordered_map<int, tuple<int,int, char>> robots;
     for (int i = 0; i < sz; ++i) {
-      robots[positions[i]] = {healths[i], directions[i]};
+      robots[i] = {positions[i],healths[i], directions[i]};
     }
+    for (auto [a,b]: robots) {
+      auto [p,h,d] = b;
+      cout << "rbot idx " << a << endl;
+      cout << p << ","<<h<<","<<"d"<<endl;
+    }
+    return {};
   }
 };
