@@ -5,22 +5,30 @@ Hard
 Topics
 Companies
 Hint
-Given a string formula representing a chemical formula, return the count of each atom.
+Given a string formula representing a chemical formula, return the count of each
+atom.
 
-The atomic element always starts with an uppercase character, then zero or more lowercase letters, representing the name.
+The atomic element always starts with an uppercase character, then zero or more
+lowercase letters, representing the name.
 
-One or more digits representing that element's count may follow if the count is greater than 1. If the count is 1, no digits will follow.
+One or more digits representing that element's count may follow if the count is
+greater than 1. If the count is 1, no digits will follow.
 
 For example, "H2O" and "H2O2" are possible, but "H1O2" is impossible.
 Two formulas are concatenated together to produce another formula.
 
 For example, "H2O2He3Mg4" is also a formula.
-A formula placed in parentheses, and a count (optionally added) is also a formula.
+A formula placed in parentheses, and a count (optionally added) is also a
+formula.
 
 For example, "(H2O2)" and "(H2O2)3" are formulas.
-Return the count of all elements as a string in the following form: the first name (in sorted order), followed by its count (if that count is more than 1), followed by the second name (in sorted order), followed by its count (if that count is more than 1), and so on.
+Return the count of all elements as a string in the following form: the first
+name (in sorted order), followed by its count (if that count is more than 1),
+followed by the second name (in sorted order), followed by its count (if that
+count is more than 1), and so on.
 
-The test cases are generated so that all the values in the output fit in a 32-bit integer.
+The test cases are generated so that all the values in the output fit in a
+32-bit integer.
 
 
 
@@ -59,13 +67,38 @@ Acceptance Rate
 
 */
 
+#include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
 
+struct Formula {
+  int curMultiplier = 1;
+  vector<string> items;
+  vector<Formula*> nested_items;
+};
 class Solution {
-public:
-    string countOfAtoms(string formula) {
+ public:
+  string countOfAtoms(string formula) {
+    // still on stack week.  stack is for the parens
+    // on paren close, apply next number to each item in stack
+    map<string, int> chems;
 
+    for (char c : formula) {
+      string curChem;
+      if (isdigit(c)) {
+        if (chems.find(curChem) == chems.end()) {
+          chems[curChem] = 1;
+        } else {
+          chems[curChem] += 1;
+        }
+        curChem = "";
+      } else if (c == '(') {
+      } else if (c == ')') {
+      } else {
+        curChem.push_back(c);
+      }
     }
+  }
 };
