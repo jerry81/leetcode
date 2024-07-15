@@ -4,7 +4,9 @@ Medium
 Topics
 Companies
 Hint
-You are given a 2D integer array descriptions where descriptions[i] = [parenti, childi, isLefti] indicates that parenti is the parent of childi in a binary tree of unique values. Furthermore,
+You are given a 2D integer array descriptions where descriptions[i] = [parenti,
+childi, isLefti] indicates that parenti is the parent of childi in a binary tree
+of unique values. Furthermore,
 
 If isLefti == 1, then childi is the left child of parenti.
 If isLefti == 0, then childi is the right child of parenti.
@@ -57,52 +59,54 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
-      unordered_map<int, TreeNode*> nodes;
-      unordered_map<int, bool> has_parent;
-      for (auto d: descriptions) {
-        int p = d[0];
-        int c = d[1];
-        bool l = d[2];
-        if (nodes.find(p) == nodes.end()) nodes[p] = new TreeNode(p);
+ public:
+  TreeNode *createBinaryTree(vector<vector<int>> &descriptions) {
+    unordered_map<int, TreeNode *> nodes;
+    unordered_map<int, bool> has_parent;
+    for (auto d : descriptions) {
+      int p = d[0];
+      int c = d[1];
+      bool l = d[2];
+      if (nodes.find(p) == nodes.end()) nodes[p] = new TreeNode(p);
 
-        if (has_parent.find(c) == has_parent.end()) has_parent[p] = false;
+      if (has_parent.find(p) == has_parent.end()) has_parent[p] = false;
 
-        if (nodes.find(c) == nodes.end()) nodes[c] = new TreeNode(c);
+      if (nodes.find(c) == nodes.end()) nodes[c] = new TreeNode(c);
 
-        has_parent[c] = true;
+      has_parent[c] = true;
 
-
-        if (l) {
-          nodes[p]->left = nodes[c];
-        } else {
-          nodes[p]->right = nodes[c];
-        }
-
-        for (auto [k,v]: has_parent) {
-          if (!v) { return nodes[k]; }
-        }
-        return nullptr;
+      if (l) {
+        nodes[p]->left = nodes[c];
+      } else {
+        nodes[p]->right = nodes[c];
       }
     }
+    for (auto [k, v] : has_parent) {
+      if (!v) {
+        return nodes[k];
+      }
+    }
+    return nullptr;
+  }
 };
