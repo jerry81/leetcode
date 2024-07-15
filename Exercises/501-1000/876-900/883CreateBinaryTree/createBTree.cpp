@@ -79,23 +79,30 @@ class Solution {
 public:
     TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
       unordered_map<int, TreeNode*> nodes;
+      unordered_map<int, bool> has_parent;
       for (auto d: descriptions) {
         int p = d[0];
         int c = d[1];
         bool l = d[2];
-        if (nodes.find(p) == nodes.end()) {
-          nodes[p] = new TreeNode(p);
-        }
+        if (nodes.find(p) == nodes.end()) nodes[p] = new TreeNode(p);
 
-        if (nodes.find(c) == nodes.end()) {
-          nodes[c] = new TreeNode(c);
-        }
+        if (has_parent.find(c) == has_parent.end()) has_parent[p] = false;
+
+        if (nodes.find(c) == nodes.end()) nodes[c] = new TreeNode(c);
+
+        has_parent[c] = true;
+
 
         if (l) {
           nodes[p]->left = nodes[c];
         } else {
           nodes[p]->right = nodes[c];
         }
+
+        for (auto [k,v]: has_parent) {
+          if (!v) { return nodes[k]; }
+        }
+        return nullptr;
       }
     }
 };
