@@ -52,8 +52,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn difference_of_sum(nums: Vec<i32>) -> i32 {
-    let el_sum = nums.iter().sum();
-    let d_sum = 0;
+    let el_sum: i32 = nums.iter().sum();
+    let mut d_sum: i32 = 0;
     for n in nums {
       d_sum += Solution::dsum(n);
     }
@@ -62,6 +62,6 @@ impl Solution {
   fn dsum(num: i32) -> i32 {
     num.to_string().chars().fold(0, |sm,c| {
       sm + (c as u8 - '0' as u8) as i32
-    });
+    })
   }
 }
