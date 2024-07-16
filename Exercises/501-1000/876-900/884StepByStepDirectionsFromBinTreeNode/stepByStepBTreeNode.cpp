@@ -131,11 +131,13 @@ class Solution {
       int l = curNode->left;
       int r = curNode->right;
       int p = curNode->parent;
-      if (l >= 0 && visited.find(l) != visited.end()) {
+      if (l >= 0 && visited.find(l) == visited.end()) {
         q.push({l, path+"L"});
-      } else if (r >= 0 && visited.find(r) != visited.end()) {
+      }
+      if (r >= 0 && visited.find(r) == visited.end()) {
         q.push({r, path+"R"});
-      } else if (p >= 0 && visited.find(p) != visited.end()) {
+      }
+      if (p >= 0 && visited.find(p) == visited.end()) {
         q.push({p, path+"U"});
       }
     }
