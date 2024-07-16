@@ -4,9 +4,14 @@ Medium
 Topics
 Companies
 Hint
-You are given the root of a binary tree with n nodes. Each node is uniquely assigned a value from 1 to n. You are also given an integer startValue representing the value of the start node s, and a different integer destValue representing the value of the destination node t.
+You are given the root of a binary tree with n nodes. Each node is uniquely
+assigned a value from 1 to n. You are also given an integer startValue
+representing the value of the start node s, and a different integer destValue
+representing the value of the destination node t.
 
-Find the shortest path starting from node s and ending at node t. Generate step-by-step directions of such path as a string consisting of only the uppercase letters 'L', 'R', and 'U'. Each letter indicates a specific direction:
+Find the shortest path starting from node s and ending at node t. Generate
+step-by-step directions of such path as a string consisting of only the
+uppercase letters 'L', 'R', and 'U'. Each letter indicates a specific direction:
 
 'L' means to go from a node to its left child node.
 'R' means to go from a node to its right child node.
@@ -57,21 +62,23 @@ Acceptance Rate
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 
-#include <string>
 #include <queue>
+#include <string>
 #include <unordered_map>
 
 using namespace std;
@@ -83,13 +90,13 @@ struct TNP {
 };
 
 class Solution {
-  unordered_map<int, TNP*> graph;
-  void process_tree(TreeNode* cur, int from, bool left) {
+  unordered_map<int, TNP *> graph;
+  void process_tree(TreeNode *cur, int from, bool left) {
     if (!cur) return;
 
     int cv = cur->val;
     TNP *new_node = new TNP();
-    graph[cv]=new_node;
+    graph[cv] = new_node;
     if (from >= 0) {
       graph[cv]->parent = from;
       if (left) {
@@ -101,9 +108,15 @@ class Solution {
     process_tree(cur->left, cv, true);
     process_tree(cur->right, cv, false);
   }
-public:
-    string getDirections(TreeNode* root, int startValue, int destValue) {
-      // populate graph then bfs
-      process_tree(root, -1, false);
+
+ public:
+  string getDirections(TreeNode *root, int startValue, int destValue) {
+    // populate graph then bfs
+    process_tree(root, -1, false);
+    for (auto [k, v] : graph) {
+      cout << "for node " << k << endl;
+      cout << "l,r,p" << v->left << "," << v->right << "," << v->parent << endl;
     }
+    return "";
+  }
 };
