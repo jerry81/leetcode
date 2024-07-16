@@ -83,56 +83,48 @@ struct TreeNode {
 #include <unordered_set>
 
 using namespace std;
-struct TNP {
-  int left = -1;
-  int right = -1;
-  int parent = -1;
-};
-
 class Solution {
   unordered_map<int, TreeNode*> parent_map; // Use objects instead of pointers
+  TreeNode* startNode = nullptr;
 
-  void process_tree(TreeNode *cur, TreeNode *from) {
+  void process_tree(TreeNode *cur, TreeNode *from, int start) {
     if (!cur) return;
+
+    if (cur->val == start) start = cur;
 
     if (from != nullptr) parent_map[cur->val] = from;
 
-    process_tree(cur->left, cur);
-    process_tree(cur->right, cur);
+    process_tree(cur->left, cur, start);
+    process_tree(cur->right, start);
   }
 
  public:
   string getDirections(TreeNode *root, int startValue, int destValue) {
-    process_tree(root, nullptr);
 
-    queue<pair<int, string>> q;
-    unordered_set<int> visited;
-    q.push({startValue, ""});
-    visited.insert(startValue);
+    process_tree(root, nullptr, startValue);
+
+    queue<TreeNode*> q;
+    unordered_set<TreeNode*> visited;
+    q.push(startNode);
+    visited.insert(startNode);
 
     while (!q.empty()) {
-      auto [cur, path] = q.front();
+      TreeNode* cur = q.front();
       q.pop();
-      if (cur == destValue) {
-        return path;
+      if (cur->val == destValue) {
       }
 
-      TNP& curNode = graph[cur];
-      int l = curNode.left;
-      int r = curNode.right;
-      int p = curNode.parent;
-
-      if (l != -1 && visited.find(l) == visited.end()) {
-        q.push({l, path + "L"});
-        visited.insert(l);
+      if (cur->left != nullptr && visited.find(cur->left) == visited.end()) {
+        q.push(cur->left);
+        visited.insert(cur->left);
       }
-      if (r != -1 && visited.find(r) == visited.end()) {
-        q.push({r, path + "R"});
-        visited.insert(r);
+      if (cur->right != nullptr && visited.find(cur->right) == visited.end()) {
+        q.push(cur->right);
+        visited.insert(cur->right);
       }
-      if (p != -1 && visited.find(p) == visited.end()) {
-        q.push({p, path + "U"});
-        visited.insert(p);
+      if (parent_map[cur->val] != nullptr && visited.find(parent_map[cur->val]) == visited.end()) {
+        q.push(parent_map[cur->val]);
+        visited.insert(parent_map[cur->val]);
       }
     }
 
