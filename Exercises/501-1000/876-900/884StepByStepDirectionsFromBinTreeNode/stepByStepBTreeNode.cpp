@@ -61,12 +61,49 @@ Acceptance Rate
  * };
  */
 
+ struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+
 #include <string>
+#include <queue>
+#include <unordered_map>
 
 using namespace std;
+
+struct TNP {
+  int left = -1;
+  int right = -1;
+  int parent = -1;
+};
+
 class Solution {
+  unordered_map<int, TNP*> graph;
+  void process_tree(TreeNode* cur, int from, bool left) {
+    if (!cur) return;
+
+    int cv = cur->val;
+    TNP *new_node = new TNP();
+    graph[cv]=new_node;
+    if (from >= 0) {
+      graph[cv]->parent = from;
+      if (left) {
+        graph[from]->left = cv;
+      } else {
+        graph[from]->right = cv;
+      }
+    }
+    process_tree(cur->left, cv, true);
+    process_tree(cur->right, cv, false);
+  }
 public:
     string getDirections(TreeNode* root, int startValue, int destValue) {
-
+      // populate graph then bfs
+      process_tree(root, -1, false);
     }
 };
