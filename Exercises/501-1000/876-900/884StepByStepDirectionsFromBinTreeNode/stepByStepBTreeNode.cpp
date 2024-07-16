@@ -80,6 +80,7 @@ struct TreeNode {
 #include <queue>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -90,7 +91,7 @@ struct TNP {
 };
 
 class Solution {
-  unordered_map<int, TNP *> graph;
+  unordered_map<int, TNP*> graph;
   void process_tree(TreeNode *cur, int from, bool left) {
     if (!cur) return;
 
@@ -113,9 +114,30 @@ class Solution {
   string getDirections(TreeNode *root, int startValue, int destValue) {
     // populate graph then bfs
     process_tree(root, -1, false);
-    for (auto [k, v] : graph) {
-      cout << "for node " << k << endl;
-      cout << "l,r,p" << v->left << "," << v->right << "," << v->parent << endl;
+
+    // now bfs
+    queue<pair<int, string>> q;
+    unordered_set<int> visited;
+    q.push({startValue, ""});
+    visited.insert(startValue);
+    while (!q.empty()) {
+      auto [cur, path] = q.front();
+      q.pop();
+      if (cur == destValue) {
+        return path;
+      }
+
+      TNP* curNode = graph[cur];
+      int l = curNode->left;
+      int r = curNode->right;
+      int p = curNode->parent;
+      if (l >= 0 && visited.find(l) != visited.end()) {
+        q.push({l, path+"L"});
+      } else if (r >= 0 && visited.find(r) != visited.end()) {
+        q.push({r, path+"R"});
+      } else if (p >= 0 && visited.find(p) != visited.end()) {
+        q.push({p, path+"U"});
+      }
     }
     return "";
   }
