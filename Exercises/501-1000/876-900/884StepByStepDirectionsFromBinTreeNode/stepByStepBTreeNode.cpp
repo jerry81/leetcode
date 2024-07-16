@@ -83,7 +83,6 @@ struct TreeNode {
 #include <unordered_set>
 
 using namespace std;
-
 struct TNP {
   int left = -1;
   int right = -1;
@@ -91,35 +90,26 @@ struct TNP {
 };
 
 class Solution {
-  unordered_map<int, TNP*> graph;
-  void process_tree(TreeNode *cur, int from, bool left) {
+  unordered_map<int, TreeNode*> parent_map; // Use objects instead of pointers
+
+  void process_tree(TreeNode *cur, TreeNode *from) {
     if (!cur) return;
 
-    int cv = cur->val;
-    TNP *new_node = new TNP();
-    graph[cv] = new_node;
-    if (from >= 0) {
-      graph[cv]->parent = from;
-      if (left) {
-        graph[from]->left = cv;
-      } else {
-        graph[from]->right = cv;
-      }
-    }
-    process_tree(cur->left, cv, true);
-    process_tree(cur->right, cv, false);
+    if (from != nullptr) parent_map[cur->val] = from;
+
+    process_tree(cur->left, cur);
+    process_tree(cur->right, cur);
   }
 
  public:
   string getDirections(TreeNode *root, int startValue, int destValue) {
-    // populate graph then bfs
-    process_tree(root, -1, false);
+    process_tree(root, nullptr);
 
-    // now bfs
     queue<pair<int, string>> q;
     unordered_set<int> visited;
     q.push({startValue, ""});
     visited.insert(startValue);
+
     while (!q.empty()) {
       auto [cur, path] = q.front();
       q.pop();
@@ -127,20 +117,25 @@ class Solution {
         return path;
       }
 
-      TNP* curNode = graph[cur];
-      int l = curNode->left;
-      int r = curNode->right;
-      int p = curNode->parent;
-      if (l >= 0 && visited.find(l) == visited.end()) {
-        q.push({l, path+"L"});
+      TNP& curNode = graph[cur];
+      int l = curNode.left;
+      int r = curNode.right;
+      int p = curNode.parent;
+
+      if (l != -1 && visited.find(l) == visited.end()) {
+        q.push({l, path + "L"});
+        visited.insert(l);
       }
-      if (r >= 0 && visited.find(r) == visited.end()) {
-        q.push({r, path+"R"});
+      if (r != -1 && visited.find(r) == visited.end()) {
+        q.push({r, path + "R"});
+        visited.insert(r);
       }
-      if (p >= 0 && visited.find(p) == visited.end()) {
-        q.push({p, path+"U"});
+      if (p != -1 && visited.find(p) == visited.end()) {
+        q.push({p, path + "U"});
+        visited.insert(p);
       }
     }
+
     return "";
   }
 };
