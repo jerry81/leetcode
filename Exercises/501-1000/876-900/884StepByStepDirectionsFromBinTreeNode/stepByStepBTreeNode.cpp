@@ -90,12 +90,12 @@ class Solution {
   void process_tree(TreeNode *cur, TreeNode *from, int start) {
     if (!cur) return;
 
-    if (cur->val == start) start = cur;
+    if (cur->val == start) startNode = cur;
 
     if (from != nullptr) parent_map[cur->val] = from;
 
     process_tree(cur->left, cur, start);
-    process_tree(cur->right, start);
+    process_tree(cur->right, cur, start);
   }
 
  public:
@@ -105,6 +105,7 @@ class Solution {
 
     queue<TreeNode*> q;
     unordered_set<TreeNode*> visited;
+    unordered_map<TreeNode*, pair<TreeNode*, string>> paths_map; // TIL
     q.push(startNode);
     visited.insert(startNode);
 
@@ -112,18 +113,29 @@ class Solution {
       TreeNode* cur = q.front();
       q.pop();
       if (cur->val == destValue) {
+        // use pathsmap
+        string ret = "";
+        while (paths_map.find(cur) != paths_map.end()) {
+          ret+=paths_map[cur].second;
+          cur = paths_map[cur].first;
+        }
+        reverse(ret.begin(), ret.end());
+        return ret;
       }
 
       if (cur->left != nullptr && visited.find(cur->left) == visited.end()) {
         q.push(cur->left);
+        paths_map[cur->left] = {cur, "L"};
         visited.insert(cur->left);
       }
       if (cur->right != nullptr && visited.find(cur->right) == visited.end()) {
         q.push(cur->right);
+        paths_map[cur->right] = {cur, "R"};
         visited.insert(cur->right);
       }
       if (parent_map[cur->val] != nullptr && visited.find(parent_map[cur->val]) == visited.end()) {
         q.push(parent_map[cur->val]);
+        paths_map[parent_map[cur->val]] = {cur, "U"};
         visited.insert(parent_map[cur->val]);
       }
     }
