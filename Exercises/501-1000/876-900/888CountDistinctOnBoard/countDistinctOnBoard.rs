@@ -50,8 +50,26 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn distinct_integers(n: i32) -> i32 {
-
+    // math equation or simulation?
+    let mut nums_list: HashSet<i32> = HashSet::new();
+    let mut cnt = 0;
+    while changed && cnt < 1_000_000_000 {
+      cnt+=1;
+      changed = false;
+      for x in nums_list {
+        for i in 1..=n {
+          if x%i == 1 {
+            if nums_list.insert(i) {
+              changed = true
+            }
+          }
+        }
+      }
+    }
+    nums_list.len() as i32
   }
 }
