@@ -65,10 +65,52 @@ struct TreeNode {
       : val(x), left(left), right(right) {}
 };
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
+
 class Solution {
+  unordered_map<int, TreeNode *> parent_map;
+  unordered_map<int, TreeNode *> nodes;
+
+  void populate_parents(TreeNode *cur, TreeNode *from) {
+    if (cur == nullptr) return;
+
+    nodes[cur->val] = cur;
+
+    if (from != nullptr) parent_map[cur->val] = from;
+
+    populate_parents(cur->left, cur);
+    populate_parents(cur->right, cur);
+  }
+
  public:
-  vector<TreeNode *> delNodes(TreeNode *root, vector<int> &to_delete) {}
+  vector<TreeNode *> delNodes(TreeNode *root, vector<int> &to_delete) {
+    // how we know if child becomes orphaned?
+    // parent map like yesterday
+    populate_parents(root, nullptr);
+    for (int deleted: to_delete) {
+      if (parent_map.find(deleted) != parent_map.end()) {
+        TreeNode *parent_of_deleted = nodes[parent_map[deleted]->val];
+        if (parent_of_deleted->left == nodes[deleted]) {
+          parent_of_deleted->left = nullptr;
+        } else {
+          parent_of_deleted->right = nullptr;
+        }
+      }
+      parent_map.erase(nodes[deleted]->left->val);
+      parent_map.erase(nodes[deleted]->right->val);
+
+      delete nodes[deleted];
+      nodes.erase(deleted);
+    }
+    vector<TreeNode*> res;
+    for (auto [k,v]: nodes) {
+      if (parent_map.find(k) == parent_map.end()) {
+        res.push_back(v);
+      }
+    }
+    return res;
+  }
 };
