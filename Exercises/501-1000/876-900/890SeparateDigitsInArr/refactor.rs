@@ -59,5 +59,3 @@ impl Solution {
         .collect()
   }
 }
-
-// maybe fold not the perfect tool

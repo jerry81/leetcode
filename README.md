@@ -450,6 +450,9 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 
 - see 888 for how to clone a hashset
 
+- see 890 for flat_map and u8 (byte) literal b'..'
+  - convert Vec<Vec<i32>> to Vec<i32>
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
