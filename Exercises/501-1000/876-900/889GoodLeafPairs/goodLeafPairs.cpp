@@ -84,17 +84,25 @@ bool customSort(const pair<int, int> &a, const pair<int, int> &b) {
 }
 class Solution {
   unordered_map<TreeNode *, vector<pair<TreeNode *, int>>>
-      parents;  // { child, map of {parent, distance} }
-  void r(TreeNode *cur, TreeNode *from, int depth) {
+      parents_dists;  // { child, map of {parent, distance} }
+
+  unordered_map<TreeNode *, TreeNode *> parents;
+
+  void push_parents_r(TreeNode *child, TreeNode *cur, int depth) {
+    parents_dists[child].push_back({cur, depth});
+    if (parents.find(cur) != parents.end())
+      push_parents_r(child, parents[cur], depth + 1);
+  }
+  void r(TreeNode *cur, TreeNode *from) {
     if (cur == nullptr) return;
 
     if (from != nullptr) {
-      // Directly modify the map entry
-      parents[cur].push_back({from, depth});
+      parents[cur] = from;
+      push_parents_r(cur, from, 1);
     }
 
-    r(cur->left, cur, depth + 1);
-    r(cur->right, cur, depth + 1);
+    r(cur->left, cur);
+    r(cur->right, cur);
   }
 
  public:
@@ -103,6 +111,12 @@ class Solution {
     // no sometimes the path doesn't pass through root
     // so we need to walk all paths
     // could optimize with caching of dist from root
-    r(root, nullptr, 0);
+    r(root, nullptr);
+    for (auto [k, v] : parents_dists) {
+      cout << "looking at parent dists of " << k << endl;
+      auto [p, dist] = v;
+      cout << "parent is " << p.first << ", dist is " << dist << endl;
+    }
+    return 0;
   }
 };
