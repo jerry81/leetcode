@@ -113,9 +113,10 @@ class Solution {
     // could optimize with caching of dist from root
     r(root, nullptr);
     for (auto [k, v] : parents_dists) {
-      cout << "looking at parent dists of " << k << endl;
-      auto [p, dist] = v;
-      cout << "parent is " << p.first << ", dist is " << dist << endl;
+      cout << "looking at parent dists of " << k->val << endl;
+      for (auto [p,dist]: v) {
+        cout << "p " << p->val << ", dist " << dist << endl;
+      }
     }
     return 0;
   }
