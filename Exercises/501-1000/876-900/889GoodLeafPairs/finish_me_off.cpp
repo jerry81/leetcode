@@ -1,61 +1,53 @@
+#include <vector>
+
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right)
+        : val(x), left(left), right(right) {}
+};
 
 class Solution {
 public:
-    unordered_map<TreeNode *, vector<pair<TreeNode *, int>>> parents_dists;  // { child, map of {parent, distance} }
-    unordered_map<TreeNode *, TreeNode *> parents;
-    vector<TreeNode*> leaves;
-
-    void push_parents_r(TreeNode *child, TreeNode *cur, int depth) {
-        parents_dists[child].push_back({cur, depth});
-        if (parents.find(cur) != parents.end())
-            push_parents_r(child, parents[cur], depth + 1);
-    }
-
-    void r(TreeNode *cur, TreeNode *from) {
-        if (cur == nullptr) return;
-
-        if (from != nullptr) {
-            parents[cur] = from;
-            push_parents_r(cur, from, 1);
-        }
-
-        if (cur->left == nullptr && cur->right == nullptr) {
-            leaves.push_back(cur);
-        }
-
-        r(cur->left, cur);
-        r(cur->right, cur);
-    }
-
-    int countPairs(TreeNode *root, int distance) {
-        r(root, nullptr);
-
-        int res = 0;
-        for (size_t i = 0; i < leaves.size(); ++i) { // cross compare
-            for (size_t j = i + 1; j < leaves.size(); ++j) {
-                int dist = calculateDistance(leaves[i], leaves[j]);
-                if (dist <= distance) {
-                    ++res;
-                }
-            }
-        }
-        return res;
+    int countPairs(TreeNode* root, int distance) {
+        int result = 0;
+        dfs(root, distance, result);
+        return result;
     }
 
 private:
-    int calculateDistance(TreeNode* leaf1, TreeNode* leaf2) {
-        unordered_map<TreeNode*, int> dist1; // make map for perf
-        for (const auto& [node, dist] : parents_dists[leaf1]) {
-            dist1[node] = dist;
-        }
+    vector<int> dfs(TreeNode* node, int distance, int& result) {
+        if (!node) return {};
+        if (!node->left && !node->right) return {1};
 
-        int totalDistance = INT_MAX;
-        for (const auto& [node, dist] : parents_dists[leaf2]) {
-            if (dist1.find(node) != dist1.end()) { // O(1) find
-                totalDistance = min(totalDistance, dist + dist1[node]);
+        auto leftDistances = dfs(node->left, distance, result);
+        auto rightDistances = dfs(node->right, distance, result);
+
+        for (int ld : leftDistances) {
+            for (int rd : rightDistances) {
+                if (ld + rd <= distance) {
+                    result++;
+                }
             }
         }
 
-        return totalDistance == INT_MAX ? 0 : totalDistance;
+        vector<int> newDistances;
+        for (int ld : leftDistances) {
+            if (ld + 1 < distance) {
+                newDistances.push_back(ld + 1);
+            }
+        }
+        for (int rd : rightDistances) {
+            if (rd + 1 < distance) {
+                newDistances.push_back(rd + 1);
+            }
+        }
+
+        return newDistances;
     }
 };
