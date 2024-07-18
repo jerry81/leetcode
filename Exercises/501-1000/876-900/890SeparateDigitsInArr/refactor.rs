@@ -49,12 +49,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn separate_digits(nums: Vec<i32>) -> Vec<i32> {
-    nums.iter().fold(vec![], |mut v, n| { // required if you want to fold into a v
-      for c in n.to_string().chars() {
-        v.push((c as u8 - '0' as u8) as i32);
-      }
-      v
-    })
+    nums.iter()
+      .flat_map(|&n| {
+        n.to_string()
+          .chars()
+          .map(|c| (c as u8 - b'0') as i32) // char literal => as u8 is same as  b'...'
+          .collect::<Vec<_>>()
+        })
+        .collect()
   }
 }
 
