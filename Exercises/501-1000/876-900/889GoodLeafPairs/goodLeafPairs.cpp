@@ -112,12 +112,18 @@ class Solution {
     // so we need to walk all paths
     // could optimize with caching of dist from root
     r(root, nullptr);
-    for (auto [k, v] : parents_dists) {
-      cout << "looking at parent dists of " << k->val << endl;
-      for (auto [p,dist]: v) {
-        cout << "p " << p->val << ", dist " << dist << endl;
+    // debug: todo: remove!
+    // for (auto [k, v] : parents_dists) {
+    //   cout << "looking at parent dists of " << k->val << endl;
+    //   for (auto [p,dist]: v) {
+    //     cout << "p " << p->val << ", dist " << dist << endl;
+    //   }
+    // }
+    int res = 0;
+    for (auto it1 = parents_dists.begin(); it1 != parents_dists.end(); ++it1) {
+      for (auto it2 = next(it1); it2 != parents_dists.end(); ++it2) {
       }
     }
-    return 0;
+    return res;
   }
 };
