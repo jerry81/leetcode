@@ -74,6 +74,6 @@ impl Solution {
       let mx_idx = Solution::get_mx_i(&cl);
       cl[mx_idx] = (cl[mx_idx] as f64).sqrt() as i32;
     }
-    cl.clone().iter().sum::<i32>() as i64
+    cl.clone().iter().map(|&item| { item as i64}).sum::<i64>() as i64
   }
 }
