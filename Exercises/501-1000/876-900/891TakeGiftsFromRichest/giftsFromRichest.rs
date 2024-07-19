@@ -53,7 +53,27 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn get_mx_i(v: Vec<i32>) -> usize {
+    let mut mx = 0;
+    let mut mx_i = 0;
+    for idx in 0..v.len() {
+      if v[idx] > mx {
+        mx = v[idx];
+        mx_i = idx;
+      }
+    }
+    mx_i
+  }
   pub fn pick_gifts(gifts: Vec<i32>, k: i32) -> i64 {
+    let mut cl: Vec<i32> = gifts.clone();
+    for _ in 0..k {
+      if cl.is_empty() {
+        return 0
+      }
 
+      let mx_idx = Solution::get_mx_i(cl);
+      cl[mx_idx] = cl[mx_idx].sqrt() as i32;
+    }
+    cl.iter().sum() as i64
   }
 }
