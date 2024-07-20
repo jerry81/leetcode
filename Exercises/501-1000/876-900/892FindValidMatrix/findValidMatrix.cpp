@@ -67,13 +67,34 @@ class Solution {
     int mV = INT_MAX;
     int mIdx = 0;
     bool is_row = false;
-    for ()
-    return res;
+    for (int i = 0; i < rowSum.size(); ++i) {
+      if (rowSum[i] < mV) {
+        mV = rowSum[i];
+        mIdx = i;
+        is_row = true;
+      }
+    }
+    for (int i = 0; i < colSum.size(); ++i) {
+      if (colSum[i] < mV) {
+        mV = colSum[i];
+        mIdx = i;
+        is_row = false;
+      }
+    }
+    return {mIdx, is_row};
   };
 
  public:
   vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
     while (true) {
+      auto [idx, is_row] = get_smallest(rowSum, colSum);
+      if (is_row) {
+        colSum[idx] -= rowSum[idx];
+        rowSum[idx] = 0;
+      } else {
+        rowSum[idx] -= colSum[idx];
+        colSum[idx] = 0;
+      }
     }
   }
 };
