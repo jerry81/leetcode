@@ -66,10 +66,14 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
+    vector<int> tsort(vector<vector<int>> conditions) {
+
+    }
 public:
     vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
-
+        vector<int> orderRows = Solution::tsort(rowConditions);
+        vector<int> orderColumns = Solution::tsort(colConditions);
+        if (orderRows.empty() || orderColumns.empty()) return {};
     }
 };
