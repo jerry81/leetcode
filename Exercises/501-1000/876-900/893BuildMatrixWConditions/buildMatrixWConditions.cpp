@@ -75,5 +75,14 @@ public:
         vector<int> orderRows = Solution::tsort(rowConditions);
         vector<int> orderColumns = Solution::tsort(colConditions);
         if (orderRows.empty() || orderColumns.empty()) return {};
+        vector<vector<int>> res(k, vector<int>(k, 0));
+        for (int i = 0; i < k; ++i) {
+          for (int j = 0; j < k; ++j) {
+            if (orderRows[i] == orderColumns[j]) {
+              res[i][j] = orderRows[i];
+            }
+          }
+        }
+        return res;
     }
 };
