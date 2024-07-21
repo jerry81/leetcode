@@ -67,9 +67,16 @@ Acceptance Rate
 
 using namespace std;
 class Solution {
-    vector<int> tsort(vector<vector<int>> conditions) {
 
-    }
+    void dfs(int curNode, vector<vector<int>> &adj, vector<int> &visited, bool &hasCycle) {
+      // visited has 3 states, 0 = not, 1 = visiting, 2 = visited
+      // 3 states to detect cycle
+      // if visiting is revisited, then it is a cycle.
+    };
+
+    vector<int> tsort(vector<vector<int>> conditions, int n) {
+
+    };
 public:
     vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
         vector<int> orderRows = Solution::tsort(rowConditions);
