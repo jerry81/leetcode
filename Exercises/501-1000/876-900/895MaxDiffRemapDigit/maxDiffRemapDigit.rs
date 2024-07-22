@@ -52,6 +52,34 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_max_difference(num: i32) -> i32 {
-
+    // logic: remap most significant digit
+    // edge case:  most sig is already 0 or 9
+    let as_str = num.to_string();
+    let sz = as_str.len();
+    let mut most_sig_mx = '9';
+    for cur in as_str.chars() {;
+      if cur != '9' {
+        most_sig = cur;
+        break
+      }
+    }
+    let mut most_sig_mn = '0';
+    for cur in as_str.chars() {;
+      if cur != '0' {
+        most_sig_mn = cur;
+        break
+      }
+    }
+    let mut mxStr = as_str.clone().chars().iter().map( |c| {
+      if c==most_sig_mx {
+        '9'
+      }
+    }).collect();
+    let mut mnStr = as_str.clone().chars().iter().map( |c| {
+      if c==most_sig_mn {
+        '0'
+      }
+    }).collect();
+    mxStr.parse<i32>().unwrap() - mnStr.parse<i32>().unwrap()
   }
 }
