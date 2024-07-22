@@ -73,6 +73,10 @@ Acceptance Rate
 impl Solution {
   fn concat_val(a: i64, b: i64) -> i64 {
     ((a.to_string()) + &(b.to_string())).parse::<i64>().unwrap()
+    /* review:
+      string + &str allowed, not string + string
+      s.parse::<generic>() syntax
+    */
   }
   pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
     let mut res: i64 = 0;
