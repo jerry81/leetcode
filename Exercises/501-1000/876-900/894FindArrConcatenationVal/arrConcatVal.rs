@@ -72,16 +72,16 @@ Acceptance Rate
 
 impl Solution {
   fn concat_val(a: i64, b: i64) -> i64 {
-    (a.to_string() + b.to_string()).parse::<i64>().unwrap()
+    ((a.to_string()) + &(b.to_string())).parse::<i64>().unwrap()
   }
   pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
     let mut res: i64 = 0;
-    let as_i64 = nums.map(|item| { item as i64 });
+    let as_i64: Vec<i64> = nums.iter().map(|&item| { item as i64 }).collect();
     let mut ptr1 = 0;
     let sz = nums.len();
     let mut ptr2 = sz-1;
     while ptr1 < ptr2 {
-      res+=concat_val(as_i64[ptr1], as_i64[ptr2]);
+      res+=Solution::concat_val(as_i64[ptr1], as_i64[ptr2]);
       ptr1+=1;
       ptr2-=1;
     }
