@@ -59,7 +59,7 @@ impl Solution {
     let mut most_sig_mx = '9';
     for cur in as_str.chars() {;
       if cur != '9' {
-        most_sig = cur;
+        most_sig_mx = cur;
         break
       }
     }
@@ -70,16 +70,20 @@ impl Solution {
         break
       }
     }
-    let mut mxStr = as_str.clone().chars().iter().map( |c| {
+    let mut mxStr: String = as_str.clone().chars().map( |c| {
       if c==most_sig_mx {
         '9'
+      } else {
+        c
       }
     }).collect();
-    let mut mnStr = as_str.clone().chars().iter().map( |c| {
+    let mut mnStr: String = as_str.clone().chars().map( |c| {
       if c==most_sig_mn {
         '0'
+      } else {
+        c
       }
     }).collect();
-    mxStr.parse<i32>().unwrap() - mnStr.parse<i32>().unwrap()
+    mxStr.parse::<i32>().unwrap() - mnStr.parse::<i32>().unwrap()
   }
 }
