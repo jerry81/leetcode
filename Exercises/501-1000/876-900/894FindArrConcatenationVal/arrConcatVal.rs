@@ -72,11 +72,11 @@ Acceptance Rate
 
 impl Solution {
   fn concat_val(a: i64, b: i64) -> i64 {
-    i64::parse(a.to_string() + b.to_string(),10)
+    (a.to_string() + b.to_string()).parse::<i64>().unwrap()
   }
   pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
     // test
-    println("expect 1020: {}", Solution::concat_val(10, 20);
+    println!("expect 1020: {}", Solution::concat_val(10, 20));
     0
   }
 }
