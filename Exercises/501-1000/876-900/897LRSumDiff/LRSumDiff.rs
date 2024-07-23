@@ -63,8 +63,8 @@ impl Solution {
       sm-n
     }).collect();
     rsum.reverse();
-    lsum.iter().fold(rsum.iter()).map(|a,b| {
-      (rsum-lsum).abs();
+    lsum.iter().zip(rsum.iter()).map(|(a,b)| {
+      (a-b).abs()
     }).collect()
   }
 }
