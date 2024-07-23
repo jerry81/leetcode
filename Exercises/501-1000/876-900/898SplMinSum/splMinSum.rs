@@ -68,6 +68,6 @@ impl Solution {
       }
       left = !left;
     }
-    parse::<i32>(s1).unwrap() + parse::<i32>(s2).unwrap()
+    s1.parse::<i32>().unwrap() + s2.parse::<i32>().unwrap()
   }
 }
