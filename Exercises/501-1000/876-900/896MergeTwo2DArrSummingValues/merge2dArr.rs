@@ -65,7 +65,7 @@ impl Solution {
       *hm.entry(b[0]).or_insert(0) += b[1];
     }
     let mut res: Vec<Vec<i32>> = hm.iter().map(|(&k,&v)| vec![k,v]).collect();
-    res.sort_by_key(| v |  v[0] );
+    res.sort_by_key(| v |  v[0] ); // like sort by but simpler
     res
   }
 }
