@@ -53,8 +53,21 @@ impl Solution {
     let as_v: Vec<i32> = num.to_string().chars()
     .map(|c| {
       (c as u8 - '0' as u8) as i32
-    }.collect();
-    println!("as v {:?}", as_v);
-    0
+    }).collect();
+    let mut res = 0;
+    let mut sorted = as_v.clone();
+    sorted.sort();
+    let mut left: bool = true;
+    let mut s1:String = String::new();
+    let mut s2:String = String::new();
+    for i in sorted {
+      if left {
+        s1.push((i as u8 + '0' as u8) as char;
+      } else {
+        s2.push((i as u8 + '0' as u8) as char;
+      }
+    }
+    println!("s1 {} s2 {}", s1, s2);
+    res
   }
 }
