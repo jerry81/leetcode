@@ -55,7 +55,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn vowel_strings(words: Vec<String>, left: i32, right: i32) -> i32 {
-    let vowels: [char:5] = ['a','e','i','o','u']; // TIL: array init, faster than Vec
+    let vowels: [char;5] = ['a','e','i','o','u']; // TIL: array init, faster than Vec
     let mut res = 0;
     for i in left as usize..=right as usize {
       let mut chrs = words[i].chars();
