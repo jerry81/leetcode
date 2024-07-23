@@ -54,6 +54,7 @@ Acceptance Rate
 */
 
 use std::collections::HashMap;
+
 impl Solution {
   pub fn merge_arrays(nums1: Vec<Vec<i32>>, nums2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     let mut hm: HashMap<i32, i32> = HashMap::new();
@@ -61,8 +62,8 @@ impl Solution {
       *hm.entry(a[0]).or_insert(0) += a[1];
       *hm.entry(b[0]).or_insert(0) += b[1];
     }
-    let res: Vec<_> = hm.iter().collect();
-    res.sort_by_key(|(&k, _)| { key });
+    let mut res: Vec<Vec<i32>> = hm.iter().map(|(&k,&v)| vec![k,v]).collect();
+    res.sort_by_key(| v |  v[0] );
     res
   }
 }
