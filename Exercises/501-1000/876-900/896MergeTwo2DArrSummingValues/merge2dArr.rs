@@ -61,6 +61,8 @@ impl Solution {
       *hm.entry(a[0]).or_insert(0) += a[1];
       *hm.entry(b[0]).or_insert(0) += b[1];
     }
-    vec![]
+    let res: Vec<_> = hm.iter().collect();
+    res.sort_by_key(|(&k, _)| { key });
+    res
   }
 }
