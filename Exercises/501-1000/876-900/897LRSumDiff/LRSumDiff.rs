@@ -51,7 +51,19 @@ Acceptance Rate
 impl Solution {
   pub fn left_right_difference(nums: Vec<i32>) -> Vec<i32> {
     let mut sm = 0;
-    let lsum = nums.map(|n| { sm+n });
+    let lsum: Vec<i32> = nums.iter().map(|n| {
+      sm+=n;
+      sm-n
+    }).collect();
+    let mut rev = nums.clone();
+    rev.reverse();
+    sm = 0;
+    let mut rsum : Vec<i32> = rev.iter().map(|n| {
+      sm+=n;
+      sm-n
+    }).collect();
+    rsum.reverse();
+    println!("rsum is {:?}", rsum);
     println!("lsum is {:?}", lsum);
     vec![]
   }
