@@ -55,6 +55,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn vowel_strings(words: Vec<String>, left: i32, right: i32) -> i32 {
-
+    let vowels: Vec<char> = vec!['a','e','i','o','u'];
+    let mut res = 0;
+    for i in left..=right {
+      let chrs = words[i].chars();
+      let firstchr = chars().next();
+      let lastchr = chars().last();
+      if vowels.contains(firstchr) && vowels.contains(lastchr) {
+        res+=1;
+      }
+    }
+    res
   }
 }
