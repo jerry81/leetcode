@@ -63,8 +63,8 @@ impl Solution {
       sm-n
     }).collect();
     rsum.reverse();
-    println!("rsum is {:?}", rsum);
-    println!("lsum is {:?}", lsum);
-    vec![]
+    lsum.iter().fold(rsum.iter()).map(|a,b| {
+      (rsum-lsum).abs();
+    }).collect()
   }
 }
