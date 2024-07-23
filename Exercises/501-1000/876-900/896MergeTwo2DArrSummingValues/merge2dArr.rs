@@ -58,8 +58,10 @@ use std::collections::HashMap;
 impl Solution {
   pub fn merge_arrays(nums1: Vec<Vec<i32>>, nums2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     let mut hm: HashMap<i32, i32> = HashMap::new();
-    for (a,b) in nums1.iter().zip(nums2.iter()) {
+    for a in nums1.iter() {
       *hm.entry(a[0]).or_insert(0) += a[1];
+    }
+    for b in nums2.iter() {
       *hm.entry(b[0]).or_insert(0) += b[1];
     }
     let mut res: Vec<Vec<i32>> = hm.iter().map(|(&k,&v)| vec![k,v]).collect();
