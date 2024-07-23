@@ -49,6 +49,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn split_num(num: i32) -> i32 {
-
+    // get Vec<i32>
+    let as_v: Vec<i32> = num.to_string().chars()
+    .map(|c| {
+      (c as u8 - '0' as u8) as i32
+    }.collect();
+    println!("as v {:?}", as_v);
+    0
   }
 }
