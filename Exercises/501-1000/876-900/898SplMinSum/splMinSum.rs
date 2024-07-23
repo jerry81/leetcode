@@ -62,12 +62,12 @@ impl Solution {
     let mut s2:String = String::new();
     for i in sorted {
       if left {
-        s1.push((i as u8 + '0' as u8) as char;
+        s1.push((i as u8 + '0' as u8) as char);
       } else {
-        s2.push((i as u8 + '0' as u8) as char;
+        s2.push((i as u8 + '0' as u8) as char);
       }
+      left = !left;
     }
-    println!("s1 {} s2 {}", s1, s2);
-    res
+    parse::<i32>(s1).unwrap() + parse::<i32>(s2).unwrap()
   }
 }
