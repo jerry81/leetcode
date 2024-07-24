@@ -72,7 +72,7 @@ struct Compare {  // struct comparator - allows us to pass var in
  public:
   vector<int> conv;
 
-  Compare(vector<int> c) { conv = c; };
+  Compare(vector<int> &c) { conv = c; };
 
   bool operator()(int a, int b) { return conv[a] < conv[b]; }
 };
