@@ -58,12 +58,27 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
-
+      // so, to string, back to int
+      vector<int> converted;
+      for (int i: nums) {
+        string s = to_string(i);
+        string cs = "";
+        for (char c: s) {
+          int idx = c - '0';
+          cs.push_back(mapping[idx]);
+        }
+        converted.push_back(stoi(cs));
+      }
+      for (auto cn: converted) {
+        cout << cn << endl;
+      }
+      return {};
     }
 };
