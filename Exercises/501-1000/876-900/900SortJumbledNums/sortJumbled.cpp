@@ -5,16 +5,21 @@ Medium
 Topics
 Companies
 Hint
-You are given a 0-indexed integer array mapping which represents the mapping rule of a shuffled decimal system. mapping[i] = j means digit i should be mapped to digit j in this system.
+You are given a 0-indexed integer array mapping which represents the mapping
+rule of a shuffled decimal system. mapping[i] = j means digit i should be mapped
+to digit j in this system.
 
-The mapped value of an integer is the new integer obtained by replacing each occurrence of digit i in the integer with mapping[i] for all 0 <= i <= 9.
+The mapped value of an integer is the new integer obtained by replacing each
+occurrence of digit i in the integer with mapping[i] for all 0 <= i <= 9.
 
-You are also given another integer array nums. Return the array nums sorted in non-decreasing order based on the mapped values of its elements.
+You are also given another integer array nums. Return the array nums sorted in
+non-decreasing order based on the mapped values of its elements.
 
 Notes:
 
-Elements with the same mapped values should appear in the same relative order as in the input.
-The elements of nums should only be sorted based on their mapped values and not be replaced by them.
+Elements with the same mapped values should appear in the same relative order as
+in the input. The elements of nums should only be sorted based on their mapped
+values and not be replaced by them.
 
 
 Example 1:
@@ -28,13 +33,14 @@ Map the number 991 as follows:
 Therefore, the mapped value of 991 is 669.
 338 maps to 007, or 7 after removing the leading zeros.
 38 maps to 07, which is also 7 after removing leading zeros.
-Since 338 and 38 share the same mapped value, they should remain in the same relative order, so 338 comes before 38.
-Thus, the sorted array is [338,38,991].
+Since 338 and 38 share the same mapped value, they should remain in the same
+relative order, so 338 comes before 38. Thus, the sorted array is [338,38,991].
 Example 2:
 
 Input: mapping = [0,1,2,3,4,5,6,7,8,9], nums = [789,456,123]
 Output: [123,456,789]
-Explanation: 789 maps to 789, 456 maps to 456, and 123 maps to 123. Thus, the sorted array is [123,456,789].
+Explanation: 789 maps to 789, 456 maps to 456, and 123 maps to 123. Thus, the
+sorted array is [123,456,789].
 
 
 Constraints:
@@ -57,28 +63,43 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
+struct Compare { // struct comparator - allows us to pass var in
+ public:
+  vector<int> conv;
+
+  Compare(vector<int> c) { conv = c; };
+
+  bool operator()(int a, int b) { return conv[a] <= conv[b]; }
+};
+
 class Solution {
-public:
-    vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
-      // so, to string, back to int
-      vector<int> converted;
-      for (int i: nums) {
-        string s = to_string(i);
-        string cs = "";
-        for (char c: s) {
-          int idx = c - '0';
-          cs.push_back(mapping[idx]);
-        }
-        converted.push_back(stoi(cs));
-      }
-      for (auto cn: converted) {
-        cout << cn << endl;
-      }
-      return {};
+ public:
+  vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
+    // so, to string, back to int
+    vector<int> converted;
+    vector<int> sorted_indexes;
+    for (int i = 0; i < nums.size(); ++i) {
+      sorted_indexes[i] = i;
     }
+
+    for (int i : nums) {
+      string s = to_string(i);
+      string cs = "";
+      for (char c : s) {
+        int idx = c - '0';
+        cs.push_back(mapping[idx] + '0');
+      }
+      converted.push_back(std::stoi(cs));
+      sort(sorted_indexes.begin(), sorted_indexes.end(), Compare(converted));
+      for (int i : sorted_indexes) {
+        cout << i << endl;
+      }
+    }
+    return {};
+  }
 };
