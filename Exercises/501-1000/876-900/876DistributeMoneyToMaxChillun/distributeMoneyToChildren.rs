@@ -52,7 +52,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn dist_money(money: i32, children: i32) -> i32 {
-
+    // first try to remove all the 8 multiples
+    let mut num_of_eights = money%8 != 4 ? money/8: (money/8)-1;
+    println!("num of eights possible {}", num_of_eights);
+    0
   }
 }
 
