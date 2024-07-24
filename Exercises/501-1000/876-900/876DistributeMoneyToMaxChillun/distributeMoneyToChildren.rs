@@ -55,6 +55,6 @@ impl Solution {
     // first try to remove all the 8 multiples
     let mut num_of_eights = money/8;
     if money%8 == 4 { num_of_eights -= 1; }
-    num_of_eights
+    num_of_eights.min(children)
   }
 }
