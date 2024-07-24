@@ -84,7 +84,7 @@ class Solution {
     vector<int> converted;
     vector<int> sorted_indexes;
     for (int i = 0; i < nums.size(); ++i) {
-      sorted_indexes[i] = i;
+      sorted_indexes.push_back(i);
     }
 
     for (int i : nums) {
