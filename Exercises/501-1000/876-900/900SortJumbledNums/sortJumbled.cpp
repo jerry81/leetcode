@@ -68,13 +68,13 @@ Acceptance Rate
 
 using namespace std;
 
-struct Compare { // struct comparator - allows us to pass var in
+struct Compare {  // struct comparator - allows us to pass var in
  public:
   vector<int> conv;
 
   Compare(vector<int> c) { conv = c; };
 
-  bool operator()(int a, int b) { return conv[a] <= conv[b]; }
+  bool operator()(int a, int b) { return conv[a] < conv[b]; }
 };
 
 class Solution {
@@ -86,7 +86,6 @@ class Solution {
     for (int i = 0; i < nums.size(); ++i) {
       sorted_indexes.push_back(i);
     }
-
     for (int i : nums) {
       string s = to_string(i);
       string cs = "";
@@ -95,11 +94,13 @@ class Solution {
         cs.push_back(mapping[idx] + '0');
       }
       converted.push_back(std::stoi(cs));
-      sort(sorted_indexes.begin(), sorted_indexes.end(), Compare(converted));
-      for (int i : sorted_indexes) {
-        cout << i << endl;
-      }
     }
-    return {};
+    sort(sorted_indexes.begin(), sorted_indexes.end(), Compare(converted));
+
+    vector<int> res;
+    for (int i: sorted_indexes) {
+      res.push_back(nums[i]);
+    }
+    return res;
   }
 };
