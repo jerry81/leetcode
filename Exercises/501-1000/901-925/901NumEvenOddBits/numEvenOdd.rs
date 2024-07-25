@@ -59,7 +59,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn even_odd_bit(n: i32) -> Vec<i32> {
-    let binary_string = format!("{:b}", number);
+    let binary_string = format!("{:b}", n);
 
     let mut even = 0;
     let mut odd = 0;
@@ -68,7 +68,8 @@ impl Solution {
       if c == '1' {
         if e { even +=1 } else { odd += 1; }
       }
+      e = !e;
     }
-    vec![even,odd];
+    vec![even,odd]
   }
 }
