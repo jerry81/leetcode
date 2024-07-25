@@ -64,7 +64,7 @@ impl Solution {
     let mut even = 0;
     let mut odd = 0;
     let mut e = true;
-    for c in binary_string.chars() {
+    for c in binary_string.chars().rev() {
       if c == '1' {
         if e { even +=1 } else { odd += 1; }
       }
