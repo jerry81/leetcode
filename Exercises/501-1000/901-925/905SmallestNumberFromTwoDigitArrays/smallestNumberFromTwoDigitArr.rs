@@ -51,5 +51,10 @@ impl Solution {
       nums1.sort();
       nums2.sort();
 
+      if sorted1[0] < sorted2 {
+        sorted1[0]*10 + sorted2[0]
+      } else {
+        sorted2[0]*10 + sorted1[0]
+      }
     }
 }
