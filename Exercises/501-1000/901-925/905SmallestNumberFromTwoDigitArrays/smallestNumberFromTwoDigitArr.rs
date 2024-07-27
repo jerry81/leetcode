@@ -48,10 +48,10 @@ impl Solution {
       }
       let mut sorted1: Vec<i32> = nums1.clone();
       let mut sorted2: Vec<i32> = nums2.clone();
-      nums1.sort();
-      nums2.sort();
+      sorted1.sort();
+      sorted2.sort();
 
-      if sorted1[0] < sorted2 {
+      if sorted1[0] < sorted2[0] {
         sorted1[0]*10 + sorted2[0]
       } else {
         sorted2[0]*10 + sorted1[0]
