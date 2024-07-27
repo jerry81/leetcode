@@ -42,7 +42,7 @@ impl Solution {
     pub fn min_number(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
       for i in 1..=9 {
         let as_i = i as i32;
-        if nums1.contains(as_i) && nums2.contains(as_i) {
+        if nums1.contains(&as_i) && nums2.contains(&as_i) {
           return as_i
         }
       }
