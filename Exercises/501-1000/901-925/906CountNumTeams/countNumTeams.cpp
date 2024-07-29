@@ -55,10 +55,13 @@ Acceptance Rate
 
 using namespace std;
 
+
 class Solution {
   vector<vector<vector<int>>> memo;
   int r(vector<int>& rating, int idx, int remain, int last, int n) {
-    if (idx == n) return 0;
+    if (idx == n) {
+        return remain == -1 ? 1: 0;
+    }
 
     if (remain < 0) return 1;
 
