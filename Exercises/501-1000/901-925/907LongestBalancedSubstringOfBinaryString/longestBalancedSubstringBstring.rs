@@ -50,7 +50,31 @@ Acceptance Rate
 */
 
 impl Solution {
+  let mut zeroes_count = 0;
+  let mut current_zeroes = true;
+  let mut ones_count = 0;
+  let mut longest = 0;
   pub fn find_the_longest_balanced_substring(s: String) -> i32 {
-
+    for c in s.chars() {
+      if current_zeroes {
+        if c == '0' {
+          zeroes_count+=1;
+        } else {
+          ones_count+=1;
+          current_zeroes = false;
+        }
+      } else {
+        if c == '0' {
+          current_zeroes = true;
+          ones_count = 0;
+          zeroes_count = 1;
+          let lesser = ones_count.min(zeroes_count);
+          longest = longest.max(lesser*2);
+        } else {
+          ones_count+=1;
+        }
+      }
+    }
+    longest
   }
 }
