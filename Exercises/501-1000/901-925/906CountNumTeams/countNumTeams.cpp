@@ -56,13 +56,13 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  vector<vector<int>> memo;
+  vector<vector<vector<int>>> memo;
   int r(vector<int>& rating, int idx, int remain, int last, int n) {
     if (idx == n) return 0;
 
     if (remain < 0) return 1;
 
-    if (memo[idx][remain] >= 0) return memo[idx][remain];
+    if (memo[idx][last+1][remain] >= 0) return memo[idx][last+1][remain];
 
     int cur = rating[idx];
 
@@ -73,16 +73,17 @@ class Solution {
       int take = r(rating, nxt, remain-1, cur, n);
       res+=take;
     }
-    return memo[idx][remain] = res;
+    return memo[idx][last+1][remain] = res;
   }
 
  public:
   int numTeams(vector<int>& rating) {
     // recursive dp
     int sz = rating.size();
-    memo.resize(sz, vector<int>(3, -1));
+    memo.resize(sz, vector<vector<int>>(sz+2, vector<int>(3, -1)));
     int inc = r(rating, 0, 2, -1, sz);
     cout << "inc is " << inc << endl;
+    return inc;
     // 2 problems: increasing subseq, decreasing subseq
   }
 };
