@@ -50,7 +50,28 @@ Acceptance Rate
 */
 
 impl Solution {
+  is_prime(num: i32) -> bool {
+    for i in 2..num.sqrt() {
+      if num % (i as i32) == 0 { return true }
+    }
+    false
+  }
   pub fn diagonal_prime(nums: Vec<Vec<i32>>) -> i32 {
+    let mut sz = nums.len();
+    let mut candidates = vec![];
+    for i in 0..sz {
+      let diag1 = nums[i][i];
+      let diag2 = nums[sz-i-1][i];
+      if Solution::is_prime(diag1) {
+        candidates.push(diag1);
+      }
 
+      // 2,0 1,1 0,2
+      if Solution::is_prime(diag2) {
+        candidates.push(diag2);
+      }
+    }
+    if candidates.empty() { return 0 }
+    candidates.iter().max()
   }
 }
