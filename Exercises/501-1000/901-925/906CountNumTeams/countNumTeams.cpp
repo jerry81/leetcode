@@ -52,16 +52,12 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <unordered_map>
 
 using namespace std;
 
 
 class Solution {
-  string hsh(int a, int b, int c) {
-    return a.to_string()+","+b.to_string()+","+c.to_string();
-  }
-  unordered_map<string, int> memo;
+  vector<vector<vector<int>>> memo;
   int r(vector<int>& rating, int idx, int remain, int last, int n) {
     if (idx == n) {
         return remain == -1 ? 1: 0;
@@ -69,28 +65,27 @@ class Solution {
 
     if (remain < 0) return 1;
 
-    string as_h = hsh(idx, remain, last);
-
-    if (memo.find(as_h) != memo.end()) return memo[as_h];
+    if (memo[idx][last+1][remain] >= 0) return memo[idx][last+1][remain];
 
     int cur = rating[idx];
 
     int nxt = idx+1;
     int res = r(rating, nxt, remain, last, n);
     // can only take if cur > last
-    if (cur > last) {
-      int take = r(rating, nxt, remain-1, cur, n);
+    if (last < 0 || cur > rating[last]) {
+      int take = r(rating, nxt, remain-1, idx, n);
       res+=take;
     }
-    return memo[as_h] = res;
+    return memo[idx][last+1][remain] = res;
   }
 
  public:
   int numTeams(vector<int>& rating) {
     // recursive dp
     int sz = rating.size();
+    memo.resize(sz, vector<vector<int>>(sz+2, vector<int>(3, -1)));
     int inc = r(rating, 0, 2, -1, sz);
-    memo.clear();
+    fill(memo.begin(), memo.end(), vector<vector<int>>(sz + 2, vector<int>(3, -1))); // TIL: reset the vector
     vector<int> rev = rating;
     reverse(rev.begin(), rev.end());
     int dec = r(rev, 0, 2, -1, sz);
