@@ -85,8 +85,11 @@ class Solution {
     int sz = rating.size();
     memo.resize(sz, vector<vector<int>>(sz+2, vector<int>(3, -1)));
     int inc = r(rating, 0, 2, -1, sz);
-    cout << "inc is " << inc << endl;
-    return inc;
+    fill(memo.begin(), memo.end(), vector<vector<int>>(sz + 2, vector<int>(3, -1))); // TIL: reset the vector
+    vector<int> rev = rating;
+    reverse(rev.begin(), rev.end());
+    int dec = r(rev, 0, 2, -1, sz);
+    return inc + dec;
     // 2 problems: increasing subseq, decreasing subseq
   }
 };
