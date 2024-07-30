@@ -44,9 +44,26 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int minimumDeletions(string s) {
-
+      vector<int> a;
+      vector<int> b;
+      int sz = s.size();
+      for (int i = 0; i < sz; ++i) {
+        if (s[i] == 'a') {
+          a.push_back(i);
+          cout << "a: " << i << endl;
+        } else {
+          b.push_back(i);
+          cout << "b: " << i << endl;
+        }
+      }
+      return 0;
     }
 };
