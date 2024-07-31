@@ -64,38 +64,41 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+  vector<int> memo;
 
  public:
   int r(int idx, vector<vector<int>>& books, int w, int sz) {
-  int total_w = 0;
-  int mx_h = 0;
-  int mn_result = INT_MAX;
+    if (idx >= sz) return 0;
+    if (memo[idx] != -1) return memo[idx];
+    int total_w = 0;
+    int mx_h = 0;
+    int mn_result = INT_MAX;
 
-  for (int i = idx; i < sz; ++i) {
+    for (int i = idx; i < sz; ++i) {
       int cur_w = books[i][0];
       int cur_h = books[i][1];
-      total_w+=cur_w;
+      total_w += cur_w;
       if (total_w > w) break;
 
-      mx_h=max(cur_h, mx_h);
-      mn_result = min(mx_h + r(i+1, books, w, sz), mn_result);
-  }
-
-  return memo[idx] = mn_result;
-};
-public:
-    int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
-      // cannot change order
-      // only choices are the "breaks"
-      // [[1,1],[2,3],[2,3],[1,1],[1,1],[1,1],[1,2]]
-      // width 4
-      // height = build_shelf(idx, booknum);
-      // (0,1) or (0,2)
-      // (0,1) leads to (1,x) (0,2) leads to (2, x)
-      // (1,1) or (1,2)
-      int sz = books.size();
-      memo.resize(sz, -1);
-
-      return r(0, books, shelfWidth, sz);
+      mx_h = max(cur_h, mx_h);
+      mn_result = min(mx_h + r(i + 1, books, w, sz), mn_result);
     }
-};
+
+    return memo[idx] = mn_result;
+  };
+
+ public:
+  int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
+    // cannot change order
+    // only choices are the "breaks"
+    // [[1,1],[2,3],[2,3],[1,1],[1,1],[1,1],[1,2]]
+    // width 4
+    // height = build_shelf(idx, booknum);
+    // (0,1) or (0,2)
+    // (0,1) leads to (1,x) (0,2) leads to (2, x)
+    // (1,1) or (1,2)
+    int sz = books.size();
+    memo.resize(sz, -1);
+
+    return r(0, books, shelfWidth, sz);
+  }
