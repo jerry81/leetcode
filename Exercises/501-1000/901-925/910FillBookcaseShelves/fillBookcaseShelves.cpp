@@ -4,16 +4,26 @@ Medium
 Topics
 Companies
 Hint
-You are given an array books where books[i] = [thicknessi, heighti] indicates the thickness and height of the ith book. You are also given an integer shelfWidth.
+You are given an array books where books[i] = [thicknessi, heighti] indicates
+the thickness and height of the ith book. You are also given an integer
+shelfWidth.
 
-We want to place these books in order onto bookcase shelves that have a total width shelfWidth.
+We want to place these books in order onto bookcase shelves that have a total
+width shelfWidth.
 
-We choose some of the books to place on this shelf such that the sum of their thickness is less than or equal to shelfWidth, then build another level of the shelf of the bookcase so that the total height of the bookcase has increased by the maximum height of the books we just put down. We repeat this process until there are no more books to place.
+We choose some of the books to place on this shelf such that the sum of their
+thickness is less than or equal to shelfWidth, then build another level of the
+shelf of the bookcase so that the total height of the bookcase has increased by
+the maximum height of the books we just put down. We repeat this process until
+there are no more books to place.
 
-Note that at each step of the above process, the order of the books we place is the same order as the given sequence of books.
+Note that at each step of the above process, the order of the books we place is
+the same order as the given sequence of books.
 
-For example, if we have an ordered list of 5 books, we might place the first and second book onto the first shelf, the third book on the second shelf, and the fourth and fifth book on the last shelf.
-Return the minimum possible height that the total bookshelf can be after placing shelves in this manner.
+For example, if we have an ordered list of 5 books, we might place the first and
+second book onto the first shelf, the third book on the second shelf, and the
+fourth and fifth book on the last shelf. Return the minimum possible height that
+the total bookshelf can be after placing shelves in this manner.
 
 
 
@@ -54,25 +64,25 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<int> memo;
+  static bool sort_by_height(vector<int> a, vector<int> b) {
+    return a[1] < b[1];
+  }
 
-int r(int idx, vector<vector<int>>& books, int w, int sz) {
-  // end cases
-  if (idx >= sz) return 0;
-
-  if (memo[idx] > -1) return memo[idx];
-
+ public:
+  int minHeightShelves(vector<vector<int>>& books, int shelfWidth) { return 0; }
   int total_w = 0;
   int mx_h = 0;
   int mn_result = INT_MAX;
+  int i = idx;
 
-  while (total_w <= w) {
-      int cur_w = books[idx][0];
-      int cur_h = books[idx][1];
+  for (int i = idx; i <= sz; ++i) {
+      int cur_w = books[i][0];
+      int cur_h = books[i][1];
       total_w+=cur_w;
+      if (total_w <= w) break;
+
       mx_h=max(cur_h, mx_h);
-      idx++;
-      mn_result = min(mx_h + r(idx, books, w, sz), mn_result);
+      mn_result = min(mx_h + r(i, books, w, sz), mn_result);
   }
   return memo[idx] = mn_result;
 };
