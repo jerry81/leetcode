@@ -54,41 +54,22 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-vector<int> memo;
-
-int r(int idx, vector<vector<int>>& books, int w, int sz) {
-  // end cases
-  if (idx >= sz) return 0;
-
-  if (memo[idx] > -1) return memo[idx];
-
-  int total_w = 0;
-  int mx_h = 0;
-  int mn_result = INT_MAX;
-
-  while (total_w <= w) {
-      int cur_w = books[idx][0];
-      int cur_h = books[idx][1];
-      total_w+=cur_w;
-      mx_h=max(cur_h, mx_h);
-      idx++;
-      mn_result = min(mx_h + r(idx, books, w, sz), mn_result);
-  }
-  return memo[idx] = mn_result;
-};
+static bool sort_by_height(vector<int> a, vector<int> b) {
+  return a[1] < b[1];
+}
 public:
     int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
-      // cannot change order
-      // only choices are the "breaks"
-      // [[1,1],[2,3],[2,3],[1,1],[1,1],[1,1],[1,2]]
-      // width 4
-      // height = build_shelf(idx, booknum);
-      // (0,1) or (0,2)
-      // (0,1) leads to (1,x) (0,2) leads to (2, x)
-      // (1,1) or (1,2)
-      int sz = books.size();
-      memo.resize(sz, -1);
-
-      return r(0, books, shelfWidth, sz);
+      // books = [[1,1],[2,3],[2,3],[1,1],[1,1],[1,1],[1,2]], shelfWidth = 4
+      // similar heights go on same level
+      // sort by height
+      /*
+        Update: this approach is wrong because we cannot change order of books
+      */
+      vector<vector<int>> sorted = books;
+      sort(sorted.begin(),sorted.end(),Solution::sort_by_height);
+      for (auto a: sorted) {
+        cout << a[0] << "," << a[1] << endl;
+      }
+      return 0;
     }
 };
