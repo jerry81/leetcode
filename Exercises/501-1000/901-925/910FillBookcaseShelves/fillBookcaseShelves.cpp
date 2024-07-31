@@ -64,26 +64,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  static bool sort_by_height(vector<int> a, vector<int> b) {
-    return a[1] < b[1];
-  }
 
  public:
-  int minHeightShelves(vector<vector<int>>& books, int shelfWidth) { return 0; }
+  int r(int idx, vector<vector<int>>& books, int w, int sz) {
   int total_w = 0;
   int mx_h = 0;
   int mn_result = INT_MAX;
-  int i = idx;
 
-  for (int i = idx; i <= sz; ++i) {
+  for (int i = idx; i < sz; ++i) {
       int cur_w = books[i][0];
       int cur_h = books[i][1];
       total_w+=cur_w;
-      if (total_w <= w) break;
+      if (total_w > w) break;
 
       mx_h=max(cur_h, mx_h);
-      mn_result = min(mx_h + r(i, books, w, sz), mn_result);
+      mn_result = min(mx_h + r(i+1, books, w, sz), mn_result);
   }
+
   return memo[idx] = mn_result;
 };
 public:
