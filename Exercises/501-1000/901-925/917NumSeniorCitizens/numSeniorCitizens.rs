@@ -46,9 +46,13 @@ Acceptance Rate
 76.7%
 
 */
-
 impl Solution {
   pub fn count_seniors(details: Vec<String>) -> i32 {
+      // 0-9, 10, 11-12
+      for d in details {
+        println!("{}", &d[11..=12]);
+      }
 
+      0
   }
 }
