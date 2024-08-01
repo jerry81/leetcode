@@ -49,10 +49,13 @@ Acceptance Rate
 impl Solution {
   pub fn count_seniors(details: Vec<String>) -> i32 {
       // 0-9, 10, 11-12
-      for d in details {
-        println!("{}", &d[11..=12]);
-      }
-
-      0
+      details.fold(0,|res, d| {
+        let as_i = parse::<i32>(d).unwrap();
+        if as_i > 60 {
+          res+1
+        } else {
+          res
+        }
+      })
   }
 }
