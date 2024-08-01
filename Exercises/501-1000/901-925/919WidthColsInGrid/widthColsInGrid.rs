@@ -47,14 +47,18 @@ Acceptance Rate
 67.7%
 
 */
+
 impl Solution {
   pub fn find_column_width(grid: Vec<Vec<i32>>) -> Vec<i32> {
-      grid.iter()
-      .map(|v| {
-        v.iter().map(|vv| {
-          vv.to_string().len() as i32
-        }).max().unwrap()
-      }).collect()
-
+    let h = grid.len();
+    let w = grid[0].len();
+    let mut res: Vec<i32> = vec![0;w];
+    for i in 0..w {
+      for j in 0..h {
+        let cur = grid[j][i].to_string().len() as i32;
+        res[i] = res[i].max(cur);
+      }
+    }
+    res
   }
 }
