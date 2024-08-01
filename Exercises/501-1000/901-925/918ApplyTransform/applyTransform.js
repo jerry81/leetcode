@@ -57,8 +57,8 @@ Acceptance Rate
  */
 var map = function(arr, fn) {
   let ret = [];
-  arr.forEach((x)=>{
-    ret.push(fn(x))
+  arr.forEach((x,i)=>{
+    ret.push(fn(x,i))
   })
   return ret;
 };
