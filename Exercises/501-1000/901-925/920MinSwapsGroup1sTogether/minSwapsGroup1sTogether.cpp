@@ -60,10 +60,24 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     int minSwaps(vector<int>& nums) {
-
+        // count gaps
+        int sz = nums.size();
+        bool opened = false;
+        int gaps = 0;
+        for (int i = 0; i < sz; ++i) {
+          if (nums[i] == 1) {
+            if (opened) opened=false;
+          } else {
+            if (!opened) {
+                gaps++;
+                opened = true;
+            }
+          }
+        }
+        cout << "gaps is " << gaps << endl;
+        return 0;
     }
 };
