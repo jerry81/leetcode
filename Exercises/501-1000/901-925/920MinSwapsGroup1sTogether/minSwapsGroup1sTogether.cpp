@@ -63,6 +63,7 @@ using namespace std;
 class Solution {
 public:
     int minSwaps(vector<int>& nums) {
+        int sz = nums.size();
         // deal with circularness
         // pop zeroes and append to end until first 1
         vector<int> transform;
@@ -80,7 +81,21 @@ public:
         while (zero_count >= 0) {
           transform.push_back(0);
         }
-        for (int i: transform) cout << i << endl;
+        // now the hard part
+        // count "0 gaps", count "1 gaps"
+        // "wrapped" 1s - the # of ones that are surrounded by 0s (counting from end);
+        int last_zero = -1;
+        int second_to_last_zero = -1;
+        for (int i = sz-1; i > 0; --i) {
+          if (transform[i] == 0) {
+            if (last_zero < 0) last_zero = sz-1;
+
+            if (last_zero > 0) {
+              second_to_last_zero = i;
+              break;
+            }
+          }
+        }
         return 0;
     }
 };
