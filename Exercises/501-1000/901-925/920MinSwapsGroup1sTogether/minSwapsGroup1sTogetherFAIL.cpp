@@ -66,20 +66,35 @@ public:
         int sz = nums.size();
         // deal with circularness
         // pop zeroes and append to end until first 1
-        int total1s = 0;
-        for (int i: nums) if (i == 1) total1s++;
-        vector<int> unrolled(nums.begin(),nums.end());
-        unrolled.insert(unrolled.end(), nums.begin(), nums.end());
-        int num1s = 0;
-        for (int i = 0; i < sz; ++i) {
-          if (unrolled[i] == 1) num1s++;
+        vector<int> transform;
+        int zero_count = 0;
+        bool one=false;
+        for (int i:nums) {
+          if (i == 1) one = true;
+
+          if (one) {
+            transform.push_back(i);
+          } else {
+            zero_count++;
+          }
         }
-        int curtotal = total1s;
-        for (int i = 0; i < total1s; ++i) {
-          int bki = total1s-i;
-          if (unrolled[bki] == 1) curtotal+=1;
-          if (unrolled[i] == 1) curtotal-=1;
-          // window should be size of total 1s
+        while (zero_count >= 0) {
+          transform.push_back(0);
+        }
+        // now the hard part
+        // count "0 gaps", count "1 gaps"
+        // "wrapped" 1s - the # of ones that are surrounded by 0s (counting from end);
+        int last_zero = -1;
+        int second_to_last_zero = -1;
+        for (int i = sz-1; i > 0; --i) {
+          if (transform[i] == 0) {
+            if (last_zero < 0) last_zero = sz-1;
+
+            if (last_zero > 0) {
+              second_to_last_zero = i;
+              break;
+            }
+          }
         }
         return 0;
     }
