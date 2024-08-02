@@ -63,21 +63,24 @@ using namespace std;
 class Solution {
 public:
     int minSwaps(vector<int>& nums) {
-        // count gaps
-        int sz = nums.size();
-        bool opened = false;
-        int gaps = 0;
-        for (int i = 0; i < sz; ++i) {
-          if (nums[i] == 1) {
-            if (opened) opened=false;
+        // deal with circularness
+        // pop zeroes and append to end until first 1
+        vector<int> transform;
+        int zero_count = 0;
+        bool one=false;
+        for (int i:nums) {
+          if (i == 1) one = true;
+
+          if (one) {
+            transform.push_back(i);
           } else {
-            if (!opened) {
-                gaps++;
-                opened = true;
-            }
+            zero_count++;
           }
         }
-        cout << "gaps is " << gaps << endl;
+        while (zero_count >= 0) {
+          transform.push_back(0);
+        }
+        for (int i: transform) cout << i << endl;
         return 0;
     }
 };
