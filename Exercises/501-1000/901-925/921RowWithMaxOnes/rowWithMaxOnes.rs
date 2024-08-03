@@ -52,5 +52,16 @@ Acceptance Rate
 impl Solution {
   pub fn row_and_maximum_ones(mat: Vec<Vec<i32>>) -> Vec<i32> {
 
+    let mut res = 0;
+    let mut mxCnt = 0;
+    for j in 0..mat.len() {
+      let mut cnt = 0;
+      let v = mat[j];
+      for i in v {
+        if i == 1 { cnt+=1 }
+      }
+      if cnt > mxCnt { res = j }
+    }
+    j
   }
 }
