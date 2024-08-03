@@ -54,14 +54,17 @@ impl Solution {
 
     let mut res = 0;
     let mut mxCnt = 0;
-    for j in 0..mat.len() {
+    for j in 0..mat.clone().len() {
       let mut cnt = 0;
-      let v = mat[j];
+      let v = &mat[j];
       for i in v {
-        if i == 1 { cnt+=1 }
+        if *i == 1 { cnt+=1 }
       }
-      if cnt > mxCnt { res = j }
+      if cnt > mxCnt {
+        res = j;
+        mxCnt = cnt;
+      }
     }
-    j
+    vec![res as i32, mxCnt]
   }
 }
