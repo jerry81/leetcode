@@ -54,6 +54,22 @@ using namespace std;
 class Solution {
 public:
     int rangeSum(vector<int>& nums, int n, int left, int right) {
-
+      // brute force w/ some memo?
+      int sz = nums.size();
+      // vector<vector<long long>> memo(sz, vector<long long>(sz, -1));
+      vector<long long int> sums;
+      for (int i = 0; i < sz; ++i) {
+        long long int cur_sum = 0;
+        for (int j = i; j < sz; ++j) {
+          cur_sum+=nums[j];
+          sums.push_back(cur_sum);
+        }
+      }
+      sort(sums.begin(), sums.end());
+      int res = 0;
+      for (int i = left; i <= right; ++i) {
+        res+=sums[i-1];
+      }
+      return res;
     }
 };
