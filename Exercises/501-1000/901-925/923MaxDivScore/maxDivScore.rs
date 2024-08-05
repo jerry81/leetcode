@@ -80,6 +80,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_div_score(nums: Vec<i32>, divisors: Vec<i32>) -> i32 {
-
+      // bf solution
+      let mut mxSc = 0;
+      let mut res = 0;
+      for d in divisors {
+        let mut score = 0;
+        for n in nums.clone() {
+          if n%d == 0 { score+=1; }
+        }
+        if score > mxSc {
+          mxSc = score;
+          res = d;
+        } else if score == mxSc && res > d {
+          res = d;
+        }
+      }
+      res
   }
 }
