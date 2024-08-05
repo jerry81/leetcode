@@ -49,26 +49,22 @@ Acceptance Rate
 /**
  * @return {Generator<number>}
  */
- var fibGenerator = function*() {
-   let cur = 1;
-   let prev = 0;
-   let started = false;
-   function next() {
-     if (!started) {
-      started = true;
-      value = 0;
-     } else {
-      let tmp = cur;
-      cur = prev+cur;
-      prev = tmp;
-      value = cur;
-     }
-     return { value }
-   }
- };
 
- /**
-  * const gen = fibGenerator();
-  * gen.next().value; // 0
-  * gen.next().value; // 1
-  */
+var fibGenerator = function* () {
+  yield 0;
+  yield 1;
+  let cur = 1;
+  let prev = 0;
+  while (true) {
+    let tmp = cur;
+    cur = cur + prev;
+    yield cur;
+    prev = tmp;
+  }
+};
+
+/**
+ * const gen = fibGenerator();
+ * gen.next().value; // 0
+ * gen.next().value; // 1
+ */
