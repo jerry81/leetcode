@@ -77,12 +77,11 @@ Acceptance Rate
 49.3%
 
 */
-
 impl Solution {
   pub fn max_div_score(nums: Vec<i32>, divisors: Vec<i32>) -> i32 {
       // bf solution
       let mut mxSc = 0;
-      let mut res = 0;
+      let mut res = i32::MAX;
       for d in divisors {
         let mut score = 0;
         for n in nums.clone() {
