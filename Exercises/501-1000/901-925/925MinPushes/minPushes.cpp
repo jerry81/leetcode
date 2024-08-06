@@ -79,9 +79,37 @@ Acceptance Rate
 
 */
 
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
 class Solution {
 public:
     int minimumPushes(string word) {
+      unordered_map<char, int> freq;
+      vector<int> values;
+      for (char c: word) {
+        freq[c]+=1;
+      }
 
+      for (auto [_,v]: freq) {
+        values.push_back(v);
+      }
+      sort(values.begin(), values.end(), std::greater());
+      int res = 0;
+      int counter = 0;
+      for (int i: values) {
+        int multiplier = counter/8 + 1;
+        res+=i*multiplier;
+        counter++;
+      }
+      // 8 slots
+      // 1-8 keys - x1
+      // 9-16 keys - x2
+      // 17-24 keys - x3
+      // last two - x4
+      return res;
     }
 };
