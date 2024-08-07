@@ -105,16 +105,30 @@ class Solution {
  public:
   string numberToWords(int num) {
     if (num == 0) return "Zero";
-    cout << "testing 27: " << convert_three("27") << endl;
-    cout << "testing 08: " << convert_three("08") << endl;
-    cout << "testing 19: " << convert_three("19") << endl;
-    cout << "testing 10: " << convert_three("10") << endl;
-    cout << "testing 001: " << convert_three("001") << endl;
-    cout << "testing 000: " << convert_three("000") << endl;
-    cout << "testing 100: " << convert_three("100") << endl;
-    cout << "testing 101: " << convert_three("101") << endl;
-    cout << "testing 120: " << convert_three("120") << endl;
-    cout << "testing 123: " << convert_three("123") << endl;
+    // cout << "testing 27: " << convert_three("27") << endl;
+    // cout << "testing 08: " << convert_three("08") << endl;
+    // cout << "testing 19: " << convert_three("19") << endl;
+    // cout << "testing 10: " << convert_three("10") << endl;
+    // cout << "testing 001: " << convert_three("001") << endl;
+    // cout << "testing 000: " << convert_three("000") << endl;
+    // cout << "testing 100: " << convert_three("100") << endl;
+    // cout << "testing 101: " << convert_three("101") << endl;
+    // cout << "testing 120: " << convert_three("120") << endl;
+    // cout << "testing 123: " << convert_three("123") << endl;
+
+    // so now we break into chunks of three
+    string as_s = to_string(num);
+    vector<string> chunks;
+    int sz = as_s.size();
+    int cur = sz-3;
+    while (cur >= 0) {
+      chunks.push_back(as_s.substr(cur,3));
+      cur-=3;
+    }
+    if (cur > -3) chunks.push_back(as_s.substr(0,cur+3));
+
+    cout << "chunks " << endl;
+    for (auto s: chunks) cout << s << endl;
     return "";
   }
 };
