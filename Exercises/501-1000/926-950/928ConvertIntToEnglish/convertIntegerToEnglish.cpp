@@ -43,6 +43,8 @@ Acceptance Rate
 #include <string>
 #include <vector>
 using namespace std;
+
+
 class Solution {
   const vector<string> ORDERS = {"Hundred", "Thousand", "Million", "Billion"};
   const vector<string> TENS = {"Twenty", "Thirty",  "Forty",  "Fifty",
@@ -50,11 +52,45 @@ class Solution {
   const vector<string> TEENS = {"Ten",      "Eleven",  "Twelve",  "Thirteen",
                                 "Fourteen", "Fifteen", "Sixteen", "Seventeen",
                                 "Eighteen", "Nineteen"};
-  string convert_three(string num) {};
+  const vector<string> DIG = {"One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
+  string convert_three(string num_s) {
+    int l = num_s.size();
+    if (l == 2) {
+      if (num_s[0] == '0') {
+        l = 1;
+        num_s.erase(0,1);
+      } else {
+        int tens = num_s[0];
+        int ones = num_s[1];
+        string res = "";
+        if (tens == '1') {
+        } else {
+          res += TENS[tens-'0'-1];
+          if (ones != '0') {
+            res+=" ";
+            res+=DIG[ones-'0'-1];
+          }
+          return res;
+        }
+      }
+    }
+    if (l == 1) {
+      char c = num_s[0];
+      if (c == '0') {
+        return "";
+      } else {
+        return DIG[c - '0'-1];
+      }
+    }
+
+
+    return "";
+  };
 
  public:
   string numberToWords(int num) {
     if (num == 0) return "Zero";
+    cout << "testing 27: " << convert_three("27") << endl;
     return "";
   }
 };
