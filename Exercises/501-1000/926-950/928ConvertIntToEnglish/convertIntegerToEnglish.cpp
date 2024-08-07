@@ -131,8 +131,10 @@ class Solution {
 
     string res = "";
     for (int i = 0; i < csz; ++i) {
-      string space = res.empty() ? "" : " ";
-      res=convert_three(chunks[i]) + space + res;
+      string converted_chunk = convert_three(chunks[i]);
+      string space = res.empty() || converted_chunk.empty() ? "" : " ";
+      string order_mod = i > 0 && !converted_chunk.empty() ? " " + ORDERS[i-1] : "";
+      res=converted_chunk + order_mod + space + res;
     }
     return res;
   }
