@@ -127,8 +127,13 @@ class Solution {
     }
     if (cur > -3) chunks.push_back(as_s.substr(0,cur+3));
 
-    cout << "chunks " << endl;
-    for (auto s: chunks) cout << s << endl;
-    return "";
+    int csz = chunks.size();
+
+    string res = "";
+    for (int i = 0; i < csz; ++i) {
+      string space = res.empty() ? "" : " ";
+      res=convert_three(chunks[i]) + space + res;
+    }
+    return res;
   }
 };
