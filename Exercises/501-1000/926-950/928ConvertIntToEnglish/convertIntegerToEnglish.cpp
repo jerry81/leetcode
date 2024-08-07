@@ -55,6 +55,20 @@ class Solution {
   const vector<string> DIG = {"One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
   string convert_three(string num_s) {
     int l = num_s.size();
+    string prefix = "";
+    if (l == 3) {
+      while (num_s[0] == '0') {
+        num_s.erase(0,1);
+        l--;
+      }
+
+      if (l == 3) {
+        char front = num_s[0];
+        num_s.erase(0,1);
+        l--;
+        prefix = DIG[front-'0'-1] + " ";
+      }
+    }
     if (l == 2) {
       if (num_s[0] == '0') {
         l = 1;
@@ -62,7 +76,7 @@ class Solution {
       } else {
         int tens = num_s[0];
         int ones = num_s[1];
-        string res = "";
+        string res = prefix;
         if (tens == '1') {
           return TEENS[ones-'0'];
         } else {
@@ -78,14 +92,14 @@ class Solution {
     if (l == 1) {
       char c = num_s[0];
       if (c == '0') {
-        return "";
+        return prefix+"";
       } else {
-        return DIG[c - '0'-1];
+        return prefix+DIG[c - '0'-1];
       }
     }
 
 
-    return "";
+    return prefix+"";
   };
 
  public:
@@ -95,6 +109,12 @@ class Solution {
     cout << "testing 08: " << convert_three("08") << endl;
     cout << "testing 19: " << convert_three("19") << endl;
     cout << "testing 10: " << convert_three("10") << endl;
+    cout << "testing 10: " << convert_three("001") << endl;
+    cout << "testing 10: " << convert_three("000") << endl;
+    cout << "testing 10: " << convert_three("100") << endl;
+    cout << "testing 10: " << convert_three("101") << endl;
+    cout << "testing 10: " << convert_three("120") << endl;
+    cout << "testing 10: " << convert_three("123") << endl;
     return "";
   }
 };
