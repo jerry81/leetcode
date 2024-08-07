@@ -54,9 +54,13 @@ Acceptance Rate
 82.3%
 
 */
-
 impl Solution {
   pub fn maximize_sum(nums: Vec<i32>, k: i32) -> i32 {
-
+      let mx = nums.iter().max().unwrap();
+      let mut res = 0;
+      for i in 0..k {
+        res+=mx+i;
+      }
+      res
   }
 }
