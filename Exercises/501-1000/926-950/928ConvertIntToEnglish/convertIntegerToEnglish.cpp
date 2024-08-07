@@ -46,7 +46,7 @@ using namespace std;
 
 
 class Solution {
-  const vector<string> ORDERS = {"Hundred", "Thousand", "Million", "Billion"};
+  const vector<string> ORDERS = {"Thousand", "Million", "Billion"};
   const vector<string> TENS = {"Twenty", "Thirty",  "Forty",  "Fifty",
                                "Sixty",  "Seventy", "Eighty", "Ninety"};
   const vector<string> TEENS = {"Ten",      "Eleven",  "Twelve",  "Thirteen",
@@ -66,7 +66,7 @@ class Solution {
         char front = num_s[0];
         num_s.erase(0,1);
         l--;
-        prefix = DIG[front-'0'-1] + " ";
+        prefix = DIG[front-'0'-1] + " Hundred ";
       }
     }
     if (l == 2) {
@@ -109,12 +109,12 @@ class Solution {
     cout << "testing 08: " << convert_three("08") << endl;
     cout << "testing 19: " << convert_three("19") << endl;
     cout << "testing 10: " << convert_three("10") << endl;
-    cout << "testing 10: " << convert_three("001") << endl;
-    cout << "testing 10: " << convert_three("000") << endl;
-    cout << "testing 10: " << convert_three("100") << endl;
-    cout << "testing 10: " << convert_three("101") << endl;
-    cout << "testing 10: " << convert_three("120") << endl;
-    cout << "testing 10: " << convert_three("123") << endl;
+    cout << "testing 001: " << convert_three("001") << endl;
+    cout << "testing 000: " << convert_three("000") << endl;
+    cout << "testing 100: " << convert_three("100") << endl;
+    cout << "testing 101: " << convert_three("101") << endl;
+    cout << "testing 120: " << convert_three("120") << endl;
+    cout << "testing 123: " << convert_three("123") << endl;
     return "";
   }
 };
