@@ -64,8 +64,9 @@ class Solution {
         int ones = num_s[1];
         string res = "";
         if (tens == '1') {
+          return TEENS[ones-'0'];
         } else {
-          res += TENS[tens-'0'-1];
+          res += TENS[tens-'0'-2];
           if (ones != '0') {
             res+=" ";
             res+=DIG[ones-'0'-1];
@@ -91,6 +92,9 @@ class Solution {
   string numberToWords(int num) {
     if (num == 0) return "Zero";
     cout << "testing 27: " << convert_three("27") << endl;
+    cout << "testing 08: " << convert_three("08") << endl;
+    cout << "testing 19: " << convert_three("19") << endl;
+    cout << "testing 10: " << convert_three("10") << endl;
     return "";
   }
 };
