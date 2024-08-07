@@ -78,7 +78,7 @@ class Solution {
         int ones = num_s[1];
         string res = prefix;
         if (tens == '1') {
-          return TEENS[ones-'0'];
+          return res+TEENS[ones-'0'];
         } else {
           res += TENS[tens-'0'-2];
           if (ones != '0') {
@@ -132,10 +132,12 @@ class Solution {
     string res = "";
     for (int i = 0; i < csz; ++i) {
       string converted_chunk = convert_three(chunks[i]);
-      string space = res.empty() || converted_chunk.empty() ? "" : " ";
-      string order_mod = i > 0 && !converted_chunk.empty() ? " " + ORDERS[i-1] : "";
+      if (converted_chunk.empty()) continue;
+      string space = res.empty() ? "" : " ";
+      string order_mod = i > 0 ? " " + ORDERS[i-1] : "";
       res=converted_chunk + order_mod + space + res;
     }
+    while (res.back() == ' ') res.pop_back();
     return res;
   }
 };
