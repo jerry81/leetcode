@@ -49,6 +49,28 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+      // brute force
+      vector<vector<int>> res;
+      int curWidth = 1;
+      int dir_counter = 0; // 0123 RDLU
+
+      // analyzing spiral pattern
+      // RD 1
+      //LLUU 2
+      // RRRDDD 3
+      // LLLLUUUU 4
+      const vector<vector<int>> DIR = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // RDLU
+      int cur_r = rStart;
+      int cur_c = cStart;
+      int totalSq = rows*cols;
+      while (totalSq > 0) {
+        for (int i = 0; i < 2; ++i) {
+          for (int j = 0; j < curWidth; j++) {
+          }
+          dir_counter++;
+        }
+        curWidth++;
+      }
 
     }
 };
