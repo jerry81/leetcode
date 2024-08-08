@@ -59,18 +59,29 @@ public:
       //LLUU 2
       // RRRDDD 3
       // LLLLUUUU 4
-      const vector<vector<int>> DIR = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // RDLU
+      const vector<pair<int,int>> DIR = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // RDLU
       int cur_r = rStart;
       int cur_c = cStart;
       int totalSq = rows*cols;
+      res.push_back({rStart,cStart});
+      totalSq--;
       while (totalSq > 0) {
         for (int i = 0; i < 2; ++i) {
+          auto [dr,dc] = DIR[dir_counter%4];
           for (int j = 0; j < curWidth; j++) {
+            int nr = dr+cur_r;
+            int nc = dc+cur_c;
+            if (nr >=0 && nr < rows) {
+              if (nc >=0 && nc < cols) {
+                res.push_back({nr,nc});
+                totalSq--;
+              }
+            }
           }
           dir_counter++;
         }
         curWidth++;
       }
-
+      return res;
     }
 };
