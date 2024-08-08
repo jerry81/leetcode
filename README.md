@@ -453,7 +453,9 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
 - see 890 for flat_map and u8 (byte) literal b'..'
   - convert Vec<Vec<i32>> to Vec<i32>
 
-- see 932 for on-the-fly lambda
+- see 932 for helper function
+  - a function defined within another function.
+  - scope limited, cannot access vars in outer function
 
 ## todo
 
