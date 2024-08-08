@@ -89,10 +89,23 @@ Acceptance Rate
 34.1%
 
 */
-
 impl Solution {
   pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {
+      let mut p1score = 0;
+      let mut p2score = 0;
+      let lim = player1.len().min(2);
 
+      for i in 0..lim {
+          p1score+=player1[i];
+          p2score+=player2[i];
+      }
+      if p1score > p2score {
+          return 1
+      } else if p2score > p1score {
+          return 2
+      } else {
+          return 0
+      }
+      0
   }
 }
-
