@@ -94,10 +94,23 @@ impl Solution {
       let mut p1score = 0;
       let mut p2score = 0;
       let lim = player1.len().min(2);
+      let upper = player1.len();
 
       for i in 0..lim {
           p1score+=player1[i];
           p2score+=player2[i];
+      }
+      for i in 2..upper {
+        let mut framescore1 = player1[i];
+        if player1[i-1] == 10 || player1[i-2] == 10 {
+          framescore1 *= 2;
+        }
+        p1score+=framescore1;
+        let mut framescore2 = player2[i];
+        if player2[i-1] == 10 || player2[i-2] == 10 {
+          framescore2 *= 2;
+        }
+        p2score+=framescore2;
       }
       if p1score > p2score {
           return 1
