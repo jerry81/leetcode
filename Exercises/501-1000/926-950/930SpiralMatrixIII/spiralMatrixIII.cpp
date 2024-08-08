@@ -77,6 +77,8 @@ public:
                 totalSq--;
               }
             }
+            cur_r = nr;
+            cur_c = nc;
           }
           dir_counter++;
         }
