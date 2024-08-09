@@ -52,23 +52,44 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
+//2,0 1,1 0,2
 class Solution {
   vector<vector<int>> buildSums(vector<vector<int>>& grid, int sR, int sC) {
     // called once
+    vector<int> rows;
+    vector<int> cols;
+    int diagSum = 0;
+    int diagSum2 = 0;
+    for (int i = 0; i < 3; ++i) {
+      int rowSum = 0;
+      int colSum = 0;
+      diagSum+=grid[sR+i][sC+i];
+      diagSum2+=grid[sR+i][sC+2-i];
+      for (int j = 0; j < 3; ++j) {
+        rowSum+=grid[sR+i][sC+j];
+        colSum+=grid[sR+j][sC+i];
+      }
+      rows.push_back(rowSum);
+      cols.push_back(colSum);
+    }
+
+
+
+    return {rows,cols,{diagSum, diagSum2}};
   };
 
   vector<vector<int>> moveRight(vector<vector<int>>& grid, int sR, int sC, vector<vector<int>>& sums) {
+    return {};
   };
 
-  vector<vector<int>> moveDown(vector<vector<int>>& grid, int sR, int sC, vector<vector<int>>& sums) {
+  vector<vector<int>> moveDown(vector<vector<int>>& grid, int sR, vector<vector<int>>& sums) {
+    return {};
   };
 
   bool isMagic(vector<vector<int>> toCheck) {
-    int check_against = toCheck[0][0];
     for (auto v: toCheck) {
       for (int i:v) {
-        if (i != check_against) return false;
+        if (i != 15) return false;
       }
     }
     return true;
@@ -80,22 +101,24 @@ class Solution {
     int w = grid[0].size();  // safe due to constraints
     if (h < 3 || w < 3) return 0;
     int res = 0;
-    vector<vector<int>> initDiags = buildSums(grid, 0,0);
-
+    vector<vector<int>> initSums = buildSums(grid, 0,0);
+    vector<vector<int>> currentSums = initSums;
+    // test init
+    for (auto a: currentSums) {
+      cout << "printing" << endl;
+      for (auto b: a) {
+        cout << b << ",";
+      }
+      cout << endl;
+    }
+    for (int r = 0; r < h-2; ++r) {
+      for (int c = 1; c < w-2; ++c) {
+        if (isMagic(currentSums)) ++res;
+      }
+      auto temp = moveDown(grid, r, initSums);
+      initSums = temp; // just in case there are concurrent modification issues or something
+    }
 
     return res;
   }
-  // to test
-  // 3xhorizontal
-  // 3xvertical
-  // 4xdiagonal
-  // 10 total
-  // cache -> vector<vector<int>> h, v, d
-  // loop top to bottom
-  // r = 0; r < h-2; r++
-  // if r > 0 use cached values
-  // move left to right
-  // c = 0; c < w-2; c++
-  // cache 0
-  // find magic, stop early
 };
