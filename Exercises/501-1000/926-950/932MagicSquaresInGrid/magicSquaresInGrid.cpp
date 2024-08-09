@@ -58,4 +58,17 @@ public:
         if (h < 3 || w < 3) return 0;
         return 0;
     }
+    // to test
+    // 3xhorizontal
+    // 3xvertical
+    // 4xdiagonal
+    // 10 total
+    // cache -> vector<vector<int>> h, v, d
+    // loop top to bottom
+      // r = 0; r < h-2; r++
+        // if r > 0 use cached values
+    // move left to right
+      // c = 0; c < w-2; c++
+        // cache 0
+        // find magic, stop early
 };
