@@ -52,7 +52,7 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-//2,0 1,1 0,2
+// 2,0 1,1 0,2
 class Solution {
   vector<vector<int>> buildSums(vector<vector<int>>& grid, int sR, int sC) {
     // called once
@@ -63,32 +63,54 @@ class Solution {
     for (int i = 0; i < 3; ++i) {
       int rowSum = 0;
       int colSum = 0;
-      diagSum+=grid[sR+i][sC+i];
-      diagSum2+=grid[sR+i][sC+2-i];
+      diagSum += grid[sR + i][sC + i];
+      diagSum2 += grid[sR + i][sC + 2 - i];
       for (int j = 0; j < 3; ++j) {
-        rowSum+=grid[sR+i][sC+j];
-        colSum+=grid[sR+j][sC+i];
+        rowSum += grid[sR + i][sC + j];
+        colSum += grid[sR + j][sC + i];
       }
       rows.push_back(rowSum);
       cols.push_back(colSum);
     }
 
-
-
-    return {rows,cols,{diagSum, diagSum2}};
+    return {rows, cols, {diagSum, diagSum2}};
   };
 
-  vector<vector<int>> moveRight(vector<vector<int>>& grid, int sR, int sC, vector<vector<int>>& sums) {
-    return {};
+  vector<vector<int>> moveRight(vector<vector<int>>& grid, int sR, int sC,
+                                vector<vector<int>>& sums) {
+    // so there is a whole new column.  dequeue the vertical first
+    vector<vector<int>> ret = sums;
+    // diags need recalculation
+    ret.pop_back();
+    ret[1].erase(ret[1].begin());
+    // add another column
+    int newVert = 0;
+    for (int i = sR; i < sR + 3; ++i) newVert += grid[i][sC];
+
+    ret[1].push_back(newVert);
+
+    // all 3 horizontals get changed
+    // subtract sC-3 and add sC
+    int diagSum1 = 0;
+    int diagSum2 = 0;
+    for (int i = 0; i < 3; ++i) {
+      ret[0][sC - 3] -= grid[sR + i][sC - 3] + grid[sR + i][sC];
+      diagSum1 += grid[sR + i][sC + i - 2];
+      diagSum2 += grid[sR + i][sC + i];
+    }
+    ret.push_back({diagSum1, diagSum2});
+    // diags need recalculation
+    return ret;
   };
 
-  vector<vector<int>> moveDown(vector<vector<int>>& grid, int sR, vector<vector<int>>& sums) {
+  vector<vector<int>> moveDown(vector<vector<int>>& grid, int sR,
+                               vector<vector<int>>& sums) {
     return {};
   };
 
   bool isMagic(vector<vector<int>> toCheck) {
-    for (auto v: toCheck) {
-      for (int i:v) {
+    for (auto v : toCheck) {
+      for (int i : v) {
         if (i != 15) return false;
       }
     }
@@ -101,22 +123,33 @@ class Solution {
     int w = grid[0].size();  // safe due to constraints
     if (h < 3 || w < 3) return 0;
     int res = 0;
-    vector<vector<int>> initSums = buildSums(grid, 0,0);
+    vector<vector<int>> initSums = buildSums(grid, 0, 0);
     vector<vector<int>> currentSums = initSums;
     // test init
-    for (auto a: currentSums) {
+    for (auto a : currentSums) {
       cout << "printing" << endl;
-      for (auto b: a) {
+      for (auto b : a) {
         cout << b << ",";
       }
       cout << endl;
     }
-    for (int r = 0; r < h-2; ++r) {
-      for (int c = 1; c < w-2; ++c) {
+    for (int r = 0; r < h - 2; ++r) {
+      for (int c = 1; c < w - 2; ++c) {
         if (isMagic(currentSums)) ++res;
+
+        currentSums = moveRight(grid, r, c, currentSums);
+        cout << "moved right" << endl;
+        for (auto a : currentSums) {
+          cout << "printing" << endl;
+          for (auto b : a) {
+            cout << b << ",";
+          }
+          cout << endl;
+        }
       }
       auto temp = moveDown(grid, r, initSums);
-      initSums = temp; // just in case there are concurrent modification issues or something
+      initSums = temp;  // just in case there are concurrent modification issues
+                        // or something
     }
 
     return res;
