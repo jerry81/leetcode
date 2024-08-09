@@ -53,6 +53,9 @@ using namespace std;
 class Solution {
 public:
     int numMagicSquaresInside(vector<vector<int>>& grid) {
-
+        int h = grid.size();
+        int w = grid[0].size(); // safe due to constraints
+        if (h < 3 || w < 3) return 0;
+        return 0;
     }
 };
