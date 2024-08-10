@@ -53,11 +53,47 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  const vector<vector<bool>> slash = {{false,false,true}, {false,true,false}, {true, false, false}};
-  const vector<vector<bool>> bslash = {{true, false, false},{false,true,false},{false,false,true}};
+  const vector<vector<bool>> FSLASH = {
+      {false, false, true}, {false, true, false}, {true, false, false}};
+  const vector<vector<bool>> BSLASH = {
+      {true, false, false}, {false, true, false}, {false, false, true}};
+  const vector<vector<bool>> SPACE = {
+      {false, false, false}, {false, false, false}, {false, false, false}};
+
+  vector<vector<bool>> build(vector<string>& grid) {
+    vector<vector<bool>> ret;
+    for (string s: grid) {
+      vector<vector<bool>> currow = {{},{},{}};
+      for (char c: s) {
+        switch (c) {
+          case '/': {
+            for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), FSLASH[i].begin(), FSLASH[i].end());
+
+            break;
+
+          } case '\\': {
+for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), BSLASH[i].begin(), BSLASH[i].end());
+
+            break;
+          } default: {
+          for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), SPACE[i].begin(), SPACE[i].end());
+          }
+        }
+      }
+    }
+  };
 
  public:
-  int regionsBySlashes(vector<string>& grid) {}
+  int regionsBySlashes(vector<string>& grid) {
+    vector<vector<bool>> expanded = build(grid);
+    for (auto row: expanded) {
+      cout << endl;
+      for (auto v:row) {
+        cout << v << ",";
+      }
+    }
+    return 0;
+  }
 };
 
 // better approach
