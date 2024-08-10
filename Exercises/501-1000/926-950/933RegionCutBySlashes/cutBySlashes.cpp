@@ -47,6 +47,7 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <string>
 #include <vector>
 
@@ -59,40 +60,84 @@ class Solution {
       {true, false, false}, {false, true, false}, {false, false, true}};
   const vector<vector<bool>> SPACE = {
       {false, false, false}, {false, false, false}, {false, false, false}};
-
   vector<vector<bool>> build(vector<string>& grid) {
-    vector<vector<bool>> ret;
-    for (string s: grid) {
-      vector<vector<bool>> currow = {{},{},{}};
-      for (char c: s) {
-        switch (c) {
-          case '/': {
-            for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), FSLASH[i].begin(), FSLASH[i].end());
-
-            break;
-
-          } case '\\': {
-for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), BSLASH[i].begin(), BSLASH[i].end());
-
-            break;
-          } default: {
-          for (int i = 0; i < 3; ++i) currow[i].insert(currow[i].end(), SPACE[i].begin(), SPACE[i].end());
+    vector<vector<bool>> ret(3 * grid.size(), vector<bool>(3 * grid.size()));
+    for (int i = 0; i < grid.size(); ++i) {
+      string s = grid[i];
+      for (int j = 0; j < s.length(); ++j) {
+        char c = s[j];
+        vector<vector<bool>> pattern;
+        if (c == '/') {
+          pattern = FSLASH;
+        } else if (c == '\\') {
+          pattern = BSLASH;
+        } else {
+          pattern = SPACE;
+        }
+        for (int di = 0; di < 3; ++di) {
+          for (int dj = 0; dj < 3; ++dj) {
+            ret[i * 3 + di][j * 3 + dj] = pattern[di][dj];
           }
         }
       }
     }
-  };
+    return ret;
+  }
+
+  vector<vector<bool>> visited;
+
+  int bfs(int row, int col, vector<vector<bool>> grid, int sz) {
+    if (visited.at(row).at(col) || grid.at(row).at(col)) {
+      return 0;
+    }
+    // mark visited
+    // neighbors
+    queue<pair<int, int>> q;
+    pair<int, int> start = {row, col};
+    q.push(start);
+    while (!q.empty()) {
+      auto [row,col] = q.front();
+      if (visited.at(row).at(col)) {
+        q.pop();
+        continue;
+      }
+      q.pop();
+      visited.at(row).at(col) = true;
+      // add u l r d
+      int ur = row - 1;
+      int dr = row + 1;
+      int lc = col - 1;
+      int rc = col + 1;
+      if ((ur >= 0) && (!visited.at(ur).at(col)) &&
+         !grid.at(ur).at(col)) q.push({ur,col});
+
+      if ((dr < sz) && (!visited.at(dr).at(col)) &&
+          !grid.at(dr).at(col)) q.push({dr,col});
+
+      if ((lc >= 0) && (!visited.at(row).at(lc)) &&
+          !grid.at(row).at(lc)) q.push({row,lc});
+
+      if ((rc < sz) && (!visited.at(row).at(rc)) &&
+          !grid.at(row).at(rc)) q.push({row,rc});
+    }
+    return 1;
+  }
 
  public:
   int regionsBySlashes(vector<string>& grid) {
     vector<vector<bool>> expanded = build(grid);
-    for (auto row: expanded) {
-      cout << endl;
-      for (auto v:row) {
-        cout << v << ",";
-      }
+    int sz = expanded.size();
+    visited = vector<vector<bool>>(sz, vector<bool>(sz, false));
+    int res = 0;
+
+    for (int i = 0; i < sz; ++i) {
+        for (int j = 0; j < sz; ++j) {
+            if (!visited[i][j] && !expanded[i][j]) {
+                res += bfs(i, j, expanded, sz);
+            }
+        }
     }
-    return 0;
+    return res;
   }
 };
 
