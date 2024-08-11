@@ -56,34 +56,38 @@ Acceptance Rate
 */
 
 #include <queue>
+#include <set>
 #include <vector>
 
 using namespace std;
 
 class Solution {
   vector<pair<int, int>> DIR = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+  set<pair<int, int>> lands;
   int countIslands(vector<vector<int>> grid) {
     int h = grid.size();
     int w = grid[0].size();
     int res = 0;
     for (int i = 0; i < h; ++i) {
       for (int j = 0; j < w; ++j) {
-        if (grid[i][j]) {
+        if (grid[i][j] == 1) {
+          lands.insert({i, j});
           // flood fill
           queue<pair<int, int>> q;
           q.push({i, j});
           res += 1;
-          if (res > 1) return 2;
           while (!q.empty()) {
-            auto [r,c] = q.front();
+            auto [r, c] = q.front();
             q.pop();
-            grid[i][j] = false;
+            grid[i][j] = 0;
             for (auto [dy, dx] : DIR) {
               int ny = dy + r;
               int nx = dx + c;
               if (ny >= 0 && ny < h && nx >= 0 && nx < w) {
-                if (grid[ny][nx]) {
+                if (grid[ny][nx] == 1) {
+                  lands.insert({ny, nx});
                   q.push({ny, nx});
+                  grid[ny][nx] = 0;
                 }
               }
             }
@@ -103,6 +107,16 @@ class Solution {
     int islands = countIslands(grid);
     if (islands == 0 || islands > 1) return 0;
 
+    // need another check
+    // brute check if changing one land to water satsfies
+
+    for (auto [y, x] : lands) {
+      grid[y][x] = 0;
+      int islands = countIslands(grid);
+      if (islands == 0 || islands > 1) return 1;
+
+      grid[y][x] = 1;
+    }
     return 2;
   }
 };
