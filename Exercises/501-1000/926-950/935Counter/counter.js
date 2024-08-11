@@ -58,7 +58,21 @@ Acceptance Rate
  * @return { increment: Function, decrement: Function, reset: Function }
  */
  var createCounter = function(init) {
-
+    let cur = init;
+    return {
+      increment: () => {
+        ++cur;
+        return cur;
+      },
+      decrement: () => {
+        --cur;
+        return cur;
+      },
+      reset: () => {
+        cur = init;
+        return cur;
+      }
+    }
  };
 
  /**
