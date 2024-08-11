@@ -5,11 +5,15 @@ Hard
 Topics
 Companies
 Hint
-You are given an m x n binary grid grid where 1 represents land and 0 represents water. An island is a maximal 4-directionally (horizontal or vertical) connected group of 1's.
+You are given an m x n binary grid grid where 1 represents land and 0 represents
+water. An island is a maximal 4-directionally (horizontal or vertical) connected
+group of 1's.
 
-The grid is said to be connected if we have exactly one island, otherwise is said disconnected.
+The grid is said to be connected if we have exactly one island, otherwise is
+said disconnected.
 
-In one day, we are allowed to change any single land cell (1) into a water cell (0).
+In one day, we are allowed to change any single land cell (1) into a water cell
+(0).
 
 Return the minimum number of days to disconnect the grid.
 
@@ -28,7 +32,8 @@ Example 2:
 
 Input: grid = [[1,1]]
 Output: 2
-Explanation: Grid of full water is also disconnected ([[1,1]] -> [[0,0]]), 0 islands.
+Explanation: Grid of full water is also disconnected ([[1,1]] -> [[0,0]]), 0
+islands.
 
 
 Constraints:
@@ -50,13 +55,54 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    int minDays(vector<vector<int>>& grid) {
-
+  vector<pair<int, int>> DIR = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+  int countIslands(vector<vector<int>> grid) {
+    int h = grid.size();
+    int w = grid[0].size();
+    int res = 0;
+    for (int i = 0; i < h; ++i) {
+      for (int j = 0; j < w; ++j) {
+        if (grid[i][j]) {
+          // flood fill
+          queue<pair<int, int>> q;
+          q.push({i, j});
+          res += 1;
+          if (res > 1) return 2;
+          while (!q.empty()) {
+            auto [r,c] = q.front();
+            q.pop();
+            grid[i][j] = false;
+            for (auto [dy, dx] : DIR) {
+              int ny = dy + r;
+              int nx = dx + c;
+              if (ny >= 0 && ny < h && nx >= 0 && nx < w) {
+                if (grid[ny][nx]) {
+                  q.push({ny, nx});
+                }
+              }
+            }
+          }
+        }
+      }
     }
+    return res;
+  }
+
+ public:
+  int minDays(vector<vector<int>>& grid) {
+    // brute force - exponential complexity (full game tree) so no
+    // logic approach: find thinnest cross-section (constant 2) - hard
+    // identify mum of islands with flood fill
+    // check every cell, if land encountered, floodfill with water
+    int islands = countIslands(grid);
+    if (islands == 0 || islands > 1) return 0;
+
+    return 2;
+  }
 };
