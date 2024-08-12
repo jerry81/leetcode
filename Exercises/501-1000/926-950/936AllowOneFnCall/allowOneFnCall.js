@@ -55,7 +55,7 @@ var once = function(fn) {
   return function(...args){
     if (!called) {
       called = true;
-      return fn.call(...args,this);
+      return fn.apply(this, args); // apply takes [args], call takes ...args
     }
 
     return;
