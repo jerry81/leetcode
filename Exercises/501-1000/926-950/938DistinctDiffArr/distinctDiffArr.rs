@@ -57,12 +57,18 @@ impl Solution {
   pub fn distinct_difference_array(nums: Vec<i32>) -> Vec<i32> {
     let mut pref: Vec<i32> = vec![];
     let mut hs:HashSet<i32> = HashSet::new();
-    let mut clon: Vec<i32> = nums.clone();
-    for i in nums {
-      hs.insert(i);
+    let mut hs2:HashSet<i32> = HashSet::new();
+    let mut suff: Vec<i32>;
+    let l = nums.len();
+    for i in 0..l {
+      hs.insert(nums[i]);
+      hs2.insert(nums[l-i-1]);
       pref.push(hs.len() as i32);
+      suff.push(hs.len() as i32);
     }
-    clon.reverse(); // use this instead of clon.iter().rev()
-    clon
+    suff.reverse();
+    println!("pref {:?}", pref);
+    println!("suff {:?}", suff);
+    vec![]
   }
 }
