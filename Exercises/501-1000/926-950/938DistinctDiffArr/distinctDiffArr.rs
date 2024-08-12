@@ -52,8 +52,17 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
 impl Solution {
   pub fn distinct_difference_array(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut pref: Vec<i32> = vec![];
+    let mut hs:HashSet<i32> = HashSet::new();
+    let mut clon: Vec<i32> = nums.clone();
+    for i in nums {
+      hs.insert(i);
+      pref.push(hs.len() as i32);
+    }
+    clon.reverse(); // use this instead of clon.iter().rev()
+    clon
   }
 }
