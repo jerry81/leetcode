@@ -58,6 +58,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {
+    // keep track of who's touched the ball
+    let mut whostouched: Vec<bool> = vec![false; n as usize];
+    let mut step = 1;
+    let mut cnt = 0;
+    whostouched[0] = true;
 
+    loop {
+      cnt+=k*step;
+      let player = cnt%n as usize;
+      if whostouched[player] {
+        break;
+      }
+      whostouched[player] = true;
+      step+=1;
+    }
+    (0..n).filter(|&i| !whostouched[i as usize]).collect()
   }
 }
