@@ -66,13 +66,13 @@ impl Solution {
 
     loop {
       cnt+=k*step;
-      let player = cnt%n as usize;
+      let player = (cnt%n) as usize;
       if whostouched[player] {
         break;
       }
       whostouched[player] = true;
       step+=1;
     }
-    (0..n).filter(|&i| !whostouched[i as usize]).collect()
+    (0..n).filter(|&i| !whostouched[i as usize]).map(|v| v+1 ).collect()
   }
 }
