@@ -64,7 +64,7 @@ var ArrayWrapper = function(nums) {
  * @return {number}
  */
 ArrayWrapper.prototype.valueOf = function() {
-  return this.nums.reduce((prev,curr,_,_) => prev+curr, 0);
+  return this.nums.reduce((prev,curr) => prev+curr, 0);
 }
 
 /**
@@ -72,8 +72,8 @@ ArrayWrapper.prototype.valueOf = function() {
  */
 ArrayWrapper.prototype.toString = function() {
   let ret = "[";
-  this.nums.foreach(i=>ret=ret+i+',');
-  ret.pop();
+  this.nums.forEach(i=>ret=ret+i+',');
+  ret.slice(0,-1);
   ret+=']';
   return ret;
 }
