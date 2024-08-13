@@ -57,21 +57,25 @@ Acceptance Rate
  * @return {void}
  */
 var ArrayWrapper = function(nums) {
-
+  this.nums = nums;
 };
 
 /**
  * @return {number}
  */
 ArrayWrapper.prototype.valueOf = function() {
-
+  return this.nums.reduce((prev,curr,_,_) => prev+curr, 0);
 }
 
 /**
  * @return {string}
  */
 ArrayWrapper.prototype.toString = function() {
-
+  let ret = "[";
+  this.nums.foreach(i=>ret=ret+i+',');
+  ret.pop();
+  ret+=']';
+  return ret;
 }
 
 /**
