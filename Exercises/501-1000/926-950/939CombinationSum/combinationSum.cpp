@@ -56,21 +56,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
-  set<vector<int>> res_set;
-  void dp(vector<int>& candidates, vector<int>& curv, int tgt, int cursum,
+  vector<vector<int>> res;
+  void r(vector<int>& candidates, vector<int>& curv, int tgt, int cursum,
           int idx) {
     if (cursum == tgt) {
-      vector<int> hit = curv;
-      res_set.insert(hit);
+      // vector<int> hit = curv;
+      res.push_back(curv);
       return;
       // done, backtrack
     }
-    for (int i = idx; i < candidates.size() && tgt >= candidates[i]; ++i) {
-      curv.push_back(candidates[idx]);
-      cursum += candidates[idx];
-      dp(candidates, curv, tgt, cursum, idx + 1);
-      curv.pop_back();
-      cursum -= curv.back();
+    for (int i = idx; i < candidates.size() && tgt > cursum; ++i) {
+      if (i == idx || candidates[i] != candidates[i-1]) {
+        curv.push_back(candidates[i]);
+        cursum += curv.back();
+        r(candidates, curv, tgt, cursum, i + 1);
+        cursum -= curv.back();
+        curv.pop_back();
+      }
     }
   }
 
@@ -80,11 +82,11 @@ class Solution {
     // with backtracking
     sort(candidates.begin(), candidates.end());
     vector<int> start;
-    dp(candidates, start, 0, 0, 0);
-
-    return {};
+    r(candidates, start, target, 0, 0);
+    return res;
   }
 };
+
 
 // 1
 // 1,1
