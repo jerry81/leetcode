@@ -70,6 +70,9 @@ var chunk = function(arr, size) {
 
     carr.push(arr[i]);
   }
+  if (!res.length && !carr.length) return [];
+
   res.push(carr);
   return res;
 };
+
