@@ -65,8 +65,8 @@ class Solution {
       return;
       // done, backtrack
     }
-    for (int i = idx; i < candidates.size() && tgt > cursum; ++i) {
-      if (i == idx || candidates[i] != candidates[i - 1]) {
+    for (int i = idx; i < candidates.size() && tgt > cursum; ++i) { // to study
+      if (i == idx || candidates[i] != candidates[i - 1]) { // dedup condition
         curv.push_back(candidates[i]);
         cursum += curv.back();
         r(candidates, curv, tgt, cursum, i + 1);
