@@ -58,7 +58,7 @@ using namespace std;
 class Solution {
   vector<vector<int>> res;
   void r(vector<int>& candidates, vector<int>& curv, int tgt, int cursum,
-          int idx) {
+         int idx) {
     if (cursum == tgt) {
       // vector<int> hit = curv;
       res.push_back(curv);
@@ -66,7 +66,7 @@ class Solution {
       // done, backtrack
     }
     for (int i = idx; i < candidates.size() && tgt > cursum; ++i) {
-      if (i == idx || candidates[i] != candidates[i-1]) {
+      if (i == idx || candidates[i] != candidates[i - 1]) {
         curv.push_back(candidates[i]);
         cursum += curv.back();
         r(candidates, curv, tgt, cursum, i + 1);
@@ -86,7 +86,6 @@ class Solution {
     return res;
   }
 };
-
 
 // 1
 // 1,1
