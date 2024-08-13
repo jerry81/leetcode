@@ -60,5 +60,16 @@ Acceptance Rate
  * @return {Array}
  */
 var chunk = function(arr, size) {
+  let res = [];
+  let carr = [];
+  for (let i = 0; i < arr.length; ++i) {
+    if (i % size == 0 && i > 0) {
+      res.push(carr);
+      carr = [];
+    }
 
+    carr.push(arr[i]);
+  }
+  res.push(carr);
+  return res;
 };
