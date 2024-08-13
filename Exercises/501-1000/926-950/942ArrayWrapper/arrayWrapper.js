@@ -71,9 +71,10 @@ ArrayWrapper.prototype.valueOf = function() {
  * @return {string}
  */
 ArrayWrapper.prototype.toString = function() {
+  if (!this.nums.length) return "[]";
   let ret = "[";
   this.nums.forEach(i=>ret=ret+i+',');
-  ret = ret.slice(0,-1); // no pop, so use slice
+  ret = ret.slice(0,-1);
   ret+=']';
   return ret;
 }
