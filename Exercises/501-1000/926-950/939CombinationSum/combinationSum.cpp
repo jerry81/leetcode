@@ -3,7 +3,9 @@
 Medium
 Topics
 Companies
-Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+Given a collection of candidate numbers (candidates) and a target number
+(target), find all unique combinations in candidates where the candidate numbers
+sum to target.
 
 Each number in candidates may only be used once in the combination.
 
@@ -48,19 +50,86 @@ Acceptance Rate
 55.1%
 */
 
+#include <set>
 #include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-      // every possible combination?
-      // with early stops
-      vector<int> sorted = candidates;
-      sort(sorted.begin(), sorted.end());
-      for (int i: sorted) cout << i << endl;
-
-      return {};
+  set<vector<int>> res_set;
+  void dp(vector<int>& candidates, vector<int>& curv, int tgt, int cursum,
+          int idx) {
+    if (cursum == tgt) {
+      vector<int> hit = curv;
+      res_set.insert(hit);
+      return;
+      // done, backtrack
     }
+    for (int i = idx; i < candidates.size() && tgt >= candidates[i]; ++i) {
+      curv.push_back(candidates[idx]);
+      cursum += candidates[idx];
+      dp(candidates, curv, tgt, cursum, idx + 1);
+      curv.pop_back();
+      cursum -= curv.back();
+    }
+  }
+
+ public:
+  vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    // dp
+    // with backtracking
+    sort(candidates.begin(), candidates.end());
+    vector<int> start;
+    dp(candidates, start, 0, 0, 0);
+
+    return {};
+  }
 };
+
+// 1
+// 1,1
+// 1,1,1
+// .....
+// 01234
+// 0
+// 1
+// ... 4
+// 01
+// .. 05
+// 12
+// .. 15
+// 45
+// 123
+// 124
+// ..
+// 345
+
+/*
+
+10 - no, 10 done
+
+- []
+7
+- 7 1 - ok!
+- 7 2 - no
+- 7 done
+- 6 2 - ok
+- 6 1
+- 6 1 1 - ok
+- 6 done
+- 5
+
+other direction
+- []
+- 1
+- 1 1
+- 1 1 2
+- 1 1 2 5 - back
+- 1 1
+- 1 1 5 back
+- 1 1
+- 1 1 6 ok - 1 1 - done
+- backtrack to 1 2
+
+// take it or leave it algo
+ */
