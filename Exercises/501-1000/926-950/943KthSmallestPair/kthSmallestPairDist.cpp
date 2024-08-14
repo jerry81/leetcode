@@ -52,6 +52,7 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
+
 class Solution {
 public:
     int smallestDistancePair(vector<int>& nums, int k) {
@@ -59,19 +60,31 @@ public:
         int sz = nums.size();
         vector<int> buckets(rng+1, 0);
         for (int i = 0; i < sz-1; ++i) {
-            for (int j = i+1; j < sz; ++i) {
-                int dist = nums[i]-nums[j];
+            for (int j = i+1; j < sz; ++j) {
+                int dist = abs(nums[i]-nums[j]);
                 buckets[dist]+=1;
             }
         }
         int cnt = 0;
         while (k > 0) {
             k-=buckets[cnt];
-            cnt+=1;
+            cnt++;
         }
-        return cnt;
+        return cnt-1;
     }
 };
+
+// brute force but TLE:
+        // get every pair?
+        // first sort and stop at k
+        // improvement 1 : use heap to store distances
+        // cap heap size at k
+        // finally remove top
+/*
+bucket sort
+need bounded range of values
+0 to max num - min num
+*/
 
 // brute force but TLE:
         // get every pair?
