@@ -51,6 +51,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn make_smallest_palindrome(s: String) -> String {
-
+    // pincer attack
+    let mut left = 0;
+    let mut right = s.len() - 1;
+    let mut newstr: Vec<char> = s.chars().collect();
+    while (left < right) {
+      if newstr[left] != newstr[right] {
+        if newstr[left] < newstr[right] {
+          newstr[right] = newstr[left];
+        } else {
+          newstr[left] = newstr[right];
+        }
+      }
+      left+=1;
+      right-=1;
+    }
+    newstr.iter().collect()
   }
 }
