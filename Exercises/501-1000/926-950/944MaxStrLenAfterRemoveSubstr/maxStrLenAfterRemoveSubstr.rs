@@ -53,14 +53,16 @@ impl Solution {
   fn rmv_sub(s: String) -> String {
     // in rust, find substring in string with .find
     match s.find("AB") {
-      Some(index) => return format("{}{}", &s[..index], &s[(index+2)..])
+      Some(index) => return format!("{}{}", &s[..index], &s[(index+2)..]),
+      None => {}
     }
     match s.find("CD") {
-      Some(index) => return format("{}{}", &s[..index], &s[(index+2)..])
+      Some(index) => return format!("{}{}", &s[..index], &s[(index+2)..]),
+      None => {}
     }
     return s
   }
   pub fn min_length(s: String) -> i32 {
-    Solution::rmv_sub(s)
+    Solution::rmv_sub(s).len() as i32
   }
 }
