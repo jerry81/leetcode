@@ -63,6 +63,14 @@ impl Solution {
     return s
   }
   pub fn min_length(s: String) -> i32 {
-    Solution::rmv_sub(s).len() as i32
+    let mut curlen = s.len();
+    let mut cur_s = s.clone();
+    loop {
+        let mut new_s = Solution::rmv_sub(cur_s);
+        if curlen == new_s.len() { break }
+        curlen = new_s.len();
+        cur_s = new_s;
+    }
+    curlen as i32
   }
 }
