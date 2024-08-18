@@ -43,3 +43,16 @@ public:
 
     }
 };
+
+// brute would be go thru every number and try to divide by every number to its sqrt
+// think about properties
+// all even numbers included in sequence
+// reminds me of erasthones seive
+// fill out 2x until k
+// then fill out 3x until k
+// finally 5x until k
+// NOPE
+// actually for example 16 is not allowed as 16 is divisible by 4
+// 1234568
+// 8 is 2 2 2  -> OK
+// 14 is 2 7 - not ok
