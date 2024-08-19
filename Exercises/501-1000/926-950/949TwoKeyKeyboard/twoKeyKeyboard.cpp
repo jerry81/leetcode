@@ -51,19 +51,15 @@ class Solution {
     // edge cases
     if (tgt == screen) return 0;
 
-    if (screen == INT_MAX) return INT_MAX;
+    if (screen > tgt) return 1001;
 
-    if (tgt < screen) return INT_MAX;
+    int cpy_case = 2+r(tgt, screen*2, screen);
 
+    if (cnt == 0) return cpy_case;
 
+    int add_case = 1+r(tgt, screen+cnt, cnt);
 
-    int cpy = r(tgt, screen*2, screen);
-
-    if (cnt == 0 || cpy == INT_MAX) return cpy;
-
-    cpy++;
-
-    return min(1+r(tgt, screen+cnt, cnt), cpy);
+    return min(add_case, (int)cpy_case);
   }
 public:
     int minSteps(int n) {
