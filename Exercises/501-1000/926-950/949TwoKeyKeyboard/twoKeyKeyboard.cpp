@@ -44,6 +44,7 @@ Acceptance Rate
 class Solution {
 public:
     int minSteps(int n) {
-
+      int clipCnt = 0;
+      // dp & recursion
     }
 };
