@@ -42,7 +42,7 @@ Acceptance Rate
 */
 
 #include <climits>
-#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
