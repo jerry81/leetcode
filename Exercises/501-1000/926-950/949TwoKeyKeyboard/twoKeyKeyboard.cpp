@@ -41,10 +41,18 @@ Acceptance Rate
 54.8%
 */
 
+#include <climits>
+using namespace std;
+
 class Solution {
+  int r(int tgt, int screen, int cnt) {
+    // edge cases
+    if (tgt == screen) return 0;
+
+    if (tgt < screen) return INT_MAX;
+  }
 public:
     int minSteps(int n) {
-      int clipCnt = 0;
       // dp & recursion
     }
 };
