@@ -42,6 +42,8 @@ Acceptance Rate
 */
 
 #include <climits>
+#include <cmath>
+
 using namespace std;
 
 class Solution {
@@ -49,10 +51,23 @@ class Solution {
     // edge cases
     if (tgt == screen) return 0;
 
+    if (screen == INT_MAX) return INT_MAX;
+
     if (tgt < screen) return INT_MAX;
+
+
+
+    int cpy = r(tgt, screen*2, screen);
+
+    if (cnt == 0 || cpy == INT_MAX) return cpy;
+
+    cpy++;
+
+    return min(1+r(tgt, screen+cnt, cnt), cpy);
   }
 public:
     int minSteps(int n) {
       // dp & recursion
+      return r(n, 1, 0);
     }
 };
