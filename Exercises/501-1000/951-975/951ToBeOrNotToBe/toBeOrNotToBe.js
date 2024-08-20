@@ -41,16 +41,19 @@ Acceptance Rate
 62.4%
 
 */
-
 /**
  * @param {string} val
  * @return {Object}
  */
 var expect = function(val) {
+  return {
+    toBe: (cmp) => { return cmp == val },
+    notToBe: (cmp) => { return cmp != val }
+  }
 
 };
 
 /**
- * expect(5).toBe(5); // true
- * expect(5).notToBe(5); // throws "Equal"
- */
+* expect(5).toBe(5); // true
+* expect(5).notToBe(5); // throws "Equal"
+*/
