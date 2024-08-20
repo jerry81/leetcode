@@ -47,10 +47,21 @@ Acceptance Rate
  */
 var expect = function(val) {
   return {
-    toBe: (cmp) => { return cmp == val },
-    notToBe: (cmp) => { return cmp != val }
+    toBe: (cmp) => {
+      if (cmp == val) {
+        return true;
+      } else {
+        throw "Not Equal";
+      }
+    },
+    notToBe: (cmp) => {
+      if (cmp != val) {
+        return true
+      } else {
+        throw "Equal";
+      }
+    }
   }
-
 };
 
 /**
