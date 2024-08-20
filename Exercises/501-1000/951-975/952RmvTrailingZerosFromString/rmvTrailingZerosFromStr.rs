@@ -42,5 +42,14 @@ Acceptance Rate
 impl Solution {
   pub fn remove_trailing_zeros(num: String) -> String {
 
+    let mut idx = num.len()-1;
+
+    while idx >= 0 {
+      if num[idx] != '0' {
+        break
+      }
+      idx-=1;
+    }
+    num[..idx].to_string()
   }
 }
