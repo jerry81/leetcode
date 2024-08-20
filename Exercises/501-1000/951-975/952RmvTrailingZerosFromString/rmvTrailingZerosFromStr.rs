@@ -45,11 +45,11 @@ impl Solution {
     let mut idx = num.len()-1;
 
     while idx >= 0 {
-      if num[idx] != '0' {
+      if num.chars().nth(idx).unwrap() != '0' {
         break
       }
       idx-=1;
     }
-    num[..idx].to_string()
+    num[..=idx].to_string()
   }
 }
