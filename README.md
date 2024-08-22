@@ -457,6 +457,11 @@ v.sort_by(|a,b| b.1.cmp(&a.1));
   - a function defined within another function.
   - scope limited, cannot access vars in outer function
 
+- see 955 for convert chars to hashset using collect() with generic type cast
+```rs
+s.chars().collect::<HashSet<_>>().len() as i32
+```
+
 ## todo
 
 - come back to [method 4: cantor's diagonal argument](https://leetcode.com/problems/find-unique-binary-string/editorial/?envType=daily-question&envId=2023-11-16)
