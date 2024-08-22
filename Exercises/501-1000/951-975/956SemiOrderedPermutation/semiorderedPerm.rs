@@ -66,14 +66,15 @@ impl Solution {
     let mut idx1 = 0;
     let mut idxn = 0;
     for (index, &value) in nums.iter().enumerate() {
+      let idx = index as i32;
       if value == 1 {
-        idx1 = index;
+        idx1 = idx;
       }
       if value == n {
-        idxn = index;
+        idxn = idx;
       }
     }
-    let mut res = idx1 as i32 + n - idxn as i32 - 1;
+    let mut res = idx1 + n - idxn - 1;
     if idx1 > idxn { res-=1; }
     res
   }
