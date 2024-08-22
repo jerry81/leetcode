@@ -63,17 +63,17 @@ impl Solution {
   pub fn semi_ordered_permutation(nums: Vec<i32>) -> i32 {
     // find 1 position, find n position
     let n = nums.len() as i32;
-    let mut idx1 = -1;
-    let mut idxn = -1;
-    for (index, &value) in vec.iter().enumerate() {
+    let mut idx1 = 0;
+    let mut idxn = 0;
+    for (index, &value) in nums.iter().enumerate() {
       if value == 1 {
-        idx1 = Some(index);
+        idx1 = index;
       }
       if value == n {
-        idxn = Some(index);
+        idxn = index;
       }
     }
-    let mut res = idx1 + n - idxn + 1;
+    let mut res = idx1 as i32 + n - idxn as i32;
     if idx1 > idxn { res-=1; }
     res
   }
