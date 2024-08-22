@@ -73,7 +73,7 @@ impl Solution {
         idxn = index;
       }
     }
-    let mut res = idx1 as i32 + n - idxn as i32;
+    let mut res = idx1 as i32 + n - idxn as i32 - 1;
     if idx1 > idxn { res-=1; }
     res
   }
