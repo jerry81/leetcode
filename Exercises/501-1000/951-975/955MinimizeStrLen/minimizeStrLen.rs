@@ -71,8 +71,12 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn minimized_string_length(s: String) -> i32 {
-
+    // trick question, it is just the num of unique chars
+    let as_hs:HashSet<char>  = s.chars().collect();
+    as_hs.len() as i32
   }
 }
