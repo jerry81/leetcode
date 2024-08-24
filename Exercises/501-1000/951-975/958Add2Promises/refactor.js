@@ -45,21 +45,7 @@ Acceptance Rate
  * @return {Promise}
  */
 var addTwoPromises = async function(promise1, promise2) {
-  let res1 = false;
-  let res2 = false;
-  let v1 = -1;
-  let v2 = -1;
-  v1 = await promise1.then((val1) => {
-    v1=val1;
-    res1 = true;
-    if (res2) return v1+v2;
-  })
-  v2 = await promise2.then((val2) => {
-    v2=val2;
-    res2 = true;
-    if (res1) return v1+v2;
-  })
-  return v1 + v2
+  return await promise1 + await promise2
 };
 
 /**
