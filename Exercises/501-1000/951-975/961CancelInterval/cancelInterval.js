@@ -114,7 +114,9 @@ Acceptance Rate
  * @return {Function}
  */
 var cancellable = function(fn, args, t) {
-  let id = setInterval(fn.bind(this,args), t);
+  let bound = fn.bind(this,...args);
+  bound();
+  let id = setInterval(bound, t);
   return ()=>clearInterval(id);
 };
 
