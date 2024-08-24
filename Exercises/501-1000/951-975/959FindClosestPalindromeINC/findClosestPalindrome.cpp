@@ -51,3 +51,16 @@ public:
 
     }
 };
+
+// brute force
+// step through the range
+// converting to int and back and checking palindrome each time
+
+/*
+  create the palindrome
+  closest is ??
+  closest attempts to maintain significant digits
+  find midpoint
+  work towards sides
+  force right to left
+*/
