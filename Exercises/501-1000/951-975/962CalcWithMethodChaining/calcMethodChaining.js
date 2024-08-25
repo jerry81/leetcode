@@ -71,32 +71,29 @@ class Calculator {
    * @param {number} value
    */
   constructor(value) {
-      this.res = value;
-      this.busted = false;
+    this.res = value;
+    this.busted = false;
   }
 
   /**
    * @param {number} value
    * @return {Calculator}
    */
-  add(value){
-      console.log("add")
-      this.res+=value
+  add(value) {
+    if (busted) return this
+    this.res += value;
 
-      console.log("value is ", value);
-      console.log("res is ", this.res);
-      return this
+    return this;
   }
 
   /**
    * @param {number} value
    * @return {Calculator}
    */
-  subtract(value){
-      console.log("value is ", value);
-      console.log("res is ", this.res);
-      this.res-=value
-      return this
+  subtract(value) {
+    if (busted) return this;
+    this.res -= value;
+    return this;
   }
 
   /**
@@ -104,8 +101,9 @@ class Calculator {
    * @return {Calculator}
    */
   multiply(value) {
-      this.res*=value
-      return this
+    if (busted) return this;
+    this.res *= value;
+    return this;
   }
 
   /**
@@ -113,9 +111,13 @@ class Calculator {
    * @return {Calculator}
    */
   divide(value) {
-      if (value == 0) this.res = "Division by zero is not allowed"
-      this.res/=value
-      return this
+    if (this.busted) return this;
+    if (value == 0) {
+        this.res = "Division by zero is not allowed";
+      this.busted=true;
+    }
+    this.res /= value;
+    return this;
   }
 
   /**
@@ -123,14 +125,15 @@ class Calculator {
    * @return {Calculator}
    */
   power(value) {
-      this.res = Math.pow(this.res, value)
-      return this
+    if (busted) return this;
+    this.res = Math.pow(this.res, value);
+    return this;
   }
 
   /**
    * @return {number}
    */
   getResult() {
-      return this.res
+    return this.res;
   }
 }
