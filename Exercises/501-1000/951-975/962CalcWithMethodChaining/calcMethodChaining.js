@@ -80,7 +80,7 @@ class Calculator {
    * @return {Calculator}
    */
   add(value) {
-    if (busted) return this
+    if (this.busted) return this
     this.res += value;
 
     return this;
@@ -91,7 +91,7 @@ class Calculator {
    * @return {Calculator}
    */
   subtract(value) {
-    if (busted) return this;
+    if (this.busted) return this;
     this.res -= value;
     return this;
   }
@@ -101,7 +101,7 @@ class Calculator {
    * @return {Calculator}
    */
   multiply(value) {
-    if (busted) return this;
+    if (this.busted) return this;
     this.res *= value;
     return this;
   }
@@ -125,7 +125,7 @@ class Calculator {
    * @return {Calculator}
    */
   power(value) {
-    if (busted) return this;
+    if (this.busted) return this;
     this.res = Math.pow(this.res, value);
     return this;
   }
