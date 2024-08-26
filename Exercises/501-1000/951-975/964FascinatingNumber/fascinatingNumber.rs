@@ -43,6 +43,7 @@ Acceptance Rate
 52.3%
 
 */
+
 use std::collections::HashSet;
 
 impl Solution {
@@ -56,16 +57,25 @@ impl Solution {
       let s2 = x2.to_string();
       let s3 = x3.to_string();
       let mut hs: HashSet<char> = HashSet::new();
+      println!("{} {} {}", s1, s2, s3);
       for c in s1.chars() {
-        if c == '0' { continue }
+        if c == '0' { return false }
+
+        if hs.contains(&c) { return false }
         hs.insert(c);
       }
       for c in s2.chars() {
-        if c == '0' { continue }
+        if c == '0' { return false }
+
+        if hs.contains(&c) { return false }
+
         hs.insert(c);
       }
       for c in s3.chars() {
-        if c == '0' { continue }
+        if c == '0' { return false }
+
+        if hs.contains(&c) { return false }
+
         hs.insert(c);
       }
       hs.len() == 9
