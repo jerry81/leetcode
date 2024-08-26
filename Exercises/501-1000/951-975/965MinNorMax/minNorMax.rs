@@ -48,11 +48,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_non_min_or_max(nums: Vec<i32>) -> i32 {
-    let mx = nums.iter().max();
-    let mn = nums.iter().min();
+    let mx = *nums.iter().max().unwrap(); // reminder, must deref and unwrap
+    let mn = *nums.iter().min().unwrap();
     for i in nums {
       if i != mx && i != mn { return i }
     }
-    0
+    -1
   }
 }
