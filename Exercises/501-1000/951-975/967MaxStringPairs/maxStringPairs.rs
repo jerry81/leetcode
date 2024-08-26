@@ -61,11 +61,12 @@ Acceptance Rate
 impl Solution {
   pub fn maximum_number_of_string_pairs(words: Vec<String>) -> i32 {
     let mut res = 0;
+    let sz = words.len();
     for i in 0..sz-1 {
       for j in i+1..sz {
         let str = words[i];
         let cmp = words[j];
-        let r = cmp.chars().rev().collect();
+        let r:String = cmp.chars().rev().collect();
         if str == r { res+=1 }
       }
     }
