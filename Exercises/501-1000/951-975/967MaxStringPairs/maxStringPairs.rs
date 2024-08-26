@@ -64,10 +64,10 @@ impl Solution {
     let sz = words.len();
     for i in 0..sz-1 {
       for j in i+1..sz {
-        let str = words[i];
-        let cmp = words[j];
-        let r:String = cmp.chars().rev().collect();
-        if str == r { res+=1 }
+        let s = &words[i];
+        let cmp = &words[j];
+        let r:String = cmp.chars().rev().collect(); // so this derefences also
+        if *s == r { res+=1 }
       }
     }
     res
