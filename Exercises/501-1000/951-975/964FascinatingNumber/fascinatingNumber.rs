@@ -55,6 +55,19 @@ impl Solution {
       let s1 = n.to_string();
       let s2 = x2.to_string();
       let s3 = x3.to_string();
-      false
+      let mut hs: HashSet<char> = HashSet::new();
+      for c in s1.chars() {
+        if c == '0' { continue }
+        hs.insert(c);
+      }
+      for c in s2.chars() {
+        if c == '0' { continue }
+        hs.insert(c);
+      }
+      for c in s3.chars() {
+        if c == '0' { continue }
+        hs.insert(c);
+      }
+      hs.len() == 9
   }
 }
