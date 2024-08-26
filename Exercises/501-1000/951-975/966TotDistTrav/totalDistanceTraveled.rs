@@ -53,15 +53,17 @@ impl Solution {
   pub fn distance_traveled(main_tank: i32, additional_tank: i32) -> i32 {
     let mut dist = 0;
     let mut counter = 0;
-    while main_tank > 0 {
-      main_tank-=1;
-      dist+=1;
+    let mut m = main_tank;
+    let mut a = additional_tank;
+    while m > 0 {
+      m-=1;
+      dist+=10;
       counter+=1;
       if counter == 5 {
         counter = 0;
-        if additional_tank > 0 {
-          additional_tank-=1;
-          main_tank+=1;
+        if a > 0 {
+          a-=1;
+          m+=1;
         }
       }
     }
