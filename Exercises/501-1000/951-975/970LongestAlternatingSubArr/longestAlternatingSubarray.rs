@@ -55,11 +55,13 @@ impl Solution {
       let mut broke = false;
       for r in l+1..sz {
         let right = nums[r];
-        if (start && right != left) || (!start && right == left) {
+
+        if (right != (left+1) && (right != left)) || (start && right != left) || (!start && right == left) {
           broke = true;
           res = res.max(r-l);
           break;
         }
+        start = !start;
       }
       if !broke {
         res = res.max(sz-l);
@@ -69,7 +71,7 @@ impl Solution {
     if res < 2 {
       0
     } else {
-      res as i32 - 1
+      res as i32
     }
   }
 }
