@@ -53,23 +53,23 @@ impl Solution {
       let left = nums[l];
       let mut start = false;
       let mut broke = false;
-      for j in i+1..sz {
-        let right = nums[j];
+      for r in l+1..sz {
+        let right = nums[r];
         if (start && right != left) || (!start && right == left) {
           broke = true;
-          res = res.max(j-i);
+          res = res.max(r-l);
           break;
         }
       }
       if !broke {
-        res = res.max(sz-i);
+        res = res.max(sz-l);
       }
 
     }
     if res < 2 {
       0
     } else {
-      res
+      res - 1 as i32
     }
   }
 }
