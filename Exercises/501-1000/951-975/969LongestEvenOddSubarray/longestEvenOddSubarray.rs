@@ -69,9 +69,8 @@ impl Solution {
       let mut broke = false;
       for r in l+1..sz {
         let right = nums[r];
-        if
         if (need_odd && right % 2 == 0) || (!need_odd && right % 2 != 0) || (right > threshold) {
-          res = res.max(r-l)
+          res = res.max(r-l);
           broke = true;
           break;
         }
@@ -80,6 +79,6 @@ impl Solution {
       }
       if !broke { res = res.max(sz-l); }
     }
-    res
+    res as i32
   }
 }
