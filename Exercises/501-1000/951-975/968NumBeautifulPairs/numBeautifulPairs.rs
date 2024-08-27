@@ -53,19 +53,27 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn are_coprime(num1:i32, num2:i32) -> bool {
+    let mn = num1.min(num2);
+    for i in 2..=mn {
+      if num1%i == 0 && num2 % i == 0 {
+        return false
+      }
+    }
+    true
+  }
   pub fn count_beautiful_pairs(nums: Vec<i32>) -> i32 {
       let sz = nums.len();
       let mut res = 0;
       for i in 0..sz-1 {
           let curnum = nums[i];
           let first = (curnum.to_string().chars().nth(0).unwrap() as u8 - '0' as u8) as i32;
-          println!("first {}", first);
           for j in i+1..sz {
             let cmpnum = nums[j];
-            let cmpstr = curnum.to_string();
+            let cmpstr = cmpnum.to_string();
             let strl = cmpstr.len();
             let last = (cmpstr.chars().nth(strl-1).unwrap() as u8 - '0' as u8) as i32;
-            println!("last {}", last);
+            if are_coprime(first, last) { res+=1; }
           }
       }
       res
