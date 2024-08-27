@@ -47,6 +47,29 @@ Acceptance Rate
 
 impl Solution {
   pub fn alternating_subarray(nums: Vec<i32>) -> i32 {
+    let sz = nums.len();
+    let mut res = 0;
+    for l in 0..sz {
+      let left = nums[l];
+      let mut start = false;
+      let mut broke = false;
+      for j in i+1..sz {
+        let right = nums[j];
+        if (start && right != left) || (!start && right == left) {
+          broke = true;
+          res = res.max(j-i);
+          break;
+        }
+      }
+      if !broke {
+        res = res.max(sz-i);
+      }
 
+    }
+    if res < 2 {
+      0
+    } else {
+      res
+    }
   }
 }
