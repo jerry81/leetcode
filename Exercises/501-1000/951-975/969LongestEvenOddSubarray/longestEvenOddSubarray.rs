@@ -64,12 +64,13 @@ impl Solution {
     for l in 0..sz {
       // left must be even
       let left = nums[l];
-      if left % 2 != 0 { continue }
+      if left % 2 != 0 || left > threshold { continue }
       let mut need_odd = true;
       let mut broke = false;
       for r in l+1..sz {
         let right = nums[r];
-        if (need_odd && right % 2 == 0) || (!need_odd && right % 2 != 0) {
+        if
+        if (need_odd && right % 2 == 0) || (!need_odd && right % 2 != 0) || (right > threshold) {
           res = res.max(r-l)
           broke = true;
           break;
