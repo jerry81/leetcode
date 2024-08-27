@@ -69,7 +69,7 @@ impl Solution {
     if res < 2 {
       0
     } else {
-      res - 1 as i32
+      res as i32 - 1
     }
   }
 }
