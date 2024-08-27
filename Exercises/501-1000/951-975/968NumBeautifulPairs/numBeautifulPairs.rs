@@ -58,13 +58,13 @@ impl Solution {
       let mut res = 0;
       for i in 0..sz-1 {
           let curnum = nums[i];
-          let first = curnum.to_string().chars().nth(0).unwrap() as i32;
+          let first = (curnum.to_string().chars().nth(0).unwrap() as u8 - '0' as u8) as i32;
           println!("first {}", first);
           for j in i+1..sz {
             let cmpnum = nums[j];
             let cmpstr = curnum.to_string();
             let strl = cmpstr.len();
-            let last = cmpstr.chars().nth(strl-1).unwrap() as i32;
+            let last = (cmpstr.chars().nth(strl-1).unwrap() as u8 - '0' as u8) as i32;
             println!("last {}", last);
           }
       }
