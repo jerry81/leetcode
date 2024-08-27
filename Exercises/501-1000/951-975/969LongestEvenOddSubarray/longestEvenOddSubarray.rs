@@ -59,6 +59,26 @@ Acceptance Rate
 
 impl Solution {
   pub fn longest_alternating_subarray(nums: Vec<i32>, threshold: i32) -> i32 {
+    let sz = nums.len();
+    let mut res = 0;
+    for l in 0..sz {
+      // left must be even
+      let left = nums[l];
+      if left % 2 != 0 { continue }
+      let mut need_odd = true;
+      let mut broke = false;
+      for r in l+1..sz {
+        let right = nums[r];
+        if (need_odd && right % 2 == 0) || (!need_odd && right % 2 != 0) {
+          res = res.max(r-l)
+          broke = true;
+          break;
+        }
 
+        need_odd = !need_odd;
+      }
+      if !broke { res = res.max(sz-l); }
+    }
+    res
   }
 }
