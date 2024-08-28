@@ -57,15 +57,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_good(nums: Vec<i32>) -> bool {
-    let n = nums.len();
-    let mut v: Vec<i32> = vec![n;0];
+    let n = nums.len()-1;
+    let mut v: Vec<i32> = vec![0;101];
     for i in nums {
-      v[i-1]+=1;
+      if i > 100 { return false }
+
+      v[i as usize]+=1;
     }
-    for i in v {
-      if i == 0 { return false; }
+    for i in 1..n {
+        if v[i] == 0 { return false }
     }
-    v[n-1] == 2
+    v[n] == 2
   }
 }
+
 
