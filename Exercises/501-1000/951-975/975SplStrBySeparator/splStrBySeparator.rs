@@ -72,6 +72,7 @@ impl Solution {
         ret.push(item);
       } else {
         for s in w {
+          if s.is_empty() { continue }
           ret.push(s.to_string());
         }
       }
