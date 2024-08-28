@@ -80,7 +80,6 @@ public:
 
           while (!q.empty()) {
             auto [cy,cx] = q.front();
-            cout << "cy, cx " << cy << ","<<cx << endl;
             q.pop();
             if (visited[cy][cx]) continue;
 
@@ -99,13 +98,17 @@ public:
           islands.push_back(currentIsland);
         }
       }
-
+      // for each island in grid 2
       for (auto isl:islands) {
-        cout << "island" <<endl;
-        cout << ".. size is " << isl.size() << endl;
+        // check against grid1
+        bool subisland = true;
         for (auto [y,x]:isl) {
-          cout << y << "," << x << endl;
+          if (grid1[y][x] == 0) {
+            subisland = false;
+            break;
+          }
         }
+        if (subisland) res+=1;
       }
 
       return res;
