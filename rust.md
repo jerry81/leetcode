@@ -145,3 +145,9 @@ s.chars().collect::<HashSet<_>>().len() as i32
         }
     }
 ```
+
+- rust split
+- called on str slice
+```rs
+  let words: Vec<&str> = text.split(' ').collect();
+```
