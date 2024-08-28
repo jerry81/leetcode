@@ -50,6 +50,7 @@ Acceptance Rate
 #include <queue>
 
 using namespace std;
+
 class Solution {
 public:
     int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
@@ -75,6 +76,23 @@ public:
 
           queue<pair<int,int>> q;
           q.push({y,x});
+          visited[y][x] = true;
+          vector<pair<int,int>> currentIsland;
+
+          while (!q.empty()) {
+            auto [cy,cx] = q.front();
+            q.pop();
+            if (visited[cy][cx]) continue;
+
+            visited[cy][cx] = true;
+            currentIsland.push_back({y,x});
+            for (auto [dy,dx]: NEIGH) {
+              int ny = dy+cy;
+              int nx = dx+cx;
+
+              if (ny < h && ny >= 0 && nx < w && nx >= 0 && !visited[ny][nx]) queue.push({ny,nx});
+            }
+          }
         }
       }
 
