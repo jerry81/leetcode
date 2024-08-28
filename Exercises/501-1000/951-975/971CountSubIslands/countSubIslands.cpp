@@ -76,23 +76,35 @@ public:
 
           queue<pair<int,int>> q;
           q.push({y,x});
-          visited[y][x] = true;
           vector<pair<int,int>> currentIsland;
 
           while (!q.empty()) {
             auto [cy,cx] = q.front();
+            cout << "cy, cx " << cy << ","<<cx << endl;
             q.pop();
             if (visited[cy][cx]) continue;
 
             visited[cy][cx] = true;
-            currentIsland.push_back({y,x});
+
+            currentIsland.push_back({cy,cx});
             for (auto [dy,dx]: NEIGH) {
               int ny = dy+cy;
               int nx = dx+cx;
 
-              if (ny < h && ny >= 0 && nx < w && nx >= 0 && !visited[ny][nx]) queue.push({ny,nx});
+              if (ny < h && ny >= 0 && nx < w && nx >= 0 && !visited[ny][nx] && grid2[ny][nx] == 1) q.push({ny,nx});
             }
           }
+
+          // add the currentIsland
+          islands.push_back(currentIsland);
+        }
+      }
+
+      for (auto isl:islands) {
+        cout << "island" <<endl;
+        cout << ".. size is " << isl.size() << endl;
+        for (auto [y,x]:isl) {
+          cout << y << "," << x << endl;
         }
       }
 
