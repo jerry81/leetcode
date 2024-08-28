@@ -65,14 +65,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn split_words_by_separator(words: Vec<String>, separator: char) -> Vec<String> {
-    let ret: Vec<String> = vec![];
+    let mut ret: Vec<String> = vec![];
     for item in words {
       let w:Vec<&str> = item.split(separator).collect();
       if w.is_empty() {
-        ret.push_back(item);
+        ret.push(item);
       } else {
         for s in w {
-          ret.push_back(s);
+          ret.push(s.to_string());
         }
       }
     }
