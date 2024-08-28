@@ -50,7 +50,7 @@ impl Solution {
       let mut res = 0;
       for i in 1..=sz {
         if sz%i == 0 {
-          res+=nums[i]*nums[i];
+          res+=nums[i-1]*nums[i-1];
         }
       }
       res
