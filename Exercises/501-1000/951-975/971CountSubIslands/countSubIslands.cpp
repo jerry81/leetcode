@@ -45,9 +45,43 @@ Submissions
 Acceptance Rate
 68.2%
 */
+
+#include <vector>
+#include <queue>
+
+using namespace std;
 class Solution {
 public:
     int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+      int h = grid1.size();
+      int w = grid1[0].size();
+      const vector<pair<int,int>> NEIGH = {
+        {-1,0},{1,0},
+        {0,-1},{0,1}
+      };
 
+      vector<vector<pair<int,int>>> islands;
+      int res = 0;
+
+      vector<vector<bool>> visited(h, vector<bool>(w, false));
+
+      // for each square in grid 2
+      for (int y = 0; y < h; ++y) {
+        for (int x = 0; x < w; ++x) {
+          // bfs if not visited and 1
+          if (visited[y][x]) continue;
+
+          if (grid2[y][x] == 0) continue;
+
+          queue<pair<int,int>> q;
+          q.push({y,x});
+        }
+      }
+
+      return res;
     }
 };
+
+// bfs to find islands on island 2.
+
+// island 1 is just a lookup table
