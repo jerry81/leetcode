@@ -63,6 +63,22 @@ using namespace std;
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
+      int sz = stones.size();
+      vector<vector<int>> adj(sz);
+      for (int i = 0; i < sz-1;++i) {
+        vector<int> stone = stones[i];
+        for (int j = 0; j < sz;++j) {
+          if (i == j) continue;
 
+          vector<int> cp = stones[j];
+          if (stone[0] == cp[0] || stone[1] == cp[1]) {
+            adj[i].push_back(j);
+            adj[j].push_back(i);
+          }
+        }
+      }
     }
 };
+
+// definitely didn't make the connection that this is a dfs problem
+// oh duh, we are on islands week
