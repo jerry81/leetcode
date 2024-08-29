@@ -61,13 +61,23 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int dfs(int start, vector<bool> &visited, vector<vector<int>> &adj) {
+  if (visited[start]) return 0;
+
+  visited[start] = true;
+  int res = 1;
+  for (int neigh: adj[start]) {
+    res+=dfs(neigh, visited, adj);
+  }
+  return res;
+}
 public:
     int removeStones(vector<vector<int>>& stones) {
       int sz = stones.size();
       vector<vector<int>> adj(sz);
       for (int i = 0; i < sz-1;++i) {
         vector<int> stone = stones[i];
-        for (int j = 0; j < sz;++j) {
+        for (int j = i+1; j < sz;++j) {
           if (i == j) continue;
 
           vector<int> cp = stones[j];
@@ -77,6 +87,18 @@ public:
           }
         }
       }
+      vector<bool> visited(sz, false);
+      int res = 0;
+      int componentcount = 0;
+      for (int i = 0; i < sz; ++i) {
+        if (visited[i]) continue;
+
+        componentcount+=1;
+
+        res+=dfs(i, visited, adj);
+      }
+
+      return res-componentcount;
     }
 };
 
