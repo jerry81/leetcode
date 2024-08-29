@@ -65,6 +65,7 @@ impl Solution {
     for c in s.chars() {
       if c == 'i' {
         cur=cur.iter().rev().cloned().collect(); // til: cloned can fix the &char issue
+        // i.e. it avoids borrowing issues
       } else {
         cur.push(c);
       }
