@@ -61,6 +61,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn final_string(s: String) -> String {
-
+    let mut cur:Vec<char> = vec![];
+    for c in s.chars() {
+      if c == 'i' {
+        cur=cur.iter().rev().cloned().collect(); // til: cloned can fix the &char issue
+      } else {
+        cur.push(c);
+      }
+    }
+    cur.iter().collect::<String>()
   }
 }
