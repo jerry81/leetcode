@@ -69,6 +69,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn account_balance_after_purchase(purchase_amount: i32) -> i32 {
+    let mut pa = purchase_amount;
+    for i in 0..=5 {
 
+      if (pa + i) % 10 == 0 {
+        pa = pa+i;
+        break;
+      } else if (pa-i) % 10 == 0 {
+        pa = pa-i;
+        break;
+      }
+    }
+    100 - pa
   }
 }
