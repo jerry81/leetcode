@@ -68,9 +68,9 @@ Acceptance Rate
 impl Solution {
   // convert int to digit string
   fn get_max_dig(i: i32) -> i32 {
-    i.to_string().chars().map(|c| -> {
+    *i.to_string().chars().map(|c| {
       (c as u8 - '0' as u8) as i32
-    }).iter().max().unwrap()
+    }).collect::<Vec<i32>>().iter().max().unwrap()
   }
   pub fn max_sum(nums: Vec<i32>) -> i32 {
     for n in nums {
