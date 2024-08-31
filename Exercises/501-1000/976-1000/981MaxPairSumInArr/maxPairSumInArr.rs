@@ -73,10 +73,20 @@ impl Solution {
     }).collect::<Vec<i32>>().iter().max().unwrap()
   }
   pub fn max_sum(nums: Vec<i32>) -> i32 {
-    let mut groups: Vec<Vec<i32>> = vec![vec![];10];
+    let mut groups: Vec<Vec<i32>> = vec![vec![];10]; // val; size
     for n in nums {
       groups[Solution::get_max_dig(n) as usize].push(n);
     }
-    0
+    let mut res = 0;
+    for g in groups {
+      for i in 0..g.len()-1 {
+        let first = g[i];
+        for j in i+1..g.len() {
+          let second = g[j];
+          res = res.max(first+second);
+        }
+      }
+    }
+    res
   }
 }
