@@ -73,8 +73,9 @@ impl Solution {
     }).collect::<Vec<i32>>().iter().max().unwrap()
   }
   pub fn max_sum(nums: Vec<i32>) -> i32 {
+    let mut groups: Vec<Vec<i32>> = vec![vec![];10];
     for n in nums {
-      println!("{}", Solution::get_max_dig(n));
+      groups[Solution::get_max_dig(n) as usize].push(n);
     }
     0
   }
