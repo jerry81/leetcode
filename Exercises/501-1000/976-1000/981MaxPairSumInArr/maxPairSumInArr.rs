@@ -77,8 +77,9 @@ impl Solution {
     for n in nums {
       groups[Solution::get_max_dig(n) as usize].push(n);
     }
-    let mut res = 0;
+    let mut res = -1;
     for g in groups {
+      if g.len() < 2 { continue }
       for i in 0..g.len()-1 {
         let first = g[i];
         for j in i+1..g.len() {
