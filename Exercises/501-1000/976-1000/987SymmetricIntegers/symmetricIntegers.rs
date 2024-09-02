@@ -43,6 +43,22 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_symmetric_integers(low: i32, high: i32) -> i32 {
-
+    let mut res = 0;
+    for i in low..=high {
+      let n = i.to_string().len();
+      if n % 2 == 1 { continue }
+      let half = n/2;
+      let mut fh = 0;
+      let mut sh = 0;
+      let as_s = (i as i32).to_string();
+      for idx in 0..half {
+        fh+=(as_s.to_string().chars().nth(idx).unwrap() as u8 - '0' as u8) as i32;
+      }
+      for idx in half..n {
+        sh+=(as_s.to_string().chars().nth(idx).unwrap() as u8 - '0' as u8) as i32;
+      }
+      if fh == sh { res+=1; }
+    }
+    res
   }
 }
