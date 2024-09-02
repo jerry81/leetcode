@@ -68,9 +68,9 @@ using namespace std;
 class Solution {
 public:
     int chalkReplacer(vector<int>& chalk, int k) {
-      int sm = 0;
+      long long int sm = 0;
       for (int c: chalk) {
-        sm+=1;
+        sm+=c;
       }
       int n = chalk.size();
       int rm = k%sm;
