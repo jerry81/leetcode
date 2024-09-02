@@ -45,8 +45,16 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn can_be_equal(s1: String, s2: String) -> bool {
+    if s1 == s2 { return true }
 
+    if s1.chars().nth(0).unwrap() != s2.chars().nth(2).unwrap() { return false }
+
+    if s1.chars().nth(1).unwrap() != s2.chars().nth(3).unwrap() { return false }
+
+    true
   }
 }
