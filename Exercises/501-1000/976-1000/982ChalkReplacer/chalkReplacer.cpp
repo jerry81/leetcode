@@ -68,6 +68,17 @@ using namespace std;
 class Solution {
 public:
     int chalkReplacer(vector<int>& chalk, int k) {
+      int sm = 0;
+      for (int c: chalk) {
+        sm+=1;
+      }
+      int n = chalk.size();
+      int rm = k%sm;
+      for (int i = 0; i < n; ++i) {
+        if (rm < chalk[i]) return i;
 
+        rm-=chalk[i];
+      }
+      return 0;
     }
 };
