@@ -53,6 +53,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_pairs(nums: Vec<i32>, target: i32) -> i32 {
-
+    let sz = nums.len();
+    let mut sums: Vec<i32> = vec![];
+    for i in 0..sz-1 {
+      for j in i+1..sz {
+        sums.push(nums[i]+nums[j]);
+      }
+    }
+    sums.iter().filter(|item| {
+      item < target
+    }).collect().len() as i32
   }
 }
