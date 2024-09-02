@@ -151,3 +151,9 @@ s.chars().collect::<HashSet<_>>().len() as i32
 ```rs
   let words: Vec<&str> = text.split(' ').collect();
 ```
+
+- see 985 for declare multiple muts
+
+```rs
+    let (mut l,mut r,mut u) = (0,0,0); // TIL: declare multiple on one line
+```

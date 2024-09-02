@@ -51,7 +51,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn furthest_distance_from_origin(moves: String) -> i32 {
-    let mut (l,r,u) = (0,0,0);
+    let (mut l,mut r,mut u) = (0,0,0); // TIL: declare multiple on one line
     for c in moves.chars() {
       match c {
         'L' => l+=1,
@@ -59,6 +59,6 @@ impl Solution {
         _ => u+=1
       }
     }
-    l.max(r) + u
+    l.max(r) - l.min(r) + u
   }
 }
