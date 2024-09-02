@@ -54,6 +54,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_acronym(words: Vec<String>, s: String) -> bool {
-
+    words.iter().map(|s| {
+      s.chars().next().unwrap()
+    }).collect::<String>() == s
   }
 }
