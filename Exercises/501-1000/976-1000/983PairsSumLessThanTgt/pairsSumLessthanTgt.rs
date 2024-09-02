@@ -61,7 +61,7 @@ impl Solution {
       }
     }
     sums.iter().filter(|item| {
-      item < target
-    }).collect().len() as i32
+      **item < target
+    }).collect::<Vec<_>>().len() as i32
   }
 }
