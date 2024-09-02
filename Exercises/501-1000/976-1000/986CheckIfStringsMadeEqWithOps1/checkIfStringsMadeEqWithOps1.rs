@@ -51,10 +51,27 @@ impl Solution {
   pub fn can_be_equal(s1: String, s2: String) -> bool {
     if s1 == s2 { return true }
 
-    if s1.chars().nth(0).unwrap() != s2.chars().nth(2).unwrap() { return false }
+    let s11 = s1.chars().nth(0).unwrap();
+    let s12 = s1.chars().nth(1).unwrap();
+    let s13 = s1.chars().nth(2).unwrap();
+    let s14 = s1.chars().nth(3).unwrap();
+    let s21 = s2.chars().nth(0).unwrap();
+    let s22 = s2.chars().nth(1).unwrap();
+    let s23 = s2.chars().nth(2).unwrap();
+    let s24 = s2.chars().nth(3).unwrap();
 
-    if s1.chars().nth(1).unwrap() != s2.chars().nth(3).unwrap() { return false }
+    let oddsPass1 = s11 == s21 && s13 == s23;
+    let oddsPass2 = s11 == s23 && s13 == s21;
+    let oddsPass = oddsPass1 || oddsPass2;
 
+    if !oddsPass { return false }
+
+    let evensPass1 = s12 == s22 && s14 == s24;
+    let evensPass2 = s12 == s24 && s14 == s22;
+    let evensPass = evensPass1 || evensPass2;
+
+    if !evensPass { return false }
     true
+
   }
 }
