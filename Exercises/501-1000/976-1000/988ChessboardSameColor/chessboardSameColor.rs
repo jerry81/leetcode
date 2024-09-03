@@ -58,15 +58,8 @@ Acceptance Rate
 
 impl Solution {
   pub fn check_two_chessboards(coordinate1: String, coordinate2: String) -> bool {
-    let c11:char = coordinate1.chars().nth(0).unwrap();
-    let c12:char = coordinate1.chars().nth(1).unwrap();
-    let c21:char = coordinate2.chars().nth(0).unwrap();
-    let c22:char = coordinate2.chars().nth(1).unwrap();
-    let matchingrows = c11%2 == c21%2;
-    if matchingrows {
-      c12%2 == c22%2
-    } else {
-      c12%2 != c22%2
-    }
+      let (c11, c12) = (coordinate1.as_bytes()[0], coordinate1.as_bytes()[1]);
+      let (c21, c22) = (coordinate2.as_bytes()[0], coordinate2.as_bytes()[1]);
+      (c11 % 2 == c21 % 2) == (c12 % 2 == c22 % 2)
   }
 }
