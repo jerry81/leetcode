@@ -43,6 +43,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn number_of_points(nums: Vec<Vec<i32>>) -> i32 {
-
+    // get max end
+    let mut range:Vec<bool> = vec![false,101];
+    let mut res = 0;
+    for car in nums {
+      for idx in car[0]..=car[1] {
+        if !range[idx] {
+          range[idx] = true;
+          res += 1;
+        }
+      }
+    }
+    res
   }
 }
