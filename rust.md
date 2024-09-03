@@ -160,3 +160,8 @@ s.chars().collect::<HashSet<_>>().len() as i32
 
 - see  986 for as_bytes()
 - String.as_bytes() converts char to u8
+
+- 991 i32 to binary string
+```rs
+let binary_string = format!("{:b}", number);
+```
