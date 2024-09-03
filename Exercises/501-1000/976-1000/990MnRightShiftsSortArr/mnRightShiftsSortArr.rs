@@ -56,11 +56,12 @@ impl Solution {
     let n = nums.len();
     let mut prev = mn-1;
     for i in 0..n {
-        let idx = i+start%n;
+        let idx = (i+start)%n;
         if nums[idx] < prev { return -1 }
 
         prev = nums[idx];
     }
+    if start == 0 { return 0 }
     (n-start) as i32
   }
 }
