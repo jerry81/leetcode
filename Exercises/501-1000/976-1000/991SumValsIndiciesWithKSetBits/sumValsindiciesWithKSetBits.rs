@@ -60,13 +60,14 @@ Acceptance Rate
 impl Solution {
   pub fn sum_indices_with_k_set_bits(nums: Vec<i32>, k: i32) -> i32 {
     let mut res = 0;
-    for n in nums {
-      let formatted = format!("{:b}", n);
+    for idx in 0..nums.len() {
+      let idx_i = idx as i32;
+      let formatted = format!("{:b}", idx_i);
       let mut cnt = 0;
       for c in formatted.chars() {
         if c == '1' { cnt+=1; }
       }
-      if cnt==k { res+=1; }
+      if cnt==k { res+=nums[idx]; }
     }
     res
   }
