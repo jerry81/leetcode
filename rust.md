@@ -157,3 +157,6 @@ s.chars().collect::<HashSet<_>>().len() as i32
 ```rs
     let (mut l,mut r,mut u) = (0,0,0); // TIL: declare multiple on one line
 ```
+
+- see  986 for as_bytes()
+- String.as_bytes() converts char to u8
