@@ -57,8 +57,9 @@ impl Solution {
     let mut hs:HashSet<i32> = HashSet::new();
     for i in 0..nums.len() {
       let idx = nums.len()-i-1;
-      hs.insert(nums[i]);
-      if hs.len() == k { return i as i32 }
+      if nums[idx] <= k { hs.insert(nums[idx]); }
+
+      if hs.len() as i32 == k { return i as i32 + 1 }
     }
     nums.len() as i32
   }
