@@ -50,6 +50,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_right_shifts(nums: Vec<i32>) -> i32 {
+    // check for -1
+    let mn = *nums.iter().min().unwrap();
+    let mut start = nums.iter().position(|&x| x == mn).unwrap();
+    let n = nums.len();
+    let mut prev = mn-1;
+    for i in 0..n {
+        let idx = i+start%n;
+        if nums[idx] < prev { return -1 }
 
+        prev = nums[idx];
+    }
+    (n-start) as i32
   }
 }
