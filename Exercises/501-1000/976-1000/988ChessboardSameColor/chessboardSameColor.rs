@@ -62,7 +62,11 @@ impl Solution {
     let c12:char = coordinate1.chars().nth(1).unwrap();
     let c21:char = coordinate2.chars().nth(0).unwrap();
     let c22:char = coordinate2.chars().nth(1).unwrap();
-    println!("c11 as u8 {}", c11 as u8);
-    true
+    let matchingrows = c11%2 == c21%2;
+    if matchingrows {
+      c12%2 == c22%2
+    } else {
+      c12%2 != c22%2
+    }
   }
 }
