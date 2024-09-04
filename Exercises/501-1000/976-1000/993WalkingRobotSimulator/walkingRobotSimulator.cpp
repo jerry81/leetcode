@@ -75,13 +75,23 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
+const vector<int> DIR = {0,1,2,3}; // N,E,S,W
+
 public:
     int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
-
+      int current_dir = 0;
+      unordered_map<int, unordered_set<int>> lookup;
+      for (auto v: obstacles) {
+        int y = v[0];
+        int x = v[1];
+        lookup[y].insert(x);
+      }
     }
 };
 
