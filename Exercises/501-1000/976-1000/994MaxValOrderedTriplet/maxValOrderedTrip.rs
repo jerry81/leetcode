@@ -51,6 +51,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_triplet_value(nums: Vec<i32>) -> i64 {
-
+    let sz = nums.len();
+    let mut res = -1;
+    for i in 0..sz-2 {
+      let ii = nums[i];
+      for j in i+1..sz-1 {
+        let jj = nums[j];
+        for k in j+1..sz {
+          let kk = nums[k];
+          res = res.max((i-j)*k)
+        }
+      }
+    }
+    res
   }
 }
