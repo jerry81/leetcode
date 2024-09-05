@@ -59,6 +59,29 @@ using namespace std;
 class Solution {
 public:
     vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
-
+      int sz = rolls.size();
+      int m_plus_n = sz + n;
+      int x = m_plus_n*mean;
+      int sm = 0;
+      for (int i: rolls) sm+=i;
+      int tgt = x-sm;
+      vector<int> res = rolls;
+      for (int i = 0; i < n-1; ++i) {
+        res.push_back(1);
+        --tgt;
+      }
+      res.push_back(tgt);
+      return res;
     }
 };
+
+ /*
+    find what fraction is missing
+    rolls = [3,2,4,3], mean = 4, n = 2
+    m+n = rolls.size() + n = 6
+    x / 6 = 4
+    x = 24
+    x-sum(rolls) = 12
+    fit 12 in 2 items
+    // can just do 1,1,1, ... x-j
+ */
