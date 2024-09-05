@@ -70,9 +70,11 @@ public:
         int rm = n-i;
         int cur_avg = tgt/rm;
         if (cur_avg > 6) return {};
+        if (cur_avg < 1) return {};
         res.push_back(cur_avg);
         tgt-=cur_avg;
       }
+      if (tgt > 6 || tgt < 0) return {};
       res.push_back(tgt);
       return res;
     }
