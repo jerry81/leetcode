@@ -67,8 +67,10 @@ public:
       int tgt = x-sm;
       vector<int> res = {};
       for (int i = 0; i < n-1; ++i) {
-        res.push_back(1);
-        --tgt;
+        int rm = n-i;
+        int cur_avg = tgt/rm;
+        res.push_back(cur_avg);
+        tgt-=cur_avg;
       }
       res.push_back(tgt);
       return res;
