@@ -63,20 +63,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn generate_key(num1: i32, num2: i32, num3: i32) -> i32 {
-    let mut v: Vec<char> = vec!['9','9','9','9'];
+
     let (num1str, num2str, num3str) = (num1.to_string(), num2.to_string(), num3.to_string());
     // pad zeroes
     let mut num1v = num1str.chars().collect::<Vec<_>>();
     let mut num2v = num2str.chars().collect::<Vec<_>>();
     let mut num3v = num3str.chars().collect::<Vec<_>>();
     while (num1v.len() < 4) {
-      num1v.push_front('0');
+      num1v.insert(0,'0');
     }
     while (num2v.len() < 4) {
-      num2v.push_front('0');
+      num2v.insert(0,'0');
     }
     while (num3v.len() < 4) {
-      num3v.push_front('0');
+      num3v.insert(0,'0');
+    }
+
+    let mut v: Vec<char> = vec![];
+    for i in 0..4 {
+      let mut val = num1v[i].min(num2v[i]);
+      val = val.min(num3v[i]);
+      v.push(val);
     }
 
     v.iter().collect::<String>().parse::<i32>().unwrap()

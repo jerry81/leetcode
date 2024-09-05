@@ -165,3 +165,8 @@ s.chars().collect::<HashSet<_>>().len() as i32
 ```rs
 let binary_string = format!("{:b}", number);
 ```
+
+- 997, insert at front of vec
+```rs
+v.insert(pos,item);
+```
