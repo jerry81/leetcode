@@ -65,7 +65,7 @@ public:
       int sm = 0;
       for (int i: rolls) sm+=i;
       int tgt = x-sm;
-      vector<int> res = rolls;
+      vector<int> res = {};
       for (int i = 0; i < n-1; ++i) {
         res.push_back(1);
         --tgt;
