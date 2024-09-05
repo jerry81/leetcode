@@ -69,6 +69,7 @@ public:
       for (int i = 0; i < n-1; ++i) {
         int rm = n-i;
         int cur_avg = tgt/rm;
+        if (cur_avg > 6) return {};
         res.push_back(cur_avg);
         tgt-=cur_avg;
       }
