@@ -88,11 +88,34 @@ Acceptance Rate
  };
 
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+      // hash for quick lookup
+      unordered_set<int> lookup;
 
+      for (int n: nums) {
+        lookup.insert(n);
+      }
+
+      while (head && lookup.count(head->val)) {
+            head = head->next;
+        }
+
+        if (!head) return nullptr;
+
+        ListNode* curr = head;
+        while (curr->next) {
+            if (lookup.count(curr->next->val)) {
+                curr->next = curr->next->next;
+            } else {
+                curr = curr->next;
+            }
+        }
+
+        return head;
     }
 };
