@@ -9,7 +9,9 @@ You are given two integers m and n, which represent the dimensions of a matrix.
 
 You are also given the head of a linked list of integers.
 
-Generate an m x n matrix that contains the integers in the linked list presented in spiral order (clockwise), starting from the top-left of the matrix. If there are remaining empty spaces, fill them with -1.
+Generate an m x n matrix that contains the integers in the linked list presented
+in spiral order (clockwise), starting from the top-left of the matrix. If there
+are remaining empty spaces, fill them with -1.
 
 Return the generated matrix.
 
@@ -27,8 +29,8 @@ Example 2:
 
 Input: m = 1, n = 4, head = [0,1,2]
 Output: [[0,1,2,-1]]
-Explanation: The diagram above shows how the values are printed from left to right in the matrix.
-The last space in the matrix is set to -1.
+Explanation: The diagram above shows how the values are printed from left to
+right in the matrix. The last space in the matrix is set to -1.
 
 
 Constraints:
@@ -62,11 +64,11 @@ Acceptance Rate
  */
 
 struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+  int val;
+  ListNode *next;
+  ListNode() : val(0), next(nullptr) {}
+  ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
 #include <vector>
@@ -74,42 +76,42 @@ struct ListNode {
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
-        vector<vector<int>> matrix(m, vector<int>(n, -1));
+ public:
+  vector<vector<int>> spiralMatrix(int m, int n, ListNode *head) {
+    vector<vector<int>> matrix(m, vector<int>(n, -1));
 
-        int top = 0, bottom = m - 1, left = 0, right = n - 1;
+    int top = 0, bottom = m - 1, left = 0, right = n - 1;
 
-        while (head != nullptr) {
-            // Traverse from left to right.
-            for (int i = left; i <= right && head != nullptr; i++) {
-                matrix[top][i] = head->val;
-                head = head->next;
-            }
-            top++;
+    while (head != nullptr) {
+      // Traverse from left to right.
+      for (int i = left; i <= right && head != nullptr; i++) {
+        matrix[top][i] = head->val;
+        head = head->next;
+      }
+      top++;
 
-            // Traverse from top to bottom.
-            for (int i = top; i <= bottom && head != nullptr; i++) {
-                matrix[i][right] = head->val;
-                head = head->next;
-            }
-            right--;
+      // Traverse from top to bottom.
+      for (int i = top; i <= bottom && head != nullptr; i++) {
+        matrix[i][right] = head->val;
+        head = head->next;
+      }
+      right--;
 
-            // Traverse from right to left.
-            for (int i = right; i >= left && head != nullptr; i--) {
-                matrix[bottom][i] = head->val;
-                head = head->next;
-            }
-            bottom--;
+      // Traverse from right to left.
+      for (int i = right; i >= left && head != nullptr; i--) {
+        matrix[bottom][i] = head->val;
+        head = head->next;
+      }
+      bottom--;
 
-            // Traverse from bottom to top.
-            for (int i = bottom; i >= top && head != nullptr; i--) {
-                matrix[i][left] = head->val;
-                head = head->next;
-            }
-            left++;
-        }
-
-        return matrix;
+      // Traverse from bottom to top.
+      for (int i = bottom; i >= top && head != nullptr; i--) {
+        matrix[i][left] = head->val;
+        head = head->next;
+      }
+      left++;
     }
+
+    return matrix;
+  }
 };
