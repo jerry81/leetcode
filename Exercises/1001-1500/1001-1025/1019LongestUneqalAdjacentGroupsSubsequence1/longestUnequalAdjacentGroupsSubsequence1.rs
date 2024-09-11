@@ -56,37 +56,18 @@ Acceptance Rate
 62.2%
 
 */
-
 impl Solution {
-  fn r(gr: &Vec<i32>, idx: usize, last_group: i32) -> Vec<i32> {
-    // take or leave
-    if idx == gr.len() {
-      return Vec::new();
-    }
-    let mut take = Vec::new();
-    if gr[idx] != last_group {
-      take = Self::r(gr, idx + 1, gr[idx]);
-      take.push(idx as i32);
-    }
-    let leave = Self::r(gr, idx + 1, last_group);
-    if take.len() > leave.len() {
-      take
-    } else {
-      leave
-    }
-  }
+    pub fn get_longest_subsequence(words: Vec<String>, groups: Vec<i32>) -> Vec<String> {
+        let mut result = Vec::new();
+        let mut last_group = -1;
 
-  pub fn get_longest_subsequence(words: Vec<String>, groups: Vec<i32>) -> Vec<String> {
-    let mut ans_idx = Vec::new();
-    let mut ans_words = Vec::new();
-    let mut last_group = -1;
-    for idx in 0..words.len() {
-      let take = Self::r(&groups, idx, last_group);
-      if take.len() > ans_idx.len() {
-        ans_idx = take;
-        ans_words = take.iter().map(|i| words[*i as usize].clone()).collect();
-      }
+        for (word, &group) in words.iter().zip(groups.iter()) {
+            if group != last_group {
+                result.push(word.clone());
+                last_group = group;
+            }
+        }
+
+        result
     }
-    ans_words
-  }
 }
