@@ -55,9 +55,20 @@ Acceptance Rate
 82.9%
 
 */
+use std::collections::HashSet;
 
 impl Solution {
-  pub fn sum_counts(nums: Vec<i32>) -> i32 {
+  fn get_distinct_count(nums: &Vec<i32>, i: usize, j: usize) -> i32 {
+    nums[i..=j].iter().collect::<HashSet<_>>().len() as i32
+  }
 
+  pub fn sum_counts(nums: Vec<i32>) -> i32 {
+    let mut sum = 0;
+    for i in 0..nums.len() {
+      for j in i..nums.len() {
+        sum += Self::get_distinct_count(&nums, i, j) * Self::get_distinct_count(&nums, i, j);
+      }
+    }
+    sum
   }
 }
