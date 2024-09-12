@@ -58,15 +58,14 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  fn get_distinct_count(nums: &Vec<i32>, i: usize, j: usize) -> i32 {
-    nums[i..=j].iter().collect::<HashSet<_>>().len() as i32
-  }
-
   pub fn sum_counts(nums: Vec<i32>) -> i32 {
     let mut sum = 0;
+    let get_distinct_count = |nums: &Vec<i32>, i: usize, j: usize| -> i32 {
+      nums[i..=j].iter().collect::<HashSet<_>>().len() as i32
+    };
     for i in 0..nums.len() {
       for j in i..nums.len() {
-        sum += Self::get_distinct_count(&nums, i, j) * Self::get_distinct_count(&nums, i, j);
+        sum += get_distinct_count(&nums, i, j) * get_distinct_count(&nums, i, j);
       }
     }
     sum
