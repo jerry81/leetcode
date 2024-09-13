@@ -51,6 +51,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_peaks(mountain: Vec<i32>) -> Vec<i32> {
-
+    mountain.iter().enumerate().filter(|(i, height)| {
+      let prev = if *i == 0 { **height } else { mountain[i - 1] };
+      let next = if *i == mountain.len() - 1 { **height } else { mountain[i + 1] };
+      **height > prev && **height > next
+    }).map(|(i, _)| i as i32).collect()
   }
 }
