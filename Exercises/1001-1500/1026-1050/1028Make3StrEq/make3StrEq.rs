@@ -46,8 +46,25 @@ Acceptance Rate
 
 */
 
+// get min length
+// step from left to right to min length
+// stop when the prefixes don't match
+// store the index where you stopped
+// tally the items needed to be deleted
+
 impl Solution {
   pub fn find_minimum_operations(s1: String, s2: String, s3: String) -> i32 {
-
+    let min_length = s1.len().min(s2.len()).min(s3.len());
+    let mut i = 0;
+    while i < min_length {
+      if s1.chars().nth(i) != s2.chars().nth(i) || s1.chars().nth(i) != s3.chars().nth(i) {
+        break;
+      }
+      i += 1;
+    }
+    if i == 0 {
+      return -1;
+    }
+    (s1.len() - i) + (s2.len() - i) + (s3.len() - i)
   }
 }
