@@ -52,6 +52,7 @@ Acceptance Rate
 // store the index where you stopped
 // tally the items needed to be deleted
 
+
 impl Solution {
   pub fn find_minimum_operations(s1: String, s2: String, s3: String) -> i32 {
     let min_length = s1.len().min(s2.len()).min(s3.len());
@@ -65,6 +66,6 @@ impl Solution {
     if i == 0 {
       return -1;
     }
-    (s1.len() - i) + (s2.len() - i) + (s3.len() - i)
+    (s1.len() - i) + (s2.len() - i) + (s3.len() - i) as i32
   }
 }
