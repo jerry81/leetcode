@@ -74,6 +74,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn are_similar(mat: Vec<Vec<i32>>, k: i32) -> bool {
+    let m = mat.len();
+    let n = mat[0].len();
+    let k = k as usize % n; // Normalize k to be within the range of column count
+
+        for i in 0..m {
+            for j in 0..n {
+                let new_j = if i % 2 == 0 {
+                    // Even-indexed rows: left shift
+                    (j + n - k) % n
+                } else {
+                    // Odd-indexed rows: right shift
+                    (j + k) % n
+                };
+
+                if mat[i][j] != mat[i][new_j] {
+                    return false;
+                }
+            }
+        }
+
+        true
 
   }
 }
