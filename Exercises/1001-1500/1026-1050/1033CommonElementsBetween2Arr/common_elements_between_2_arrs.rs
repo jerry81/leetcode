@@ -1,0 +1,89 @@
+/*
+
+2956. Find Common Elements Between Two Arrays
+Easy
+Topics
+Companies
+Hint
+You are given two integer arrays nums1 and nums2 of sizes n and m, respectively. Calculate the following values:
+
+answer1 : the number of indices i such that nums1[i] exists in nums2.
+answer2 : the number of indices i such that nums2[i] exists in nums1.
+Return [answer1,answer2].
+
+
+
+Example 1:
+
+Input: nums1 = [2,3,2], nums2 = [1,2]
+
+Output: [2,1]
+
+Explanation:
+
+
+
+Example 2:
+
+Input: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]
+
+Output: [3,4]
+
+Explanation:
+
+The elements at indices 1, 2, and 3 in nums1 exist in nums2 as well. So answer1 is 3.
+
+The elements at indices 0, 1, 3, and 4 in nums2 exist in nums1. So answer2 is 4.
+
+Example 3:
+
+Input: nums1 = [3,4,2,3], nums2 = [1,5]
+
+Output: [0,0]
+
+Explanation:
+
+No numbers are common between nums1 and nums2, so answer is [0,0].
+
+
+
+Constraints:
+
+n == nums1.length
+m == nums2.length
+1 <= n, m <= 100
+1 <= nums1[i], nums2[i] <= 100
+Seen this question in a real interview before?
+1/5
+Yes
+No
+Accepted
+64.4K
+Submissions
+76.8K
+Acceptance Rate
+83.9%
+
+*/
+
+use std::collections::HashMap;
+
+impl Solution {
+  pub fn find_intersection_values(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+    let mut nums1_map = HashMap::new();
+    let mut nums2_map = HashMap::new();
+
+    for num in nums1 {
+      *nums1_map.entry(num).or_insert(0) += 1;
+    }
+
+    for num in nums2 {
+      *nums2_map.entry(num).or_insert(0) += 1;
+    }
+
+    let count1 = nums1_map.iter().filter(|(&num, _)| nums2_map.contains_key(&num)).map(|(_, &count)| count).sum();
+    let count2 = nums2_map.iter().filter(|(&num, _)| nums1_map.contains_key(&num)).map(|(_, &count)| count).sum();
+    vec![count1, count2]
+
+  }
+}
