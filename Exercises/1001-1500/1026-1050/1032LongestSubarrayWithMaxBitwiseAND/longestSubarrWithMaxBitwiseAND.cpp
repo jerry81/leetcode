@@ -59,11 +59,15 @@ public:
     int longestSubarray(vector<int>& nums) {
       int mx = *max_element(nums.begin(), nums.end());
       int cnt = 0;
+      int res = 0;
       for (int n: nums) {
         if (n == mx) {
           cnt++;
+        } else {
+          cnt = 0;
         }
+        res = max(res, cnt);
       }
-      return cnt;
+      return res;
     }
 };
