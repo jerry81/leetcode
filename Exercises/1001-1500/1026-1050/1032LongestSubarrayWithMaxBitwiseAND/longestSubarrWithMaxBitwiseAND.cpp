@@ -57,6 +57,13 @@ using namespace std;
 class Solution {
 public:
     int longestSubarray(vector<int>& nums) {
-
+      int mx = *max_element(nums.begin(), nums.end());
+      int cnt = 0;
+      for (int n: nums) {
+        if (n == mx) {
+          cnt++;
+        }
+      }
+      return cnt;
     }
 };
