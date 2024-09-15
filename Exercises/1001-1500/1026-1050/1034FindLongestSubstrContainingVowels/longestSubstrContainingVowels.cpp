@@ -44,12 +44,30 @@ Acceptance Rate
 */
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int findTheLongestSubstring(string s) {
+        unordered_map<int, int> mask_to_index{{0, -1}};
+        int mask = 0;
+        int res = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            switch (s[i]) {
+                case 'a': mask ^= 1; break;
+                case 'e': mask ^= 2; break;
+                case 'i': mask ^= 4; break;
+                case 'o': mask ^= 8; break;
+                case 'u': mask ^= 16; break;
+            }
+            if (mask_to_index.find(mask) == mask_to_index.end()) {
+                mask_to_index[mask] = i;
+            }
+            res = max(res, i - mask_to_index[mask]);
+        }
+        return res;
 
     }
 };
