@@ -59,6 +59,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_tested_devices(battery_percentages: Vec<i32>) -> i32 {
-
+    let mut res = 0;
+    let mut cnt = 0;
+    for i in battery_percentages.iter() {
+      if *i-cnt > 0 {
+        res += 1;
+        cnt += 1;
+      }
+    }
+    res
   }
 }
