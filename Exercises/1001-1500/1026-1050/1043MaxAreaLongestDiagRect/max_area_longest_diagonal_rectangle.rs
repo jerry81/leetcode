@@ -51,20 +51,19 @@ impl Solution {
   pub fn area_of_max_diagonal(dimensions: Vec<Vec<i32>>) -> i32 {
     // pythag but don't use floats
     let mut max_area = 0;
-    let mut mx_diag: f64 = 0.0;
-    let mut candidates: Vec<Vec<i32>> = Vec::new();
-    for v in dimensions.iter() {
+    let mut mx_diag: i32 = 0;
+    for v in dimensions.clone().iter() {
       let a = v[0];
       let b = v[1];
-      let mut c = (a*a + b*b) as f64;
-      c = c.sqrt();
+      let mut c = (a*a + b*b);
       if c >= mx_diag {
         mx_diag = c;
-        candidates.push(vec![a, b]);
       }
     }
-    for v in candidates.iter() {
-      max_area = max_area.max(v[0]*v[1]);
+    for v in dimensions.clone().iter() {
+      if (v[0]*v[0] + v[1]*v[1]) == mx_diag {
+        max_area = max_area.max(v[0]*v[1]);
+      }
     }
     max_area
   }
