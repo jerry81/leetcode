@@ -49,6 +49,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn area_of_max_diagonal(dimensions: Vec<Vec<i32>>) -> i32 {
-
+    // pythag but don't use floats
+    let mut max_area = 0;
+    let mut mx_diag = 0;
+    for v in dimensions.iter() {
+      let a = v[0];
+      let b = v[1];
+      let c = (a*a + b*b) as i32;
+      if c > mx_diag {
+        max_area = a*b;
+        mx_diag = c;
+      }
+    }
+    max_area
   }
 }
