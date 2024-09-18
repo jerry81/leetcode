@@ -53,6 +53,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn has_trailing_zeros(nums: Vec<i32>) -> bool {
-
+    let mut even_count = 0;
+    for n in nums {
+      if n % 2 == 0 {
+        even_count += 1;
+        if even_count >= 2 {
+          return true;
+        }
+      }
+    }
+    false
   }
 }
