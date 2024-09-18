@@ -52,8 +52,8 @@ impl Solution {
     let mut sorted = nums.clone();
     sorted.sort();
     for i in 0..nums.len()/2 {
-      arr.push(sorted[i+1]);
-      arr.push(sorted[i]);
+      arr.push(sorted[i*2+1]);
+      arr.push(sorted[i*2]);
     }
     arr
   }
