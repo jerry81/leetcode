@@ -54,8 +54,32 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn incremovable_subarray_count(nums: Vec<i32>) -> i32 {
+  fn is_increasing(nums: &Vec<i32>) -> bool {
+    for i in 1..nums.len() {
+      if nums[i] <= nums[i - 1] {
+        return false;
+      }
+    }
+    true
+  }
 
+  pub fn incremovable_subarray_count(nums: Vec<i32>) -> i32 {
+    let mut count = 0;
+    let n = nums.len();
+
+    for i in 0..n {
+        for j in i..n {
+            let mut remaining = Vec::new();
+            remaining.extend_from_slice(&nums[0..i]); // TIL: You can extend a vector with a slice
+            remaining.extend_from_slice(&nums[j+1..]);
+
+            if Self::is_increasing(&remaining) {
+                count += 1;
+            }
+        }
+    }
+
+    count
   }
 }
 
