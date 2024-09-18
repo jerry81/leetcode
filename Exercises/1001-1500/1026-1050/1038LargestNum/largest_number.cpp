@@ -63,6 +63,11 @@ public:
         res += s;
       }
 
+      // Remove leading zeroes
+      while (res.length() > 1 && res[0] == '0') {
+        res.erase(0, 1);
+      }
+
       return res;
     }
 };
