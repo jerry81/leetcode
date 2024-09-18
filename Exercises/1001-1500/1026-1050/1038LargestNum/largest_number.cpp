@@ -39,12 +39,30 @@ Acceptance Rate
 */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
     string largestNumber(vector<int>& nums) {
+      string res = "";
 
+
+      vector<string> strs = vector<string>(nums.size());
+      for (int i = 0; i < nums.size(); i++) {
+        strs[i] = to_string(nums[i]);
+      }
+
+
+      sort(strs.begin(), strs.end(), [](const string& a, const string& b) {
+        return a + b > b + a;
+      });
+
+      for (auto s: strs) {
+        res += s;
+      }
+
+      return res;
     }
 };
