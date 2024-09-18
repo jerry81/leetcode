@@ -48,6 +48,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn number_game(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut arr = Vec::new();
+    let mut sorted = nums.clone();
+    sorted.sort();
+    for i in 0..nums.len()/2 {
+      arr.push(sorted[i+1]);
+      arr.push(sorted[i]);
+    }
+    arr
   }
 }
