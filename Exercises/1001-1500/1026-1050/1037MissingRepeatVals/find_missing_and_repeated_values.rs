@@ -44,23 +44,25 @@ Acceptance Rate
 */
 
 use std::collections::HashSet;
+
 impl Solution {
   pub fn find_missing_and_repeated_values(grid: Vec<Vec<i32>>) -> Vec<i32> {
     let w = grid.len();
     let n = w*w;
     let mut res = vec![];
-    let mut lookup: HashMap<i32> = HashMap::new();
+    let mut lookup: HashSet<i32> = HashSet::new();
     for row in grid.iter() {
       for &val in row.iter() {
-        if lookup.contains_key(val) {
-          res.push_back(val);
+        if lookup.contains(&val) {
+          res.push(val);
         }
         lookup.insert(val);
       }
     }
     for i in 1..=n {
-      if !lookup.contains_key(i as i32) {
-        res.push_back(i as i32);
+      if !lookup.contains(&(i as i32)) {
+        res.push(i as i32);
+        break;
       }
     }
     res
