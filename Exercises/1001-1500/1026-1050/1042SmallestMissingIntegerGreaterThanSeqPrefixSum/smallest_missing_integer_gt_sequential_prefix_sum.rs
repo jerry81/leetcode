@@ -45,6 +45,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn missing_integer(nums: Vec<i32>) -> i32 {
-
+    // first find the longest sequence prefix sum
+    let mut prefix_sum = nums[0];
+    for i in 1..nums.len() {
+      if nums[i] == nums[i-1] + 1 {
+        prefix_sum += nums[i];
+      } else {
+        break
+      }
+    }
+    // then find the smallest integer that is greater than the prefix sum
+    let mut sorted = nums.clone();
+    sorted.sort();
+    let mut x = prefix_sum;
+    for &num in sorted.iter() {
+        if x < num {
+            break;
+        }
+        if x == num {
+            x += 1;
+        }
+    }
+    x
   }
 }
