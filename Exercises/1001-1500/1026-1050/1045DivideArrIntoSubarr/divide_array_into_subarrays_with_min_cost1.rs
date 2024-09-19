@@ -57,7 +57,13 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn minimum_cost(nums: Vec<i32>) -> i32 {
+  fn r(nums: &Vec<i32>, i: usize, cur_len: usize, n: usize) -> i32 {
+    if i == n {
+      return 0;
+    }
 
+  }
+  pub fn minimum_cost(nums: Vec<i32>) -> i32 {
+    Solution::r(&nums, 0, 0, nums.len())
   }
 }
