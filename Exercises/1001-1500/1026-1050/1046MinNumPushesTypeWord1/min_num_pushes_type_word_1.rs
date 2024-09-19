@@ -70,8 +70,25 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
 impl Solution {
   pub fn minimum_pushes(word: String) -> i32 {
+    let mut map = HashMap::new();
+    for (i, c) in word.chars().enumerate() {
+      *map.entry(c).or_insert(0)+=1;
+    }
+    let mut res = 0;
+    let mut freq: Vec<_> = map.values().cloned().collect();
+    freq.sort_unstable_by(|a, b| b.cmp(a));
 
+    for (i, &count) in freq.iter().enumerate() {
+        let cost = if i < 24 {
+            (i / 8 + 1) as i32
+        } else {
+            4
+        };
+        res += count * cost;
+    }
+    res
   }
 }
