@@ -49,6 +49,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn modified_matrix(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let mut col_maxes: Vec<i32> = Vec::new();
 
+    let h = matrix.len();
+    let w = matrix[0].len();
+    for i in 0..w {
+      let mut lgst = -2;
+      for j in 0..h {
+        lgst = lgst.max(matrix[j][i]);
+      }
+      col_maxes.push(lgst);
+    }
+
+    println!("largests are {:?}", col_maxes);
+    vec![]
   }
 }
