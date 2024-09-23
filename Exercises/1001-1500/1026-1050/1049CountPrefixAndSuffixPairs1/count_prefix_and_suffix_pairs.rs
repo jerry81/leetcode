@@ -66,9 +66,7 @@ Acceptance Rate
 */
 
 impl Solution {
-  fn is_prefix_and_suffix(tested:String, target:String) -> bool {
-    if tested.len() <= target.len() { return false }
-
+  fn is_prefix_and_suffix(tested:&str, target:&str) -> bool {
     target.starts_with(tested) && target.ends_with(tested)
   }
   pub fn count_prefix_suffix_pairs(words: Vec<String>) -> i32 {
@@ -76,7 +74,7 @@ impl Solution {
     let mut res = 0;
     for i in 0..n-1 {
       for j in i+1..n {
-        if is_prefix_and_suffix(words[i], words[j]) { res+=1 }
+        if Solution::is_prefix_and_suffix(&words[i], &words[j]) { res+=1 }
       }
     }
     res
