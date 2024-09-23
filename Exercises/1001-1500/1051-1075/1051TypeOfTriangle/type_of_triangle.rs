@@ -49,8 +49,27 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn triangle_type(nums: Vec<i32>) -> String {
+use std::collections::HashMap;
 
+impl Solution {
+  fn is_triangle_possible(a: f64, b: f64, c: f64) -> bool {
+    a + b > c && a + c > b && b + c > a
+  }
+  pub fn triangle_type(nums: Vec<i32>) -> String {
+    let mut hm:HashMap<i32,i32> = HashMap::new();
+    for i in nums {
+      *hm.entry(i).or_insert(0) +=1;
+    }
+
+    if !Solution::is_triangle_possible(nums[0], nums[1], nums[2]) { return "none" }
+
+    // check if triangle is possible
+
+    match hm.len() {
+      1 => { return "equilateral" },
+      2 => { return "isosceles" },
+      3 => { return "scalene" },
+      _ => "none"
+    }
   }
 }
