@@ -51,6 +51,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_key_changes(s: String) -> i32 {
+    let lower = s.to_lowercase();
+    let mut prev = '-';
+    let mut res = 0;
+    for c in lower.chars() {
+      if prev == '-' {
+        prev = c;
+        continue
+      }
 
+      if prev != c {
+        res+=1;
+        prev = c;
+      }
+    }
+    res
   }
 }
