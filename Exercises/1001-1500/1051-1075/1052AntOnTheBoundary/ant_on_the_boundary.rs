@@ -59,6 +59,13 @@ Acceptance Rate
 
 impl Solution {
   pub fn return_to_boundary_count(nums: Vec<i32>) -> i32 {
-
+    let mut res = 0;
+    let mut cur_pos = 0;
+    for n in nums {
+      let nxt = cur_pos+n;
+      if nxt == 0 { res+=1; }
+      cur_pos = nxt
+    }
+    res
   }
 }
