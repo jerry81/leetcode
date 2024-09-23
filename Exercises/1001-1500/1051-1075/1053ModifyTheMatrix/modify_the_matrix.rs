@@ -61,7 +61,16 @@ impl Solution {
       col_maxes.push(lgst);
     }
 
-    println!("largests are {:?}", col_maxes);
-    vec![]
+    let mut res: Vec<Vec<i32>> = vec![];
+    for i in 0..h {
+      let mut new_row: Vec<i32> = vec![];
+      for j in 0..w {
+        let mut cur = matrix[i][j];
+        if cur < 0 { cur = col_maxes[j]; }
+        new_row.push(cur);
+      }
+      res.push(new_row);
+    }
+    res
   }
 }
