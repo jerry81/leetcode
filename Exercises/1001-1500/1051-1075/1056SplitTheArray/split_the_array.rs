@@ -45,8 +45,15 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn is_possible_to_split(nums: Vec<i32>) -> bool {
-
+    let mut freq:HashMap<i32,i32> = HashMap::new();
+    for n in nums {
+      *freq.element(n).or_insert(0)+=1;
+      if freq[n]>2 { return -1 }
+    }
+    true
   }
 }
