@@ -58,9 +58,22 @@ Submissions
 Acceptance Rate
 52.3%
 */
-
 impl Solution {
   pub fn max_operations(nums: Vec<i32>) -> i32 {
+    let mut count = 0;
+    let mut prev_sum = -1;
 
+    for chunk in nums.chunks(2) {  // TIL: chunk - takes 2 items at a time
+      if chunk.len() == 2 {
+        let sum = chunk[0] + chunk[1];
+        if prev_sum >= 0 {
+          if sum!=prev_sum { return count }
+        }
+        prev_sum = sum;
+        count += 1;
+      }
+    }
+
+    count
   }
 }
