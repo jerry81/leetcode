@@ -177,3 +177,9 @@ v.insert(pos,item);
    let c1 = chunk[0];
    let c2 = chunk[1];
 ```
+
+- 1058 - extend usage
+```rs
+ arr1.extend(arr2); // TIL: extend doesn't return anything
+ arr1
+```
