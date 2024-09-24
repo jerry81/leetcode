@@ -53,12 +53,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class Solution {
+static bool cmp(pair<int,string> a, pair<int,string> b) {
+  return a.second < b.second;
+}
 public:
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
-
+      vector<pair<int,string>> all_items;
+      for (int i: arr1) {
+        all_items.push_back({1,to_string(i)});
+      }
+      for (int i: arr2) {
+        all_items.push_back({2,to_string(i)});
+      }
+      sort(all_items.begin(), all_items.end(), cmp);
+      for (auto [a,b]: all_items) { cout << a << "," << b << endl;}
+      return 0;
     }
 };
