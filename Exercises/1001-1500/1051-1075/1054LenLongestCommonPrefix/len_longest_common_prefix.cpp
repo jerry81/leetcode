@@ -61,6 +61,16 @@ class Solution {
 static bool cmp(pair<int,string> a, pair<int,string> b) {
   return a.second < b.second;
 }
+
+int get_ps_length(string a, string b) {
+  int shorter = min(a.size(), b.size());
+
+  for (int i = 0; i < shorter; ++i) {
+    if (a[i] != b[i]) return i;
+  }
+  return shorter;
+};
+
 public:
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
       vector<pair<int,string>> all_items;
@@ -71,7 +81,15 @@ public:
         all_items.push_back({2,to_string(i)});
       }
       sort(all_items.begin(), all_items.end(), cmp);
-      for (auto [a,b]: all_items) { cout << a << "," << b << endl;}
-      return 0;
+      int n = all_items.size();
+      int res = 0;
+      for (int i = 0; i < n-1; ++i) {
+        auto [a1,a2] = all_items[i];
+        auto [b1,b2] = all_items[i+1];
+        if (a1==b1) continue;
+
+        res = max(res, get_ps_length(a2,b2));
+      }
+      return res;
     }
 };
