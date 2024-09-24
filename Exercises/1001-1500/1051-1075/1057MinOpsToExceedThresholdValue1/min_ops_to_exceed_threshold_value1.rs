@@ -56,6 +56,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_operations(nums: Vec<i32>, k: i32) -> i32 {
-
+    let mut sorted:Vec<i32> = nums.clone();
+    sorted.sort();
+    let n = nums.len();
+    for i in 0..n {
+      if sorted[i] >= k {
+        return i as i32
+      }
+    }
+    0
   }
 }
