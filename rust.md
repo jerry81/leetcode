@@ -170,3 +170,10 @@ let binary_string = format!("{:b}", number);
 ```rs
 v.insert(pos,item);
 ```
+
+- 1055 - chunks
+```rs
+ for chunk in nums.chunks(2) {
+   let c1 = chunk[0];
+   let c2 = chunk[1];
+```
