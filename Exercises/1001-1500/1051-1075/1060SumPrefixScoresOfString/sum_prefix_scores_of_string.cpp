@@ -107,9 +107,9 @@ class Solution {
  public:
   vector<int> sumPrefixScores(vector<string>& words) {
     build_trie(words);
-    int res = 0;
+    vector<int> res = {};
     for (string s : words) {
-      res += get_score(s);
+      res.push_back(get_score(s));
     }
     return res;
   }
