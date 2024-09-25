@@ -183,3 +183,9 @@ v.insert(pos,item);
  arr1.extend(arr2); // TIL: extend doesn't return anything
  arr1
 ```
+
+- 1062 - any method
+- iter.any(lambda bool) -> returns bool
+```rs
+rev.chars().collect::<Vec<_>>().windows(2).any(|r_v| hs.contains(&r_v.iter().collect::<String>())) // TIL: any returns a bool looks for 1 true
+```

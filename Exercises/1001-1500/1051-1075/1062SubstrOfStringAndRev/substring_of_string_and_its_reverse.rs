@@ -61,17 +61,9 @@ use std::collections::HashSet;
 
 impl Solution {
   pub fn is_substring_present(s: String) -> bool {
-    let mut as_v:Vec<char>= s.chars().collect();
-    let mut rev = as_v.clone();
-    rev.reverse();
-    let hs:HashSet<string> = as_v.windows(2).iter().map(|pr| {
-      pr.iter().collect()
+    let rev: String = s.chars().rev().collect(); // instead of Vec<char>.reverse()
+    let hs: HashSet<_> = s.chars().collect::<Vec<_>>().windows(2).map(|pr| pr.iter().collect::<String>()).collect();
     }).collect();
-    for r_v in rev.windows(2) {
-      if hs.contains(r_v.iter().collect()) {
-        return true
-      }
-    }
-    false
+    rev.chars().collect::<Vec<_>>().windows(2).any(|r_v| hs.contains(&r_v.iter().collect::<String>())) // TIL: any returns a bool looks for 1 true
   }
 }
