@@ -46,20 +46,14 @@ Acceptance Rate
 74.6%
 
 */
-
 impl Solution {
   pub fn sum_of_encrypted_int(nums: Vec<i32>) -> i32 {
-    let mut encrypted:Vec<i32> = nums.iter().map(|&n| {
-      let as_s = &n.to_string();
-      let l = as_s.len();
-      let mxc = &n.to_string().chars().max().unwrap();
-      let mut v:Vec<char> = Vec::new();
-      for i in 0..l {
-        v.push(*mxc);
-      }
-      let as_s:String = v.iter().collect();
-      as_s.parse::<i32>().unwrap()
-    }).collect();
-    encrypted.iter().sum()
+    nums.iter().map(|&n| {
+      // Get the maximum character from the number's string representation
+      let mxc = n.to_string().chars().max().unwrap();
+      // Create a string of the maximum character repeated for the length of the number
+      let as_s = mxc.to_string().repeat(n.to_string().len()); // {{ edit_1 }}
+      as_s.parse::<i32>().unwrap() // Parse the string to i32
+    }).sum() // Sum the results directly
   }
 }
