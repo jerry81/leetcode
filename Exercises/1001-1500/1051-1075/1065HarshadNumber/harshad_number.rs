@@ -50,7 +50,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn sum_of_the_digits_of_harshad_number(x: i32) -> i32 {
-
+    let sm_of_digits:i32 = x.to_string().chars().map(|c| {
+      c as u8 - '0' as u8
+    }).sum::<u8>() as i32;
+    if x % sm_of_digits == 0 {
+        sm_of_digits
+    } else {
+        -1
+    }
   }
 }
 
