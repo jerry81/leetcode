@@ -47,3 +47,19 @@ Acceptance Rate
 
 */
 
+impl Solution {
+  pub fn sum_of_encrypted_int(nums: Vec<i32>) -> i32 {
+    let mut encrypted:Vec<i32> = nums.iter().map(|&n| {
+      let as_s = &n.to_string();
+      let l = as_s.len();
+      let mxc = &n.to_string().chars().max().unwrap();
+      let mut v:Vec<char> = Vec::new();
+      for i in 0..l {
+        v.push(*mxc);
+      }
+      let as_s:String = v.iter().collect();
+      as_s.parse::<i32>().unwrap()
+    }).collect();
+    encrypted.iter().sum()
+  }
+}
