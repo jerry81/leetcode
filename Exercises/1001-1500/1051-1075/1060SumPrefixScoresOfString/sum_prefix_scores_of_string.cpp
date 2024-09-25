@@ -7,10 +7,12 @@ Companies
 Hint
 You are given an array words of size n consisting of non-empty strings.
 
-We define the score of a string word as the number of strings words[i] such that word is a prefix of words[i].
+We define the score of a string word as the number of strings words[i] such that
+word is a prefix of words[i].
 
-For example, if words = ["a", "ab", "abc", "cab"], then the score of "ab" is 2, since "ab" is a prefix of both "ab" and "abc".
-Return an array answer of size n where answer[i] is the sum of scores of every non-empty prefix of words[i].
+For example, if words = ["a", "ab", "abc", "cab"], then the score of "ab" is 2,
+since "ab" is a prefix of both "ab" and "abc". Return an array answer of size n
+where answer[i] is the sum of scores of every non-empty prefix of words[i].
 
 Note that a string is considered as a prefix of itself.
 
@@ -22,8 +24,8 @@ Input: words = ["abc","ab","bc","b"]
 Output: [5,4,3,2]
 Explanation: The answer for each string is the following:
 - "abc" has 3 prefixes: "a", "ab", and "abc".
-- There are 2 strings with the prefix "a", 2 strings with the prefix "ab", and 1 string with the prefix "abc".
-The total is answer[0] = 2 + 2 + 1 = 5.
+- There are 2 strings with the prefix "a", 2 strings with the prefix "ab", and 1
+string with the prefix "abc". The total is answer[0] = 2 + 2 + 1 = 5.
 - "ab" has 2 prefixes: "a" and "ab".
 - There are 2 strings with the prefix "a", and 2 strings with the prefix "ab".
 The total is answer[1] = 2 + 2 = 4.
@@ -61,14 +63,56 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-    vector<int> sumPrefixScores(vector<string>& words) {
+ private:
+  class TrieNode {
+   public:
+    int score;  // To store the score of prefixes
+    unordered_map<char, TrieNode*> children;
 
+    TrieNode() : score(0) {}
+  };
+
+  TrieNode* root;
+
+  void build_trie(vector<string>& words) {
+    root = new TrieNode();
+    for (const string& word : words) {
+      TrieNode* node = root;
+      for (char c : word) {
+        if (!node->children.count(c)) {
+          node->children[c] = new TrieNode();
+        }
+        node = node->children[c];
+        node->score++;  // Increment score for each prefix
+      }
     }
+  }
+
+  int get_score(string s) {
+    TrieNode* node = root;  // Start from the root
+
+    for (char c : s) {
+      node = node->children[c];    // Move to the child node
+    }
+    return node->score;  // Return the total score for
+  }
+
+ public:
+  vector<int> sumPrefixScores(vector<string>& words) {
+    build_trie(words);
+    int res = 0;
+    for (string s : words) {
+      res += get_score(s);
+    }
+    return res;
+  }
 };
+
+// first guess, trie
