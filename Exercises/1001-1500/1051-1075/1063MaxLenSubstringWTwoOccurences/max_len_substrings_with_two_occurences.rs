@@ -47,6 +47,7 @@ Acceptance Rate
 64.0%
 
 */
+
 use std::collections::HashMap;
 
 impl Solution {
@@ -54,13 +55,13 @@ impl Solution {
     let mut res = 0;
     let n = s.len();
     for i in 0..n-1 {
-      for j in i+1..n {
-        let substr = s[i..j];
+      for j in i+1..n+1 {
+        let substr: String = s[i..j].to_string();
         let mut hm:HashMap<char,i32> = HashMap::new();
         let mut safe = true;
         for c in substr.chars() {
           *hm.entry(c).or_insert(0)+=1;
-          if hm.entry(c).or_insert(0) > 2 {
+          if *hm.entry(c).or_insert(0) > 2 {
             safe = false;
             break;
           }
@@ -70,5 +71,6 @@ impl Solution {
         }
       }
     }
+    res
   }
 }
