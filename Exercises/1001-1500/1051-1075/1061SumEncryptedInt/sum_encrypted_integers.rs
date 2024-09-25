@@ -46,6 +46,7 @@ Acceptance Rate
 74.6%
 
 */
+
 impl Solution {
   pub fn sum_of_encrypted_int(nums: Vec<i32>) -> i32 {
     nums.iter().map(|&n| {
