@@ -95,13 +95,15 @@ class Solution {
     }
   }
 
-  int get_score(string s) {
+  int get_score(const string& s) {
     TrieNode* node = root;  // Start from the root
+    int total_score = 0;    // Initialize total score
 
     for (char c : s) {
       node = node->children[c];    // Move to the child node
+      total_score += node->score;  // Add the score of the current prefix
     }
-    return node->score;  // Return the total score for
+    return total_score;  // Return the total score for the string
   }
 
  public:
