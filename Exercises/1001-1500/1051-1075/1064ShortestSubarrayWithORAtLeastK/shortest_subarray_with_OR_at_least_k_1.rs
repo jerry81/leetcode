@@ -68,6 +68,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_subarray_length(nums: Vec<i32>, k: i32) -> i32 {
-
+    let l = nums.len();
+    let mut res = i32::MAX;
+    let mut found = false;
+    for i in 0..l {
+      for j in i..l {
+        let subarr = &nums[i..=j];
+        let accum = subarr.iter().fold(0, |res, &item| (res | item) );
+        if accum >= k {
+            found = true;
+            res = res.min(((j-i)+1) as i32);
+        }
+      }
+    }
+    if !found { -1 } else { res }
   }
 }
