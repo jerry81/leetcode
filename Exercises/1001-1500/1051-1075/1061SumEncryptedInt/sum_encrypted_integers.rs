@@ -49,11 +49,9 @@ Acceptance Rate
 impl Solution {
   pub fn sum_of_encrypted_int(nums: Vec<i32>) -> i32 {
     nums.iter().map(|&n| {
-      // Get the maximum character from the number's string representation
       let mxc = n.to_string().chars().max().unwrap();
-      // Create a string of the maximum character repeated for the length of the number
-      let as_s = mxc.to_string().repeat(n.to_string().len()); // {{ edit_1 }}
-      as_s.parse::<i32>().unwrap() // Parse the string to i32
-    }).sum() // Sum the results directly
+      let as_s = mxc.to_string().repeat(n.to_string().len()); // TIL: char to string then repeat to make bigger string
+      as_s.parse::<i32>().unwrap()
+    }).sum()
   }
 }
