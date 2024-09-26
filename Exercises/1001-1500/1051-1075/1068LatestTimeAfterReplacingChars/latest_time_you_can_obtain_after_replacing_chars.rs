@@ -54,6 +54,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_latest_time(s: String) -> String {
+    let mut chars: Vec<char> = s.chars().collect();
 
+    for idx in 0..chars.len() {
+      if chars[idx] == '?' {
+        chars[idx] = match idx {
+          0 => if chars[1] == '0' || chars[1] == '1' || chars[1] == '?' { '1' } else { '0' },
+          1 => if chars[0] == '0' { '9' } else { '1' },
+          3 => '5',
+          4 => '9',
+          _ => chars[idx],
+        };
+      }
+    }
+    chars.iter().collect() // Convert back to String
   }
 }
