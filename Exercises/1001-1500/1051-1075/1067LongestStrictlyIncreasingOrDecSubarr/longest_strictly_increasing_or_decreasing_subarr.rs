@@ -89,14 +89,14 @@ impl Solution {
         cur_inc_streak+=1;
         inc_mx_streak = inc_mx_streak.max(cur_inc_streak);
       } else {
-        cur_inc_streak = 0;
+        cur_inc_streak = 1;
       }
       cur_inc = n;
       if n < cur_dec {
         cur_dec_streak+=1;
         dec_mx_streak = dec_mx_streak.max(cur_dec_streak);
       } else {
-        cur_dec_streak = 0;
+        cur_dec_streak = 1;
       }
       cur_dec = n;
     }
