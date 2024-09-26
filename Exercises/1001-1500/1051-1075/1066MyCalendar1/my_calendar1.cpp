@@ -48,15 +48,24 @@ Acceptance Rate
 56.7%
 
 */
+#include <vector>
+
+using namespace std;
 
 class MyCalendar {
+private:
+  vector<pair<int,int>> events;
 public:
-    MyCalendar() {
-
-    }
+    MyCalendar() {}
 
     bool book(int start, int end) {
+      // brute force
+      for (auto [a,b]: events) {
+        if (start < b && a < end) return false;
+      }
 
+      events.push_back({start,end});
+      return true;
     }
 };
 
