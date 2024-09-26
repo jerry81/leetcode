@@ -58,8 +58,25 @@ Acceptance Rate
 65.8%
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn number_of_special_chars(word: String) -> i32 {
+    let mut lookup:HashSet<char> = HashSet::new();
+    let mut counted:HashSet<char> = HashSet::new();
+    let mut res = 0;
+    for c in word.chars() {
+      lookup.insert(c);
+      let lower = c.to_lowercase().next().unwrap();
+      if lookup.contains(&(c.to_uppercase().next().unwrap())) && lookup.contains(&lower) {
 
+        if !(counted.contains(&lower)) {
+          res+=1;
+        }
+
+        counted.insert(lower);
+      }
+    }
+    res
   }
 }
