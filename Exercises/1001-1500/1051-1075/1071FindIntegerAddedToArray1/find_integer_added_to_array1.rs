@@ -67,6 +67,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn added_integer(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
-
+    let mut s1 = nums1.clone();
+    s1.sort();
+    let mut s2 = nums2.clone();
+    s2.sort();
+    let s3: Vec<i32> = s1.iter().zip(s2.iter()).map(|i1,i2| {
+      i1-i2
+    })
+    println!("{:?}", s3);
+    0
   }
 }
