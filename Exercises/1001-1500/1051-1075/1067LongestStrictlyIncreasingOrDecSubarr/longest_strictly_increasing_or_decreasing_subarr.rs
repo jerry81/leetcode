@@ -82,5 +82,24 @@ impl Solution {
     let mut dec_mx_streak = 0;
     let mut cur_inc = 0;
     let mut cur_dec = 51;
+    let mut cur_inc_streak = 0;
+    let mut cur_dec_streak = 0;
+    for n in nums {
+      if n > cur_inc {
+        cur_inc_streak+=1;
+        inc_mx_streak = inc_mx_streak.max(cur_inc_streak);
+      } else {
+        cur_inc_streak = 0;
+      }
+      cur_inc = n;
+      if n < cur_dec {
+        cur_dec_streak+=1;
+        dec_mx_streak = dec_mx_streak.max(cur_dec_streak);
+      } else {
+        cur_dec_streak = 0;
+      }
+      cur_dec = n;
+    }
+    dec_mx_streak.max(inc_mx_streak)
   }
 }
