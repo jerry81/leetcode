@@ -78,6 +78,9 @@ Acceptance Rate
 
 impl Solution {
   pub fn longest_monotonic_subarray(nums: Vec<i32>) -> i32 {
-
+    let mut inc_mx_streak = 0;
+    let mut dec_mx_streak = 0;
+    let mut cur_inc = 0;
+    let mut cur_dec = 51;
   }
 }
