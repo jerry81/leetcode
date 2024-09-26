@@ -71,10 +71,6 @@ impl Solution {
     s1.sort();
     let mut s2 = nums2.clone();
     s2.sort();
-    let s3: Vec<i32> = s1.iter().zip(s2.iter()).map(|i1,i2| {
-      i1-i2
-    })
-    println!("{:?}", s3);
-    0
+    return s2[0]-s1[0]
   }
 }
