@@ -100,9 +100,9 @@ impl Solution {
         // four squares
         let mut cnt = 0;
         for dr in 0..2 {
-          let r = grid[dr+sr];
+          let r = &grid[dr+sr];
           for dc in 0..2 {
-            if r[dc+sc] == "W" { cnt+=1; }
+            if r[dc+sc] == 'W' { cnt+=1; }
           }
         }
         if cnt > 2 { return true }
