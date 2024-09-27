@@ -49,20 +49,43 @@ Submissions
 Acceptance Rate
 57.3%
 */
+#include <map>
+using namespace std;
 
 class MyCalendarTwo {
+vector<pair<int,int>> overlaps;
+vector<pair<int,int>> intervals;
+bool is_overlap(pair<int,int> a, pair<int,int> b) {
+  auto [as,ae] = a;
+  auto [bs,be] = b;
+  return max(as,bs) < min(ae,be);
+};
 public:
     MyCalendarTwo() {
 
     }
 
     bool book(int start, int end) {
-
+      for (auto o: overlaps) {
+        if (is_overlap({start,end}, o)) {
+          return false;
+        }
+      }
+      for (auto i: intervals) {
+        auto [is,ie] = i;
+        if (is_overlap({start,end}, i)) {
+          overlaps.push_back({max(is,start), max(ie, end)});
+        }
+      }
+      intervals.push_back({start,end});
+      return true;
     }
 };
+
 
 /**
  * Your MyCalendarTwo object will be instantiated and called as such:
  * MyCalendarTwo* obj = new MyCalendarTwo();
  * bool param_1 = obj->book(start,end);
  */
+
