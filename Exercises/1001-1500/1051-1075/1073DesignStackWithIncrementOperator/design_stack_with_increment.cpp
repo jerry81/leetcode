@@ -55,23 +55,33 @@ Acceptance Rate
 78.5%
 
 */
+#include <vector>
 
+using namespace std;
 class CustomStack {
+int sz = 0;
+vector<int> stk = {};
 public:
     CustomStack(int maxSize) {
-
+      sz = maxSize;
     }
 
     void push(int x) {
-
+      if (stk.size()<sz) stk.push_back(x);
     }
 
     int pop() {
+      if (stk.empty()) return -1;
 
+      int ret =  stk.back();
+      stk.pop_back();
+      return ret;
     }
 
     void increment(int k, int val) {
-
+      for (int i = 0; i < min(k, (int)stk.size()); ++i) {
+        stk[i]+=val;
+      }
     }
 };
 
