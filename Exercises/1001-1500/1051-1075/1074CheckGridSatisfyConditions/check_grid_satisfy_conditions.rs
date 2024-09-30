@@ -70,6 +70,22 @@ Acceptance Rate
 
 impl Solution {
   pub fn satisfies_conditions(grid: Vec<Vec<i32>>) -> bool {
-
+    let h = grid.len();
+    let w = grid[0].len();
+    for r in 0..h {
+      for c in 0..w {
+        if r != h-1 {
+          if grid[r][c] != grid[r+1][c] {
+            return false;
+          }
+        }
+        if c != w-1 {
+          if grid[r][c] == grid[r][c+1] {
+            return false;
+          }
+        }
+      }
+    }
+    true
   }
 }
