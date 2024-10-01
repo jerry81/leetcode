@@ -53,10 +53,34 @@ Acceptance Rate
 #include <vector>
 
 using namespace std;
-
 class Solution {
 public:
     bool canArrange(vector<int>& arr, int k) {
+        vector<int> remainderCount(k, 0);
 
+        // Count the frequency of each remainder
+        for (int num : arr) {
+            int remainder = ((num % k) + k) % k; // Handle negative numbers
+            remainderCount[remainder]++;
+        }
+
+        // Check pairs of remainders
+        for (int r = 1; r < k; r++) {
+            if (remainderCount[r] != remainderCount[k - r]) {
+                return false;
+            }
+        }
+
+        // Check for remainder 0
+        if (remainderCount[0] % 2 != 0) {
+            return false;
+        }
+
+        // Check for the special case when k is even
+        if (k % 2 == 0 && remainderCount[k / 2] % 2 != 0) {
+            return false;
+        }
+
+        return true;
     }
 };
