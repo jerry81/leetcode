@@ -63,16 +63,19 @@ public:
         long long totalSkill = 0; // Variable to hold total skill
         long long chemistrySum = 0; // Variable to hold total chemistry
 
-        // Calculate total skill and check if it's even
+        // Calculate total skill
         for (int s : skill) {
             totalSkill += s;
         }
+
+        // Check if total skill can be evenly divided into pairs
         if (totalSkill % (skill.size() / 2) != 0) return -1; // Check if total skill can be evenly divided
 
         long long targetSkill = totalSkill / (skill.size() / 2); // Target skill for each team
 
         // Form teams and calculate chemistry
         for (int i = 0; i < skill.size() / 2; ++i) {
+            if (skill[i] + skill[skill.size() - 1 - i] != targetSkill) return -1; // Check if pairs meet target skill
             chemistrySum += skill[i] * skill[skill.size() - 1 - i]; // Calculate chemistry
         }
 
