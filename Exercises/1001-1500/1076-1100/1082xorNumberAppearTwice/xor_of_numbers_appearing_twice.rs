@@ -60,6 +60,7 @@ Acceptance Rate
 82.0%
 
 */
+
 use std::collections::HashSet;
 impl Solution {
   pub fn duplicate_numbers_xor(nums: Vec<i32>) -> i32 {
@@ -69,7 +70,7 @@ impl Solution {
       if seen.contains(n) {
         res ^= n;
       }
-      seen.insert(n);
+      seen.insert(*n);
     }
     res
   }
