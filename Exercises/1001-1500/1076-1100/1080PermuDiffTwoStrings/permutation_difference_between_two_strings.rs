@@ -57,8 +57,19 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn find_permutation_difference(s: String, t: String) -> i32 {
-
+    // make maps
+    let mut hm_a: HashMap<char, usize> = HashMap::new();
+    let mut hm_b: HashMap<char, usize> = HashMap::new();
+    for (c,i) in s.chars().enumerate() {
+      *hm_a.entry(c).or_insert(i) = i;
+    }
+    for c in t.chars() {
+      *hm_b.entry(c).or_insert(i) = i
+    }
+    0
   }
 }
