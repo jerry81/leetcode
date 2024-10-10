@@ -60,9 +60,17 @@ Acceptance Rate
 82.0%
 
 */
-
+use std::collections::HashSet;
 impl Solution {
   pub fn duplicate_numbers_xor(nums: Vec<i32>) -> i32 {
-
+    let mut res = 0;
+    let mut seen:HashSet<i32>=HashSet::new();
+    for n in nums.iter() {
+      if seen.contains(n) {
+        res ^= n;
+      }
+      seen.insert(n);
+    }
+    res
   }
 }
