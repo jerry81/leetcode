@@ -51,10 +51,25 @@ public:
         // 2 pointer
         int n = nums.size();
         int ptr1 = 0;
-        int ptr2 = n-1;
         int res = 0;
         int min_so_far = INT_MAX;
         while (ptr1 < n) {
+          int left = nums[ptr1];
+          // slight optimization: skip if there has been a smaller left item
+          if (left >= min_so_far) continue;
+
+
+          for (int cmpi = n-1; cmpi > ptr1; --cmpi) {
+            // also stop early when there has been a larger ramp
+            int spread = cmpi - ptr1 + 1;
+            if (spread <= res) break;
+
+            int right = nums[cmpi];
+            if (right >= left) {
+              res = spread;
+              break;
+            }
+          }
         }
         return res;
     }
