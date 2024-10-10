@@ -64,12 +64,16 @@ impl Solution {
     // make maps
     let mut hm_a: HashMap<char, usize> = HashMap::new();
     let mut hm_b: HashMap<char, usize> = HashMap::new();
-    for (c,i) in s.chars().enumerate() {
+    for (i,c) in s.chars().enumerate() {
       *hm_a.entry(c).or_insert(i) = i;
     }
-    for c in t.chars() {
+    for (i,c) in t.chars().enumerate() {
       *hm_b.entry(c).or_insert(i) = i
     }
-    0
+    let mut res = 0;
+    for (k,v) in hm_a.iter() {
+        res+=(*v as i32-hm_b[k] as i32).abs();
+    }
+    res
   }
 }
