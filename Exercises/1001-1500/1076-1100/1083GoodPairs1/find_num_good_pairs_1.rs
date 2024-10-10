@@ -61,7 +61,7 @@ impl Solution {
       let first = nums1[i];
       for j in 0..m {
         let second = nums2[j];
-
+        if first % (second*k) == 0 { res+=1 }
       }
     }
     res
