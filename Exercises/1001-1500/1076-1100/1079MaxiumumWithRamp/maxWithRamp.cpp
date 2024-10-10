@@ -56,12 +56,14 @@ public:
         while (ptr1 < n) {
           int left = nums[ptr1];
           // slight optimization: skip if there has been a smaller left item
-          if (left >= min_so_far) continue;
-
-
+          if (left >= min_so_far) {
+            ptr1+=1;
+            continue;
+          }
+          min_so_far = left;
           for (int cmpi = n-1; cmpi > ptr1; --cmpi) {
             // also stop early when there has been a larger ramp
-            int spread = cmpi - ptr1 + 1;
+            int spread = cmpi - ptr1;
             if (spread <= res) break;
 
             int right = nums[cmpi];
@@ -70,7 +72,9 @@ public:
               break;
             }
           }
+          ptr1+=1;
         }
+
         return res;
     }
 };
