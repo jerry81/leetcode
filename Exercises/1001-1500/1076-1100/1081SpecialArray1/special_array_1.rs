@@ -62,6 +62,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn is_array_special(nums: Vec<i32>) -> bool {
-
+    let n = nums.len();
+    for i in 0..n-1 {
+      if nums[i] % 2 == nums[i+1] % 2 { return false }
+    }
+    true
   }
 }
