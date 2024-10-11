@@ -81,6 +81,21 @@ Acceptance Rate
 
 impl Solution {
   pub fn number_of_child(n: i32, k: i32) -> i32 {
-
+    let mut res = 0;
+    let mut right = true;
+    for i in 0..k {
+      if right {
+        res+=1;
+        if res == n-1 {
+          right = false;
+        }
+      } else {
+        res-=1;
+        if res == 0 {
+          right = true;
+        }
+      }
+    }
+    res
   }
 }
