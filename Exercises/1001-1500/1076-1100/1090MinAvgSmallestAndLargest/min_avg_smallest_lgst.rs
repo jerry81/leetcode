@@ -78,6 +78,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_average(nums: Vec<i32>) -> f64 {
-
+    let mut res:f64 = f64::MAX;
+    let mut sorted = nums;
+    sorted.sort();
+    let mut l = 0;
+    let mut r = sorted.len()-1;
+    while l < r {
+      let mut ln:f64 = sorted[l] as f64;
+      let mut rn:f64 = sorted[r] as f64;
+      res = res.min((ln+rn)/2.0);
+      l+=1;
+      r-=1;
+    }
+    res
   }
 }
