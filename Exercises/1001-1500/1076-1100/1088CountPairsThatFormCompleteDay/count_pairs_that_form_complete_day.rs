@@ -55,6 +55,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_complete_day_pairs(hours: Vec<i32>) -> i32 {
-
+    // iterate all pairs
+    let sz = hours.len();
+    let mut res = 0;
+    for i in 0..(sz-1) {
+      let mut cur = hours[i];
+      for j in i+1..sz {
+        cur+=1 hours[j];
+        if cur % 24 == 0 { res +=1 }
+      }
+    }
+    res
   }
 }
