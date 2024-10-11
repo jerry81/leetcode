@@ -51,6 +51,7 @@ Acceptance Rate
 
 impl Solution {
   pub fn minimum_operations(nums: Vec<i32>) -> i32 {
-
+    let mut nums = nums;
+    nums.iter().map(|n| { 1.min(n%3) }).sum()
   }
 }
