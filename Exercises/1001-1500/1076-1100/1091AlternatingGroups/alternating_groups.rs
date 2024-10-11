@@ -67,7 +67,7 @@ impl Solution {
     colors_extended.push(colors[1]);
     let mut n = colors_extended.len();
     let mut res = 0;
-    for i in 0..n-3 {
+    for i in 0..n-2 {
       if colors_extended[i] != colors_extended[i+1] && colors_extended[i+2] != colors_extended[i+1] {
         res+=1;
       }
