@@ -60,8 +60,9 @@ impl Solution {
     let mut res = 0;
     for i in 0..(sz-1) {
       let mut cur = hours[i];
-      for j in i+1..sz {
-        cur+=1 hours[j];
+      for j in (i+1)..sz {
+        cur+=hours[j];
+
         if cur % 24 == 0 { res +=1 }
       }
     }
