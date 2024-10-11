@@ -63,12 +63,26 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
 public:
     int smallestChair(vector<vector<int>>& times, int targetFriend) {
+      map<int, pair<int,bool>> time_map;
+      // organize by time
+      int n = times.size();
+      for (int friend_id = 0; friend_id < n; ++friend_id) {
+        vector<int> time = times[friend_id];
+        time_map[time[0]] = {friend_id,true};
+        time_map[time[1]] = {friend_id,false};
+      }
+      cout << "iterating time map" << endl;
+      for (auto [a,b]: time_map) {
+      }
+      unordered_map<int,int> seats;
 
     }
 };
