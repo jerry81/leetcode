@@ -5,12 +5,19 @@ Medium
 Topics
 Companies
 Hint
-There is a party where n friends numbered from 0 to n - 1 are attending. There is an infinite number of chairs in this party that are numbered from 0 to infinity. When a friend arrives at the party, they sit on the unoccupied chair with the smallest number.
+There is a party where n friends numbered from 0 to n - 1 are attending. There
+is an infinite number of chairs in this party that are numbered from 0 to
+infinity. When a friend arrives at the party, they sit on the unoccupied chair
+with the smallest number.
 
-For example, if chairs 0, 1, and 5 are occupied when a friend comes, they will sit on chair number 2.
-When a friend leaves the party, their chair becomes unoccupied at the moment they leave. If another friend arrives at that same moment, they can sit in that chair.
+For example, if chairs 0, 1, and 5 are occupied when a friend comes, they will
+sit on chair number 2. When a friend leaves the party, their chair becomes
+unoccupied at the moment they leave. If another friend arrives at that same
+moment, they can sit in that chair.
 
-You are given a 0-indexed 2D integer array times where times[i] = [arrivali, leavingi], indicating the arrival and leaving times of the ith friend respectively, and an integer targetFriend. All arrival times are distinct.
+You are given a 0-indexed 2D integer array times where times[i] = [arrivali,
+leavingi], indicating the arrival and leaving times of the ith friend
+respectively, and an integer targetFriend. All arrival times are distinct.
 
 Return the chair number that the friend numbered targetFriend will sit on.
 
@@ -62,27 +69,59 @@ Acceptance Rate
 
 */
 
+#include <queue>
 #include <vector>
-#include <map>
-#include <unordered_map>
 
 using namespace std;
 
 class Solution {
-public:
-    int smallestChair(vector<vector<int>>& times, int targetFriend) {
-      map<int, pair<int,bool>> time_map;
-      // organize by time
-      int n = times.size();
-      for (int friend_id = 0; friend_id < n; ++friend_id) {
-        vector<int> time = times[friend_id];
-        time_map[time[0]] = {friend_id,true};
-        time_map[time[1]] = {friend_id,false};
-      }
-      cout << "iterating time map" << endl;
-      for (auto [a,b]: time_map) {
-      }
-      unordered_map<int,int> seats;
-
+ public:
+  int smallestChair(vector<vector<int>>& times, int targetFriend) {
+    vector<tuple<int, int, bool>> time_map;
+    // organize by time
+    int n = times.size();
+    for (int friend_id = 0; friend_id < n; ++friend_id) {
+      vector<int> time = times[friend_id];
+      time_map.emplace_back(
+          time[0], friend_id,
+          true);  // til: emplace_back constructs directly unlike push_back
+      time_map.emplace_back(time[1], friend_id, false);
     }
+
+    sort(time_map.begin(), time_map.end(),
+         [](const auto& a, const auto& b) {  // use this more, lambda
+           if (get<0>(a) == get<0>(b)) {     // tuple accessors
+             return !get<2>(a) && get<2>(b);
+           }
+           return get<0>(a) < get<0>(b);
+         });
+
+    priority_queue<int, vector<int>, greater<int>> availableChairs;
+
+    for (int i = 0; i < times.size(); ++i) {
+      availableChairs.push(i);  // Add all chairs to the heap
+    }
+    vector<int> chairAssignment(times.size(), -1);
+    for (const auto& event : time_map) {
+      int time = get<0>(event);
+      int friendId = get<1>(event);
+      bool isArrival = get<2>(event);
+
+      if (isArrival) {
+        int chair = availableChairs.top();
+        availableChairs.pop();
+        chairAssignment[friendId] =
+            chair;
+        if (friendId == targetFriend) {
+          return chair;
+        }
+      } else {
+        int chairNumber =
+            chairAssignment[friendId];      // Get the chair number for the
+                                            // departing friend
+        availableChairs.push(chairNumber);  // Push the chair back into the heap
+      }
+    }
+    return -1;
+  }
 };
