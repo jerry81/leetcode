@@ -61,12 +61,12 @@ public:
       for (int n: nums) {
         pq.push(n);
       }
-      int res = 0;
+      long long res = 0;
       for (int i = 0; i < k; ++i) {
         int cur = pq.top();
         pq.pop();
         res+=cur;
-        float quo = (float)cur/3.0;
+        double quo = (double)cur/3.0;
         pq.push(ceil(quo));
       }
       return res;
