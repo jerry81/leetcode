@@ -57,27 +57,24 @@ impl Solution {
     // swap smallest to front
     let mut as_v: Vec<char> = s.chars().collect();
     let l = as_v.len();
-    let mut swap1 = -1;
-    let mut swap2 = -1;
+    let mut swap1 = 0;
+    let mut swap2 = 0;
     for i in 0..(l-1) {
       let c1 = (as_v[i] as u8 - '0' as u8) as i32;
       let mut mn_swap = 10;
-      for j in i+1..l {
-        // find largest with same parity
-        let c2 = (as_v[j] as u8 - '0' as u8) as i32;
-        if c1%2 != c2%2 { continue; }
 
-        if c2 >= c1 { continue; }
+      let c2 = (as_v[i+1] as u8 - '0' as u8) as i32;
+      if c1%2 != c2%2 { continue; }
 
-        if c2 < mn_swap {
-          mn_swap = c2;
-          swap1 = i;
-          swap2 = j;
-          break;
-        }
+      if c2 >= c1 { continue; }
+      if c2 < mn_swap {
+        mn_swap = c2;
+        swap1 = i;
+        swap2 = i+1;
+        break;
       }
     }
-    println!("swap1 {}, swap2 {}", swap1, swap2);
-    "".to_string();
+    as_v.swap(swap1, swap2); // TIL: built in swap in Vec
+    as_v.collect()
   }
 }
