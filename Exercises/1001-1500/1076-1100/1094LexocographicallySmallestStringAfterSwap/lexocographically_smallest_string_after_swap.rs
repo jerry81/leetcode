@@ -75,6 +75,6 @@ impl Solution {
       }
     }
     as_v.swap(swap1, swap2); // TIL: built in swap in Vec
-    as_v.collect()
+    as_v.iter().collect()
   }
 }
