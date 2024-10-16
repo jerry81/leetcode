@@ -89,7 +89,15 @@ impl NeighborSum {
       for i in 0..self._grid.len() {
         for j in 0..self._grid[0].len() {
           if self._grid[i][j] == value {
-
+            let mut sm = 0;
+            for (dy,dx) in ADJ {
+              let ny = i+dy;
+              let nx = j+dx;
+              if ny >= 0 && ny < self._grid.len() && nx >= 0 && nx < self._grid.len() {
+                sm+=self._grid[ny][nx]
+              }
+            }
+            return sm;
           }
         }
       }
@@ -101,6 +109,15 @@ impl NeighborSum {
       for i in 0..self._grid.len() {
         for j in 0..self._grid[0].len() {
           if self._grid[i][j] == value {
+            let mut sm = 0;
+            for (dy,dx) in DIAG {
+              let ny = i+dy;
+              let nx = j+dx;
+              if ny >= 0 && ny < self._grid.len() && nx >= 0 && nx < self._grid.len() {
+                sm+=self._grid[ny][nx]
+              }
+            }
+            return sm;
           }
         }
       }
