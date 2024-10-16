@@ -194,3 +194,21 @@ v.insert(pos,item);
 ```rs
 rev.chars().collect::<Vec<_>>().windows(2).any(|r_v| hs.contains(&r_v.iter().collect::<String>())) // TIL: any returns a bool looks for 1 true
 ```
+
+- constructor See 1100
+```rs
+struct NeighborSum {
+  _grid: Vec<Vec<i32>>
+}
+
+impl NeighborSum {
+
+    fn new(grid: Vec<Vec<i32>>) -> Self {
+        NeighborSum {
+          _grid: grid
+        }
+    }
+
+}
+
+ ```
