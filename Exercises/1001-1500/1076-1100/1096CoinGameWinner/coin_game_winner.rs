@@ -58,6 +58,8 @@ impl Solution {
     let mut x = x;
     let mut y = y;
     while x >= 1 && y >= 4 {
+      x-=1;
+      y-=4;
       alice = !alice;
     }
     if alice {
