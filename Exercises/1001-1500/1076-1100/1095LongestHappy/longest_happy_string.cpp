@@ -58,27 +58,87 @@ class Solution {
       if (omitted == 0) {
         // omit a
         if (b >= c) {
-          res.push_back('b');
+          res += 'b';
           b -= 1;
           if (b > 0) {
-            res.push_back('b');
+            res += 'b';
             b -= 1;
           }
-          omitted=1;
+          omitted = 1;
         } else {
-          res.push_back('c');
-          c-=1;
-          if (c >0) {
-            res.push_back('c');
-            c-=1;
+          res += 'c';
+          c -= 1;
+          if (c > 0) {
+            res += 'c';
+            c -= 1;
           }
+          omitted = 2;
         }
       } else if (omitted == 1) {
         // omit b
+        if (a >= c) {
+          res += 'a';
+          a -= 1;
+          if (a > 0) {
+            res += 'a';
+            a -= 1;
+          }
+          omitted = 0;
+        } else {
+          res += 'c';
+          c -= 1;
+          if (c > 0) {
+            res += 'c';
+            c -= 1;
+          }
+          omitted = 2;
+        }
       } else if (omitted == 2) {
         // omit c
+        if (a >= b) {
+          res += 'a';
+          a -= 1;
+          if (a > 0) {
+            res += 'a';
+            a -= 1;
+          }
+          omitted = 0;
+        } else {
+          res += 'b';
+          b -= 1;
+          if (b > 0) {
+            res += 'b';
+            b -= 1;
+          }
+          omitted = 1;
+        }
       } else {
         // omit none
+        if (a >= b && a >= c) {
+          res += 'a';
+          a -= 1;
+          if (a > 0) {
+            res += 'a';
+            a -= 1;
+          }
+          omitted = 0;
+        } else if (b >= a && b >= c) {
+          res += 'b';
+          b -= 1;
+          if (b > 0) {
+            res += 'b';
+            b -= 1;
+          }
+          omitted = 1;
+        } else {
+          res += 'c';
+          c -= 1;
+          if (c > 0) {
+            res += 'c';
+            c -= 1;
+          }
+          omitted = 2;
+        }
       }
     }
     return res;
