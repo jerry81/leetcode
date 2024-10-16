@@ -54,9 +54,10 @@ class Solution {
     // some kind of greedy
     string res = "";
     int omitted = -1;
-    while (a == 0 && b == 0 && c == 0) {
+    while (a > 0 || b > 0 || c > 0) {
       if (omitted == 0) {
         // omit a
+        if (b == 0 && c == 0) break;
         if (b >= c) {
           res += 'b';
           b -= 1;
@@ -76,6 +77,7 @@ class Solution {
         }
       } else if (omitted == 1) {
         // omit b
+        if (a == 0 && c == 0) break;
         if (a >= c) {
           res += 'a';
           a -= 1;
@@ -95,6 +97,8 @@ class Solution {
         }
       } else if (omitted == 2) {
         // omit c
+        if (a == 0 && b == 0) break;
+
         if (a >= b) {
           res += 'a';
           a -= 1;
@@ -113,6 +117,7 @@ class Solution {
           omitted = 1;
         }
       } else {
+        if (a == 0 && b == 0 && c == 0) break;
         // omit none
         if (a >= b && a >= c) {
           res += 'a';
