@@ -61,9 +61,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_changes(n: i32, k: i32) -> i32 {
-    let n_str = format!("{:b}", n);
-    let k_str = format!("{:b}", k);
-    println!("{}, {}", n_str, k_str);
-    0
+    let n_str = format!("{:0>32b}", n); // TIL: specify the width
+    let k_str = format!("{:0>32b}", k);
+    let mut res = 0;
+    for i in 0..32 {
+      if n_str.chars().nth(i).unwrap() != k_str.chars().nth(i).unwrap() {
+        res+=1;
+      }
+    }
+    res
   }
 }
