@@ -52,6 +52,12 @@ using namespace std;
 class Solution {
 public:
     string longestDiverseString(int a, int b, int c) {
-
+      // some kind of greedy
+      string res = "";
+      while (true) {
+        if (a == 0 && b==0 && c==0) {
+          return res;
+        }
+      }
     }
 };
