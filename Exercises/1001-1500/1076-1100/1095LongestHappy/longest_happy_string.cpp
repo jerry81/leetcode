@@ -61,7 +61,7 @@ class Solution {
         if (b >= c) {
           res += 'b';
           b -= 1;
-          if (b > 0) {
+          if (b > 0 && ((b-c) > 1)) {
             res += 'b';
             b -= 1;
           }
@@ -69,7 +69,7 @@ class Solution {
         } else {
           res += 'c';
           c -= 1;
-          if (c > 0) {
+          if (c > 0 && ((c-b) > 1)) {
             res += 'c';
             c -= 1;
           }
@@ -81,7 +81,7 @@ class Solution {
         if (a >= c) {
           res += 'a';
           a -= 1;
-          if (a > 0) {
+          if (a > 0 && (a-c) > 1) {
             res += 'a';
             a -= 1;
           }
@@ -89,7 +89,7 @@ class Solution {
         } else {
           res += 'c';
           c -= 1;
-          if (c > 0) {
+          if (c > 0 && (c-a) > 1) {
             res += 'c';
             c -= 1;
           }
@@ -102,7 +102,7 @@ class Solution {
         if (a >= b) {
           res += 'a';
           a -= 1;
-          if (a > 0) {
+          if (a > 0 && (a-b) > 1) {
             res += 'a';
             a -= 1;
           }
@@ -110,7 +110,7 @@ class Solution {
         } else {
           res += 'b';
           b -= 1;
-          if (b > 0) {
+          if (b > 0 && (b-a) > 1) {
             res += 'b';
             b -= 1;
           }
@@ -122,7 +122,7 @@ class Solution {
         if (a >= b && a >= c) {
           res += 'a';
           a -= 1;
-          if (a > 0) {
+          if (a > 0 && (a-c) > 1 && (a-b) > 1) {
             res += 'a';
             a -= 1;
           }
@@ -130,7 +130,7 @@ class Solution {
         } else if (b >= a && b >= c) {
           res += 'b';
           b -= 1;
-          if (b > 0) {
+          if (b > 0 && (b-a) > 1 && (b-c) > 1) {
             res += 'b';
             b -= 1;
           }
@@ -138,7 +138,7 @@ class Solution {
         } else {
           res += 'c';
           c -= 1;
-          if (c > 0) {
+          if (c > 0 && (c-b) > 1 && (c-a) > 1) {
             res += 'c';
             c -= 1;
           }
@@ -149,3 +149,6 @@ class Solution {
     return res;
   }
 };
+
+// found the gotcha!
+// we should still greedily take more from the highest and conserve the lower values
