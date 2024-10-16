@@ -65,7 +65,10 @@ impl Solution {
     let k_str = format!("{:0>32b}", k);
     let mut res = 0;
     for i in 0..32 {
-      if n_str.chars().nth(i).unwrap() != k_str.chars().nth(i).unwrap() {
+      let nc = n_str.chars().nth(i).unwrap();
+      let kc = k_str.chars().nth(i).unwrap();
+      if nc != kc {
+        if kc == '1' && nc == '0' { return -1 }
         res+=1;
       }
     }
