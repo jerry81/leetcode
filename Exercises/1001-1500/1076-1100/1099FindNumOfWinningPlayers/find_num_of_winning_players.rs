@@ -77,15 +77,16 @@ impl Solution {
   pub fn winning_player_count(n: i32, pick: Vec<Vec<i32>>) -> i32 {
     let mut res = 0;
     let mut hm:HashMap<i32, HashMap<i32,i32>> = HashMap::new();
-    for i in 1..=n {
-      *hm.entry(i).or_insert(HashMap::new()) = HashMap::new();
-    }
     for p in pick {
-      *hm[p[0]+1].entry(p[1]).or_insert(0)+=1;
+      let mut player_balls = hm.entry(p[0]).or_insert(HashMap::new());
+      *player_balls.entry(p[1]).or_insert(0)+=1;
     }
-    for [k,freqs] in hm {
-      for [_,freq] in freqs {
-        if freqs >=k { res+=1 }
+    for (k,freqs) in hm {
+      for (_,freq) in freqs {
+        if freq >= (k+1) {
+            res+=1;
+            break
+        }
       }
     }
     res
