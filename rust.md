@@ -166,6 +166,11 @@ s.chars().collect::<HashSet<_>>().len() as i32
 let binary_string = format!("{:b}", number);
 ```
 
+- same but with specifying width (1097)
+```rs
+let k_str = format!("{:0>32b}", k);
+```
+
 - 997, insert at front of vec
 ```rs
 v.insert(pos,item);
