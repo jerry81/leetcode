@@ -84,7 +84,7 @@ impl Solution {
     let mut cx = 0;
     // simulate
     for cmd in commands {
-      match cmd {
+      match &cmd[..] { // til convert String to &str
         "UP" => {
           cy-=1;
         }
