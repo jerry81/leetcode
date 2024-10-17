@@ -64,6 +64,11 @@ public:
             digits[ptr2] = d;
             digits[ptr1] = i;
             // create string and return
+            int result = 0;
+            for (int digit:digits) {
+              result = result*10 + digit;
+            }
+            return result;
           }
         }
       }
