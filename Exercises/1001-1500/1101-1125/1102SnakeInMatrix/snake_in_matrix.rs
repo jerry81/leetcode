@@ -77,11 +77,28 @@ impl Solution {
     for i in 0..n {
       grid.push(vec![]);
       for j in 0..n {
-        grid[i].push(i*n+j);
+        grid[i as usize].push(i*n+j);
       }
     }
-    println!("{:?}", grid);
+    let mut cy = 0;
+    let mut cx = 0;
     // simulate
-    0
+    for cmd in commands {
+      match cmd {
+        "UP" => {
+          cy-=1;
+        }
+        "RIGHT" => {
+          cx+=1;
+        }
+        "LEFT" => {
+          cx-=1;
+        }
+        _ => {
+          cy+=1;
+        }
+      }
+    }
+    grid[cy][cx]
   }
 }
