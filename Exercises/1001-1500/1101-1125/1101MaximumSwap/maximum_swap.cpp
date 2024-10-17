@@ -38,9 +38,35 @@ Acceptance Rate
 
 */
 
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
     int maximumSwap(int num) {
-
+      vector<int> digits;
+      // convert num into vector<int>
+      vector<int> last_occurence_of_digit = vector(10, -1);
+      string as_s = to_string(num);
+      int n = as_s.size();
+      for (int i = 0; i < n; ++i) {
+        int dig = as_s[i] - '0';
+        digits.push_back(dig);
+        last_occurence_of_digit[dig] = i;
+      }
+      for (int ptr1 = 0; ptr1 < n; ++ptr1) {
+        int d = digits[ptr1];
+        if (d==9) continue;
+        for (int i = 9; i > d; --i) {
+          if (last_occurence_of_digit[i] > ptr1) {
+            int ptr2 = last_occurence_of_digit[i];
+            digits[ptr2] = d;
+            digits[ptr1] = i;
+            // create string and return
+          }
+        }
+      }
+      return num;
     }
 };
