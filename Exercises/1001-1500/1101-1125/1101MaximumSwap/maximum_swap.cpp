@@ -66,7 +66,7 @@ public:
             // create string and return
             int result = 0;
             for (int digit:digits) {
-              result = result*10 + digit;
+              result = result*10 + digit; // TIL: you don't always have to do string conversion
             }
             return result;
           }

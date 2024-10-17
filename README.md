@@ -90,6 +90,14 @@ This function call operator can be used when an instance of the class or struct 
 SomeClass compare;
 bool result = compare(10, 20);
 In the above example, an instance of the class or struct containing the operator() function is created as compare. Then, the instance is called as a function with the arguments 10 and 20. The operator() function is executed, and the result is stored in the variable result.
+
+```
+
+## create a single int from a vector of ints (can be applied to binary etc also)
+```cpp
+for (int digit:digits) {
+  result = result*10 + digit;
+}
 ```
 
 ## math: sum of series of consecutive numbers between a and b
@@ -250,6 +258,7 @@ move(int &&value) no except {
 - const applies to whatever is to its left, unless it is on the left.
 
 - do not ignore compiler warnings!
+
 
 ## SQL tips
 
