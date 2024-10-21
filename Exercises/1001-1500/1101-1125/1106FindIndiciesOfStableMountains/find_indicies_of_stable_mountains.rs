@@ -56,6 +56,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn stable_mountains(height: Vec<i32>, threshold: i32) -> Vec<i32> {
-
+    let mut res:Vec<i32> = Vec::new();
+    let sz = height.len();
+    for i in 1..sz {
+      let prev = height[i-1];
+      if prev > threshold {
+        res.push(i as i32);
+      }
+    }
+    res
   }
 }
