@@ -64,6 +64,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_element(nums: Vec<i32>) -> i32 {
-
+    nums.map(|n| {
+      n.to_string().chars().map(|c| {
+        (c as u8 - '0' as u8) as i32
+      }).sum()
+    }).min()
   }
 }
