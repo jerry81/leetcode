@@ -67,7 +67,7 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn count_k_constraint_substrings(s: String, k: i32) -> i32 {
+  fn constrained(s: String, k: i32) -> bool {
     let mut zc = 0;
     let mut oc = 0;
     for c in s.chars() {
@@ -77,5 +77,16 @@ impl Solution {
       }
     }
     zc <= k && oc <= k
+  }
+  pub fn count_k_constraint_substrings(s: String, k: i32) -> i32 {
+    let mut res = 0;
+    let n = s.len();
+    for i in 0..n {
+      for j in (i+1)..=n {
+        let substr = s[i..j].to_string();
+        if constrained(substr, k) { res+=1 }
+      }
+    }
+    res
   }
 }
