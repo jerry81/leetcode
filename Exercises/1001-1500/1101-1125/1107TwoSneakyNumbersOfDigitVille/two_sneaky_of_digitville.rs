@@ -59,8 +59,18 @@ Submissions
 Acceptance Rate
 89.1%
 */
+use std::collections::HashSet;
+
 impl Solution {
   pub fn get_sneaky_numbers(nums: Vec<i32>) -> Vec<i32> {
-
+    let mut hs:HashSet<i32> = HashSet::new();
+    let mut res:Vec<i32> = Vec::new();
+    for n in nums {
+      if hs.contains(&n) {
+        res.push(n);
+      }
+      hs.insert(n);
+    }
+    res
   }
 }
