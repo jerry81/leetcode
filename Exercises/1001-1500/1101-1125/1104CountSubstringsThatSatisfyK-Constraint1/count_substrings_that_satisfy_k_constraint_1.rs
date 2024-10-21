@@ -68,6 +68,14 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_k_constraint_substrings(s: String, k: i32) -> i32 {
-
+    let mut zc = 0;
+    let mut oc = 0;
+    for c in s.chars() {
+      match c {
+        '0' => { zc+=1; }
+        _ => { oc+=1; }
+      }
+    }
+    zc <= k && oc <= k
   }
 }
