@@ -70,21 +70,24 @@ impl Solution {
   fn constrained(s: String, k: i32) -> bool {
     let mut zc = 0;
     let mut oc = 0;
+    println!("checking {}", s);
     for c in s.chars() {
       match c {
         '0' => { zc+=1; }
         _ => { oc+=1; }
       }
     }
-    zc <= k && oc <= k
+    zc <= k || oc <= k
   }
   pub fn count_k_constraint_substrings(s: String, k: i32) -> i32 {
     let mut res = 0;
     let n = s.len();
     for i in 0..n {
       for j in (i+1)..=n {
-        let substr = s[i..j].to_string();
-        if constrained(substr, k) { res+=1 }
+        let mut substr = s[i..j].to_string();
+        if Solution::constrained(substr, k) {
+            res+=1
+        }
       }
     }
     res
