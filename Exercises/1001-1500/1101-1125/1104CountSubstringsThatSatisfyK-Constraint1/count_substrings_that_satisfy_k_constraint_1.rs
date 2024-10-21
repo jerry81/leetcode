@@ -70,7 +70,6 @@ impl Solution {
   fn constrained(s: String, k: i32) -> bool {
     let mut zc = 0;
     let mut oc = 0;
-    println!("checking {}", s);
     for c in s.chars() {
       match c {
         '0' => { zc+=1; }
