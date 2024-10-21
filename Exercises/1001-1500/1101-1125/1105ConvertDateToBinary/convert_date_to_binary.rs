@@ -54,12 +54,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn convert_date_to_binary(date: String) -> String {
-    let spl: Vec<i32> = date.split("-").map(|s| {
+    date.split("-").map(|s| {
       // string to int
       let as_i:i32 = s.parse().unwrap();
-      println!("as i is {}", as_i);
-    as_i
-    }).collect();
-    "".to_string()
+      format!("{:b}", as_i).to_string()
+    }).collect::<Vec<String>>().join("-") // TIL: join
   }
 }
