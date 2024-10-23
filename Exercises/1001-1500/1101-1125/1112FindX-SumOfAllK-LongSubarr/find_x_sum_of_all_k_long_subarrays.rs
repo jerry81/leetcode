@@ -74,10 +74,15 @@ impl Solution {
       }).collect();
       sortable_vec.sort();
       sortable_vec.reverse();
+      let bnd = x.min(sortable_vec.len() as i32) as usize;
+      sortable_vec = sortable_vec[0..bnd].to_vec();
+      let expanded: Vec<i32> = sortable_vec.iter().flat_map(|(f,v)|{
+        vec![*v; *f as usize]
+      }).collect();
       let mut sm = 0;
-      for i in 0..k as usize {
-        if i >= sortable_vec.len() { break; }
-        sm += sortable_vec[i].1;
+      let ending = k.min(expanded.len() as i32);
+      for i in 0..ending as usize {
+        sm+=expanded[i];
       }
       res.push(sm);
     }
