@@ -59,6 +59,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn kth_character(k: i32) -> char {
-
+    // make the appendded string
+    let mut cur: Vec<char> = Vec::new();
+    cur.push('a');
+    loop {
+      let mut appended:Vec<char> = cur.map(|ch| {
+        (ch as u8 + 1) as char
+      })
+      cur.extend(appended);
+      println!("cur is now {}", cur);
+    }
+    'a'
   }
 }
