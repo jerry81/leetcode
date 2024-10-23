@@ -86,8 +86,8 @@ struct TreeNode {
 };
 
 class Solution {
-  unordered_map<int, vector<TreeNode *>> level_nodes;
-  unordered_map<int, int> level_sums;
+  vector<vector<TreeNode *>> level_nodes;
+  vector<int> level_sums;
   unordered_map<TreeNode *, int> direct_children_sums;
   unordered_map<TreeNode *, TreeNode*> parents;
   void dfs(TreeNode *cur, int lvl, TreeNode *parent) {
@@ -114,6 +114,8 @@ class Solution {
  public:
   TreeNode *replaceValueInTree(TreeNode *root) {
     // one pass - use map to store the level nodes
+    level_nodes.resize(10);
+    level_sums.resize(10);
     dfs(root, 0, nullptr);
     dfs2(root, 0);
     root->val = 0;
