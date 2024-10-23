@@ -63,11 +63,13 @@ impl Solution {
     let mut cur: Vec<char> = Vec::new();
     cur.push('a');
     loop {
-      let mut appended:Vec<char> = cur.map(|ch| {
-        (ch as u8 + 1) as char
-      })
+      let mut appended:Vec<char> = cur.iter().map(|ch| {
+        (*ch as u8 + 1) as char
+      }).collect();
       cur.extend(appended);
-      println!("cur is now {}", cur);
+      if cur.len() >= k as usize {
+        return cur[k as usize-1]
+      }
     }
     'a'
   }
