@@ -58,8 +58,31 @@ Submissions
 Acceptance Rate
 62.7%
 */
-
+use std::collections::HashMap;
 impl Solution {
   pub fn find_x_sum(nums: Vec<i32>, k: i32, x: i32) -> Vec<i32> {
+    let l = nums.len();
+    let mut res : Vec<i32> = vec![];
+    for start in 0..(l-k as usize) {
+      let subarr = &nums[start..start+k as usize];
+      let mut freq: HashMap<i32,i32> = HashMap::new();
+      for i in subarr {
+        *freq.entry(*i).or_insert(0) += 1;
+      }
+      let mut sortable_vec:Vec<(i32,i32)> = freq.iter().map(|(&a,&b)| {
+        (b,a)
+      }).collect();
+      sortable_vec.sort();
+      sortable_vec.reverse();
+      let mut sm = 0;
+      for i in 0..k {
+        if i > sortable_vec.len() { break; }
+        sm += sortable_vec[i].1;
+      }
+      res.push(sm);
+    }
 
+
+    res
   }
+}
