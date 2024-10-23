@@ -216,3 +216,4 @@ impl NeighborSum {
  - fixing the "doesn't have a size known at compile-time" issue
  - this occurs when slicing arrays and trying to assign to untyped or Vec
  - solution: "borrow" with &
+ - we could also use to_vec if we really want a Vec
