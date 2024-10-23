@@ -86,20 +86,36 @@ struct TreeNode {
 };
 
 class Solution {
- unordered_map<int, vector<TreeNode*>> level_nodes;
- unordered_map<int, int> level_sums;
- void dfs(TreeNode *cur, int lvl) {
-  if (cur) {
-   level_sums[lvl]+=cur->val;
-   level_nodes[lvl].push_back(cur);
+  unordered_map<int, vector<TreeNode *>> level_nodes;
+  unordered_map<int, int> level_sums;
+  unordered_map<TreeNode *, int> direct_children_sums;
+  unordered_map<TreeNode *, TreeNode*> parents;
+  void dfs(TreeNode *cur, int lvl, TreeNode *parent) {
+    if (cur) {
+      level_sums[lvl] += cur->val;
+      level_nodes[lvl].push_back(cur);
+      dfs(cur->left, lvl + 1, cur);
+      dfs(cur->right, lvl + 1, cur);
+      if (parent) {
+        direct_children_sums[parent] += cur->val;
+        parents[cur] = parent;
+      }
+    }
   }
-  dfs(cur->left, lvl+1);
-  dfs(cur->right, lvl+1);
 
- }
+  void dfs2(TreeNode *cur, int lvl) {
+    if (cur) {
+      cur->val = level_sums[lvl] - direct_children_sums[parents[cur]];
+      dfs2(cur->left, lvl + 1);
+      dfs2(cur->right, lvl + 1);
+    }
+  }
+
  public:
   TreeNode *replaceValueInTree(TreeNode *root) {
     // one pass - use map to store the level nodes
-    dfs(root, 0);
+    dfs(root, 0, nullptr);
+    dfs2(root, 0);
+    return root;
   }
 };
