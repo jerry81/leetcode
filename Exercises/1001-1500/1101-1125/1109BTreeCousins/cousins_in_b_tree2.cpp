@@ -116,6 +116,7 @@ class Solution {
     // one pass - use map to store the level nodes
     dfs(root, 0, nullptr);
     dfs2(root, 0);
+    root->val = 0;
     return root;
   }
 };
