@@ -65,8 +65,31 @@ Acceptance Rate
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 class Solution {
+bool double_dfs(TreeNode* a, TreeNode* b) {
+  // 3 nodes to examine
+  if (!a && b) return false;
+  if (b && !a) return false;
+  if (a->val != b->val) return false;
+
+  if (!a && !b) return true;
+
+  if (a->left != b->left && a->left == b->right && b->left == a->right) {
+    return double_dfs(a->left, b->right) && double_dfs(a->right, b->left);
+  }
+  if (a->left == b->left && a->right == b->right) {
+    return double_dfs(a->left, b->left) && double_dfs(a->right, b->right);
+  }
+  return false;
+}
 public:
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
-
+      // idea:  one side stays as baseline, the other side is flippable
+      // keep a flag to keep track if flipped or not
+      // walk both trees simultaneously
+      // think about this:
+      // unique values, so use val to compare the nodes
+      if (!root1 && !root2) return true;
+      if (!root1 && root2) return false;
+      return double_dfs(root1, root2);
     }
 };
