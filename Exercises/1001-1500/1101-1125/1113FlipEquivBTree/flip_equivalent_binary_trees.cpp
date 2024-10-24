@@ -69,9 +69,10 @@ bool double_dfs(TreeNode* a, TreeNode* b) {
   // 3 nodes to examine
   if (!a && b) return false;
   if (b && !a) return false;
-  if (a->val != b->val) return false;
 
   if (!a && !b) return true;
+
+  if (a->val != b->val) return false;
 
   if (a->left != b->left && a->left == b->right && b->left == a->right) {
     return double_dfs(a->left, b->right) && double_dfs(a->right, b->left);
@@ -79,7 +80,7 @@ bool double_dfs(TreeNode* a, TreeNode* b) {
   if (a->left == b->left && a->right == b->right) {
     return double_dfs(a->left, b->left) && double_dfs(a->right, b->right);
   }
-  return false;
+  return true;
 }
 public:
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
