@@ -71,12 +71,17 @@ struct TreeNode {
 class Solution {
   bool double_dfs(TreeNode* a, TreeNode* b) {
     // 3 nodes to examine
-    if (!a && b) return false;
-    if (b && !a) return false;
-
     if (!a && !b) return true;
 
-    if (a && b && a->val != b->val) return false;
+    // Check if one of the nodes is null
+    if (!a || !b) return false;
+
+    // Check if the values of the nodes are different
+    if (a->val != b->val) return false;
+
+    // Check for flipping possibilities
+    return (double_dfs(a->left, b->left) && double_dfs(a->right, b->right)) ||
+           (double_dfs(a->left, b->right) && double_dfs(a->right, b->left));
 
     if (a->left != b->left && a->left == b->right && b->left == a->right) {
       return double_dfs(a->left, b->right) && double_dfs(a->right, b->left);
