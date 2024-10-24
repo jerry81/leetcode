@@ -54,6 +54,13 @@ class Solution {
     } else {
       std::reverse(as_s.begin(), as_s.end());
     }
+    // max to string
+    string maxStr = to_string(INT_MAX);
+    if (as_s.size() == 10) {
+      if (as_s.front() != '-') {
+
+      }
+    }
     return stoi(as_s);
   }
 };
