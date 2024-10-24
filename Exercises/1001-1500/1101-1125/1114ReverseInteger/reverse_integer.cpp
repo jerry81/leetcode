@@ -42,6 +42,7 @@ Acceptance Rate
 29.3%
 
 */
+
 #include <string>
 using namespace std;
 class Solution {
@@ -56,9 +57,13 @@ class Solution {
     }
     // max to string
     string maxStr = to_string(INT_MAX);
+    string minStr = to_string(INT_MIN);
+    if (as_s.size() == 11) {
+      if (minStr < as_s) return 0;
+    }
     if (as_s.size() == 10) {
       if (as_s.front() != '-') {
-
+        if (maxStr < as_s) return 0;
       }
     }
     return stoi(as_s);
