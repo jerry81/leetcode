@@ -58,6 +58,8 @@ Acceptance Rate
 
 #include <vector>
 
+using namespace std;
+
 class Solution {
 public:
     int countSquares(vector<vector<int>>& matrix) {
