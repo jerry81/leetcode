@@ -139,10 +139,26 @@ class Solution {
         break;
       }
     }
-    for (auto c: digits) {
-      cout << c;
+    if (digits.empty()) return 0;
+
+    // oob
+    string maxStr = to_string(INT_MAX);
+    string minStr = to_string(INT_MIN);
+    if (digits.size() == 11) {
+      if (minStr < digits) return INT_MIN;
     }
-    cout << '\n';
-    return 0;
+    if (digits.size() == 10) {
+      if (digits.front() != '-') {
+        if (maxStr < digits) return INT_MAX;
+      }
+    }
+    int res = 0;
+    int multiplier = 1;
+    reverse(digits.begin(), digits.end());
+    for (int i: digits) {
+      res+=multiplier*i;
+      multiplier*=10;
+    }
+    return res;
   }
 };
