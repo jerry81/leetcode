@@ -52,6 +52,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+int MAX_ROOT = sqrt(10000) + 1;
 public:
     int longestSquareStreak(vector<int>& nums) {
       vector<bool> lookup(10001, false);
@@ -62,9 +63,11 @@ public:
       sort(sorted.begin(), sorted.end());
       int longest = -1;
       for (int i: sorted) {
+        int base = i;
         int pw = 1;
-        while (lookup[pow(i,2*pw)]) {
+        while (MAX_ROOT > base && lookup[pow(base,2)]) {
           pw+=1;
+          base = pow(base,2);
         }
         longest = max(longest, pw);
       }
