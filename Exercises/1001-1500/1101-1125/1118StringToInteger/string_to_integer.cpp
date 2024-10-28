@@ -130,7 +130,7 @@ class Solution {
     // step 3 convert
     bool non_zero = false;
     string digits;
-    for (char c : s) {
+    for (char c : trimmed) {
       if (isdigit(c)) {
         if (c == '0' && !non_zero) continue;
 
@@ -155,10 +155,12 @@ class Solution {
     int res = 0;
     int multiplier = 1;
     reverse(digits.begin(), digits.end());
-    for (int i: digits) {
-      res+=multiplier*i;
-      multiplier*=10;
+    for (char c : digits) {
+      int i = c - '0';
+      res += multiplier * i;
+      multiplier *= 10;
     }
+    if (is_neg) res*=-1;
     return res;
   }
 };
