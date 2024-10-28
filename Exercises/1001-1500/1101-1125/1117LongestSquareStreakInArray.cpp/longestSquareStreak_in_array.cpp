@@ -46,6 +46,7 @@ Acceptance Rate
 44.0%
 */
 
+
 #include <vector>
 
 using namespace std;
@@ -58,11 +59,11 @@ public:
         lookup[n] = true;
       }
       vector<int> sorted = nums;
-      sort(nums.begin(), nums.end());
+      sort(sorted.begin(), sorted.end());
       int longest = -1;
       for (int i: sorted) {
         int pw = 1;
-        while (lookup[pow(i,pw+1)]) {
+        while (lookup[pow(i,2*pw)]) {
           pw+=1;
         }
         longest = max(longest, pw);
