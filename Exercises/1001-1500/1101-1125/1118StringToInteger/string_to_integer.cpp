@@ -111,6 +111,7 @@ using namespace std;
 class Solution {
  public:
   int myAtoi(string s) {
+    if (s.empty()) return 0;
     // trim leading whitespace
     int n = s.size();
     string trimmed = "";
@@ -120,6 +121,8 @@ class Solution {
         break;
       }
     }
+
+    if (trimmed.empty()) return 0;
 
     // step 2: signedness
     bool is_neg = trimmed.size() > 0 && trimmed[0] == '-';
@@ -134,6 +137,7 @@ class Solution {
       if (isdigit(c)) {
         if (c == '0' && !non_zero) continue;
 
+        non_zero = true;
         digits.push_back(c);
       } else {
         break;
@@ -144,16 +148,18 @@ class Solution {
     // oob
     string maxStr = to_string(INT_MAX);
     string minStr = to_string(INT_MIN);
-    if (digits.size() == 11) {
+    if (digits.size() == 11 && is_neg) {
       if (minStr < digits) return INT_MIN;
     }
-    if (digits.size() == 10) {
+    if (digits.size() == 10 && !is_neg) {
       if (digits.front() != '-') {
         if (maxStr < digits) return INT_MAX;
       }
     }
-    int res = 0;
-    int multiplier = 1;
+    if (digits.size() > 11 && is_neg) return INT_MIN;
+    if (digits.size() > 10 && !is_neg) return INT_MAX;
+    long long res = 0;
+    long long multiplier = 1;
     reverse(digits.begin(), digits.end());
     for (char c : digits) {
       int i = c - '0';
