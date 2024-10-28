@@ -108,6 +108,7 @@ Acceptance Rate
 #include <string>
 using namespace std;
 
+
 class Solution {
  public:
   int myAtoi(string s) {
@@ -148,16 +149,15 @@ class Solution {
     // oob
     string maxStr = to_string(INT_MAX);
     string minStr = to_string(INT_MIN);
-    if (digits.size() == 11 && is_neg) {
+    minStr = minStr.substr(1);
+    if (digits.size() == 10 && is_neg) {
       if (minStr < digits) return INT_MIN;
     }
     if (digits.size() == 10 && !is_neg) {
-      if (digits.front() != '-') {
-        if (maxStr < digits) return INT_MAX;
-      }
+      if (maxStr < digits) return INT_MAX;
     }
-    if (digits.size() > 11 && is_neg) return INT_MIN;
-    if (digits.size() > 10 && !is_neg) return INT_MAX;
+
+    if (digits.size() > 10) return is_neg ? INT_MIN : INT_MAX;
     long long res = 0;
     long long multiplier = 1;
     reverse(digits.begin(), digits.end());
@@ -166,7 +166,7 @@ class Solution {
       res += multiplier * i;
       multiplier *= 10;
     }
-    if (is_neg) res*=-1;
+    if (is_neg) res *= -1;
     return res;
   }
 };
