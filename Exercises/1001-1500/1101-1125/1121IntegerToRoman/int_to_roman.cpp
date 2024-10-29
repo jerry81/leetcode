@@ -81,6 +81,14 @@ using namespace std;
 class Solution {
 public:
     string intToRoman(int num) {
-
+      if (num==0) return "";
+      char first_char = to_string(num)[0];
+      if (num>=1000) {
+        return "M"+intToRoman(num-1000);
+      } else if (num >= 500) {
+        return "D"+intToRoman(num-500);
+      } else if (num > 100) {
+        return "C"+intToRoman(num-100);
+      }
     }
 };
