@@ -72,6 +72,8 @@ public:
         for (int j = i+1; j < n-1; ++j) {
           int cur_sum = sorted[i] + sorted[j];
           int searched_idx = cur_sum*-1 + pow(10,5);
+
+          if (searched_idx >= MX || searched_idx < 0) continue;
           vector<int> cand = lookup[searched_idx];
           for (int c: cand) {
             if (c > j) {
