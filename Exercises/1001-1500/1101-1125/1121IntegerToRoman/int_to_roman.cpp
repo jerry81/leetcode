@@ -97,24 +97,24 @@ class Solution {
 
     } else if (num >= 500) { // handle 900
       if (first_char == '9') {
-        return "IM" + intToRoman(num - 900);
+        return "CM" + intToRoman(num - 900);
       } else {
         return "D" + intToRoman(num - 500);
       }
     } else if (num >= 100) { // handle 400
       if (first_char == '4') {
-        return "ID" + intToRoman(num - 400);
+        return "CD" + intToRoman(num - 400);
       } else {
         return "C" + intToRoman(num - 100);
       }
     } else if (num >= 50) { // handle 90
       if (first_char == '9') {
-        return "IC"+intToRoman(num-90);
+        return "XC"+intToRoman(num-90);
       }
       return "L" + intToRoman(num - 50);
     } else if (num >= 10) { // handle 40
       if (first_char == '4') {
-        return "IL"+intToRoman(num-40);
+        return "XL"+intToRoman(num-40);
       }
       return "X" + intToRoman(num - 10);
     } else if (num >= 5) { // handle 9
