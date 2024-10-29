@@ -58,16 +58,27 @@ public:
       // number-line for fast lookup
       // since neg is present, must "normalize" the lookup table
       // rng is 2*10^5+1
+      vector<int> sorted = nums;
+      sort(sorted.begin(), sorted.end());
       const int MX = 2*pow(10,5)+2;
       int n = nums.size();
       vector<vector<int>> lookup = vector<vector<int>>(MX, vector<int>());
       for (int i = 0; i < n; ++i) {
-        lookup[i+pow(10,5)].push_back(i);
+        lookup[sorted[i]+pow(10,5)].push_back(i);
       }
+      vector<vector<int>> res = {};
       for (int i = 0; i < n-2; ++i) {
         for (int j = i+1; j < n-1; ++j) {
-
+          int cur_sum = sorted[i] + sorted[j];
+          int searched_idx = cur_sum*-1 + pow(10,5);
+          vector<int> cand = lookup[searched_idx];
+          for (int c: cand) {
+            if (c > j) {
+              res.push_back({i,j,-1*(i+j)});
+            }
+          }
         }
       }
+      return res;
     }
 };
