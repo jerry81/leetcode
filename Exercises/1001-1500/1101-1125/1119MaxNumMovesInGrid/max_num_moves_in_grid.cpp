@@ -64,6 +64,13 @@ using namespace std;
 class Solution {
   const vector<pair<int, int>> MOVES = {{-1, 1}, {0, 1}, {1, 1}};
 
+  int dfs(int cr, int cc, int depth, vector<vector<int>>& grid,
+          vector<vector<int>>& dp) {
+    if (dp[cr][cc] > -1) {
+      dp[cr][cc];
+    }
+  }
+
  public:
   int maxMoves(vector<vector<int>>& grid) {
     // dp
@@ -74,35 +81,7 @@ class Solution {
     int res = 0;
     for (int r = 0; r < n; ++r) {
       for (int c = 0; c < m; ++c) {
-        if (memo[r][c] > -1) {
-          res = max(res, memo[r][c]);
-          continue;
-        }
-
-        queue<pair<int, int>> q;
-        q.push({r, c});
-        int curcnt = 0;
-        // level bfs
-        while (!q.empty()) {
-          queue<pair<int, int>> nq;
-          while (!nq.empty()) {
-            auto [cr, cc] = q.front();
-            q.pop();
-            if (memo[cr][cc] > -1) {
-              res = max(res, curcnt + memo[cr][cc]);
-              break;
-            }
-            for (auto [dr, dc]: MOVES) {
-              int nr = cr + dr;
-              int nc = cc + dc;
-              if (nr >= n || nr < 0) continue;
-
-              if (nc >= m) continue;
-
-            }
-          }
-          curcnt += 1;
-        }
+        res = max(res, dfs(r, c, 0, grid, memo));
       }
     }
     return res;
