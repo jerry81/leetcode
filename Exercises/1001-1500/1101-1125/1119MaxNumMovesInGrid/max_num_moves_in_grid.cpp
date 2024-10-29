@@ -58,6 +58,7 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+const vector<pair<int,int>> MOVES = {{-1, 1}, {0,1}, {1,1}};
 public:
     int maxMoves(vector<vector<int>>& grid) {
       // dp
@@ -65,11 +66,23 @@ public:
       int m = grid[0].size();
       vector<vector<int>> memo = vector<vector<int>>(n, vector<int>(m, -1));
 
-      // bfs
+
       int res = 0;
       for (int r = 0; r < n; ++r) {
         for (int c = 0; c < m; ++c) {
+
+          if (memo[r][c] > -1) {
+            res = max(res, memo[r][c]);
+            continue;
+          }
+
           queue<pair<int,int>> q;
+          q.push({r,c});
+          while (!q.empty()) {
+            // bfs
+            auto [cr, cc] = q.front();
+            q.pop();
+          }
         }
       }
       return res;
