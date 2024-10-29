@@ -55,6 +55,13 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-
+      // number-line for fast lookup
+      // since neg is present, must "normalize" the lookup table
+      // rng is 2*10^5+1
+      const int MX = 2*pow(10,5)+2;
+      vector<bool> lookup = vector<bool>(MX, false);
+      for (int i: nums) {
+        lookup[i+pow(10,5)] = true;
+      }
     }
 };
