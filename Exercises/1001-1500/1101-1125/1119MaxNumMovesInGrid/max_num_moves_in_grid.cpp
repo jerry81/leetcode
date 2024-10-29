@@ -59,6 +59,10 @@ using namespace std;
 class Solution {
 public:
     int maxMoves(vector<vector<int>>& grid) {
-
+      int n = grid.size();
+      int m = grid[0].size();
+      vector<vector<int>> memo;
+      // dp
+      // bfs
     }
 };
