@@ -7,10 +7,13 @@ Companies
 Hint
 You are given a 0-indexed m x n matrix grid consisting of positive integers.
 
-You can start at any cell in the first column of the matrix, and traverse the grid in the following way:
+You can start at any cell in the first column of the matrix, and traverse the
+grid in the following way:
 
-From a cell (row, col), you can move to any of the cells: (row - 1, col + 1), (row, col + 1) and (row + 1, col + 1) such that the value of the cell you move to, should be strictly bigger than the value of the current cell.
-Return the maximum number of moves that you can perform.
+From a cell (row, col), you can move to any of the cells: (row - 1, col + 1),
+(row, col + 1) and (row + 1, col + 1) such that the value of the cell you move
+to, should be strictly bigger than the value of the current cell. Return the
+maximum number of moves that you can perform.
 
 
 
@@ -29,7 +32,8 @@ Example 2:
 
 Input: grid = [[3,2,4],[2,1,9],[1,1,7]]
 Output: 0
-Explanation: Starting from any cell in the first column we cannot perform any moves.
+Explanation: Starting from any cell in the first column we cannot perform any
+moves.
 
 
 Constraints:
@@ -52,39 +56,55 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-const vector<pair<int,int>> MOVES = {{-1, 1}, {0,1}, {1,1}};
-public:
-    int maxMoves(vector<vector<int>>& grid) {
-      // dp
-      int n = grid.size();
-      int m = grid[0].size();
-      vector<vector<int>> memo = vector<vector<int>>(n, vector<int>(m, -1));
+  const vector<pair<int, int>> MOVES = {{-1, 1}, {0, 1}, {1, 1}};
 
+ public:
+  int maxMoves(vector<vector<int>>& grid) {
+    // dp
+    int n = grid.size();
+    int m = grid[0].size();
+    vector<vector<int>> memo = vector<vector<int>>(n, vector<int>(m, -1));
 
-      int res = 0;
-      for (int r = 0; r < n; ++r) {
-        for (int c = 0; c < m; ++c) {
+    int res = 0;
+    for (int r = 0; r < n; ++r) {
+      for (int c = 0; c < m; ++c) {
+        if (memo[r][c] > -1) {
+          res = max(res, memo[r][c]);
+          continue;
+        }
 
-          if (memo[r][c] > -1) {
-            res = max(res, memo[r][c]);
-            continue;
-          }
-
-          queue<pair<int,int>> q;
-          q.push({r,c});
-          while (!q.empty()) {
-            // bfs
+        queue<pair<int, int>> q;
+        q.push({r, c});
+        int curcnt = 0;
+        // level bfs
+        while (!q.empty()) {
+          queue<pair<int, int>> nq;
+          while (!nq.empty()) {
             auto [cr, cc] = q.front();
             q.pop();
+            if (memo[cr][cc] > -1) {
+              res = max(res, curcnt + memo[cr][cc]);
+              break;
+            }
+            for (auto [dr, dc]: MOVES) {
+              int nr = cr + dr;
+              int nc = cc + dc;
+              if (nr >= n || nr < 0) continue;
+
+              if (nc >= m) continue;
+
+            }
           }
+          curcnt += 1;
         }
       }
-      return res;
     }
+    return res;
+  }
 };
