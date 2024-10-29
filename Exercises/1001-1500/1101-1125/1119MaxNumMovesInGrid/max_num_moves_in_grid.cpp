@@ -53,16 +53,25 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 class Solution {
 public:
     int maxMoves(vector<vector<int>>& grid) {
+      // dp
       int n = grid.size();
       int m = grid[0].size();
-      vector<vector<int>> memo;
-      // dp
+      vector<vector<int>> memo = vector<vector<int>>(n, vector<int>(m, -1));
+
       // bfs
+      int res = 0;
+      for (int r = 0; r < n; ++r) {
+        for (int c = 0; c < m; ++c) {
+          queue<pair<int,int>> q;
+        }
+      }
+      return res;
     }
 };
