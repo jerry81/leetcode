@@ -67,7 +67,7 @@ class Solution {
   int dfs(int cr, int cc, vector<vector<int>>& grid,
           vector<vector<int>>& dp, int &n, int &m) {
     if (dp[cr][cc] > -1) {
-      dp[cr][cc];
+      return dp[cr][cc];
     }
     int curval = grid[cr][cc];
     int cur_res = 0;
@@ -78,7 +78,12 @@ class Solution {
 
       if (nr >= n || nc >= m) continue;
 
-      if (curval < grid[nr][nc]) cur_res = max(cur_res, 1+dfs(nr,nc,grid,dp,m,n));
+
+
+      if (curval < grid[nr][nc]) {
+        if (dp[nr][nc] > -1) cur_res = max(cur_res, dp[nr][nc]);
+        cur_res = max(cur_res, 1+dfs(nr,nc,grid,dp,n,m));
+      }
     }
     return dp[cr][cc] = cur_res;
   };
@@ -92,6 +97,7 @@ class Solution {
 
     int res = 0;
     for (int r = 0; r < n; ++r) {
+
         res = max(res, dfs(r, 0, grid, memo, n, m));
     }
     return res;
