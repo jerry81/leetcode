@@ -63,9 +63,9 @@ public:
       sort(sorted.begin(), sorted.end());
       const int MX = 2*pow(10,5)+2;
       int n = nums.size();
-      vector<vector<int>> lookup = vector<vector<int>>(MX, vector<int>());
+      vector<int> lookup = vector<int>(MX, -1);
       for (int i = 0; i < n; ++i) {
-        lookup[sorted[i]+pow(10,5)].push_back(i);
+        lookup[sorted[i]+pow(10,5)] = i; // last occurence
       }
       set<vector<int>> res_set = {};
       for (int i = 0; i < n-2; ++i) {
@@ -74,12 +74,7 @@ public:
           int searched_idx = cur_sum*-1 + pow(10,5);
 
           if (searched_idx >= MX || searched_idx < 0) continue;
-          vector<int> cand = lookup[searched_idx];
-          for (int c: cand) {
-            if (c > j) {
-              res_set.insert({sorted[i],sorted[j],-1*cur_sum});
-            }
-          }
+          if (lookup[searched_idx] > -1 && lookup[searched_idx] > j) res_set.insert({sorted[i],sorted[j],-1*cur_sum});
         }
       }
       return vector<vector<int>>(res_set.begin(), res_set.end());
