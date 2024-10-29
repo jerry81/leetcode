@@ -59,9 +59,15 @@ public:
       // since neg is present, must "normalize" the lookup table
       // rng is 2*10^5+1
       const int MX = 2*pow(10,5)+2;
-      vector<bool> lookup = vector<bool>(MX, false);
-      for (int i: nums) {
-        lookup[i+pow(10,5)] = true;
+      int n = nums.size();
+      vector<vector<int>> lookup = vector<vector<int>>(MX, vector<int>());
+      for (int i = 0; i < n; ++i) {
+        lookup[i+pow(10,5)].push_back(i);
+      }
+      for (int i = 0; i < n-2; ++i) {
+        for (int j = i+1; j < n-1; ++j) {
+
+        }
       }
     }
 };
