@@ -49,6 +49,7 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -66,7 +67,7 @@ public:
       for (int i = 0; i < n; ++i) {
         lookup[sorted[i]+pow(10,5)].push_back(i);
       }
-      vector<vector<int>> res = {};
+      set<vector<int>> res_set = {};
       for (int i = 0; i < n-2; ++i) {
         for (int j = i+1; j < n-1; ++j) {
           int cur_sum = sorted[i] + sorted[j];
@@ -74,11 +75,11 @@ public:
           vector<int> cand = lookup[searched_idx];
           for (int c: cand) {
             if (c > j) {
-              res.push_back({i,j,-1*(i+j)});
+              res_set.insert({sorted[i],sorted[j],-1*cur_sum});
             }
           }
         }
       }
-      return res;
+      return vector<vector<int>>(res_set.begin(), res_set.end());
     }
 };
