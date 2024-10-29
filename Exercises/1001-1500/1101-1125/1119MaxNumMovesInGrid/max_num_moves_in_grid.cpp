@@ -69,6 +69,7 @@ class Solution {
     if (dp[cr][cc] > -1) {
       dp[cr][cc];
     }
+    int curval = grid[cr][cc];
     int cur_res = 0;
     for (auto [dr,dc]: MOVES) {
       int nr = dr + cr;
@@ -77,7 +78,7 @@ class Solution {
 
       if (nr >= n || nc >= m) continue;
 
-      cur_res = max(cur_res, 1+dfs(nr,nc,grid,dp,m,n));
+      if (curval < grid[nr][nc]) cur_res = max(cur_res, 1+dfs(nr,nc,grid,dp,m,n));
     }
     return dp[cr][cc] = cur_res;
   };
@@ -91,9 +92,7 @@ class Solution {
 
     int res = 0;
     for (int r = 0; r < n; ++r) {
-      for (int c = 0; c < m; ++c) {
-        res = max(res, dfs(r, c, grid, memo, n, m));
-      }
+        res = max(res, dfs(r, 0, grid, memo, n, m));
     }
     return res;
   }
