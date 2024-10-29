@@ -64,12 +64,23 @@ using namespace std;
 class Solution {
   const vector<pair<int, int>> MOVES = {{-1, 1}, {0, 1}, {1, 1}};
 
-  int dfs(int cr, int cc, int depth, vector<vector<int>>& grid,
-          vector<vector<int>>& dp) {
+  int dfs(int cr, int cc, vector<vector<int>>& grid,
+          vector<vector<int>>& dp, int &n, int &m) {
     if (dp[cr][cc] > -1) {
       dp[cr][cc];
     }
-  }
+    int cur_res = 0;
+    for (auto [dr,dc]: MOVES) {
+      int nr = dr + cr;
+      int nc = dc + cc;
+      if (nr < 0) continue;
+
+      if (nr >= n || nc >= m) continue;
+
+      cur_res = max(cur_res, 1+dfs(nr,nc,grid,dp,m,n));
+    }
+    return dp[cr][cc] = cur_res;
+  };
 
  public:
   int maxMoves(vector<vector<int>>& grid) {
@@ -81,7 +92,7 @@ class Solution {
     int res = 0;
     for (int r = 0; r < n; ++r) {
       for (int c = 0; c < m; ++c) {
-        res = max(res, dfs(r, c, 0, grid, memo));
+        res = max(res, dfs(r, c, grid, memo, n, m));
       }
     }
     return res;
