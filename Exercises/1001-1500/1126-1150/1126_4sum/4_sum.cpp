@@ -41,28 +41,42 @@ Acceptance Rate
 */
 
 #include <vector>
-#include <unordered_set>
+#include <set>
 #include <unordered_map>
 
 using namespace std;
-
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-      unordered_set<int> as_s(nums.begin(), nums.end());
-      vector<int> as_v(as_s.begin(), as_s.end());
-      int n = as_v.size();
-      // cache pairs in map - k is long long (value) v is last occuring position
+      int n = nums.size();
+      if (n < 4) return {};
+      sort(nums.begin(),nums.end());
       unordered_map<long long, int> pair_sums;
+
+      // Cache pairs
       for (int i = 0; i < n-1; ++i) {
         for (int j = i+1; j < n; ++j) {
-          int sm = as_v[i] + as_v[j];
-          if (pair_sums.find(sm) == pair_sums.end()) {
-            pair_sums[sm] = j;
-          } else {
-            pair_sums[sm] = max(j, pair_sums[sm]);
+          int sm = nums[i] + nums[j];
+          pair_sums[sm] = j; // Store the last occurring position
+        }
+      }
+
+      set<vector<int>> result_set;
+      // Find quadruplets
+      for (int i = 0; i < n-1; ++i) {
+        for (int j = i+1; j < n; ++j) {
+          long long required_sum = target - (nums[i] + nums[j]);
+          // Check if the required sum exists in pair_sums
+          if (pair_sums.find(required_sum) != pair_sums.end()) {
+            int k = pair_sums[required_sum];
+            // Ensure k is greater than j to avoid reusing pairs
+            if (k > j) {
+              result_set.insert({nums[i], nums[j], nums[k], (int)(required_sum - nums[k])});
+            }
           }
         }
       }
+      vector<vector<int>> result(result_set.begin(), result_set.end());
+      return result; // Return the result
     }
 };
