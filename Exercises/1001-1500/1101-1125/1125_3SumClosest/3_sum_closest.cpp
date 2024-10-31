@@ -47,6 +47,21 @@ using namespace std;
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-
+      // brute
+      int res = -1;
+      int spread = INT_MAX;
+      int sz = nums.size();
+      for (int i = 0; i < sz-2; ++i) {
+        for (int j = i+1; j < sz-1; ++j) {
+          for (int k = j+1; k < sz; ++k) {
+            int sm = nums[i]+nums[j]+nums[k];
+            if (abs(target-sm) < spread) {
+              spread = abs(target-sm);
+              res = sm;
+            }
+          }
+        }
+      }
+      return res;
     }
 };
