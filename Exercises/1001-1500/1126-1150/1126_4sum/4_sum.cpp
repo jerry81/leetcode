@@ -40,9 +40,29 @@ Acceptance Rate
 
 */
 
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
+
+using namespace std;
+
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-
+      unordered_set<int> as_s(nums.begin(), nums.end());
+      vector<int> as_v(as_s.begin(), as_s.end());
+      int n = as_v.size();
+      // cache pairs in map - k is long long (value) v is last occuring position
+      unordered_map<long long, int> pair_sums;
+      for (int i = 0; i < n-1; ++i) {
+        for (int j = i+1; j < n; ++j) {
+          int sm = as_v[i] + as_v[j];
+          if (pair_sums.find(sm) == pair_sums.end()) {
+            pair_sums[sm] = j;
+          } else {
+            pair_sums[sm] = max(j, pair_sums[sm]);
+          }
+        }
+      }
     }
 };
