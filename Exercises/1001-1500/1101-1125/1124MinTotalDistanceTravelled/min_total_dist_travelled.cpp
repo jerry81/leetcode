@@ -69,10 +69,33 @@ Acceptance Rate
 
 #include <vector>
 using namespace std;
-
 class Solution {
 public:
     long long minimumTotalDistance(vector<int>& robot, vector<vector<int>>& factory) {
+        sort(robot.begin(), robot.end());
+        sort(factory.begin(), factory.end());
 
+        int n = robot.size();
+        int m = factory.size();
+        vector<vector<long long>> dp(n + 1, vector<long long>(m + 1, LLONG_MAX));
+        dp[0][0] = 0; // Base case: no robots, no distance
+
+        for (int j = 1; j <= m; ++j) {
+            int limit = factory[j - 1][1];
+            for (int i = 0; i <= n; ++i) {
+                dp[i][j] = dp[i][j - 1]; // Not using the j-th factory
+                long long totalDistance = 0;
+                for (int k = 1; k <= limit && i - k >= 0; ++k) { // use the factory up to k times for up to k closest robots
+                    totalDistance += abs(robot[i - k] - factory[j - 1][0]);
+
+                    // Check for overflow before updating dp[i][j]
+                    if (dp[i - k][j - 1] != LLONG_MAX && totalDistance <= LLONG_MAX - dp[i - k][j - 1]) {
+                        dp[i][j] = min(dp[i][j], dp[i - k][j - 1] + totalDistance);
+                    }
+                }
+            }
+        }
+
+        return dp[n][m] == LLONG_MAX ? 0 : dp[n][m]; // Return 0 if no valid distance found
     }
 };
