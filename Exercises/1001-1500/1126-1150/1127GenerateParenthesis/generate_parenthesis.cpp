@@ -41,8 +41,24 @@ Acceptance Rate
 using namespace std;
 
 class Solution {
+vector<string> res;
+string r(int remain, int open, string cur) {
+  if (remain == 0 && open == 0) if (cur.size() >=2 && cur.back() == ')') res.push_back(cur);
+
+  // if (open == 1 && remain == 0) if (cur.size() >=1) res.push_back(cur+")");
+
+  // close open
+  if (open > 0) {
+    r(remain, open-1, cur+")");
+  }
+  if (remain > 0) {
+    r(remain-1, open+1, cur+"(");
+  }
+
+}
 public:
     vector<string> generateParenthesis(int n) {
-
+      r(n, 0, "");
+      return res;
     }
 };
