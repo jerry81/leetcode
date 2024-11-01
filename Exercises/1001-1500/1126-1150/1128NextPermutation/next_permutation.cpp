@@ -65,20 +65,33 @@ class Solution {
 */
 public:
     void nextPermutation(vector<int>& nums) {
-      // 115 - from rtl, if item < prev, then swap
-      // 132 next is 213
       int n = nums.size();
-      int prev = INT_MIN;
-      for (int i = n-1; i >= 0; --i) {
-        int cur = nums[i];
-        cout << "comparing " << cur << " to " << prev << endl;
-        if (cur < prev) {
-          swap(nums[i], nums[i+1]);
-          reverse(nums.begin()+i+1, nums.end());
-          return;
+      int pivot = -1;
+
+      // Find the largest index 'pivot' such that nums[pivot] < nums[pivot + 1]
+      for (int i = n - 2; i >= 0; --i) {
+        if (nums[i] < nums[i + 1]) {
+          pivot = i;
+          break;
         }
-        prev = cur;
       }
-      reverse(nums.begin(), nums.end());
+
+      // If no such index exists, the array is in descending order
+      if (pivot == -1) {
+        reverse(nums.begin(), nums.end());
+        return;
+      }
+
+      // Find the largest index 'successor' such that nums[successor] > nums[pivot]
+      for (int i = n - 1; i > pivot; --i) {
+        if (nums[i] > nums[pivot]) {
+          swap(nums[pivot], nums[i]);
+          break;
+        }
+      }
+
+      // Reverse the sequence from pivot + 1 to the end
+      reverse(nums.begin() + pivot + 1, nums.end());
     }
+};
 };
