@@ -50,12 +50,35 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 class Solution {
+/*
+123 swap
+132 swap reverse the substring remainder
+213
+231
+312
+321
+*/
 public:
     void nextPermutation(vector<int>& nums) {
-
+      // 115 - from rtl, if item < prev, then swap
+      // 132 next is 213
+      int n = nums.size();
+      int prev = INT_MIN;
+      for (int i = n-1; i >= 0; --i) {
+        int cur = nums[i];
+        cout << "comparing " << cur << " to " << prev << endl;
+        if (cur < prev) {
+          swap(nums[i], nums[i+1]);
+          reverse(nums.begin()+i+1, nums.end());
+          return;
+        }
+        prev = cur;
+      }
+      reverse(nums.begin(), nums.end());
     }
 };

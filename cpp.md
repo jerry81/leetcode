@@ -27,3 +27,12 @@ int main() {
     return 0;
 }
 ```
+
+## CPP TILs
+- you can swap two items in vector with std::swap from algorithm
+```cpp
+void swapItems(vector<int>& nums, int index1, int index2) {
+    // Swap the elements at index1 and index2
+    std::swap(nums[index1], nums[index2]);
+}
+```
