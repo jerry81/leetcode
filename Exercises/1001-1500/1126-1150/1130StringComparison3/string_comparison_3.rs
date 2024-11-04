@@ -60,6 +60,23 @@ Acceptance Rate
 
 impl Solution {
   pub fn compressed_string(word: String) -> String {
-
+    let mut v_res: Vec<char> = vec![];
+    let mut cur_c: char = '?';
+    let mut cur_cnt: u8 = 0;
+    for c in word.chars() {
+      if cur_c == c {
+        cur_cnt += 1;
+      } else {
+        v_res.push((cur_cnt+'0' as u8 as char);
+        v_res.push(cur_c);
+        cur_c = c;
+      }
+      if cur_cnt == 9 {
+        v_res.push(('9' as char);
+        v_res.push(cur_c);
+        cur_cnt = 0;
+      }
+    }
+    v_res.collect()
   }
 }
