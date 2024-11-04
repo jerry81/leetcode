@@ -60,6 +60,28 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_and_say(n: i32) -> String {
+    if n == 1 { return "1".to_string() }
 
+    let prev: String = Solution::count_and_say(n-1);
+    let mut v_res: Vec<char> = vec![];
+    let mut cur_c: char = '?';
+    let mut cur_cnt: u8 = 0;
+    for c in prev.chars() {
+      if cur_c == c {
+        cur_cnt += 1;
+      } else {
+        if cur_cnt != 0 {
+          v_res.push((cur_cnt+'0' as u8) as char);
+          v_res.push(cur_c);
+        }
+        cur_c = c;
+        cur_cnt = 1;
+      }
+    }
+    if cur_cnt != 0 {
+      v_res.push((cur_cnt+'0' as u8) as char);
+      v_res.push(cur_c);
+    }
+    v_res.into_iter().collect()
   }
 }
