@@ -72,15 +72,16 @@ class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
       // rows
-      unordered_set<int> rows;
-      unordered_set<int> cols;
       for (int i = 0; i < 9; ++i) {
+        unordered_set<char> rows;
+        unordered_set<char> cols;
         for (int j = 0; j < 9; ++j) {
-          if (rows.find(board[i][j]) != rows.end()) {
+
+          if (board[i][j] != '.' && rows.find(board[i][j]) != rows.end()) {
             return false;
           }
           rows.insert(board[i][j]);
-          if (cols.find(board[j][i]) != cols.end()) {
+          if (board[j][i] != '.' && cols.find(board[j][i]) != cols.end()) {
             return false;
           }
           cols.insert(board[j][i]);
@@ -90,10 +91,11 @@ public:
         for (int sc = 0; sc < 3; ++sc) {
           int start_r = sr*3;
           int start_c = sc*3;
-          unordered_set<int> cur_square;
+          unordered_set<char> cur_square;
           for (int dr = 0; dr < 3; ++dr) {
             for (int dc = 0; dc < 3; ++dc) {
               int cur_item = board[start_r+dr][start_c+dc];
+              if (cur_item == '.') continue;
               if (cur_square.find(cur_item)!=cur_square.end()) return false;
               cur_square.insert(cur_item);
             }
