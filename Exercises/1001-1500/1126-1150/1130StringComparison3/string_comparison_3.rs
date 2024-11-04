@@ -67,16 +67,19 @@ impl Solution {
       if cur_c == c {
         cur_cnt += 1;
       } else {
-        v_res.push((cur_cnt+'0' as u8 as char);
+        v_res.push((cur_cnt+'0' as u8) as char);
         v_res.push(cur_c);
         cur_c = c;
+        cur_cnt = 1;
       }
       if cur_cnt == 9 {
-        v_res.push(('9' as char);
+        v_res.push('9' as char);
         v_res.push(cur_c);
         cur_cnt = 0;
       }
     }
-    v_res.collect()
+    v_res.push((cur_cnt+'0' as u8) as char);
+    v_res.push(cur_c);
+    v_res.into_iter().collect()
   }
 }
