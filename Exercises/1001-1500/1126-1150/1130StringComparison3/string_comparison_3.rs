@@ -80,6 +80,7 @@ impl Solution {
     }
     v_res.push((cur_cnt+'0' as u8) as char);
     v_res.push(cur_c);
+    v_res = v_res[2..].to_vec();
     v_res.into_iter().collect()
   }
 }
