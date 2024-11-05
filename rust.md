@@ -217,3 +217,17 @@ impl NeighborSum {
  - this occurs when slicing arrays and trying to assign to untyped or Vec
  - solution: "borrow" with &
  - we could also use to_vec if we really want a Vec
+
+
+- pass by mutable reference
+```rs
+fn backtrack(
+    candidates: &Vec<i32>,
+    target: i32,
+    start: usize,
+    combination: &mut Vec<i32>,
+    results: &mut Vec<Vec<i32>>
+) {
+  ...
+}
+```

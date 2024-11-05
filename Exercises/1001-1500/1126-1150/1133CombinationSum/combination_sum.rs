@@ -52,7 +52,22 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+  fn backtrack(
+    candidates: &Vec<i32>,
+    target: i32,
+    start: usize,
+    combination: &mut Vec<i32>,
+    results: &mut Vec<Vec<i32>>
+  ) {
 
   }
+  pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+    let mut cands: Vec<i32> = candidates.clone();
+    let mut comb: Vec<i32> = vec![];
+    let mut res: Vec<Vec<i32>> = vec![];
+    Solution::backtrack(cands, target, 0, comb, res);
+    res
+  }
 }
+
+// backtracking?
