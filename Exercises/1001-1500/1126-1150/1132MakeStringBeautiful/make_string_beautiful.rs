@@ -59,6 +59,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_changes(s: String) -> i32 {
-
+    let mut res = 0;
+    let as_v: Vec<char> = s.chars().collect();
+    for chunk in as_v.chunks(2) {
+        if chunk[0] != chunk[1] { res+=1 }
+    }
+    res
   }
 }
