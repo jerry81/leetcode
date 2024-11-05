@@ -56,18 +56,33 @@ impl Solution {
     candidates: &Vec<i32>,
     target: i32,
     start: usize,
+    current_sum: i32,
     combination: &mut Vec<i32>,
     results: &mut Vec<Vec<i32>>
   ) {
-
+    if start >= candidates.len() { return }
+    // base: over target
+    if current_sum > target { return }
+    // target reached
+    if current_sum == target {
+      results.push(combination.clone());
+      return
+    }
+    for i in start..candidates.len() {
+      // Add the current candidate to the combination
+      combination.push(candidates[i]);
+      // Recurse with updated sum and same start index (allowing reuse of the current element)
+      Solution::backtrack(candidates, target, i, current_sum + candidates[i], combination, results);
+      // Remove the last element to backtrack
+      combination.pop();
+    }
   }
+
   pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
-    let mut cands: Vec<i32> = candidates.clone();
     let mut comb: Vec<i32> = vec![];
     let mut res: Vec<Vec<i32>> = vec![];
-    Solution::backtrack(cands, target, 0, comb, res);
+
+    Solution::backtrack(&candidates, target, 0, 0, &mut comb, &mut res);
     res
   }
 }
-
-// backtracking?

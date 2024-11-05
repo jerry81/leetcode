@@ -219,7 +219,7 @@ impl NeighborSum {
  - we could also use to_vec if we really want a Vec
 
 
-- pass by mutable reference
+- see 1133 for pass by mutable reference
 ```rs
 fn backtrack(
     candidates: &Vec<i32>,
