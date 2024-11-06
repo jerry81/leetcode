@@ -58,6 +58,12 @@ impl Solution {
       }
       println!("sm is {}", sm);
       println!("carry is {}, appended is {}", sm/10, sm%10);
+      let carry = sm/10;
+      let appended = sm%10;
+      if carry > 0 {
+        nxt_v.push(carry.to_string())
+      }
+      res.push((appended as u8 + '0' as u8) as char);
       cur_v = nxt_v;
     }
     res
@@ -86,6 +92,7 @@ impl Solution {
     Solution::sum_prods(mp)
   }
 }
+
 
 /*
 
