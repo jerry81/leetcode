@@ -45,6 +45,13 @@ impl Solution {
     while !cur_v.empty() {
       let mut sm = 0;
       let mut nxt_v:Vec<String> = vec![];
+      for s in cur_v {
+          sm+=(s.chars().nth(s.len()-1).unwrap() as u8 - '0' as u8) as i32;
+          if s.len() != 1 {
+            // trim
+            nxt_v.push(&s[..s.len()-1]);
+          }
+      }
     }
     res
   }
