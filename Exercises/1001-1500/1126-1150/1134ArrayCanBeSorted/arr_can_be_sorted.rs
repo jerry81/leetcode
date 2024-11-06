@@ -64,14 +64,22 @@ impl Solution {
     // 8,4,2,15,30 n-2
     // 2,8,4,15,30 n-2
     // 2,4,8,15,30 n-3
+    let mut cloned = nums.clone();
     let n = nums.len();
+    if n == 1 { return true }
+
     let mut swap_made = true;
-    for cnt in 0..5 {
+    while swap_made {
       swap_made = false;
-      for i in (1..n).rev() {
-        println!("comp {} and {}", nums[i], nums[i-1]);
+      for i in 1..n {
+        if cloned[i-1] > cloned[i] {
+          cloned.swap(i-1, i);
+          swap_made = true;
+          break;
+        }
       }
     }
+    println!("{:?}", cloned);
     false
   }
 }

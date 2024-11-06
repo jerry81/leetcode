@@ -231,3 +231,7 @@ fn backtrack(
   ...
 }
 ```
+- swap 2 items in vec
+```rs
+v.swap(1,2);
+```
