@@ -42,9 +42,7 @@ impl Solution {
   fn sum_prods(v: Vec<String>) -> String {
     let mut cur_v = v.clone();
     let mut res: String = String::new();
-    let mut cnt= 0;
-    while !cur_v.is_empty() && cnt < 10 {
-        cnt+=1;
+    while !cur_v.is_empty(){
       let mut sm = 0;
       let mut nxt_v:Vec<String> = vec![];
       for s in cur_v.clone() {
