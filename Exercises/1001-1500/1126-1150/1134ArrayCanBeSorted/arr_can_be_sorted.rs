@@ -71,7 +71,6 @@ impl Solution {
       let as_bstring:String = format!("{:b}", item);
       *hm.entry(item).or_insert(0) = as_bstring.chars().filter(|&c| c == '1').count()
     }
-    println!("hashmap: {:?}", hm);
     let mut cloned = nums.clone();
 
     let n = nums.len();
@@ -82,12 +81,14 @@ impl Solution {
       swap_made = false;
       for i in 1..n {
         if cloned[i-1] > cloned[i] {
+          if hm[cloned[i-1]] != hm[cloned[i]] { return false }
+
           cloned.swap(i-1, i);
           swap_made = true;
           break;
         }
       }
     }
-    false
+    true
   }
 }
