@@ -42,19 +42,20 @@ impl Solution {
   fn build_mini_products(num1: String, num2: String) -> Vec<String> {
     let mut res:Vec<String> = vec![];
     for offset1 in 0..num1.len() {
-      let n1 = num1[offset1];
+      let n1 = (num1.chars().nth(offset1).unwrap() as u8 + '0' as u8) as i32;
       for offset2 in 0..num2.len() {
-        let n2 = num2[offset2];
+        let n2 = (num2.chars().nth(offset2).unwrap() as u8 + '0' as u8) as i32;
         let prod = (n1*n2).to_string();
         let num_zeroes = offset1+offset2;
         let mut s: String = "".to_string();
         for i in 0..num_zeroes {
           s.push('0');
         }
-        s+=prod;
+        s+=&prod;
         res.push(s);
       }
     }
+    res
   }
   pub fn multiply(num1: String, num2: String) -> String {
     let mp = Solution::build_mini_products(num1, num2);
