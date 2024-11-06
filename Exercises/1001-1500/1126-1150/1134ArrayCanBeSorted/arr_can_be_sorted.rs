@@ -81,7 +81,7 @@ impl Solution {
       swap_made = false;
       for i in 1..n {
         if cloned[i-1] > cloned[i] {
-          if hm[cloned[i-1]] != hm[cloned[i]] { return false }
+          if hm[&cloned[i-1]] != hm[&cloned[i]] { return false }
 
           cloned.swap(i-1, i);
           swap_made = true;
