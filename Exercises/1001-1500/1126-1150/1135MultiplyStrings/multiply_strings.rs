@@ -53,11 +53,8 @@ impl Solution {
             // trim
             let trimmed:String = s[..s.len()-1].to_string();
             nxt_v.push(trimmed.clone());
-            println!("{} has become {}", &s, &trimmed);
           }
       }
-      println!("sm is {}", sm);
-      println!("carry is {}, appended is {}", sm/10, sm%10);
       let carry = sm/10;
       let appended = sm%10;
       if carry > 0 {
@@ -66,7 +63,13 @@ impl Solution {
       res.push((appended as u8 + '0' as u8) as char);
       cur_v = nxt_v;
     }
-    res
+    let prep_res = res.chars().rev().collect()
+    for i in 0..res.len() {
+      if res.chars().nth(i) != '0' {
+        return &res[i..].to_string()
+      }
+    }
+    "0".to_string()
   }
   fn build_mini_products(num1: String, num2: String) -> Vec<String> {
     let mut res:Vec<String> = vec![];
