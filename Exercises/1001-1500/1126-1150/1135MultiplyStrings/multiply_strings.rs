@@ -61,10 +61,10 @@ impl Solution {
       res.push((appended as u8 + '0' as u8) as char);
       cur_v = nxt_v;
     }
-    let prep_res = res.chars().rev().collect()
-    for i in 0..res.len() {
-      if res.chars().nth(i) != '0' {
-        return &res[i..].to_string()
+    let prep_res: String = res.chars().rev().collect();
+    for i in 0..prep_res.len() {
+      if prep_res.chars().nth(i).unwrap() != '0' {
+        return prep_res[i..].to_string()
       }
     }
     "0".to_string()
@@ -93,7 +93,6 @@ impl Solution {
     Solution::sum_prods(mp)
   }
 }
-
 
 /*
 
