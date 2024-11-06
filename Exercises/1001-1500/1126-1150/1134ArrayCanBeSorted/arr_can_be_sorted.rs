@@ -56,6 +56,8 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn can_sort_array(nums: Vec<i32>) -> bool {
     // bubble - for each (rtl)
@@ -64,7 +66,14 @@ impl Solution {
     // 8,4,2,15,30 n-2
     // 2,8,4,15,30 n-2
     // 2,4,8,15,30 n-3
+    let mut hm:HashMap<i32,usize> = HashMap::new();
+    for item in nums {
+      let as_bstring:String = format!("{:b}", item);
+      hm[item] = as_bstring.chars().filter(|&c| c == '1').count()
+    }
+    println!("hashmap: {:?}", hm);
     let mut cloned = nums.clone();
+
     let n = nums.len();
     if n == 1 { return true }
 
@@ -79,7 +88,6 @@ impl Solution {
         }
       }
     }
-    println!("{:?}", cloned);
     false
   }
 }
