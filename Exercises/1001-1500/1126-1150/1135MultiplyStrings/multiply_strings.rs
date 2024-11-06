@@ -42,16 +42,23 @@ impl Solution {
   fn sum_prods(v: Vec<String>) -> String {
     let mut cur_v = v.clone();
     let mut res: String = String::new();
-    while !cur_v.empty() {
+    let mut cnt= 0;
+    while !cur_v.is_empty() && cnt < 10 {
+        cnt+=1;
       let mut sm = 0;
       let mut nxt_v:Vec<String> = vec![];
-      for s in cur_v {
+      for s in cur_v.clone() {
           sm+=(s.chars().nth(s.len()-1).unwrap() as u8 - '0' as u8) as i32;
           if s.len() != 1 {
             // trim
-            nxt_v.push(&s[..s.len()-1]);
+            let trimmed:String = s[..s.len()-1].to_string();
+            nxt_v.push(trimmed.clone());
+            println!("{} has become {}", &s, &trimmed);
           }
       }
+      println!("sm is {}", sm);
+      println!("carry is {}, appended is {}", sm/10, sm%10);
+      cur_v = nxt_v;
     }
     res
   }
