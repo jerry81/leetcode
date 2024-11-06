@@ -39,6 +39,8 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn sum_prods(v: Vec<String>) -> String {
+  }
   fn build_mini_products(num1: String, num2: String) -> Vec<String> {
     let mut res:Vec<String> = vec![];
     let n1l = num1.len();
@@ -60,8 +62,7 @@ impl Solution {
   }
   pub fn multiply(num1: String, num2: String) -> String {
     let mp = Solution::build_mini_products(num1, num2);
-    println!("{:?}", mp);
-    "0".to_string()
+    Solution::sum_prods(mp)
   }
 }
 
