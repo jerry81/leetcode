@@ -67,9 +67,9 @@ impl Solution {
     // 2,8,4,15,30 n-2
     // 2,4,8,15,30 n-3
     let mut hm:HashMap<i32,usize> = HashMap::new();
-    for item in nums {
+    for item in nums.clone() {
       let as_bstring:String = format!("{:b}", item);
-      hm[item] = as_bstring.chars().filter(|&c| c == '1').count()
+      *hm.entry(item).or_insert(0) = as_bstring.chars().filter(|&c| c == '1').count()
     }
     println!("hashmap: {:?}", hm);
     let mut cloned = nums.clone();
