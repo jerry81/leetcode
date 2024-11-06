@@ -40,6 +40,13 @@ Acceptance Rate
 
 impl Solution {
   fn sum_prods(v: Vec<String>) -> String {
+    let mut cur_v = v.clone();
+    let mut res: String = String::new();
+    while !cur_v.empty() {
+      let mut sm = 0;
+      let mut nxt_v:Vec<String> = vec![];
+    }
+    res
   }
   fn build_mini_products(num1: String, num2: String) -> Vec<String> {
     let mut res:Vec<String> = vec![];
