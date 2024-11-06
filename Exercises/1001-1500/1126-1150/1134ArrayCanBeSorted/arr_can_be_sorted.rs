@@ -58,6 +58,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_sort_array(nums: Vec<i32>) -> bool {
-
+    // bubble - for each (rtl)
+    // keep swapping right until
+    // 8,4,2,30,15 n-1
+    // 8,4,2,15,30 n-2
+    // 2,8,4,15,30 n-2
+    // 2,4,8,15,30 n-3
+    let n = nums.len();
+    let mut swap_made = true;
+    for cnt in 0..5 {
+      swap_made = false;
+      for i in (1..n).rev() {
+        println!("comp {} and {}", nums[i], nums[i-1]);
+      }
+    }
+    false
   }
 }
