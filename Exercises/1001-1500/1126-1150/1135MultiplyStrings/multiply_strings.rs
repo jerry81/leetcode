@@ -39,7 +39,50 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn build_mini_products(num1: String, num2: String) -> Vec<String> {
+    let mut res:Vec<String> = vec![];
+    for offset1 in 0..num1.len() {
+      let n1 = num1[offset1];
+      for offset2 in 0..num2.len() {
+        let n2 = num2[offset2];
+        let prod = (n1*n2).to_string();
+        let num_zeroes = offset1+offset2;
+        let mut s: String = "".to_string();
+        for i in 0..num_zeroes {
+          s.push('0');
+        }
+        s+=prod;
+        res.push(s);
+      }
+    }
+  }
   pub fn multiply(num1: String, num2: String) -> String {
-
+    let mp = Solution::build_mini_products(num1, num2);
+    println!("{:?}", mp);
+    "0".to_string()
   }
 }
+
+/*
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+
+3*6 + 3*50 + 3*400
+20*6 + 20*50 + 20*400
+600+5000+40000
+
+6*3
+1,8
+"18"
+3*5
+(shift 1) 1,5
+"150"
+3*4
+"1200"
+(shift 2) 1,2
+
+
+
+*/
+
