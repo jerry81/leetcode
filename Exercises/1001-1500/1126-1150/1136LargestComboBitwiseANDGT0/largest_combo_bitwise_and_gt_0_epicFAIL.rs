@@ -49,24 +49,24 @@ Acceptance Rate
 
 */
 
-use std::collections::HashMap;
-
 impl Solution {
+  fn r(candidates: &Vec<i32>, cur_sum: i32, index: usize) -> i32 {
+    // max of take or leave
+    if index >= candidates.len() { return 0 }
 
-  pub fn largest_combination(candidates: Vec<i32>) -> i32 {
-    let mut hm: HashMap<usize, i32> = HashMap::new();
-    // convert all into bstrings
-    let as_bs:Vec<String> = candidates.iter().map(|cand| {
-      format!("{:0>32b}", cand) // to fix length
-    }).collect();
-    // populate hashmap
-    for i in 0..32 {
-      for s in as_bs.iter() {
-        if s.chars().nth(i).unwrap() == '1' {
-          *hm.entry(i).or_insert(0) +=1;
-        }
+
+    if cur_sum == -1 {
+      return (1+Solution::r(candidates, candidates[index], index+1)).max(Solution::r(candidates, -1, index+1));
+    } else {
+      let prod = cur_sum & candidates[index];
+      if prod != 0 {
+        return (1+Solution::r(candidates, prod, index+1)).max(Solution::r(candidates, cur_sum, index+1));
+      } else {
+        return Solution::r(candidates, cur_sum, index+1);
       }
     }
-    *hm.values().max().unwrap()
+  }
+  pub fn largest_combination(candidates: Vec<i32>) -> i32 {
+    Solution::r(&candidates, -1, 0)
   }
 }
