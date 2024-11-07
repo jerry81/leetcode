@@ -40,23 +40,20 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  fn bt(nums: &Vec<i32>, pivot: usize, sets:&Vec<Vec<i32>>) {
-    sets.push(nums.clone());
-    for i in pivot+1..nums.len() {
-      sets.swap(i, pivot);
-      SolutioN::bt(nums, pivot+1, sets);
-      sets.swap(i,pivot);
-    }
-    // swap
-    // recurse
-    // swapback
-  }
   pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
     // generate permutations into a set
-    let mut sets: Vec<Vec<i32>> = Vec::new();
-    let mut nums = nums.clone();
-    Solution::bt(nums, 0, sets);
-    println!("{:?}", sets);
-    vec![]
+    let mut sorted: Vec<i32> = nums.clone();
+    sorted.sort();
+    // 12345 start 4, cmp 3,4 swap 3,4
+    // 12354 cmp 2,4 swap 2,4 and reverse 3..4
+    // 12435 cmp 3,4
+    // 12453 cmp 3,4, swap 3,4 , reverse 3..4
+    // 12534 swap 4,5
+    // 12543 swap 5,1
+    // 13245
+    // 13254
+    // 13425
+    // 13452
+    // screw the iterative approach! we do backtracking!
   }
 }
