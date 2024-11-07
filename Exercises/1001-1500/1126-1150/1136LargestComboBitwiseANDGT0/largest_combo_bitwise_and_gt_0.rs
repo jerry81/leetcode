@@ -51,6 +51,19 @@ Acceptance Rate
 
 impl Solution {
   pub fn largest_combination(candidates: Vec<i32>) -> i32 {
-
+    let n = candidates.len();
+    let mut res = 1;
+    let i in 0..n {
+      let cur_prod = candidates[i];
+      let j in i+1..n {
+        cur_prod = cur_prod & candidates[j];
+        if cur_prod > 0 {
+          res = res.max(j-i+1)
+        } else {
+          break;
+        }
+      }
+    }
+    res
   }
 }
