@@ -37,15 +37,16 @@ Acceptance Rate
 60.3%
 
 */
+
 use std::collections::HashSet;
 
 impl Solution {
-  fn bt(nums: &Vec<i32>, pivot: usize, sets:&Vec<Vec<i32>>) {
-    sets.push(nums.clone());
-    for i in pivot+1..nums.len() {
-      sets.swap(i, pivot);
-      SolutioN::bt(nums, pivot+1, sets);
-      sets.swap(i,pivot);
+  fn bt(nums: &mut Vec<i32>, pivot: usize, sets:&mut HashSet<Vec<i32>>) {
+    sets.insert(nums.clone());
+    for i in pivot..nums.len() {
+      nums.swap(i, pivot);
+      Solution::bt(nums, pivot+1, sets);
+      nums.swap(i,pivot);
     }
     // swap
     // recurse
@@ -53,10 +54,12 @@ impl Solution {
   }
   pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
     // generate permutations into a set
-    let mut sets: Vec<Vec<i32>> = Vec::new();
+    let mut sets: HashSet<Vec<i32>> = HashSet::new();
     let mut nums = nums.clone();
-    Solution::bt(nums, 0, sets);
-    println!("{:?}", sets);
-    vec![]
+    Solution::bt(&mut nums, 0, &mut sets);
+
+    sets.iter().map(|hs| {
+      hs.to_vec()
+    }).collect()
   }
 }
