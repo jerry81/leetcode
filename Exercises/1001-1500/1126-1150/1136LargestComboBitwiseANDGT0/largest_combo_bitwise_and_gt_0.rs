@@ -54,7 +54,7 @@ impl Solution {
     let n = candidates.len();
     let mut res = 1;
     for i in 0..n {
-      let cur_prod = candidates[i];
+      let mut cur_prod = candidates[i];
       for j in i+1..n {
         cur_prod = cur_prod & candidates[j];
         if cur_prod > 0 {
