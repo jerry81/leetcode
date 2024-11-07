@@ -50,34 +50,23 @@ Acceptance Rate
 */
 
 impl Solution {
-  fn r(candidates: &Vec<i32>, cur_sum: i32, index: usize) => i32 {
+  fn r(candidates: &Vec<i32>, cur_sum: i32, index: usize) -> i32 {
     // max of take or leave
     if index >= candidates.len() { return 0 }
 
 
     if cur_sum == -1 {
-      return (1+r(candidates, candidates[index], index+1)).max(r(candidates, -1, index+1));
+      return (1+Solution::r(candidates, candidates[index], index+1)).max(Solution::r(candidates, -1, index+1));
     } else {
       let prod = cur_sum & candidates[index];
       if prod != 0 {
-        return (1+r(candidates, prod, index+1)).max(r(candidates, cur_sum, index+1));
+        return (1+Solution::r(candidates, prod, index+1)).max(Solution::r(candidates, cur_sum, index+1));
+      } else {
+        return Solution::r(candidates, cur_sum, index+1);
       }
     }
   }
   pub fn largest_combination(candidates: Vec<i32>) -> i32 {
-    let n = candidates.len();
-    let mut res = 1;
-    for i in 0..n {
-      let mut cur_prod = candidates[i];
-      for j in i+1..n {
-        cur_prod = cur_prod & candidates[j];
-        if cur_prod > 0 {
-          res = res.max((j-i+1) as i32)
-        } else {
-          break;
-        }
-      }
-    }
-    res
+    Solution::r(&candidates, -1, 0)
   }
 }
