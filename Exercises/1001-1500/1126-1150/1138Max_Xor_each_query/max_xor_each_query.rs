@@ -71,11 +71,9 @@ impl Solution {
     res.push(cur ^ tgt);
     for i in 1..n {
       cur = cur^nums[i];
-      xor_prefixes.push(cur^tgt);
+      res.push(cur^tgt);
     }
-    println!("prefixes are {:?}", xor_prefixes);
-
-    println!("tgt is {}", tgt);
+    res.reverse();
     res
   }
 }
