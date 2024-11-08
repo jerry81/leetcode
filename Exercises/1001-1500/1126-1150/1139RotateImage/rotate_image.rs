@@ -48,7 +48,15 @@ impl Solution {
       // 4 replacements
       let startx = i;
       let starty = i;
-
+      let nx = starty;
+      let mut prevval = matrix[starty][startx];
+      let ny = n - 1 - startx;
+      while (nx != startx && ny != starty) {
+        let curval = matrix[ny][nx];
+        matrix[ny][nx] = prevval;
+        prevval = curval;
+      }
+      matrix[starty][startx] = prevval;
     }
 
   }
