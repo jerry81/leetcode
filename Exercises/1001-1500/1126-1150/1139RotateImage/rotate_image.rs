@@ -45,20 +45,22 @@ impl Solution {
     // outside in
     let n = matrix.len();
     for i in 0..n/2 {
-      // 4 replacements
-      let startx = i;
-      let starty = i;
-      let mut nx = n-1-starty;
-      let mut prevval = matrix[starty][startx];
-      let mut ny = startx;
-      while (nx != startx || ny != starty) {
-        let curval = matrix[ny][nx];
-        matrix[ny][nx] = prevval;
-        prevval = curval;
-        nx = n-1-ny;
-        ny = nx;
+      // work the row
+      for j in 0..(n-i-1) {
+        let mut x = i+j;
+        let mut y = i;
+        let mut tmp = matrix[i][j];
+        for k in 0..4 {
+          let nx = n - 1 - y;
+          let ny = x;
+          let nxt = matrix[ny][nx];
+          println!("replace {},{}:{} with {},{}:{}", ny, nx, matrix[ny][nx], y,x,tmp);
+          matrix[ny][nx] = tmp;
+          tmp = nxt;
+          y = ny;
+          x = nx;
+        }
       }
-      matrix[starty][startx] = prevval;
     }
 
   }
