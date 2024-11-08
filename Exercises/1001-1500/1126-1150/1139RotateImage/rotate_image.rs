@@ -44,17 +44,16 @@ impl Solution {
   pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
     // outside in
     let n = matrix.len();
-    for i in 0..n/2 {
+    for i in 0..(n/2) {
       // work the row
-      for j in 0..(n-i-1) {
+      for j in 0..(n - 2 * i - 1) {
         let mut x = i+j;
         let mut y = i;
-        let mut tmp = matrix[i][j];
+        let mut tmp = matrix[y][x];
         for k in 0..4 {
           let nx = n - 1 - y;
           let ny = x;
           let nxt = matrix[ny][nx];
-          println!("replace {},{}:{} with {},{}:{}", ny, nx, matrix[ny][nx], y,x,tmp);
           matrix[ny][nx] = tmp;
           tmp = nxt;
           y = ny;
@@ -62,8 +61,8 @@ impl Solution {
         }
       }
     }
-
   }
 }
+
 
 // formula for 90deg transform (i,j) = (j,N-i-1)
