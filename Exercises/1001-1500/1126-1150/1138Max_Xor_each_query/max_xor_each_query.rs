@@ -59,6 +59,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn get_maximum_xor(nums: Vec<i32>, maximum_bit: i32) -> Vec<i32> {
-
+    // xor prefixes
+    // maxed i32
+    let tgt = 2.pow(maximum_bit) - 1;
+    println!("tgt is {}", tgt);
+    vec![]
   }
 }
