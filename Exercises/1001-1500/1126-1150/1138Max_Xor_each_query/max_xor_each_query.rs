@@ -61,18 +61,21 @@ impl Solution {
   pub fn get_maximum_xor(nums: Vec<i32>, maximum_bit: i32) -> Vec<i32> {
     // maxed i32
     let base:u32 = 2;
-    let tgt = base.pow(maximum_bit as u32) - 1;
-    // xor prefixes
-    let mut xor_prefixes: Vec<i32> = vec![];
+    let tgt = (base.pow(maximum_bit as u32) - 1) as i32;
+    let mut res: Vec<i32> = vec![];
     let n = nums.len();
     if n == 1 {
-      return vec![tgt as i32 ^ nums[0]];
+      return vec![tgt ^ nums[0]];
     }
-    for i in 0..n-1 {
-
+    let mut cur: i32 = nums[0];
+    res.push(cur ^ tgt);
+    for i in 1..n {
+      cur = cur^nums[i];
+      xor_prefixes.push(cur^tgt);
     }
+    println!("prefixes are {:?}", xor_prefixes);
 
     println!("tgt is {}", tgt);
-    vec![]
+    res
   }
 }
