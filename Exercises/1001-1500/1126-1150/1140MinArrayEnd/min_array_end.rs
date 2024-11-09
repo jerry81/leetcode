@@ -49,13 +49,21 @@ Acceptance Rate
 
 */
 
-
-
 impl Solution {
   pub fn min_end(n: i32, x: i32) -> i64 {
       // bin string of target, x
       let bs:String = format!("{:0>32b}", x);
-
+      // brute force: starting from bs,
+      // increment and ensure the 1s are preserved
+      // keep going until done
+      let mut cnt = n;
+      let mut cur = x;
+      while cnt > 0 {
+        cur+=1;
+        if (cur | x) == cur {
+          cnt-=1;
+        }
+      }
       0
   }
 }
