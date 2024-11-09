@@ -49,8 +49,36 @@ Acceptance Rate
 
 */
 
+
+
 impl Solution {
   pub fn min_end(n: i32, x: i32) -> i64 {
+      // bin string of target, x
+      let bs:String = format!("{:0>32b}", x);
 
+      0
   }
 }
+
+// 0111 - 7
+// 1111
+//  100
+//  101
+//. 110
+//. 100
+
+// target 100.
+
+// target 10100
+// 1x1xx
+// 1x1xx
+// 1x1xx
+// 1x1xx
+// 1x1xx
+// 1x1xx
+// 10100
+// 10101
+// 10110
+// 10111
+// 11100
+// 11101 16+8+4+1 = 29!
