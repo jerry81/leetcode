@@ -57,17 +57,17 @@ impl Solution {
       // increment and ensure the 1s are preserved
       // keep going until done
       let mut cnt = n;
-      let mut cur = x;
+      let mut cur:i64 = x as i64;
       while cnt > 0 {
-        cur+=1;
-        if (cur | x) == cur {
+
+        if (cur | x as i64) == cur {
           cnt-=1;
         }
+        cur+=1;
       }
-      0
+      cur-1
   }
 }
-
 // 0111 - 7
 // 1111
 //  100
