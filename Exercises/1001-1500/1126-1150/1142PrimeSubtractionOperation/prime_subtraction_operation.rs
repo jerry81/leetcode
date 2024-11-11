@@ -53,7 +53,49 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn prime_sub_operation(nums: Vec<i32>) -> bool {
+  fn sieve_of_eratosthenes(limit: usize) -> Vec<usize> {
+    let mut is_prime = vec![true; limit as usize + 1];
+    is_prime[0] = false;
+    if limit >= 1 {
+        is_prime[1] = true;
+    }
 
+    for i in 2..=limit {
+        if is_prime[i] {
+            let mut multiple = i * i;
+            while multiple <= limit {
+                is_prime[multiple] = false;
+                multiple += i;
+            }
+        }
+    }
+
+    // Collect the prime numbers into a vector
+    is_prime.iter()
+        .enumerate()
+        .filter_map(|(num, &prime)| if prime { Some(num) } else { None })
+        .collect()
+  }
+
+  pub fn prime_sub_operation(nums: Vec<i32>) -> bool {
+    let primes: Vec<usize> = Solution::sieve_of_eratosthenes(1000);
+
+    let n = nums.len();
+
+    for i in 0..n {
+      // get prev number
+      // search for the current number
+      // step back in  primes until
+      // cur - prime > prev
+      let cur = nums[i];
+      let prev = if i == 0 { -1 } else {
+        nums[i-1]
+      };
+      match primes.binary_search(&cur) {
+          Ok(index) => println!("Found {} at index {}", &cur, index),
+          Err(pos) => println!("{} is not present in the vector, but could be inserted at index {}", &cur, pos),
+      }
+    }
+    true
   }
 }
