@@ -88,13 +88,34 @@ impl Solution {
       // step back in  primes until
       // cur - prime > prev
       let cur = nums[i];
-      let prev = if i == 0 { -1 } else {
+      let mut prev = if i == 0 { -1 } else {
         nums[i-1]
       };
-      match primes.binary_search(&cur) {
-          Ok(index) => println!("Found {} at index {}", &cur, index),
-          Err(pos) => println!("{} is not present in the vector, but could be inserted at index {}", &cur, pos),
+      let mut pos = 0;
+      match primes.binary_search(&(cur as usize)) {
+          Ok(index) => pos = index,
+          Err(index) => pos = index,
       }
+      while pos >= 0 {
+        println!("pos is now {}", pos);
+        // make sure we are not missing any greater primes less than cur
+        let cur_subtracted = primes[pos];
+        if cur_subtracted > cur as usize {
+          pos-=1;
+          continue;
+        }
+        let diff = cur - cur_subtracted as i32;
+        if diff > prev {
+          println!("prev was {}", prev);
+          prev = diff;
+          println!("prev now {}", prev);
+          break;
+        } else {
+          pos-=1;
+          continue;
+        }
+      }
+      return false
     }
     true
   }
