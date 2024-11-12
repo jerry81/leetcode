@@ -52,11 +52,10 @@ Submissions
 Acceptance Rate
 57.7%
 */
-
 impl Solution {
   pub fn maximum_beauty(items: Vec<Vec<i32>>, queries: Vec<i32>) -> Vec<i32> {
     let mut sorted = items.clone();
-    sorted.sort_by(|a,b| { a[0].cmp(&b[0])});
+    sorted.sort_by(|a, b| a[0].cmp(&b[0]));
     let mut mx = 0;
     let n = sorted.len();
     for i in 0..n {
@@ -64,14 +63,27 @@ impl Solution {
       sorted[i][1] = mx;
     }
 
-    queries.iter().map(|q| {
-      // Use binary search to find the rightmost item with price <= q
-      let idx = sorted.binary_search_by(|item| item[0].cmp(&q)).unwrap_or_else(|x| x);
-      // If idx is 0, it means no item is affordable
-      if idx == 0 {
+    queries.iter().map(|&q| {
+      // Custom binary search to find the rightmost item with price <= q
+      let mut left = 0;
+      let mut right = n as i32 - 1;
+      let mut result = -1; // To store the rightmost index
+
+      while left <= right {
+        let mid = left + (right - left) / 2;
+        if sorted[mid as usize][0] <= q {
+          result = mid; // Update result to the current mid
+          left = mid + 1; // Move right to find a potentially larger index
+        } else {
+          right = mid - 1; // Move left
+        }
+      }
+
+      // If result is -1, it means no item is affordable
+      if result == -1 {
         0
       } else {
-        sorted[idx - 1][1] // Maximum beauty found
+        sorted[result as usize][1] // Maximum beauty found
       }
     }).collect()
   }
