@@ -55,6 +55,24 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_beauty(items: Vec<Vec<i32>>, queries: Vec<i32>) -> Vec<i32> {
+    let mut sorted = items.clone();
+    sorted.sort_by(|a,b| { a[0].cmp(&b[0])});
+    let mut mx = 0;
+    let n = sorted.len();
+    for i in 0..n {
+      mx = mx.max(sorted[i][1]);
+      sorted[i][1] = mx;
+    }
 
+    queries.iter().map(|q| {
+      // Use binary search to find the rightmost item with price <= q
+      let idx = sorted.binary_search_by(|item| item[0].cmp(&q)).unwrap_or_else(|x| x);
+      // If idx is 0, it means no item is affordable
+      if idx == 0 {
+        0
+      } else {
+        sorted[idx - 1][1] // Maximum beauty found
+      }
+    }).collect()
   }
 }
