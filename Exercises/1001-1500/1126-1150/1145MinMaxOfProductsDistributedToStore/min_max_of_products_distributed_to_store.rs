@@ -63,3 +63,9 @@ impl Solution {
       avg.ceil() as i32
   }
 }
+
+/*
+naive: ceil of avg
+
+proper: binary search try different answers between 0 and max element
+*/
