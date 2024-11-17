@@ -43,24 +43,32 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
 
 using namespace std;
 
+
 class Solution {
+  struct ComparePQ {
+    bool operator()(pair<int,int> a, pair<int,int> b) { return a.first < b.first; }
+  };
 public:
     int shortestSubarray(vector<int>& nums, int k) {
       int n = nums.size();
-      vector<int> prefix_sums;
+      priority_queue<pair<int,int>, vector<pair<int,int>>, ComparePQ> pq;
       int cursum = 0;
-      for (int i: nums) {
-        cursum+=i;
-        prefix_sums.push_back(cursum);
+      int res = INT_MAX;
+      for (int i = 0; i < n; ++i) {
+        cursum+=nums[i];
+        pq.push({cursum, i});
+        if (cursum >= k) res = min(res, i+1);
+
+        while (cursum-pq.top().first >= k) {
+          res = min(res, i - pq.top().second + 1);
+          pq.pop();
+        }
       }
-      cout << "printing ps" << endl;
-      for (int i: prefix_sums) {
-        cout << i << endl;
-      }
-      return 0;
+      return res;
     }
 };
 
