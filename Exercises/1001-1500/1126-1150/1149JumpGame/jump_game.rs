@@ -39,8 +39,18 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn can_jump(nums: Vec<i32>) -> bool {
+use std::collections::HashMap;
 
+impl Solution {
+  fn r(nums: &Vec<i32>, idx: usize, sz: i32, hm: &mut HashMap<usize, bool>) -> bool {
+    if idx == sz-1 { return true }
+
+    if nums[idx] >= (sz-1) { return true }
+
+    true
+  }
+  pub fn can_jump(nums: Vec<i32>) -> bool {
+    let n = nums.len();
+    Solution::r(nums, 0, n)
   }
 }
