@@ -47,7 +47,6 @@ Acceptance Rate
 
 using namespace std;
 
-
 class Solution {
   struct ComparePQ {
     bool operator()(pair<int,int> a, pair<int,int> b) { return a.first < b.first; }
@@ -68,9 +67,10 @@ public:
           pq.pop();
         }
       }
-      return res;
+      return res > n ? -1 : res;
     }
 };
+
 
 // brute force:
 // test every subarr
