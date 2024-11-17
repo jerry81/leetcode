@@ -49,27 +49,28 @@ using namespace std;
 
 class Solution {
   struct ComparePQ {
-    bool operator()(pair<int,int> a, pair<int,int> b) { return a.first < b.first; }
+    bool operator()(pair<int,int> a, pair<int,int> b) { return a.first > b.first; }
   };
 public:
     int shortestSubarray(vector<int>& nums, int k) {
       int n = nums.size();
-      priority_queue<pair<int,int>, vector<pair<int,int>>, ComparePQ> pq;
-      int cursum = 0;
+      priority_queue<pair<long long,int>, vector<pair<long long,int>>, ComparePQ> pq;
+      long long cursum = 0;
       int res = INT_MAX;
       for (int i = 0; i < n; ++i) {
         cursum+=nums[i];
         pq.push({cursum, i});
         if (cursum >= k) res = min(res, i+1);
 
-        while (cursum-pq.top().first >= k) {
-          res = min(res, i - pq.top().second + 1);
+        while (!pq.empty() && cursum-pq.top().first >= k) {
+          res = min(res, i - pq.top().second);
           pq.pop();
         }
       }
       return res > n ? -1 : res;
     }
 };
+
 
 
 // brute force:
