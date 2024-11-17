@@ -49,6 +49,22 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_sub_array(nums: Vec<i32>) -> i32 {
-
+    // brute - try all subarrays
+    // two pointer
+    // if left is neg then left++
+    let mut rp = 0;
+    let mut res = i32::MIN;
+    let mut cur = 0;
+    let n = nums.len();
+    for lp in 0..n {
+      cur+=nums[rp];
+      res = res.max(cur);
+      while rp < lp && nums[rp] > 0 {
+        rp+=1;
+        cur+= nums[rp];
+      }
+      cur-=nums[lp];
+    }
+    res
   }
 }
