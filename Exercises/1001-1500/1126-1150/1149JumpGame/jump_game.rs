@@ -38,19 +38,32 @@ Acceptance Rate
 38.9%
 
 */
-
 use std::collections::HashMap;
 
 impl Solution {
-  fn r(nums: &Vec<i32>, idx: usize, sz: i32, hm: &mut HashMap<usize, bool>) -> bool {
+  fn r(nums: &Vec<i32>, idx: usize, sz: usize, hm: &mut HashMap<usize, bool>) -> bool {
     if idx == sz-1 { return true }
 
-    if nums[idx] >= (sz-1) { return true }
+    if nums[idx] >= (sz-1) as i32 { return true }
 
-    true
+    if let Some(&result) = hm.get(&idx) {
+      return result;
+    }
+
+    let max_jump = nums[idx] as usize;
+    for jump in 1..=max_jump {
+      if idx+jump < sz && Solution::r(nums, idx+jump, sz, hm) {
+        hm.insert(idx, true);
+        return true;
+      }
+    }
+
+    hm.insert(idx, false);
+    false
   }
   pub fn can_jump(nums: Vec<i32>) -> bool {
     let n = nums.len();
-    Solution::r(nums, 0, n)
+    let mut hm: HashMap<usize, bool> = HashMap::new();
+    Solution::r(&nums, 0, n,  &mut hm)
   }
 }
