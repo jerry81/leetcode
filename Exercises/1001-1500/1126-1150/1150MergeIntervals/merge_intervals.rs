@@ -41,6 +41,25 @@ Acceptance Rate
 
 impl Solution {
   pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    // sort by starting time
 
+    let mut res: Vec<Vec<i32>> = vec![];
+    let mut sorted: Vec<Vec<i32>> = intervals.clone();
+    sorted.sort_by(|a,b| { a[0].cmp(&b[0])});
+    let mut curstart = sorted[0][0];
+    let mut curend = sorted[0][1];
+
+    // compare adjacent
+    for interval in sorted.iter().skip(1) {
+      if interval[0] > curend {
+        res.push(vec![curstart, curend]);
+        curstart = interval[0];
+        curend = interval[1];
+        continue;
+      }
+      curend = curend.max(interval[1]);
+    }
+    res.push(vec![curstart, curend]);
+    res
   }
 }
