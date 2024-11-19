@@ -53,5 +53,39 @@ use std::collections::HashMap;
 impl Solution {
   pub fn maximum_subarray_sum(nums: Vec<i32>, k: i32) -> i64 {
     let mut res = 0;
+    let mut hm: HashMap<i32, usize> = HashMap::new();  // stores latest index of i32
+    let n = nums.len();
+    let mut rp = -1;
+    let mut cursum = 0;
+    let mut lp = 0;
+    loop {
+          // try to incr rp
+          if rp < n-1 {
+            rp+=1;
+          }
+          let cand = nums[rp];
+          // fix issues
+          // rp item is in hm
+          if hm.contains(cand) {
+            // try to increase lp
+            let last_seen = hm[cand];
+            if last_seen > (rp - k + 1) {
+              while lp < (last_seen+1) {
+                cursum-=nums[lp];
+                lp+=1;
+              }
+            }
+          }
+
+          *hm.entry(cand).or_insert(rp) = rp;
+
+          // window too big
+          if rp - lp >= k {
+            cursum-=nums[lp];
+            lp +=1;
+          }
+    }
+
+
   }
 }
