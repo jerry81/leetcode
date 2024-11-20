@@ -44,9 +44,100 @@ Acceptance Rate
 44.0%
 
 */
-
 impl Solution {
   pub fn take_characters(s: String, k: i32) -> i32 {
+      let mut la = None;
+      let mut la2 = None;
+      let mut lb = None;
+      let mut lb2 = None;
+      let mut lc = None;
+      let mut lc2 = None;
+      let n = s.len();
 
+      // Find first and second occurrences from the left
+      for (i, c) in s.chars().enumerate() {
+          match c {
+              'a' => {
+                  if la.is_none() {
+                      la = Some(i);
+                  } else if la2.is_none() {
+                      la2 = Some(i);
+                  }
+              }
+              'b' => {
+                  if lb.is_none() {
+                      lb = Some(i);
+                  } else if lb2.is_none() {
+                      lb2 = Some(i);
+                  }
+              }
+              'c' => {
+                  if lc.is_none() {
+                      lc = Some(i);
+                  } else if lc2.is_none() {
+                      lc2 = Some(i);
+                  }
+              }
+              _ => {}
+          }
+      }
+
+      // Find first and second occurrences from the right
+      let mut ra = None;
+      let mut ra2 = None;
+      let mut rb = None;
+      let mut rb2 = None;
+      let mut rc = None;
+      let mut rc2 = None;
+
+      for (i, c) in s.chars().rev().enumerate() {
+          let idx = n - 1 - i; // Calculate the original index
+          match c {
+              'a' => {
+                  if ra.is_none() {
+                      ra = Some(idx);
+                  } else if ra2.is_none() {
+                      ra2 = Some(idx);
+                  }
+              }
+              'b' => {
+                  if rb.is_none() {
+                      rb = Some(idx);
+                  } else if rb2.is_none() {
+                      rb2 = Some(idx);
+                  }
+              }
+              'c' => {
+                  if rc.is_none() {
+                      rc = Some(idx);
+                  } else if rc2.is_none() {
+                      rc2 = Some(idx);
+                  }
+              }
+              _ => {}
+          }
+      }
+
+      // Calculate the minimum minutes needed
+      let mut total_minutes = 0;
+
+      for (first, second) in [(la, ra), (lb, rb), (lc, rc)] {
+          let first_min = first.map_or(i32::MAX, |f| f as i32 + 1);
+          let second_min = second.map_or(i32::MAX, |s| (n - s) as i32 + 1);
+          let min_needed = if let (Some(f), Some(s)) = (first, second) {
+              (f as i32 + 1).min((n - s) as i32 + 1)
+          } else {
+              i32::MAX
+          };
+
+          total_minutes += min_needed;
+      }
+
+      // Check if we can take at least k of each character
+      if total_minutes < k {
+          -1
+      } else {
+          total_minutes
+      }
   }
 }
