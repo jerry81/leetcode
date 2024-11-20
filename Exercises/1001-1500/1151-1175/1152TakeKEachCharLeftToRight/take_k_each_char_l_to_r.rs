@@ -119,25 +119,9 @@ impl Solution {
       }
 
       // Calculate the minimum minutes needed
-      let mut total_minutes = 0;
-
-      for (first, second) in [(la, ra), (lb, rb), (lc, rc)] {
-          let first_min = first.map_or(i32::MAX, |f| f as i32 + 1);
-          let second_min = second.map_or(i32::MAX, |s| (n - s) as i32 + 1);
-          let min_needed = if let (Some(f), Some(s)) = (first, second) {
-              (f as i32 + 1).min((n - s) as i32 + 1)
-          } else {
-              i32::MAX
-          };
-
-          total_minutes += min_needed;
-      }
-
-      // Check if we can take at least k of each character
-      if total_minutes < k {
-          -1
-      } else {
-          total_minutes
-      }
+      let mut mina = la2.min(n-ra2).min(la+n-ra);
+      let mut minb = lb2.min(n-rb2).min(lb+n-rb);
+      let mut minc = lc2.min(n-rc2).min(lc+n-rc);
+      mina.max(minb).max(minc)
   }
 }
