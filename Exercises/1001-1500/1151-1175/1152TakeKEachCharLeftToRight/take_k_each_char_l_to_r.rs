@@ -117,11 +117,22 @@ impl Solution {
               _ => {}
           }
       }
-
+      if la.is_none() { return -1 }
+      if ra.is_none() { return -1 }
+      if la2.is_none() { return -1 }
+      if ra2.is_none() { return -1 }
+      if lb.is_none() { return -1 }
+      if rb.is_none() { return -1 }
+      if lb2.is_none() { return -1 }
+      if rb2.is_none() { return -1 }
+      if lc.is_none() { return -1 }
+      if rc.is_none() { return -1 }
+      if lc2.is_none() { return -1 }
+      if rc2.is_none() { return -1 }
       // Calculate the minimum minutes needed
-      let mut mina = la2.min(n-ra2).min(la+n-ra);
-      let mut minb = lb2.min(n-rb2).min(lb+n-rb);
-      let mut minc = lc2.min(n-rc2).min(lc+n-rc);
-      mina.max(minb).max(minc)
+      let mut mina = la2.unwrap().min(n-ra2.unwrap()).min(la.unwrap()+n-ra.unwrap());
+      let mut minb = lb2.unwrap().min(n-rb2.unwrap()).min(lb.unwrap()+n-rb.unwrap());
+      let mut minc = lc2.unwrap().min(n-rc2.unwrap()).min(lc.unwrap()+n-rc.unwrap());
+      mina.max(minb).max(minc) as i32
   }
 }
