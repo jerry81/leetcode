@@ -68,13 +68,21 @@ using namespace std;
 class Solution {
 const string TARGET = "123450";
 const vector<vector<int>> MOVES = {{1,3},{0,2,4},{1,5},{0,4}, {1,3,5}, {2,4}};
-int dfs(vector<vector<int>>& board, unordered_set<string> visited) {
+int dfs(string cur, unordered_set<string> visited) {
+  if (cur == TARGET) return 0;
+  return 0;
 }
 public:
     int slidingPuzzle(vector<vector<int>>& board) {
       // small(ish) board.
       // build full game tree - visited hash
-
-
+      string curboard = "";
+      for (auto row: board) {
+        for (auto item: row) {
+          curboard.push_back(item - '0');
+        }
+      }
+      cout << "curboard " << curboard << endl;
+      return 0;
     }
 };
