@@ -77,7 +77,7 @@ impl Solution {
     }
     if l1 == 0 { return l2 as i32 }
     if l2 == 0 { return l1 as i32 }
-    dp[l1-1][l2-1]
+    dp[l1][l2]
   }
 }
 
