@@ -54,28 +54,31 @@ impl Solution {
     let l1 = word1.len();
     let l2 = word2.len();
     let mut dp: Vec<Vec<i32>> = vec![vec![0;l2+1]; l1+1];
-    for i in 0..l1 {
-      for j in 0..l2 {
+    for i in 0..=l1 {
+      for j in 0..=l2 {
         if i == 0 {
-          dp[i][j] = j;
+          dp[i][j] = j as i32;
           continue
         }
         if j == 0 {
-          dp[i][j] = i
+          dp[i][j] = i as i32;
           continue
         }
-        if word1.chars().nth(i).unwrap() == word2.chars().nth(j).unwrap() {
+        if word1.chars().nth(i-1).unwrap() == word2.chars().nth(j-1).unwrap() {
           dp[i][j] = dp[i-1][j-1];
         } else {
           // insert
-          dp[i][j] = 1+ min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1]);
           // replace
           // delete
+          dp[i][j] = 1 + dp[i][j-1].min(dp[i-1][j]).min(dp[i-1][j-1]);
+
         }
       }
     }
+    if l1 == 0 { return l2 as i32 }
+    if l2 == 0 { return l1 as i32 }
+    dp[l1-1][l2-1]
   }
-  dp[l1-1][l2-1]
 }
 
 // insert delete replace
