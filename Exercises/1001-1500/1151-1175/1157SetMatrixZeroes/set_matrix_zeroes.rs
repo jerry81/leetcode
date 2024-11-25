@@ -63,5 +63,13 @@ impl Solution {
         }
       }
     }
+    for (y,x) in z {
+      for i in 0..w {
+        matrix[y][i] = 0;
+      }
+      for i in 0..h {
+        matrix[i][x] = 0;
+      }
+    }
   }
 }
