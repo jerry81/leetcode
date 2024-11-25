@@ -62,10 +62,10 @@ Acceptance Rate
 65.9%
 
 */
-
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -74,29 +74,28 @@ class Solution {
 
   const vector<vector<int>> MOVES = {{1, 3}, {0, 2, 4}, {1, 5},
                                      {0, 4}, {1, 3, 5}, {2, 4}};
-  long long dfs(string cur, unordered_set<string>& visited, int zeroloc) {
-    if (cur == TARGET) return 0;
 
-    vector<int> moves = MOVES[zeroloc];
+  long long dfs(string& cur, unordered_set<string>& visited, int zeroloc, int depth) {
+    if (cur == TARGET) return depth;
+
+    visited.insert(cur);
     long long res = INT_MAX;
-    for (int i: moves) {
-      string cand = cur;
-      swap(cand[zeroloc], cand[i]);
-      if (visited.find(cand) != visited.end()) continue;
-
-      visited.insert(cand);
-      res = min(res, 1+dfs(cand, visited, i));
+    for (int i : MOVES[zeroloc]) {
+      swap(cur[zeroloc], cur[i]);
+      if (visited.find(cur) == visited.end()) {
+        res = min(res, dfs(cur, visited, i, depth + 1));
+      }
+      swap(cur[zeroloc], cur[i]); // Undo move
     }
+    visited.erase(cur); // Backtrack
     return res;
   }
 
  public:
   int slidingPuzzle(vector<vector<int>>& board) {
-    // small(ish) board.
-    // build full game tree - visited hash
     string curboard = "";
     unordered_set<string> visited;
-    int zl = 0;
+    int zl = 0; // Zero position
     int cnt = 0;
     for (auto row : board) {
       for (auto item : row) {
@@ -105,7 +104,7 @@ class Solution {
         cnt += 1;
       }
     }
-    long long res = dfs(curboard, visited, zl);
-    return res >= INT_MAX ? -1 : res;
+    long long res = dfs(curboard, visited, zl, 0);
+    return res == INT_MAX ? -1 : res;
   }
 };
