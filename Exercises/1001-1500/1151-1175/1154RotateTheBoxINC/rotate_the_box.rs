@@ -71,6 +71,13 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn rotate(box: Vec<Vec<char>>) -> Vec<Vec<char>> {
+  }
+
+  fn apply_gravity(box: Vec<Vec<char>>) -> Vec<Vec<char>> {
+
+  }
+
   pub fn rotate_the_box(box: Vec<Vec<char>>) -> Vec<Vec<char>> {
 
   }
