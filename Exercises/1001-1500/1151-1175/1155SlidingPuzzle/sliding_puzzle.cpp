@@ -5,11 +5,15 @@ Hard
 Topics
 Companies
 Hint
-On an 2 x 3 board, there are five tiles labeled from 1 to 5, and an empty square represented by 0. A move consists of choosing 0 and a 4-directionally adjacent number and swapping it.
+On an 2 x 3 board, there are five tiles labeled from 1 to 5, and an empty square
+represented by 0. A move consists of choosing 0 and a 4-directionally adjacent
+number and swapping it.
 
 The state of the board is solved if and only if the board is [[1,2,3],[4,5,0]].
 
-Given the puzzle board board, return the least number of moves required so that the state of the board is solved. If it is impossible for the state of the board to be solved, return -1.
+Given the puzzle board board, return the least number of moves required so that
+the state of the board is solved. If it is impossible for the state of the board
+to be solved, return -1.
 
 
 
@@ -59,30 +63,49 @@ Acceptance Rate
 
 */
 
-#include <vector>
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-const string TARGET = "123450";
-const vector<vector<int>> MOVES = {{1,3},{0,2,4},{1,5},{0,4}, {1,3,5}, {2,4}};
-int dfs(string cur, unordered_set<string> visited) {
-  if (cur == TARGET) return 0;
-  return 0;
-}
-public:
-    int slidingPuzzle(vector<vector<int>>& board) {
-      // small(ish) board.
-      // build full game tree - visited hash
-      string curboard = "";
-      for (auto row: board) {
-        for (auto item: row) {
-          curboard.push_back(item - '0');
-        }
-      }
-      cout << "curboard " << curboard << endl;
-      return 0;
+  const string TARGET = "123450";
+
+  const vector<vector<int>> MOVES = {{1, 3}, {0, 2, 4}, {1, 5},
+                                     {0, 4}, {1, 3, 5}, {2, 4}};
+  long long dfs(string cur, unordered_set<string>& visited, int zeroloc) {
+    if (cur == TARGET) return 0;
+
+    vector<int> moves = MOVES[zeroloc];
+    long long res = INT_MAX;
+    for (int i: moves) {
+      string cand = cur;
+      swap(cand[zeroloc], cand[i]);
+      if (visited.find(cand) != visited.end()) continue;
+
+      visited.insert(cand);
+      res = min(res, 1+dfs(cand, visited, i));
     }
+    return res;
+  }
+
+ public:
+  int slidingPuzzle(vector<vector<int>>& board) {
+    // small(ish) board.
+    // build full game tree - visited hash
+    string curboard = "";
+    unordered_set<string> visited;
+    int zl = 0;
+    int cnt = 0;
+    for (auto row : board) {
+      for (auto item : row) {
+        curboard.push_back(item + '0');
+        if (item == 0) zl = cnt;
+        cnt += 1;
+      }
+    }
+    long long res = dfs(curboard, visited, zl);
+    return res >= INT_MAX ? -1 : res;
+  }
 };
