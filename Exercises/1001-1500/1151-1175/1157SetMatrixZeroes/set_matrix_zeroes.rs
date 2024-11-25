@@ -52,6 +52,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn set_zeroes(matrix: &mut Vec<Vec<i32>>) {
-
+    // note all 0s
+    let mut z: Vec<(usize,usize)> = vec![];
+    let h = matrix.len();
+    let w = matrix[0].len();
+    for i in 0..h {
+      for j in 0..w {
+        if matrix[i][j] == 0 {
+          z.push((i,j));
+        }
+      }
+    }
   }
 }
