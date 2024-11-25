@@ -51,6 +51,33 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_distance(word1: String, word2: String) -> i32 {
-
+    let l1 = word1.len();
+    let l2 = word2.len();
+    let mut dp: Vec<Vec<i32>> = vec![vec![0;l2+1]; l1+1];
+    for i in 0..l1 {
+      for j in 0..l2 {
+        if i == 0 {
+          dp[i][j] = j;
+          continue
+        }
+        if j == 0 {
+          dp[i][j] = i
+          continue
+        }
+        if word1.chars().nth(i).unwrap() == word2.chars().nth(j).unwrap() {
+          dp[i][j] = dp[i-1][j-1];
+        } else {
+          // insert
+          dp[i][j] = 1+ min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1]);
+          // replace
+          // delete
+        }
+      }
+    }
   }
+  dp[l1-1][l2-1]
 }
+
+// insert delete replace
+// something with subsequences?
+
