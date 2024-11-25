@@ -60,12 +60,21 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <string>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution {
+const string TARGET = "123450";
+const vector<vector<int>> MOVES = {{1,3},{0,2,4},{1,5},{0,4}, {1,3,5}, {2,4}};
+int dfs(vector<vector<int>>& board, unordered_set<string> visited) {
+}
 public:
     int slidingPuzzle(vector<vector<int>>& board) {
+      // small(ish) board.
+      // build full game tree - visited hash
+
 
     }
 };
