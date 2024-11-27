@@ -77,7 +77,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {
-
+    let mut dists: Vec<i32> = (0..n).rev().collect();
+    let mut res = vec![];
+    for q in queries {
+      let mut beginidx = q[0] as usize;
+      let mut endidx = q[1] as usize;
+      for i in (0..=beginidx).rev() {
+        dists[i] = (dists[endidx]+1).min(dists[i]);
+        endidx = i;
+      }
+      res.push(dists[0]);
+    }
+    res
   }
 }
  // start
