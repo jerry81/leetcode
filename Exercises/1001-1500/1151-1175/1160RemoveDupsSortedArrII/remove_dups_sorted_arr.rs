@@ -60,8 +60,11 @@ Acceptance Rate
 60.9%
 */
 
+use std::collection::HashMap;
+
 impl Solution {
   pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-
+    let mut hm: HashMap<i32, i32> = HashMap::new();
+    let mut idx: usize = 0;
   }
 }
