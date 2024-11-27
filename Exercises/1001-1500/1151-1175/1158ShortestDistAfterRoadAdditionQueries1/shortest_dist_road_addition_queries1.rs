@@ -78,8 +78,10 @@ Acceptance Rate
 impl Solution {
   pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {
     let mut dists: Vec<i32> = (0..n).rev().collect();
+    let mut sorted_queries = queries.clone();
+    sorted_queries.sort_by_key(|q| -q[0]);
     let mut res = vec![];
-    for q in queries {
+    for q in sorted_queries {
       let mut beginidx = q[0] as usize;
       let mut endidx = q[1] as usize;
       for i in (0..=beginidx).rev() {
@@ -91,6 +93,11 @@ impl Solution {
     res
   }
 }
+/*
+this does not take care of the 2 jumps in a row case
+try: first sort desc by start
+*/
+
  // start
  // n = 5
  /*
