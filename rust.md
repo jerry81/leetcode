@@ -246,3 +246,16 @@ v.swap(1,2);
   let value = opt.take(); // value is Some(5), opt is now None
 ```
 - take assigns the value and assigns the opt to none
+
+- mut ref, somewhat similar to pointer in c++
+```rs
+    let mut tail = &mut res;
+    while let Some(mut n) = cur {
+      if !dups.contains(&n.val){
+        let new_node = Some(Box::new(ListNode::new(n.val)));
+        *tail = new_node;
+        tail = &mut tail.as_mut().unwrap().next;
+      }
+      cur = n.next.take();
+    }
+```
