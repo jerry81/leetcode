@@ -64,12 +64,12 @@ struct ComparePQ {
 
 class Solution {
 const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
-pair<int,int> coords_from_id(int id, int h, int w) {
+pair<int,int> coords_from_id(int id,int w) {
   int row = id / w;
-
-  return {row, id-(row-1)*w};
+  int col = id % w;
+  return {row, col};
 }
-int id_from_coords(int y, int x, int h, int w) {
+int id_from_coords(int y, int x, int w) {
   return y*w + x;
 }
 public:
@@ -77,27 +77,19 @@ public:
        int h = grid.size();
        int w = grid[0].size();
 
-      //  for (int i = 0; i < h; ++i) {
-      //    for (int j = 0; j < w; ++j) {
-      //      int id = id_from_coords(i,j,h,w);
-      //      auto [r,c] = coords_from_id(id, h,w);
-      //    }
-      //  }
        unordered_set<int> visited;
        priority_queue<pair<int,int>, vector<pair<int,int>>, ComparePQ> q;
-      //  q.push({2,1});
-      //  q.push({1,1});
-      //  q.push({0,0});
+      q.push({0,0});
       int tgt = h*w-1;
        visited.insert({0,0});
 
-
        while (!q.empty()) {
          auto [weight, id] = q.top();
+
          if (id == tgt) return weight;
 
          q.pop();
-         auto [cy,cx] = coords_from_id(id,h,w);
+         auto [cy,cx] = coords_from_id(id,w);
          for (auto [dy,dx]: NEIGHBORS) {
            int ny = dy + cy;
            int nx = dx + cx;
@@ -105,13 +97,13 @@ public:
 
            if (ny >= h || nx >= w) continue;
 
-           int new_id = id_from_coords(ny,nx,h,w);
+           int new_id = id_from_coords(ny,nx,w);
            if (visited.find(new_id) != visited.end()) continue;
 
            visited.insert(new_id);
            int val = grid[ny][nx];
            int nw = weight;
-           if (val) nw++;
+           if (val == 1) nw++;
 
            q.push({nw, new_id});
          }
