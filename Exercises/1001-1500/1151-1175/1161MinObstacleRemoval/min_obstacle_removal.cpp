@@ -57,8 +57,9 @@ Acceptance Rate
 
 using namespace std;
 
+
 struct ComparePQ {
-  bool operator()(pair<int, int> a, pair<int,int> b) { return a.first < b.first; }
+  bool operator()(pair<int, int> a, pair<int,int> b) { return a.first > b.first; }
 };
 
 class Solution {
@@ -84,18 +85,41 @@ public:
       //  }
        unordered_set<int> visited;
        priority_queue<pair<int,int>, vector<pair<int,int>>, ComparePQ> q;
-       q.push({0,0});
-       visited.insert({2,1});
+      //  q.push({2,1});
+      //  q.push({1,1});
+      //  q.push({0,0});
+      int tgt = h*w-1;
        visited.insert({0,0});
-       visited.insert({1,1});
+
 
        while (!q.empty()) {
-         cout << q.top().first << endl;
+         auto [weight, id] = q.top();
+         if (id == tgt) return weight;
+
          q.pop();
+         auto [cy,cx] = coords_from_id(id,h,w);
+         for (auto [dy,dx]: NEIGHBORS) {
+           int ny = dy + cy;
+           int nx = dx + cx;
+           if (ny < 0 || nx < 0) continue;
+
+           if (ny >= h || nx >= w) continue;
+
+           int new_id = id_from_coords(ny,nx,h,w);
+           if (visited.find(new_id) != visited.end()) continue;
+
+           visited.insert(new_id);
+           int val = grid[ny][nx];
+           int nw = weight;
+           if (val) nw++;
+
+           q.push({nw, new_id});
+         }
        }
        return 0;
     }
 };
+
 
 /*
 djikstra!
