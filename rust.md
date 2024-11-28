@@ -240,3 +240,9 @@ v.swap(1,2);
 ```rs
     let mut res: Option<Box<ListNode>> = None;
 ```
+- also for a usage of Option.take()
+```
+  let mut opt = Some(5);
+  let value = opt.take(); // value is Some(5), opt is now None
+```
+- take assigns the value and assigns the opt to none
