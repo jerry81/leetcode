@@ -235,3 +235,8 @@ fn backtrack(
 ```rs
 v.swap(1,2);
 ```
+
+- see 1162 - None is a valid value to be assigned
+```rs
+    let mut res: Option<Box<ListNode>> = None;
+```
