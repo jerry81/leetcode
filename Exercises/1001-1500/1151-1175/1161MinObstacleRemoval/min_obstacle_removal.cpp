@@ -52,12 +52,52 @@ Acceptance Rate
 */
 
 #include <vector>
+#include <queue>
+#include <unordered_set>
 
 using namespace std;
 
+struct ComparePQ {
+  bool operator()(pair<int, int> a, pair<int,int> b) { return a.first < b.first; }
+};
+
 class Solution {
+const vector<pair<int, int>> NEIGHBORS = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+pair<int,int> coords_from_id(int id, int h, int w) {
+  int row = id / w;
+
+  return {row, id-(row-1)*w};
+}
+int id_from_coords(int y, int x, int h, int w) {
+  return y*w + x;
+}
 public:
     int minimumObstacles(vector<vector<int>>& grid) {
+       int h = grid.size();
+       int w = grid[0].size();
 
+      //  for (int i = 0; i < h; ++i) {
+      //    for (int j = 0; j < w; ++j) {
+      //      int id = id_from_coords(i,j,h,w);
+      //      auto [r,c] = coords_from_id(id, h,w);
+      //    }
+      //  }
+       unordered_set<int> visited;
+       priority_queue<pair<int,int>, vector<pair<int,int>>, ComparePQ> q;
+       q.push({0,0});
+       visited.insert({2,1});
+       visited.insert({0,0});
+       visited.insert({1,1});
+
+       while (!q.empty()) {
+         cout << q.top().first << endl;
+         q.pop();
+       }
+       return 0;
     }
 };
+
+/*
+djikstra!
+edges built in to the graph
+*/
