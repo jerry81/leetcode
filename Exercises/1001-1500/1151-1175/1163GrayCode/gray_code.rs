@@ -44,8 +44,19 @@ Seen this question in a real interview before?
 
 */
 
+use std::collections::HashMap;
 impl Solution {
   pub fn gray_code(n: i32) -> Vec<i32> {
+    let mut one_map: HashMap<u32, Vec<i32>>=HashMap::new();
+    for i in 0..(2 as i32).pow(n as u32) {
+      one_map.entry(i.count_ones()).or_insert_with(Vec::new).push(i);
+    }
+    println!("map is {:?}", one_map);
+    let mut cnt = 0;
+    let mut res: Vec<i32> = vec![];
 
+    res.insert(0,0);
+
+    res
   }
 }
