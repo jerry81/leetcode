@@ -47,13 +47,30 @@ Seen this question in a real interview before?
 use std::collections::HashMap;
 impl Solution {
   pub fn gray_code(n: i32) -> Vec<i32> {
+    let total = (2 as i32).pow(n as u32)
     let mut one_map: HashMap<u32, Vec<i32>>=HashMap::new();
-    for i in 0..(2 as i32).pow(n as u32) {
+    for i in total {
       one_map.entry(i.count_ones()).or_insert_with(Vec::new).push(i);
     }
-    println!("map is {:?}", one_map);
-    let mut cnt = 0;
     let mut res: Vec<i32> = vec![];
+    let mut cnt = 0;
+    while res.len() < (total-1) {
+      if cnt == 0 {
+        cnt = 1;
+      } else {
+        if one_map[cnt+1].len() > one_map[cnt-1].len() {
+           cnt+=1;
+        } else {
+           cnt-=1;
+        }
+      }
+      res.push(one_map.get(&cnt).last());
+        res.insert(0,one_map.get(&cnt).last());
+        one_map.get_mut(&cnt).unwrap().pop();
+        one_map.get_mut(&cnt).unwrap().pop();
+    }
+    // keep taking 2 items from front and back depending on which has more items
+
 
     res.insert(0,0);
 
