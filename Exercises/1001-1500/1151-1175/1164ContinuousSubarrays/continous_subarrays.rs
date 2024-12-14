@@ -55,6 +55,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn continuous_subarrays(nums: Vec<i32>) -> i64 {
-
+    // need to know min and max of each start and end
+    let mut minmax: Vec<(i32,i32)> = Vec::new();
+    // [5,4,2,4]
+    let mut res = nums.len() as i32;
+    // 01 02 03
+    // 12 13
+    // 23
+    // build minmax
+    let n = nums.len();
+    res
   }
 }
