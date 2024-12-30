@@ -45,14 +45,17 @@ Acceptance Rate
 */
 
 impl Solution {
+  const MOD: i64 = 1_000_000_007;
   fn r(low: i32, high: i32, zero: i32, one:i32, idx: i32) -> i32 {
-    const MOD: i32 = 1_000_000_007;
+
 
     if idx > high { return 0 }
-
+    let mut nxtTotal = Solution::r(low, high, zero, one, idx+zero) as i64 + Solution::r(low,high,zero,one,idx+one) as i64;
     if idx > low {
-       let total: i64 = 1 + Solution::r(low, high, zero, one, idx+zero) + Solution::r(low,high,zero,one,idx+one)
-       return total % Self::MOD
+       let total: i64 = 1 + nxtTotal;
+       return (total % Self::MOD) as i32
+    } else {
+        nxtTotal as i32
     }
   }
   pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
