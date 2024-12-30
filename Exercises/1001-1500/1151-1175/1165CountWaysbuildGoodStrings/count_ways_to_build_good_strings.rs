@@ -46,9 +46,14 @@ Acceptance Rate
 
 impl Solution {
   fn r(low: i32, high: i32, zero: i32, one:i32, idx: i32) -> i32 {
+    const MOD: i32 = 1_000_000_007;
+
     if idx > high { return 0 }
 
-
+    if idx > low {
+       let total: i64 = 1 + Solution::r(low, high, zero, one, idx+zero) + Solution::r(low,high,zero,one,idx+one)
+       return total % Self::MOD
+    }
   }
   pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
     Solution::r(low, high, zero, one, 0)
