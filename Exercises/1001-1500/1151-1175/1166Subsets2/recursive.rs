@@ -39,7 +39,6 @@ Acceptance Rate
 58.5%
 
 */
-
 use std::collections::HashSet;
 
 impl Solution {
@@ -50,17 +49,24 @@ impl Solution {
     let currenti = nums[idx];
     let currents = currenti.to_string();
     let curs2 = curs.clone()+&currents;
-    let cur2 = cur.clone();
+    let mut cur2 = cur.clone(); // Changed to mutable
     cur2.push(currenti);
-    if !hs.contains(&curs) { res.push(cur); }
+    if !hs.contains(&curs) {
+        res.push(cur.clone());
+        hs.insert(curs.clone());
+    } // Changed to push a clone of cur
+    if !hs.contains(&curs2) {
+        res.push(cur2.clone());
+        hs.insert(curs2.clone());
+    }
 
-    Solution::r(nums,res,hs,idx+1,curs,cur);
-    Solution::r(nums,res,hs,idx+1,curs2,cur2);
+    Solution::r(nums, res, hs, idx + 1, curs.clone(), cur.clone()); // Removed &mut from hs
+    Solution::r(nums, res, hs, idx + 1, curs2, cur2); // Removed &mut from hs
   }
 
   pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = Vec::new();
-    let mut hs:HashSet<String> = HashSet::new();
+    let mut hs: HashSet<String> = HashSet::new();
     res.push(vec![]);
     let n = nums.len();
     hs.insert("".to_string());
@@ -69,7 +75,7 @@ impl Solution {
       let mut s:String = String::new();
       let mut cur = vec![];
 
-      Solution::r(nums,res,hs,i,s.clone(),cur.clone());
+      Solution::r(&nums,&mut res,&mut hs,i,s.clone(),cur.clone());
     }
     res
   }
