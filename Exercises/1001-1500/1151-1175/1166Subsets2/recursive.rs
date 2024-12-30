@@ -53,8 +53,8 @@ impl Solution {
     curc.sort();
     cur2.push(currenti);
     cur2.sort();
-    let cs = curc.iter().map(|i| { (i as u8 + '0' as u8) as char }).collect();
-    let cs2 = cur2.iter().map(|i| { (i as u8 + '0' as u8) as char }).collect();
+    let cs = curc.iter().map(|i| { (*i as u8 + '0' as u8) as char }).collect();
+    let cs2 = cur2.iter().map(|i| { (*i as u8 + '0' as u8) as char }).collect();
     if !hs.contains(&cs) {
         res.push(curc.clone());
         hs.insert(cs);
