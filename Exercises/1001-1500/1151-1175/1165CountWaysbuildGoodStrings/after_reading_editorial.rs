@@ -43,24 +43,23 @@ Acceptance Rate
 54.9%
 
 */
-
 impl Solution {
   const MOD: u64 = 1_000_000_007;
   pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
-    let mut dp: Vec<u64> = Vec::new();
-    dp.push(1);
-    let mut res:u64 = 0;
+    let mut dp: Vec<u64> = vec![0; (high + 1) as usize]; // Ensure dp is initialized for all lengths
+    dp[0] = 1; // Base case: one way to form an empty string
+    let mut res: u64 = 0;
+
     for i in 1..=high {
       let mut zerocnt = 0;
-      if i > zero { zerocnt = dp[(i-zero) as usize]; }
+      if i - zero >= 0 { zerocnt = dp[(i - zero) as usize]; }
       let mut onecnt = 0;
-      if i > one >= 0 { onecnt = dp[(i-one) as usize]; }
-      let mut bignum:u64 = zerocnt as u64+onecnt as u64;
-      dp.push(bignum);
-      if i >=low && i<=high {
-        res+=dp[i as usize] as u64;
-        res %= Self::MOD;
-        println!("res is now {}", res);
+      if i - one >= 0 { onecnt = dp[(i - one) as usize]; }
+      dp[i as usize] = (zerocnt + onecnt) % Self::MOD; // Store the result for length i
+
+      // Only accumulate results for lengths within [low, high]
+      if i >= low {
+        res = (res + dp[i as usize]) % Self::MOD; // Accumulate results only for valid lengths
       }
     }
     println!("res is {}", res);
