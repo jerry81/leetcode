@@ -43,7 +43,6 @@ Acceptance Rate
 54.9%
 
 */
-
 impl Solution {
   const MOD: i64 = 1_000_000_007;
   pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
@@ -52,13 +51,13 @@ impl Solution {
     let mut res = 0;
     for i in 1..=high {
       let mut zerocnt = 0;
-      if i - zero >= 0 { zerocnt = dp[i-zero]; }
+      if i - zero >= 0 { zerocnt = dp[(i-zero) as usize]; }
       let mut onecnt = 0;
-      if i - one >= 0 { onecnt = dp[i-zero]; }
-      let mut bignum:i64 = zerocnt+onecnt;
-      dp.push(bignum%Self::MOD);
-      if i >=low && <=high { res+=dp[i]; }
-      res
+      if i - one >= 0 { onecnt = dp[(i-one) as usize]; }
+      let mut bignum:i64 = zerocnt as i64+onecnt as i64;
+      dp.push((bignum%Self::MOD) as i32);
+      if i >=low && i<=high { res+=dp[i as usize]; }
     }
+    res
   }
 }
