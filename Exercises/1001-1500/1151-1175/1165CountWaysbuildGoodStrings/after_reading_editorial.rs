@@ -43,21 +43,27 @@ Acceptance Rate
 54.9%
 
 */
+
 impl Solution {
-  const MOD: i64 = 1_000_000_007;
+  const MOD: u64 = 1_000_000_007;
   pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
-    let mut dp: Vec<i32> = Vec::new();
+    let mut dp: Vec<u64> = Vec::new();
     dp.push(1);
-    let mut res = 0;
+    let mut res:u64 = 0;
     for i in 1..=high {
       let mut zerocnt = 0;
-      if i - zero >= 0 { zerocnt = dp[(i-zero) as usize]; }
+      if i > zero { zerocnt = dp[(i-zero) as usize]; }
       let mut onecnt = 0;
-      if i - one >= 0 { onecnt = dp[(i-one) as usize]; }
-      let mut bignum:i64 = zerocnt as i64+onecnt as i64;
-      dp.push((bignum%Self::MOD) as i32);
-      if i >=low && i<=high { res+=dp[i as usize]; }
+      if i > one >= 0 { onecnt = dp[(i-one) as usize]; }
+      let mut bignum:u64 = zerocnt as u64+onecnt as u64;
+      dp.push(bignum);
+      if i >=low && i<=high {
+        res+=dp[i as usize] as u64;
+        res %= Self::MOD;
+        println!("res is now {}", res);
+      }
     }
-    res
+    println!("res is {}", res);
+    res as i32
   }
 }
