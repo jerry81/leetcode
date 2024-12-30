@@ -43,6 +43,14 @@ Acceptance Rate
 impl Solution {
   pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = Vec::new();
+    res.push(vec![]);
+    for i in 0..n {
+      let mut cur = vec![];
+      for j in i..n {
+        cur.push(nums[j]);
+        res.push(cur);
+      }
+    }
     res
   }
 }
