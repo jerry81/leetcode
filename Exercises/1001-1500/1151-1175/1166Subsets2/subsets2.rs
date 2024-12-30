@@ -40,15 +40,27 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = Vec::new();
+    let mut hs:HashSet<string> = HashSet::new();
     res.push(vec![]);
+    let n = nums.len();
+    hs.insert("".to_string);
+
     for i in 0..n {
+      let mut s:string = String::new();
       let mut cur = vec![];
+
       for j in i..n {
         cur.push(nums[j]);
-        res.push(cur);
+        s+=nums[j].to_string();
+        if !hs.contains(s) {
+          res.push(cur.clone());
+          hs.insert(s.clone());
+        }
       }
     }
     res
