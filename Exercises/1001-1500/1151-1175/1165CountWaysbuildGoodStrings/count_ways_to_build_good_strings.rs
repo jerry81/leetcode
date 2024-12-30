@@ -45,7 +45,12 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
+  fn r(low: i32, high: i32, zero: i32, one:i32, idx: i32) -> i32 {
+    if idx > high { return 0 }
 
+
+  }
+  pub fn count_good_strings(low: i32, high: i32, zero: i32, one: i32) -> i32 {
+    Solution::r(low, high, zero, one, 0)
   }
 }
