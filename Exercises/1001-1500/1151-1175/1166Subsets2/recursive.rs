@@ -39,29 +39,33 @@ Acceptance Rate
 58.5%
 
 */
+
 use std::collections::HashSet;
 
 impl Solution {
-  pub fn r(nums: &Vec<i32>, res: &mut Vec<Vec<i32>>, hs: &mut HashSet<String>, idx: usize, curs: String, cur: Vec<i32>) {
+  pub fn r(nums: &Vec<i32>, res: &mut Vec<Vec<i32>>, hs: &mut HashSet<String>, idx: usize, cur: Vec<i32>) {
     // do a take or leave
     if idx >= nums.len() { return }
 
     let currenti = nums[idx];
-    let currents = currenti.to_string();
-    let curs2 = curs.clone()+&currents;
     let mut cur2 = cur.clone(); // Changed to mutable
+    let mut curc = cur.clone();
+    curc.sort();
     cur2.push(currenti);
-    if !hs.contains(&curs) {
-        res.push(cur.clone());
-        hs.insert(curs.clone());
+    cur2.sort();
+    let cs = curc.iter().map(|i| { (i as u8 + '0' as u8) as char }).collect();
+    let cs2 = cur2.iter().map(|i| { (i as u8 + '0' as u8) as char }).collect();
+    if !hs.contains(&cs) {
+        res.push(curc.clone());
+        hs.insert(cs);
     } // Changed to push a clone of cur
-    if !hs.contains(&curs2) {
+    if !hs.contains(&cs2) {
         res.push(cur2.clone());
-        hs.insert(curs2.clone());
+        hs.insert(cs2);
     }
 
-    Solution::r(nums, res, hs, idx + 1, curs.clone(), cur.clone()); // Removed &mut from hs
-    Solution::r(nums, res, hs, idx + 1, curs2, cur2); // Removed &mut from hs
+    Solution::r(nums, res, hs, idx + 1, cur.clone()); // Removed &mut from hs
+    Solution::r(nums, res, hs, idx + 1, cur2); // Removed &mut from hs
   }
 
   pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {
@@ -72,10 +76,9 @@ impl Solution {
     hs.insert("".to_string());
 
     for i in 0..n {
-      let mut s:String = String::new();
       let mut cur = vec![];
 
-      Solution::r(&nums,&mut res,&mut hs,i,s.clone(),cur.clone());
+      Solution::r(&nums,&mut res,&mut hs,i,cur.clone());
     }
     res
   }
