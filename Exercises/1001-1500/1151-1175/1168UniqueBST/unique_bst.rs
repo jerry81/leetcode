@@ -38,7 +38,16 @@ Acceptance Rate
 
 impl Solution {
   pub fn num_trees(n: i32) -> i32 {
-
+    let mut v:Vec<i32> = vec![0;n as usize+1];
+    v[0] = 1;
+    v[1] = 1;
+    let n = n as usize;
+    for i in 2..=n {
+      for mid in 1..=i {
+       v[i] += v[mid-1] * v[i-mid];
+      }
+    }
+    v[n as usize]
   }
 }
 
