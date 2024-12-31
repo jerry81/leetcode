@@ -41,41 +41,41 @@ Acceptance Rate
 51.8%
 
 */
-
 impl Solution {
   fn is_valid_segment(s: &str) -> bool {
     if s.len() == 1 { return true }
     if s.len() > 3 { return false }
 
     if s.starts_with('0') && s.len() > 1 { return false }
-
-    let n = s.parse::<u8>().unwrap();
+    let n = s.parse::<u16>().unwrap();
     if n > 255 { return false }
-    println!("{} is valid", s);
     true
   }
-  fn r(res: &mut Vec<String>, s: &str, idx: usize, num_dots: u8, cur: String) {
-    println!("cur is now {}", cur);
-    if num_dots == 3 || idx >= s.len() { return }
 
-    if num_dots == 2 {
+  fn r(res: &mut Vec<String>, s: &str, idx: usize, num_dots: u8, cur: String) {
+
+    if num_dots == 4 || idx >= s.len() { return }
+
+    if num_dots == 3 {
       let remaining_segment: String = s[idx..].to_string();
       if Solution::is_valid_segment(&remaining_segment){
-        res.push((cur+"."+&s[idx..]).to_string());
+        res.push((cur+&remaining_segment).to_string());
       }
       return
     }
 
     // try len 1, 2, 3
-    let chars_remaining = 3.min(s.len() - idx - 1);
-    println!("chars_remaining is {}", chars_remaining);
+    let chars_remaining = 3.min(s.len() - idx);
     for i in 1..=chars_remaining {
-
-      Solution::r(res,s,idx+i,num_dots+1, cur.clone()+&s[idx..idx+i]+".");
+      let segment: String = s[idx..idx+i].to_string();
+      if Solution::is_valid_segment(&segment) {
+        Solution::r(res, s, idx + i, num_dots + 1, cur.clone() + &segment + ".");
+      }
     }
   }
+
   pub fn restore_ip_addresses(s: String) -> Vec<String> {
-    // some kind of recursion
+    if s.is_empty() || s.len() > 12 { return vec![] }
     let mut res: Vec<String> = vec![];
     Solution::r(&mut res, &s, 0, 0, String::new());
     res
