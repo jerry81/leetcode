@@ -103,19 +103,19 @@ for mutable access.
 */
 
 impl Solution {
-    pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-      if let Some(node) = root { // check if root is Some then assign node
-        let borrowed = node.borrow(); // unwrap for refcell/rc or option? borrow provided by RefCell
-        let value = borrowed.val;
-        if let Some(ln) = borrowed.left {
-          if ln.val >= value { return false }
-        }
-        if let Some(rn) = borrowed.right {
-          if rn.val <= value { return false }
-        }
-        Solution::is_valid_bst(&borrowed.left) && Solution::r(&borrowed.right);
-      } else {
-        true
+  pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+    if let Some(node) = root { // check if root is Some then assign node
+      let borrowed = node.borrow(); // unwrap for refcell/rc or option? borrow provided by RefCell
+      let value = borrowed.val;
+      if let Some(ln) = borrowed.left {
+        if ln.borrow().val >= value { return false }
       }
+      if let Some(rn) = borrowed.right {
+        if rn.borrow().val <= value { return false }
+      }
+      Solution::is_valid_bst(&borrowed.left.as_ref()) && Solution::is_valid_bst(&borrowed.right.as_ref());
+    } else {
+      true
     }
+  }
 }
