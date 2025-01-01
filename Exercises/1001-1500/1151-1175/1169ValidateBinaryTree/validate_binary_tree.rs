@@ -82,7 +82,26 @@ impl TreeNode {
   }
 }
 use std::rc::Rc;
+/*
+Rc stands for "Reference Counted" and is a type in Rust
+that enables multiple ownership of data. It is part of the
+standard library and is used for shared ownership of a value.
+Here’s a brief overview of how Rc works:
+
+diff from &mut - single ownership vs multiple ownership
+
+ownership governs how memory is accessed - handles things like garbage collection
+*/
+
 use std::cell::RefCell;
+/*
+RefCell is a type in Rust that provides interior mutability,
+allowing you to mutate data even when it is behind an immutable reference.
+It is part of the std::cell module and is particularly useful in scenarios
+where you need to share data across multiple owners while still allowing
+for mutable access.
+*/
+
 impl Solution {
     pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
 
