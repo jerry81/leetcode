@@ -101,26 +101,18 @@ It is part of the std::cell module and is particularly useful in scenarios
 where you need to share data across multiple owners while still allowing
 for mutable access.
 */
-
 impl Solution {
-  fn r(root: Option<Rc<RefCell<TreeNode>>>, mn: i32, mx: i32) {
+  fn r(root: Option<Rc<RefCell<TreeNode>>>, mn: i64, mx: i64) -> bool { // Added return type
     if let Some(node) = root {
       let borrowed = node.borrow();
       let value = borrowed.val;
-      let newmn=mn.min(value);
-      let newmx=mx.max(value);
-      if let Some(ln) = &borrowed.left {
-        if ln.borrow().val >= newmn { return false }
-      }
-      if let Some(rn) = &borrowed.right {
-        if rn.borrow().val <= newmx { return false }
-      }
-      Solution::r(borrowed.left.clone(),newmn,newmx) && Solution::r(borrowed.right.clone(),newmn,newmx)
+      if value as i64 <= mn || value as i64 >= mx { return false }
+      Solution::r(borrowed.left.clone(), mn, value as i64) && Solution::r(borrowed.right.clone(), value as i64, mx)
     } else {
       true
     }
   }
   pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-    Solution::r(root, i32::MAX,i32::MIN)
+    Solution::r(root, i64::MIN, i64::MAX)
   }
 }
