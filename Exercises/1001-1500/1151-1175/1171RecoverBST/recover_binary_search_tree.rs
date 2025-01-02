@@ -71,10 +71,33 @@ impl Solution {
       if let Some(lunwrap) = l {
         let lb = lunwrap.borrow();
         parents.insert(lb.val, (Some(r.clone()), true));
+
       }
       if let Some(runwrap) = ri {
         let rb = runwrap.borrow();
         parents.insert(rb.val,(Some(r.clone()), false));
+      }
+    }
+  }
+
+  fn swap(a: Option<Rc<RefCell<TreeNode>>>, b: Option<Rc<RefCell<TreeNode>>>, parents: HashMap<i32, (Option<Rc<RefCell<TreeNode>>>, bool)>) {
+    if let Some(a_u) = a {
+      let a_b = a_u.borrow();
+      let (ap, aleft) = &parents[&a_b.val];
+      if let Some(parent) = ap {
+        if *aleft {
+          parent.borrow_mut().left = Some(b.clone());
+        } else {
+          parent.borrow_mut().right = Some(b.clone());
+        }
+      }
+      if let Some(b_u) = b {
+        let b_b = b_u.borrow();
+        let (bp, bleft) = &parents[&b_b.val];
+
+        if let Some(parent) = bp {
+          println!("Parent of b {}: {}", b_b.val, parent.borrow().val);
+        }
       }
     }
   }
@@ -89,3 +112,9 @@ impl Solution {
   }
 
 }
+
+/*
+parents tree is {1: (None, false),
+  3: (Some(RefCell { value: TreeNode { val: 1, left: Some(RefCell { value: TreeNode { val: 3, left: None, right: Some(RefCell { value: TreeNode { val: 2, left: None, right: None } }) } }), right: None } }), true),
+  2: (Some(RefCell { value: TreeNode { val: 3, left: None, right: Some(RefCell { value: TreeNode { val: 2, left: None, right: None } }) } }), false)}
+*/
