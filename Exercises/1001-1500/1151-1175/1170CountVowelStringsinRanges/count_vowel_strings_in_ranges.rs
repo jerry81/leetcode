@@ -51,7 +51,12 @@ Acceptance Rate
 */
 
 impl Solution {
+  const VOWELS: Vec<char> = vec!['a','e','i','o','u'];
   pub fn vowel_strings(words: Vec<String>, queries: Vec<Vec<i32>>) -> Vec<i32> {
-
+    let mut words_matching: Vec<bool> = words.iter().map(|word| {
+      VOWELS.contains(word.first().unwrap())
+    }).collect();
+    println!("matching words is {:?}", words_matching);
+    vec![]
   }
 }
