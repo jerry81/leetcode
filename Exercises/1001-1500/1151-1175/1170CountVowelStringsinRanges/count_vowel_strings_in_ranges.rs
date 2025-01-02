@@ -56,7 +56,17 @@ impl Solution {
     let mut words_matching: Vec<bool> = words.iter().map(|word| {
       Self::VOWELS.contains(&word.chars().next().unwrap()) && Self::VOWELS.contains(&word.chars().last().unwrap())
     }).collect();
-    println!("matching words is {:?}", words_matching);
-    vec![]
+    let mut prefix_sums: Vec<i32> = vec![];
+    let mut cnt = 0;
+    for w in words_matching {
+      if w {
+        cnt+=1;
+      }
+      prefix_sums.push(cnt);
+    }
+    queries.iter().map(|q| {
+      let mut prev = if q[0] == 0 { 0 } else { prefix_sums[(q[0]-1) as usize] };
+      prefix_sums[q[1] as usize] - prev
+    }).collect()
   }
 }
