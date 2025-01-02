@@ -259,3 +259,13 @@ v.swap(1,2);
       cur = n.next.take();
     }
 ```
+
+- see 1170 for declaring constant vec
+-
+```rs
+const VOWELS: &'static [char] = &['a', 'e', 'i', 'o', 'u'];
+```
+- and for best way to get first and last char of a string
+```rs
+Self::VOWELS.contains(&word.chars().next().unwrap()) && Self::VOWELS.contains(&word.chars().last().unwrap())
+```
