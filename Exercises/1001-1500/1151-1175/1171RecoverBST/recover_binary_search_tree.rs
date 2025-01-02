@@ -61,12 +61,21 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 use std::collections::HashMap;
+
 impl Solution {
-  fn traverse(root: &mut Option<Rc<RefCell<TreeNode>>>, parents: &mut HashMap<i32, (Option<Rc<RefCell<TreeNode>>>, bool)>) {
+  fn traverse(root: Option<Rc<RefCell<TreeNode>>>, parents: &mut HashMap<i32, (Option<Rc<RefCell<TreeNode>>>, bool)>) {
     if let Some(r) = root {
       let b = r.borrow();
-      let l = b.left;
-      let ri = b.right;
+      let l = b.left.clone();
+      let ri = b.right.clone();
+      if let Some(lunwrap) = l {
+        let lb = lunwrap.borrow();
+        parents.insert(lb.val, (Some(r.clone()), true));
+      }
+      if let Some(runwrap) = ri {
+        let rb = runwrap.borrow();
+        parents.insert(rb.val,(Some(r.clone()), false));
+      }
     }
   }
 
@@ -76,7 +85,7 @@ impl Solution {
       let b = r.borrow();
       *parents.entry(b.val).or_insert((None, false)) = (None,false);
     }
-    Self::traverse(root, &mut parents);
+    Self::traverse(root.clone(), &mut parents);
   }
 
 }
