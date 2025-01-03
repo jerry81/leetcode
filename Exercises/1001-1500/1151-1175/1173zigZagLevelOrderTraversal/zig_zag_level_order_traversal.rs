@@ -81,7 +81,6 @@ impl Solution {
                 nstk.push(unwrapped.borrow().right.clone());
                 nstk.push(unwrapped.borrow().left.clone());
               }
-              ltr = !ltr;
             }
 
           }
@@ -89,7 +88,7 @@ impl Solution {
         if !cur_level.is_empty() {
           res.push(cur_level);
         }
-
+        ltr = !ltr;
         stk = nstk.clone();
       }
       res
