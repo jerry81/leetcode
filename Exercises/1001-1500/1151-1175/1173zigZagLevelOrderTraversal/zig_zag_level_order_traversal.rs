@@ -75,8 +75,13 @@ impl Solution {
             if let Some(unwrapped) = last_item {
               cur_level.push(unwrapped.borrow().val);
               if ltr {
+                nstk.push(unwrapped.borrow().left.clone());
+                nstk.push(unwrapped.borrow().right.clone());
               } else {
+                nstk.push(unwrapped.borrow().right.clone());
+                nstk.push(unwrapped.borrow().left.clone());
               }
+              ltr = !ltr;
             }
 
           }
