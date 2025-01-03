@@ -54,10 +54,10 @@ Acceptance Rate
 impl Solution {
   pub fn ways_to_split_array(nums: Vec<i32>) -> i32 {
       // prefix sums
-      let mut ps: Vec<i32> = vec![];
+      let mut ps: Vec<i64> = vec![];
       let mut sum = 0;
       for n in nums.clone() {
-        sum+=n;
+        sum+=n as i64;
         ps.push(sum);
       }
       let l = nums.len();
