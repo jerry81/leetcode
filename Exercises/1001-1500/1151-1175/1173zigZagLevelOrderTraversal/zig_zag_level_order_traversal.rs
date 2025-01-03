@@ -63,6 +63,22 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn zigzag_level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-
+      let mut stk: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![root];
+      let mut ltr: bool = true;
+      let mut res: Vec<Vec<i32>> = vec![];
+      while !stk.is_empty() {
+        let mut cur_level = vec![];
+        let mut nstk: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![];
+        while !stk.is_empty() {
+          if let Some(last_item) = stk.pop() {
+            cur_level.push(last_item.unwrap().val);
+            if ltr {
+            } else {
+            }
+          }
+        }
+        res.push(cur_level);
+      }
+      res
     }
 }
