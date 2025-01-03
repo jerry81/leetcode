@@ -86,7 +86,11 @@ impl Solution {
 
           }
         }
-        res.push(cur_level);
+        if !cur_level.is_empty() {
+          res.push(cur_level);
+        }
+
+        stk = nstk.clone();
       }
       res
     }
