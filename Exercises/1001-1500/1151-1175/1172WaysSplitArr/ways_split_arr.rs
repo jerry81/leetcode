@@ -54,6 +54,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn ways_to_split_array(nums: Vec<i32>) -> i32 {
-
+      // prefix sums
+      let mut ps: Vec<i32> = vec![];
+      let mut sum = 0;
+      for n in nums {
+        sum+=n;
+        ps.push(sum);
+      }
+      let l = nums.len();
+      let mut res = 0;
+      for i in 0..l {
+          let leftsum = nums[i];
+          let rightsum = ps[l-1] - nums[i+1];
+          if leftsum >= rightsum { res+=1; }
+      }
+      res
   }
 }
