@@ -59,6 +59,7 @@ Acceptance Rate
 //     }
 //   }
 // }
+
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
@@ -71,10 +72,13 @@ impl Solution {
         let mut nstk: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![];
         while !stk.is_empty() {
           if let Some(last_item) = stk.pop() {
-            cur_level.push(last_item.unwrap().val);
-            if ltr {
-            } else {
+            if let Some(unwrapped) = last_item {
+              cur_level.push(unwrapped.borrow().val);
+              if ltr {
+              } else {
+              }
             }
+
           }
         }
         res.push(cur_level);
