@@ -49,6 +49,10 @@ Acceptance Rate
 
 impl Solution {
   pub fn min_operations(boxes: String) -> Vec<i32> {
-
+    let mut idxs: = boxes.iter().enumerate().map(|(i,k)| {
+      println!("enumerating {} {}", i,k);
+      i
+    })
+    vec![]
   }
 }
