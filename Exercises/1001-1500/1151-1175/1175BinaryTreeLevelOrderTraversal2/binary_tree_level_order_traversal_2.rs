@@ -76,9 +76,13 @@ impl Solution {
             nq.push(first_item.borrow().right.clone());
           }
         }
-        res.push(cur_level);
+        if !cur_level.is_empty() {
+            res.push(cur_level);
+        }
+
         q = nq;
       }
+      res.reverse();
       res
     }
 }
