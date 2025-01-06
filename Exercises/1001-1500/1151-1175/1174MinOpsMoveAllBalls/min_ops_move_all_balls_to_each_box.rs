@@ -55,8 +55,10 @@ impl Solution {
       i
     }).collect();
     let n = boxes.len();
-    let res: Vec<i32> = (0..n).map(|idx| {
-
+    let res: Vec<i32> = (0..n).map(|anchor| {
+      idxs.iter.fold(0, |sum, &idx| {
+        sum+(idx-anchor).abs()
+      })
     }).collect();
     res
   }
