@@ -56,8 +56,8 @@ impl Solution {
     }).collect();
     let n = boxes.len();
     let res: Vec<i32> = (0..n).map(|anchor| {
-      idxs.iter.fold(0, |sum, &idx| {
-        sum+(idx-anchor).abs()
+      idxs.iter().fold(0, |sum, &idx| {
+        sum+(idx as i32-anchor as i32).abs()
       })
     }).collect();
     res
