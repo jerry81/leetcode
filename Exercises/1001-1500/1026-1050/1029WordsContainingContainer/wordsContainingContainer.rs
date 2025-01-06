@@ -48,14 +48,8 @@ Acceptance Rate
 88.7%
 
 */
-
 impl Solution {
-  pub fn min_operations(boxes: String) -> Vec<i32> {
-    let mut idxs: Vec<usize> = boxes.chars().enumerate().filter(|(i,k)| {
-      *k == '1'
-    }).map(|(i,_)| {
-      i
-    }).collect();
-    vec![]
+  pub fn find_words_containing(words: Vec<String>, x: char) -> Vec<i32> {
+    words.iter().enumerate().filter(|(_, word)| word.contains(x)).map(|(i, _)| i as i32).collect()
   }
 }
