@@ -73,6 +73,7 @@ Acceptance Rate
 //     }
 //   }
 // }
+
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
@@ -82,9 +83,10 @@ impl Solution {
     */
     pub fn sorted_list_to_bst(head: Option<Box<ListNode>>) -> Option<Rc<RefCell<TreeNode>>> {
       let mut v: Vec<i32> = vec![];
+      let mut head = head;
       while let Some(h) = head {
         v.push(h.val);
-        head = head.next;
+        head = h.next;
       }
       println!("v is {:?}", v);
       None
