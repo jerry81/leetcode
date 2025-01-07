@@ -76,7 +76,17 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
+    /*
+      In Rust, Box is a smart pointer that provides ownership of
+      heap-allocated data.
+    */
     pub fn sorted_list_to_bst(head: Option<Box<ListNode>>) -> Option<Rc<RefCell<TreeNode>>> {
-
+      let mut v: Vec<i32> = vec![];
+      while let Some(h) = head {
+        v.push(h.val);
+        head = head.next;
+      }
+      println!("v is {:?}", v);
+      None
     }
 }
