@@ -79,7 +79,14 @@ use std::cell::RefCell;
 impl Solution {
     fn r(v:Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
       if v.is_empty() { return None }
-    };
+
+      let mid = v.len() / 2;
+      let root = Rc::new(RefCell::new(TreeNode::new(v[mid])));
+
+      root.borrow_mut().left = Solution::r(v[..mid].to_vec());
+      root.borrow_mut().right = Solution::r(v[mid+1..].to_vec());
+      Some(root)
+    }
     /*
       In Rust, Box is a smart pointer that provides ownership of
       heap-allocated data.
