@@ -77,6 +77,9 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
+    fn r(v:Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+      if v.is_empty() { return None }
+    };
     /*
       In Rust, Box is a smart pointer that provides ownership of
       heap-allocated data.
@@ -88,7 +91,7 @@ impl Solution {
         v.push(h.val);
         head = h.next;
       }
-      println!("v is {:?}", v);
-      None
+
+      Solution::r(v)
     }
 }
