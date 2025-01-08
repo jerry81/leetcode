@@ -80,11 +80,23 @@ impl Solution {
             false
         }
     }
-    fn backtrack(root: Option<Rc<RefCell<TreeNode>>>, target_sum:i32, current_sum:i32, results: &mut Vec<Vec<i32>>) {
+    fn backtrack(root: Option<Rc<RefCell<TreeNode>>>, target_sum:i32, current_sum:i32, results: &mut Vec<Vec<i32>>, cur: Vec<i32>) {
+      if let Some(r) = root.clone() {
+        let v = r.borrow().val;
+        let next_sum = current_sum+v;
+        let mut nxt_cur = cur.clone();
+        nxt_cur.push(v);
+        if next_sum == target_sum && Solution::is_leaf(r) {
+          results.push(nxt_cur);
+        }
+        Solution::backtrack(r.borrow().left.clone(), target_sum, nxt_sum, results, nxt_cur);
+        Solution::backtrack(r.borrow().right.clone(),target_sum, nxt_sum, results, nxt_cur);
+
+      }
     }
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec<Vec<i32>> {
       let mut res: Vec<Vec<i32>> = vec![];
-      Solution::backtrack(root, target_sum, 0, &mut res);
+      Solution::backtrack(root, target_sum, 0, &mut res, vec![]);
       res
     }
 }
