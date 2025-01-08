@@ -63,9 +63,13 @@ Acceptance Rate
 //     }
 //   }
 // }
+
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
+    fn backtrack(root: Option<Rc<RefCell<TreeNode>>>, target_sum:i32, current_sum:i32, results: &mut Vec<Vec<i32>>) {
+
+    }
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec<Vec<i32>> {
 
     }
