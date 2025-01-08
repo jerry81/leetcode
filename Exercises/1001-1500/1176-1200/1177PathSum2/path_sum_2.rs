@@ -86,11 +86,11 @@ impl Solution {
         let next_sum = current_sum+v;
         let mut nxt_cur = cur.clone();
         nxt_cur.push(v);
-        if next_sum == target_sum && Solution::is_leaf(r) {
-          results.push(nxt_cur);
+        if next_sum == target_sum && Solution::is_leaf(root.clone()) {
+          results.push(nxt_cur.clone());
         }
-        Solution::backtrack(r.borrow().left.clone(), target_sum, nxt_sum, results, nxt_cur);
-        Solution::backtrack(r.borrow().right.clone(),target_sum, nxt_sum, results, nxt_cur);
+        Solution::backtrack(r.borrow().left.clone(), target_sum, next_sum, results, nxt_cur.clone());
+        Solution::backtrack(r.borrow().right.clone(),target_sum, next_sum, results, nxt_cur.clone());
 
       }
     }
