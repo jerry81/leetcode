@@ -71,6 +71,8 @@ impl Solution {
 
     }
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec<Vec<i32>> {
-
+      let mut res: Vec<Vec<i32>> = vec![];
+      Solution::backtrack(root, target_sum, 0, &mut results);
+      res
     }
 }
