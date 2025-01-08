@@ -70,22 +70,17 @@ impl Solution {
     fn is_leaf(node: Option<Rc<RefCell<TreeNode>>>) -> bool {
         if let Some(n) = node {
           if let Some(l) = n.borrow().left.clone() {
-            if let Some(r) = n.borrow().right.clone() {
-                true
-            } else {
-                false
-            }
-          } else {
-            false
+            return false
           }
+          if let Some(r) = n.borrow().right.clone() {
+            return false
+          }
+          true
         } else {
             false
         }
     }
     fn backtrack(root: Option<Rc<RefCell<TreeNode>>>, target_sum:i32, current_sum:i32, results: &mut Vec<Vec<i32>>) {
-      if Solution::is_leaf(root) {
-        println!("found leaf");
-      }
     }
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec<Vec<i32>> {
       let mut res: Vec<Vec<i32>> = vec![];
