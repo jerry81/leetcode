@@ -280,3 +280,22 @@ Self::VOWELS.contains(&word.chars().next().unwrap()) && Self::VOWELS.contains(&w
 
     res
   ```
+
+  - 1178 - keep head, modify tail
+```rs
+impl Solution {
+  pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
+
+      let mut new_root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(v[0])))); // declare as mut
+      let mut tail = new_root.clone(); // clone it
+      for i in 1..v.len() {
+        let mut nxt: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(v[i]))));
+        if let Some(t) = tail {
+            t.borrow_mut().right = nxt.clone(); // use t inside assign to clone
+        }
+        tail = nxt; // assign tail to nxt
+      }
+      *root = new_root;
+  }
+}
+```

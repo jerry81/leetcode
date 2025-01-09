@@ -75,8 +75,21 @@ impl Solution {
   pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
       let mut v: Vec<i32> = Vec::new();
       Solution::r(root.clone(), &mut v);
-      let mut new_root: Option<Rc<RefCell<TreeNode>>> = None;
-      let mut tail = &mut new_root;
+
+      if v.is_empty() {
+        *root = None;
+        return
+      }
+
+      let mut new_root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(v[0]))));
+      let mut tail = new_root.clone();
+      for i in 1..v.len() {
+        let mut nxt: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(v[i]))));
+        if let Some(t) = tail {
+            t.borrow_mut().right = nxt.clone(); // set t, borrow mut , right to clone
+        }
+        tail = nxt; // set tail
+      }
       *root = new_root;
   }
 }
