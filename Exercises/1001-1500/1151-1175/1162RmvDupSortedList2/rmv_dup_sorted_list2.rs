@@ -53,33 +53,28 @@ Acceptance Rate
 //     }
 //   }
 // }
-use std::collections::HashSet;
+use std::rc::Rc;
+use std::cell::RefCell;
 impl Solution {
-  pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    // no constraints on memory, so just build another one with aid of hashset
-    let mut seen: HashSet<i32> = HashSet::new();
-    let mut dups: HashSet<i32> = HashSet::new();
-    let mut res: Option<Box<ListNode>> = None;
-    let mut cur = head.clone();
-    while let Some(mut n) = cur {
-      if seen.contains(&n.val) {
-        dups.insert(n.val);
-      } else {
-        seen.insert(n.val);
+  fn r(root: Option<Rc<RefCell<TreeNode>>>, v: &mut Vec<i32>) {
+      if let Some(rt) = root {
+        v.push(rt.borrow().val);
+        Solution::r(rt.borrow().left.clone(), v);
+        Solution::r(rt.borrow().right.clone(), v);
       }
-      cur = n.next;
-    }
-    cur = head.clone();
-    let mut tail = &mut res;
-    while let Some(mut n) = cur {
-      if !dups.contains(&n.val){
-        let new_node = Some(Box::new(ListNode::new(n.val)));
-        *tail = new_node;
-        tail = &mut tail.as_mut().unwrap().next;
-      }
-      cur = n.next.take();
-    }
+  }
+  pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
+      let mut v: Vec<i32> = Vec::new();
+      Solution::r(root.clone(), &mut v);
 
-    res
+      if v.is_empty() { return None; }
+
+      let mut new_root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(v[0]))));
+      let mut tail = &mut new_root;
+      for i in 1..v.len() {
+        *tail.right = Some(Rc::new(RefCell::new(TreeNode::new(v[i]))));
+        *tail = tail.right;
+      }
+      *root = new_root;
   }
 }

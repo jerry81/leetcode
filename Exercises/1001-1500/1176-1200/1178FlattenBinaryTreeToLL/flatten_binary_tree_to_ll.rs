@@ -65,14 +65,18 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
-  fn r(root: Option<Rc<RefCell<TreeNode>>>) {
+  fn r(root: Option<Rc<RefCell<TreeNode>>>, v: &mut Vec<i32>) {
       if let Some(rt) = root {
-        println!("process {}", rt.borrow().val);
-        Solution::r(rt.borrow().left.clone());
-        Solution::r(rt.borrow().right.clone());
+        v.push(rt.borrow().val);
+        Solution::r(rt.borrow().left.clone(), v);
+        Solution::r(rt.borrow().right.clone(), v);
       }
   }
   pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-      Solution::r(root.clone());
+      let mut v: Vec<i32> = Vec::new();
+      Solution::r(root.clone(), &mut v);
+      let mut new_root: Option<Rc<RefCell<TreeNode>>> = None;
+      let mut tail = &mut new_root;
+      *root = new_root;
   }
 }

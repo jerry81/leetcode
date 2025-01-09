@@ -269,3 +269,14 @@ const VOWELS: &'static [char] = &['a', 'e', 'i', 'o', 'u'];
 ```rs
 Self::VOWELS.contains(&word.chars().next().unwrap()) && Self::VOWELS.contains(&word.chars().last().unwrap())
 ```
+
+- see 1162 - maintain pointer to a head of a DS while modifying the DS
+```rs
+    let mut res: Option<Box<ListNode>> = None;
+    let mut cur = head.clone();
+    // processing
+    let mut tail = &mut res;
+    // work with tail
+
+    res
+  ```
