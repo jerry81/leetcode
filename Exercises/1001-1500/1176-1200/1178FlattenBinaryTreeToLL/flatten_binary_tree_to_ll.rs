@@ -65,7 +65,10 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
+    fn r(root: &mut Option<Rc<RefCell<TreeNode>>>, n_root &mut Option<Rc<RefCell<TreeNode>>>) {
+    }
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-
+      let mut n_root: &mut Option<Rc<RefCell<TreeNode>>> = None;
+      Solution::r(root, n_root);
     }
 }
