@@ -65,14 +65,23 @@ Acceptance Rate
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
-  fn r(root: Option<Rc<RefCell<TreeNode>>>) {
-      if let Some(rt) = root {
-        println!("process {}", rt.borrow().val);
-        Solution::r(rt.borrow().left.clone());
-        Solution::r(rt.borrow().right.clone());
+  fn r(root: Option<Rc<RefCell<TreeNode>>>, n_root: &mut Option<Rc<RefCell<TreeNode>>>) {
+      if let Some(r) = root {
+          let new_node = Some(Rc::new(RefCell::new(TreeNode::new(r.borrow().val))));
+          println!("new node is {:?}", new_node);
+          if n_root.is_none() {
+              *n_root = new_node; // Update n_root directly
+              Solution::r(r.borrow().left.clone(), &mut n_root.as_mut().unwrap().borrow_mut().right);
+              Solution::r(r.borrow().right.clone(), &mut n_root.as_mut().unwrap().borrow_mut().right);
+          } else {
+              n_root.as_mut().unwrap().borrow_mut().right = new_node;
+              n_root = &mut n_root.as_mut().unwrap().borrow_mut().right; // Move to the new node
+          }
       }
   }
   pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-      Solution::r(root.clone());
+      let mut n_root: Option<Rc<RefCell<TreeNode>>> = None;
+      Solution::r(root.clone(), &mut n_root); // Pass n_root as mutable reference
+      *root = n_root; // Update the original root to point to the new flattened tree
   }
 }
