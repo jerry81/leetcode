@@ -55,8 +55,22 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn minimum_length(s: String) -> i32 {
-
+    let mut freq:HashMap<char,i32> = HashMap::new();
+    for c in s.chars() {
+      *hm.entry(c).or_insert(0) += 1;
+    }
+    let mut res = s.len() as i32;
+    for (a,b) in freq.iter() {
+      let mut counter = b;
+      while counter > 2 {
+        counter-=2;
+        res-=2;
+      }
+    }
+    res
   }
 }
