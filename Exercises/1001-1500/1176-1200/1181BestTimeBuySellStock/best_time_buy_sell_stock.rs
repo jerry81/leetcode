@@ -51,6 +51,18 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_profit(prices: Vec<i32>) -> i32 {
-
+    // working out examples - greedy?
+    // need to know when to buy when empty handed
+    let mut cur_price = i32::MAX;
+    let mut res = 0;
+    for p in prices.iter() {
+      if p < cur_price {
+        cur_price = p;
+      } else {
+        res += p - cur_price;
+        cur_price = p;
+      }
+    }
+    res
   }
 }
