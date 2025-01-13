@@ -56,11 +56,11 @@ impl Solution {
     let mut cur_price = i32::MAX;
     let mut res = 0;
     for p in prices.iter() {
-      if p < cur_price {
-        cur_price = p;
+      if *p < cur_price {
+        cur_price = *p;
       } else {
-        res += p - cur_price;
-        cur_price = p;
+        res += *p - cur_price;
+        cur_price = *p;
       }
     }
     res
