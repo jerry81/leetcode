@@ -38,8 +38,26 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
   pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
+    let mut hs:HashSet<i32> = nums.into_iter().collect();
 
+    /*
+      iter borrows, no ownership, doesn't touch original yields references
+      into_iter consumes collection and takes ownership, yields actual values, moves nums
+    */
+    let mut res = 0;
+    for &item in &hs {
+      let mut cur = 0;
+      let nxt = item+1;
+      while hs.contains(&nxt) {
+        cur+=1;
+        res = res.max(cur);
+        nxt+=1;
+      }
+    }
+    res
   }
 }
