@@ -50,7 +50,28 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn count_ones(num:i32) -> i32 {
+    let s = format!("{:b}", num);
+    println!("s is {}", s);
+  }
   pub fn minimize_xor(num1: i32, num2: i32) -> i32 {
-
+    // worst case a billion ops
+    format!("{:b}", number);
+    Solution::count_ones(num2);
+    0
   }
 }
+
+/*
+3, 5
+
+011, 101
+// set bits same as 101
+so try 011, 101, 110, etc
+// pattern to this?
+1001, 1010, 1100
+3, 5, 6, 8, 10, 12
+
+0001
+1100
+*/
