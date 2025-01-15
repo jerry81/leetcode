@@ -50,6 +50,7 @@ impl Solution {
     */
     let mut res = 0;
     for &item in &hs {
+      if hs.contains(&(item-1)) { continue }
       let mut cur = 1;
       let mut nxt = item+1;
       while hs.contains(&nxt) {
