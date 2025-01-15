@@ -299,3 +299,5 @@ impl Solution {
   }
 }
 ```
+
+- 1182 - we have a built in function to find # of 1s in a num (represented as binary string)

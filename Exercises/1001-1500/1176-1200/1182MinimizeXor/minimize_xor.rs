@@ -50,15 +50,23 @@ Acceptance Rate
 */
 
 impl Solution {
-  fn count_ones(num:i32) -> i32 {
-    let s = format!("{:b}", num);
-    println!("s is {}", s);
-  }
   pub fn minimize_xor(num1: i32, num2: i32) -> i32 {
     // worst case a billion ops
-    format!("{:b}", number);
-    Solution::count_ones(num2);
-    0
+    let one_count: u32 = num2.count_ones();
+    let mut min_total = i32::MAX;
+    let mut res = -1;
+    for i in 0..=num1 {
+      if i.count_ones() != one_count {
+        continue
+      } else {
+        let mut op_res = num1 ^ i;
+        if min_total > op_res {
+          res = i;
+          min_total = op_res;
+        }
+      }
+    }
+    res
   }
 }
 
