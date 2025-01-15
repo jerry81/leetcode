@@ -48,14 +48,13 @@ Acceptance Rate
 49.5%
 
 */
-
 impl Solution {
   pub fn minimize_xor(num1: i32, num2: i32) -> i32 {
     // worst case a billion ops
     let one_count: u32 = num2.count_ones();
     let mut min_total = i32::MAX;
     let mut res = -1;
-    for i in 0..=num1 {
+    for i in 0..=(num2.max(num1)*2) {
       if i.count_ones() != one_count {
         continue
       } else {
