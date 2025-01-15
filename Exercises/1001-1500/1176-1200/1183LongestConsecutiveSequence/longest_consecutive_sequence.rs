@@ -50,13 +50,13 @@ impl Solution {
     */
     let mut res = 0;
     for &item in &hs {
-      let mut cur = 0;
-      let nxt = item+1;
+      let mut cur = 1;
+      let mut nxt = item+1;
       while hs.contains(&nxt) {
         cur+=1;
-        res = res.max(cur);
         nxt+=1;
       }
+      res = res.max(cur);
     }
     res
   }
