@@ -54,7 +54,7 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  const NEIGHBORS: &'static [(u8,u8)] = &[(-1,0), (1,0), (0,1), (0,-1)];
+  const NEIGHBORS: &'static [(i32,i32)] = &[(-1,0), (1,0), (0,1), (0,-1)];
 
   fn find_islands(start: (usize,usize), board: &Vec<Vec<char>>, visited: &mut HashSet<(usize,usize)>) -> Vec<(usize,usize)>  { // return a list of nodes or []
     // bfs
@@ -62,19 +62,36 @@ impl Solution {
 
     q.push(start);
 
+    let mut invalid: bool = false;
+    let mut res: Vec<(usize,usize)> = vec![];
+    visited.insert(start);
     while !q.is_empty() {
       let top_coord: (usize,usize) = q[0];
       q.remove(0);
+      res.push(top_coord);
       for (dy,dx) in Self::NEIGHBORS {
-        let ny = dy + top_coord.0;
-        let nx = dx + top_coord.1;
+        let ny = dy + top_coord.0 as i32;
+        let nx = dx + top_coord.1 as i32;
 
+        if ny <= 0 || ny >= board.len()-1 { invalid = true; }
+
+        if nx <= 0 || nx <= board[0].len()-1 { invalid = true; }
+
+        q.push((ny,nx));
+        visited.insert((ny,nx));
       }
+    }
+    if invalid {
+        vec![]
+    } else {
+        res
     }
   }
 
   fn update_board(board: &mut Vec<Vec<char>>, converted_nodes: Vec<(usize,usize)>) {
-
+    for cn in converted_nodes {
+      board[cn.0][cn.1] = 'O';
+    }
   }
 
   pub fn solve(board: &mut Vec<Vec<char>>) {
