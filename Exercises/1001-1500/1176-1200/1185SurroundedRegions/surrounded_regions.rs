@@ -63,7 +63,7 @@ impl Solution {
     q.push(start);
 
     let mut invalid: bool = false;
-    let mut res: Vec<(usize,usize)> = vec![];
+    let mut res: Vec<(usize,usize)> = vec![start];
     visited.insert(start);
     while !q.is_empty() {
       let top_coord: (usize,usize) = q[0];
@@ -73,12 +73,17 @@ impl Solution {
         let ny = dy + top_coord.0 as i32;
         let nx = dx + top_coord.1 as i32;
 
-        if ny <= 0 || ny >= board.len()-1 { invalid = true; }
-
-        if nx <= 0 || nx <= board[0].len()-1 { invalid = true; }
-
-        q.push((ny,nx));
-        visited.insert((ny,nx));
+        if ny < 0 { continue }
+        if nx < 0 { continue }
+        let nyu = ny as usize;
+        let nxu = nx as usize;
+        if nyu >= board.len() { continue }
+        if nxu >= board[0].len() { continue }
+        if !visited.contains(&(nyu, nxu)) && board[nyu][nxu] == 'O' {
+            println!("adding {}, {}", nyu, nxu);
+          q.push((nyu,nxu));
+          visited.insert((nyu,nxu));
+        }
       }
     }
     if invalid {
@@ -90,7 +95,7 @@ impl Solution {
 
   fn update_board(board: &mut Vec<Vec<char>>, converted_nodes: Vec<(usize,usize)>) {
     for cn in converted_nodes {
-      board[cn.0][cn.1] = 'O';
+      board[cn.0][cn.1] = 'X';
     }
   }
 
@@ -101,11 +106,13 @@ impl Solution {
     let mut updated_nodes: Vec<(usize,usize)> = vec![];
     for r in 0..h {
       for c in 0..w {
-        if visited.contains(&(r,c)) { continue }
+        if visited.contains(&(r,c)) || board[r][c] != 'O' { continue }
+        let fi_result = Solution::find_islands((r,c), &board, &mut visited);
+        println!("fi_result {:?}", fi_result);
+        updated_nodes.extend(fi_result);
 
-        Self::find_islands((r,c), board, &mut visited);
-        updated_nodes.extend(Solution::find_islands((r,c), &board, &mut visited));
       }
     }
+    Solution::update_board(board, updated_nodes);
   }
 }
