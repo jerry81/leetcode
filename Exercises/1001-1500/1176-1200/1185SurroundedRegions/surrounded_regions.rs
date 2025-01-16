@@ -51,8 +51,22 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn solve(board: &mut Vec<Vec<char>>) {
+use std::collections::HashSet;
 
+impl Solution {
+  fn find_islands(start: (usize,usize), board: &Vec<Vec<char>>, visited: &mut HashSet<(usize,usize)>) -> Vec<(usize,usize)>  { // return a list of nodes or []
+    return vec![]
+  }
+
+  pub fn solve(board: &mut Vec<Vec<char>>) {
+    let h = board.len();
+    let w = board[0].len();
+    let mut visited: HashSet<(usize,usize)> = HashSet::new();
+    for r in 0..h {
+      for c in 0..w {
+        let result = Solution::find_islands((r,c), &board, &mut visited);
+        println!("result {:?}", result);
+      }
+    }
   }
 }
