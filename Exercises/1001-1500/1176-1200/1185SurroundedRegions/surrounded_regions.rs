@@ -62,7 +62,7 @@ impl Solution {
 
     q.push(start);
 
-    let mut invalid: bool = false;
+    let mut invalid: bool = start.0 <= 0 || start.1 <= 0 || start.0 >= board.len() - 1 || start.1 >= board[0].len() - 1;
     let mut res: Vec<(usize,usize)> = vec![start];
     visited.insert(start);
     while !q.is_empty() {
@@ -80,9 +80,10 @@ impl Solution {
         if nyu >= board.len() { continue }
         if nxu >= board[0].len() { continue }
         if !visited.contains(&(nyu, nxu)) && board[nyu][nxu] == 'O' {
-            println!("adding {}, {}", nyu, nxu);
           q.push((nyu,nxu));
           visited.insert((nyu,nxu));
+          if nyu <= 0 || nxu <= 0 { invalid = true; }
+          if nyu >= board.len() - 1 || nxu >= board[0].len() - 1 { invalid = true; }
         }
       }
     }
@@ -108,7 +109,6 @@ impl Solution {
       for c in 0..w {
         if visited.contains(&(r,c)) || board[r][c] != 'O' { continue }
         let fi_result = Solution::find_islands((r,c), &board, &mut visited);
-        println!("fi_result {:?}", fi_result);
         updated_nodes.extend(fi_result);
 
       }
