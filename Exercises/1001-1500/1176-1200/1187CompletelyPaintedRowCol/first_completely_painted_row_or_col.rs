@@ -46,8 +46,20 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn first_complete_index(arr: Vec<i32>, mat: Vec<Vec<i32>>) -> i32 {
+    let mut hm: HashMap<i32,(usize,usize)> = HashMap::new();
+    let h: usize = mat.len();
+    let w: usize = mat[0].len();
+    for r in 0..h {
+      for c in 0..w {
+        *hm.entry(mat[r][c]).or_insert((0,0)) = (r,c);
+      }
+    }
 
+    println!("{:?}", hm);
+    0
   }
 }
