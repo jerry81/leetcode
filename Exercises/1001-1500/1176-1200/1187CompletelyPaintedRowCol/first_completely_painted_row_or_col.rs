@@ -62,8 +62,17 @@ impl Solution {
     }
     let mut res = 0;
     for idx in 0..arr.len() {
-      let (r,c) = hm[arr[idx]];
-      println!("dealing with {},{}", r,c);
+      let (r,c) = hm[&arr[idx]];
+      r_counts[r]+=1;
+      c_counts[c]+=1;
+      if c_counts[c] == w {
+        res = idx;
+        break
+      }
+      if r_counts[r] == h {
+        res = idx;
+        break
+      }
     }
     res
   }
