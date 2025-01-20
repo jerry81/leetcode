@@ -60,8 +60,11 @@ impl Solution {
         *hm.entry(mat[r][c]).or_insert((0,0)) = (r,c);
       }
     }
-
-    println!("{:?}", hm);
-    0
+    let mut res = 0;
+    for idx in 0..arr.len() {
+      let (r,c) = hm[arr[idx]];
+      println!("dealing with {},{}", r,c);
+    }
+    res
   }
 }
