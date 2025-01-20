@@ -65,15 +65,15 @@ impl Solution {
       let (r,c) = hm[&arr[idx]];
       r_counts[r]+=1;
       c_counts[c]+=1;
-      if c_counts[c] == w {
+      if c_counts[c] == h as i32 {
         res = idx;
         break
       }
-      if r_counts[r] == h {
+      if r_counts[r] == w as i32 {
         res = idx;
         break
       }
     }
-    res
+    res as i32
   }
 }
