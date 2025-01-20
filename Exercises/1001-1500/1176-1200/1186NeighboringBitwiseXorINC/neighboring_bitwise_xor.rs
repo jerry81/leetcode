@@ -57,9 +57,23 @@ Acceptance Rate
 75.2%
 
 */
-
 impl Solution {
   pub fn does_valid_array_exist(derived: Vec<i32>) -> bool {
+    // Initialize the first element of the original array
+    let mut original = vec![0; derived.len()];
+    original[0] = 0; // Start with 0 for the first element
 
+    // Simulate the construction of the original array
+    for i in 0..derived.len() {
+      original[i] = original[(i + 1) % derived.len()] ^ derived[i];
+    }
+
+    // Check if the last element matches the first element
+    original[0] ^ original[derived.len() - 1] == derived[derived.len() - 1]
   }
 }
+
+/*
+
+1,0,1,0
+1,0,0,1
