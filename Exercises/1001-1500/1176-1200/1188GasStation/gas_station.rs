@@ -57,6 +57,28 @@ Acceptance Rate
 
 impl Solution {
   pub fn can_complete_circuit(gas: Vec<i32>, cost: Vec<i32>) -> i32 {
-
+    let site_count: usize = gas.len();
+    let mut res: usize = 0;
+    if cost.iter().sum::<i32>() <= gas.iter().sum::<i32>()  {
+      for start_idx in 0..site_count {
+        let mut total_gas = 0;
+        let mut ok = true;
+        for offset in 0..site_count {
+          let cur_idx = (offset+start_idx)%site_count;
+          total_gas += gas[cur_idx];
+          total_gas-=cost[cur_idx];
+          if total_gas < 0 {
+            ok = false;
+            break;
+          }
+        }
+        if ok {
+          return start_idx
+        }
+      }
+      -1
+    } else {
+      -1
+    }
   }
 }
