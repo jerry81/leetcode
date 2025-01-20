@@ -53,6 +53,8 @@ impl Solution {
     let mut hm: HashMap<i32,(usize,usize)> = HashMap::new();
     let h: usize = mat.len();
     let w: usize = mat[0].len();
+    let mut r_counts: Vec<i32> = vec![0;h];
+    let mut c_counts: Vec<i32> = vec![0;w];
     for r in 0..h {
       for c in 0..w {
         *hm.entry(mat[r][c]).or_insert((0,0)) = (r,c);
