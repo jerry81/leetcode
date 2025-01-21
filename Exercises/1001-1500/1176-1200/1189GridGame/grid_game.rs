@@ -72,20 +72,18 @@ impl Solution {
     let mut res = i64::MAX;
     for p1_play in 0..w {
       if p1_play == 0 {
-        res = res.min(psums[0][w-1] - grid[0][0]);
+        res = res.min(psums[0][w-1] - grid[0][0] as i64);
       } else if p1_play==(w-1) {
         res = res.min(psums[1][w-2]);
       } else {
-        let playA = psums[0][w-1] - psums[0][p1_play+1];
+        let playA = psums[0][w-1] - psums[0][p1_play];
         let playB = psums[1][p1_play-1];
         res = res.min(playA.max(playB));
       }
-      println!("p1 plays {}, and now res is {}", p1_play, res);
     }
     res
   }
 }
-
 
 
 /*
