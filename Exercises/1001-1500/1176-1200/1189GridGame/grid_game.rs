@@ -62,9 +62,11 @@ impl Solution {
     let mut psums: Vec<Vec<i32>> = vec![vec![0;w],vec![0;w]];
     psums[0][0] = grid[0][0];
     psums[1][0] = grid[1][0];
+
     for i in 1..w {
-      psums[0][i] = grid[0][i] + grid[0][i-1];
-      psums[1][i] = grid[1][i] + grid[1][i-1];
+        for j in 0..2 {
+          psums[j][i] = grid[j][i] + psums[j][i-1];
+        }
     }
     println!("Psums is {:?}", psums);
     0
