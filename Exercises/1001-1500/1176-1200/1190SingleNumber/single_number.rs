@@ -37,9 +37,25 @@ Acceptance Rate
 64.4%
 
 */
-
 impl Solution {
   pub fn single_number(nums: Vec<i32>) -> i32 {
+    let mut bits = [0; 32]; // Array to hold the count of bits
 
+    // Count the bits for each number
+    for num in nums {
+      for i in 0..32 {
+        bits[i] += (num >> i) & 1; // Increment the bit count
+      }
+    }
+
+    let mut result = 0;
+    // Construct the result from bits that are not multiples of 3
+    for i in 0..32 {
+      if bits[i] % 3 != 0 {
+        result |= 1 << i; // Set the bit in the result
+      }
+    }
+
+    result
   }
 }
