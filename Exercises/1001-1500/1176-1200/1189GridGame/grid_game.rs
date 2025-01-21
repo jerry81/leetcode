@@ -75,9 +75,12 @@ impl Solution {
       let interval_end_1: i32 = p1_play as i32 - 1;
       if interval_start_0 < w {
         res = res.min(psums[0][w-1] - psums[0][interval_start_0-1]);
-      }
-      if interval_end_1 >= 0 {
+      } else if interval_end_1 >= 0 {
         res = res.min(psums[1][interval_end_1 as usize]);
+      } else {
+        let playA = psums[0][w-1] - psums[0][interval_start_0-1];
+        let playB = res.min(psums[1][interval_end_1 as usize]);
+        res = res.min(playA.max(playB));
       }
     }
     res
