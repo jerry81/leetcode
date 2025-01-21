@@ -70,7 +70,17 @@ impl Solution {
 
     }
     let mut res = i64::MAX;
-    0
+    for p1_play in 0..w {
+      let interval_start_0: i32 = p1_play as i32 + 1;
+      let interval_end_1: i32 = p1_play as i32 - 1;
+      if interval_start_0 < w {
+        res = res.min(psums[0][w-1] - psums[0][interval_start_0 as usize-1]);
+      }
+      if interval_end_1 >= 0 {
+        res = res.min(psums[1][interval_end_1]);
+      })
+    }
+    res
   }
 }
 
