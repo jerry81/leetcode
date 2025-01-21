@@ -58,6 +58,20 @@ Acceptance Rate
 
 impl Solution {
   pub fn grid_game(grid: Vec<Vec<i32>>) -> i64 {
-
+    let w = grid[0].len();
+    let mut psums: Vec<Vec<i32>> = vec![vec![0;w],vec![0;w]];
+    psums[0][0] = grid[0][0];
+    psums[1][0] = grid[1][0];
+    for i in 1..w {
+      psums[0][i] = grid[0][i] + grid[0][i-1];
+      psums[1][i] = grid[1][i] + grid[1][i-1];
+    }
+    println!("Psums is {:?}", psums);
+    0
   }
 }
+
+/*
+only 2 rows so pick which col to switch
+prefix sums
+*/
