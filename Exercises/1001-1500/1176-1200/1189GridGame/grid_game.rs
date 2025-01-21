@@ -59,15 +59,17 @@ Acceptance Rate
 impl Solution {
   pub fn grid_game(grid: Vec<Vec<i32>>) -> i64 {
     let w = grid[0].len();
-    let mut psums: Vec<Vec<i32>> = vec![vec![0;w],vec![0;w]];
-    psums[0][0] = grid[0][0];
-    psums[1][w-1] = grid[1][w-1];
+    let mut psums: Vec<Vec<i64>> = vec![vec![0;w],vec![0;w]];
+    psums[0][0] = grid[0][0] as i64;
+    psums[1][0] = grid[1][0] as i64;
 
     for i in 1..w {
-          psums[0][i] = grid[0][i] + psums[0][i-1];
-          psums[1][w-i-1] = grid[1][w-i-1] + psums[1][w-i];
+      for j in 0..=1 {
+        psums[j][i] = grid[j][i] as i64 + psums[j][i-1];
+      }
+
     }
-    println!("Psums is {:?}", psums);
+    let mut res = i64::MAX;
     0
   }
 }
