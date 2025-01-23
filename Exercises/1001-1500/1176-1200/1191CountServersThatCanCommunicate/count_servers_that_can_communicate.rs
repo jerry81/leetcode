@@ -55,20 +55,33 @@ Acceptance Rate
 
 */
 
-
 impl Solution {
   pub fn count_servers(grid: Vec<Vec<i32>>) -> i32 {
     // tally m/n
     let h = grid.len();
     let w = grid[0].len();
-    let mut counts: Vec<Vec<i32>> = vec![h;vec![w;0]];
+    let mut row_counts: Vec<i32> = vec![0;h];
+    let mut col_counts: Vec<i32> = vec![0;w];
     for r in 0..h {
       for c in 0..w {
         if grid[r][c] == 1 {
-          counts[r][c]+=1;
+          row_counts[r]+=1;
+          col_counts[c]+=1;
         }
       }
     }
-    0
+    let mut res = 0;
+    for r in 0..h {
+      for c in 0..w {
+        if grid[r][c] == 1 {
+          if row_counts[r] == 1 && col_counts[c] == 1 {
+            continue;
+          }
+
+          res+=1;
+        }
+      }
+    }
+    res
   }
 }
