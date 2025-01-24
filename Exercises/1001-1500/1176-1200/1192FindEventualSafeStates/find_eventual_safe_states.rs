@@ -52,6 +52,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn eventual_safe_nodes(graph: Vec<Vec<i32>>) -> Vec<i32> {
-
+    // first get terminal nodes
+    let mut safe_nodes: Vec<i32> = vec![];
+    let node_count = graph.len();
+    for i in 0..node_count {
+      if graph[i].is_empty() {
+        safe_nodes.push(i);
+      }
+    }
+    println!("safe nodes are {:?}", safe_nodes);
+    vec![]
   }
 }
