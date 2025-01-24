@@ -49,18 +49,87 @@ Acceptance Rate
 65.8%
 
 */
-
 impl Solution {
   pub fn eventual_safe_nodes(graph: Vec<Vec<i32>>) -> Vec<i32> {
-    // first get terminal nodes
-    let mut safe_nodes: Vec<i32> = vec![];
-    let node_count = graph.len();
-    for i in 0..node_count {
-      if graph[i].is_empty() {
-        safe_nodes.push(i);
+  let mut safe_nodes: Vec<i32> = vec![];
+  let node_count = graph.len();
+  for i in 0..node_count {
+    if graph[i].is_empty() {
+      safe_nodes.push(i as i32);
+    }
+  }
+  // tally m/n
+  let mut parent = vec![0; graph.len()];
+  let mut rank = vec![0; graph.len()];
+
+  // Find function with path compression
+  fn find(node: usize, parent: &mut Vec<usize>) -> usize {
+    if parent[node] != node {
+      parent[node] = find(parent[node], parent);
+    }
+    parent[node]
+  }
+
+  // Union function
+  fn union(node1: usize, node2: usize, parent: &mut Vec<usize>, rank: &mut Vec<usize>) {
+    let root1 = find(node1, parent);
+    let root2 = find(node2, parent);
+    if root1 != root2 {
+      if rank[root1] > rank[root2] {
+        parent[root2] = root1;
+      } else if rank[root1] < rank[root2] {
+        parent[root1] = root2;
+      } else {
+        parent[root2] = root1;
+        rank[root1] += 1;
       }
     }
-    println!("safe nodes are {:?}", safe_nodes);
-    vec![]
+  }
+
+  // Initialize parent for each node
+  for i in 0..graph.len() {
+    parent[i] = i;
+  }
+
+  // Union nodes based on the graph
+  for (i, edges) in graph.iter().enumerate() {
+    for &edge in edges {
+      union(i, edge as usize, &mut parent, &mut rank);
+    }
+  }
+
+  // Identify safe nodes
+  let mut safe_nodes: Vec<i32> = vec![];
+  for i in 0..graph.len() {
+    if find(i, &mut parent) == i {
+      safe_nodes.push(i as i32);
+    }
+  }
+
+  println!("safe nodes are {:?}", safe_nodes);
+  safe_nodes.sort(); // Ensure the output is sorted
+  safe_nodes
+}
+}
+
+// Helper functions for disjoint set
+fn find(parent: &mut Vec<usize>, x: usize) -> usize {
+  if parent[x] != x {
+      parent[x] = find(parent, parent[x]);
+  }
+  parent[x]
+}
+
+fn union(parent: &mut Vec<usize>, size: &mut Vec<usize>, x: usize, y: usize) {
+  let root_x = find(parent, x);
+  let root_y = find(parent, y);
+  if root_x != root_y {
+      if size[root_x] < size[root_y] {
+          parent[root_x] = root_y;
+          size[root_y] += size[root_x];
+      } else {
+          parent[root_y] = root_x;
+          size[root_x] += size[root_y];
+      }
   }
 }
