@@ -61,30 +61,35 @@ Acceptance Rate
 //     }
 //   }
 // }
-
 impl Solution {
   pub fn insertion_sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut cur_head = head.clone();
-    let mut prev: Option<Box<ListNode>> = None;
-    while cur_head != None { // for each
+    let mut sorted: Option<Box<ListNode>> = None; // Sorted list head
 
-      if let Some(ch) = cur_head {
-        // get next
-        let nxt = ch.next;
-        let v = ch.val;
-        // find spot for cur_head
-        let mut insert_head = head.clone();
-        if let Some(ih) = insert_head {
-          if
+    while cur_head.is_some() { // for each node in the original list
+      if let Some(mut ch) = cur_head {
+        cur_head = ch.next; // Move to the next node
+        // Insert ch into the sorted list
+        let mut insert_pos = &mut sorted;
+
+        while let Some(ref mut sorted_node) = insert_pos {
+          if ch.val < sorted_node.val {
+            break; // Found the position to insert
+          }
+          insert_pos = &mut sorted_node.next; // Move to the next node in sorted list
         }
-      }
 
+        // Insert the current node
+        ch.next = insert_pos.take(); // Link to the next node in sorted list
+        *insert_pos = Some(ch); // Insert the current node
+      }
     }
 
+    sorted // Return the head of the sorted list
   }
 }
 
 // *4 2 1 3
-// 2 *4 1 3
+// 2 *4 1 3   prev (4) .next = cur.next
 // 1 2 *4 3
 // 1 2 3 *4
