@@ -64,6 +64,27 @@ Acceptance Rate
 
 impl Solution {
   pub fn insertion_sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let mut cur_head = head.clone();
+    let mut prev: Option<Box<ListNode>> = None;
+    while cur_head != None { // for each
+
+      if let Some(ch) = cur_head {
+        // get next
+        let nxt = ch.next;
+        let v = ch.val;
+        // find spot for cur_head
+        let mut insert_head = head.clone();
+        if let Some(ih) = insert_head {
+          if
+        }
+      }
+
+    }
 
   }
 }
+
+// *4 2 1 3
+// 2 *4 1 3
+// 1 2 *4 3
+// 1 2 3 *4
