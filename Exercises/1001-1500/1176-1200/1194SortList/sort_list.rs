@@ -74,16 +74,16 @@ impl Solution {
       ref creates ref without taking ownership
     */
     while let Some(ref fast_node) = fast {
-      if let Some(ref next_fast_node) = fast.next { // checking next for None
+      if let Some(ref next_fast_node) = fast_node.next { // checking next for None
         prev = slow.clone();
-        slow = slow.as_ref()?.next.clone();
-        fast = Some(next_fast_node.next.clone());
+        slow = slow.unwrap().next.clone();
+        fast = next_fast_node.next.clone();
       } else {
         break;
       }
     }
     if let Some(ref mut prev_node) = prev {
-      prev.next = None;
+      prev_node.next = None;
     }
     (head, slow)
   }
@@ -91,6 +91,17 @@ impl Solution {
   fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) {
   }
   pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let (mut first,mut second) = Solution::split_list(head);
+    println!("first");
+    while !first.clone().is_none() {
+      println!("{}", first.clone().unwrap().val);
+      first=first.unwrap().next;
+    }
+    println!("second");
+    while !second.clone().is_none() {
+      println!("{}", second.clone().unwrap().val);
+      second=second.unwrap().next;
+    }
     None
   }
 }
