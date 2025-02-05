@@ -66,26 +66,25 @@ impl Solution {
     if head.is_none() { // x.is_none() is same as x == None
       return (None, None);
     }
-    let mut slow = head.clone();
-    let mut fast = head.clone();
-    let mut prev = None;
+    let mut slow = &head;
+    let mut fast = &head;
+    let mut prev: Option<&Box<ListNode>> = None;
     // only have to go until fast reaches end
     /*
       ref creates ref without taking ownership
     */
-    while let Some(ref fast_node) = fast {
+    while fast.is_some() && fast.as_ref().unwrap().next.is_some() {
       if let Some(ref next_fast_node) = fast_node.next { // checking next for None
-        prev = slow.clone();
-        slow = slow.unwrap().next.clone();
-        fast = next_fast_node.next.clone();
-      } else {
-        break;
+        prev = Some(slow.as_ref().unwrap());
+        slow = &slow.as_ref().unwrap().next;
+        fast = &fast.as_ref().unwrap().next.as_ref().unwrap().next;
       }
     }
-    if let Some(ref mut prev_node) = prev {
-      prev_node.next = None;
+    let mut second_half = None;
+    if let Some(prev_node) = prev {
+      second_half = prev_node.next.take(); // again take replaces with None
     }
-    (head, slow)
+    (head, second_half)
   }
 
   fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) {
