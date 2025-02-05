@@ -62,6 +62,10 @@ Acceptance Rate
 //   }
 // }
 impl Solution {
+  fn split_list(head:Option<Box<ListNode>>) -> (Option<Box<ListNode>>,Option<Box<ListNode>>) {
+  }
+  fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) {
+  }
   pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 
   }
