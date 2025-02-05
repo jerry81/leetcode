@@ -63,10 +63,34 @@ Acceptance Rate
 // }
 impl Solution {
   fn split_list(head:Option<Box<ListNode>>) -> (Option<Box<ListNode>>,Option<Box<ListNode>>) {
+    if head.is_none() { // x.is_none() is same as x == None
+      return (None, None);
+    }
+    let mut slow = head.clone();
+    let mut fast = head.clone();
+    let mut prev = None;
+    // only have to go until fast reaches end
+    /*
+      ref creates ref without taking ownership
+    */
+    while let Some(ref fast_node) = fast {
+      if let Some(ref next_fast_node) = fast.next { // checking next for None
+        prev = slow.clone();
+        slow = slow.as_ref()?.next.clone();
+        fast = Some(next_fast_node.next.clone());
+      } else {
+        break;
+      }
+    }
+    if let Some(ref mut prev_node) = prev {
+      prev.next = None;
+    }
+    (head, slow)
   }
+
   fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) {
   }
   pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
+    None
   }
 }
