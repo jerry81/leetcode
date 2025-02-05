@@ -85,21 +85,41 @@ impl Solution {
     let mut second_half = slow.as_mut().unwrap().next.take();
     (head, second_half)
   }
+  fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) ->  Option<Box<ListNode>> {
+    let mut dummy = ListNode::new(0); // create a node
+    let mut tail = &mut dummy;
+    let mut head1 = head1;
+    let mut head2 = head2;
+    while head1.is_some() && head2.is_some() {
+        if head1.as_ref().unwrap().val < head2.as_ref().unwrap().val {
+            tail.next = head1.take();
+            tail = tail.next.as_mut().unwrap();
+            head1 = tail.next.take();
+        } else {
+            tail.next = head2.take();
+            tail = tail.next.as_mut().unwrap();
+            head2 = tail.next.take();
+        }
+    }
 
-  fn merge_lists(head1:Option<Box<ListNode>>, head2: Option<Box<ListNode>>) {
+    if head1.is_some() {
+        tail.next = head1;
+    } else {
+        tail.next = head2;
+    }
+
+    dummy.next
   }
+
   pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    let (mut first,mut second) = Solution::split_list(head);
-    println!("first");
-    while !first.clone().is_none() {
-      println!("{}", first.clone().unwrap().val);
-      first=first.unwrap().next;
+    if head.is_none() || head.as_ref().unwrap().next.is_none() {
+      return head;
     }
-    println!("second");
-    while !second.clone().is_none() {
-      println!("{}", second.clone().unwrap().val);
-      second=second.unwrap().next;
-    }
-    None
+    let (first,second) = Solution::split_list(head);
+
+    let sorted_first = Solution::sort_list(first);
+    let sorted_second = Solution::sort_list(second);
+
+    Solution::merge_lists(sorted_first,sorted_second)
   }
 }
