@@ -66,24 +66,23 @@ impl Solution {
     if head.is_none() { // x.is_none() is same as x == None
       return (None, None);
     }
-    let mut slow = &head;
-    let mut fast = &head;
-    let mut prev: Option<&Box<ListNode>> = None;
+
+    let mut head = head;
+    let mut head_clone = head.clone();
+    let mut slow = &mut head;
+    let mut fast = &mut head_clone;
+    if fast.is_some() && fast.as_ref().unwrap().next.is_some() {
+      fast = &mut fast.as_mut().unwrap().next.as_mut().unwrap().next;
+    }
     // only have to go until fast reaches end
     /*
       ref creates ref without taking ownership
     */
     while fast.is_some() && fast.as_ref().unwrap().next.is_some() {
-      if let Some(ref next_fast_node) = fast_node.next { // checking next for None
-        prev = Some(slow.as_ref().unwrap());
-        slow = &slow.as_ref().unwrap().next;
-        fast = &fast.as_ref().unwrap().next.as_ref().unwrap().next;
-      }
+      slow = &mut slow.as_mut().unwrap().next;
+      fast = &mut fast.as_mut().unwrap().next.as_mut().unwrap().next;
     }
-    let mut second_half = None;
-    if let Some(prev_node) = prev {
-      second_half = prev_node.next.take(); // again take replaces with None
-    }
+    let mut second_half = slow.as_mut().unwrap().next.take();
     (head, second_half)
   }
 
