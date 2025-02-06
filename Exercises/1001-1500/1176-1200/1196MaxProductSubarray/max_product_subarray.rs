@@ -43,6 +43,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_product(nums: Vec<i32>) -> i32 {
-
+    let mut prefix_products: Vec<i64> = vec![];
+    let mut prod = 1;
+    for n in nums {
+      prefix_products.push(prod*n);
+    }
+    println!("prefix products is {:?}", prefix_products);
   }
 }
