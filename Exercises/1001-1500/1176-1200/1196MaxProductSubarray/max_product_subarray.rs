@@ -43,22 +43,24 @@ Acceptance Rate
 
 impl Solution {
   pub fn max_product(nums: Vec<i32>) -> i32 {
-    let mut prefix_products: Vec<i64> = vec![];
-    let mut mnres = i32::MAX;
-    let mut mxres = i32::MIN;
-    let mut res = i32::MIN;
-    let mut cur_prod = 1;
-    for n in nums {
-      if n == 0 {
-        res = mxres.max(0);
-        mxres = 0;
-        mnres = mnres.min(0);
+    let mut max_product = nums[0];
+    let mut min_product = nums[0];
+    let mut result = nums[0];
+
+    for &n in &nums[1..] {
+      max_product*=n;
+      min_product*=n;
+      if n < 0 {
+
+        // Swap max and min when n is negative
+        std::mem::swap(&mut max_product, &mut min_product);
       }
-      cur_prod*=n;
-      mnres = mnres.min(cur_prod);
-      mxres = mxres.max(cur_prod);
-      res = mxres.max(res);
+      max_product = max_product.max(n as i32);
+      min_product = min_product.min(n as i32);
+
+      result = result.max(max_product);
     }
-    res
+
+    result
   }
 }
