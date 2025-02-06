@@ -44,13 +44,21 @@ Acceptance Rate
 impl Solution {
   pub fn max_product(nums: Vec<i32>) -> i32 {
     let mut prefix_products: Vec<i64> = vec![];
-    let mut prod = 1;
+    let mut mnres = i32::MAX;
+    let mut mxres = i32::MIN;
+    let mut res = i32::MIN;
+    let mut cur_prod = 1;
     for n in nums {
-
-      prod*=n as i64;
-      prefix_products.push(prod);
+      if n == 0 {
+        res = mxres.max(0);
+        mxres = 0;
+        mnres = mnres.min(0);
+      }
+      cur_prod*=n;
+      mnres = mnres.min(cur_prod);
+      mxres = mxres.max(cur_prod);
+      res = mxres.max(res);
     }
-    println!("prefix products is {:?}", prefix_products);
-    0
+    res
   }
 }
