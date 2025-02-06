@@ -61,9 +61,9 @@ impl Solution {
       }
     }
     let mut res = 0;
-    for (idx1, hm1) in hm {
+    for (idx1, hm1) in hm.clone() {
       for (idx2, (x1,x2,x3)) in hm1 {
-        for (idx3, hm2) in hm {
+        for (idx3, hm2) in hm.clone() {
             for (idx4, (y1,y2,y3)) in hm2 {
                 if idx1 == idx3 || idx1 == idx4 { continue }
                 if idx2 == idx3 || idx2 == idx4 { continue }
