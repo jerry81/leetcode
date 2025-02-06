@@ -44,38 +44,32 @@ Acceptance Rate
 65.1%
 
 */
-
 use std::collections::HashMap;
 
 impl Solution {
   pub fn tuple_same_product(nums: Vec<i32>) -> i32 {
-    // cache pairs
-    let mut hm: HashMap<usize,HashMap<usize,(i32,i32,i32)>> = HashMap::new();
+    // cache products
+    let mut product_map: HashMap<i32, Vec<(usize, usize)>> = HashMap::new();
     let sz = nums.len();
+
     for i in 0..(sz-1) {
       let ni = nums[i];
-      hm.insert(i, HashMap::new());
       for j in i+1..sz {
         let nj = nums[j];
-        hm.get_mut(&i).unwrap().insert(j, (ni, nj, ni * nj)); // Updated this line
+        let product = ni * nj;
+        product_map.entry(product).or_insert(Vec::new()).push((i, j)); // Updated this line
       }
     }
-    let mut res = 0;
-    for (idx1, hm1) in hm.clone() {
-      for (idx2, (x1,x2,x3)) in hm1 {
-        for (idx3, hm2) in hm.clone() {
-            for (idx4, (y1,y2,y3)) in hm2 {
-                if idx1 == idx3 || idx1 == idx4 { continue }
-                if idx2 == idx3 || idx2 == idx4 { continue }
-                if x1 == x2 || x1 == y1 || x1 == y2 { continue }
-                if y1 == y2 || x2 == y1 || x2 == y2 { continue }
 
-                if x3 == y3 { res+=1; }
-            }
-        }
+    let mut res = 0;
+    for pairs in product_map.values() {
+      let count = pairs.len();
+      if count > 1 {
+        res += count * (count - 1) * 4; // Each pair can form 4 permutations
       }
     }
-    res
+
+    res as i32
   }
 }
 
