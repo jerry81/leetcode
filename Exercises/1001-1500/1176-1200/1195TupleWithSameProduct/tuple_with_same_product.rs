@@ -50,14 +50,29 @@ use std::collections::HashMap;
 impl Solution {
   pub fn tuple_same_product(nums: Vec<i32>) -> i32 {
     // cache pairs
-    let mut hm: HashMap<HashMap<i32,i32,i32>> = HashMap::new();
+    let mut hm: HashMap<usize,HashMap<usize,(i32,i32,i32)>> = HashMap::new();
     let sz = nums.len();
     for i in 0..(sz-1) {
+      let ni = nums[i];
+      hm[&i] = HashMap::new();
       for j in i+1..sz {
-        hm[i][j]=(i,j,i*j);
+        let nj = nums[j];
+        hm[&i][&j]=(ni,nj,ni*nj);
       }
     }
-    println!("hm is {:?}", hm);
+    let mut res = 0;
+    for (idx1, hm1) in hm {
+      for (idx2, (x1,x2,x3)) in hm1 {
+        println!("working with idx1 {}, idx2 {}, x1,x2,x3 {},{},{}", idx1, idx2, x1,x2,x3);
+      }
+    }
     0
   }
 }
+
+/*
+
+hm is {1: {2: (3, 4, 12), 3: (3, 6, 18)}, 2: {3: (4, 6, 24)},
+0: {3: (2, 6, 12), 2: (2, 4, 8), 1: (2, 3, 6)}}
+
+*/
