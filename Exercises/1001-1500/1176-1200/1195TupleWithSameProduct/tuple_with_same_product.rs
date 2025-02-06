@@ -54,19 +54,28 @@ impl Solution {
     let sz = nums.len();
     for i in 0..(sz-1) {
       let ni = nums[i];
-      hm[&i] = HashMap::new();
+      hm.insert(i, HashMap::new());
       for j in i+1..sz {
         let nj = nums[j];
-        hm[&i][&j]=(ni,nj,ni*nj);
+        hm.get_mut(&i).unwrap().insert(j, (ni, nj, ni * nj)); // Updated this line
       }
     }
     let mut res = 0;
     for (idx1, hm1) in hm {
       for (idx2, (x1,x2,x3)) in hm1 {
-        println!("working with idx1 {}, idx2 {}, x1,x2,x3 {},{},{}", idx1, idx2, x1,x2,x3);
+        for (idx3, hm2) in hm {
+            for (idx4, (y1,y2,y3)) in hm2 {
+                if idx1 == idx3 || idx1 == idx4 { continue }
+                if idx2 == idx3 || idx2 == idx4 { continue }
+                if x1 == x2 || x1 == y1 || x1 == y2 { continue }
+                if y1 == y2 || x2 == y1 || x2 == y2 { continue }
+
+                if x3 == y3 { res+=1; }
+            }
+        }
       }
     }
-    0
+    res
   }
 }
 
