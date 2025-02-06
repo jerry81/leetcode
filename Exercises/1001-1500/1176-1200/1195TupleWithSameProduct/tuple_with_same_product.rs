@@ -45,8 +45,19 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn tuple_same_product(nums: Vec<i32>) -> i32 {
-
+    // cache pairs
+    let mut hm: HashMap<HashMap<i32,i32,i32>> = HashMap::new();
+    let sz = nums.len();
+    for i in 0..(sz-1) {
+      for j in i+1..sz {
+        hm[i][j]=(i,j,i*j);
+      }
+    }
+    println!("hm is {:?}", hm);
+    0
   }
 }
