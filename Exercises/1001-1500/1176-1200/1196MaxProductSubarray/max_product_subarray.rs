@@ -46,8 +46,11 @@ impl Solution {
     let mut prefix_products: Vec<i64> = vec![];
     let mut prod = 1;
     for n in nums {
-      prefix_products.push(prod*n);
+
+      prod*=n as i64;
+      prefix_products.push(prod);
     }
     println!("prefix products is {:?}", prefix_products);
+    0
   }
 }
