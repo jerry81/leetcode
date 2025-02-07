@@ -67,18 +67,25 @@ use std::collections::HashMap;
 
 impl Solution {
   pub fn query_results(limit: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {
-    let mut res = 0;
+    let mut res = vec![];
+    let mut cur_res = 0;
     let mut hm: HashMap<i32, i32> = HashMap::new();
     let mut color_freq: HashMap<i32,i32> = HashMap::new();
     for q in queries {
       let ball = q[0];
       let color = q[1];
-      let prev_color = hm[&ball]
+
+      let prev_color = if hm.contains_key(&ball) {
+        hm[&ball]
+      } else {
+        -1
+      };
       if prev_color != color {
         *color_freq.entry(prev_color).or_insert(1) -= 1;
-        if color_freq[prev_color] <= 0 { res-=1; }
+        if color_freq[&prev_color] <= 0 { cur_res-=1; }
       }
     }
+    res.push(cur_res);
     res
   }
 }
