@@ -80,12 +80,21 @@ impl Solution {
       } else {
         -1
       };
-      if prev_color != color {
+      if prev_color < 0 {
+        *hm.entry(color).or_insert(0) += 1;
+      } else if prev_color != color {
         *color_freq.entry(prev_color).or_insert(1) -= 1;
         if color_freq[&prev_color] <= 0 { cur_res-=1; }
+
+        *hm.entry(color).or_insert(0) += 1;
       }
+
+      if *hm.entry(color).or_insert(0) == 1 {
+        cur_res += 1;
+      }
+
+      res.push(cur_res);
     }
-    res.push(cur_res);
     res
   }
 }
