@@ -52,9 +52,12 @@ Acceptance Rate
 53.9%
 
 */
+use std::colletions::HashMap;
+use std::collextions::BTreeSet;
 
 struct NumberContainers {
-
+  num_spread: HashMap<i32, BTreeSet<i32>>,
+  num_line: HashMap<i32,i32>,
 }
 
 
@@ -65,6 +68,10 @@ struct NumberContainers {
 impl NumberContainers {
 
     fn new() -> Self {
+      NumberContainers {
+        num_spread:HashMap::new(),
+        num_line:HashMap::new()
+      }
 
     }
 
@@ -73,7 +80,7 @@ impl NumberContainers {
     }
 
     fn find(&self, number: i32) -> i32 {
-
+      0
     }
 }
 
