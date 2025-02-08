@@ -52,8 +52,8 @@ Acceptance Rate
 53.9%
 
 */
-use std::colletions::HashMap;
-use std::collextions::BTreeSet;
+use std::collections::HashMap;
+use std::collections::BTreeSet;
 
 struct NumberContainers {
   num_spread: HashMap<i32, BTreeSet<i32>>,
@@ -75,23 +75,24 @@ impl NumberContainers {
 
     }
 
-    fn change(&self, index: i32, number: i32) {
-      if num_line.contains(&index) {
-        *num_spread.entry(number).remove(num_line[&index]);
-      }
-      *num_line.entry(index).or_insert(number) = number;
-      *num_spread.entry(number).insert(index);
+    fn change(&mut self, index: i32, number: i32) {
+      if let Some(&existing_index) = self.num_line.get(&index) {
+    // Remove the existing index from the BTreeSet for the number
+    self.num_spread.entry(number).or_insert(BTreeSet::new()).remove(&existing_index);
+}
+      *self.num_line.entry(index).or_insert(number) = number;
+      self.num_spread.entry(number).or_insert(BTreeSet::new()).insert(index);
     }
 
     fn find(&self, number: i32) -> i32 {
-      if let Some(first_item) = num_spread[&number].iter().next() {
-        first_item
+      if !self.num_spread.contains_key(&number) { return -1 }
+      if let Some(first_item) = self.num_spread[&number].iter().next() {
+        *first_item
       } else {
         -1
       }
     }
 }
-
 /**
  * Your NumberContainers object will be instantiated and called as such:
  * let obj = NumberContainers::new();
