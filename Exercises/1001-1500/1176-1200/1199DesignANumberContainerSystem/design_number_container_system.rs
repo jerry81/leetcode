@@ -74,15 +74,15 @@ impl NumberContainers {
       }
 
     }
-
     fn change(&mut self, index: i32, number: i32) {
-      if let Some(&existing_index) = self.num_line.get(&index) {
-    // Remove the existing index from the BTreeSet for the number
-    self.num_spread.entry(number).or_insert(BTreeSet::new()).remove(&existing_index);
-}
-      *self.num_line.entry(index).or_insert(number) = number;
+      // Check if the index already has a number associated with it
+      if let Some(&existing_number) = self.num_line.get(&index) {
+
+          self.num_spread.entry(existing_number).or_insert(BTreeSet::new()).remove(&index);
+      }
+      self.num_line.insert(index, number);
       self.num_spread.entry(number).or_insert(BTreeSet::new()).insert(index);
-    }
+  }
 
     fn find(&self, number: i32) -> i32 {
       if !self.num_spread.contains_key(&number) { return -1 }
