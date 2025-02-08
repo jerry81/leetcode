@@ -76,11 +76,19 @@ impl NumberContainers {
     }
 
     fn change(&self, index: i32, number: i32) {
-
+      if num_line.contains(&index) {
+        *num_spread.entry(number).remove(num_line[&index]);
+      }
+      *num_line.entry(index).or_insert(number) = number;
+      *num_spread.entry(number).insert(index);
     }
 
     fn find(&self, number: i32) -> i32 {
-      0
+      if let Some(first_item) = num_spread[&number].iter().next() {
+        first_item
+      } else {
+        -1
+      }
     }
 }
 
