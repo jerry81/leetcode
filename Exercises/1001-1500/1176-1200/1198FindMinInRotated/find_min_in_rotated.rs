@@ -55,7 +55,19 @@ Acceptance Rate
 */
 impl Solution {
   pub fn find_min(nums: Vec<i32>) -> i32 {
+    let mut left = 0;
+    let mut right = nums.len() - 1;
 
+    while left < right {
+      let mid = left + (right - left) / 2;
+
+      if nums[mid] > nums[right] {
+        left = mid + 1; // Minimum is in the right half
+      } else {
+        right = mid; // Minimum is in the left half including mid
+      }
+    }
+    nums[left] // The minimum element
   }
 }
 
