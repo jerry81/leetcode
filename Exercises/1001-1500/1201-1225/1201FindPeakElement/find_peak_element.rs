@@ -46,15 +46,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn find_peak_element(nums: Vec<i32>) -> i32 {
-    let mut r = nums.len() -1;
+    let mut r = nums.len() - 1;
     let mut l = 0;
-    while l < r {
-      let mid = l + r / 2;
+    let mut cnt = 0;
+    while l < r && cnt < 10 {
+      let mid = l + (r-l) / 2;
       if nums[mid] < nums[mid+1] {
-        l = mid;
+        l = mid + 1;
       } else {
         r = mid;
       }
+      cnt += 1;
     }
     l as i32
   }
