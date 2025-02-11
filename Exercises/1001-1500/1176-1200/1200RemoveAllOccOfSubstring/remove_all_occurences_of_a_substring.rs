@@ -56,9 +56,9 @@ Acceptance Rate
 impl Solution {
   pub fn remove_occurrences(s: String, part: String) -> String {
     let mut res = s.clone();
-    while let Some(index) = result.find(&part) { // TIL: find
-      result.replace_range(index..index+part.len(),""); // TIL: replace_range(substr, replaced)
+    while let Some(index) = res.find(&part) { // TIL: find
+      res.replace_range(index..index+part.len(),""); // TIL: replace_range(substr, replaced)
     }
-    result
+    res
   }
 }
