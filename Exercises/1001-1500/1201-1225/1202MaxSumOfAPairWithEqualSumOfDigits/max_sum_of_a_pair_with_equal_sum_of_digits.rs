@@ -43,6 +43,7 @@ Acceptance Rate
 
 use std::collections::BTreeSet;
 use std::collections::HashMap;
+use std::cmp::Reverse; // til
 
 impl Solution {
   fn sum_digits(num: i32) -> i32 {
@@ -53,14 +54,17 @@ impl Solution {
     sum
   }
   pub fn maximum_sum(nums: Vec<i32>) -> i32 {
-    let mut hm: HashMap<i32, BTreeSet<i32>> = HashMap::new();
+    let mut hm: HashMap<i32, BTreeSet<Reverse<i32>>> = HashMap::new(); // til
     for n in nums {
       let sm = Solution::sum_digits(n);
-      hm.entry(sm).or_insert(BTreeSet::new()).insert(std::cmp::Reverse(n)); // reverse the btreeset
+      hm.entry(sm).or_insert(BTreeSet::new()).insert(Reverse(n)); // reverse the btreeset
     }
     let mut res = -1;
     for (a,b) in hm {
-      println!("key {}, set {:?}", a, b);
+      if b.len() < 2 { continue }
+
+      let top_two_sum: Vec<_> = set.iter().take(2).sum();
+      res = res.max(top_two_sum);
     }
     res
   }
