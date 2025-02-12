@@ -43,7 +43,7 @@ impl Solution {
     s.sort();
     let mut res = 0;
     for i in 0..s.len()-1 {
-      res = res.max(nums[i+1] - nums[i]);
+      res = res.max(s[i+1] - s[i]);
     }
     res
   }
