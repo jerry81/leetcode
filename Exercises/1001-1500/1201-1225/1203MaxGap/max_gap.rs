@@ -39,6 +39,12 @@ Acceptance Rate
 
 impl Solution {
   pub fn maximum_gap(nums: Vec<i32>) -> i32 {
-
+    let mut s = nums.clone();
+    s.sort();
+    let mut res = 0;
+    for i in 0..s.len()-1 {
+      res = res.max(nums[i+1] - nums[i]);
+    }
+    res
   }
 }
