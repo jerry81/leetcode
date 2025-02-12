@@ -42,7 +42,18 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn sum_digits(num: i32) -> i32 {
+    let mut sum = 0;
+    for c in num.to_string().chars() {
+      sum+=(c as u8)-'0' as u8;
+    }
+    sum
+  }
   pub fn maximum_sum(nums: Vec<i32>) -> i32 {
-
+    let mut sums_mapped: Vec<i32> = nums.iter().map(|item| {
+      Solution::sum_digits(sums_mapped)
+    }).collect();
+    println!("{:?}", sums_mapped);
+    0
   }
 }
