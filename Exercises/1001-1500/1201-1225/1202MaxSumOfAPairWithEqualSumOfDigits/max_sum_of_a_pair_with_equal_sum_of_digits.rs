@@ -63,7 +63,7 @@ impl Solution {
     for (a,b) in hm {
       if b.len() < 2 { continue }
 
-      let top_two_sum: Vec<_> = set.iter().take(2).sum();
+      let top_two_sum = b.iter().take(2).map(|item|{item.0}).sum();
       res = res.max(top_two_sum);
     }
     res
