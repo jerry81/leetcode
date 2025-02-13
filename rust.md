@@ -301,3 +301,12 @@ impl Solution {
 ```
 
 - 1182 - we have a built in function to find # of 1s in a num (represented as binary string)
+
+- 1204
+- how to use a min heap?
+```rs
+use std::collections::BinaryHeap;
+
+let mut bh: BinaryHeap<i32> = nums.into_iter().map(|x| {-x}).collect();
+```
+- just remember to re-apply negative

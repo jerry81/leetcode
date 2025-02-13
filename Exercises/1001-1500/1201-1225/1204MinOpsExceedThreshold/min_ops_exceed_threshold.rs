@@ -56,9 +56,21 @@ Acceptance Rate
 38.3%
 
 */
+use std::collections::BinaryHeap;
 
 impl Solution {
   pub fn min_operations(nums: Vec<i32>, k: i32) -> i32 {
+    let mut res = 0;
+    let mut bh: BinaryHeap<i32> = nums.into_iter().map(|x| {-x}).collect();
+    let mut incr: bool = false;
+    loop {
+      let mut s1 = bh.pop().unwrap();
+      if s1 >= k { break }
+      let mut s2 = bh.pop().unwrap();
+      bh.push(s1*2 + s2);
+      res+=1;
+    }
 
+    res
   }
 }
