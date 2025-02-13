@@ -64,10 +64,10 @@ impl Solution {
     let mut bh: BinaryHeap<i32> = nums.into_iter().map(|x| {-x}).collect();
     let mut incr: bool = false;
     loop {
-      let mut s1 = bh.pop().unwrap();
+      let mut s1 = -1*bh.pop().unwrap();
       if s1 >= k { break }
-      let mut s2 = bh.pop().unwrap();
-      bh.push(s1*2 + s2);
+      let mut s2 = -1*bh.pop().unwrap();
+      bh.push(s1*-2 - s2);
       res+=1;
     }
 
