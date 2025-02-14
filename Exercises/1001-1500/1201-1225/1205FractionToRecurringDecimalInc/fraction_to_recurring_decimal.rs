@@ -54,11 +54,18 @@ impl Solution {
     chars.iter().collect()
 }
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
-    if numerator % denominator == 0 && numerator >= denominator {
-      return (numerator / denominator).to_string()
-    }
-    let mut num = numerator*10;
     let mut res = "0.".to_string();
+    let mut num = numerator*10;
+    if numerator >= denominator {
+      if numerator % denominator == 0 {
+        return (numerator / denominator).to_string()
+      } else {
+        res = (numerator/denominator).to_string() + ".";
+        num = numerator % denominator;
+      }
+    }
+
+
     let mut hm: HashMap<i32, usize> = HashMap::new();
     let mut idx = 2;
     loop {
