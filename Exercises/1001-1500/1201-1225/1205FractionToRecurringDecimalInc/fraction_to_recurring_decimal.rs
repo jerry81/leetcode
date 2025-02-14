@@ -45,17 +45,38 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
-    if numerator % denominator == 0 && numerator >=denomiator {
+    if numerator % denominator == 0 && numerator >= denominator {
       return (numerator / denominator).to_string()
     }
-    let mut num = numerator;
-    let mut den = denominator;
-    "0"
+    let mut num = numerator*10;
+    let mut res = "0.".to_string();
+    let mut hm: HashMap<i32, usize> = HashMap::new();
+    let mut idx = 2;
+    loop {
+      if hm.contains_key(&num) {
+        return res;
+      }
+      if num < denominator {
+        res+="0";
+        num*=10;
+        *hm.entry(num).or_insert(idx) = idx;
+      } else {
+        let rem = num%denominator;
+        res+=num/denomiator;
+        num = rem*10;
+        if rem == 0 {
+          return res;
+        }
+      }
+    }
+
+    res
   }
 }
-
 /*
 
 Input: numerator = 4, denominator = 333
@@ -92,4 +113,9 @@ r 2
 1 r 67
 670/333 = 2 r 4
 4/333
+
+1/6 0.16666
+10/6 1 r4
+40/6 6 r 4
+40
 */
