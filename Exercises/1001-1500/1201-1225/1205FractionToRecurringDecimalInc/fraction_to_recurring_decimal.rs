@@ -48,6 +48,11 @@ Acceptance Rate
 use std::collections::HashMap;
 
 impl Solution {
+  fn insert_char(original: &str, index: usize, ch: char) -> String {
+    let mut chars: Vec<char> = original.chars().collect();
+    chars.insert(index, ch);
+    chars.iter().collect()
+}
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
     if numerator % denominator == 0 && numerator >= denominator {
       return (numerator / denominator).to_string()
@@ -58,15 +63,20 @@ impl Solution {
     let mut idx = 2;
     loop {
       if hm.contains_key(&num) {
+        res+=")";
+        let newres = Self::insert_char(&res, hm[&num], '(');
+        res = newres;
         return res;
       }
+      *hm.entry(num).or_insert(idx) = idx;
+      idx+=1;
       if num < denominator {
+
         res+="0";
         num*=10;
-        *hm.entry(num).or_insert(idx) = idx;
       } else {
         let rem = num%denominator;
-        res+=num/denomiator;
+        res+=&(num/denominator).to_string();
         num = rem*10;
         if rem == 0 {
           return res;
@@ -77,6 +87,8 @@ impl Solution {
     res
   }
 }
+
+
 /*
 
 Input: numerator = 4, denominator = 333
