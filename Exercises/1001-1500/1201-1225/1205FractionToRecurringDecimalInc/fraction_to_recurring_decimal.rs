@@ -54,6 +54,7 @@ impl Solution {
     chars.iter().collect()
 }
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
+    if numerator == 0 { return "0".to_string() }
     let mut res = "0.".to_string();
     let mut num = numerator*10;
     if numerator >= denominator {
@@ -61,7 +62,7 @@ impl Solution {
         return (numerator / denominator).to_string()
       } else {
         res = (numerator/denominator).to_string() + ".";
-        num = numerator % denominator;
+        num = (numerator % denominator)*10;
       }
     }
 
@@ -94,7 +95,6 @@ impl Solution {
     res
   }
 }
-
 
 /*
 
