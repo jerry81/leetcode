@@ -61,9 +61,11 @@ Acceptance Rate
 
 */
 
+use std::cell::RefCell;
+
 struct ProductOfNumbers {
-  arr: Vec<i32>,
-  len: usize,
+  arr: RefCell<Vec<i32>>,
+  len: RefCell<usize>,
 }
 
 
@@ -75,22 +77,22 @@ struct ProductOfNumbers {
 impl ProductOfNumbers {
 
     fn new() -> Self {
-      {
-        arr: vec![],
-        len: 0
+      ProductOfNumbers {
+        arr: RefCell::new(Vec::new()),
+        len: RefCell::new(0)
       }
     }
 
     fn add(&self, num: i32) {
-      self.arr.push(num);
-      len+=1;
+      self.arr.borrow_mut().push(num);
+      *self.len.borrow_mut()+=1;
     }
 
     fn get_product(&self, k: i32) -> i32 {
-      self.arr[len-k..].iter().prod()
+       let current_len = *self.len.borrow(); // Dereference to get usize value
+        self.arr.borrow()[current_len - k as usize..].iter().product()
     }
 }
-
 /**
  * Your ProductOfNumbers object will be instantiated and called as such:
  * let obj = ProductOfNumbers::new();
