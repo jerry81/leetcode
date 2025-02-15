@@ -55,8 +55,8 @@ impl Solution {
 }
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
     let mut neg = false;
-    let mut numerator = numerator;
-    let mut denominator:i64 = denominator;
+    let mut numerator:i64 = numerator as i64;
+    let mut denominator:i64 = denominator as i64;
     if numerator < 0 { neg = true; numerator = numerator*-1; }
     if denominator < 0 { neg = !neg; denominator = denominator*-1; }
     if numerator == 0 { return "0".to_string() }
@@ -64,7 +64,11 @@ impl Solution {
     let mut num = numerator*10;
     if numerator >= denominator {
       if numerator % denominator == 0 {
-        return (numerator / denominator).to_string()
+        if neg {
+            return (-1*numerator / denominator).to_string()
+        } else {
+            return (numerator / denominator).to_string()
+        }
       } else {
         res = (numerator/denominator).to_string() + ".";
         num = (numerator % denominator)*10;
@@ -72,8 +76,8 @@ impl Solution {
     }
 
 
-    let mut hm: HashMap<i32, usize> = HashMap::new();
-    let mut idx = 2;
+    let mut hm: HashMap<i64, usize> = HashMap::new();
+    let mut idx = res.len();
     loop {
       if hm.contains_key(&num) {
         res+=")";
