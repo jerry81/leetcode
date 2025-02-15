@@ -54,6 +54,11 @@ impl Solution {
     chars.iter().collect()
 }
   pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
+    let mut neg = false;
+    let mut numerator = numerator;
+    let mut denominator:i64 = denominator;
+    if numerator < 0 { neg = true; numerator = numerator*-1; }
+    if denominator < 0 { neg = !neg; denominator = denominator*-1; }
     if numerator == 0 { return "0".to_string() }
     let mut res = "0.".to_string();
     let mut num = numerator*10;
@@ -74,7 +79,12 @@ impl Solution {
         res+=")";
         let newres = Self::insert_char(&res, hm[&num], '(');
         res = newres;
-        return res;
+        if neg {
+            let newres = Self::insert_char(&res, 0, '-');
+            return newres
+          } else {
+            return res
+          }
       }
       *hm.entry(num).or_insert(idx) = idx;
       idx+=1;
@@ -87,15 +97,18 @@ impl Solution {
         res+=&(num/denominator).to_string();
         num = rem*10;
         if rem == 0 {
-          return res;
+          if neg {
+            let newres = Self::insert_char(&res, 0, '-');
+            return newres
+          } else {
+            return res
+          }
         }
       }
     }
-
     res
   }
 }
-
 /*
 
 Input: numerator = 4, denominator = 333
