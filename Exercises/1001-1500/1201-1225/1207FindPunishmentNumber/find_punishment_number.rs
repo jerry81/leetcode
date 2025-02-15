@@ -50,10 +50,21 @@ Acceptance Rate
 
 */
 impl Solution {
-  fn partition_r(s:&str, cur_sum:i64, cur_s: &str, tgt_sum: i64) -> i64 {
+  fn partition_r(s:&str, cur_sum:i64, cur_s: &str, tgt_sum: i64) -> bool {
+    if cur_sum > tgt_sum { return false; }
+    if s.is_empty() { return cur_sum == tgt_sum ; }
 
+    // take or leave
+    Solution::partition_r(s[1..], parse::<i32>(cur_s))
   }
   pub fn punishment_number(n: i32) -> i32 {
 
   }
 }
+
+/* 36 -> 1296
+1296 ->
+1 29 6
+12 96
+129 6
+*/
