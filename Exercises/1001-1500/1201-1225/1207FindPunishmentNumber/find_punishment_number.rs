@@ -49,8 +49,10 @@ Acceptance Rate
 63.8%
 
 */
-
 impl Solution {
+  fn partition_r(s:&str, cur_sum:i64, cur_s: &str, tgt_sum: i64) -> i64 {
+
+  }
   pub fn punishment_number(n: i32) -> i32 {
 
   }
