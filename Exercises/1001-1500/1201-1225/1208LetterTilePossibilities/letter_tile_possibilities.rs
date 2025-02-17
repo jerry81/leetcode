@@ -46,9 +46,24 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
+  fn r(&mut hs:HashSet<String>, Vec<char> cur, Vec<char> rem) {
+    if rem.len() == 0 { return }
+
+    for i in 0..rem.len() {
+      let mut nxt_cur = cur.clone();
+      cc.push(rem[i]);
+      let mut nxt_rem = rem.clone();
+      nxt_rem.remove(i);
+      Solution::r(hs, nxt_cur, nxt_rem);
+      hs.push(nxt_cur.collect);
+    }
+  }
   pub fn num_tile_possibilities(tiles: String) -> i32 {
     // bounds small, brute force it
-    let mut res: HashSet<String> = HashSet::new();
+    let mut res: HashSet<String> = &mut HashSet::new();
+    let sz = tiles.len();
+    let tiles_c: Vec<char> = tiles.chars().collect();
+    Solution::r(res, Vec::new(), tiles_c);
     res.len() as i32
   }
 }
