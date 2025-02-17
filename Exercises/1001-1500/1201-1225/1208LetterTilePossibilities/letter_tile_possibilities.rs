@@ -42,9 +42,41 @@ Acceptance Rate
 77.2%
 
 */
-
 impl Solution {
   pub fn num_tile_possibilities(tiles: String) -> i32 {
 
   }
 }
+
+/*
+n = 3
+ABC
+1
+2
+3
+12
+13
+21
+31
+23
+32
+123
+132
+213
+231
+312
+321
+14
+l = 1
+3 choices 1 position
+l = 2
+3 choices 2 positions
+_ _
+3 * 2 = 6
+_ _ _ also 6
+3 * 2 * 1 = 6
+
+n = 6
+3,2,1
+
+*/
