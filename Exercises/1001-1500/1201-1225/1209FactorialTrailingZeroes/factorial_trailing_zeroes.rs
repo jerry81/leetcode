@@ -47,9 +47,46 @@ Acceptance Rate
 
 impl Solution {
   fn long_mult(n1: Vec<i32>, n2: Vec<i32>) -> Vec<i32> {
-    let mut res:Vec<i32> = vec![];
+
+    let mut mult_factor = 0;
+    let mut addends: Vec<Vec<i32>> = vec![];
     for dig in n1.iter().rev() {
-      println!("dig is {}", dig);
+      let mut cur_addend: Vec<i32> = vec![];
+      let mut carry = 0;
+      for i in 0..mult_factor {
+        cur_addend.push(0);
+      }
+      for dig2 in n2.iter().rev() {
+        let prod = dig * dig2 + carry;
+        carry = prod/10;
+        cur_addend.push(prod%10);
+      }
+      if carry > 0 {
+        cur_addend.push(carry);
+      }
+      addends.push(cur_addend);
+      mult_factor+=1;
+    }
+    // add them up
+    let mut res:Vec<i32> = vec![];
+    let mut idx = 0;
+    while !addends.is_empty() {
+      let mut nxt_addends = vec![];
+      let mut sm = 0;
+      for addend in addends {
+        println!("working with addend {:?}", addend);
+
+        sm += addend[idx];
+
+
+        if idx < addend.len()-1 {
+          nxt_addends.push(addend);
+        }
+
+      }
+      idx+=1;
+      println!("sm is {}", sm);
+      addends = nxt_addends;
     }
     res
   }
@@ -58,7 +95,7 @@ impl Solution {
   }
   fn fact(n:i32) -> Vec<i32> {
     let mut res = vec![1];
-    for i in 2..n.rev() {
+    for i in (2..n).rev() {
       res = Solution::long_mult(Solution::to_v(i), res);
     }
 
@@ -76,6 +113,8 @@ impl Solution {
   }
   pub fn trailing_zeroes(n: i32) -> i32 {
     // must do long multiplication
-    Solution::cnt(Solution::fact(n))
+    println!("{:?}",Solution::long_mult(vec![1,2,9], vec![1,2,8]));
+   //  Solution::cnt(Solution::fact(n))
+   0
   }
 }
