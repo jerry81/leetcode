@@ -42,9 +42,14 @@ Acceptance Rate
 77.2%
 
 */
+
+use std::collections::HashSet;
+
 impl Solution {
   pub fn num_tile_possibilities(tiles: String) -> i32 {
-
+    // bounds small, brute force it
+    let mut res: HashSet<String> = HashSet::new();
+    res.len() as i32
   }
 }
 
@@ -78,5 +83,22 @@ _ _ _ also 6
 
 n = 6
 3,2,1
+
+AAB
+
+A
+B
+AB
+BA
+AA
+AAB
+ABA
+BAA
+
+_
+# unique
+
+2 * 1 but missing 1 1
+_ _
 
 */
