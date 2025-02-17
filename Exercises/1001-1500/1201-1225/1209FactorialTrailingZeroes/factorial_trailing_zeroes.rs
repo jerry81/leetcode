@@ -47,10 +47,22 @@ Acceptance Rate
 
 impl Solution {
   fn long_mult(n1: Vec<i32>, n2: Vec<i32>) -> Vec<i32> {
-    vec![]
+    let mut res:Vec<i32> = vec![];
+    for dig in n1.iter().rev() {
+      println!("dig is {}", dig);
+    }
+    res
+  }
+  fn to_v(n:i32) -> Vec<i32> {
+    n.to_string().chars().map(|c| { (c as u8 - '0' as u8) as i32 }).collect()
   }
   fn fact(n:i32) -> Vec<i32> {
-    vec![1]
+    let mut res = vec![1];
+    for i in 2..n.rev() {
+      res = Solution::long_mult(Solution::to_v(i), res);
+    }
+
+    res
   }
   fn cnt(v:Vec<i32>) -> i32 {
     let mut res = 0;
