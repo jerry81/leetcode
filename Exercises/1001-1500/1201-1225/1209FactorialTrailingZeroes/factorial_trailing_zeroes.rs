@@ -47,6 +47,15 @@ Acceptance Rate
 
 impl Solution {
   pub fn trailing_zeroes(n: i32) -> i32 {
-
+    let mut fact = 1;
+    for i in 2..=n {
+      fact*=i;
+    }
+    let mut res = 0;
+    while fact%10 == 0 {
+      res+=1;
+      fact = fact/10;
+    }
+    res
   }
 }
