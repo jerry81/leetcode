@@ -70,11 +70,12 @@ impl Solution {
     // add them up
     let mut res:Vec<i32> = vec![];
     let mut idx = 0;
+    let mut carry = 0;
     while !addends.is_empty() {
       let mut nxt_addends = vec![];
       let mut sm = 0;
+
       for addend in addends {
-        println!("working with addend {:?}", addend);
 
         sm += addend[idx];
 
@@ -84,8 +85,10 @@ impl Solution {
         }
 
       }
+      sm+=carry;
+      carry = sm / 10;
+      res.push(sm % 10);
       idx+=1;
-      println!("sm is {}", sm);
       addends = nxt_addends;
     }
     res
@@ -95,15 +98,17 @@ impl Solution {
   }
   fn fact(n:i32) -> Vec<i32> {
     let mut res = vec![1];
-    for i in (2..n).rev() {
+    for i in 2..n {
       res = Solution::long_mult(Solution::to_v(i), res);
     }
+
+    println!("fact is {:?}", res);
 
     res
   }
   fn cnt(v:Vec<i32>) -> i32 {
     let mut res = 0;
-    for i in (0..v.len()).rev() {
+    for i in 0..v.len() {
       if v[i] != 0 {
         break;
       }
@@ -113,8 +118,6 @@ impl Solution {
   }
   pub fn trailing_zeroes(n: i32) -> i32 {
     // must do long multiplication
-    println!("{:?}",Solution::long_mult(vec![1,2,9], vec![1,2,8]));
-   //  Solution::cnt(Solution::fact(n))
-   0
+   Solution::cnt(Solution::fact(n))
   }
 }
