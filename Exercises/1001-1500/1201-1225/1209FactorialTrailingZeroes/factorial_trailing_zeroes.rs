@@ -46,16 +46,24 @@ Acceptance Rate
 */
 
 impl Solution {
-  pub fn trailing_zeroes(n: i32) -> i32 {
-    let mut fact = 1;
-    for i in 2..=n {
-      fact*=i;
-    }
+  fn long_mult(n1: Vec<i32>, n2: Vec<i32>) -> Vec<i32> {
+    vec![]
+  }
+  fn fact(n:i32) -> Vec<i32> {
+    vec![1]
+  }
+  fn cnt(v:Vec<i32>) -> i32 {
     let mut res = 0;
-    while fact%10 == 0 {
+    for i in (0..v.len()).rev() {
+      if v[i] != 0 {
+        break;
+      }
       res+=1;
-      fact = fact/10;
     }
     res
+  }
+  pub fn trailing_zeroes(n: i32) -> i32 {
+    // must do long multiplication
+    Solution::cnt(Solution::fact(n))
   }
 }
