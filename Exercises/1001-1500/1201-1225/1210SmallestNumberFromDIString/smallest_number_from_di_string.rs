@@ -56,7 +56,26 @@ use std::collecdtions::HashSet;
 
 impl Solution {
   pub fn smallest_number(pattern: String) -> String {
-    // simulate, and try different starting numbers
-    let mut res = String::new();
+    let mut hs: HashSet<char> = HashSet::new();
+    let mut cur = '5';
+    let mut res = "5".to_string();
+    for c in pattern.chars() {
+      if c == 'I' {
+        let mut added = (c as u8 + 1) as char;
+        while hs.contains(&added) {
+          added = (added as u8 + 1) as char;
+        }
+        hs.insert(added);
+        res += added;
+      } else {
+        let mut added = (c as u8 - 1) as char;
+        while hs.contains(&added) {
+          added = (added as u8 - 1) as char;
+        }
+        hs.insert(added);
+        res+=added;
+      }
+    }
+    res
   }
 }
