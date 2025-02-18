@@ -52,8 +52,11 @@ Acceptance Rate
 
 */
 
+use std::collecdtions::HashSet;
+
 impl Solution {
   pub fn smallest_number(pattern: String) -> String {
-
+    // simulate, and try different starting numbers
+    let mut res = String::new();
   }
 }
