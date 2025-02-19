@@ -56,15 +56,19 @@ use std::collections::HashSet;
 
 impl Solution {
   fn r(pattern:&str, idx: usize, sz: &usize, used: &HashSet<char>, cur:char, res: &mut String) -> bool {
-    if idx > sz { return false }
+    if &idx > sz { return false }
 
     true
   }
   pub fn smallest_number(pattern: String) -> String {
-    let mut hs: HashSet<char> = HashSet::new();
+
     let mut res: &mut String = &mut String::new();
     for i in 1..=9 {
-      if Solution::r(&pattern, 0, &(pattern.len()+1), &hs, ' ', res) {
+      let mut hs: HashSet<char> = HashSet::new();
+      let mut c:char = (i as u8 + '0' as u8) as char;
+      println!("c is {}", c);
+      hs.insert(c);
+      if Solution::r(&pattern, 0, &(pattern.len()+1), &hs, c, res) {
         return res.to_string()
       }
     }
