@@ -99,27 +99,29 @@ struct BSTIterator {
 impl BSTIterator {
     fn create(root: Option<Rc<RefCell<TreeNode>>>, v: &mut Vec<i32>) {
       if let Some(r) = root {
-        Self::create(root->left,v);
-        v.push(root->val);
-        Self::create(root->right,v);
+        Self::create(r.borrow().left.clone(),v);
+        v.push(r.borrow().val);
+        Self::create(r.borrow().right.clone(),v);
       }
     }
     fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {
-        let mut v: &mut Vec<i32> = Vec::new();
+        let mut v: &mut Vec<i32> = &mut Vec::<i32>::new();
         Self::create(root,v);
         BSTIterator {
             values: v.clone(),
             idx:0
         }
-        println!("values is {:?}",v);
+
     }
 
     fn next(&mut self) -> i32 {
-        3
+        let res = self.values[self.idx as usize];
+        self.idx+=1;
+        res
     }
 
     fn has_next(&mut self) -> bool {
-        true
+        self.idx < self.values.len()
     }
 }
 
