@@ -56,7 +56,21 @@ use std::collections::HashSet;
 
 impl Solution {
   fn r(pattern:&str, idx: usize, sz: &usize, used: &HashSet<char>, cur:char, res: &mut String) -> bool {
-    if &idx > sz { return false }
+    if idx >= (sz-1) { return false }
+
+    let nxt = pattern.chars().nth(idx).unwrap();
+    let cur_as_u8 = cur as u8;
+    if nxt == 'D' {
+      let mut one_as_u8:u8 = '1' as u8;
+      for cand in one_as_u8..cur_as_u8 {
+        println!("will try {}", cand);
+      }
+    } else {
+      let mut one_as_u8:u8 = '1' as u8;
+      for cand in one_as_u8..cur_as_u8 {
+        println!("will try {}", cand);
+      }
+    }
 
     true
   }
@@ -66,8 +80,9 @@ impl Solution {
     for i in 1..=9 {
       let mut hs: HashSet<char> = HashSet::new();
       let mut c:char = (i as u8 + '0' as u8) as char;
-      println!("c is {}", c);
       hs.insert(c);
+      res.clear();
+      res.push(c);
       if Solution::r(&pattern, 0, &(pattern.len()+1), &hs, c, res) {
         return res.to_string()
       }
