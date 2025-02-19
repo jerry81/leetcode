@@ -52,16 +52,16 @@ Acceptance Rate
 
 */
 
-use std::collecdtions::HashSet;
+use std::collections::HashSet;
 
 impl Solution {
   fn r(pattern:&str, idx: usize, sz: &usize, used: &HashSet<char>, cur:char, res: &mut String) -> bool {
-
-  };
+    true
+  }
   pub fn smallest_number(pattern: String) -> String {
     let mut hs: HashSet<char> = HashSet::new();
-    let mut res: &mut String = String::new();
-    Solution::r(&pattern, 0, pattern.len()+1, &hs, ' ', res);
-    res
+    let mut res: &mut String = &mut String::new();
+    Solution::r(&pattern, 0, &(pattern.len()+1), &hs, ' ', res);
+    res.to_string()
   }
 }
