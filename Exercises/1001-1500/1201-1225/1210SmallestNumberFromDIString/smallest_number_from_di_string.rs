@@ -55,7 +55,7 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  fn r(pattern:&str, idx: usize, sz: &usize, used: &HashSet<char>, cur:char, res: &mut String) -> bool {
+  fn r(pattern:&str, idx: usize, sz: &usize, used: &mut HashSet<char>, cur:char, res: &mut String) -> bool {
     if idx >= (sz-1) { return true }
 
     let nxt = pattern.chars().nth(idx).unwrap();
@@ -102,7 +102,7 @@ impl Solution {
       hs.insert(c);
       res.clear();
       res.push(c);
-      if Solution::r(&pattern, 0, &(pattern.len()+1), &hs, c, res) {
+      if Solution::r(&pattern, 0, &(pattern.len()+1), &mut hs, c, res) {
         return res.to_string()
       }
     }
