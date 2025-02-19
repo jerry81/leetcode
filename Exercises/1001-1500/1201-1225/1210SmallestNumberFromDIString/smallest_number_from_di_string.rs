@@ -56,23 +56,42 @@ use std::collections::HashSet;
 
 impl Solution {
   fn r(pattern:&str, idx: usize, sz: &usize, used: &HashSet<char>, cur:char, res: &mut String) -> bool {
-    if idx >= (sz-1) { return false }
+    if idx >= (sz-1) { return true }
 
     let nxt = pattern.chars().nth(idx).unwrap();
     let cur_as_u8 = cur as u8;
     if nxt == 'D' {
       let mut one_as_u8:u8 = '1' as u8;
       for cand in one_as_u8..cur_as_u8 {
-        println!("will try {}", cand);
+        if used.contains(&(cand as char)) { continue; }
+
+        used.insert(cand as char);
+        res.push(cand as char);
+        if Solution::r(pattern, idx+1, sz, used, cand as char, res) {
+          return true;
+        } else {
+          res.pop();
+          used.remove(&(cand as char));
+        }
       }
     } else {
-      let mut one_as_u8:u8 = '1' as u8;
-      for cand in one_as_u8..cur_as_u8 {
-        println!("will try {}", cand);
+      let mut nine_as_u8:u8 = '9' as u8;
+      for cand in cur_as_u8+1..=nine_as_u8 {
+        if used.contains(&(cand as char)) { continue; }
+
+        used.insert(cand as char);
+        res.push(cand as char);
+
+        if Solution::r(pattern, idx+1, sz, used, cand as char, res) {
+          return true;
+        } else {
+          res.pop();
+          used.remove(&(cand as char));
+        }
       }
     }
 
-    true
+    false
   }
   pub fn smallest_number(pattern: String) -> String {
 
