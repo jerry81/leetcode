@@ -79,8 +79,13 @@ Acceptance Rate
 //     }
 //   }
 // }
-struct BSTIterator {
 
+use std::rc::Rc; // reference counting - smart ptr
+use std::cell::RefCell; // ref cell - interior mutability
+
+struct BSTIterator {
+  values: Vec<i32>,
+  idx: usize,
 }
 
 
@@ -88,18 +93,33 @@ struct BSTIterator {
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
+
+
+
 impl BSTIterator {
-
+    fn create(root: Option<Rc<RefCell<TreeNode>>>, v: &mut Vec<i32>) {
+      if let Some(r) = root {
+        Self::create(root->left,v);
+        v.push(root->val);
+        Self::create(root->right,v);
+      }
+    }
     fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {
-
+        let mut v: &mut Vec<i32> = Vec::new();
+        Self::create(root,v);
+        BSTIterator {
+            values: v.clone(),
+            idx:0
+        }
+        println!("values is {:?}",v);
     }
 
-    fn next(&self) -> i32 {
-
+    fn next(&mut self) -> i32 {
+        3
     }
 
-    fn has_next(&self) -> bool {
-
+    fn has_next(&mut self) -> bool {
+        true
     }
 }
 
