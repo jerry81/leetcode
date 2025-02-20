@@ -52,8 +52,26 @@ Acceptance Rate
 
 */
 impl Solution {
+  fn get_next(s:String, n:i32) -> String {
+    "".to_string()
+  }
+  fn get_first(n:i32) -> String {
+    let mut res:Vec<char> = vec![];
+    let mut a = true;
+    let mut n = n;
+    while n >= 0 {
+      if a {
+        res.push('a');
+      } else {
+        res.push('b');
+      }
+      a = !a;
+      n-=1;
+    }
+    res.into_iter().collect()
+  }
   pub fn get_happy_string(n: i32, k: i32) -> String {
-      "cbcb".to_string()
+      Solution::get_first(n)
   }
 }
 
