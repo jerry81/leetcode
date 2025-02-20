@@ -69,7 +69,7 @@
 -- Write your PostgreSQL query statement below
 
 SELECT
-  CASE
+  CASE -- TIL: CASE WHEN ELSE
     WHEN COUNT(*) < 2 THEN NULL
     ELSE (SELECT DISTINCT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 1)
   END AS SecondHighestSalary
