@@ -54,22 +54,25 @@ Acceptance Rate
 
 impl Solution {
   fn get_next(s:String, n:i32) -> String {
+    println!("string is {}", s);
     if s.is_empty() { return s } // stop
 
     let mut res:Vec<char> = s.clone().chars().collect();
-    for idx in (0..(n-1)).rev() {
+    for idx in (0..n).rev() {
       let lc = s.chars().nth(idx as usize).unwrap();
 
       if idx > 0 {
         let prev = s.chars().nth((idx-1) as usize).unwrap();
-        let nxt = (lc as u8 + 1) as char;
-        if nxt != prev {
+         let cur = s.chars().nth((idx) as usize).unwrap();
+         println!("prev is {}", prev);
+        if (prev == 'a' && cur == 'b') || (prev == 'b' && cur == 'a') {
           // replace idx with nxt
-          res[idx as usize] = nxt;
+          res[idx as usize] = 'c';
           // reset the rest
-          let remain = &s[(idx as usize)..];
-          println!("remain is {}", remain);
           break;
+        } else if (prev == 'a' && cur == 'c') || (prev == 'c' && cur == 'a') {
+            res[idx as usize] = 'b';
+            break;
         }
       }
       println!("working with {}", lc);
@@ -96,10 +99,12 @@ impl Solution {
       let mut cur:String = Solution::get_first(n, true);
       for i in 0..k {
         cur = Solution::get_next(cur, n);
+        println!("cur is {}", cur);
       }
       cur
   }
 }
+
 
 
 /*
