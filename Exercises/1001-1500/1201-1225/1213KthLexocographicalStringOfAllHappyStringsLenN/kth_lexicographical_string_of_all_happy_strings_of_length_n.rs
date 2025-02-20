@@ -51,15 +51,35 @@ Acceptance Rate
 85.3%
 
 */
+
 impl Solution {
   fn get_next(s:String, n:i32) -> String {
     if s.is_empty() { return s } // stop
 
-    "".to_string()
+    let mut res:Vec<char> = s.clone().chars().collect();
+    for idx in (0..(n-1)).rev() {
+      let lc = s.chars().nth(idx as usize).unwrap();
+
+      if idx > 0 {
+        let prev = s.chars().nth((idx-1) as usize).unwrap();
+        let nxt = (lc as u8 + 1) as char;
+        if nxt != prev {
+          // replace idx with nxt
+          res[idx as usize] = nxt;
+          // reset the rest
+          let remain = &s[(idx as usize)..];
+          println!("remain is {}", remain);
+          break;
+        }
+      }
+      println!("working with {}", lc);
+    }
+
+    res.into_iter().collect::<String>()
   }
-  fn get_first(n:i32) -> String {
+  fn get_first(n:i32,start_a:bool) -> String {
     let mut res:Vec<char> = vec![];
-    let mut a = true;
+    let mut a = start_a;
     let mut n = n;
     while n > 0 {
       if a {
@@ -73,9 +93,14 @@ impl Solution {
     res.into_iter().collect()
   }
   pub fn get_happy_string(n: i32, k: i32) -> String {
-      Solution::get_first(n)
+      let mut cur:String = Solution::get_first(n, true);
+      for i in 0..k {
+        cur = Solution::get_next(cur, n);
+      }
+      cur
   }
 }
+
 
 /*
 aba
