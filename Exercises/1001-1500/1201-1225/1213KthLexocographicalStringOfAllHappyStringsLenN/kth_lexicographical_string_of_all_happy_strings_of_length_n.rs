@@ -51,9 +51,58 @@ Acceptance Rate
 85.3%
 
 */
-
 impl Solution {
   pub fn get_happy_string(n: i32, k: i32) -> String {
-
+      "cbcb".to_string()
   }
 }
+
+/*
+aba
+abc
+aca
+acb
+bab
+bac
+bca
+bcb
+cab
+cba
+cac
+cbc
+*/
+
+/*
+
+abab
+abac
+abca
+abcb
+acab
+acac
+acba
+acbc
+
+baba
+babc
+baca
+bacb
+bcab
+bcba
+bcac
+bcbc
+
+caba
+cabc
+caca
+cacb
+cbab
+cbac
+cbca
+cbcb
+
+24
+*/
+
+// n=3 12
+// n=4 24
