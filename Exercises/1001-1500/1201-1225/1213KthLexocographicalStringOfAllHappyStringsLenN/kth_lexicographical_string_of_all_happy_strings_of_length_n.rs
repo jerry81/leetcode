@@ -53,13 +53,15 @@ Acceptance Rate
 */
 impl Solution {
   fn get_next(s:String, n:i32) -> String {
+    if s.is_empty() { return s } // stop
+
     "".to_string()
   }
   fn get_first(n:i32) -> String {
     let mut res:Vec<char> = vec![];
     let mut a = true;
     let mut n = n;
-    while n >= 0 {
+    while n > 0 {
       if a {
         res.push('a');
       } else {
