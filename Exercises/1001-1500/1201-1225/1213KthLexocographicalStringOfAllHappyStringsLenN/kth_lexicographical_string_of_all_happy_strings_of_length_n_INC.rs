@@ -65,13 +65,17 @@ impl Solution {
         let prev = s.chars().nth((idx-1) as usize).unwrap();
          let cur = s.chars().nth((idx) as usize).unwrap();
          println!("prev is {}", prev);
+
         if (prev == 'a' && cur == 'b') || (prev == 'b' && cur == 'a') {
           // replace idx with nxt
           res[idx as usize] = 'c';
-          // reset the rest
+          // reset
+          let rest = Solution::get_first(n-idx, prev!='a');
+          println!("rest is {}", rest);
           break;
         } else if (prev == 'a' && cur == 'c') || (prev == 'c' && cur == 'a') {
-            res[idx as usize] = 'b';
+            let rest = Solution::get_first(n-idx, prev!='a');
+            println!("rest is {}", rest);
             break;
         }
       }
