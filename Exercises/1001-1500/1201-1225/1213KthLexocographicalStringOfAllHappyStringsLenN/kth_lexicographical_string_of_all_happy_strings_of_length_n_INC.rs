@@ -71,6 +71,7 @@ impl Solution {
           res[idx as usize] = 'c';
           // reset
           let rest = Solution::get_first(n-idx, prev!='a');
+
           println!("rest is {}", rest);
           break;
         } else if (prev == 'a' && cur == 'c') || (prev == 'c' && cur == 'a') {

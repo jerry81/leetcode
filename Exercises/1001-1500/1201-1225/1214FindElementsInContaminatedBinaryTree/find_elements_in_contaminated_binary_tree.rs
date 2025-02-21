@@ -109,32 +109,45 @@ struct FindElements {
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl FindElements {
-    fn build(root: &mut Option<Rc<RefCell<TreeNode>>>, prev: i32) {
+    fn build(root: &mut Option<Rc<RefCell<TreeNode>>>) {
       if let Some(node) = root {
           let mut node_ref = node.borrow_mut();
 
-          // Modify the current node if needed
-          node_ref.val = prev+1; // Example modification
+          let mut curval = node_ref.val;
+          if let Some(l) = node_ref.left.as_mut() { // TIL asmut - used with Option - get mutable ref to value inside of option if it exists
+            l.borrow_mut().val = curval * 2 + 1;
+            Self::build(&mut node_ref.left);
+          }
+          if let Some(r) = node_ref.right.as_mut() {
+            r.borrow_mut().val = curval * 2 + 2;
+            Self::build(&mut node_ref.right);
+          }
 
-          // Recursively call build on left and right
-          Self::build(&mut node_ref.left, node_ref.val);
-          Self::build(&mut node_ref.right, node_ref.val);
       }
     }
     fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {
       let mut root = &mut root.clone();
-      Self::build(root);
-      println!("root is now {:?}", root);
+      if let Some(r) = root {
+        r.borrow_mut().val = 0;
+        let mut root_clone = root.clone(); //
+        Self::build(&mut root_clone);
+      }
       FindElements {
-        root:root.clone()
+        root: root.clone()
       }
     }
+    fn find_r(root: Option<Rc<RefCell<TreeNode>>>, target: i32) -> bool {
+      if let Some(r) = root {
+        if r.borrow().val == target { return true }
 
+        return Self::find_r(r.left) || Self::find_r(r.right)
+      }
+      false
+    }
     fn find(&self, target: i32) -> bool {
-      true
+      Self::find_r(self.root.clone(), target)
     }
 }
-
 /**
  * Your FindElements object will be instantiated and called as such:
  * let obj = FindElements::new(root);

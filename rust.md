@@ -310,3 +310,19 @@ use std::collections::BinaryHeap;
 let mut bh: BinaryHeap<i32> = nums.into_iter().map(|x| {-x}).collect();
 ```
 - just remember to re-apply negative
+
+- see 1214 for simplest way to traverse a tree and modify its contents
+```rs
+fn build(root: &mut Option<Rc<RefCell<TreeNode>>>, prev: i32) {
+      if let Some(node) = root {
+          let mut node_ref = node.borrow_mut();
+
+          // Modify the current node if needed
+          node_ref.val = prev+1; // Example modification
+
+          // Recursively call build on left and right
+          Self::build(&mut node_ref.left, node_ref.val);
+          Self::build(&mut node_ref.right, node_ref.val);
+      }
+    }
+```
