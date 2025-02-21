@@ -140,7 +140,7 @@ impl FindElements {
       if let Some(r) = root {
         if r.borrow().val == target { return true }
 
-        return Self::find_r(r.left) || Self::find_r(r.right)
+        return Self::find_r(r.borrow().left.clone(), target) || Self::find_r(r.borrow().right.clone(), target)
       }
       false
     }
