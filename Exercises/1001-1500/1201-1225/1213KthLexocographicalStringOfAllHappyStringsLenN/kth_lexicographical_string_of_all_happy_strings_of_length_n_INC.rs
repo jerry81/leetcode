@@ -70,13 +70,12 @@ impl Solution {
           // replace idx with nxt
           res[idx as usize] = 'c';
           // reset
-          let rest = Solution::get_first(n-idx, prev!='a');
-
-          println!("rest is {}", rest);
+          let rest:Vec<char> = Solution::get_first(n-idx, prev!='a').chars().collect();
+          res[..=idx as usize].to_vec().extend(rest);
           break;
         } else if (prev == 'a' && cur == 'c') || (prev == 'c' && cur == 'a') {
-            let rest = Solution::get_first(n-idx, prev!='a');
-            println!("rest is {}", rest);
+          let rest:Vec<char> = Solution::get_first(n-idx, prev!='a').chars().collect();
+          res[..=idx as usize].to_vec().extend(rest);
             break;
         }
       }
