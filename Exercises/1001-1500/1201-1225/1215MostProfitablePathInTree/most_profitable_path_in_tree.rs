@@ -77,8 +77,24 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  fn get_bob_path(neighbors: Vec<Vec<i32>>, bob: i32, visited: &mut HashSet<i32>) -> Vec<i32> {
-    let mut res = Vec::new();
+  fn get_bob_path(neighbors: &Vec<Vec<i32>>, bob: i32, visited: &mut HashSet<i32>) -> Vec<i32> {
+    if bob == 0 { return vec![0] };
+    let mut res = vec![bob];
+    visited.insert(bob);
+    let bob_neighbors = &neighbors[bob as usize];
+
+
+    for n in bob_neighbors {
+      if !visited.contains(&n) {
+        visited.insert(*n);
+        // explore n
+        let mut rest_of_path = Solution::get_bob_path(&neighbors, *n, visited);
+        if (*rest_of_path.first().unwrap() == 0) {
+          rest_of_path.push(bob);
+          res = rest_of_path;
+        }
+      }
+    }
     res
   }
   fn make_neighbors(edges:Vec<Vec<i32>>, n: usize) -> Vec<Vec<i32>> {
@@ -93,7 +109,7 @@ impl Solution {
     let n = amount.len();
     let mut visited: &mut HashSet<i32> = &mut HashSet::new();
     let neigh:Vec<Vec<i32>> = Solution::make_neighbors(edges,n);
-    let bob_path: Vec<i32> = Solution::get_bob_path(neigh, bob, visited);
+    let bob_path: Vec<i32> = Solution::get_bob_path(&neigh, bob, visited).into_iter().rev().collect();
     let mut res = 0;
     res
   }
