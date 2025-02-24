@@ -168,11 +168,9 @@ impl Solution {
     visited.clear();
     visited.insert(0);
     let alice_paths: Vec<Vec<i32>> = Solution::get_alice_paths(&neigh, vec![0], visited);
-    let mut res = 0;
+    let mut res = i32::MIN;
     for a in alice_paths {
-        println!("calculating {:?}", a);
       res = res.max(Solution::calc(&amount, a,&bob_path));
-      println!("res is now {:?}", res);
     }
     res
   }
