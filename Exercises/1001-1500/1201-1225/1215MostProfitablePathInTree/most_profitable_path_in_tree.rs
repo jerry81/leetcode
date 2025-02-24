@@ -97,6 +97,7 @@ impl Solution {
     }
     res
   }
+
   fn make_neighbors(edges:Vec<Vec<i32>>, n: usize) -> Vec<Vec<i32>> {
     let mut res = vec![vec![];n];
     for e in edges {
@@ -105,12 +106,74 @@ impl Solution {
     }
     res
   }
+
+  fn get_alice_paths(neigh: &Vec<Vec<i32>>, cur_path: Vec<i32>, mut visited: &mut HashSet<i32>) -> Vec<Vec<i32>> {
+    let mut paths = Vec::new();
+
+    let current_node = *cur_path.last().unwrap();
+    visited.insert(current_node);
+    let is_leaf = neigh[current_node as usize].iter().all(|&n| visited.contains(&n)); // TIL: all - true if all items satisfy condition
+
+    if is_leaf {
+      paths.push(cur_path.clone());
+    } else {
+      for &neighbor in &neigh[current_node as usize] {
+        if !visited.contains(&neighbor) { // If the neighbor hasn't been visited
+          let mut new_path = cur_path.clone();
+          new_path.push(neighbor); // Add the neighbor to the path
+          paths.extend(Solution::get_alice_paths(neigh, new_path, visited));
+        }
+      }
+    }
+    visited.remove(&current_node);
+    paths // Return all found paths
+  }
+
+  fn calc(amount: &Vec<i32>, alice: Vec<i32>, bob: &Vec<i32>) -> i32 {
+    let mut total_income = 0;
+    let mut i = 0;
+    let len_a = alice.len();
+    let len_b = bob.len();
+    let mut amt = amount.clone();
+
+    while i < len_a || i < len_b {
+      let alice_node = if i < len_a { alice[i] } else { -1 }; // Use -1 if Alice's path is exhausted
+      let bob_node = if i < len_b { bob[i] } else { -1 }; // Use -1 if Bob's path is exhausted
+
+      if alice_node == bob_node {
+        // If they meet at the same node
+        total_income += amt[alice_node as usize] / 2; // Share the amount
+        amt[alice_node as usize] = 0;
+      } else {
+        // If they are at different nodes
+        if alice_node != -1 {
+          total_income += amt[alice_node as usize]; // Alice's income
+          amt[alice_node as usize] = 0;
+        }
+        if bob_node != -1 {
+          amt[bob_node as usize] = 0;
+        }
+      }
+      i += 1;
+    }
+
+    total_income
+  }
+
   pub fn most_profitable_path(edges: Vec<Vec<i32>>, bob: i32, amount: Vec<i32>) -> i32 {
     let n = amount.len();
     let mut visited: &mut HashSet<i32> = &mut HashSet::new();
     let neigh:Vec<Vec<i32>> = Solution::make_neighbors(edges,n);
     let bob_path: Vec<i32> = Solution::get_bob_path(&neigh, bob, visited).into_iter().rev().collect();
+    visited.clear();
+    visited.insert(0);
+    let alice_paths: Vec<Vec<i32>> = Solution::get_alice_paths(&neigh, vec![0], visited);
     let mut res = 0;
+    for a in alice_paths {
+        println!("calculating {:?}", a);
+      res = res.max(Solution::calc(&amount, a,&bob_path));
+      println!("res is now {:?}", res);
+    }
     res
   }
 }
