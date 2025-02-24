@@ -74,23 +74,26 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+
 impl Solution {
-  fn get_bob_path(edges: Vec<Vec<i32>>, bob: i32) -> Vec<i32> {
+  fn get_bob_path(neighbors: Vec<Vec<i32>>, bob: i32, visited: &mut HashSet<i32>) -> Vec<i32> {
     let mut res = Vec::new();
     res
   }
   fn make_neighbors(edges:Vec<Vec<i32>>, n: usize) -> Vec<Vec<i32>> {
     let mut res = vec![vec![];n];
     for e in edges {
-      res[e[0]].push(e[1]);
-      res[e[1]].push(e[0]);
+      res[e[0] as usize].push(e[1]);
+      res[e[1] as usize].push(e[0]);
     }
     res
   }
   pub fn most_profitable_path(edges: Vec<Vec<i32>>, bob: i32, amount: Vec<i32>) -> i32 {
     let n = amount.len();
+    let mut visited: &mut HashSet<i32> = &mut HashSet::new();
     let neigh:Vec<Vec<i32>> = Solution::make_neighbors(edges,n);
-    println!("neigh is {:?}", neigh);
+    let bob_path: Vec<i32> = Solution::get_bob_path(neigh, bob, visited);
     let mut res = 0;
     res
   }
