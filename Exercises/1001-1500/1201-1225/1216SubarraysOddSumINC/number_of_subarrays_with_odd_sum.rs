@@ -51,6 +51,28 @@ Acceptance Rate
 
 impl Solution {
   pub fn num_of_subarrays(arr: Vec<i32>) -> i32 {
+    let mut odd_count: i64 = 0;
+    let mut even_count: i64 = 0;
+    let mut is_even = true;
 
+    for num in arr {
+      is_even = num%2 == 0;
+
+      if is_even {
+        even_count+=1;
+        even_count %= 1_000_000_007;
+        even_count+= odd_count;
+        even_count %= 1_000_000_007;
+        odd_count += odd_count;
+        odd_count %= 1_000_000_007;
+      } else {
+        odd_count+=1;
+        odd_count %= 1_000_000_007;
+        odd_count+= even_count;
+        odd_count %= 1_000_000_007;
+      }
+    }
+
+    (odd_count % 1_000_000_007) as i32
   }
 }
