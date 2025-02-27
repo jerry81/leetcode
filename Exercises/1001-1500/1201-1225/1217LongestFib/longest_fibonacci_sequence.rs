@@ -40,9 +40,14 @@ Submissions
 Acceptance Rate
 48.7%
 */
+use std::collections::HashSet;
 
 impl Solution {
+  fn r(arr:&Vec<i32>, idx:usize, cur_arr: Vec<i32>) -> i32 {
+  }
   pub fn len_longest_fib_subseq(arr: Vec<i32>) -> i32 {
-
+    // brute force iterate subsequences
+    let mut cur: Vec<i32> = Vec::new();
+    Solution::r(arr,0, cur)
   }
 }
