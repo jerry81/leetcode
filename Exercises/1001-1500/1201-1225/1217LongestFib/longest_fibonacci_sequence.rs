@@ -43,17 +43,30 @@ Acceptance Rate
 use std::collections::HashSet;
 
 impl Solution {
-  fn r(arr:&Vec<i32>, idx:usize, cur_arr: Vec<i32>) -> i32 {
-    println!("cur is {:?}", cur_arr);
-    let mut nxt_arr = cur_arr.clone();
-    nxt_arr.push(arr[idx]);
-    r::(arr, idx+1, nxt_arr);
-    r::(arr,idx+1,cur_arr);
-    1
-  }
   pub fn len_longest_fib_subseq(arr: Vec<i32>) -> i32 {
     // brute force iterate subsequences
-    let mut cur: Vec<i32> = Vec::new();
-    Solution::r(arr,0, cur)
+    let mut hs: HashSet<i32> = HashSet::new();
+    let mut res = 0;
+    for i in arr {
+      hs.insert(i);
+    }
+    let n = arr.len();
+    for i in 0..(n-1) {
+      let mut a = arr[i];
+      for j in (i+1)..n {
+        let mut b = arr[j];
+        let mut cur_res = 2;
+        let mut sum = a+b;
+
+        while hs.contains(&sum) {
+          cur_res+=1;
+          a = b;
+          b = sum;
+          sum = a+b;
+          res = res.max(cur_res);
+        }
+      }
+    }
+    res
   }
 }
