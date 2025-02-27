@@ -44,6 +44,12 @@ use std::collections::HashSet;
 
 impl Solution {
   fn r(arr:&Vec<i32>, idx:usize, cur_arr: Vec<i32>) -> i32 {
+    println!("cur is {:?}", cur_arr);
+    let mut nxt_arr = cur_arr.clone();
+    nxt_arr.push(arr[idx]);
+    r::(arr, idx+1, nxt_arr);
+    r::(arr,idx+1,cur_arr);
+    1
   }
   pub fn len_longest_fib_subseq(arr: Vec<i32>) -> i32 {
     // brute force iterate subsequences
