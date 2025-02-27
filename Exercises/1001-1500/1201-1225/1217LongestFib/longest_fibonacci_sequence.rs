@@ -47,17 +47,16 @@ impl Solution {
     // brute force iterate subsequences
     let mut hs: HashSet<i32> = HashSet::new();
     let mut res = 0;
-    for i in arr {
+    for i in arr.clone() {
       hs.insert(i);
     }
-    let n = arr.len();
+    let n = arr.clone().len();
     for i in 0..(n-1) {
-      let mut a = arr[i];
       for j in (i+1)..n {
-        let mut b = arr[j];
+        let mut a = arr.clone()[i];
+        let mut b = arr.clone()[j];
         let mut cur_res = 2;
         let mut sum = a+b;
-
         while hs.contains(&sum) {
           cur_res+=1;
           a = b;
