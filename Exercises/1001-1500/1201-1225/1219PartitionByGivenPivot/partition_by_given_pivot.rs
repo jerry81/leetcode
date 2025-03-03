@@ -50,10 +50,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn pivot_array(nums: Vec<i32>, pivot: i32) -> Vec<i32> {
-    let arr1 = nums.filter(|n| { n < pivot });
-    println!("arr1 is {:?}", arr1);
-    let arr2 = nums.filter(|n| { n > pivot });
-    println!("arr1 is {:?}", arr2);
-    vec![]
+    let mut arr1: Vec<i32> = nums.iter().filter(|&&n| { n < pivot }).cloned().collect();
+    let arr2: Vec<i32> = nums.iter().filter(|&&n| { n > pivot }).cloned().collect();
+    let arr3: Vec<i32> = nums.iter().filter(|&&n| { n == pivot}).cloned().collect();
+    arr1.extend(arr3);
+    arr1.extend(arr2);
+    arr1
   }
 }
