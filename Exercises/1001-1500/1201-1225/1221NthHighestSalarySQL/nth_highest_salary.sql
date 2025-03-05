@@ -74,10 +74,11 @@ BEGIN
     SELECT
       CASE
         WHEN COUNT(DISTINCT oe.salary) < N THEN NULL
-      ELSE
-        (SELECT e.salary
-        FROM Employee as e
-        ORDER BY e.salary DESC LIMIT 1 OFFSET (N-1))
+        WHEN N < 0 THEN NULL
+        ELSE
+          (SELECT DISTINCT e.salary
+          FROM Employee as e
+          ORDER BY e.salary DESC LIMIT 1 OFFSET (N-1))
       END
     FROM Employee as oe
   );
