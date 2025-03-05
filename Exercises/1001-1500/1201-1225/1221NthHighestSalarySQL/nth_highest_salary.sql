@@ -73,12 +73,13 @@ BEGIN
     -- Write your PostgreSQL query statement below.
     SELECT
       CASE
-        WHEN COUNT(*) < N THEN NULL
+        WHEN COUNT(DISTINCT oe.salary) < N THEN NULL
       ELSE
         (SELECT e.salary
         FROM Employee as e
-        ORDER BY e.salary)
-    END
+        ORDER BY e.salary DESC LIMIT 1 OFFSET (N-1))
+      END
+    FROM Employee as oe
   );
 END;
 $$ LANGUAGE plpgsql;
