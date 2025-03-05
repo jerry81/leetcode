@@ -46,6 +46,11 @@ Acceptance Rate
 
 impl Solution {
   pub fn colored_cells(n: i32) -> i64 {
-
+    // math pattern
+    let mut res: i64 = n * 2 - 1;
+    for i in 1..n {
+      res += (i*2-1)*2;
+    }
+    res
   }
 }
