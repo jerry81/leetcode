@@ -66,12 +66,19 @@
 -- 1.2M
 -- Acceptance Rate
 -- 37.9%
+
 CREATE OR REPLACE FUNCTION NthHighestSalary(N INT) RETURNS TABLE (Salary INT) AS $$
 BEGIN
   RETURN QUERY (
     -- Write your PostgreSQL query statement below.
-
-
+    SELECT
+      CASE
+        WHEN COUNT(*) < N THEN NULL
+      ELSE
+        (SELECT e.salary
+        FROM Employee as e
+        ORDER BY e.salary)
+    END
   );
 END;
 $$ LANGUAGE plpgsql;
