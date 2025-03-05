@@ -74,7 +74,7 @@ BEGIN
     SELECT
       CASE
         WHEN COUNT(DISTINCT oe.salary) < N THEN NULL
-        WHEN N < 0 THEN NULL
+        WHEN N < 1 THEN NULL
         ELSE
           (SELECT DISTINCT e.salary
           FROM Employee as e
