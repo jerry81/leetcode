@@ -56,13 +56,11 @@
 -- 1.1M
 -- Acceptance Rate
 -- 45.4%
-SELECT
+SELECT DISTINCT
        num as ConsecutiveNums
    FROM
-       Logs
-   GROUP BY
-       num
-   HAVING
-       COUNT(*) >= 3
-   AND
-       (MAX(id) - MIN(id) = COUNT(*) - 1); -- too clever
+       (SELECT num,
+               LAG(num, 1) OVER (ORDER BY id) AS prev_num1,
+               LAG(num, 2) OVER (ORDER BY id) AS prev_num2
+        FROM Logs) AS subquery
+   WHERE num = prev_num1 AND num = prev_num2;
