@@ -337,6 +337,8 @@ count(*) to get the # items in the group
 
 - see 715 for review on "IN" keyword
 
+- see 1222 for dense rank and rank
+
 [Rust TILs](./rust.md)
 
 ## todo
