@@ -117,7 +117,7 @@ impl Solution {
          let lc: char = word.chars().nth(left).unwrap();
          if VOWELS.contains(&lc) {
           *v_f.entry(lc).or_insert(1) -= 1;
-          if v_f[&rc] == 0 { v_f.remove(&lc); }
+          if v_f[&lc] == 0 { v_f.remove(&lc); }
          } else {
           consonant_count-=1;
          }
@@ -128,7 +128,7 @@ impl Solution {
         let lc: char = word.chars().nth(left).unwrap();
         if VOWELS.contains(&lc) {
          *v_f.entry(lc).or_insert(1) -= 1;
-         if v_f[&rc] == 0 { v_f.remove(&lc); }
+         if v_f[&lc] == 0 { v_f.remove(&lc); }
         } else {
          consonant_count-=1;
         }
