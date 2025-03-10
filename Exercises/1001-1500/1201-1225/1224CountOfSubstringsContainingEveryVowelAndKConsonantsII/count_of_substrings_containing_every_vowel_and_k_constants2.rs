@@ -95,7 +95,7 @@ impl Solution {
       if !VOWELS.contains(&word.chars().nth(i).unwrap()) {
         lst = i;
       }
-      nxt_consonant[i] = lst;
+      nxt_consonant[i] = lst as i32;
     }
     while right < n { // end condition, if reached this, it means we needed the last character in the string, so we just do one last shrinking loop
        // apply right
@@ -124,7 +124,7 @@ impl Solution {
          left+=1;
        }
 
-       while cosonant_count == k && v_f.len() > 4 {
+       while consonant_count == k && v_f.len() > 4 && left < n {
         let lc: char = word.chars().nth(left).unwrap();
         if VOWELS.contains(&lc) {
          *v_f.entry(lc).or_insert(1) -= 1;
@@ -132,7 +132,7 @@ impl Solution {
         } else {
          consonant_count-=1;
         }
-        res+=nxt_consonant[right] - right;
+        res+=nxt_consonant[right] as i64 - right as i64;
         left+=1;
       }
     }
