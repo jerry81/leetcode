@@ -88,14 +88,14 @@ impl Solution {
     let n = word.len();
     let mut left: usize = 0;
     let mut right: usize = 0;
-    let mut nxt_consonant: Vec<i32> = vec![-1;n];
+    let mut nxt_consonant: Vec<i32> = vec![n as i32;n];
     // this will save us having to iterate every valid substring to the next consonant
     let mut lst: usize = n;
     for i in (1..n).rev() {
+      nxt_consonant[i] = lst as i32;
       if !VOWELS.contains(&word.chars().nth(i).unwrap()) {
         lst = i;
       }
-      nxt_consonant[i] = lst as i32;
     }
     while right < n { // end condition, if reached this, it means we needed the last character in the string, so we just do one last shrinking loop
        // apply right
@@ -106,11 +106,7 @@ impl Solution {
         consonant_count+=1;
        }
 
-       // not enough v or k
-       if consonant_count < k || v_f.len() < 5 {
-        right+=1;
-        continue;
-       }
+
        // too many c
        while consonant_count > k {
         // it's a hit, count em up
@@ -124,7 +120,7 @@ impl Solution {
          left+=1;
        }
 
-       while consonant_count == k && v_f.len() > 4 && left < n {
+       while (consonant_count == k) && (v_f.len() == 5) && (left < n) {
         let lc: char = word.chars().nth(left).unwrap();
         if VOWELS.contains(&lc) {
          *v_f.entry(lc).or_insert(1) -= 1;
@@ -135,6 +131,7 @@ impl Solution {
         res+=nxt_consonant[right] as i64 - right as i64;
         left+=1;
       }
+      right+=1;
     }
     res
   }
