@@ -70,6 +70,7 @@ use std::collections::HashSet;
 impl Solution {
 
   pub fn count_of_substrings(word: String, k: i32) -> i64 {
+    let mut v: Vec<char> = word.chars().collect();
     let mut v_f: HashMap<char,i32> = HashMap::new();
     // substring is contiguous
     // breaking it down
@@ -93,13 +94,13 @@ impl Solution {
     let mut lst: usize = n;
     for i in (1..n).rev() {
       nxt_consonant[i] = lst as i32;
-      if !VOWELS.contains(&word.chars().nth(i).unwrap()) {
+      if !VOWELS.contains(&v[i]) {
         lst = i;
       }
     }
     while right < n { // end condition, if reached this, it means we needed the last character in the string, so we just do one last shrinking loop
        // apply right
-       let rc: char = word.chars().nth(right).unwrap();
+       let rc: char = v[right];
        if VOWELS.contains(&rc) {
         *v_f.entry(rc).or_insert(0) += 1;
        } else {
@@ -110,7 +111,7 @@ impl Solution {
        // too many c
        while consonant_count > k {
         // it's a hit, count em up
-         let lc: char = word.chars().nth(left).unwrap();
+         let lc: char = v[left];
          if VOWELS.contains(&lc) {
           *v_f.entry(lc).or_insert(1) -= 1;
           if v_f[&lc] == 0 { v_f.remove(&lc); }
@@ -121,7 +122,7 @@ impl Solution {
        }
 
        while (consonant_count == k) && (v_f.len() == 5) && (left < n) {
-        let lc: char = word.chars().nth(left).unwrap();
+        let lc: char = v[left];
         if VOWELS.contains(&lc) {
          *v_f.entry(lc).or_insert(1) -= 1;
          if v_f[&lc] == 0 { v_f.remove(&lc); }
