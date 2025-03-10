@@ -63,6 +63,7 @@ Acceptance Rate
 25.5%
 
 */
+
 use std::collections::HashMap;
 use std::collections::HashSet;
 
@@ -82,28 +83,58 @@ impl Solution {
     VOWELS.insert('o');
     VOWELS.insert('u');
 
-    let mut constanant_count = 0;
+    let mut consonant_count = 0;
     let mut res:i64 = 0;
     let n = word.len();
-    let mut left: usize = -1;
+    let mut left: usize = 0;
     let mut right: usize = 0;
-    loop do {
-      // apply right
-      let rc = word.chars().nth(right).unwrap();
-      if VOWELS.contains(&rc) {
-        *v_f.entry(rc).or_insert(0) +=1;
-      } else {
-        constanant_count +=1;
+    let mut nxt_consonant: Vec<i32> = vec![-1;n];
+    // this will save us having to iterate every valid substring to the next consonant
+    let mut lst: usize = n;
+    for i in (1..n).rev() {
+      if !VOWELS.contains(&word.chars().nth(i).unwrap()) {
+        lst = i;
       }
-      println!("consanant+count is now {}", constanant_count);
-      println!("vf is {:?}", v_f);
-      // cconstraints not met increase right
-      if v_f.len() < 5 || constant_count < k {
-        right+=1;
-        if right >= n { break; }
-        continue;
-      }
+      nxt_consonant[i] = lst;
+    }
+    while right < n { // end condition, if reached this, it means we needed the last character in the string, so we just do one last shrinking loop
+       // apply right
+       let rc: char = word.chars().nth(right).unwrap();
+       if VOWELS.contains(&rc) {
+        *v_f.entry(rc).or_insert(0) += 1;
+       } else {
+        consonant_count+=1;
+       }
 
+       // not enough v or k
+       if consonant_count < k || v_f.len() < 5 {
+        right+=1;
+        continue;
+       }
+       // too many c
+       while consonant_count > k {
+        // it's a hit, count em up
+         let lc: char = word.chars().nth(left).unwrap();
+         if VOWELS.contains(&lc) {
+          *v_f.entry(lc).or_insert(1) -= 1;
+          if v_f[&rc] == 0 { v_f.remove(&lc); }
+         } else {
+          consonant_count-=1;
+         }
+         left+=1;
+       }
+
+       while cosonant_count == k && v_f.len() > 4 {
+        let lc: char = word.chars().nth(left).unwrap();
+        if VOWELS.contains(&lc) {
+         *v_f.entry(lc).or_insert(1) -= 1;
+         if v_f[&rc] == 0 { v_f.remove(&lc); }
+        } else {
+         consonant_count-=1;
+        }
+        res+=nxt_consonant[right] - right;
+        left+=1;
+      }
     }
     res
   }
