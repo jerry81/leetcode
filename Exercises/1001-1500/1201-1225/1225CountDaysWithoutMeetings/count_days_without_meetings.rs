@@ -64,6 +64,17 @@ Acceptance Rate
 
 impl Solution {
   pub fn count_days(days: i32, meetings: Vec<Vec<i32>>) -> i32 {
-
+    let mut meetings = meetings.clone();
+    meetings.sort_by_key(|item| item[0]);
+    println!("meetings is {:?}", meetings);
+    0
   }
 }
+
+/*
+123 4 567 8 9 10
+
+1234 5
+
+123456
+*/
