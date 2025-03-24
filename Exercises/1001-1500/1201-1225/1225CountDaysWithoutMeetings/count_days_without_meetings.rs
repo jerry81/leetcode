@@ -70,10 +70,14 @@ impl Solution {
     let mut res = 0;
     for m in meetings {
       if m[0] > last_day {
-        res += m[0] - last_day;
+        res += m[0] - last_day - 1;
       }
       last_day = last_day.max(m[1]);
     }
+    if last_day < days {
+      res+=days - last_day;
+    }
+
     res
   }
 }
