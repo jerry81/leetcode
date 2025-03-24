@@ -66,8 +66,15 @@ impl Solution {
   pub fn count_days(days: i32, meetings: Vec<Vec<i32>>) -> i32 {
     let mut meetings = meetings.clone();
     meetings.sort_by_key(|item| item[0]);
-    println!("meetings is {:?}", meetings);
-    0
+    let mut last_day = 0;
+    let mut res = 0;
+    for m in meetings {
+      if m[0] > last_day {
+        res += m[0] - last_day;
+      }
+      last_day = last_day.max(m[1]);
+    }
+    res
   }
 }
 
