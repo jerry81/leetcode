@@ -339,6 +339,8 @@ count(*) to get the # items in the group
 
 - see 1222 for dense rank and rank
 
+- see 1226 for WHERE (tuple) IN and MAX trick
+
 [Rust TILs](./rust.md)
 
 ## todo
