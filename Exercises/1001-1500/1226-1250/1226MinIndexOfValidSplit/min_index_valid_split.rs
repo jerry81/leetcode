@@ -103,12 +103,12 @@ impl Solution {
       // left is ps[idx]
       // right is total - ps[idx]
       let leftcnt = ps[idx];
-      let rightcnt = toatl-leftcnt;
+      let rightcnt = total-leftcnt;
       // more than half
       let leftsize = idx+1;
       let rightsize = n-leftsize;
-      if leftcnt*2 > leftsize && rightcnt*2 > rightsize {
-        return idx
+      if leftcnt*2 > leftsize as i32 && rightcnt*2 > rightsize as i32 {
+        return idx as i32
       }
     }
     -1
