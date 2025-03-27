@@ -62,8 +62,25 @@ Acceptance Rate
 
 */
 
-impl Solution {
-  pub fn minimum_index(nums: Vec<i32>) -> i32 {
+use std::collections::HashMap;
 
+impl Solution {
+  fn identify_dominant(nums: &Vec<i32>) -> i32 {
+    let mut hm:HashMap<i32,i32> = HashMap::new();
+    let mut mx = -1;
+    let mut mxcnt = 0;
+    for n in nums {
+      *hm.entry(n).or_insert(0) +=1;
+      if hm[n] > mxcnt {
+        mxcnt = hm[n];
+        mx = n;
+      }
+    }
+    mx
+  }
+  pub fn minimum_index(nums: Vec<i32>) -> i32 {
+    let dom = Solution::identify_dominant(&nums);
+    println!("dom is {}", dom);
+    dom
   }
 }
