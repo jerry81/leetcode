@@ -65,22 +65,52 @@ Acceptance Rate
 use std::collections::HashMap;
 
 impl Solution {
+  fn make_ps(nums: &Vec<i32>, dom: i32) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    let mut cnt = 0;
+    for n in nums {
+      if *n == dom {
+        cnt+=1;
+      }
+      ret.push(cnt);
+    }
+    ret
+  }
+
   fn identify_dominant(nums: &Vec<i32>) -> i32 {
     let mut hm:HashMap<i32,i32> = HashMap::new();
     let mut mx = -1;
     let mut mxcnt = 0;
     for n in nums {
-      *hm.entry(n).or_insert(0) +=1;
+      *hm.entry(*n).or_insert(0) +=1;
       if hm[n] > mxcnt {
         mxcnt = hm[n];
-        mx = n;
+        mx = *n;
       }
     }
     mx
   }
+
+
   pub fn minimum_index(nums: Vec<i32>) -> i32 {
     let dom = Solution::identify_dominant(&nums);
-    println!("dom is {}", dom);
-    dom
+    let ps = Solution::make_ps(&nums, dom);
+    let n = nums.len();
+    let total = ps[ps.len()-1];
+    // left to right, try each index
+
+    for idx in 0..n {
+      // left is ps[idx]
+      // right is total - ps[idx]
+      let leftcnt = ps[idx];
+      let rightcnt = toatl-leftcnt;
+      // more than half
+      let leftsize = idx+1;
+      let rightsize = n-leftsize;
+      if leftcnt*2 > leftsize && rightcnt*2 > rightsize {
+        return idx
+      }
+    }
+    -1
   }
 }
