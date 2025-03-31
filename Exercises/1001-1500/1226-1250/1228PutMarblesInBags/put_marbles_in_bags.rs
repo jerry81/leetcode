@@ -51,14 +51,21 @@ Acceptance Rate
 
 */
 
+use std::collections::HashMap;
+
 impl Solution {
-  fn get_min_score(weights: &Vec<i32>, k: i32) -> i64 {
+  // naive: brute force, memoize "ranges"
+  fn get_min_score(weights: &Vec<i32>, k: i32, hm: &HashMap<(usize,usize), i64>) -> i64 {
     0
   }
-  fn get_max_score(weights: &Vec<i32>, k: i32) -> i64 {
+  fn get_max_score(weights: &Vec<i32>, k: i32, hm: &HashMap<(usize,usize), i64>) -> i64 {
     0
+  }
+  fn build_hashmap(weights: &Vec<i32>, k: i32) -> HashMap<(usize,usize), i64> {
+    HashMap::new()
   }
   pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
-    Solution::get_max_score(&weights, k) - Solution::get_min_score(&weights,k)
+    let mut hm: HashMap<(usize,usize), i64> = Solution::build_hashmap(&weights,k);
+    Solution::get_max_score(&weights, k,&hm) - Solution::get_min_score(&weights,k,&hm)
   }
 }
