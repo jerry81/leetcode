@@ -66,12 +66,12 @@ impl Solution {
     let mut ret:HashMap<(usize,usize), i64> = HashMap::new();
     let ku:usize = k as usize;
     // k groups
-    let mut starter = 0;
-    let starter_val = weight[0];
-    for group1ender in 0..ku {
-      ender_val = weight[group1ender];
-      *ret.entry((0, group1ender)).or_insert(0) = starter_val + ender_val;
+    for starter in 0..k {
+      for ender in 0..k {
+        *ret.entry((starter,ender)).or_insert(0) = weights[starter] + weights[ender];
+      }
     }
+
     ret.clone()
   }
   pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
