@@ -52,7 +52,13 @@ Acceptance Rate
 */
 
 impl Solution {
+  fn get_min_score(weights: &Vec<i32>, k: i32) -> i64 {
+    0
+  }
+  fn get_max_score(weights: &Vec<i32>, k: i32) -> i64 {
+    0
+  }
   pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
-
+    Solution::get_max_score(&weights, k) - Solution::get_min_score(&weights,k)
   }
 }
