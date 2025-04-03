@@ -76,7 +76,7 @@ impl Solution {
     }
     let n = nums.len();
     for i in 1..(n-1) {
-      res = res.max((max_p[i-1] - nums[i])*max_rp[i+1]);
+      res = res.max((max_p[i-1] as i64 - nums[i] as i64)*max_rp[i+1] as i64);
     }
     res
   }
