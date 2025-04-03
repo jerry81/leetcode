@@ -74,10 +74,10 @@ impl Solution {
       mn = mn.min(*i);
       min_p.push(mn);
     }
-
-    println!("{:?}", max_rp);
-    println!("max_p {:?}", max_p);
-    println!("min_p {:?}", min_p);
-    res.max(0)
+    let n = nums.len();
+    for i in 1..(n-1) {
+      res = res.max((max_p[i-1] - nums[i])*max_rp[i+1]);
+    }
+    res
   }
 }
