@@ -90,26 +90,17 @@ impl Solution {
         };
         let max_prefix = (finish / power) as i64;
 
-        // Generate all possible prefixes with n digits where each digit <= limit
-        let mut stack = vec![];
-        stack.push((0, 0)); // (current number, digit position)
+        // Number of valid prefixes is approximately limit^n
+        let count = (limit as i64).pow(n as u32);
 
-        while let Some((num, pos)) = stack.pop() {
-            if pos == n {
-                let full_num = num * power + s_num;
-                if full_num >= start && full_num <= finish {
-                    res += 1;
-                }
-                continue;
-            }
+        // Adjust for range constraints
+        let min_valid = 10i64.pow((n-1) as u32);
+        let max_valid = 10i64.pow(n as u32) - 1;
+        let actual_min = min_prefix.max(min_valid);
+        let actual_max = max_prefix.min(max_valid);
 
-            let start_digit = if pos == 0 { 1 } else { 0 };
-            for d in start_digit..=limit as i64 {
-                let new_num = num * 10 + d;
-                if new_num <= max_prefix {
-                    stack.push((new_num, pos + 1));
-                }
-            }
+        if actual_min <= actual_max {
+            res += count;
         }
     }
 
