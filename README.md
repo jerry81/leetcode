@@ -67,6 +67,15 @@ until a%b becomes zero.  in case of a%b, b is the gcd.
   - while updating indegrees for their neighbors
   - push to queue if indegree 0
 
+## binary indexed tree aka fenwick
+
+- two methods:
+  - prefix sum query - get sum of elements from index 1 to i
+  - point update - update value at index
+
+- stores "ranges" of prefix sums based on binary (least significant bit) of index
+
+
 # TIL
 
 ```

@@ -43,9 +43,14 @@ Submissions
 Acceptance Rate
 51.6%
 */
+use std::collections::HashMap;
 
 impl Solution {
   pub fn good_triplets(nums1: Vec<i32>, nums2: Vec<i32>) -> i64 {
-
+    let mut hm: HashMap<i32, usize> = HashMap::new();
+    for i in 0..nums2.len() {
+      *hm.entry(nums2[i]) = i;
+    }
+    0
   }
 }
