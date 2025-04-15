@@ -49,8 +49,21 @@ impl Solution {
   pub fn good_triplets(nums1: Vec<i32>, nums2: Vec<i32>) -> i64 {
     let mut hm: HashMap<i32, usize> = HashMap::new();
     for i in 0..nums2.len() {
-      *hm.entry(nums2[i]) = i;
+      *hm.entry(nums2[i]).or_insert(0) = i;
     }
+    let mut nums: Vec<i32> = vec![];
+    for i in nums1 {
+      nums.push(hm[i]);
+    }
+    // num[j] represents position of item at num[j] in nums2
+    // brute force would be count k = 0..j for nums[k] that are less than num[j] for each j, assign to left
+    // then k = j+1..n count items where nums[k] > nums[j] and multiply left and right
+    // fenwick (binary index tree) used to keep track of "frequencies" of values
+    // frequency represents values that have been "seen"
+    // rust provides FenwickTree::new()
+    // with update(pos,val)
+    // and query(pos,val)
+    println!("nums is {:?}", nums);
     0
   }
 }
