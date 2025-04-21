@@ -64,15 +64,16 @@ Acceptance Rate
 impl Solution {
   pub fn number_of_arrays(differences: Vec<i32>, lower: i32, upper: i32) -> i32 {
     // get min and max
-    let mut cur = 0;
+    let mut cur:i64 = 0;
     let mut mn = 0;
     let mut mx = 0;
     for diff in differences {
-      cur += diff;
+      cur += diff as i64;
       mn = mn.min(cur);
       mx = mx.max(cur);
     }
     let mut range = mx - mn;
-    0.max(upper-lower+1-range)
+    if range > i32::MAX as i64 { return 0 }
+    0.max(upper-lower+1-range as i32)
   }
 }
