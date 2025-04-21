@@ -72,7 +72,7 @@ impl Solution {
       mn = mn.min(cur);
       mx = mx.max(cur);
     }
-    println!("mn is {}, max is {}", mn, mx);
-    0
+    let mut range = mx - mn;
+    0.max(upper-lower+1-range)
   }
 }
