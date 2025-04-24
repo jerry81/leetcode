@@ -47,13 +47,34 @@ use std::collections::HashMap;
 impl Solution {
   pub fn count_complete_subarrays(nums: Vec<i32>) -> i32 {
     let distinct_count: i32 = nums.iter().collect::<HashSet<_>>().len() as i32;
-    let mut hm: HashMap<i32,i32> = HashMAp::new();
+    let mut hm: HashMap<i32,i32> = HashMap::new();
     let mut current_count = 0;
     let mut left:usize = 0;
     let mut right:usize = 0;
     let mut res = 0;
-    while left < nums.len() {
+    let n = nums.len();
+    for left in 0..n {
+        if left > 0 {
+          let curv = nums[left];
+          *hm.entry(curv).or_insert(1) -=1;
+          if hm[&curv] <= 0 {
+            current_count-=-1;
+            *hm.entry(curv).or_insert(0) = 0;
+          }
+        }
+      while right < n && current_count < distinct_count {
+        let curv = nums[right];
+        *hm.entry(curv).or_insert(0) += 1;
+        if hm[&curv] == 1 {
+          current_count+=1;
+        }
+        right+=1;
+       }
+       if current_count == distinct_count {
+         res+=(n-right+1) as i32;
+       }
     }
+
     res
   }
 }
