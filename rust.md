@@ -326,3 +326,5 @@ fn build(root: &mut Option<Rc<RefCell<TreeNode>>>, prev: i32) {
       }
     }
 ```
+
+- see 1236 for converting vec to hashset (to get uniques)
