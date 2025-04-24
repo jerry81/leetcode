@@ -41,6 +41,7 @@ Acceptance Rate
 
 */
 
+
 use std::collections::HashSet;
 use std::collections::HashMap;
 
@@ -55,24 +56,24 @@ impl Solution {
     let n = nums.len();
     for left in 0..n {
         if left > 0 {
-          let curv = nums[left];
+          let curv = nums[left-1];
           *hm.entry(curv).or_insert(1) -=1;
           if hm[&curv] <= 0 {
-            current_count-=-1;
-            *hm.entry(curv).or_insert(0) = 0;
+            current_count-=1;
+            // hm.remove(&curv);
           }
         }
-      while right < n && current_count < distinct_count {
-        let curv = nums[right];
-        *hm.entry(curv).or_insert(0) += 1;
-        if hm[&curv] == 1 {
-          current_count+=1;
+        while right < n && current_count < distinct_count {
+          let curv = nums[right];
+          *hm.entry(curv).or_insert(0) += 1;
+          if hm[&curv] == 1 {
+            current_count+=1;
+          }
+          right+=1;
         }
-        right+=1;
-       }
-       if current_count == distinct_count {
-         res+=(n-right+1) as i32;
-       }
+        if current_count == distinct_count {
+          res+=(n-right+1) as i32;
+        }
     }
 
     res
