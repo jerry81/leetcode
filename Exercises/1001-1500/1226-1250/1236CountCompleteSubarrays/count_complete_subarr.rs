@@ -41,9 +41,19 @@ Acceptance Rate
 
 */
 
+use std::collections::HashSet;
+use std::collections::HashMap;
+
 impl Solution {
   pub fn count_complete_subarrays(nums: Vec<i32>) -> i32 {
-    let distinct_count: i32 = nums.iter().collect::<HashSet<_>>().len() as i32
-    distinct_count
+    let distinct_count: i32 = nums.iter().collect::<HashSet<_>>().len() as i32;
+    let mut hm: HashMap<i32,i32> = HashMAp::new();
+    let mut current_count = 0;
+    let mut left:usize = 0;
+    let mut right:usize = 0;
+    let mut res = 0;
+    while left < nums.len() {
+    }
+    res
   }
 }
