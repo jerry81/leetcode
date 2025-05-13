@@ -72,9 +72,22 @@ Acceptance Rate
 36.4%
 
 */
-
 impl Solution {
   pub fn length_after_transformations(s: String, t: i32) -> i32 {
-
+      let mut s = s;
+      let mut t = t;
+      while t > 0 {
+          s = s.chars().map(|c| {
+            if c == 'z' {
+              "ab".to_string()
+            } else {
+              ((c as u8 + 1) as char).to_string()
+            }
+          }).collect();
+          t-=1;
+      }
+      println!("s is now {}", s);
+      println!("a as u8 is {}", ('a' as u8 + 25) as char );
+      0
   }
 }
