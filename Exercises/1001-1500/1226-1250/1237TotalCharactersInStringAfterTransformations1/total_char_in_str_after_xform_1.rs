@@ -74,6 +74,8 @@ Acceptance Rate
 */
 impl Solution {
   pub fn length_after_transformations(s: String, t: i32) -> i32 {
+    const MOD:i32 = 1_000_000_007; // decl const
+    let mut cnt = [0; 26]; // one dim array len 26, init value 0
       let mut s = s;
       let mut t = t;
       while t > 0 {
