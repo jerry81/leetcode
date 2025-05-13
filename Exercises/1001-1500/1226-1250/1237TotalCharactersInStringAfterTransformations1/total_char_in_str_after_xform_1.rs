@@ -76,20 +76,22 @@ impl Solution {
   pub fn length_after_transformations(s: String, t: i32) -> i32 {
     const MOD:i32 = 1_000_000_007; // decl const
     let mut cnt = [0; 26]; // one dim array len 26, init value 0
-      let mut s = s;
-      let mut t = t;
-      while t > 0 {
-          s = s.chars().map(|c| {
-            if c == 'z' {
-              "ab".to_string()
-            } else {
-              ((c as u8 + 1) as char).to_string()
-            }
-          }).collect();
-          t-=1;
+    for ch in s.chars() { // build freq arr
+      cnt[(ch as u8 - b'a' /*shorthand for u8 (byte)*/) as usize] +=1;
+    }
+    for _ in 0..t { // iterate t times
+      let mut nxt = [0; 26]; // rebuild the array
+      nxt[0] = cnt[25]; // z-> a
+      nxt[1] = (cnt[25] + cnt[0]) % MOD; // z -> b, a-> b
+      for i in 2..26 {
+        nxt[i] = nxt[i-1];
       }
-      println!("s is now {}", s);
-      println!("a as u8 is {}", ('a' as u8 + 25) as char );
-      0
+      cnt = nxt;
+    }
+    let mut ans = 0;
+    for &num /*accessing array value*/ in cnt.iter() {
+      ans = (ans+num) % MOD;
+    }
+    ans
   }
 }
